@@ -15,5 +15,8 @@
         <!-- matlabroot/toolbox/matlab/icons -->
         <!-- A Getting Started Guide usually comes first -->
         <tocitem target="flows.html">Flows</tocitem>
+        <tocitem target="executableScripts.html">Executable Scripts
+            <tocitem target="publishProjectFilesToHTML.html">publishProjectFilesToHTML</tocitem>
+        </tocitem>
     </tocitem>
 </toc>
