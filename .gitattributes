@@ -34,7 +34,7 @@
 *.si -crlf -diff -merge
 *.gen -crlf -diff -merge
 *.cfe -crlf -diff -merge
-segments_2 -crlf -diff -merge
+segments_* -crlf -diff -merge
 
 # Additional files which are rather text files nor furhter not git readable
 # files like pictures or encrypted xml formats or compiled file formats
