@@ -1,3 +1,6 @@
+# Created on September 21. 2020 by Tobias Wul. Copyright Tobias Wulf 2020.
+# Edited on September 30. 2020 by Tobias Wulf: Comment out helpsearch-v3.
+
 # Add file or folder patterns which are not needed to track by Git
 # Visit https://git-scm.com/docs/gitignore for more information about ignore
 # patterns

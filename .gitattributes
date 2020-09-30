@@ -1,3 +1,7 @@
+# Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+# Edited on September 23. 2020 by Tobias Wulf: Add additional file types.
+# Edited on September 25. 2020 by Tobias Wulf: Add helpsearch binaries.
+
 # Registry binary files to Git to prevent it for corrupting and changing the
 # files unwillingly. For more information visit
 # https://git-scm.com/docs/gitattributes or have a look at the matlab helpsite

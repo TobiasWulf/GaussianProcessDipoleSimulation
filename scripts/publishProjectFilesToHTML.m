@@ -6,10 +6,22 @@
 %  document needs to get listed in the project helptoc file with toc entry.
 %
 %  See also publish, fullfile, builddocsearchdb, rmdir
-
-% Created on September 21. 2020 by Tobias Wulf
+%
+% Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!--
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on September 21. 2020 by Tobias Wulf: Added first publish documents.
-
+% Edited on September 22. 2020 by Tobias Wulf: Add Sript section.
+% Edited on September 23. 2020 by Tobias Wulf: Add helpsearch section (Build).
+% Edited on September 30. 2020 by Tobias Wulf: Improve helpsearch rewrite.
+% Edited on September 30. 2020 by Tobias Wulf: Add Project_Preparation.m.
+% -->
+% </html>
+%
+%
 %% Start Publishing Script and Clean Up
 %  At first clean up junk from workspace and clear prompt for new output. Set
 %  project root path to create absolute file path with fullfile function.
@@ -20,7 +32,7 @@ disp('Workspace cleaned up ...');
 rootPath = '/home/tobias/Documents/workspace/matlab/GaussianProcessDipolSimulation/Toolbox/';
 disp('Set project root path to ...');
 disp(rootPath);
-
+%
 %% Publish Options
 %  These are general options for documents to publish. They are passed to the
 %  matlab publish function via a struct where each option gets its own field.
@@ -45,7 +57,7 @@ PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
 disp('Set general publishing options to ...');
 disp(PublishOptions);
-
+%
 %% Project Documentation Files
 %  In this section of the publish script every bare documentation script should
 %  be handled and executed to publish. These are m-files without any executeable
@@ -56,6 +68,7 @@ disp('Publish project documentation files ...');
 projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Introduction.m'), ...
     fullfile(rootPath, 'docs', 'Flows.m'), ...
+    fullfile(rootPath, 'docs', 'Project_Preparation.m'), ...
     fullfile(rootPath, 'docs', 'Executable_Scripts.m'), ...
 };
 disp('Project documentation files collected ...');
@@ -65,7 +78,7 @@ for docToPublish = projectDocFiles
     publishedFile = publish(docToPublish{:}, PublishOptions);
     disp(publishedFile)
 end
-
+%
 %% Executable Scripts
 %  The section collects all ready to execute scripts from project scripts folder
 %  and publish them to html documentation folder. Every script must be notice in
@@ -90,7 +103,7 @@ for scriptToPublish = executableScriptFiles
     publishedFile = publish(scriptToPublish{1}{1}, PublishOptions);
     disp(publishedFile);
 end
-
+%
 %% Build Documentation Database for Matlab Help Browser
 %  To support Matlabs help browser it is needed build searchable help browser
 %  entries including a searchable database backend. Matlabs built-in function
