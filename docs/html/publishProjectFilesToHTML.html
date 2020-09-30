@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-09-24"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-09-30"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -109,9 +109,9 @@ code so they exist just to transport the documentation content into html
 output. The files are passed with fullfile to a cell array which is looped to
 the publish function passed options for publishing</pre><pre class="codeinput">disp(<span class="string">'Publish project documentation files ...'</span>);
 projectDocFiles = { <span class="keyword">...</span>
-    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'introduction.m'</span>), <span class="keyword">...</span>
-    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'flows.m'</span>), <span class="keyword">...</span>
-    fullfile(rootPath, <span class="string">'scripts'</span>, <span class="string">'executableScripts.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Introduction.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Flows.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Executable_Scripts.m'</span>), <span class="keyword">...</span>
 };
 disp(<span class="string">'Project documentation files collected ...'</span>);
 disp(<span class="string">'Publishing ...'</span>);
@@ -216,9 +216,9 @@ disp(PublishOptions);
 %  the publish function passed options for publishing
 disp('Publish project documentation files ...');
 projectDocFiles = { ...
-    fullfile(rootPath, 'docs', 'introduction.m'), ...
-    fullfile(rootPath, 'docs', 'flows.m'), ...
-    fullfile(rootPath, 'scripts', 'executableScripts.m'), ...
+    fullfile(rootPath, 'docs', 'Introduction.m'), ...
+    fullfile(rootPath, 'docs', 'Flows.m'), ...
+    fullfile(rootPath, 'docs', 'Executable_Scripts.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');
