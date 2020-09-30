@@ -1,11 +1,11 @@
 %% publishProjectFilesToHTML
-%  The is script is used to publish all toolbox included files to HTML
-%  documentation folder docs/html. The script runs a section with certain
-%  options for each project part and uses the built-in function to generate the
-%  documentation files. For a complete documentation support each generated html
-%  document needs to get listed in the project helptoc file with toc entry.
+% The is script is used to publish all toolbox included files to HTML
+% documentation folder docs/html. The script runs a section with certain
+% options for each project part and uses the built-in function to generate the
+% documentation files. For a complete documentation support each generated html
+% document needs to get listed in the project helptoc file with toc entry.
 %
-%  See also publish, fullfile, builddocsearchdb, rmdir
+% See also publish, fullfile, builddocsearchdb, rmdir
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
@@ -23,23 +23,23 @@
 %
 %
 %% Start Publishing Script and Clean Up
-%  At first clean up junk from workspace and clear prompt for new output. Set
-%  project root path to create absolute file path with fullfile function.
-%  Relative path objective can be lead to shadowing file errors.
+% At first clean up junk from workspace and clear prompt for new output. Set
+% project root path to create absolute file path with fullfile function.
+% Relative path objective can be lead to shadowing file errors.
 clearvars;
 clc;
 disp('Workspace cleaned up ...');
 rootPath = '/home/tobias/Documents/workspace/matlab/GaussianProcessDipolSimulation/Toolbox/';
 disp('Set project root path to ...');
 disp(rootPath);
-%
+
 %% Publish Options
-%  These are general options for documents to publish. They are passed to the
-%  matlab publish function via a struct where each option gets its own field.
-%  The option struct can be copied and adjusted for differing publish
-%  conditions in example for scripts, functions, and bare document m-files.
-%  Initialize the option struct with output format field name and field value
-%  and add further fields (options) with point value.
+% These are general options for documents to publish. They are passed to the
+% matlab publish function via a struct where each option gets its own field.
+% The option struct can be copied and adjusted for differing publish
+% conditions in example for scripts, functions, and bare document m-files.
+% Initialize the option struct with output format field name and field value
+% and add further fields (options) with point value.
 PublishOptions = struct('format', 'html');
 PublishOptions.outputDir = fullfile(rootPath, 'docs', 'html');
 PublishOptions.stylesheet = fullfile(matlabroot, 'toolbox', 'matlab', ...
@@ -57,13 +57,13 @@ PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
 disp('Set general publishing options to ...');
 disp(PublishOptions);
-%
+
 %% Project Documentation Files
-%  In this section of the publish script every bare documentation script should
-%  be handled and executed to publish. These are m-files without any executeable
-%  code so they exist just to transport the documentation content into html
-%  output. The files are passed with fullfile to a cell array which is looped to
-%  the publish function passed options for publishing
+% In this section of the publish script every bare documentation script should
+% be handled and executed to publish. These are m-files without any executeable
+% code so they exist just to transport the documentation content into html
+% output. The files are passed with fullfile to a cell array which is looped to
+% the publish function passed options for publishing
 disp('Publish project documentation files ...');
 projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Introduction.m'), ...
@@ -78,19 +78,19 @@ for docToPublish = projectDocFiles
     publishedFile = publish(docToPublish{:}, PublishOptions);
     disp(publishedFile)
 end
-%
+
 %% Executable Scripts
-%  The section collects all ready to execute scripts from project scripts folder
-%  and publish them to html documentation folder. Every script must be notice in
-%  in executableScripts.m file with one line description. To gain control of
-%  script execution during the publish porcess a second cell parameter is added
-%  to the script path. The parameter indicates if the script is executed or not.
-%  That is very important if scripts contains critical or loop gaining code. In
-%  example the publishProjectFilesToHTML.m script such loop gaining code. If
-%  eval code during publishing is enabled the script starts publishing itself
-%  over and over again because it contains the loop entry via the publish
-%  function. So routine is minmal adjusted by evalCode parameter in
-%  PublishOptions struct.
+% The section collects all ready to execute scripts from project scripts folder
+% and publish them to html documentation folder. Every script must be notice in
+% in executableScripts.m file with one line description. To gain control of
+% script execution during the publish porcess a second cell parameter is added
+% to the script path. The parameter indicates if the script is executed or not.
+% That is very important if scripts contains critical or loop gaining code. In
+% example the publishProjectFilesToHTML.m script such loop gaining code. If
+% eval code during publishing is enabled the script starts publishing itself
+% over and over again because it contains the loop entry via the publish
+% function. So routine is minmal adjusted by evalCode parameter in
+% PublishOptions struct.
 disp('Publish executable scripts ...');
 executableScriptFiles = { ...
     {fullfile(rootPath, 'scripts', 'publishProjectFilesToHTML.m'), false}, ...
@@ -103,19 +103,19 @@ for scriptToPublish = executableScriptFiles
     publishedFile = publish(scriptToPublish{1}{1}, PublishOptions);
     disp(publishedFile);
 end
-%
+
 %% Build Documentation Database for Matlab Help Browser
-%  To support Matlabs help browser it is needed build searchable help browser
-%  entries including a searchable database backend. Matlabs built-in function
-%  builddocsearchdb does the trick. The function just needs the output directory
-%  of builded html documentation and it creates a subfolder which includes the
-%  database. About the info.xml from the project root and the helptoc.xml file
-%  the html documentation folder all listet documentation is accessable.
-%  At first remove old database before build the new reference database.
-%  Remove autogenerated directory helpsearch-v3. At first get folder content and
-%  remove first two relative directory entries from struct. Then delete files
-%  and check if files do not exist any more. At least build up new search
-%  database entries to Matlab help.
+% To support Matlabs help browser it is needed build searchable help browser
+% entries including a searchable database backend. Matlabs built-in function
+% builddocsearchdb does the trick. The function just needs the output directory
+% of builded html documentation and it creates a subfolder which includes the
+% database. About the info.xml from the project root and the helptoc.xml file
+% the html documentation folder all listet documentation is accessable.
+% At first remove old database before build the new reference database.
+% Remove autogenerated directory helpsearch-v3. At first get folder content and
+% remove first two relative directory entries from struct. Then delete files
+% and check if files do not exist any more. At least build up new search
+% database entries to Matlab help.
 disp('Remove old search entries ...');
 filesToRemove = dir(fullfile(rootPath, 'docs', 'html', 'helpsearch-v3'));
 filesToRemove(1:2) = [];
