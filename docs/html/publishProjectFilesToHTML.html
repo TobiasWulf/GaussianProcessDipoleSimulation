@@ -143,7 +143,7 @@ removeStatus = 0;
     disp(<span class="string">'Search entries generated ...'</span>);
 <span class="keyword">end</span>
 disp(<span class="string">'Done ...'</span>);
-</pre><h2 id="6">Open generated documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Introduction.html'</span>));
+</pre><h2 id="6">Open generated documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Introduction.html'</span>));
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% publishProjectFilesToHTML
@@ -284,7 +284,8 @@ disp('Done ...');
 
 %% Open generated documentation.
 % Open generated HTML documentation from documentation root HTML file which
-% should be a project introduction or project roadmap page.
+% should be a project introduction or project roadmap page. Comment out if this
+% script is added to project shutdown tasks.
 open(fullfile(PublishOptions.outputDir, 'Introduction.html'));
 
 ##### SOURCE END #####

@@ -37,6 +37,7 @@
 % <img src="images/Project_Preparation/2_create_matlab_project_empty_git.png" height=200>
 % </html>
 %
+%
 %% Create Matlab Project with Git Support
 % In second it is needed to create the Matlab project files in a certain way to
 % get full Git support and support for the Matlab help browser environment. In
@@ -61,7 +62,16 @@
 % # Click Retrieve.
 % # Enter the project name given by the main project directory name and click
 %   OK.
-% # Cl
+% # Click on Set Up Project and skip the two follwing steps via Next and Finish.
+% # Switch to Toolbox directory by double click on the folder in the Current
+%   Folder pane, open the created Matlab project file with a double click and
+%   check source control information under PROJECT tab by clicking Git Details.
+% # Add a short project summary by click on Details under the ENVIRONMENT
+%   section of the PROJECT tab.
+% # Click Apply.
+% # Click OK.
+% 
+% *The project itself is under source control now.*
 %
 % <html>
 % <img src="images/Project_Preparation/3_create_matlab_project_from_git.png" height=250>
@@ -88,12 +98,15 @@
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/9_check_git_details.png" height=300>
+% <img src="images/Project_Preparation/9_check_git_details.png" height=200>
 % </html>
 %
 % <html>
 % <img src="images/Project_Preparation/10_check_project_details_add_description.png" height=300>
 % </html>
+%
+%
+%% Registrate Binaries to Git and Git Ignore Cases
 %
 % <html>
 % <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=300>
@@ -102,6 +115,9 @@
 % <html>
 % <img src="images/Project_Preparation/12_setup_gitignore.png" height=300>
 % </html>
+%
+%
+%% Checkout Project State and Do Initial Commit
 %
 % <html>
 % <img src="images/Project_Preparation/13_check_add_files.png" height=300>
@@ -115,17 +131,8 @@
 % <img src="images/Project_Preparation/15_commit_initialized_project.png" height=300>
 % </html>
 %
-% <html>
-% <img src="images/Project_Preparation/16_add_info_xml_to_project_root.png" height=300>
-% </html>
 %
-% <html>
-% <img src="images/Project_Preparation/17_add_docs_helptoc.png" height=300>
-% </html>
-%
-% <html>
-% <img src="images/Project_Preparation/18_add_basic_folder_structure.png" height=300>
-% </html>
+%% Push Project to Remote Repository and Backup on External Medium
 %
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
