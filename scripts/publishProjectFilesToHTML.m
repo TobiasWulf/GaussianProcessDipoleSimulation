@@ -18,6 +18,7 @@
 % Edited on September 23. 2020 by Tobias Wulf: Add helpsearch section (Build).
 % Edited on September 30. 2020 by Tobias Wulf: Improve helpsearch rewrite.
 % Edited on September 30. 2020 by Tobias Wulf: Add Project_Preparation.m.
+% Edited on October 30. 2020 by Tobias Wulf: Add open documention section.
 % -->
 % </html>
 %
@@ -132,3 +133,9 @@ else
     disp('Search entries generated ...');
 end
 disp('Done ...');
+
+%% Open generated documentation.
+% Open generated HTML documentation from documentation root HTML file which
+% should be a project introduction or project roadmap page. Comment out if this
+% script is added to project shutdown tasks.
+open(fullfile(PublishOptions.outputDir, 'Introduction.html'));

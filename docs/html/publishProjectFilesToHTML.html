@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-09-30"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-01"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -76,8 +76,9 @@ Edited on September 22. 2020 by Tobias Wulf: Add Sript section.
 Edited on September 23. 2020 by Tobias Wulf: Add helpsearch section (Build).
 Edited on September 30. 2020 by Tobias Wulf: Improve helpsearch rewrite.
 Edited on September 30. 2020 by Tobias Wulf: Add Project_Preparation.m.
+Edited on October 30. 2020 by Tobias Wulf: Add open documention section.
 -->
-</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Start Publishing Script and Clean Up</a></li><li><a href="#2">Publish Options</a></li><li><a href="#3">Project Documentation Files</a></li><li><a href="#4">Executable Scripts</a></li><li><a href="#5">Build Documentation Database for Matlab Help Browser</a></li></ul></div><h2 id="1">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors.</p><pre class="codeinput">clearvars;
+</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Start Publishing Script and Clean Up</a></li><li><a href="#2">Publish Options</a></li><li><a href="#3">Project Documentation Files</a></li><li><a href="#4">Executable Scripts</a></li><li><a href="#5">Build Documentation Database for Matlab Help Browser</a></li><li><a href="#6">Open generated documentation.</a></li></ul></div><h2 id="1">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors.</p><pre class="codeinput">clearvars;
 clc;
 disp(<span class="string">'Workspace cleaned up ...'</span>);
 rootPath = <span class="string">'/home/tobias/Documents/workspace/matlab/GaussianProcessDipolSimulation/Toolbox/'</span>;
@@ -142,6 +143,7 @@ removeStatus = 0;
     disp(<span class="string">'Search entries generated ...'</span>);
 <span class="keyword">end</span>
 disp(<span class="string">'Done ...'</span>);
+</pre><h2 id="6">Open generated documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Introduction.html'</span>));
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% publishProjectFilesToHTML
@@ -164,6 +166,7 @@ disp(<span class="string">'Done ...'</span>);
 % Edited on September 23. 2020 by Tobias Wulf: Add helpsearch section (Build).
 % Edited on September 30. 2020 by Tobias Wulf: Improve helpsearch rewrite.
 % Edited on September 30. 2020 by Tobias Wulf: Add Project_Preparation.m.
+% Edited on October 30. 2020 by Tobias Wulf: Add open documention section.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -278,6 +281,11 @@ else
     disp('Search entries generated ...');
 end
 disp('Done ...');
+
+%% Open generated documentation.
+% Open generated HTML documentation from documentation root HTML file which
+% should be a project introduction or project roadmap page.
+open(fullfile(PublishOptions.outputDir, 'Introduction.html'));
 
 ##### SOURCE END #####
 --></body></html>

@@ -7,4 +7,6 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
-% --></html>
+% -->
+% </html>
+%

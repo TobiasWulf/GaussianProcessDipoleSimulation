@@ -13,13 +13,21 @@
 %
 %% Create Main Project Directory
 % The main project directory contains only two subfolders. The first one is the
-% Toolbox folder where the project, m-files etc. are placed. The second folder
-% is the hidden Git repository folder which keeps the versionation.
+% Toolbox folder where the project, m-files and other project files like
+% documentation are placed. The folder is also called sandbox folder in Matlab
+% project creation flows which is just another description for a project folder
+% where the coding takes place. The second folder is a hidden Git repository
+% folder which keeps the versionation in final. It is respectively seen a remote
+% repository that establish basics to setup backup plans via Git clone or can
+% be laterly replaced by remote repository on a server or a GitHub repository to
+% work in common on the project.
+%
+% *First step:*
 %
 % # Create an empty project folder, open Matlab navigate to folder path.
-% # Right click in the Current Folder pane and create New > Folder "Toolbox".
-% # Open a Git terminal and in the project directory and initialize an empty Git
-%   repository.
+% # Right click in the Current Folder pane and create New *>* Folder "Toolbox".
+% # Open a Git terminal and in the project directory and initialize an empty
+%   Git repository.
 %
 % <html>
 % <img src="images/Project_Preparation/1_create_matlab_project_empty_toolbox.png" height=200>
@@ -30,29 +38,53 @@
 % </html>
 %
 %% Create Matlab Project with Git Support
+% In second it is needed to create the Matlab project files in a certain way to
+% get full Git support and support for the Matlab help browser environment. In
+% this use case the before created local Git repository is used as remote
+% origin. So several settings are automatacally made during the creation process
+% by Matlab and as mentioned before the "local remote" repository can be
+% replaced later by a remote origin located on a server or GitHub. The Toolbox
+% folder must be empty to process the following steps.
+%
+% *It is recommend to do no further Git actions on the created Git repository
+% via Git terminal!*
+%
+% These steps only proceed the project setup further Matlab framework
+% functionality is added later.
+%
+% *Second step:*
+%
+% # In the created main project directory create a New *>* Project *>* From Git.
+% # Change the repository path to the hidden Git repository path in the main
+%   project directory.
+% # Change the sandbox path to the Toolbox path in the main project directory.
+% # Click Retrieve.
+% # Enter the project name given by the main project directory name and click
+%   OK.
+% # Cl
 %
 % <html>
-% <img src="images/Project_Preparation/3_create_matlab_project_from_git.png" height=300>
+% <img src="images/Project_Preparation/3_create_matlab_project_from_git.png" height=250>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/4_set_repository_sandbox_path.png" height=300>
+% <img src="images/Project_Preparation/4_set_repository_sandbox_path.png" height=200>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/5_set_project_name_after_repo_create.png" height=300>
+% <img src="images/Project_Preparation/5_set_project_name_after_repo_create.png" height=150>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/6_setup_created_project.png" height=300>
+% <img src="images/Project_Preparation/6_setup_created_project.png" height=250>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/7_next_skip_add_folders.png" height=300>
+% <img src="images/Project_Preparation/7_next_skip_add_folders.png" height=250>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/8_finish_skip_startup_cleanup_scripts.png" height=300>
+% <img src="images/Project_Preparation/8_finish_skip_startup_cleanup_scripts.png" height=250>
 % </html>
 %
 % <html>
