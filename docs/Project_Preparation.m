@@ -106,8 +106,27 @@
 % </html>
 %
 %
-%% Registrate Binaries to Git and Git Ignore Cases
+%% Registrate Binaries to Git and Prepare Git Ignore Cases
+% The root of Git is to work as text file versioner. Source code files are just
+% text files. So git versionates, tags and merges them in various ways in work
+% flow process. That means git edits files. This point can be critical if git
+% does edit a binary file and corrupts it, so that is not executable any more.
+% Therefore binary files must be registrated to Git. Another good reason is to
+% registrated binary or other none text files beccause Git performs no automatic
+% merges on file if they are not known  text files. To keep the versionating Git
+% makes a taged copy of that file every time the file changed. That can be a
+% very junk of memory and lets repository expands to wide.
 %
+% To prevent Git for misshandling binaries it is able to regestrate them in a
+% certain file and mark the file types how to handle them in progress. The file
+% is called .gitattributes must be place in the Git assinged working directory
+% which is the sandbox folder for Matlab projects. The .gitattributes file
+% itself is hidden. 
+%
+% crlf no endline conversion diff do not touch file if differnece are detected
+% merge in combinataion with merge marks the file as binary
+
+% 
 % <html>
 % <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=300>
 % </html>
@@ -117,7 +136,7 @@
 % </html>
 %
 %
-%% Checkout Project State and Do Initial Commit
+%% Checkout Project State and Do an Initial Commit
 %
 % <html>
 % <img src="images/Project_Preparation/13_check_add_files.png" height=300>
@@ -132,7 +151,7 @@
 % </html>
 %
 %
-%% Push Project to Remote Repository and Backup on External Medium
+%% Push to Remote and Backup
 %
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.

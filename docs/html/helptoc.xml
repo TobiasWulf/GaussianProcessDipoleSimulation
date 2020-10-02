@@ -14,11 +14,24 @@
         <!-- Icon images used for these entries are also stored in -->
         <!-- matlabroot/toolbox/matlab/icons -->
         <!-- A Getting Started Guide usually comes first -->
-        <tocitem target="Work_Flows.html">Work_Flows
-            <tocitem target="Project_Preparation.html">Project Preparation</tocitem>
+        <tocitem target="Work_Flows.html">Work Flows
+            <tocitem target="Project_Preparation.html">Project Preparation
+                <tocitem target="Project_Preparation.html#1">Create Main Project Directory</tocitem>
+                <tocitem target="Project_Preparation.html#2">Create Matlab Project with Git Support</tocitem>
+                <tocitem target="Project_Preparation.html#3">Registrate Binaries to Git and Prepare Git Ignore Cases</tocitem>
+                <tocitem target="Project_Preparation.html#4">Checkout Project State and Do an Initial Commit</tocitem>
+                <tocitem target="Project_Preparation.html#5">Push to Remote and Backup</tocitem>
+            </tocitem>
         </tocitem>
         <tocitem target="Executable_Scripts.html">Executable Scripts
-            <tocitem target="publishProjectFilesToHTML.html">publishProjectFilesToHTML</tocitem>
+            <tocitem target="publishProjectFilesToHTML.html">publishProjectFilesToHTML
+                <tocitem target="publishProjectFilesToHTML.html#1">Start Publishing and Clean Up</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#2">Publish Options</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#3">Project Documentation Files</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#4">Executable Script Files</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#5">Build Documentation Database for Matlab Help Browser</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#6">Open Generated Documentation</tocitem>
+        </tocitem>
         </tocitem>
     </tocitem>
 </toc>

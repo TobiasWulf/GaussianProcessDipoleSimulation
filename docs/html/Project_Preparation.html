@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Project Preparation</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-01"><meta name="DC.source" content="Project_Preparation.m"><style type="text/css">
+      --><title>Project Preparation</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-02"><meta name="DC.source" content="Project_Preparation.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Project Preparation</h1><!--introduction--><p>The first steps to setup a scalable software project are none trival and need a good strcuture for later project expands. Either to setup further new projects a well known scalable project structure helps to combine different software parts to bigger environment packages. Therefore a project preparation flow needs to be documented. It unifies the outcome of software projects and part guarantee certain quality aspects.</p><p>The following steps can be used as guidance to establish a propper Matlab project structure in general. Each step is documented with screenshots to give a comprehensible explanation.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create Main Project Directory</a></li><li><a href="#2">Create Matlab Project with Git Support</a></li><li><a href="#3">Registrate Binaries to Git and Git Ignore Cases</a></li><li><a href="#4">Checkout Project State and Do Initial Commit</a></li><li><a href="#5">Push Project to Remote Repository and Backup on External Medium</a></li></ul></div><h2 id="1">Create Main Project Directory</h2><p>The main project directory contains only two subfolders. The first one is the Toolbox folder where the project, m-files and other project files like documentation are placed. The folder is also called sandbox folder in Matlab project creation flows which is just another description for a project folder where the coding takes place. The second folder is a hidden Git repository folder which keeps the versionation in final. It is respectively seen a remote repository that establish basics to setup backup plans via Git clone or can be laterly replaced by remote repository on a server or a GitHub repository to work in common on the project.</p><p><b>First step:</b></p><div><ol><li>Create an empty project folder, open Matlab navigate to folder path.</li><li>Right click in the Current Folder pane and create New <b>&gt;</b> Folder "Toolbox".</li><li>Open a Git terminal and in the project directory and initialize an empty   Git repository.</li></ol></div><p>
+  </style></head><body><div class="content"><h1>Project Preparation</h1><!--introduction--><p>The first steps to setup a scalable software project are none trival and need a good strcuture for later project expands. Either to setup further new projects a well known scalable project structure helps to combine different software parts to bigger environment packages. Therefore a project preparation flow needs to be documented. It unifies the outcome of software projects and part guarantee certain quality aspects.</p><p>The following steps can be used as guidance to establish a propper Matlab project structure in general. Each step is documented with screenshots to give a comprehensible explanation.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create Main Project Directory</a></li><li><a href="#2">Create Matlab Project with Git Support</a></li><li><a href="#3">Registrate Binaries to Git and Prepare Git Ignore Cases</a></li><li><a href="#4">Checkout Project State and Do an Initial Commit</a></li><li><a href="#5">Push to Remote and Backup</a></li></ul></div><h2 id="1">Create Main Project Directory</h2><p>The main project directory contains only two subfolders. The first one is the Toolbox folder where the project, m-files and other project files like documentation are placed. The folder is also called sandbox folder in Matlab project creation flows which is just another description for a project folder where the coding takes place. The second folder is a hidden Git repository folder which keeps the versionation in final. It is respectively seen a remote repository that establish basics to setup backup plans via Git clone or can be laterly replaced by remote repository on a server or a GitHub repository to work in common on the project.</p><p><b>First step:</b></p><div><ol><li>Create an empty project folder, open Matlab navigate to folder path.</li><li>Right click in the Current Folder pane and create New <b>&gt;</b> Folder "Toolbox".</li><li>Open a Git terminal and in the project directory and initialize an empty   Git repository.</li></ol></div><p>
 <img src="images/Project_Preparation/1_create_matlab_project_empty_toolbox.png" height=200>
 </p><p>
 <img src="images/Project_Preparation/2_create_matlab_project_empty_git.png" height=200>
@@ -87,17 +87,23 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <img src="images/Project_Preparation/9_check_git_details.png" height=200>
 </p><p>
 <img src="images/Project_Preparation/10_check_project_details_add_description.png" height=300>
-</p><h2 id="3">Registrate Binaries to Git and Git Ignore Cases</h2><p>
-<img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=300>
-</p><p>
-<img src="images/Project_Preparation/12_setup_gitignore.png" height=300>
-</p><h2 id="4">Checkout Project State and Do Initial Commit</h2><p>
+</p><h2 id="3">Registrate Binaries to Git and Prepare Git Ignore Cases</h2><p>The root of Git is to work as text file versioner. Source code files are just text files. So git versionates, tags and merges them in various ways in work flow process. That means git edits files. This point can be critical if git does edit a binary file and corrupts it, so that is not executable any more. Therefore binary files must be registrated to Git. Another good reason is to registrated binary or other none text files beccause Git performs no automatic merges on file if they are not known  text files. To keep the versionating Git makes a taged copy of that file every time the file changed. That can be a very junk of memory and lets repository expands to wide.</p><p>To prevent Git for misshandling binaries it is able to regestrate them in a certain file and mark the file types how to handle them in progress. The file is called .gitattributes must be place in the Git assinged working directory which is the sandbox folder for Matlab projects. The .gitattributes file itself is hidden.</p><p>crlf no endline conversion diff do not touch file if differnece are detected merge in combinataion with merge marks the file as binary</p><pre class="codeinput"><span class="comment">%</span>
+<span class="comment">% &lt;html&gt;</span>
+<span class="comment">% &lt;img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=300&gt;</span>
+<span class="comment">% &lt;/html&gt;</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;html&gt;</span>
+<span class="comment">% &lt;img src="images/Project_Preparation/12_setup_gitignore.png" height=300&gt;</span>
+<span class="comment">% &lt;/html&gt;</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+</pre><h2 id="4">Checkout Project State and Do an Initial Commit</h2><p>
 <img src="images/Project_Preparation/13_check_add_files.png" height=300>
 </p><p>
 <img src="images/Project_Preparation/14_add_git_files.png" height=300>
 </p><p>
 <img src="images/Project_Preparation/15_commit_initialized_project.png" height=300>
-</p><h2 id="5">Push Project to Remote Repository and Backup on External Medium</h2><p>Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</p><h2 id="5">Push to Remote and Backup</h2><p>Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -213,8 +219,27 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % </html>
 %
 %
-%% Registrate Binaries to Git and Git Ignore Cases
+%% Registrate Binaries to Git and Prepare Git Ignore Cases
+% The root of Git is to work as text file versioner. Source code files are just
+% text files. So git versionates, tags and merges them in various ways in work
+% flow process. That means git edits files. This point can be critical if git
+% does edit a binary file and corrupts it, so that is not executable any more.
+% Therefore binary files must be registrated to Git. Another good reason is to
+% registrated binary or other none text files beccause Git performs no automatic
+% merges on file if they are not known  text files. To keep the versionating Git
+% makes a taged copy of that file every time the file changed. That can be a
+% very junk of memory and lets repository expands to wide.
 %
+% To prevent Git for misshandling binaries it is able to regestrate them in a
+% certain file and mark the file types how to handle them in progress. The file
+% is called .gitattributes must be place in the Git assinged working directory
+% which is the sandbox folder for Matlab projects. The .gitattributes file
+% itself is hidden. 
+%
+% crlf no endline conversion diff do not touch file if differnece are detected
+% merge in combinataion with merge marks the file as binary
+
+% 
 % <html>
 % <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=300>
 % </html>
@@ -224,7 +249,7 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % </html>
 %
 %
-%% Checkout Project State and Do Initial Commit
+%% Checkout Project State and Do an Initial Commit
 %
 % <html>
 % <img src="images/Project_Preparation/13_check_add_files.png" height=300>
@@ -239,7 +264,7 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % </html>
 %
 %
-%% Push Project to Remote Repository and Backup on External Medium
+%% Push to Remote and Backup
 %
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.

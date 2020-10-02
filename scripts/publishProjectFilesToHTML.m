@@ -85,7 +85,7 @@ for docToPublish = projectDocFiles
     disp(publishedFile)
 end
 
-%% Executable Scripts
+%% Executable Script Files
 % The section collects all ready to execute scripts from project scripts folder
 % and publish them to html documentation folder. Every script must be notice in
 % in executableScripts.m file with one line description. To gain control of
@@ -139,7 +139,7 @@ else
 end
 disp('Done ...');
 
-%% Open generated documentation.
+%% Open Generated Documentation.
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
