@@ -14,7 +14,7 @@
         <!-- Icon images used for these entries are also stored in -->
         <!-- matlabroot/toolbox/matlab/icons -->
         <!-- A Getting Started Guide usually comes first -->
-        <tocitem target="Flows.html">Flows
+        <tocitem target="Work_Flows.html">Work_Flows
             <tocitem target="Project_Preparation.html">Project Preparation</tocitem>
         </tocitem>
         <tocitem target="Executable_Scripts.html">Executable Scripts
