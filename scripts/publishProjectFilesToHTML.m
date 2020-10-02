@@ -5,7 +5,10 @@
 % documentation files. For a complete documentation support each generated html
 % document needs to get listed in the project helptoc file with toc entry.
 %
-% See also publish, fullfile, builddocsearchdb, rmdir
+% See also <matlab:web(fullfile(docroot,'matlab/ref/publish.html')) publish>,
+% <matlab:web(fullfile(docroot,'matlab/ref/fullfile.html')) fullfile>,
+% <matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html')) builddocsearchdb>,
+% <matlab:web(fullfile(docroot,'matlab/ref/delete.html')) delete>.
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
@@ -18,7 +21,9 @@
 % Edited on September 23. 2020 by Tobias Wulf: Add helpsearch section (Build).
 % Edited on September 30. 2020 by Tobias Wulf: Improve helpsearch rewrite.
 % Edited on September 30. 2020 by Tobias Wulf: Add Project_Preparation.m.
-% Edited on October 30. 2020 by Tobias Wulf: Add open documention section.
+% Edited on October 01. 2020 by Tobias Wulf: Add open documention section.
+% Edited on October 02. 2020 by Tobias Wulf: Rename Flows.m to Work_Flows.m
+% Edited on October 02. 2020 by Tobias Wulf: See also manually links (evalCode).
 % -->
 % </html>
 %
@@ -68,7 +73,7 @@ disp(PublishOptions);
 disp('Publish project documentation files ...');
 projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Introduction.m'), ...
-    fullfile(rootPath, 'docs', 'Flows.m'), ...
+    fullfile(rootPath, 'docs', 'Work_Flows.m'), ...
     fullfile(rootPath, 'docs', 'Project_Preparation.m'), ...
     fullfile(rootPath, 'docs', 'Executable_Scripts.m'), ...
 };
