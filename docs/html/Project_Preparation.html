@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Project Preparation</h1><!--introduction--><p>The first steps to setup a scalable software project are none trival and need a good strcuture for later project expands. Either to setup further new projects a well known scalable project structure helps to combine different software parts to bigger environment packages. Therefore a project preparation flow needs to be documented. It unifies the outcome of software projects and part guarantee certain quality aspects.</p><p>The following steps can be used as guidance to establish a propper Matlab project structure in general. Each step is documented with screenshots to give a comprehensible explanation.</p><p>See also <a href="matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html'))">Create a New Project From a Folder</a>, <a href="matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html'))">Add a Project to Source Control</a>, <a href="matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html'))">Setup Git Source Control</a>, <a href="https://git-scm.com/docs/gitattributes">Git Attributes</a>, <a href="https://git-scm.com/docs/gitignore">Git Ignores</a>, <a href="matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html'))">Add Files to the Project</a>, <a href="matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html'))">Commit Modified Files to Source Control</a>, <a href="matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html'))">Clone Git Repository</a>.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create Main Project Directory</a></li><li><a href="#2">Create Matlab Project with Git Support</a></li><li><a href="#3">Registrate Binaries to Git and Prepare Git Ignore Cases</a></li><li><a href="#4">Checkout Project State and Do an Initial Commit</a></li><li><a href="#5">Push to Remote and Backup</a></li></ul></div><h2 id="1">Create Main Project Directory</h2><p>The main project directory contains only two subfolders. The first one is the Toolbox folder where the project, m-files and other project files like documentation are placed. The folder is also called sandbox folder in Matlab project creation flows which is just another description for a project folder where the coding takes place. The second folder is a hidden Git repository folder which keeps the versionation in final. It is respectively seen a remote repository that establish basics to setup backup plans via Git clone or can be laterly replaced by remote repository on a server or a GitHub repository to work in common on the project.</p><p><b>First step:</b></p><div><ol><li>Create an empty project folder, open Matlab navigate to folder path.</li><li>Right click in the Current Folder pane and create New <b>&gt;</b> Folder "Toolbox".</li><li>Open a Git terminal and in the project directory and initialize an empty   Git repository.</li></ol></div><p>
+  </style></head><body><div class="content"><h1>Project Preparation</h1><!--introduction--><p>The first steps to setup a scalable software project are none trival and need a good strcuture for later project expands. Either to setup further new projects a well known scalable project structure helps to combine different software parts to bigger environment packages. Therefore a project preparation flow needs to be documented. It unifies the outcome of software projects and part guarantee certain quality aspects.</p><p>The following steps can be used as guidance to establish a propper Matlab project structure in general. Each step is documented with screenshots to give a comprehensible explanation.</p><p>See also:</p><div><ul><li><a href="matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html'))">Create a New Project From a Folder</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html'))">Add a Project to Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html'))">Setup Git Source Control</a></li><li><a href="https://git-scm.com/docs/gitattributes">Git Attributes</a></li><li><a href="https://git-scm.com/docs/gitignore">Git Ignores</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html'))">Add Files to the Project</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html'))">Commit Modified Files to Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html'))">Clone Git Repository</a></li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create Main Project Directory</a></li><li><a href="#2">Create Matlab Project with Git Support</a></li><li><a href="#3">Registrate Binaries to Git and Prepare Git Ignore Cases</a></li><li><a href="#4">Checkout Project State and Do an Initial Commit</a></li><li><a href="#5">Push to Remote and Backup</a></li></ul></div><h2 id="1">Create Main Project Directory</h2><p>The main project directory contains only two subfolders. The first one is the Toolbox folder where the project, m-files and other project files like documentation are placed. The folder is also called sandbox folder in Matlab project creation flows which is just another description for a project folder where the coding takes place. The second folder is a hidden Git repository folder which keeps the versionation in final. It is respectively seen a remote repository that establish basics to setup backup plans via Git clone or can be laterly replaced by remote repository on a server or a GitHub repository to work in common on the project.</p><p><b>First step:</b></p><div><ol><li>Create an empty project folder, open Matlab navigate to folder path.</li><li>Right click in the Current Folder pane and create New <b>&gt;</b> Folder "Toolbox".</li><li>Open a Git terminal and in the project directory and initialize an empty   Git repository.</li></ol></div><p>
 <img src="images/Project_Preparation/1_create_matlab_project_empty_toolbox.png" height=200>
 </p><p>
 <img src="images/Project_Preparation/2_create_matlab_project_empty_git.png" height=200>
@@ -91,13 +91,17 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=400>
 </p><p>
 <img src="images/Project_Preparation/12_setup_gitignore.png" height=400>
-</p><h2 id="4">Checkout Project State and Do an Initial Commit</h2><p>The main part is done. It just needs a few further step to save the work and add the created files to the project.</p><p><b>Fourth step:</b></p><div><ol><li>Add created files to the project. In the PROJECT tab under TOOLS section   click Run Checks <b>&gt;</b> Add Files</li></ol></div><p>
+</p><h2 id="4">Checkout Project State and Do an Initial Commit</h2><p>The main part is done. It just needs a few further step to save the work and add the created files to the project.</p><p><b>Fourth step:</b></p><div><ol><li>Add created files to the project. In the PROJECT tab under TOOLS section   click Run Checks <b>&gt;</b> Add Files.</li><li>Check the files to add to the project.</li><li>Click OK.</li><li>Right click in the white space of Current Folder pane and click Source Control <b>&gt;</b> View and Commit Changes... and add commemt to the commit.</li><li>Click Commit.</li></ol></div><p><b>The project is now initialized.</b></p><p>
 <img src="images/Project_Preparation/13_check_add_files.png" height=200>
 </p><p>
 <img src="images/Project_Preparation/14_add_git_files.png" height=300>
 </p><p>
 <img src="images/Project_Preparation/15_commit_initialized_project.png" height=300>
-</p><h2 id="5">Push to Remote and Backup</h2><p>Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</p><h2 id="5">Push to Remote and Backup</h2><p>
+<img src="images/Project_Preparation/16_push_to_remote.png" height=100>
+</p><p>
+<img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
+</p><p>Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -117,15 +121,16 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % project structure in general. Each step is documented with screenshots to give 
 % a comprehensible explanation.
 %
-% See also
-% <matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html')) Create a New Project From a Folder>,
-% <matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html')) Add a Project to Source Control>,
-% <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control>, 
-% <https://git-scm.com/docs/gitattributes Git Attributes>,
-% <https://git-scm.com/docs/gitignore Git Ignores>,
-% <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>,
-% <matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html')) Commit Modified Files to Source Control>,
-% <matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html')) Clone Git Repository>.
+% See also:
+%
+% * <matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html')) Create a New Project From a Folder>
+% * <matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html')) Add a Project to Source Control>
+% * <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control> 
+% * <https://git-scm.com/docs/gitattributes Git Attributes>
+% * <https://git-scm.com/docs/gitignore Git Ignores>
+% * <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>
+% * <matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html')) Commit Modified Files to Source Control>
+% * <matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html')) Clone Git Repository>
 %
 %
 %% Create Main Project Directory
@@ -278,7 +283,14 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % *Fourth step:*
 %
 % # Add created files to the project. In the PROJECT tab under TOOLS section
-%   click Run Checks *>* Add Files
+%   click Run Checks *>* Add Files.
+% # Check the files to add to the project.
+% # Click OK.
+% # Right click in the white space of Current Folder pane and click Source
+% Control *>* View and Commit Changes... and add commemt to the commit.
+% # Click Commit.
+%
+% *The project is now initialized.*
 %
 % <html>
 % <img src="images/Project_Preparation/13_check_add_files.png" height=200>
@@ -295,6 +307,14 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 %
 %% Push to Remote and Backup
 %
+%
+% <html>
+% <img src="images/Project_Preparation/16_push_to_remote.png" height=100>
+% </html>
+%
+% <html>
+% <img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
+% </html>
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %

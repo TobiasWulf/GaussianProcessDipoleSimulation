@@ -10,15 +10,16 @@
 % project structure in general. Each step is documented with screenshots to give 
 % a comprehensible explanation.
 %
-% See also
-% <matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html')) Create a New Project From a Folder>,
-% <matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html')) Add a Project to Source Control>,
-% <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control>, 
-% <https://git-scm.com/docs/gitattributes Git Attributes>,
-% <https://git-scm.com/docs/gitignore Git Ignores>,
-% <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>,
-% <matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html')) Commit Modified Files to Source Control>,
-% <matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html')) Clone Git Repository>.
+% See also:
+%
+% * <matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html')) Create a New Project From a Folder>
+% * <matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html')) Add a Project to Source Control>
+% * <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control> 
+% * <https://git-scm.com/docs/gitattributes Git Attributes>
+% * <https://git-scm.com/docs/gitignore Git Ignores>
+% * <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>
+% * <matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html')) Commit Modified Files to Source Control>
+% * <matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html')) Clone Git Repository>
 %
 %
 %% Create Main Project Directory
@@ -195,6 +196,14 @@
 %
 %% Push to Remote and Backup
 %
+%
+% <html>
+% <img src="images/Project_Preparation/16_push_to_remote.png" height=100>
+% </html>
+%
+% <html>
+% <img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
+% </html>
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %

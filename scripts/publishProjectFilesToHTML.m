@@ -5,10 +5,12 @@
 % documentation files. For a complete documentation support each generated html
 % document needs to get listed in the project helptoc file with toc entry.
 %
-% See also <matlab:web(fullfile(docroot,'matlab/ref/publish.html')) publish>,
-% <matlab:web(fullfile(docroot,'matlab/ref/fullfile.html')) fullfile>,
-% <matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html')) builddocsearchdb>,
-% <matlab:web(fullfile(docroot,'matlab/ref/delete.html')) delete>.
+% See also:
+%
+% * <matlab:web(fullfile(docroot,'matlab/ref/publish.html')) publish>
+% * <matlab:web(fullfile(docroot,'matlab/ref/fullfile.html')) fullfile>
+% * <matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html')) builddocsearchdb>
+% * <matlab:web(fullfile(docroot,'matlab/ref/delete.html')) delete>
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
