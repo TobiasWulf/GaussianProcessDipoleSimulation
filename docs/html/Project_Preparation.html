@@ -97,10 +97,12 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <img src="images/Project_Preparation/14_add_git_files.png" height=300>
 </p><p>
 <img src="images/Project_Preparation/15_commit_initialized_project.png" height=300>
-</p><h2 id="5">Push to Remote and Backup</h2><p>
+</p><h2 id="5">Push to Remote and Backup</h2><p>The project is ready to work with. Finally it needs a backup meachnism to save the done work after closing the Matlab session. Git and how the project is build up provide an easy way to make backups.</p><div><ol><li>Push the committed changes to remote repository.</li><li>Insert a backup medium e.g. USB stick and open a git terminal there.</li><li>Clone the project remote repository from project directory.</li><li>Change the directory to cloned project.</li><li>Check if everything was cloned.</li><li>Check if the remote url fits to origin.</li><li>Pull from remote to check if everything is up to date.</li></ol></div><p>
 <img src="images/Project_Preparation/16_push_to_remote.png" height=100>
 </p><p>
 <img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
+</p><p>If further changes are comitted to the project push again to the remote from Matlab environment and repeat update the backup from time to time by inserting your medium and make a fresh pull. Change the directory to the folder and just pull again. See below as an example how does it look like.</p><p>
+<img src="images/Project_Preparation/18_pull_after_changes.png" height=350>
 </p><p>Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
@@ -306,8 +308,18 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 %
 %
 %% Push to Remote and Backup
-%
-%
+% The project is ready to work with. Finally it needs a backup meachnism to save
+% the done work after closing the Matlab session. Git and how the project is
+% build up provide an easy way to make backups. 
+% 
+% # Push the committed changes to remote repository.
+% # Insert a backup medium e.g. USB stick and open a git terminal there.
+% # Clone the project remote repository from project directory.
+% # Change the directory to cloned project.
+% # Check if everything was cloned.
+% # Check if the remote url fits to origin.
+% # Pull from remote to check if everything is up to date.
+% 
 % <html>
 % <img src="images/Project_Preparation/16_push_to_remote.png" height=100>
 % </html>
@@ -315,6 +327,16 @@ Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % <html>
 % <img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
 % </html>
+%
+% If further changes are comitted to the project push again to the remote from
+% Matlab environment and repeat update the backup from time to time by inserting
+% your medium and make a fresh pull. Change the directory to the folder and just
+% pull again. See below as an example how does it look like.
+%
+% <html>
+% <img src="images/Project_Preparation/18_pull_after_changes.png" height=350>
+% </html>
+%
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %

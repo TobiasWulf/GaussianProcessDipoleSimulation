@@ -195,8 +195,18 @@
 %
 %
 %% Push to Remote and Backup
-%
-%
+% The project is ready to work with. Finally it needs a backup meachnism to save
+% the done work after closing the Matlab session. Git and how the project is
+% build up provide an easy way to make backups. 
+% 
+% # Push the committed changes to remote repository.
+% # Insert a backup medium e.g. USB stick and open a git terminal there.
+% # Clone the project remote repository from project directory.
+% # Change the directory to cloned project.
+% # Check if everything was cloned.
+% # Check if the remote url fits to origin.
+% # Pull from remote to check if everything is up to date.
+% 
 % <html>
 % <img src="images/Project_Preparation/16_push_to_remote.png" height=100>
 % </html>
@@ -204,6 +214,16 @@
 % <html>
 % <img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
 % </html>
+%
+% If further changes are comitted to the project push again to the remote from
+% Matlab environment and repeat update the backup from time to time by inserting
+% your medium and make a fresh pull. Change the directory to the folder and just
+% pull again. See below as an example how does it look like.
+%
+% <html>
+% <img src="images/Project_Preparation/18_pull_after_changes.png" height=350>
+% </html>
+%
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
