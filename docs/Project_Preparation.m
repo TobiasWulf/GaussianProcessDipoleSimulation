@@ -10,6 +10,16 @@
 % project structure in general. Each step is documented with screenshots to give 
 % a comprehensible explanation.
 %
+% See also
+% <matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html')) Create a New Project From a Folder>,
+% <matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html')) Add a Project to Source Control>,
+% <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control>, 
+% <https://git-scm.com/docs/gitattributes Git Attributes>,
+% <https://git-scm.com/docs/gitignore Git Ignores>,
+% <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>,
+% <matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html')) Commit Modified Files to Source Control>,
+% <matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html')) Clone Git Repository>.
+%
 %
 %% Create Main Project Directory
 % The main project directory contains only two subfolders. The first one is the
@@ -119,27 +129,59 @@
 %
 % To prevent Git for misshandling binaries it is able to regestrate them in a
 % certain file and mark the file types how to handle them in progress. The file
-% is called .gitattributes must be place in the Git assinged working directory
+% is called .gitattributes must be placed in the Git assinged working directory
 % which is the sandbox folder for Matlab projects. The .gitattributes file
 % itself is hidden. 
 %
-% crlf no endline conversion diff do not touch file if differnece are detected
-% merge in combinataion with merge marks the file as binary
-
+% Three options are needed to mark a file type as binary. The -crlf option 
+% disables end of line conversion and the -diff option in combination with the
+% -merge option to mark the file as binary.
+%
+% In addition to that it is possible to delclare several ignore cases to Git. So
+% certain directories or file types are not touched or are left out from source
+% control. This is done in .gitignore file. The must be placed in the sandbox
+% folder too.
+%
+% From the sandbox directory enter in the Matlab command prompt edit
+% .gittatributes and edit .gitignore and save both files. The files are not
+% shown in Current Folder pane (hidden files). Edit both files in the Matlab
+% editor and save the files.
+%
+% *Third step:*
+%
+% # Add common Matlab file types to .gitattributes.
+% # Add Matlab compiler file types to .gitattributes.
+% # Add other file types which can be appear during the work to .gitattributes.
+% # Add ignore cases to .gitignore if needed.
+% 
 % 
 % <html>
-% <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=300>
+% <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=400>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/12_setup_gitignore.png" height=300>
+% <img src="images/Project_Preparation/12_setup_gitignore.png" height=400>
 % </html>
 %
 %
 %% Checkout Project State and Do an Initial Commit
+% The main part is done. It just needs a few further step to save the work and
+% add the created files to the project.
+%
+% *Fourth step:*
+%
+% # Add created files to the project. In the PROJECT tab under TOOLS section
+%   click Run Checks *>* Add Files.
+% # Check the files to add to the project.
+% # Click OK.
+% # Right click in the white space of Current Folder pane and click Source
+% Control *>* View and Commit Changes... and add commemt to the commit.
+% # Click Commit.
+%
+% *The project is now initialized.*
 %
 % <html>
-% <img src="images/Project_Preparation/13_check_add_files.png" height=300>
+% <img src="images/Project_Preparation/13_check_add_files.png" height=200>
 % </html>
 %
 % <html>
