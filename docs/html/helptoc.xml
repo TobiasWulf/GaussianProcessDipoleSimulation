@@ -14,7 +14,7 @@
         <!-- Icon images used for these entries are also stored in -->
         <!-- matlabroot/toolbox/matlab/icons -->
         <!-- A Getting Started Guide usually comes first -->
-        <tocitem target="Work_Flows.html">Work Flows
+        <tocitem target="Workflows.html">Workflows
             <tocitem target="Project_Preparation.html">Project Preparation
                 <tocitem target="Project_Preparation.html#1">Create Main Project Directory</tocitem>
                 <tocitem target="Project_Preparation.html#2">Create Matlab Project with Git Support</tocitem>

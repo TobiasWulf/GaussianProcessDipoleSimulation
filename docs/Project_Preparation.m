@@ -14,7 +14,8 @@
 %
 % * <matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html')) Create a New Project From a Folder>
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html')) Add a Project to Source Control>
-% * <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control> 
+% * <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control>
+% * <matlab:web(fullfile(docroot,'matlab/matlab_prog/use-source-control-with-projects.html')) Use Source Control with Projects>
 % * <https://git-scm.com/docs/gitattributes Git Attributes>
 % * <https://git-scm.com/docs/gitignore Git Ignores>
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>
