@@ -23,6 +23,7 @@
                 <tocitem target="Project_Preparation.html#5">Push to Remote and Backup</tocitem>
             </tocitem>
             <tocitem target="Project_Structure.html">Project Structure</tocitem>
+            <tocitem target="Git_Feature_Branch_Workflow.html">Git Feature Branch Workflow</tocitem>
         </tocitem>
         <tocitem target="Executable_Scripts.html">Executable Scripts
             <tocitem target="publishProjectFilesToHTML.html">publishProjectFilesToHTML

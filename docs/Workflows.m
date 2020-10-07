@@ -10,6 +10,7 @@
 % Edited on September 30. 2020 by Tobias Wulf: Add Project Preparation section.
 % Edited on October 02. 2020 by Tobias Wulf: Rename file to Workflows.m
 % Edited on October 07. 2020 by Tobias Wulf: Add Project Structure.
+% Edited on October 07. 2020 by Tobias Wulf: Git Feature Branch Workflow.
 % -->
 % </html>
 %
@@ -20,3 +21,7 @@
 %
 %% Project Structure
 % Directory structure, associated task and how to add new elements.
+%
+%
+%% Git Feature Branch Workflow
+% How to work in the project with Git support in feature driven way.

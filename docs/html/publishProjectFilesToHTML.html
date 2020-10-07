@@ -80,6 +80,7 @@ Edited on October 01. 2020 by Tobias Wulf: Add open documention section.
 Edited on October 02. 2020 by Tobias Wulf: Rename Flows.m to Work_Flows.m
 Edited on October 02. 2020 by Tobias Wulf: See also manually links (evalCode).
 Edited on October 07. 2020 by Tobias Wulf: Add Project_Structure.m.
+Edited on October 07. 2020 by Tobias Wulf: Git Feature Branch Workflow.
 -->
 </p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Start Publishing Script and Clean Up</a></li><li><a href="#2">Publish Options</a></li><li><a href="#3">Project Documentation Files</a></li><li><a href="#4">Executable Script Files</a></li><li><a href="#5">Build Documentation Database for Matlab Help Browser</a></li><li><a href="#6">Open Generated Documentation.</a></li></ul></div><h2 id="1">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors.</p><pre class="codeinput">clearvars;
 clc;
@@ -111,6 +112,7 @@ projectDocFiles = { <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Project_Preparation.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Executable_Scripts.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Project_Structure.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Git_Feature_Branch_Workflow.m'</span>), <span class="keyword">...</span>
 };
 disp(<span class="string">'Project documentation files collected ...'</span>);
 disp(<span class="string">'Publishing ...'</span>);
@@ -147,7 +149,7 @@ removeStatus = 0;
     disp(<span class="string">'Search entries generated ...'</span>);
 <span class="keyword">end</span>
 disp(<span class="string">'Done ...'</span>);
-</pre><h2 id="6">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Project_Structure.html'</span>));
+</pre><h2 id="6">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Git_Feature_Branch_Workflow.html'</span>));
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% publishProjectFilesToHTML
@@ -179,6 +181,7 @@ disp(<span class="string">'Done ...'</span>);
 % Edited on October 02. 2020 by Tobias Wulf: Rename Flows.m to Work_Flows.m
 % Edited on October 02. 2020 by Tobias Wulf: See also manually links (evalCode).
 % Edited on October 07. 2020 by Tobias Wulf: Add Project_Structure.m.
+% Edited on October 07. 2020 by Tobias Wulf: Git Feature Branch Workflow.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -232,6 +235,7 @@ projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Project_Preparation.m'), ...
     fullfile(rootPath, 'docs', 'Executable_Scripts.m'), ...
     fullfile(rootPath, 'docs', 'Project_Structure.m'), ...
+    fullfile(rootPath, 'docs', 'Git_Feature_Branch_Workflow.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');
@@ -299,7 +303,7 @@ disp('Done ...');
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'Project_Structure.html'));
+open(fullfile(PublishOptions.outputDir, 'Git_Feature_Branch_Workflow.html'));
 
 ##### SOURCE END #####
 --></body></html>

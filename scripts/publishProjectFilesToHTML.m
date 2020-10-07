@@ -27,6 +27,7 @@
 % Edited on October 02. 2020 by Tobias Wulf: Rename Flows.m to Work_Flows.m
 % Edited on October 02. 2020 by Tobias Wulf: See also manually links (evalCode).
 % Edited on October 07. 2020 by Tobias Wulf: Add Project_Structure.m.
+% Edited on October 07. 2020 by Tobias Wulf: Git Feature Branch Workflow.
 % -->
 % </html>
 %
@@ -80,6 +81,7 @@ projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Project_Preparation.m'), ...
     fullfile(rootPath, 'docs', 'Executable_Scripts.m'), ...
     fullfile(rootPath, 'docs', 'Project_Structure.m'), ...
+    fullfile(rootPath, 'docs', 'Git_Feature_Branch_Workflow.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');
@@ -147,4 +149,4 @@ disp('Done ...');
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'Project_Structure.html'));
+open(fullfile(PublishOptions.outputDir, 'Git_Feature_Branch_Workflow.html'));
