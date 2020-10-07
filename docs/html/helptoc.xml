@@ -22,6 +22,7 @@
                 <tocitem target="Project_Preparation.html#4">Checkout Project State and Do an Initial Commit</tocitem>
                 <tocitem target="Project_Preparation.html#5">Push to Remote and Backup</tocitem>
             </tocitem>
+            <tocitem target="Project_Structure.html">Project Structure</tocitem>
         </tocitem>
         <tocitem target="Executable_Scripts.html">Executable Scripts
             <tocitem target="publishProjectFilesToHTML.html">publishProjectFilesToHTML

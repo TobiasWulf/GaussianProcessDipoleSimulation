@@ -232,5 +232,6 @@
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
+% Edited on October 05. 2020 by Tobias Wulf: Finish description.
 % -->
 % </html>

@@ -1,0 +1,304 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-07"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Project Structure</h1><p>A good project directory structure is the key to build scalable and expandable software projects. Therfore each project folder has to fulfill an associated task. Additionally, a good structure facilitates project navigation and the retrieval and reuse of project content. Further on Matlab provides stratgies to add content to existing project structures and label it for script based execution of project task to manage project files. To add new content have a look at the links below.</p><p>See also:</p><div><ul><li><a href="matlab:web(fullfile(docroot,'simulink/ug/specify-project-path.html'))">Specify Project Path</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html'))">Add Files to the Project</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-labels-to-files.html'))">Add Labels to Files</a></li></ul></div><p>
+<table border=1>
+<thead>
+  <tr><th>Directory</th><th>Task</th></tr>
+</thead>
+<tbody>
+  <tr>
+    <td>../</td>
+    <td>Main project directory which contains the Matlab project sandbox
+    folder and the hidden "remote" repository.
+    </td>
+  </tr>
+  <tr>
+    <td>../.git</td>
+    <td>Hidden remote repository for local statndalone work. Saves daily
+    working results. Provide a Git clonable instance of sandbox the directory.
+    </td>
+  </tr>
+  <tr>
+    <td>./</td>
+    <td>Matlab project sandbox directory. Project root directory which
+    contains the Matlab project file, the info.xml, .gitignore, .gitattributes
+    files and all other project related subdirectories. Startup directory.
+    </td>
+  </tr>
+  <tr>
+    <td>./resources</td>
+    <td>Autogenerated directory from Matlab project. Contains the local
+    project versionation and project xml-files.
+    </td>
+  </tr>
+  <tr>
+    <td>./data</td>
+    <td>Contains all project related datasets e.g. mat-files.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs</td>
+    <td>Documentation directory which contains m-files only for documtation
+    use and the direcoty where all project remarked files are published into
+    HTML output files.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs/html</td>
+    <td>Publish directory where published m-files are collected and bind to a
+    Matlab help browser readable documentation. It contains html-files and
+    subdirectory for images and figures which are used in the documentaion.
+    The help browser search database is placed here too. Much more important
+    the directory contains the helptoc.xml which pointed by the info.xml from
+    root project directory.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs/html/figures</td>
+    <td>Contains all needed fig-files which are used in the documentation.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs/html/helpsearch-v3</td>
+    <td>Contains autogenerated help search database entries. The directory is
+    rewritten during the publish documentation process.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs/html/images</td>
+    <td>Contains all needed image files like png-files which are used in the
+    documentation.
+    </td>
+  </tr>
+  <tr>
+    <td>./scripts</td>
+    <td>The sripts directory contains all executable script m-files to solve
+    certain tasks in the project, to generate datasets or execute parts of the
+    toolbox source code.
+    </td>
+  </tr>
+  <tr>
+    <td>./src</td>
+    <td>Source code directory which contains reusable source code clustered in
+    submodule direcotries. The code can be function oriented or class oriented
+    or a mix of both. Contains no bare script files.
+    </td>
+  </tr>
+  <tr>
+    <td>./tests</td>
+    <td>For test driven development each function or class needs a own
+    test space or file. The directory contains these test.
+    </td>
+  </tr>
+  <tr>
+    <td>./temp</td>
+    <td>Temporally working directory to save intermediate results or the last
+    software state from session before.
+    </td>
+  </tr>
+</tbody>
+</table>
+</p><p>Created on October 1. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+Edited on October 07. 2020 by Tobias Wulf: Add inital description.
+-->
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Project Structure
+% A good project directory structure is the key to build scalable and expandable
+% software projects. Therfore each project folder has to fulfill an associated
+% task. Additionally, a good structure facilitates project navigation and the
+% retrieval and reuse of project content. Further on Matlab provides stratgies
+% to add content to existing project structures and label it for script based
+% execution of project task to manage project files. To add new content have a
+% look at the links below.
+%
+% See also:
+%
+% * <matlab:web(fullfile(docroot,'simulink/ug/specify-project-path.html')) Specify Project Path>
+% * <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>
+% * <matlab:web(fullfile(docroot,'simulink/ug/add-labels-to-files.html')) Add Labels to Files>
+%
+% <html>
+% <table border=1>
+% <thead>
+%   <tr><th>Directory</th><th>Task</th></tr>
+% </thead>
+% <tbody>
+%   <tr>
+%     <td>../</td>
+%     <td>Main project directory which contains the Matlab project sandbox
+%     folder and the hidden "remote" repository.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>../.git</td>
+%     <td>Hidden remote repository for local statndalone work. Saves daily
+%     working results. Provide a Git clonable instance of sandbox the directory.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./</td>
+%     <td>Matlab project sandbox directory. Project root directory which
+%     contains the Matlab project file, the info.xml, .gitignore, .gitattributes
+%     files and all other project related subdirectories. Startup directory.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./resources</td>
+%     <td>Autogenerated directory from Matlab project. Contains the local
+%     project versionation and project xml-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./data</td>
+%     <td>Contains all project related datasets e.g. mat-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs</td>
+%     <td>Documentation directory which contains m-files only for documtation
+%     use and the direcoty where all project remarked files are published into
+%     HTML output files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html</td>
+%     <td>Publish directory where published m-files are collected and bind to a
+%     Matlab help browser readable documentation. It contains html-files and
+%     subdirectory for images and figures which are used in the documentaion.
+%     The help browser search database is placed here too. Much more important
+%     the directory contains the helptoc.xml which pointed by the info.xml from
+%     root project directory.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/figures</td>
+%     <td>Contains all needed fig-files which are used in the documentation.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/helpsearch-v3</td>
+%     <td>Contains autogenerated help search database entries. The directory is
+%     rewritten during the publish documentation process.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/images</td>
+%     <td>Contains all needed image files like png-files which are used in the
+%     documentation.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./scripts</td>
+%     <td>The sripts directory contains all executable script m-files to solve
+%     certain tasks in the project, to generate datasets or execute parts of the
+%     toolbox source code.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src</td>
+%     <td>Source code directory which contains reusable source code clustered in
+%     submodule direcotries. The code can be function oriented or class oriented
+%     or a mix of both. Contains no bare script files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./tests</td>
+%     <td>For test driven development each function or class needs a own
+%     test space or file. The directory contains these test.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./temp</td>
+%     <td>Temporally working directory to save intermediate results or the last
+%     software state from session before.
+%     </td>
+%   </tr>
+% </tbody>
+% </table>
+% </html>
+%
+%
+% Created on October 1. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on October 07. 2020 by Tobias Wulf: Add inital description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+
+##### SOURCE END #####
+--></body></html>
