@@ -13,6 +13,18 @@
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-labels-to-files.html')) Add Labels to Files>
 %
+%
+%% Directory Overview
+%
+% <include>Directory_Tree.txt</include>
+%
+% _Generated with linux shell command from on directory above the main project
+% directory._
+%  
+%   !tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/Toolbox/docs/html/Directory_Tree.txt -I "project|Project_*
+%
+%% Directory Tasks
+%
 % <html>
 % <table border=1>
 % <thead>
@@ -29,6 +41,7 @@
 %     <td>../.git</td>
 %     <td>Hidden remote repository for local statndalone work. Saves daily
 %     working results. Provide a Git clonable instance of sandbox the directory.
+%     Replacable. Not Matlab driven, simulates remote repository.
 %     </td>
 %   </tr>
 %   <tr>
@@ -36,6 +49,11 @@
 %     <td>Matlab project sandbox directory. Project root directory which
 %     contains the Matlab project file, the info.xml, .gitignore, .gitattributes
 %     files and all other project related subdirectories. Startup directory.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./.git</td>
+%     <td>Hidden local repository. Not replacable. Matlab driven repository.
 %     </td>
 %   </tr>
 %   <tr>
@@ -114,6 +132,26 @@
 % </html>
 %
 %
+%% Add New Elements
+%
+% *Add new folder to project:*
+%
+% # Create a new folder and add to Project Path after Matlab flow.
+% # Run Checks *>* Add Files.
+% # Run tree command from shell to update directory for the documentation
+%   (optional).
+% # Update directorry task table of this document.
+%
+%
+% *Add new file to project:*
+%
+% # Create new File and edit after Documentation Flow and Conventions.
+% # Run Checks *>* Add Files.
+% # Label the new file from project pane.
+% # Commit file into active branch.
+% # Registrate to the documentation if needed (publish, toc and listings docs).
+%
+%
 % Created on October 1. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
@@ -121,6 +159,7 @@
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on October 07. 2020 by Tobias Wulf: Add inital description.
+% Edited on October 08. 2020 by Tobias Wulf: Add workflow and overview.
 % -->
 % </html>
 %
