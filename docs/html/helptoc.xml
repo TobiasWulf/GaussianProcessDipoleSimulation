@@ -22,7 +22,11 @@
                 <tocitem target="Project_Preparation.html#4">Checkout Project State and Do an Initial Commit</tocitem>
                 <tocitem target="Project_Preparation.html#5">Push to Remote and Backup</tocitem>
             </tocitem>
-            <tocitem target="Project_Structure.html">Project Structure</tocitem>
+            <tocitem target="Project_Structure.html">Project Structure
+                <tocitem target="Project_Structure.html#1">Directory Overview</tocitem>
+                <tocitem target="Project_Structure.html#2">Directory Tasks</tocitem>
+                <tocitem target="Project_Structure.html#3">Add New Elements</tocitem>
+            </tocitem>
             <tocitem target="Git_Feature_Branch_Workflow.html">Git Feature Branch Workflow</tocitem>
         </tocitem>
         <tocitem target="Executable_Scripts.html">Executable Scripts
