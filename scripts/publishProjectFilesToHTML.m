@@ -28,6 +28,10 @@
 % Edited on October 02. 2020 by Tobias Wulf: See also manually links (evalCode).
 % Edited on October 07. 2020 by Tobias Wulf: Add Project_Structure.m.
 % Edited on October 07. 2020 by Tobias Wulf: Git Feature Branch Workflow.
+% Edited on October 10. 2020 by Tobias Wulf: Add Documentation Workflow.
+% Edited on October 10. 2020 by Tobias Wulf: Add Source Code.
+% Edited on October 10. 2020 by Tobias Wulf: Add Util Functions and Classes.
+% Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
 % -->
 % </html>
 %
@@ -82,6 +86,9 @@ projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Executable_Scripts.m'), ...
     fullfile(rootPath, 'docs', 'Project_Structure.m'), ...
     fullfile(rootPath, 'docs', 'Git_Feature_Branch_Workflow.m'), ...
+    fullfile(rootPath, 'docs', 'Documentation_Workflow.m'), ...
+    fullfile(rootPath, 'docs', 'Source_Code.m'), ...
+    fullfile(rootPath, 'docs', 'Util_Functions_and_Classes.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');
@@ -94,7 +101,7 @@ end
 %% Executable Script Files
 % The section collects all ready to execute scripts from project scripts folder
 % and publish them to html documentation folder. Every script must be notice in
-% in executableScripts.m file with one line description. To gain control of
+% in Executable_Scripts.m file with one line description. To gain control of
 % script execution during the publish porcess a second cell parameter is added
 % to the script path. The parameter indicates if the script is executed or not.
 % That is very important if scripts contains critical or loop gaining code. In
@@ -116,6 +123,28 @@ for scriptToPublish = executableScriptFiles
     disp(publishedFile);
 end
 
+%% Util Function and Classes
+% That part of the publish script collects function and class m-files from the
+% util section of the source code located in src/util. Introcude every new
+% m-file to the Util_Functions_and_Classes.m and add a short description.
+% In general functions and class files are not executed on publishing execution
+% so set evalCode option to false in PublishOptions struct. In addition to that
+% the source code itself should not be in the published document, so the
+% showCode option is switched to false.
+PublishOptions.evalCode = false;
+PublishOptions.showCode = false;
+disp('Publish util functions and classes ...');
+utilFunctionClassesFiles = { ...
+    fullfile(rootPath, 'src', 'util', 'removeFilesFromDir.m'), ...
+};
+disp('Util function and class files collected ...');
+disp('Publishing ...');
+for utilToPublish = utilFunctionClassesFiles
+    disp(utilToPublish{:});
+    publishedFile = publish(utilToPublish{:}, PublishOptions);
+    disp(publishedFile)
+end
+
 %% Build Documentation Database for Matlab Help Browser
 % To support Matlabs help browser it is needed build searchable help browser
 % entries including a searchable database backend. Matlabs built-in function
@@ -129,19 +158,13 @@ end
 % and check if files do not exist any more. At least build up new search
 % database entries to Matlab help.
 disp('Remove old search entries ...');
-filesToRemove = dir(fullfile(rootPath, 'docs', 'html', 'helpsearch-v3'));
-filesToRemove(1:2) = [];
-removeStatus = 0;
-for file = filesToRemove'
-    delete(fullfile(file.folder, file.name))
-    removeStatus = removeStatus + ... 
-        exist(fullfile(file.folder, file.name), 'file');
-end
-if removeStatus > 0
-    disp('Could not remove old search entries ...');
-else
+removeStatus = removeFilesFromDir( ...
+    fullfile(rootPath, 'docs', 'html', 'helpsearch-v3'));
+if removeStatus
     builddocsearchdb(PublishOptions.outputDir);
     disp('Search entries generated ...');
+else
+    disp('Could not remove old search entries ...');
 end
 disp('Done ...');
 
@@ -149,4 +172,4 @@ disp('Done ...');
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'Git_Feature_Branch_Workflow.html'));
+open(fullfile(PublishOptions.outputDir, 'Documentation_Workflow.html'));
