@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-08"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-11"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -81,8 +81,12 @@ Edited on October 02. 2020 by Tobias Wulf: Rename Flows.m to Work_Flows.m
 Edited on October 02. 2020 by Tobias Wulf: See also manually links (evalCode).
 Edited on October 07. 2020 by Tobias Wulf: Add Project_Structure.m.
 Edited on October 07. 2020 by Tobias Wulf: Git Feature Branch Workflow.
+Edited on October 10. 2020 by Tobias Wulf: Add Documentation Workflow.
+Edited on October 10. 2020 by Tobias Wulf: Add Source Code.
+Edited on October 10. 2020 by Tobias Wulf: Add Util Functions and Classes.
+Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
 -->
-</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Start Publishing Script and Clean Up</a></li><li><a href="#2">Publish Options</a></li><li><a href="#3">Project Documentation Files</a></li><li><a href="#4">Executable Script Files</a></li><li><a href="#5">Build Documentation Database for Matlab Help Browser</a></li><li><a href="#6">Open Generated Documentation.</a></li></ul></div><h2 id="1">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors.</p><pre class="codeinput">clearvars;
+</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Start Publishing Script and Clean Up</a></li><li><a href="#2">Publish Options</a></li><li><a href="#3">Project Documentation Files</a></li><li><a href="#4">Executable Script Files</a></li><li><a href="#5">Util Function and Classes</a></li><li><a href="#6">Build Documentation Database for Matlab Help Browser</a></li><li><a href="#7">Open Generated Documentation.</a></li></ul></div><h2 id="1">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors.</p><pre class="codeinput">clearvars;
 clc;
 disp(<span class="string">'Workspace cleaned up ...'</span>);
 rootPath = <span class="string">'/home/tobias/Documents/workspace/matlab/GaussianProcessDipolSimulation/Toolbox/'</span>;
@@ -113,6 +117,9 @@ projectDocFiles = { <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Executable_Scripts.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Project_Structure.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Git_Feature_Branch_Workflow.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Documentation_Workflow.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Source_Code.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Util_Functions_and_Classes.m'</span>), <span class="keyword">...</span>
 };
 disp(<span class="string">'Project documentation files collected ...'</span>);
 disp(<span class="string">'Publishing ...'</span>);
@@ -121,7 +128,7 @@ disp(<span class="string">'Publishing ...'</span>);
     publishedFile = publish(docToPublish{:}, PublishOptions);
     disp(publishedFile)
 <span class="keyword">end</span>
-</pre><h2 id="4">Executable Script Files</h2><p>The section collects all ready to execute scripts from project scripts folder and publish them to html documentation folder. Every script must be notice in in executableScripts.m file with one line description. To gain control of script execution during the publish porcess a second cell parameter is added to the script path. The parameter indicates if the script is executed or not. That is very important if scripts contains critical or loop gaining code. In example the publishProjectFilesToHTML.m script such loop gaining code. If eval code during publishing is enabled the script starts publishing itself over and over again because it contains the loop entry via the publish function. So routine is minmal adjusted by evalCode parameter in PublishOptions struct.</p><pre class="codeinput">disp(<span class="string">'Publish executable scripts ...'</span>);
+</pre><h2 id="4">Executable Script Files</h2><p>The section collects all ready to execute scripts from project scripts folder and publish them to html documentation folder. Every script must be notice in in Executable_Scripts.m file with one line description. To gain control of script execution during the publish porcess a second cell parameter is added to the script path. The parameter indicates if the script is executed or not. That is very important if scripts contains critical or loop gaining code. In example the publishProjectFilesToHTML.m script such loop gaining code. If eval code during publishing is enabled the script starts publishing itself over and over again because it contains the loop entry via the publish function. So routine is minmal adjusted by evalCode parameter in PublishOptions struct.</p><pre class="codeinput">disp(<span class="string">'Publish executable scripts ...'</span>);
 executableScriptFiles = { <span class="keyword">...</span>
     {fullfile(rootPath, <span class="string">'scripts'</span>, <span class="string">'publishProjectFilesToHTML.m'</span>), false}, <span class="keyword">...</span>
 };
@@ -133,23 +140,30 @@ disp(<span class="string">'Publishing ...'</span>);
     publishedFile = publish(scriptToPublish{1}{1}, PublishOptions);
     disp(publishedFile);
 <span class="keyword">end</span>
-</pre><h2 id="5">Build Documentation Database for Matlab Help Browser</h2><p>To support Matlabs help browser it is needed build searchable help browser entries including a searchable database backend. Matlabs built-in function builddocsearchdb does the trick. The function just needs the output directory of builded html documentation and it creates a subfolder which includes the database. About the info.xml from the project root and the helptoc.xml file the html documentation folder all listet documentation is accessable. At first remove old database before build the new reference database. Remove autogenerated directory helpsearch-v3. At first get folder content and remove first two relative directory entries from struct. Then delete files and check if files do not exist any more. At least build up new search database entries to Matlab help.</p><pre class="codeinput">disp(<span class="string">'Remove old search entries ...'</span>);
-filesToRemove = dir(fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'html'</span>, <span class="string">'helpsearch-v3'</span>));
-filesToRemove(1:2) = [];
-removeStatus = 0;
-<span class="keyword">for</span> file = filesToRemove'
-    delete(fullfile(file.folder, file.name))
-    removeStatus = removeStatus + <span class="keyword">...</span>
-        exist(fullfile(file.folder, file.name), <span class="string">'file'</span>);
+</pre><h2 id="5">Util Function and Classes</h2><p>That part of the publish script collects function and class m-files from the util section of the source code located in src/util. Introcude every new m-file to the Util_Functions_and_Classes.m and add a short description. In general functions and class files are not executed on publishing execution so set evalCode option to false in PublishOptions struct. In addition to that the source code itself should not be in the published document, so the showCode option is switched to false.</p><pre class="codeinput">PublishOptions.evalCode = false;
+PublishOptions.showCode = false;
+disp(<span class="string">'Publish util functions and classes ...'</span>);
+utilFunctionClassesFiles = { <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'src'</span>, <span class="string">'util'</span>, <span class="string">'removeFilesFromDir.m'</span>), <span class="keyword">...</span>
+};
+disp(<span class="string">'Util function and class files collected ...'</span>);
+disp(<span class="string">'Publishing ...'</span>);
+<span class="keyword">for</span> utilToPublish = utilFunctionClassesFiles
+    disp(utilToPublish{:});
+    publishedFile = publish(utilToPublish{:}, PublishOptions);
+    disp(publishedFile)
 <span class="keyword">end</span>
-<span class="keyword">if</span> removeStatus &gt; 0
-    disp(<span class="string">'Could not remove old search entries ...'</span>);
-<span class="keyword">else</span>
+</pre><h2 id="6">Build Documentation Database for Matlab Help Browser</h2><p>To support Matlabs help browser it is needed build searchable help browser entries including a searchable database backend. Matlabs built-in function builddocsearchdb does the trick. The function just needs the output directory of builded html documentation and it creates a subfolder which includes the database. About the info.xml from the project root and the helptoc.xml file the html documentation folder all listet documentation is accessable. At first remove old database before build the new reference database. Remove autogenerated directory helpsearch-v3. At first get folder content and remove first two relative directory entries from struct. Then delete files and check if files do not exist any more. At least build up new search database entries to Matlab help.</p><pre class="codeinput">disp(<span class="string">'Remove old search entries ...'</span>);
+removeStatus = removeFilesFromDir( <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'html'</span>, <span class="string">'helpsearch-v3'</span>));
+<span class="keyword">if</span> removeStatus
     builddocsearchdb(PublishOptions.outputDir);
     disp(<span class="string">'Search entries generated ...'</span>);
+<span class="keyword">else</span>
+    disp(<span class="string">'Could not remove old search entries ...'</span>);
 <span class="keyword">end</span>
 disp(<span class="string">'Done ...'</span>);
-</pre><h2 id="6">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Git_Feature_Branch_Workflow.html'</span>));
+</pre><h2 id="7">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Documentation_Workflow.html'</span>));
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% publishProjectFilesToHTML
@@ -182,6 +196,10 @@ disp(<span class="string">'Done ...'</span>);
 % Edited on October 02. 2020 by Tobias Wulf: See also manually links (evalCode).
 % Edited on October 07. 2020 by Tobias Wulf: Add Project_Structure.m.
 % Edited on October 07. 2020 by Tobias Wulf: Git Feature Branch Workflow.
+% Edited on October 10. 2020 by Tobias Wulf: Add Documentation Workflow.
+% Edited on October 10. 2020 by Tobias Wulf: Add Source Code.
+% Edited on October 10. 2020 by Tobias Wulf: Add Util Functions and Classes.
+% Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -236,6 +254,9 @@ projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Executable_Scripts.m'), ...
     fullfile(rootPath, 'docs', 'Project_Structure.m'), ...
     fullfile(rootPath, 'docs', 'Git_Feature_Branch_Workflow.m'), ...
+    fullfile(rootPath, 'docs', 'Documentation_Workflow.m'), ...
+    fullfile(rootPath, 'docs', 'Source_Code.m'), ...
+    fullfile(rootPath, 'docs', 'Util_Functions_and_Classes.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');
@@ -248,7 +269,7 @@ end
 %% Executable Script Files
 % The section collects all ready to execute scripts from project scripts folder
 % and publish them to html documentation folder. Every script must be notice in
-% in executableScripts.m file with one line description. To gain control of
+% in Executable_Scripts.m file with one line description. To gain control of
 % script execution during the publish porcess a second cell parameter is added
 % to the script path. The parameter indicates if the script is executed or not.
 % That is very important if scripts contains critical or loop gaining code. In
@@ -270,6 +291,28 @@ for scriptToPublish = executableScriptFiles
     disp(publishedFile);
 end
 
+%% Util Function and Classes
+% That part of the publish script collects function and class m-files from the
+% util section of the source code located in src/util. Introcude every new
+% m-file to the Util_Functions_and_Classes.m and add a short description.
+% In general functions and class files are not executed on publishing execution
+% so set evalCode option to false in PublishOptions struct. In addition to that
+% the source code itself should not be in the published document, so the
+% showCode option is switched to false.
+PublishOptions.evalCode = false;
+PublishOptions.showCode = false;
+disp('Publish util functions and classes ...');
+utilFunctionClassesFiles = { ...
+    fullfile(rootPath, 'src', 'util', 'removeFilesFromDir.m'), ...
+};
+disp('Util function and class files collected ...');
+disp('Publishing ...');
+for utilToPublish = utilFunctionClassesFiles
+    disp(utilToPublish{:});
+    publishedFile = publish(utilToPublish{:}, PublishOptions);
+    disp(publishedFile)
+end
+
 %% Build Documentation Database for Matlab Help Browser
 % To support Matlabs help browser it is needed build searchable help browser
 % entries including a searchable database backend. Matlabs built-in function
@@ -283,19 +326,13 @@ end
 % and check if files do not exist any more. At least build up new search
 % database entries to Matlab help.
 disp('Remove old search entries ...');
-filesToRemove = dir(fullfile(rootPath, 'docs', 'html', 'helpsearch-v3'));
-filesToRemove(1:2) = [];
-removeStatus = 0;
-for file = filesToRemove'
-    delete(fullfile(file.folder, file.name))
-    removeStatus = removeStatus + ... 
-        exist(fullfile(file.folder, file.name), 'file');
-end
-if removeStatus > 0
-    disp('Could not remove old search entries ...');
-else
+removeStatus = removeFilesFromDir( ...
+    fullfile(rootPath, 'docs', 'html', 'helpsearch-v3'));
+if removeStatus
     builddocsearchdb(PublishOptions.outputDir);
     disp('Search entries generated ...');
+else
+    disp('Could not remove old search entries ...');
 end
 disp('Done ...');
 
@@ -303,7 +340,7 @@ disp('Done ...');
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'Git_Feature_Branch_Workflow.html'));
+open(fullfile(PublishOptions.outputDir, 'Documentation_Workflow.html'));
 
 ##### SOURCE END #####
 --></body></html>

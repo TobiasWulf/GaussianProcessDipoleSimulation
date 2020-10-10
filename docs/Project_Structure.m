@@ -21,7 +21,7 @@
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   !tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/Toolbox/docs/html/Directory_Tree.txt -I "project|Project_*
+%   !tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/Toolbox/docs/html/Directory_Tree.txt -I "project|Project_*"
 %
 %% Directory Tasks
 %
@@ -113,6 +113,13 @@
 %     <td>Source code directory which contains reusable source code clustered in
 %     submodule direcotries. The code can be function oriented or class oriented
 %     or a mix of both. Contains no bare script files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/util</td>
+%     <td>Util function and class space. Function and class source code to slove
+%     upcomming help tasks e.g. to manage project content, to support plot
+%     framework or reporting or publishing processes.
 %     </td>
 %   </tr>
 %   <tr>
