@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Documentation Workflow</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Script Template</a></li></ul></div><h2 id="1">Script Template</h2><pre class="language-matlab"><span class="comment">%% scriptName</span>
+  </style></head><body><div class="content"><h1>Documentation Workflow</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Script Template</a></li><li><a href="#2">Function Template</a></li></ul></div><h2 id="1">Script Template</h2><pre class="language-matlab"><span class="comment">%% scriptName</span>
 <span class="comment">% Detailed description of the script task and summary description of</span>
 <span class="comment">% underlaying script sections.</span>
 <span class="comment">%</span>
@@ -96,10 +96,69 @@ Enter <span class="string">section</span> <span class="string">source</span> <sp
 <span class="comment">% Detailed section description of step by step executed script code.</span>
 disp(<span class="string">"Prompt current step or meaningful information of variables."</span>)
 Enter <span class="string">section</span> <span class="string">source</span> <span class="string">code</span>
+</pre><h2 id="2">Function Template</h2><pre class="language-matlab"><span class="comment">%% functionName</span>
+<span class="comment">% Single line summary.</span>
+<span class="comment">%</span>
+<span class="comment">%% Syntax</span>
+<span class="comment">%   outputArg = functionName(positionalArg)</span>
+<span class="comment">%   outputArg = functionName(positionalArg, optionalArg)</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">%% Description</span>
+<span class="comment">% outputArg = functionName(positionalArg) detailed use case description.</span>
+<span class="comment">%</span>
+<span class="comment">% outputArg = functionName(positionalArg, optionalArg) detailed use case</span>
+<span class="comment">% description.</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">%% Example</span>
+<span class="comment">%   Enter example matlab code for each use case.</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">%% Requirements</span>
+<span class="comment">% * Other m-files required: None</span>
+<span class="comment">% * Subfunctions: None</span>
+<span class="comment">% * MAT-files required: None</span>
+<span class="comment">%</span>
+<span class="comment">% See also:</span>
+<span class="comment">%</span>
+<span class="comment">% * Reference1</span>
+<span class="comment">% * Reference2</span>
+<span class="comment">% * Reference3</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">% Created on Month DD. YYYY by Creator. Copyright Creator 2020.</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;html&gt;</span>
+<span class="comment">% &lt;!--</span>
+<span class="comment">% Hidden Clutter.</span>
+<span class="comment">% Edited on Month DD. YYYY by Editor: Single line description.</span>
+<span class="comment">% --&gt;</span>
+<span class="comment">% &lt;/html&gt;</span>
+<span class="comment">%</span>
+<span class="keyword">function</span> [outputArg] = functionName(possitionalArg, optionalArg)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate possitionalArg: dim class {validator}</span>
+        possitionalArg <span class="typesection">(1,:) double {mustBeNumeric}</span>
+        <span class="comment">% validate optionalArg: dim class {validator} = defaultValue</span>
+        optionalArg <span class="typesection">(1,:) doubel {mustBeNumeric, mustBeEqualSize(positionalArg, optionalArg)}</span> = 4
+    <span class="keyword">end</span>
+    outputArg = positionalArg + optionalArg;
+<span class="keyword">end</span>
+</pre><pre class="language-matlab"><span class="comment">% Custom validation function</span>
+<span class="keyword">function</span> mustBeEqualSize(a,b)
+    <span class="comment">% Test for equal size</span>
+    <span class="keyword">if</span> ~isequal(size(a),size(b))
+        eid = <span class="string">'Size:notEqual'</span>;
+        msg = <span class="string">'Size of first input must equal size of second input.'</span>;
+        throwAsCaller(MException(eid,msg))
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
 </pre><p>Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
-Edited on Month DD. YYYY by Editor: Single line description.
+Edited on October 10. 2020 by Tobias Wulf: Add script template.
+Edited on October 11. 2020 by Tobias Wulf: Add function template.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -140,14 +199,79 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %   Enter section source code
 %
 %
+%% Function Template
+%
+%   %% functionName
+%   % Single line summary.
+%   %
+%   %% Syntax
+%   %   outputArg = functionName(positionalArg)
+%   %   outputArg = functionName(positionalArg, optionalArg)
+%   %
+%   %
+%   %% Description
+%   % outputArg = functionName(positionalArg) detailed use case description.
+%   %
+%   % outputArg = functionName(positionalArg, optionalArg) detailed use case
+%   % description.
+%   %
+%   %
+%   %% Example
+%   %   Enter example matlab code for each use case.
+%   %
+%   %
+%   %% Requirements
+%   % * Other m-files required: None
+%   % * Subfunctions: None
+%   % * MAT-files required: None
+%   %
+%   % See also:
+%   %
+%   % * Reference1
+%   % * Reference2
+%   % * Reference3
+%   %
+%   %
+%   % Created on Month DD. YYYY by Creator. Copyright Creator 2020.
+%   %
+%   % <html>
+%   % <!REPLACE_WITH_DASH_DASH
+%   % Hidden Clutter.
+%   % Edited on Month DD. YYYY by Editor: Single line description.
+%   % REPLACE_WITH_DASH_DASH>
+%   % </html>
+%   % 
+%   function [outputArg] = functionName(possitionalArg, optionalArg)
+%       arguments
+%           % validate possitionalArg: dim class {validator}
+%           possitionalArg (1,:) double {mustBeNumeric}
+%           % validate optionalArg: dim class {validator} = defaultValue
+%           optionalArg (1,:) doubel {mustBeNumeric, mustBeEqualSize(positionalArg, optionalArg)} = 4
+%       end
+%       outputArg = positionalArg + optionalArg;
+%   end
+%   
+%   % Custom validation function
+%   function mustBeEqualSize(a,b)
+%       % Test for equal size
+%       if ~isequal(size(a),size(b))
+%           eid = 'Size:notEqual';
+%           msg = 'Size of first input must equal size of second input.';
+%           throwAsCaller(MException(eid,msg))
+%       end
+%   end
+%
+%
 % Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on October 10. 2020 by Tobias Wulf: Add script template.
+% Edited on October 11. 2020 by Tobias Wulf: Add function template.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
+
 ##### SOURCE END #####
 --></body></html>
