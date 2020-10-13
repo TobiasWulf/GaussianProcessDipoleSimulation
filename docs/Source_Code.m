@@ -14,6 +14,12 @@
 % with detailed documentation a high percentage of reusable source code.
 %
 %
+%% Util Functions and Classes
+% Util function and classes to provide reuse for often upcommings tasks and
+% functionality besides project kernel and module source code. Located under
+% source code directory: *./src/util*.
+%
+%
 % Created on October 10. by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
@@ -23,7 +29,3 @@
 % -->
 % </html>
 %
-%
-%% util
-% Util function and classes to provide reuse for often upcommings tasks and
-% functionality besides project kernel and module source code.

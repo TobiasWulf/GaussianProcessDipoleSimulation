@@ -5,6 +5,11 @@
 % generate project configuration file which are used by other scripts or loaded
 % by functions to control and execute task in a unified project structure.
 %
+%
+%% publishProjectFilesHTML
+%  Generate Matlab help browser integrated HTML documentation.
+%
+%
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
@@ -14,6 +19,3 @@
 % -->
 % </html>
 %
-%
-%% publishProjectFilesHTML
-%  Generate Matlab help browser integrated HTML documentation.

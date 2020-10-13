@@ -7,8 +7,8 @@
 % execution of project task to manage project files. To add new content have a
 % look at the links below.
 %
-% See also:
 %
+%% See Also
 % * <matlab:web(fullfile(docroot,'simulink/ug/specify-project-path.html')) Specify Project Path>
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html')) Add Files to the Project>
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-labels-to-files.html')) Add Labels to Files>
@@ -152,7 +152,8 @@
 %
 % *Add new file to project:*
 %
-% # Create new File and edit after Documentation Flow and Conventions.
+% # Create new File and edit the file after <Documentation_Workflow.html Documentation Workflow>
+%   and Conventions.
 % # Run Checks *>* Add Files.
 % # Label the new file from project pane.
 % # Commit file into active branch.

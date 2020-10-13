@@ -6,6 +6,11 @@
 % classifficated source code solve module unrelated tasks.
 %
 %
+%% removeFilesFromDir
+% Remove files from passed directory and identifier. Return a operation status
+% if files are removed successful or not.
+%
+%
 % Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
@@ -15,7 +20,3 @@
 % -->
 % </html>
 %
-%
-%% removeFilesFromDir
-% Remove files from passed directory and identifier. Return a operation status
-% if files are removed successful or not.

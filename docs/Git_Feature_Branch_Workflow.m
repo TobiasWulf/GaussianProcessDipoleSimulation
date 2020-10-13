@@ -16,15 +16,15 @@
 % pages describe to use the embedded Matlab Git tooling to apply changes with
 % branching merging.
 %
-% See also:
 %
+%% See Also
 % * <https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow Feature Branch Workflow>
 % * <matlab:web(fullfile(docroot,'matlab/matlab_prog/branch-and-merge-with-git.html')) Branch and Merge with Git>
 % * <matlab:web(fullfile(docroot,'matlab/matlab_prog/push-and-fetch-with-git.html')) Pull, Push and Fetch Files with Git>
 % * <matlab:web(fullfile(docroot,'matlab/matlab_prog/update-git-file-status-and-revision.html')) Update Git File Status and Revision>
 %
-% *Workflow example:*
 %
+%% Examples
 % # The master branch is created. Project starts with commit C0.
 % # One commit C1 is added to the master branch e.g. by adding .gitattributes.
 % # But there was an issue with that attributes declaration so a new branch is
@@ -52,6 +52,7 @@
 % <img src="images/feature_branch_workflow.svg" height=350>
 % </html>
 %
+%
 % Created on October 07. 2020 by Tobias Wulf. Copyright Tobias 2020.
 %
 % <html>
@@ -62,3 +63,5 @@
 % Edited on October 08. 2020 by Tobias Wulf: Add workflow description.
 % -->
 % </html>
+%
+

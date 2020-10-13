@@ -10,8 +10,8 @@
 % project structure in general. Each step is documented with screenshots to give 
 % a comprehensible explanation.
 %
-% See also:
 %
+%% See Also
 % * <matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html')) Create a New Project From a Folder>
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html')) Add a Project to Source Control>
 % * <matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html')) Setup Git Source Control>

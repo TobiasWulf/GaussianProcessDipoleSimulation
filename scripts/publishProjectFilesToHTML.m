@@ -5,12 +5,19 @@
 % documentation files. For a complete documentation support each generated html
 % document needs to get listed in the project helptoc file with toc entry.
 %
-% See also:
 %
+%% Requirements
+% * Other m-files required: ../src/util/removeFilesFromDir.m
+% * Subfunctions: None
+% * MAT-files required: None
+%
+%
+%% See Also
 % * <matlab:web(fullfile(docroot,'matlab/ref/publish.html')) publish>
 % * <matlab:web(fullfile(docroot,'matlab/ref/fullfile.html')) fullfile>
 % * <matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html')) builddocsearchdb>
-% * <matlab:web(fullfile(docroot,'matlab/ref/delete.html')) delete>
+% * <removeFilesFromDir.html removeFilesFromDir>
+%
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
@@ -32,6 +39,7 @@
 % Edited on October 10. 2020 by Tobias Wulf: Add Source Code.
 % Edited on October 10. 2020 by Tobias Wulf: Add Util Functions and Classes.
 % Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
+% Edited on October 12. 2020 by Tobias Wulf: Get root folder from project.
 % -->
 % </html>
 %
@@ -39,11 +47,13 @@
 %% Start Publishing Script and Clean Up
 % At first clean up junk from workspace and clear prompt for new output. Set
 % project root path to create absolute file path with fullfile function.
-% Relative path objective can be lead to shadowing file errors.
+% Relative path objective can be lead to shadowing file errors. Get project
+% folder or root directory from matlab project instance. Project must be open.
 clearvars;
 clc;
 disp('Workspace cleaned up ...');
-rootPath = '/home/tobias/Documents/workspace/matlab/GaussianProcessDipolSimulation/Toolbox/';
+projectInstance = matlab.project.currentProject;
+rootPath = projectInstance.RootFolder;
 disp('Set project root path to ...');
 disp(rootPath);
 

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Git Feature Branch Workflow</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-11"><meta name="DC.source" content="Git_Feature_Branch_Workflow.m"><style type="text/css">
+      --><title>Git Feature Branch Workflow</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-13"><meta name="DC.source" content="Git_Feature_Branch_Workflow.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Git Feature Branch Workflow</h1><p>The project work with Git requires a consistent workflow to apply changes to the Matlab project in a way that no broken source code affects the current state of the project. Therefore Git has the ability to work on new features, issues or bugs in the certain workflow which matches those requirements. This workflow is called Feature Branch Workflow. The workflow describes that for every change in the source code a new branch must be opened in the Git tree. The following changes are committed to the new branch and so that changing commits are not listed in the master branch of the Git tree and have no effect on the made work until the branch is merged back into the master branch. That makes it possible to work on several new features at a time and guarantees a functional working version of the project.</p><p>For a deeper understanding in example have a look at the description of Atlassian tutorial page of the Feature Branch Workflow. The listed Matlab help pages describe to use the embedded Matlab Git tooling to apply changes with branching merging.</p><p>See also:</p><div><ul><li><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">Feature Branch Workflow</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/branch-and-merge-with-git.html'))">Branch and Merge with Git</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/push-and-fetch-with-git.html'))">Pull, Push and Fetch Files with Git</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/update-git-file-status-and-revision.html'))">Update Git File Status and Revision</a></li></ul></div><p><b>Workflow example:</b></p><div><ol><li>The master branch is created. Project starts with commit C0.</li><li>One commit C1 is added to the master branch e.g. by adding .gitattributes.</li><li>But there was an issue with that attributes declaration so a new branch is   opened to solve that issue.</li><li>On the same time a new feature must be established e.g. a new script or   function. So a second branch is opened.</li><li>Also a third for a small bug fix.</li><li>Now the work at those three different task can be done in parrallel without   affecting each other.</li><li>Switch between the different branches by checkout the branch and commit the   ongoing work into each branch for itself.</li><li>If the work is done in a branch, the branch must be merged on the master   branch. Git makes automated merge commits (C6, C7, C9) where the changes   from the branches are integrated in master branch files.</li><li>At this point it is possible that merging conflicts are raised. Those   conflicts in the files must be solved manually.</li><li>Just open a new branch for the next change, switch to it and commit the work   until its done and the branch is ready to merge back into master</li></ol></div><p><b>It is best practice to push all created local branches to a remote repository  too! It completes the backup on the one hand and on the other it makes the  ongoing work accessable to third.</b></p><p>
+  </style></head><body><div class="content"><h1>Git Feature Branch Workflow</h1><!--introduction--><p>The project work with Git requires a consistent workflow to apply changes to the Matlab project in a way that no broken source code affects the current state of the project. Therefore Git has the ability to work on new features, issues or bugs in the certain workflow which matches those requirements. This workflow is called Feature Branch Workflow. The workflow describes that for every change in the source code a new branch must be opened in the Git tree. The following changes are committed to the new branch and so that changing commits are not listed in the master branch of the Git tree and have no effect on the made work until the branch is merged back into the master branch. That makes it possible to work on several new features at a time and guarantees a functional working version of the project.</p><p>For a deeper understanding in example have a look at the description of Atlassian tutorial page of the Feature Branch Workflow. The listed Matlab help pages describe to use the embedded Matlab Git tooling to apply changes with branching merging.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li><li><a href="#2">Examples</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">Feature Branch Workflow</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/branch-and-merge-with-git.html'))">Branch and Merge with Git</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/push-and-fetch-with-git.html'))">Pull, Push and Fetch Files with Git</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/update-git-file-status-and-revision.html'))">Update Git File Status and Revision</a></li></ul></div><h2 id="2">Examples</h2><div><ol><li>The master branch is created. Project starts with commit C0.</li><li>One commit C1 is added to the master branch e.g. by adding .gitattributes.</li><li>But there was an issue with that attributes declaration so a new branch is   opened to solve that issue.</li><li>On the same time a new feature must be established e.g. a new script or   function. So a second branch is opened.</li><li>Also a third for a small bug fix.</li><li>Now the work at those three different task can be done in parrallel without   affecting each other.</li><li>Switch between the different branches by checkout the branch and commit the   ongoing work into each branch for itself.</li><li>If the work is done in a branch, the branch must be merged on the master   branch. Git makes automated merge commits (C6, C7, C9) where the changes   from the branches are integrated in master branch files.</li><li>At this point it is possible that merging conflicts are raised. Those   conflicts in the files must be solved manually.</li><li>Just open a new branch for the next change, switch to it and commit the work   until its done and the branch is ready to merge back into master</li></ol></div><p><b>It is best practice to push all created local branches to a remote repository  too! It completes the backup on the one hand and on the other it makes the  ongoing work accessable to third.</b></p><p>
 <img src="images/feature_branch_workflow.svg" height=350>
 </p><p>Created on October 07. 2020 by Tobias Wulf. Copyright Tobias 2020.</p><p>
 <!--
@@ -96,15 +96,15 @@ Edited on October 08. 2020 by Tobias Wulf: Add workflow description.
 % pages describe to use the embedded Matlab Git tooling to apply changes with
 % branching merging.
 %
-% See also:
 %
+%% See Also
 % * <https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow Feature Branch Workflow>
 % * <matlab:web(fullfile(docroot,'matlab/matlab_prog/branch-and-merge-with-git.html')) Branch and Merge with Git>
 % * <matlab:web(fullfile(docroot,'matlab/matlab_prog/push-and-fetch-with-git.html')) Pull, Push and Fetch Files with Git>
 % * <matlab:web(fullfile(docroot,'matlab/matlab_prog/update-git-file-status-and-revision.html')) Update Git File Status and Revision>
 %
-% *Workflow example:*
 %
+%% Examples
 % # The master branch is created. Project starts with commit C0.
 % # One commit C1 is added to the master branch e.g. by adding .gitattributes.
 % # But there was an issue with that attributes declaration so a new branch is
@@ -132,6 +132,7 @@ Edited on October 08. 2020 by Tobias Wulf: Add workflow description.
 % <img src="images/feature_branch_workflow.svg" height=350>
 % </html>
 %
+%
 % Created on October 07. 2020 by Tobias Wulf. Copyright Tobias 2020.
 %
 % <html>
@@ -142,6 +143,8 @@ Edited on October 08. 2020 by Tobias Wulf: Add workflow description.
 % Edited on October 08. 2020 by Tobias Wulf: Add workflow description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
+%
+
 
 ##### SOURCE END #####
 --></body></html>

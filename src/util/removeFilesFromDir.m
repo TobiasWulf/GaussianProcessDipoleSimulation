@@ -20,7 +20,7 @@
 % myfile_*.m or *.txt and so on.
 %
 %
-%% Example
+%% Examples
 %   d = fullfile('rootPath', 'subfolder')
 %   rs = removeFileFromDir(d)
 %
@@ -32,13 +32,16 @@
 % * Subfunctions: None
 % * MAT-files required: None
 %
-% See also:
 %
+%% See Also
 % * <matlab:web(fullfile(docroot,'matlab/ref/fullfile.html')) fullfile>
 % * <matlab:web(fullfile(docroot,'matlab/ref/dir.html')) dir>
 % * <matlab:web(fullfile(docroot,'matlab/ref/delete.html')) delete>
 % * <matlab:web(fullfile(docroot,'matlab/ref/isfile.html')) isfile>
 % * <matlab:web(fullfile(docroot,'matlab/ref/isempty.html')) isempty>
+% * <matlab:web(fullfile(docroot,'matlab/ref/double.ismember.html')) ismember>
+% * <matlab:web(fullfile(docroot,'matlab/ref/mustbefolder.html')) mustBeFolder>
+% * <matlab:web(fullfile(docroot,'matlab/ref/mustbetext.html')) mustBeText>
 %
 %
 % Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
@@ -47,6 +50,7 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on October 11. 2020 by Tobias Wulf: Tested with R2020b.
 % -->
 % </html>
 % 

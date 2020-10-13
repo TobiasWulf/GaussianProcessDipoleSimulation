@@ -1,5 +1,27 @@
 %% Documentation Workflow
+% The documentation workflow describes how to document new m-file scripts or
+% functions and where they must be registrated into the publishing process of 
+% the documentation. So the published m-file is available in the Matlab help
+% browser of this project.
+%
+% # Create a new m-file in the project structure
+% # Use the script or function template for initial edit and fill the template
+%   with new content. 
+% # Make introducing documentation entries. If it is a new module, so introduce
+%   the module with its own doc where all scripts, functions and classes are
+%   listed. If this document already exist, make a new entry.
+% # Make help entry in the helptoc.xml via tocitem tag. List all sections of the
+%   doc comment as sub tocitems.
+% # Introduce the new file to the publish script and make an entry under a
+%   fitting section or make a new one if it is a new module or folder.
+% # Commit the done work.
 % 
+%
+%% See Also
+% * <Project_Structure.html Project Structure>.
+% * <matlab:web(fullfile(docroot,'matlab/matlab_prog/display-custom-documentation.html')) Display Costum Documentation>
+% * <publishProjectFilesToHTML.html publishProjectFilesToHTML>
+%
 %
 %% Script Template
 %
@@ -7,8 +29,14 @@
 %   % Detailed description of the script task and summary description of
 %   % underlaying script sections.
 %   %
-%   % See also:
 %   %
+%   %% Requirements
+%   % * Other m-files required: None
+%   % * Subfunctions: None
+%   % * MAT-files required: None
+%   %
+%   %
+%   %% See Also
 %   % * Reference1
 %   % * Reference2
 %   % * Reference3
@@ -52,7 +80,7 @@
 %   % description.
 %   %
 %   %
-%   %% Example
+%   %% Examples
 %   %   Enter example matlab code for each use case.
 %   %
 %   %
@@ -61,8 +89,8 @@
 %   % * Subfunctions: None
 %   % * MAT-files required: None
 %   %
-%   % See also:
 %   %
+%   %% See Also
 %   % * Reference1
 %   % * Reference2
 %   % * Reference3
