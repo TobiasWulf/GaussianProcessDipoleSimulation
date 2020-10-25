@@ -123,6 +123,11 @@
 %     </td>
 %   </tr>
 %   <tr>
+%     <td>./src/util/plotFunctions</td>
+%     <td>Contain plot functions for reuse.
+%     </td>
+%   </tr>
+%   <tr>
 %     <td>./tests</td>
 %     <td>For test driven development each function or class needs a own
 %     test space or file. The directory contains these test.

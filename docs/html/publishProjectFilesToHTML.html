@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-13"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-24"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -86,6 +86,7 @@ Edited on October 10. 2020 by Tobias Wulf: Add Source Code.
 Edited on October 10. 2020 by Tobias Wulf: Add Util Functions and Classes.
 Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
 Edited on October 12. 2020 by Tobias Wulf: Get root folder from project.
+Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions.m.
 -->
 </p><h2 id="3">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors. Get project folder or root directory from matlab project instance. Project must be open.</p><pre class="codeinput">clearvars;
 clc;
@@ -122,6 +123,7 @@ projectDocFiles = { <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Documentation_Workflow.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Source_Code.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Util_Functions_and_Classes.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'plotFunctions.m'</span>), <span class="keyword">...</span>
 };
 disp(<span class="string">'Project documentation files collected ...'</span>);
 disp(<span class="string">'Publishing ...'</span>);
@@ -210,6 +212,7 @@ disp(<span class="string">'Done ...'</span>);
 % Edited on October 10. 2020 by Tobias Wulf: Add Util Functions and Classes.
 % Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
 % Edited on October 12. 2020 by Tobias Wulf: Get root folder from project.
+% Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions.m.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -269,6 +272,7 @@ projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Documentation_Workflow.m'), ...
     fullfile(rootPath, 'docs', 'Source_Code.m'), ...
     fullfile(rootPath, 'docs', 'Util_Functions_and_Classes.m'), ...
+    fullfile(rootPath, 'docs', 'plotFunctions.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');

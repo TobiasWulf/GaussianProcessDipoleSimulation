@@ -11,12 +11,17 @@
 % if files are removed successful or not.
 %
 %
+%% plotFunctions
+% A submodule to contain plot functions for general and specific use on data or
+% datasets.
+%
 % Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!--
 % Hidden Clutter.
 % Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
+% Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions submodule.
 % -->
 % </html>
 %
