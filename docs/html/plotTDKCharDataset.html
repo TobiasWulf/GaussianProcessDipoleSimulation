@@ -76,7 +76,7 @@ figs = plotTDKCharDataset(dataset);
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
-Edited on October 26. 2020 by Tobias Wulf: Finish plots and docstring.
+Edited on October 26. 2020 by Tobias Wulf: Finish plots, docstring, adjust phi.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -125,7 +125,7 @@ Edited on October 26. 2020 by Tobias Wulf: Finish plots and docstring.
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
-% Edited on October 26. 2020 by Tobias Wulf: Finish plots and docstring.
+% Edited on October 26. 2020 by Tobias Wulf: Finish plots, docstring, adjust phi.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -184,8 +184,8 @@ function [Figures] = plotTDKCharDataset(dataset, dock)
     p3 = plot(phi(1:nSamples/2), hxStim(1:nSamples/2), 'b');
     p4 = plot(phi(nSamples/2:end), hxStim(nSamples/2:end), 'r');
     ylabel('Hx')
-    xticks([0 0.25*pi 0.5*pi 0.75*pi pi] * nPeriods);
-    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi'})
+    xticks([0 0.25*pi 0.5*pi 0.75*pi pi 1.25*pi 1.5*pi 1.75*pi 2*pi] * nPeriods);
+    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi', '56\pi', '64\pi'});
     xlabel('160 periods reduced by 10 for better view');
     title('Triangle Modulation 0.01Hz with Cosinus Carrier 3.2Hz')
     legend([p3, p4], 'Rise', 'Fall')
@@ -199,8 +199,8 @@ function [Figures] = plotTDKCharDataset(dataset, dock)
     p7 = plot(phi(1:nSamples/2), hyStim(1:nSamples/2), 'b');
     p8 = plot(phi(nSamples/2:end), hyStim(nSamples/2:end), 'r');
     ylabel('Hy')
-    xticks([0 0.25*pi 0.5*pi 0.75*pi pi] * nPeriods);
-    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi'})
+    xticks([0 0.25*pi 0.5*pi 0.75*pi pi 1.25*pi 1.5*pi 1.75*pi 2*pi] * nPeriods);
+    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi', '56\pi', '64\pi'});
     xlabel('320 periods reduced by 10 for better view');
     title('Triangle Modulation 0.01Hz with Sinus Carrier 3.2Hz')
     legend([p7, p8], 'Rise', 'Fall')
