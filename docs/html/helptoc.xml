@@ -61,7 +61,15 @@
                     <tocitem target="removeFilesFromDir.html#4">Requirements</tocitem>
                     <tocitem target="removeFilesFromDir.html#5">See Also</tocitem>
                 </tocitem>
-                <tocitem target="plotFunctions.html">plotFunctions</tocitem>
+                <tocitem target="plotFunctions.html">plotFunctions
+                    <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset
+                        <tocitem target="plotTDKCharDataset.html#1">Syntax</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#2">Decription</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#3">Examples</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#4">Requirements</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#5">See Also</tocitem>
+                    </tocitem>
+                </tocitem>
             </tocitem>
         </tocitem>
     </tocitem>

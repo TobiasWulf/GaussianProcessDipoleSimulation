@@ -41,6 +41,7 @@
 % Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
 % Edited on October 12. 2020 by Tobias Wulf: Get root folder from project.
 % Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions.m.
+% Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.m.
 % -->
 % </html>
 %
@@ -148,6 +149,7 @@ PublishOptions.showCode = false;
 disp('Publish util functions and classes ...');
 utilFunctionClassesFiles = { ...
     fullfile(rootPath, 'src', 'util', 'removeFilesFromDir.m'), ...
+    fullfile(rootPath, 'src', 'util', 'plotFunctions', 'plotTDKCharDataset.m'), ...
 };
 disp('Util function and class files collected ...');
 disp('Publishing ...');
