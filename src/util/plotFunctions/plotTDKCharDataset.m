@@ -149,8 +149,8 @@ function [Figures] = plotTDKCharDataset(dataset, dock)
     % create tile layout to show outputs or rising, falling, all, and
     % differential field strenght outputs.
     t2 = tiledlayout(2, 2);
-    t2.Padding = 'compact';
-    t2.TileSpacing = 'compact';
+    t2.Padding = 'normal';
+    t2.TileSpacing = 'normal';
     t2.Title.String = "Sensor Cosinus Bridge Outpus Gathered from Corresponding Hx- and Hy-Field Amplitudes";
     t2.Subtitle.String = [infoStr; dateStr];
     t2.Subtitle.FontSize = 8;
@@ -166,33 +166,33 @@ function [Figures] = plotTDKCharDataset(dataset, dock)
     set(p11, 'AlphaData', ~isnan(Data.SensorOutput.CosinusBridge.Rise));
     caxis([minOut, maxOut]);
     
-    title('Vcos in mV for Rising Stimulus Hx-/ Hy-Amplitudes')
+    title('Rising Stimulus Hx-/ Hy-Amplitudes')
     
     % % plot outputs from cosinus bridge recorded during falling stimulus 
     ax6 = nexttile;
     p12 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.CosinusBridge.Fall);
     set(p12, 'AlphaData', ~isnan(Data.SensorOutput.CosinusBridge.Fall));
     caxis([minOut, maxOut]);
-    title('Vcos in mV for Falling Stimulus Hx-/ Hy-Amplitudes')
+    title('Falling Stimulus Hx-/ Hy-Amplitudes')
     
     % plot superimpose rising and falling stimulus output
     ax7 = nexttile;
     p13 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.CosinusBridge.All);
     set(p13, 'AlphaData', ~(~Data.SensorOutput.CosinusBridge.All));
     caxis([minOut, maxOut]);
-    title('Vcos in mV for Superimposed Stimulus Hx-/ Hy-Amplitudes')
+    title('Superimposed Stimulus Hx-/ Hy-Amplitudes')
     
     % plot difference btween rising and falling stimulus ouputs
     ax8 = nexttile;
     p14 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.CosinusBridge.Diff);
     set(p14, 'AlphaData', ~isnan(Data.SensorOutput.CosinusBridge.Diff));
     caxis([minOut, maxOut]);
-    title('Vcos in mV for Difference of Stimulus Hx-/ Hy-Amplitudes')
+    title('Differentiated Stimulus Hx-/ Hy-Amplitudes')
     
     % add colorbar and place it overall plots
     cb1 = colorbar;
     cb1.Layout.Tile = 'east';
-    cb1.Label.String = 'Cosinus Bridge Output in mV';
+    cb1.Label.String = 'Cosinus Bridge Output Vcos(Hx, Hy) in mV';
     
     % link axes for simultaniously zoom
     linkaxes([ax5, ax6, ax7, ax8], 'xy');
@@ -207,8 +207,8 @@ function [Figures] = plotTDKCharDataset(dataset, dock)
     % create tile layout to show outputs or rising, falling, all, and
     % differential field strenght outputs.
     t3 = tiledlayout(2, 2);
-    t3.Padding = 'compact';
-    t3.TileSpacing = 'compact';
+    t3.Padding = 'normal';
+    t3.TileSpacing = 'normal';
     t3.Title.String = "Sensor Sinus Bridge Outpus Gathered from Corresponding Hx- and Hy-Field Amplitudes";
     t3.Subtitle.String = [infoStr; dateStr];
     t3.Subtitle.FontSize = 8;
@@ -223,33 +223,33 @@ function [Figures] = plotTDKCharDataset(dataset, dock)
     p15 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.Rise);
     set(p15, 'AlphaData', ~isnan(Data.SensorOutput.SinusBridge.Rise));
     caxis([minOut, maxOut]);
-    title('Vsin in mV for Rising Stimulus Hx-/ Hy-Amplitudes')
+    title('Rising Stimulus Hx-/ Hy-Amplitudes')
     
     % % plot outputs from sinus bridge recorded during falling stimulus 
     ax10 = nexttile;
     p16 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.Fall);
     set(p16, 'AlphaData', ~isnan(Data.SensorOutput.SinusBridge.Fall));
     caxis([minOut, maxOut]);
-    title('Vsin in mV for Falling Stimulus Hx-/ Hy-Amplitudes')
+    title('Falling Stimulus Hx-/ Hy-Amplitudes')
     
     % plot superimpose rising and falling stimulus output
     ax11 = nexttile;
     p17 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.All);
     set(p17, 'AlphaData', ~(~Data.SensorOutput.SinusBridge.All));
     caxis([minOut, maxOut]);
-    title('Vsin in mV for Superimposed Stimulus Hx-/ Hy-Amplitudes')
+    title('Superimposed Stimulus Hx-/ Hy-Amplitudes')
     
     % plot difference btween rising and falling stimulus ouputs
     ax12 = nexttile;
     p18 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.Diff);
     set(p18, 'AlphaData', ~isnan(Data.SensorOutput.SinusBridge.Diff));
     caxis([minOut, maxOut]);
-    title('Vsin in mV for Difference of Stimulus Hx-/ Hy-Amplitudes')
+    title('Differentiated Stimulus Hx-/ Hy-Amplitudes')
     
     % add colorbar and place it overall plots
     cb2 = colorbar;
     cb2.Layout.Tile = 'east';
-    cb2.Label.String = 'Sinus Bridge Output in mV';
+    cb2.Label.String = 'Sinus Bridge Output Vsin(Hx, Hy) in mV';
     
     % link axes for simultaniously zoom
     linkaxes([ax9, ax10, ax11, ax12], 'xy');

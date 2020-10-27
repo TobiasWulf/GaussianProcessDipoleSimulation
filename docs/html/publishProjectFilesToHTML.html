@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-26"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-27"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -88,6 +88,8 @@ Edited on October 10. 2020 by Tobias Wulf: Add removeFilesFromDir.
 Edited on October 12. 2020 by Tobias Wulf: Get root folder from project.
 Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions.m.
 Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.m.
+Edited on October 27. 2020 by Tobias Wulf: Add Datasets.m.
+Edited on October 27. 2020 by Tobias Wulf: Add TDK_TAS2141_Characterization.m.
 -->
 </p><h2 id="3">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors. Get project folder or root directory from matlab project instance. Project must be open.</p><pre class="codeinput">clearvars;
 clc;
@@ -125,6 +127,8 @@ projectDocFiles = { <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Source_Code.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Util_Functions_and_Classes.m'</span>), <span class="keyword">...</span>
     fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'plotFunctions.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'Datasets.m'</span>), <span class="keyword">...</span>
+    fullfile(rootPath, <span class="string">'docs'</span>, <span class="string">'TDK_TAS2141_Characterization.m'</span>), <span class="keyword">...</span>
 };
 disp(<span class="string">'Project documentation files collected ...'</span>);
 disp(<span class="string">'Publishing ...'</span>);
@@ -169,7 +173,7 @@ removeStatus = removeFilesFromDir( <span class="keyword">...</span>
     disp(<span class="string">'Could not remove old search entries ...'</span>);
 <span class="keyword">end</span>
 disp(<span class="string">'Done ...'</span>);
-</pre><h2 id="9">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Documentation_Workflow.html'</span>));
+</pre><h2 id="9">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'Datasets.html'</span>));
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% publishProjectFilesToHTML
@@ -216,6 +220,8 @@ disp(<span class="string">'Done ...'</span>);
 % Edited on October 12. 2020 by Tobias Wulf: Get root folder from project.
 % Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions.m.
 % Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.m.
+% Edited on October 27. 2020 by Tobias Wulf: Add Datasets.m.
+% Edited on October 27. 2020 by Tobias Wulf: Add TDK_TAS2141_Characterization.m.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -276,6 +282,8 @@ projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Source_Code.m'), ...
     fullfile(rootPath, 'docs', 'Util_Functions_and_Classes.m'), ...
     fullfile(rootPath, 'docs', 'plotFunctions.m'), ...
+    fullfile(rootPath, 'docs', 'Datasets.m'), ...
+    fullfile(rootPath, 'docs', 'TDK_TAS2141_Characterization.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');
@@ -360,7 +368,7 @@ disp('Done ...');
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'Documentation_Workflow.html'));
+open(fullfile(PublishOptions.outputDir, 'Datasets.html'));
 
 ##### SOURCE END #####
 --></body></html>

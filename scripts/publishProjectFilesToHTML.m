@@ -42,6 +42,8 @@
 % Edited on October 12. 2020 by Tobias Wulf: Get root folder from project.
 % Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions.m.
 % Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.m.
+% Edited on October 27. 2020 by Tobias Wulf: Add Datasets.m.
+% Edited on October 27. 2020 by Tobias Wulf: Add TDK_TAS2141_Characterization.m.
 % -->
 % </html>
 %
@@ -102,6 +104,8 @@ projectDocFiles = { ...
     fullfile(rootPath, 'docs', 'Source_Code.m'), ...
     fullfile(rootPath, 'docs', 'Util_Functions_and_Classes.m'), ...
     fullfile(rootPath, 'docs', 'plotFunctions.m'), ...
+    fullfile(rootPath, 'docs', 'Datasets.m'), ...
+    fullfile(rootPath, 'docs', 'TDK_TAS2141_Characterization.m'), ...
 };
 disp('Project documentation files collected ...');
 disp('Publishing ...');
@@ -186,4 +190,4 @@ disp('Done ...');
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'Documentation_Workflow.html'));
+open(fullfile(PublishOptions.outputDir, 'Datasets.html'));
