@@ -74,7 +74,13 @@
             </tocitem>
         </tocitem>
         <tocitem target="Datasets.html">Datasets
-            <tocitem target="TDK_TAS2141_Characterization.html">TDK TAS2141 Characterization</tocitem>
+            <tocitem target="TDK_TAS2141_Characterization.html">TDK TAS2141 Characterization
+                <tocitem target="TDK_TAS2141_Characterization.html#1">See Also</tocitem>
+                <tocitem target="TDK_TAS2141_Characterization.html#2">Magnetic Stimulus</tocitem>
+                <tocitem target="TDK_TAS2141_Characterization.html#3">Cosinus Bridge</tocitem>
+                <tocitem target="TDK_TAS2141_Characterization.html#4">Sinus Bridge</tocitem>
+                <tocitem target="TDK_TAS2141_Characterization.html#5">Dataset Structure</tocitem>
+            </tocitem>
         </tocitem>
     </tocitem>
 </toc>

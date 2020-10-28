@@ -16,16 +16,6 @@
 % * <https://ieeexplore.ieee.org/document/8706125 Two-Dimensional Characterization and Simplified Simulation Procedure for Tunnel Magnetoresistive Angle Sensors>
 %
 %
-% Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.
-%
-% <html>
-% <!--
-% Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
-% -->
-% </html>
-%
-%
 %% Magnetic Stimulus
 % The right stimulus is the keynote for characterization records. It needs to
 % have the abillity record slow enough for quasi static recordings but is not
@@ -87,6 +77,24 @@
 %
 %
 %% Cosinuns Bridge Output
+% The record characterization raw data are one dimensional time discrete
+% vecotrs. To fieldstrength images like down below the recorded data must
+% be referenced backwords to driven stimulus of Hx- and Hy-direction. But
+% at first the image size of must be determined. Here fix size is set to
+% 256px for each direction. So it spans a vector for Hx- and Hy-direction
+% from minimum -25kA/m to maximum 25kA/m in 256 steps with a resolution of
+% 0.1961kA/m. So it results into a 256x256 image. Now it runs for each
+% point on the Hx- and Hy-axes and get the record index of the stimulus as
+% backreference to the recorded bridge signal and sets the pixel. 
+% That runs for the rising modulation amplitude and falling amplitude until
+% every pixel is hit and ended up into a dimensional function image as:
+%
+% $V_{cos}(H_x, H_y) = [mV]$
+% 
+% The information of the image is build up in row. Reference Hx for
+% constant Hy in each row. The method is also comparable to a
+% historgram of Hx matches in the recorded sensor signal for one constant
+% Hy and so on next historgram append on the next row for the next Hy.
 %
 % <html>
 % <img src="images/tdk_cosinus_bridge.svg" height=650>
@@ -94,8 +102,80 @@
 %
 %
 %% Sinus Bridge Output
+% The sinus characterization field is build up similar to the cosinus
+% images but the information lays now in the columns so the data is
+% collected in each column for a constant Hx and variable Hy:
+%
+% $V_{sin}(H_x, H_y) = [mV]$
 %
 % <html>
 % <img src="images/tdk_sinus_bridge.svg" height=650>
 % </html>
 %
+%
+%% Dataset Structure
+% The dataset is parted in two main structs. The first one is filled with
+% meta data. So it represents the file header. The struct is called Info
+% and contains information about how the dataset is aquirred. So the
+% stimulus is reconstructable from that meta data.
+%
+% *Info:*
+%
+% * Created - string, contains dataset creation date
+% * Creator - string, contains dataset creator
+% * Edited - string, contains last time edited date
+% * Editor - string, contains last time editor
+% * Senor - string, sensor identification name e.g. TAS2141
+% * SensorType - string, kind of sensor e.g. Angular
+% * SensorTechnology - string, bridge technology e.g. AMR, GMR, TMR
+% * SensorManufacturer - string, producer or supplier e.g. NXP, TDK
+% * *MagneticField* - struct, contains further information about Hx and Hy
+% * *SensorOutput* - struct, contains information about sensor produced
+%   output and gathered image information
+% * *Units* - struct, contains information about used si units in dataset
+%
+% *MagneticField:*
+%
+% * Modulation - string, contains modulation equivalent Matlab function
+% * ModulationFrequency - double, contains frequeny of modulation in Hz
+% * CarrierFrequency - double, carrier frequency for both Hx and Hy carrier
+%   in Hz
+% * MaxAmplitude - double, maximum Hx and Hy field amplitude in kA/m
+% * MinAmplitude - double, minimum Hx and Hy field amplitude in kA/m
+% * Steps - double, Hx- and Hy-field steps to build characterization images
+% * Resolution - double, resolution of one step in kA/m
+% * CarrierHx - string, contains Hx carrier equivalent Matlab function
+% * CarrierHy - string, contains Hy carrier equivalent Matlab function
+%
+% *SensorOutput:*
+%
+% * *CosinusBridge* - struct, contains further information about sensor
+%   cosinus bridge outpus
+% * *SinusBridge* - struct, contains further information about sensor sinus
+%   bridge outputs
+%
+% *CosinusBridge/ SinusBridge:*
+%
+% * xDimension - double, image size in x-direction
+% * yDimension - double, image size in y-direction
+% * xDirection - string, x-axis label
+% * yDirection - string, y-axis label
+% * Orientation - string, orientation of varying data, row or column
+% * Determination - cell, images in data {"Rise", "Fall", "All", "Diff"}
+%
+% *Units:*
+%
+% * MagneticFieldStrength - string, kA/m
+% * Frequency - string, Hz
+% * SensorOutputVoltage - string, mV
+%
+%
+% Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!--
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on October 28. 2020 by Tobias Wulf: Add description for bridges.
+% -->
+% </html>
