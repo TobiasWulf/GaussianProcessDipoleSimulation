@@ -71,7 +71,7 @@
 % The stimulus amplitude depending on the phase in polar coordinates can be
 % displayed for both parts by:
 %
-% $H_{x,y}(\phi(t)) = H_{max} \cdot e^{j\phi(t)}$
+% $H_{x,y}(\phi) = |H_{x,y}(\phi)| \cdot e^{j\phi} = m(t) \cdot e^{j\phi(t)}$
 %
 % Where a rising spiral runs from center outwards for:
 %
