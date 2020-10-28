@@ -23,6 +23,7 @@
                 <tocitem target="Project_Preparation.html#4">Registrate Binaries to Git and Prepare Git Ignore Cases</tocitem>
                 <tocitem target="Project_Preparation.html#5">Checkout Project State and Do an Initial Commit</tocitem>
                 <tocitem target="Project_Preparation.html#6">Push to Remote and Backup</tocitem>
+                <tocitem target="Project_Preparation.html#7">Port Remote Repository to GitHub</tocitem>
             </tocitem>
             <tocitem target="Project_Structure.html">Project Structure
                 <tocitem target="Project_Structure.html#1">See Also</tocitem>

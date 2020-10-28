@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Project Preparation</h1><!--introduction--><p>The first steps to setup a scalable software project are none trival and need a good strcuture for later project expands. Either to setup further new projects a well known scalable project structure helps to combine different software parts to bigger environment packages. Therefore a project preparation flow needs to be documented. It unifies the outcome of software projects and part guarantee certain quality aspects.</p><p>The following steps can be used as guidance to establish a propper Matlab project structure in general. Each step is documented with screenshots to give a comprehensible explanation.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li><li><a href="#2">Create Main Project Directory</a></li><li><a href="#3">Create Matlab Project with Git Support</a></li><li><a href="#4">Registrate Binaries to Git and Prepare Git Ignore Cases</a></li><li><a href="#5">Checkout Project State and Do an Initial Commit</a></li><li><a href="#6">Push to Remote and Backup</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html'))">Create a New Project From a Folder</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html'))">Add a Project to Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html'))">Setup Git Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/use-source-control-with-projects.html'))">Use Source Control with Projects</a></li><li><a href="https://git-scm.com/docs/gitattributes">Git Attributes</a></li><li><a href="https://git-scm.com/docs/gitignore">Git Ignores</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html'))">Add Files to the Project</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html'))">Commit Modified Files to Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html'))">Clone Git Repository</a></li></ul></div><h2 id="2">Create Main Project Directory</h2><p>The main project directory contains only two subfolders. The first one is the Toolbox folder where the project, m-files and other project files like documentation are placed. The folder is also called sandbox folder in Matlab project creation flows which is just another description for a project folder where the coding takes place. The second folder is a hidden Git repository folder which keeps the versionation in final. It is respectively seen a remote repository that establish basics to setup backup plans via Git clone or can be laterly replaced by remote repository on a server or a GitHub repository to work in common on the project.</p><p><b>First step:</b></p><div><ol><li>Create an empty project folder, open Matlab navigate to folder path.</li><li>Right click in the Current Folder pane and create New <b>&gt;</b> Folder "Toolbox".</li><li>Open a Git terminal and in the project directory and initialize an empty   Git repository.</li></ol></div><p>
+  </style></head><body><div class="content"><h1>Project Preparation</h1><!--introduction--><p>The first steps to setup a scalable software project are none trival and need a good strcuture for later project expands. Either to setup further new projects a well known scalable project structure helps to combine different software parts to bigger environment packages. Therefore a project preparation flow needs to be documented. It unifies the outcome of software projects and part guarantee certain quality aspects.</p><p>The following steps can be used as guidance to establish a propper Matlab project structure in general. Each step is documented with screenshots to give a comprehensible explanation.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li><li><a href="#2">Create Main Project Directory</a></li><li><a href="#3">Create Matlab Project with Git Support</a></li><li><a href="#4">Registrate Binaries to Git and Prepare Git Ignore Cases</a></li><li><a href="#5">Checkout Project State and Do an Initial Commit</a></li><li><a href="#6">Push to Remote and Backup</a></li><li><a href="#7">Port Remote Repository to GitHub</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'simulink/ug/create-a-new-project-from-a-folder.html'))">Create a New Project From a Folder</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-a-project-to-source-control.html'))">Add a Project to Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/set-up-git-source-control.html'))">Setup Git Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/use-source-control-with-projects.html'))">Use Source Control with Projects</a></li><li><a href="https://git-scm.com/docs/gitattributes">Git Attributes</a></li><li><a href="https://git-scm.com/docs/gitignore">Git Ignores</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html'))">Add Files to the Project</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/commit-modified-files-to-source-control.html'))">Commit Modified Files to Source Control</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/clone-git-repository.html'))">Clone Git Repository</a></li></ul></div><h2 id="2">Create Main Project Directory</h2><p>The main project directory contains only two subfolders. The first one is the Toolbox folder where the project, m-files and other project files like documentation are placed. The folder is also called sandbox folder in Matlab project creation flows which is just another description for a project folder where the coding takes place. The second folder is a hidden Git repository folder which keeps the versionation in final. It is respectively seen a remote repository that establish basics to setup backup plans via Git clone or can be laterly replaced by remote repository on a server or a GitHub repository to work in common on the project.</p><p><b>First step:</b></p><div><ol><li>Create an empty project folder, open Matlab navigate to folder path.</li><li>Right click in the Current Folder pane and create New <b>&gt;</b> Folder "Toolbox".</li><li>Open a Git terminal and in the project directory and initialize an empty   Git repository.</li></ol></div><p>
 <img src="images/Project_Preparation/1_create_matlab_project_empty_toolbox.png" height=200>
 </p><p>
 <img src="images/Project_Preparation/2_create_matlab_project_empty_git.png" height=200>
@@ -103,12 +103,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
 </p><p>If further changes are comitted to the project push again to the remote from Matlab environment and repeat update the backup from time to time by inserting your medium and make a fresh pull. Change the directory to the folder and just pull again. See below as an example how does it look like.</p><p>
 <img src="images/Project_Preparation/18_pull_after_changes.png" height=350>
-</p><p>Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</p><h2 id="7">Port Remote Repository to GitHub</h2><p>The remote repository is ported to GitHub laterly. Therfore some minimal changes are made manually to the local repository.</p><div><ol><li>According to new rules on GitHub the master branch is renamed to main.</li><li>Due to that a new upstream is set to origin/main from origin/master</li><li>To fetch all casualties a merge was needed from origin/main on local   main. The orign/master reference was included.</li><li>Change remote repository to GitHub URL   <a href="https://github.com/TobiasWulf/GuassianProcessDipolSimulation.git">https://github.com/TobiasWulf/GuassianProcessDipolSimulation.git</a></li><li>At the moment the GitHub repository is private and not visible in the   web. After finishing the general work the repository will be set to   publish in consultation with HAW TMR research project and team.</li><li>After publish on GitHub, clone or fork to work with.</li><li>The source code is hosted under MIT license.</li><li>Use GitHub flows to clone or fork and push changes to backup done work.</li></ol></div><p>Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 Edited on October 05. 2020 by Tobias Wulf: Finish description.
+Edited on October 27. 2020 by Tobias Wulf: Port remote repo to GitHub.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -340,6 +341,24 @@ Edited on October 05. 2020 by Tobias Wulf: Finish description.
 % </html>
 %
 %
+%% Port Remote Repository to GitHub
+% The remote repository is ported to GitHub laterly. Therfore some minimal
+% changes are made manually to the local repository.
+%
+% # According to new rules on GitHub the master branch is renamed to main.
+% # Due to that a new upstream is set to origin/main from origin/master
+% # To fetch all casualties a merge was needed from origin/main on local
+%   main. The orign/master reference was included.
+% # Change remote repository to GitHub URL
+%   https://github.com/TobiasWulf/GuassianProcessDipolSimulation.git
+% # At the moment the GitHub repository is private and not visible in the
+%   web. After finishing the general work the repository will be set to
+%   publish in consultation with HAW TMR research project and team.
+% # After publish on GitHub, clone or fork to work with.
+% # The source code is hosted under MIT license.
+% # Use GitHub flows to clone or fork and push changes to backup done work.
+%
+%
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
@@ -348,6 +367,7 @@ Edited on October 05. 2020 by Tobias Wulf: Finish description.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % Edited on October 05. 2020 by Tobias Wulf: Finish description.
+% Edited on October 27. 2020 by Tobias Wulf: Port remote repo to GitHub.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 ##### SOURCE END #####

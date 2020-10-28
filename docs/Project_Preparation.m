@@ -226,6 +226,24 @@
 % </html>
 %
 %
+%% Port Remote Repository to GitHub
+% The remote repository is ported to GitHub laterly. Therfore some minimal
+% changes are made manually to the local repository.
+%
+% # According to new rules on GitHub the master branch is renamed to main.
+% # Due to that a new upstream is set to origin/main from origin/master
+% # To fetch all casualties a merge was needed from origin/main on local
+%   main. The orign/master reference was included.
+% # Change remote repository to GitHub URL
+%   https://github.com/TobiasWulf/GuassianProcessDipolSimulation.git
+% # At the moment the GitHub repository is private and not visible in the
+%   web. After finishing the general work the repository will be set to
+%   publish in consultation with HAW TMR research project and team.
+% # After publish on GitHub, clone or fork to work with.
+% # The source code is hosted under MIT license.
+% # Use GitHub flows to clone or fork and push changes to backup done work.
+%
+%
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
@@ -234,5 +252,6 @@
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on September 30. 2020 by Tobias Wulf: Add screenshots to documentation.
 % Edited on October 05. 2020 by Tobias Wulf: Finish description.
+% Edited on October 27. 2020 by Tobias Wulf: Port remote repo to GitHub.
 % -->
 % </html>
