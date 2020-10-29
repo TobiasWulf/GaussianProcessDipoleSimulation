@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>publishProjectFilesToHTML</h1><!--introduction--><p>The is script is used to publish all toolbox included files to HTML documentation folder docs/html. The script runs a section with certain options for each project part and uses the built-in function to generate the documentation files. For a complete documentation support each generated html document needs to get listed in the project helptoc file with toc entry.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Publishing Script and Clean Up</a></li><li><a href="#4">Publish Options</a></li><li><a href="#5">Project Documentation Files</a></li><li><a href="#6">Executable Script Files</a></li><li><a href="#7">Util Function and Classes</a></li><li><a href="#8">Build Documentation Database for Matlab Help Browser</a></li><li><a href="#9">Open Generated Documentation.</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: ../src/util/removeFilesFromDir.m</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/publish.html'))">publish</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/fullfile.html'))">fullfile</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html'))">builddocsearchdb</a></li><li><a href="removeFilesFromDir.html">removeFilesFromDir</a></li></ul></div><p>Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>publishProjectFilesToHTML</h1><!--introduction--><p>The is script is used to publish all toolbox included files to HTML documentation folder docs/html. The script runs a section with certain options for each project part and uses the built-in function to generate the documentation files. For a complete documentation support each generated html document needs to get listed in the project helptoc file with toc entry.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Publishing Script and Clean Up</a></li><li><a href="#4">Publish Options</a></li><li><a href="#5">Project Documentation Files</a></li><li><a href="#6">Executable Script Files</a></li><li><a href="#7">Util Function and Classes</a></li><li><a href="#8">Build Documentation Database for Matlab Help Browser</a></li><li><a href="#9">Open Generated Documentation.</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: None</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/publish.html'))">publish</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/fullfile.html'))">fullfile</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/dir.html'))">dir</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html'))">builddocsearchdb</a></li><li><a href="removeFilesFromDir.html">removeFilesFromDir</a></li></ul></div><p>Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -90,6 +90,7 @@ Edited on October 24. 2020 by Tobias Wulf: Add plotFunctions.m.
 Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.m.
 Edited on October 27. 2020 by Tobias Wulf: Add Datasets.m.
 Edited on October 27. 2020 by Tobias Wulf: Add TDK_TAS2141_Characterization.m.
+Edited on October 29. 2020 by Tobias Wulf: Prepare to move config to mat-file.
 -->
 </p><h2 id="3">Start Publishing Script and Clean Up</h2><p>At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Relative path objective can be lead to shadowing file errors. Get project folder or root directory from matlab project instance. Project must be open.</p><pre class="codeinput">clearvars;
 clc;
@@ -185,14 +186,15 @@ disp(<span class="string">'Done ...'</span>);
 %
 %
 %% Requirements
-% * Other m-files required: ../src/util/removeFilesFromDir.m
+% * Other m-files required: src/util/removeFilesFromDir.m
 % * Subfunctions: None
-% * MAT-files required: None
+% * MAT-files required: data/config.mat
 %
 %
 %% See Also
 % * <matlab:web(fullfile(docroot,'matlab/ref/publish.html')) publish>
 % * <matlab:web(fullfile(docroot,'matlab/ref/fullfile.html')) fullfile>
+% * <matlab:web(fullfile(docroot,'matlab/ref/dir.html')) dir>
 % * <matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html')) builddocsearchdb>
 % * <removeFilesFromDir.html removeFilesFromDir>
 %
@@ -222,6 +224,7 @@ disp(<span class="string">'Done ...'</span>);
 % Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.m.
 % Edited on October 27. 2020 by Tobias Wulf: Add Datasets.m.
 % Edited on October 27. 2020 by Tobias Wulf: Add TDK_TAS2141_Characterization.m.
+% Edited on October 29. 2020 by Tobias Wulf: Prepare to move config to mat-file.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %

@@ -7,14 +7,15 @@
 %
 %
 %% Requirements
-% * Other m-files required: ../src/util/removeFilesFromDir.m
+% * Other m-files required: src/util/removeFilesFromDir.m
 % * Subfunctions: None
-% * MAT-files required: None
+% * MAT-files required: data/config.mat
 %
 %
 %% See Also
 % * <matlab:web(fullfile(docroot,'matlab/ref/publish.html')) publish>
 % * <matlab:web(fullfile(docroot,'matlab/ref/fullfile.html')) fullfile>
+% * <matlab:web(fullfile(docroot,'matlab/ref/dir.html')) dir>
 % * <matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html')) builddocsearchdb>
 % * <removeFilesFromDir.html removeFilesFromDir>
 %
@@ -44,6 +45,7 @@
 % Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.m.
 % Edited on October 27. 2020 by Tobias Wulf: Add Datasets.m.
 % Edited on October 27. 2020 by Tobias Wulf: Add TDK_TAS2141_Characterization.m.
+% Edited on October 29. 2020 by Tobias Wulf: Prepare to move config to mat-file.
 % -->
 % </html>
 %
