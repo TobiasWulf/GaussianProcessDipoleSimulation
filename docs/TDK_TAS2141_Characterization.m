@@ -114,12 +114,12 @@
 %
 %
 %% Dataset Structure
+% *Info:*
+%
 % The dataset is parted in two main structs. The first one is filled with
 % meta data. So it represents the file header. The struct is called Info
 % and contains information about how the dataset is aquirred. So the
 % stimulus is reconstructable from that meta data.
-%
-% *Info:*
 %
 % * Created - string, contains dataset creation date
 % * Creator - string, contains dataset creator
@@ -134,7 +134,7 @@
 %   output and gathered image information
 % * *Units* - struct, contains information about used si units in dataset
 %
-% *MagneticField:*
+% * *MagneticField:*
 %
 % * Modulation - string, contains modulation equivalent Matlab function
 % * ModulationFrequency - double, contains frequeny of modulation in Hz
@@ -147,14 +147,14 @@
 % * CarrierHx - string, contains Hx carrier equivalent Matlab function
 % * CarrierHy - string, contains Hy carrier equivalent Matlab function
 %
-% *SensorOutput:*
+% * *SensorOutput:*
 %
 % * *CosinusBridge* - struct, contains further information about sensor
 %   cosinus bridge outpus
 % * *SinusBridge* - struct, contains further information about sensor sinus
 %   bridge outputs
 %
-% *CosinusBridge/ SinusBridge:*
+% * *CosinusBridge/ SinusBridge:*
 %
 % * xDimension - double, image size in x-direction
 % * yDimension - double, image size in y-direction
@@ -163,11 +163,66 @@
 % * Orientation - string, orientation of varying data, row or column
 % * Determination - cell, images in data {"Rise", "Fall", "All", "Diff"}
 %
-% *Units:*
+% * *Units:*
 %
 % * MagneticFieldStrength - string, kA/m
 % * Frequency - string, Hz
 % * SensorOutputVoltage - string, mV
+%
+% *Data:*
+%
+% The second struct contains the preporcessed characteriazation data of the TDK
+% TAS2141 TMR angular Sensor. It is divided into two main structs one for the
+% magnetic field reference points of the characterization images and one for the
+% characteriazation sensor output images.
+%
+% * *MagneticField* - struct, contain Hx- and Hy-field vectors which are the
+%   resolution references to each pixel in the characterization images of the
+%   sensors preprocessed bridge outputs
+% * *SensorOutput* - struct, contains structs for cosinus and sinus bridge
+%   outputs preprocessed in images of size of 256x256 pixels where each pixels
+%   references a bridge output in mV to a certain Hx- and Hy-fieldstrength
+%   amplitdue
+%
+% * *MagneticField:*
+%
+% * hx - array, Hx field axis of characteriazation images column vector of 1x256
+%   double values from -25 kA/m to 25 kA/m with a resolution of 0.1961 kA/m
+% * hy - array, Hy field axis of characteriazation images column vector of 1x256
+%   double values from -25 kA/m to 25 kA/m with a resolution of 0.1961 kA/m
+%
+% * *SensorOutput:*
+%
+% * *CosinusBridge* - struct, contains preprocessed characterization results of
+%   the sensors cosinus bridge outputs
+% * *SinusBridge* - struct, contains preprocessed characterization results of
+%   the sensors sinus bridge outputs
+%
+% * *CosinusBridge:*
+%
+% * Rise - array, double array of size 256x256 which references the cosinus
+%   bridge outputs for rising modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * Fall - array, double array of size 256x256 which references the cosinus
+%   bridge outputs for falling modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * All - array, double array of size 256x256 superimposed image of Rise and
+%   Fall
+% * Diff - array, double array of size 256x256 differentiated image of Rise and
+%   Fall
+%
+% * *SinusBridge:*
+%
+% * Rise - array, double array of size 256x256 which references the sinus
+%   bridge outputs for rising modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * Fall - array, double array of size 256x256 which references the sinus
+%   bridge outputs for falling modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * All - array, double array of size 256x256 superimposed image of Rise and
+%   Fall
+% * Diff - array, double array of size 256x256 differentiated image of Rise and
+%   Fall
 %
 %
 % Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.

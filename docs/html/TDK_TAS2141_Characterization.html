@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>TDK TAS2141 Characterization</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-28"><meta name="DC.source" content="TDK_TAS2141_Characterization.m"><style type="text/css">
+      --><title>TDK TAS2141 Characterization</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-29"><meta name="DC.source" content="TDK_TAS2141_Characterization.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -73,7 +73,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <img src="images/tdk_cosinus_bridge.svg" height=650>
 </p><h2 id="4">Sinus Bridge Output</h2><p>The sinus characterization field is build up similar to the cosinus images but the information lays now in the columns so the data is collected in each column for a constant Hx and variable Hy:</p><p><img src="TDK_TAS2141_Characterization_eq15253960456796662198.png" alt="$V_{sin}(H_x, H_y) = [mV]$"></p><p>
 <img src="images/tdk_sinus_bridge.svg" height=650>
-</p><h2 id="5">Dataset Structure</h2><p>The dataset is parted in two main structs. The first one is filled with meta data. So it represents the file header. The struct is called Info and contains information about how the dataset is aquirred. So the stimulus is reconstructable from that meta data.</p><p><b>Info:</b></p><div><ul><li>Created - string, contains dataset creation date</li><li>Creator - string, contains dataset creator</li><li>Edited - string, contains last time edited date</li><li>Editor - string, contains last time editor</li><li>Senor - string, sensor identification name e.g. TAS2141</li><li>SensorType - string, kind of sensor e.g. Angular</li><li>SensorTechnology - string, bridge technology e.g. AMR, GMR, TMR</li><li>SensorManufacturer - string, producer or supplier e.g. NXP, TDK</li><li><b>MagneticField</b> - struct, contains further information about Hx and Hy</li><li><b>SensorOutput</b> - struct, contains information about sensor produced   output and gathered image information</li><li><b>Units</b> - struct, contains information about used si units in dataset</li></ul></div><p><b>MagneticField:</b></p><div><ul><li>Modulation - string, contains modulation equivalent Matlab function</li><li>ModulationFrequency - double, contains frequeny of modulation in Hz</li><li>CarrierFrequency - double, carrier frequency for both Hx and Hy carrier   in Hz</li><li>MaxAmplitude - double, maximum Hx and Hy field amplitude in kA/m</li><li>MinAmplitude - double, minimum Hx and Hy field amplitude in kA/m</li><li>Steps - double, Hx- and Hy-field steps to build characterization images</li><li>Resolution - double, resolution of one step in kA/m</li><li>CarrierHx - string, contains Hx carrier equivalent Matlab function</li><li>CarrierHy - string, contains Hy carrier equivalent Matlab function</li></ul></div><p><b>SensorOutput:</b></p><div><ul><li><b>CosinusBridge</b> - struct, contains further information about sensor   cosinus bridge outpus</li><li><b>SinusBridge</b> - struct, contains further information about sensor sinus   bridge outputs</li></ul></div><p><b>CosinusBridge/ SinusBridge:</b></p><div><ul><li>xDimension - double, image size in x-direction</li><li>yDimension - double, image size in y-direction</li><li>xDirection - string, x-axis label</li><li>yDirection - string, y-axis label</li><li>Orientation - string, orientation of varying data, row or column</li><li>Determination - cell, images in data {"Rise", "Fall", "All", "Diff"}</li></ul></div><p><b>Units:</b></p><div><ul><li>MagneticFieldStrength - string, kA/m</li><li>Frequency - string, Hz</li><li>SensorOutputVoltage - string, mV</li></ul></div><p>Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</p><h2 id="5">Dataset Structure</h2><p><b>Info:</b></p><p>The dataset is parted in two main structs. The first one is filled with meta data. So it represents the file header. The struct is called Info and contains information about how the dataset is aquirred. So the stimulus is reconstructable from that meta data.</p><div><ul><li>Created - string, contains dataset creation date</li><li>Creator - string, contains dataset creator</li><li>Edited - string, contains last time edited date</li><li>Editor - string, contains last time editor</li><li>Senor - string, sensor identification name e.g. TAS2141</li><li>SensorType - string, kind of sensor e.g. Angular</li><li>SensorTechnology - string, bridge technology e.g. AMR, GMR, TMR</li><li>SensorManufacturer - string, producer or supplier e.g. NXP, TDK</li><li><b>MagneticField</b> - struct, contains further information about Hx and Hy</li><li><b>SensorOutput</b> - struct, contains information about sensor produced   output and gathered image information</li><li><b>Units</b> - struct, contains information about used si units in dataset</li></ul></div><div><ul><li><b>MagneticField:</b></li></ul></div><div><ul><li>Modulation - string, contains modulation equivalent Matlab function</li><li>ModulationFrequency - double, contains frequeny of modulation in Hz</li><li>CarrierFrequency - double, carrier frequency for both Hx and Hy carrier   in Hz</li><li>MaxAmplitude - double, maximum Hx and Hy field amplitude in kA/m</li><li>MinAmplitude - double, minimum Hx and Hy field amplitude in kA/m</li><li>Steps - double, Hx- and Hy-field steps to build characterization images</li><li>Resolution - double, resolution of one step in kA/m</li><li>CarrierHx - string, contains Hx carrier equivalent Matlab function</li><li>CarrierHy - string, contains Hy carrier equivalent Matlab function</li></ul></div><div><ul><li><b>SensorOutput:</b></li></ul></div><div><ul><li><b>CosinusBridge</b> - struct, contains further information about sensor   cosinus bridge outpus</li><li><b>SinusBridge</b> - struct, contains further information about sensor sinus   bridge outputs</li></ul></div><div><ul><li><b>CosinusBridge/ SinusBridge:</b></li></ul></div><div><ul><li>xDimension - double, image size in x-direction</li><li>yDimension - double, image size in y-direction</li><li>xDirection - string, x-axis label</li><li>yDirection - string, y-axis label</li><li>Orientation - string, orientation of varying data, row or column</li><li>Determination - cell, images in data {"Rise", "Fall", "All", "Diff"}</li></ul></div><div><ul><li><b>Units:</b></li></ul></div><div><ul><li>MagneticFieldStrength - string, kA/m</li><li>Frequency - string, Hz</li><li>SensorOutputVoltage - string, mV</li></ul></div><p><b>Data:</b></p><p>The second struct contains the preporcessed characteriazation data of the TDK TAS2141 TMR angular Sensor. It is divided into two main structs one for the magnetic field reference points of the characterization images and one for the characteriazation sensor output images.</p><div><ul><li><b>MagneticField</b> - struct, contain Hx- and Hy-field vectors which are the   resolution references to each pixel in the characterization images of the   sensors preprocessed bridge outputs</li><li><b>SensorOutput</b> - struct, contains structs for cosinus and sinus bridge   outputs preprocessed in images of size of 256x256 pixels where each pixels   references a bridge output in mV to a certain Hx- and Hy-fieldstrength   amplitdue</li></ul></div><div><ul><li><b>MagneticField:</b></li></ul></div><div><ul><li>hx - array, Hx field axis of characteriazation images column vector of 1x256   double values from -25 kA/m to 25 kA/m with a resolution of 0.1961 kA/m</li><li>hy - array, Hy field axis of characteriazation images column vector of 1x256   double values from -25 kA/m to 25 kA/m with a resolution of 0.1961 kA/m</li></ul></div><div><ul><li><b>SensorOutput:</b></li></ul></div><div><ul><li><b>CosinusBridge</b> - struct, contains preprocessed characterization results of   the sensors cosinus bridge outputs</li><li><b>SinusBridge</b> - struct, contains preprocessed characterization results of   the sensors sinus bridge outputs</li></ul></div><div><ul><li><b>CosinusBridge:</b></li></ul></div><div><ul><li>Rise - array, double array of size 256x256 which references the cosinus   bridge outputs for rising modulated stimulus amplitude to each cross   reference of vectors MagneticField.hx and MagneticField.hy</li><li>Fall - array, double array of size 256x256 which references the cosinus   bridge outputs for falling modulated stimulus amplitude to each cross   reference of vectors MagneticField.hx and MagneticField.hy</li><li>All - array, double array of size 256x256 superimposed image of Rise and   Fall</li><li>Diff - array, double array of size 256x256 differentiated image of Rise and   Fall</li></ul></div><div><ul><li><b>SinusBridge:</b></li></ul></div><div><ul><li>Rise - array, double array of size 256x256 which references the sinus   bridge outputs for rising modulated stimulus amplitude to each cross   reference of vectors MagneticField.hx and MagneticField.hy</li><li>Fall - array, double array of size 256x256 which references the sinus   bridge outputs for falling modulated stimulus amplitude to each cross   reference of vectors MagneticField.hx and MagneticField.hy</li><li>All - array, double array of size 256x256 superimposed image of Rise and   Fall</li><li>Diff - array, double array of size 256x256 differentiated image of Rise and   Fall</li></ul></div><p>Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -197,12 +197,12 @@ Edited on October 28. 2020 by Tobias Wulf: Add description for bridges.
 %
 %
 %% Dataset Structure
+% *Info:*
+%
 % The dataset is parted in two main structs. The first one is filled with
 % meta data. So it represents the file header. The struct is called Info
 % and contains information about how the dataset is aquirred. So the
 % stimulus is reconstructable from that meta data.
-%
-% *Info:*
 %
 % * Created - string, contains dataset creation date
 % * Creator - string, contains dataset creator
@@ -217,7 +217,7 @@ Edited on October 28. 2020 by Tobias Wulf: Add description for bridges.
 %   output and gathered image information
 % * *Units* - struct, contains information about used si units in dataset
 %
-% *MagneticField:*
+% * *MagneticField:*
 %
 % * Modulation - string, contains modulation equivalent Matlab function
 % * ModulationFrequency - double, contains frequeny of modulation in Hz
@@ -230,14 +230,14 @@ Edited on October 28. 2020 by Tobias Wulf: Add description for bridges.
 % * CarrierHx - string, contains Hx carrier equivalent Matlab function
 % * CarrierHy - string, contains Hy carrier equivalent Matlab function
 %
-% *SensorOutput:*
+% * *SensorOutput:*
 %
 % * *CosinusBridge* - struct, contains further information about sensor
 %   cosinus bridge outpus
 % * *SinusBridge* - struct, contains further information about sensor sinus
 %   bridge outputs
 %
-% *CosinusBridge/ SinusBridge:*
+% * *CosinusBridge/ SinusBridge:*
 %
 % * xDimension - double, image size in x-direction
 % * yDimension - double, image size in y-direction
@@ -246,11 +246,66 @@ Edited on October 28. 2020 by Tobias Wulf: Add description for bridges.
 % * Orientation - string, orientation of varying data, row or column
 % * Determination - cell, images in data {"Rise", "Fall", "All", "Diff"}
 %
-% *Units:*
+% * *Units:*
 %
 % * MagneticFieldStrength - string, kA/m
 % * Frequency - string, Hz
 % * SensorOutputVoltage - string, mV
+%
+% *Data:*
+%
+% The second struct contains the preporcessed characteriazation data of the TDK
+% TAS2141 TMR angular Sensor. It is divided into two main structs one for the
+% magnetic field reference points of the characterization images and one for the
+% characteriazation sensor output images.
+%
+% * *MagneticField* - struct, contain Hx- and Hy-field vectors which are the
+%   resolution references to each pixel in the characterization images of the
+%   sensors preprocessed bridge outputs
+% * *SensorOutput* - struct, contains structs for cosinus and sinus bridge
+%   outputs preprocessed in images of size of 256x256 pixels where each pixels
+%   references a bridge output in mV to a certain Hx- and Hy-fieldstrength
+%   amplitdue
+%
+% * *MagneticField:*
+%
+% * hx - array, Hx field axis of characteriazation images column vector of 1x256
+%   double values from -25 kA/m to 25 kA/m with a resolution of 0.1961 kA/m
+% * hy - array, Hy field axis of characteriazation images column vector of 1x256
+%   double values from -25 kA/m to 25 kA/m with a resolution of 0.1961 kA/m
+%
+% * *SensorOutput:*
+%
+% * *CosinusBridge* - struct, contains preprocessed characterization results of
+%   the sensors cosinus bridge outputs
+% * *SinusBridge* - struct, contains preprocessed characterization results of
+%   the sensors sinus bridge outputs
+%
+% * *CosinusBridge:*
+%
+% * Rise - array, double array of size 256x256 which references the cosinus
+%   bridge outputs for rising modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * Fall - array, double array of size 256x256 which references the cosinus
+%   bridge outputs for falling modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * All - array, double array of size 256x256 superimposed image of Rise and
+%   Fall
+% * Diff - array, double array of size 256x256 differentiated image of Rise and
+%   Fall
+%
+% * *SinusBridge:*
+%
+% * Rise - array, double array of size 256x256 which references the sinus
+%   bridge outputs for rising modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * Fall - array, double array of size 256x256 which references the sinus
+%   bridge outputs for falling modulated stimulus amplitude to each cross
+%   reference of vectors MagneticField.hx and MagneticField.hy
+% * All - array, double array of size 256x256 superimposed image of Rise and
+%   Fall
+% * Diff - array, double array of size 256x256 differentiated image of Rise and
+%   Fall
 %
 %
 % Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.
