@@ -224,6 +224,12 @@
 % * Diff - array, double array of size 256x256 differentiated image of Rise and
 %   Fall
 %
+% The edited raw dataset provided from Thorben Schüthe is save with Matlabs
+% build-in save function in a certain way to perform partial loads from the
+% dataset.
+%
+%   save('data/TDK_TAS2141_Characterization_2019-07-24.mat', 'Info', 'Data', '-v7.3', '-nocompression')
+%
 %
 % Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.
 %
