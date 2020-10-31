@@ -11,6 +11,11 @@
 % if files are removed successful or not.
 %
 %
+%% publishFilesFromDir
+% Publish m-files with Matlab built-in publish mechanism, scan m-files from
+% directory recursively.
+%
+%
 %% plotFunctions
 % A submodule to contain plot functions for general and specific use on data or
 % datasets.

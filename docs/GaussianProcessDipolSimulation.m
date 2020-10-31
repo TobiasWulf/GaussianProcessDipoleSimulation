@@ -1,4 +1,4 @@
-%% Introduction
+%% GaussianProcessDipolSimulation
 %
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.

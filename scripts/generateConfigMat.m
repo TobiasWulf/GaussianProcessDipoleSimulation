@@ -1,5 +1,7 @@
 %% generateConfigMat
-% 
+% Generate configuration mat-file wich contains reusable configuration to
+% control the software or certain function parameters. Centralized collection of
+% configuration. If it is certain configuration needed place it here.
 %
 %
 %% Requirements
@@ -9,12 +11,12 @@
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <matlab:web(fullfile(docroot,'matlab/ref/save.html')) save>
+% * <matlab:web(fullfile(docroot,'matlab/ref/load.html')) load>
+% * <matlab:web(fullfile(docroot,'matlab/ref/matlab.io.matfile.html')) matfile>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on October 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!--
@@ -24,7 +26,15 @@
 % </html>
 %
 %
-%% Project Directories and Path Variables
+%% Clean Up
+% Clear variables from workspace to build up a fresh new configuration
+% workspace.
+disp('Clean up workspace ...');
+clearvars;
+clc;
+
+
+%% Path Variables
 % Key path variables and directories, often used in functions or scripts.
 % Collet the path in a struct for easier save the struct fields as variables to
 % config.mat via -struct flag.
@@ -77,6 +87,7 @@ PathVariables.srcPath = fullfile(PathVariables.rootPath, 'src');
 % conditions in example for scripts, functions, and bare document m-files.
 % Initialize the option struct with output format field name and field value
 % and add further fields (options) with point value.
+disp('Set publish options struct for publish function ...');
 PublishOptions = struct('format', 'html');
 PublishOptions.outputDir = PathVariables.publishHtmlPath;
 PublishOptions.stylesheet = PathVariables.publishStyleSheetPath;
@@ -93,7 +104,9 @@ PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
 
 
-%% Save Relevant Configuration Data into Config Mat-File
+%% Save Configuration
+% Save section wise each config part as struct or struct fields to standalone
+% variables in config.mat use newest save format with no compression.
 
 % save PathVariables struct fields to config.mat with no compression
 disp('Save path variables configuration to config.mat ...');
@@ -104,8 +117,3 @@ save(PathVariables.configPath, '-struct', 'PathVariables', ...
 disp('Save publish options configuration to config.mat ...')
 save(PathVariables.configPath, 'PublishOptions', ... 
     '-append', '-nocompression');
-
-
-%% Clean Up Workspace and Command Window
-disp('Clean up workspace ...');
-clearvars;

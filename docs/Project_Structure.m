@@ -32,28 +32,19 @@
 % </thead>
 % <tbody>
 %   <tr>
-%     <td>../</td>
-%     <td>Main project directory which contains the Matlab project sandbox
-%     folder and the hidden "remote" repository.
+%     <td>./</td>
+%     <td>Main project directory which contains the Matlab project sandbox files
+%     and the hidden repository files. Matlab project sandbox directory.
+%     Project root directory which contains the Matlab project file, 
+%     the info.xml, .gitignore, .gitattributes files and all other project
+%     related subdirectories. Startup directory.
 %     </td>
 %   </tr>
 %   <tr>
-%     <td>../.git</td>
-%     <td>Hidden remote repository for local statndalone work. Saves daily
+%     <td>.git</td>
+%     <td>Hidden repository for local statndalone work. Saves daily
 %     working results. Provide a Git clonable instance of sandbox the directory.
 %     Replacable. Not Matlab driven, simulates remote repository.
-%     </td>
-%   </tr>
-%   <tr>
-%     <td>./</td>
-%     <td>Matlab project sandbox directory. Project root directory which
-%     contains the Matlab project file, the info.xml, .gitignore, .gitattributes
-%     files and all other project related subdirectories. Startup directory.
-%     </td>
-%   </tr>
-%   <tr>
-%     <td>./.git</td>
-%     <td>Hidden local repository. Not replacable. Matlab driven repository.
 %     </td>
 %   </tr>
 %   <tr>

@@ -242,6 +242,8 @@
 % # After publish on GitHub, clone or fork to work with.
 % # The source code is hosted under MIT license.
 % # Use GitHub flows to clone or fork and push changes to backup done work.
+% # Toolbox folder is not needed anymore because remote is elswhere now
+% # Re clone from remote to get new structurew without Toolbox folder
 %
 %
 % Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.

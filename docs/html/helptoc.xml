@@ -3,7 +3,7 @@
 <toc version="2.0">
 <!-- First tocitem specifies top level in Help browser Contents pane -->
 <!-- This can be a roadmap page, as shown below, or a content page -->
-    <tocitem target="Introduction.html">GaussianProcessesDipolSimulation Toolbox
+    <tocitem target="GaussianProcessDipolSimulation.html">GaussianProcessDipolSimulation
         <!-- Nest tocitems to create hierarchical entries in  Contents-->
         <!-- To include icons, use the following syntax for tocitems: -->
         <!-- <tocitem target="foo.html" image="HelpIcon.NAME"> -->
@@ -49,8 +49,17 @@
                 <tocitem target="publishProjectFilesToHTML.html#4">Publish Options</tocitem>
                 <tocitem target="publishProjectFilesToHTML.html#5">Project Documentation Files</tocitem>
                 <tocitem target="publishProjectFilesToHTML.html#6">Executable Script Files</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#7">Build Documentation Database for Matlab Help Browser</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#8">Open Generated Documentation</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#7">Source Code Functions and Classes</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#8">Build Documentation Database for Matlab Help Browser</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#9">Open Generated Documentation</tocitem>
+            </tocitem>
+            <tocitem target="generateConfigMat.html">generateConfigMat
+                <tocitem target="generateConfig.html#1">Requirements</tocitem>
+                <tocitem target="generateConfig.html#2">See Also</tocitem>
+                <tocitem target="generateConfig.html#3">Clean Up</tocitem>
+                <tocitem target="generateConfig.html#4">Path Variables</tocitem>
+                <tocitem target="generateConfig.html#5">Publish Options</tocitem>
+                <tocitem target="generateConfig.html#6">Save Configuration</tocitem>
             </tocitem>
         </tocitem>
         <tocitem target="Source_Code.html">Source Code
@@ -61,6 +70,13 @@
                     <tocitem target="removeFilesFromDir.html#3">Examples</tocitem>
                     <tocitem target="removeFilesFromDir.html#4">Requirements</tocitem>
                     <tocitem target="removeFilesFromDir.html#5">See Also</tocitem>
+                </tocitem>
+                <tocitem target="publishFilesFromDir.html">publishFilesFromDir
+                    <tocitem target="publishFilesFromDir.html#1">Syntax</tocitem>
+                    <tocitem target="publishFilesFromDir.html#2">Description</tocitem>
+                    <tocitem target="publishFilesFromDir.html#3">Examples</tocitem>
+                    <tocitem target="publishFilesFromDir.html#4">Requirements</tocitem>
+                    <tocitem target="publishFilesFromDir.html#5">See Also</tocitem>
                 </tocitem>
                 <tocitem target="plotFunctions.html">plotFunctions
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset
@@ -80,6 +96,10 @@
                 <tocitem target="TDK_TAS2141_Characterization.html#3">Cosinus Bridge</tocitem>
                 <tocitem target="TDK_TAS2141_Characterization.html#4">Sinus Bridge</tocitem>
                 <tocitem target="TDK_TAS2141_Characterization.html#5">Dataset Structure</tocitem>
+            </tocitem>
+            <tocitem target="Config_Mat.html">Config Mat
+                <tocitem target="Config_Mat.html#1">Requirements</tocitem>
+                <tocitem target="Config_Mat.html#2">See Also</tocitem>
             </tocitem>
         </tocitem>
     </tocitem>
