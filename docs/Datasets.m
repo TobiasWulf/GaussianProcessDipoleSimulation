@@ -24,3 +24,9 @@
 % sensor bridge outputs for Hx and Hy fields and bridge outputs corresponding to
 % stimulus amplitudes in Hx and Hy direction.
 %
+%
+%% config.mat
+% Configuration dataset to control the main program from centralized config
+% file. Includes any kind of configuration and parameters to load in function or
+% script workspaces.
+%

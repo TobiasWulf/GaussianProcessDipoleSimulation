@@ -58,8 +58,12 @@ disp('Workspace cleaned up ...');
 clearvars;
 clc;
 disp('Load configuration ...');
-load('config.mat', 'rootPath', 'docsPath', 'scriptsPath', 'srcPath', ... 
-     'helpsearchPath', 'PublishOptions');
+try
+    load('config.mat', 'rootPath', 'docsPath', 'scriptsPath', 'srcPath', ... 
+         'helpsearchPath', 'PublishOptions');
+catch ME
+    rethrow(ME);
+end
 
 
 %% Project Documentation Files

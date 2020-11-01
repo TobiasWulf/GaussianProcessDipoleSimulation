@@ -104,6 +104,20 @@ PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
 
 
+%% Figure and Tiled Layout Options
+% Options to unify plot and figure views and fast create new plots controlled by
+% certain configurations. Use options with unique create functions for fast
+% forward plotting routines. See Matlab documentation for further figure
+% options if needed.
+FigureOptions.NumberTitle = 'off';
+FigureOptions.Units = 'normalized';
+FigureOptions.WindowStyle = 'docked';
+% FigureOptions.OuterPosition = [0, 0, 1, 1];
+% FigureOptions.WindowState = 'maximized';
+TileOptions.Padding = 'normal';
+TileOptions.TileSpacing = 'compact';
+
+
 %% Save Configuration
 % Save section wise each config part as struct or struct fields to standalone
 % variables in config.mat use newest save format with no compression.
@@ -116,4 +130,10 @@ save(PathVariables.configPath, '-struct', 'PathVariables', ...
 % save PublishOptions struct to config.mat with no compression, append to file
 disp('Save publish options configuration to config.mat ...')
 save(PathVariables.configPath, 'PublishOptions', ... 
+    '-append', '-nocompression');
+
+% save FigureOptions and TileOptions structs to config.mat with no compression,
+% append to file
+disp('Save figure and tile options configuration to config.mat ...')
+save(PathVariables.configPath, 'FigureOptions', 'TileOptions', ... 
     '-append', '-nocompression');

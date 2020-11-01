@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-31"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-01"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>generateConfigMat</h1><!--introduction--><p>Generate configuration mat-file wich contains reusable configuration to control the software or certain function parameters. Centralized collection of configuration. If it is certain configuration needed place it here.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Clean Up</a></li><li><a href="#4">Path Variables</a></li><li><a href="#5">Publish Options</a></li><li><a href="#6">Save Configuration</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/save.html'))">save</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/load.html'))">load</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.io.matfile.html'))">matfile</a></li></ul></div><p>Created on October 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>generateConfigMat</h1><!--introduction--><p>Generate configuration mat-file wich contains reusable configuration to control the software or certain function parameters. Centralized collection of configuration. If it is certain configuration needed place it here.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Clean Up</a></li><li><a href="#4">Path Variables</a></li><li><a href="#5">Publish Options</a></li><li><a href="#6">Figure and Tiled Layout Options</a></li><li><a href="#7">Save Configuration</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/save.html'))">save</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/load.html'))">load</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.io.matfile.html'))">matfile</a></li></ul></div><p>Created on October 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -129,7 +129,14 @@ PublishOptions.catchError = true;
 PublishOptions.codeToEvaluate = [];
 PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
-</pre><h2 id="6">Save Configuration</h2><p>Save section wise each config part as struct or struct fields to standalone variables in config.mat use newest save format with no compression.</p><pre class="codeinput"><span class="comment">% save PathVariables struct fields to config.mat with no compression</span>
+</pre><h2 id="6">Figure and Tiled Layout Options</h2><p>Options to unify plot and figure views and fast create new plots controlled by certain configurations. Use options with unique create functions for fast forward plotting routines. See Matlab documentation for further figure options if needed.</p><pre class="codeinput">FigureOptions.NumberTitle = <span class="string">'off'</span>;
+FigureOptions.Units = <span class="string">'normalized'</span>;
+FigureOptions.WindowStyle = <span class="string">'docked'</span>;
+<span class="comment">% FigureOptions.OuterPosition = [0, 0, 1, 1];</span>
+<span class="comment">% FigureOptions.WindowState = 'maximized';</span>
+TileOptions.Padding = <span class="string">'normal'</span>;
+TileOptions.TileSpacing = <span class="string">'compact'</span>;
+</pre><h2 id="7">Save Configuration</h2><p>Save section wise each config part as struct or struct fields to standalone variables in config.mat use newest save format with no compression.</p><pre class="codeinput"><span class="comment">% save PathVariables struct fields to config.mat with no compression</span>
 disp(<span class="string">'Save path variables configuration to config.mat ...'</span>);
 save(PathVariables.configPath, <span class="string">'-struct'</span>, <span class="string">'PathVariables'</span>, <span class="keyword">...</span>
     <span class="string">'-v7.3'</span>, <span class="string">'-nocompression'</span>);
@@ -137,6 +144,12 @@ save(PathVariables.configPath, <span class="string">'-struct'</span>, <span clas
 <span class="comment">% save PublishOptions struct to config.mat with no compression, append to file</span>
 disp(<span class="string">'Save publish options configuration to config.mat ...'</span>)
 save(PathVariables.configPath, <span class="string">'PublishOptions'</span>, <span class="keyword">...</span>
+    <span class="string">'-append'</span>, <span class="string">'-nocompression'</span>);
+
+<span class="comment">% save FigureOptions and TileOptions structs to config.mat with no compression,</span>
+<span class="comment">% append to file</span>
+disp(<span class="string">'Save figure and tile options configuration to config.mat ...'</span>)
+save(PathVariables.configPath, <span class="string">'FigureOptions'</span>, <span class="string">'TileOptions'</span>, <span class="keyword">...</span>
     <span class="string">'-append'</span>, <span class="string">'-nocompression'</span>);
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -246,6 +259,20 @@ PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
 
 
+%% Figure and Tiled Layout Options
+% Options to unify plot and figure views and fast create new plots controlled by
+% certain configurations. Use options with unique create functions for fast
+% forward plotting routines. See Matlab documentation for further figure
+% options if needed.
+FigureOptions.NumberTitle = 'off';
+FigureOptions.Units = 'normalized';
+FigureOptions.WindowStyle = 'docked';
+% FigureOptions.OuterPosition = [0, 0, 1, 1];
+% FigureOptions.WindowState = 'maximized';
+TileOptions.Padding = 'normal';
+TileOptions.TileSpacing = 'compact';
+
+
 %% Save Configuration
 % Save section wise each config part as struct or struct fields to standalone
 % variables in config.mat use newest save format with no compression.
@@ -258,6 +285,12 @@ save(PathVariables.configPath, '-struct', 'PathVariables', ...
 % save PublishOptions struct to config.mat with no compression, append to file
 disp('Save publish options configuration to config.mat ...')
 save(PathVariables.configPath, 'PublishOptions', ... 
+    '-append', '-nocompression');
+
+% save FigureOptions and TileOptions structs to config.mat with no compression,
+% append to file
+disp('Save figure and tile options configuration to config.mat ...')
+save(PathVariables.configPath, 'FigureOptions', 'TileOptions', ... 
     '-append', '-nocompression');
 
 ##### SOURCE END #####

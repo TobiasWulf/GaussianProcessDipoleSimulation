@@ -54,12 +54,13 @@
                 <tocitem target="publishProjectFilesToHTML.html#9">Open Generated Documentation</tocitem>
             </tocitem>
             <tocitem target="generateConfigMat.html">generateConfigMat
-                <tocitem target="generateConfig.html#1">Requirements</tocitem>
-                <tocitem target="generateConfig.html#2">See Also</tocitem>
-                <tocitem target="generateConfig.html#3">Clean Up</tocitem>
-                <tocitem target="generateConfig.html#4">Path Variables</tocitem>
-                <tocitem target="generateConfig.html#5">Publish Options</tocitem>
-                <tocitem target="generateConfig.html#6">Save Configuration</tocitem>
+                <tocitem target="generateConfigMat.html#1">Requirements</tocitem>
+                <tocitem target="generateConfigMat.html#2">See Also</tocitem>
+                <tocitem target="generateConfigMat.html#3">Clean Up</tocitem>
+                <tocitem target="generateConfigMat.html#4">Path Variables</tocitem>
+                <tocitem target="generateConfigMat.html#5">Publish Options</tocitem>
+                <tocitem target="generateConfigMat.html#6">Figure and Tiled Layout Options</tocitem>
+                <tocitem target="generateConfigMat.html#7">Save Configuration</tocitem>
             </tocitem>
         </tocitem>
         <tocitem target="Source_Code.html">Source Code
@@ -85,6 +86,13 @@
                         <tocitem target="plotTDKCharDataset.html#3">Examples</tocitem>
                         <tocitem target="plotTDKCharDataset.html#4">Requirements</tocitem>
                         <tocitem target="plotTDKCharDataset.html#5">See Also</tocitem>
+                    </tocitem>
+                    <tocitem target="newConfigFigure.html">newConfigFigure
+                        <tocitem target="newConfigFigure.html#1">Syntax</tocitem>
+                        <tocitem target="newConfigFigure.html#2">Description</tocitem>
+                        <tocitem target="newConfigFigure.html#3">Examples</tocitem>
+                        <tocitem target="newConfigFigure.html#4">Requirements</tocitem>
+                        <tocitem target="newConfigFigure.html#5">See Also</tocitem>
                     </tocitem>
                 </tocitem>
             </tocitem>
