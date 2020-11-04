@@ -7,7 +7,12 @@
 %
 %
 %% publishProjectFilesHTML
-%  Generate Matlab help browser integrated HTML documentation.
+%  Publish Matlab help browser integrated HTML documentation.
+%
+%
+%% generateConfigMat
+% Generate configuration for generic use or part use in different program
+% layers.
 %
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
@@ -16,6 +21,7 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on November 04. 2020 by Tobias Wulf: Add forgotten generateConigMAt.
 % -->
 % </html>
 %
