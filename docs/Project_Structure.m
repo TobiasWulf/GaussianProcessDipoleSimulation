@@ -21,7 +21,7 @@
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   !tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/Toolbox/docs/html/Directory_Tree.txt -I "project|Project_*"
+%   tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/docs/html/Directory_Tree.txt -I "project|Project_*"
 %
 %% Directory Tasks
 %
@@ -106,6 +106,12 @@
 %     or a mix of both. Contains no bare script files.
 %     </td>
 %   </tr>
+%     <td>./src/sensorArraySimulation</td>
+%     <td>Sensor Array Simulation function and class. Contains functions,
+%     mathematical functions and classes to simulate an N x N sensor array on
+%     base of the TDK TAS2141 characterization dataset.
+%     </td>
+%   </tr>
 %   <tr>
 %     <td>./src/util</td>
 %     <td>Util function and class space. Function and class source code to slove
@@ -156,7 +162,7 @@
 % # Registrate to the documentation if needed (publish, toc and listings docs).
 %
 %
-% Created on October 1. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!--
@@ -164,6 +170,7 @@
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on October 07. 2020 by Tobias Wulf: Add inital description.
 % Edited on October 08. 2020 by Tobias Wulf: Add workflow and overview.
+% Edited on November 04. 2020 by Tobias Wulf: Add sensorArraySimulation to src.
 % -->
 % </html>
 %

@@ -14,18 +14,27 @@
 % with detailed documentation a high percentage of reusable source code.
 %
 %
-%% Util Functions and Classes
+%% sensorArraySimulation
+% Function space to solve sensor array simulation with a certain magnetic
+% stimulus. The Array simulation is based on the TDK TAS2141 characterization
+% dataset. A magnetic dipole is used as basic magnetic stimulus and moved as
+% imaginary sphere magnet with an certain radius tained as dipole with offset
+% radius. The magnet rotate in z-direction counterclockwise.
+%
+%
+%% util
 % Util function and classes to provide reuse for often upcommings tasks and
 % functionality besides project kernel and module source code. Located under
 % source code directory: *./src/util*.
 %
 %
-% Created on October 10. by Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!--
 % Hidden Clutter.
-% Edited on October 10. by Tobias Wulf: Add util module.
+% Edited on October 10. 2020 by Tobias Wulf: Add util module.
+% Edited on November 04. 2020 by Tobias Wulf: Add sensorArraySimulation to src.
 % -->
 % </html>
 %

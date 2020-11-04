@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-01"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
+      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-04"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -78,13 +78,14 @@ GaussianProcessDipolSimulation
 &#9500;&#9472;&#9472; [4.0K]  resources
 &#9500;&#9472;&#9472; [4.0K]  scripts
 &#9500;&#9472;&#9472; [4.0K]  src
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  sensorArraySimulation
 &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  util
 &#9474;&nbsp;&nbsp;     &#9492;&#9472;&#9472; [4.0K]  plotFunctions
 &#9500;&#9472;&#9472; [4.0K]  temp
 &#9492;&#9472;&#9472; [4.0K]  tests
 
-13 directories
-</pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab"><span class="syscmd">!tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/Toolbox/docs/html/Directory_Tree.txt -I "project|Project_*"</span>
+14 directories
+</pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab">tree <span class="string">-dhn</span> <span class="string">GaussianProcessDipolSimulation</span> <span class="string">-o</span> <span class="string">GaussianProcessDipolSimulation/docs/html/Directory_Tree.txt</span> <span class="string">-I</span> <span class="string">"project|Project_*"</span>
 </pre><h2 id="3">Directory Tasks</h2><p>
 <table border=1>
 <thead>
@@ -166,6 +167,12 @@ GaussianProcessDipolSimulation
     or a mix of both. Contains no bare script files.
     </td>
   </tr>
+    <td>./src/sensorArraySimulation</td>
+    <td>Sensor Array Simulation function and class. Contains functions,
+    mathematical functions and classes to simulate an N x N sensor array on
+    base of the TDK TAS2141 characterization dataset.
+    </td>
+  </tr>
   <tr>
     <td>./src/util</td>
     <td>Util function and class space. Function and class source code to slove
@@ -224,7 +231,7 @@ Edited on October 08. 2020 by Tobias Wulf: Add workflow and overview.
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   !tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/Toolbox/docs/html/Directory_Tree.txt -I "project|Project_*"
+%   tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/docs/html/Directory_Tree.txt -I "project|Project_*"
 %
 %% Directory Tasks
 %
@@ -307,6 +314,12 @@ Edited on October 08. 2020 by Tobias Wulf: Add workflow and overview.
 %     <td>Source code directory which contains reusable source code clustered in
 %     submodule direcotries. The code can be function oriented or class oriented
 %     or a mix of both. Contains no bare script files.
+%     </td>
+%   </tr>
+%     <td>./src/sensorArraySimulation</td>
+%     <td>Sensor Array Simulation function and class. Contains functions,
+%     mathematical functions and classes to simulate an N x N sensor array on
+%     base of the TDK TAS2141 characterization dataset.
 %     </td>
 %   </tr>
 %   <tr>
