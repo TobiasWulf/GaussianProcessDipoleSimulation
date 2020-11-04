@@ -8,9 +8,10 @@ GaussianProcessDipolSimulation
 ├── [4.0K]  resources
 ├── [4.0K]  scripts
 ├── [4.0K]  src
+│   ├── [4.0K]  sensorArraySimulation
 │   └── [4.0K]  util
 │       └── [4.0K]  plotFunctions
 ├── [4.0K]  temp
 └── [4.0K]  tests
 
-13 directories
+14 directories

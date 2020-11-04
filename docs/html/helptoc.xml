@@ -64,7 +64,7 @@
             </tocitem>
         </tocitem>
         <tocitem target="Source_Code.html">Source Code
-            <tocitem target="Util_Functions_and_Classes.html">Util Functions and Classes
+            <tocitem target="util.html">util
                 <tocitem target="removeFilesFromDir.html">removeFilesFromDir
                     <tocitem target="removeFilesFromDir.html#1">Syntax</tocitem>
                     <tocitem target="removeFilesFromDir.html#2">Description</tocitem>
