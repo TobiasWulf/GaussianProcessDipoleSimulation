@@ -67,10 +67,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Source Code</h1><!--introduction--><p>The project source code is clustered in modules where every subdirectory represents one certain module. Each module gathers functions and classes which are related to module specific themes or task fields. So the basic structured source code is located here. The combination of module functionality takes place in executable area of the project. So use the functions and classes in scripts and further on compiled binaries. Do not write bare executable source code here. For reproducable results and source code tracebillity each module has its own documentation entry where all underlaying functions and classses are listed. The best practice to develop new source code or modules is to do it in test driven way. This means write a test m-file for every new function or class m-file and test the functionality of the source code with assertion. This test driven development is called unittest and provides in combination with detailed documentation a high percentage of reusable source code.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Util Functions and Classes</a></li></ul></div><h2 id="1">Util Functions and Classes</h2><p>Util function and classes to provide reuse for often upcommings tasks and functionality besides project kernel and module source code. Located under source code directory: <b>./src/util</b>.</p><p>Created on October 10. by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>Source Code</h1><!--introduction--><p>The project source code is clustered in modules where every subdirectory represents one certain module. Each module gathers functions and classes which are related to module specific themes or task fields. So the basic structured source code is located here. The combination of module functionality takes place in executable area of the project. So use the functions and classes in scripts and further on compiled binaries. Do not write bare executable source code here. For reproducable results and source code tracebillity each module has its own documentation entry where all underlaying functions and classses are listed. The best practice to develop new source code or modules is to do it in test driven way. This means write a test m-file for every new function or class m-file and test the functionality of the source code with assertion. This test driven development is called unittest and provides in combination with detailed documentation a high percentage of reusable source code.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">sensorArraySimulation</a></li><li><a href="#2">util</a></li></ul></div><h2 id="1">sensorArraySimulation</h2><p>Function space to solve sensor array simulation with a certain magnetic stimulus. The Array simulation is based on the TDK TAS2141 characterization dataset. A magnetic dipole is used as basic magnetic stimulus and moved as imaginary sphere magnet with an certain radius tained as dipole with offset radius. The magnet rotate in z-direction counterclockwise.</p><h2 id="2">util</h2><p>Util function and classes to provide reuse for often upcommings tasks and functionality besides project kernel and module source code. Located under source code directory: <b>./src/util</b>.</p><p>Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
-Edited on October 10. by Tobias Wulf: Add util module.
+Edited on October 10. 2020 by Tobias Wulf: Add util module.
+Edited on November 04. 2020 by Tobias Wulf: Add sensorArraySimulation to src.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -90,18 +91,27 @@ Edited on October 10. by Tobias Wulf: Add util module.
 % with detailed documentation a high percentage of reusable source code.
 %
 %
-%% Util Functions and Classes
+%% sensorArraySimulation
+% Function space to solve sensor array simulation with a certain magnetic
+% stimulus. The Array simulation is based on the TDK TAS2141 characterization
+% dataset. A magnetic dipole is used as basic magnetic stimulus and moved as
+% imaginary sphere magnet with an certain radius tained as dipole with offset
+% radius. The magnet rotate in z-direction counterclockwise.
+%
+%
+%% util
 % Util function and classes to provide reuse for often upcommings tasks and
 % functionality besides project kernel and module source code. Located under
 % source code directory: *./src/util*.
 %
 %
-% Created on October 10. by Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
-% Edited on October 10. by Tobias Wulf: Add util module.
+% Edited on October 10. 2020 by Tobias Wulf: Add util module.
+% Edited on November 04. 2020 by Tobias Wulf: Add sensorArraySimulation to src.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
