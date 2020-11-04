@@ -23,7 +23,6 @@
 % $v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$
 %
 %
-%
 %% Examples
 %   % rotate a vector along z-axes by 45 degree
 %   vector = [1; 0; 0]
