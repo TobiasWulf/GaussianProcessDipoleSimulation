@@ -8,14 +8,14 @@
 %
 %
 %% Description
-% [fig, layout] = newConfigFigure(name, titleStr, subtitleStr) creates a new
+% *[fig, layout] = newConfigFigure(name, titleStr, subtitleStr)* creates a new
 % figure with loaded configurations from config.mat given window name, layout
 % title and subtitle with font size 8.
 %
-% [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m) creates
+% *[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m)* creates
 % figures as described before and splits the layout in m rows.
 %
-% [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n) as
+% *[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)* as
 % described before plus splitting the layout in m rows and n columns tiles.
 %
 %
@@ -28,6 +28,26 @@
 %   p1 = plot([1, 2, 4, 5, 5, 5, 6, 2, 9, 0]);
 %   ax2 = nexttile;
 %   p2 = plot([1, 2, 1, 4, 1, 5, 1, 3, 1, 0]);
+%
+%
+%% Input Arguments
+% *name* char vector or string of figure window name.
+%
+% *titleStr* char vector or string of displayed figure title, main plot title.
+%
+% *subtitleStr* char vector or string of displayed figure subtitle, main plot
+% subtitle.
+%
+% *m* number of row tiles in figure window. Positive integer number.
+%
+% *n* number of column tiles in figure window. Positive integer number.
+%
+%
+%% Output Arguments
+% *fig* figure handle object of created figure window.
+%
+% *layoyut* tiled layout which is embedded in created figure window. Use
+% nexttile to create axes.
 %
 %
 %% Requirements
@@ -60,8 +80,8 @@ function [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)
         titleStr (:,:) string {mustBeText}
         subtitleStr (:,:) string {mustBeText}
         % validate tile dimensions, default is 1x1 for single plot
-        m (1,1) double {mustBeNumeric, mustBeGreaterThanOrEqual(m, 1)} = 1
-        n (1,1) double {mustBeNumeric, mustBeGreaterThanOrEqual(n, 1)} = 1
+        m (1,1) double {mustBeNumeric, mustBeInteger, mustBePositive} = 1
+        n (1,1) double {mustBeNumeric, mustBeInteger, mustBePositive} = 1
     end
     
     % create new figure with given name and tile layout with passed m x n grid

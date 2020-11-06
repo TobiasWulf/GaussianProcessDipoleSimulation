@@ -8,16 +8,16 @@
 %
 %
 %% Description
-% publishFilesFromDir(directory, PublishOptions) publish m-files wich are
+% *publishFilesFromDir(directory, PublishOptions)* publish m-files wich are
 % located in the passed directory with options from passed publishing options
 % struct which is must be strict formatted after given example from Matlab
 % documentation.
 %
-% publishFilesFromDir(directory, PublishOptions, recursivly) publishing like
+% *publishFilesFromDir(directory, PublishOptions, recursive)* publishing like
 % described before but scan the directory recursively for m-files. Default is
 % false for do not recursively.
 %
-% publishFilesFromDir(directory, PublishOptions, recursivly, verbose) with
+% *publishFilesFromDir(directory, PublishOptions, recursive, verbose)* with
 % optional verbose set to true the published html files will be displayed in the
 % prompt. Default is false.
 %
@@ -31,6 +31,24 @@
 %
 %   load('config.mat', 'srcPath', 'PublishOptions')
 %   publishFilesFromDir(srcPath, PublishOptions, true, true)
+%
+%
+%% Input Arguments
+% *directory* char vector, path to directory where m-files are located to
+% publish.
+%
+% *PublishOptions* struct which contains publishing options for the Matlab
+% publish function.
+%
+% *recursive* logical scalar which directs the function to scan recursively for
+% m-files in passed directory if true. Default is false.
+%
+% *verbose* logical scalar which determines to display the filenames and path to
+% published file if true. Defaults is false.
+%
+%
+%% Output Arguments
+% *None*
 %
 %
 %% Requirements

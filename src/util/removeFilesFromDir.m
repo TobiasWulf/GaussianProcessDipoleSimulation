@@ -7,12 +7,12 @@
 %
 %
 %% Description
-% removeStatus = removeFilesFromDir(directory) removes all files that are
+% *removeStatus = removeFilesFromDir(directory)* removes all files that are
 % located in the passed directory and returns a logical 1 if the operation was
 % successful or 0 if not. The directory argument must be char vector of 1xN and
 % valid path to a existing directory.
 %
-% removeStatus = removeFilesFromDir(directory, filePattern) removes all files
+% *removeStatus = removeFilesFromDir(directory, filePattern)* removes all files
 % in the located directory which matches the passed file pattern. The
 % filePattern argument must be be char vector of 1xN. It is an optional argument
 % with a default value of '*.*', valid file patterns can be filenames which part
@@ -26,6 +26,21 @@
 %
 %   d = fullfile('rootPath', 'subfolder')
 %   rs = removeFileFromDir(d, '*.mat')
+%
+%
+%% Input Arguments
+% *directory* char vector, path directory in which to scan for files with
+% file pattern and to delete found files.
+%
+% *filePattern* char vector of file pattern with extension. Default is *.* to
+% delete all files. Possible patterns can be e.g. *.m or *part_name_*.* or
+% *_part_name_*.png.
+%
+%
+%% Output Arguments
+% *removeStatus* locgical scalar which is true if all files wich matches the
+% file pattern are deleted successfully from passed directory path.
+%
 %
 %% Requirements
 % * Other m-files required: None

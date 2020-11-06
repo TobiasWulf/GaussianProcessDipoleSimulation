@@ -15,8 +15,16 @@
 %   figs = plotTDKCharDataset();
 %
 %
+%% Input Arguments
+% *None*
+%
+%
+%% Output Arguments
+% *Figure* struct which contains the created figure handles.
+%
+%
 %% Requirements
-% * Other m-files required: newConfigFigure
+% * Other m-files required: newConfigFigure.m
 % * Subfunctions: reconstructMagStimulus, findMinMax
 % * MAT-files required: data/TDK_TAS2141_Characterization_2019-07-24.mat,
 %   data/config.mat

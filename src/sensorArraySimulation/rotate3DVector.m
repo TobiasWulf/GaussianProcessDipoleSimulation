@@ -13,7 +13,7 @@
 %
 %
 %% Description
-% rotated = rotate3DVector(vector, alphaX, betaY, gammaZ) returns a rotated
+% *rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)* returns a rotated
 % vector which is rotated by given angles on related axes. alphaX rotates along
 % the x-axes, betaY along the y-axes and gammaZ along the z-axes. Therfore each
 % rotations is described by belonging rotation matrix. The resulting rotation of
@@ -24,19 +24,36 @@
 %
 %
 %% Examples
-%   % rotate a vector along z-axes by 45 degree
+%   % rotate a vector along z-axes by 45°
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 0, 0, 45)
 %
-%   % rotate a vector along z-axes by 35 degree with a tilt in x-axes by 1
-%   degree
+%   % rotate a vector along z-axes by 35° with a tilt in x-axes by 1°
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 1, 0, 35)
 %
-%   % rotate a vector along z-axes by 35 degree with a tilt in x-axes by 1
-%   degree and a tilt in y-axes by 5 degree
+%   % rotate a vector along z-axes by 35° with a tilt in x-axes by 1° and a
+%   % tilt in y-axes by 5°
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 1, 5, 35)
+%
+%
+%% Input Arguments
+% *vector* is a 3 x N column vector of real numbers which representates the a
+% vector in a 3D coordinate system with x-, y- and z-components.
+%
+% *alphaX* is a scalar angular value in degree and rotates the vector in the
+% x-axes.
+%
+% *betaY* is a scalar angular value in degree and rotates the vector in the
+% y-axes.
+%
+% *gammaZ* is a scalar angular value in degree and rotates the vector in the
+% z-axes.
+%
+%
+%% Output Arguments
+% *rotated* is rotation of vector by passed axes related angles.
 %
 %
 %% Requirements

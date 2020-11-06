@@ -74,14 +74,24 @@
 %   %
 %   %
 %   %% Description
-%   % outputArg = functionName(positionalArg) detailed use case description.
+%   % *outputArg = functionName(positionalArg)* detailed use case description.
 %   %
-%   % outputArg = functionName(positionalArg, optionalArg) detailed use case
+%   % *outputArg = functionName(positionalArg, optionalArg)* detailed use case
 %   % description.
 %   %
 %   %
 %   %% Examples
 %   %   Enter example matlab code for each use case.
+%   %
+%   %
+%   %% Input Argurments
+%   % *positionalArg* argurment description.
+%   %
+%   % *optionalArg* argurment description.
+%   %
+%   %
+%   %% Output Argurments
+%   % *outputArg* argurment description.
 %   %
 %   %
 %   %% Requirements
