@@ -46,6 +46,7 @@
 % Edited on October 27. 2020 by Tobias Wulf: Add TDK_TAS2141_Characterization.m.
 % Edited on October 29. 2020 by Tobias Wulf: Prepare to move config to mat-file.
 % Edited on October 31. 2020 by Tobias Wulf: Move publishing to function.
+% Edited on November 04. 2020 by Tobias Wulf: Delete equation png files before.
 % -->
 % </html>
 %
@@ -64,6 +65,13 @@ try
 catch ME
     rethrow(ME);
 end
+
+
+%% Remove Equation PNG Files
+% Remove equation png file from HTML output folder before create or recreate
+% publishing files. To prevent the directory expanse of old or edited equation
+% files.
+% removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 
 
 %% Project Documentation Files
