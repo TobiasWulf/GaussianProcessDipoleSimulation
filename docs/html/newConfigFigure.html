@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>newConfigFigure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-04"><meta name="DC.source" content="newConfigFigure.m"><style type="text/css">
+      --><title>newConfigFigure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-06"><meta name="DC.source" content="newConfigFigure.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,17 +67,17 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>newConfigFigure</h1><!--introduction--><p>Creates new figure with a tiled layout and loads config from config.mat file.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Requirements</a></li><li><a href="#5">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">[fig, layout] = newConfigFigure(name, titleStr, subtitleStr)
+  </style></head><body><div class="content"><h1>newConfigFigure</h1><!--introduction--><p>Creates new figure with a tiled layout and loads config from config.mat file.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">[fig, layout] = newConfigFigure(name, titleStr, subtitleStr)
 [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m)
 [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)
-</pre><h2 id="2">Description</h2><p>[fig, layout] = newConfigFigure(name, titleStr, subtitleStr) creates a new figure with loaded configurations from config.mat given window name, layout title and subtitle with font size 8.</p><p>[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m) creates figures as described before and splits the layout in m rows.</p><p>[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n) as described before plus splitting the layout in m rows and n columns tiles.</p><h2 id="3">Examples</h2><pre class="language-matlab">[fig, layout] = newConfigFigure(<span class="string">'My Fig'</span>, <span class="string">'That is a Fig'</span>, <span class="string">'Very good one.'</span>)
+</pre><h2 id="2">Description</h2><p><b>[fig, layout] = newConfigFigure(name, titleStr, subtitleStr)</b> creates a new figure with loaded configurations from config.mat given window name, layout title and subtitle with font size 8.</p><p><b>[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m)</b> creates figures as described before and splits the layout in m rows.</p><p><b>[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)</b> as described before plus splitting the layout in m rows and n columns tiles.</p><h2 id="3">Examples</h2><pre class="language-matlab">[fig, layout] = newConfigFigure(<span class="string">'My Fig'</span>, <span class="string">'That is a Fig'</span>, <span class="string">'Very good one.'</span>)
 p = plot([1, 2, 4, 5, 5, 5, 6, 2, 9, 0]);
 </pre><pre class="language-matlab">[fig, layout] = newConfigFigure(<span class="string">'Fig'</span>, <span class="string">'That Fig'</span>, <span class="string">'Very good.'</span>, 1, 2)
 ax1 = nexttile;
 p1 = plot([1, 2, 4, 5, 5, 5, 6, 2, 9, 0]);
 ax2 = nexttile;
 p2 = plot([1, 2, 1, 4, 1, 5, 1, 3, 1, 0]);
-</pre><h2 id="4">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="5">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/figure.html#buich1u-1_seealso'))">figure</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.ui.figure-properties.html'))">Figure Properties</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/tiledlayout.html'))">tiledlayout</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.graphics.layout.tiledchartlayout-properties.html'))">TileChartLayout Properties</a></li></ul></div><p>Created on November 01. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</pre><h2 id="4">Input Arguments</h2><p><b>name</b> char vector or string of figure window name.</p><p><b>titleStr</b> char vector or string of displayed figure title, main plot title.</p><p><b>subtitleStr</b> char vector or string of displayed figure subtitle, main plot subtitle.</p><p><b>m</b> number of row tiles in figure window. Positive integer number.</p><p><b>n</b> number of column tiles in figure window. Positive integer number.</p><h2 id="5">Output Arguments</h2><p><b>fig</b> figure handle object of created figure window.</p><p><b>layoyut</b> tiled layout which is embedded in created figure window. Use nexttile to create axes.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/figure.html#buich1u-1_seealso'))">figure</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.ui.figure-properties.html'))">Figure Properties</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/tiledlayout.html'))">tiledlayout</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.graphics.layout.tiledchartlayout-properties.html'))">TileChartLayout Properties</a></li></ul></div><p>Created on November 01. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -94,14 +94,14 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Description
-% [fig, layout] = newConfigFigure(name, titleStr, subtitleStr) creates a new
+% *[fig, layout] = newConfigFigure(name, titleStr, subtitleStr)* creates a new
 % figure with loaded configurations from config.mat given window name, layout
 % title and subtitle with font size 8.
 %
-% [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m) creates
+% *[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m)* creates
 % figures as described before and splits the layout in m rows.
 %
-% [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n) as
+% *[fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)* as
 % described before plus splitting the layout in m rows and n columns tiles.
 %
 %
@@ -114,6 +114,26 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %   p1 = plot([1, 2, 4, 5, 5, 5, 6, 2, 9, 0]);
 %   ax2 = nexttile;
 %   p2 = plot([1, 2, 1, 4, 1, 5, 1, 3, 1, 0]);
+%
+%
+%% Input Arguments
+% *name* char vector or string of figure window name.
+%
+% *titleStr* char vector or string of displayed figure title, main plot title.
+%
+% *subtitleStr* char vector or string of displayed figure subtitle, main plot
+% subtitle.
+%
+% *m* number of row tiles in figure window. Positive integer number.
+%
+% *n* number of column tiles in figure window. Positive integer number.
+%
+%
+%% Output Arguments
+% *fig* figure handle object of created figure window.
+%
+% *layoyut* tiled layout which is embedded in created figure window. Use
+% nexttile to create axes.
 %
 %
 %% Requirements
@@ -146,8 +166,8 @@ function [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)
         titleStr (:,:) string {mustBeText}
         subtitleStr (:,:) string {mustBeText}
         % validate tile dimensions, default is 1x1 for single plot
-        m (1,1) double {mustBeNumeric, mustBeGreaterThanOrEqual(m, 1)} = 1
-        n (1,1) double {mustBeNumeric, mustBeGreaterThanOrEqual(n, 1)} = 1
+        m (1,1) double {mustBeNumeric, mustBeInteger, mustBePositive} = 1
+        n (1,1) double {mustBeNumeric, mustBeInteger, mustBePositive} = 1
     end
     
     % create new figure with given name and tile layout with passed m x n grid

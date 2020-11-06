@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>rotate3DVector</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-04"><meta name="DC.source" content="rotate3DVector.m"><style type="text/css">
+      --><title>rotate3DVector</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-06"><meta name="DC.source" content="rotate3DVector.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,19 +67,18 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>rotate3DVector</h1><!--introduction--><p>Rotate a 3 dimensional vector with x-, y- and z-components in 3 dimensional coordinate system along the x-, y- and z-axes. Using rotation matrix for x-, y- and z-axes. Angle must be served in degree. Vector must be a column vector 3 x 1 or matrix related x-, y-, z-components 3 x N.</p><p>This function was originally created by Thorben Sch&uuml;the is ported into source code under improvements and including Matlab built-in functions. Function rewritten.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Requirements</a></li><li><a href="#5">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)
-</pre><h2 id="2">Description</h2><p>rotated = rotate3DVector(vector, alphaX, betaY, gammaZ) returns a rotated vector which is rotated by given angles on related axes. alphaX rotates along the x-axes, betaY along the y-axes and gammaZ along the z-axes. Therfore each rotations is described by belonging rotation matrix. The resulting rotation of the vector is computed by the matrix and vector multiplacation of the rotation matrices and the input vecotor.</p><p><img src="rotate3DVector_eq00978261048234229782.png" alt="$v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$"></p><h2 id="3">Examples</h2><pre class="language-matlab"><span class="comment">% rotate a vector along z-axes by 45 degree</span>
+  </style></head><body><div class="content"><h1>rotate3DVector</h1><!--introduction--><p>Rotate a 3 dimensional vector with x-, y- and z-components in 3 dimensional coordinate system along the x-, y- and z-axes. Using rotation matrix for x-, y- and z-axes. Angle must be served in degree. Vector must be a column vector 3 x 1 or matrix related x-, y-, z-components 3 x N.</p><p>This function was originally created by Thorben Sch&uuml;the is ported into source code under improvements and including Matlab built-in functions. Function rewritten.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)
+</pre><h2 id="2">Description</h2><p><b>rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)</b> returns a rotated vector which is rotated by given angles on related axes. alphaX rotates along the x-axes, betaY along the y-axes and gammaZ along the z-axes. Therfore each rotations is described by belonging rotation matrix. The resulting rotation of the vector is computed by the matrix and vector multiplacation of the rotation matrices and the input vecotor.</p><p><img src="rotate3DVector_eq00978261048234229782.png" alt="$v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$"></p><h2 id="3">Examples</h2><pre class="language-matlab"><span class="comment">% rotate a vector along z-axes by 45&deg;</span>
 vector = [1; 0; 0]
 rotated = rotate3DVector(vector, 0, 0, 45)
-</pre><pre class="language-matlab"><span class="comment">% rotate a vector along z-axes by 35 degree with a tilt in x-axes by 1</span>
-degree
+</pre><pre class="language-matlab"><span class="comment">% rotate a vector along z-axes by 35&deg; with a tilt in x-axes by 1&deg;</span>
 vector = [1; 0; 0]
 rotated = rotate3DVector(vector, 1, 0, 35)
-</pre><pre class="language-matlab"><span class="comment">% rotate a vector along z-axes by 35 degree with a tilt in x-axes by 1</span>
-degree <span class="string">and</span> <span class="string">a</span> <span class="string">tilt</span> <span class="string">in</span> <span class="string">y-axes</span> <span class="string">by</span> <span class="string">5</span> <span class="string">degree</span>
+</pre><pre class="language-matlab"><span class="comment">% rotate a vector along z-axes by 35&deg; with a tilt in x-axes by 1&deg; and a</span>
+<span class="comment">% tilt in y-axes by 5&deg;</span>
 vector = [1; 0; 0]
 rotated = rotate3DVector(vector, 1, 5, 35)
-</pre><h2 id="4">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: rotx, roty, rotz</li><li>MAT-files required: None</li></ul></div><h2 id="5">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'phased/ref/rotx.html'))">rotx</a></li><li><a href="matlab:web(fullfile(docroot,'phased/ref/roty.html'))">roty</a></li><li><a href="matlab:web(fullfile(docroot,'phased/ref/rotz.html'))">rotz</a></li><li><a href="https://de.wikipedia.org/wiki/Drehmatrix">Wikipedia Drehmatrix</a></li></ul></div><p>Created on August 03. 2016 by Thorben Sch&uuml;the. Copyright Thorben Sch&uuml;the 2016.</p><p>
+</pre><h2 id="4">Input Arguments</h2><p><b>vector</b> is a 3 x N column vector of real numbers which representates the a vector in a 3D coordinate system with x-, y- and z-components.</p><p><b>alphaX</b> is a scalar angular value in degree and rotates the vector in the x-axes.</p><p><b>betaY</b> is a scalar angular value in degree and rotates the vector in the y-axes.</p><p><b>gammaZ</b> is a scalar angular value in degree and rotates the vector in the z-axes.</p><h2 id="5">Output Arguments</h2><p><b>rotated</b> is rotation of vector by passed axes related angles.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: rotx, roty, rotz</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'phased/ref/rotx.html'))">rotx</a></li><li><a href="matlab:web(fullfile(docroot,'phased/ref/roty.html'))">roty</a></li><li><a href="matlab:web(fullfile(docroot,'phased/ref/rotz.html'))">rotz</a></li><li><a href="https://de.wikipedia.org/wiki/Drehmatrix">Wikipedia Drehmatrix</a></li></ul></div><p>Created on August 03. 2016 by Thorben Sch&uuml;the. Copyright Thorben Sch&uuml;the 2016.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -103,7 +102,7 @@ Edited on November 04. 2020 by Tobias Wulf: Write documentaion header, comment.
 %
 %
 %% Description
-% rotated = rotate3DVector(vector, alphaX, betaY, gammaZ) returns a rotated
+% *rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)* returns a rotated
 % vector which is rotated by given angles on related axes. alphaX rotates along
 % the x-axes, betaY along the y-axes and gammaZ along the z-axes. Therfore each
 % rotations is described by belonging rotation matrix. The resulting rotation of
@@ -113,21 +112,37 @@ Edited on November 04. 2020 by Tobias Wulf: Write documentaion header, comment.
 % $v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$
 %
 %
-%
 %% Examples
-%   % rotate a vector along z-axes by 45 degree
+%   % rotate a vector along z-axes by 45°
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 0, 0, 45)
 %
-%   % rotate a vector along z-axes by 35 degree with a tilt in x-axes by 1
-%   degree
+%   % rotate a vector along z-axes by 35° with a tilt in x-axes by 1°
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 1, 0, 35)
 %
-%   % rotate a vector along z-axes by 35 degree with a tilt in x-axes by 1
-%   degree and a tilt in y-axes by 5 degree
+%   % rotate a vector along z-axes by 35° with a tilt in x-axes by 1° and a
+%   % tilt in y-axes by 5°
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 1, 5, 35)
+%
+%
+%% Input Arguments
+% *vector* is a 3 x N column vector of real numbers which representates the a
+% vector in a 3D coordinate system with x-, y- and z-components.
+%
+% *alphaX* is a scalar angular value in degree and rotates the vector in the
+% x-axes.
+%
+% *betaY* is a scalar angular value in degree and rotates the vector in the
+% y-axes.
+%
+% *gammaZ* is a scalar angular value in degree and rotates the vector in the
+% z-axes.
+%
+%
+%% Output Arguments
+% *rotated* is rotation of vector by passed axes related angles.
 %
 %
 %% Requirements

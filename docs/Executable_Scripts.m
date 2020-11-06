@@ -7,7 +7,7 @@
 %
 %
 %% publishProjectFilesHTML
-%  Publish Matlab help browser integrated HTML documentation.
+% Publish Matlab help browser integrated HTML documentation.
 %
 %
 %% generateConfigMat

@@ -46,12 +46,13 @@
                 <tocitem target="publishProjectFilesToHTML.html#1">Requirements</tocitem>
                 <tocitem target="publishProjectFilesToHTML.html#2">See Also</tocitem>
                 <tocitem target="publishProjectFilesToHTML.html#3">Start Publishing and Clean Up</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#4">Publish Options</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#5">Project Documentation Files</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#6">Executable Script Files</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#7">Source Code Functions and Classes</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#8">Build Documentation Database for Matlab Help Browser</tocitem>
-                <tocitem target="publishProjectFilesToHTML.html#9">Open Generated Documentation</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#4">Remove Equation PNG Files</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#5">Publish Options</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#6">Project Documentation Files</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#7">Executable Script Files</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#8">Source Code Functions and Classes</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#9">Build Documentation Database for Matlab Help Browser</tocitem>
+                <tocitem target="publishProjectFilesToHTML.html#10">Open Generated Documentation</tocitem>
             </tocitem>
             <tocitem target="generateConfigMat.html">generateConfigMat
                 <tocitem target="generateConfigMat.html#1">Requirements</tocitem>
@@ -69,8 +70,19 @@
                     <tocitem target="rotate3DVector.html#1">Syntax</tocitem>
                     <tocitem target="rotate3DVector.html#2">Description</tocitem>
                     <tocitem target="rotate3DVector.html#3">Examples</tocitem>
-                    <tocitem target="rotate3DVector.html#4">Requirements</tocitem>
-                    <tocitem target="rotate3DVector.html#5">See Also</tocitem>
+                    <tocitem target="rotate3DVector.html#4">Input Arguments</tocitem>
+                    <tocitem target="rotate3DVector.html#5">Output Arguments</tocitem>
+                    <tocitem target="rotate3DVector.html#6">Requirements</tocitem>
+                    <tocitem target="rotate3DVector.html#7">See Also</tocitem>
+                </tocitem>
+                <tocitem target="generateDipoleRotationMoments.html">generateDipoleRotationMoments
+                <tocitem target="generateDipoleRotationMoments.html#1">Syntax</tocitem>
+                <tocitem target="generateDipoleRotationMoments.html#2">Description</tocitem>
+                <tocitem target="generateDipoleRotationMoments.html#3">Examples</tocitem>
+                <tocitem target="generateDipoleRotationMoments.html#4">Input Arguments</tocitem>
+                <tocitem target="generateDipoleRotationMoments.html#5">Output Arguments</tocitem>
+                <tocitem target="generateDipoleRotationMoments.html#6">Requirements</tocitem>
+                <tocitem target="generateDipoleRotationMoments.html#7">See Also</tocitem>
                 </tocitem>
             </tocitem>
             <tocitem target="util.html">util
@@ -78,30 +90,38 @@
                     <tocitem target="removeFilesFromDir.html#1">Syntax</tocitem>
                     <tocitem target="removeFilesFromDir.html#2">Description</tocitem>
                     <tocitem target="removeFilesFromDir.html#3">Examples</tocitem>
-                    <tocitem target="removeFilesFromDir.html#4">Requirements</tocitem>
-                    <tocitem target="removeFilesFromDir.html#5">See Also</tocitem>
+                    <tocitem target="removeFilesFromDir.html#4">Input Arguments</tocitem>
+                    <tocitem target="removeFilesFromDir.html#5">Output Arguments</tocitem>
+                    <tocitem target="removeFilesFromDir.html#6">Requirements</tocitem>
+                    <tocitem target="removeFilesFromDir.html#7">See Also</tocitem>
                 </tocitem>
                 <tocitem target="publishFilesFromDir.html">publishFilesFromDir
                     <tocitem target="publishFilesFromDir.html#1">Syntax</tocitem>
                     <tocitem target="publishFilesFromDir.html#2">Description</tocitem>
                     <tocitem target="publishFilesFromDir.html#3">Examples</tocitem>
-                    <tocitem target="publishFilesFromDir.html#4">Requirements</tocitem>
-                    <tocitem target="publishFilesFromDir.html#5">See Also</tocitem>
+                    <tocitem target="publishFilesFromDir.html#4">Input Arguments</tocitem>
+                    <tocitem target="publishFilesFromDir.html#5">Output Arguments</tocitem>
+                    <tocitem target="publishFilesFromDir.html#6">Requirements</tocitem>
+                    <tocitem target="publishFilesFromDir.html#7">See Also</tocitem>
                 </tocitem>
                 <tocitem target="plotFunctions.html">plotFunctions
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset
                         <tocitem target="plotTDKCharDataset.html#1">Syntax</tocitem>
                         <tocitem target="plotTDKCharDataset.html#2">Decription</tocitem>
                         <tocitem target="plotTDKCharDataset.html#3">Examples</tocitem>
-                        <tocitem target="plotTDKCharDataset.html#4">Requirements</tocitem>
-                        <tocitem target="plotTDKCharDataset.html#5">See Also</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#4">Input Arguments</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#5">Input Arguments</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#6">Requirements</tocitem>
+                        <tocitem target="plotTDKCharDataset.html#7">See Also</tocitem>
                     </tocitem>
                     <tocitem target="newConfigFigure.html">newConfigFigure
                         <tocitem target="newConfigFigure.html#1">Syntax</tocitem>
                         <tocitem target="newConfigFigure.html#2">Description</tocitem>
                         <tocitem target="newConfigFigure.html#3">Examples</tocitem>
-                        <tocitem target="newConfigFigure.html#4">Requirements</tocitem>
-                        <tocitem target="newConfigFigure.html#5">See Also</tocitem>
+                        <tocitem target="newConfigFigure.html#4">Input Arguments</tocitem>
+                        <tocitem target="newConfigFigure.html#5">Output Arguments</tocitem>
+                        <tocitem target="newConfigFigure.html#6">Requirements</tocitem>
+                        <tocitem target="newConfigFigure.html#7">See Also</tocitem>
                     </tocitem>
                 </tocitem>
             </tocitem>
