@@ -4,7 +4,7 @@
 % and are eqaul distributed between 0° and 360°. 0° and 360° are related to the
 % first moment which is representated by the start vector of
 %
-% $\vec{m_0} = \hat{m_0} \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$
+% $\vec{m_0} = |m_0| \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$
 % 
 % Due to the start vecotor position the tilt of z-axes must be applied with a
 % tilt angle in y-axes. So the rotated vector of the start moment is described
@@ -31,32 +31,32 @@
 %
 %
 %% Syntax
-%   M = generateDipoleRotationMoments(m0Amp, nTheta)
-%   [M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta)
-%   [M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta, phi)
-%   [M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution)
-%   [M, thetas, index] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution, pahseIndex)
+%   M = generateDipoleRotationMoments(m0, nTheta)
+%   [M, thetas] = generateDipoleRotationMoments(m0, nTheta)
+%   [M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi)
+%   [M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi, resolution)
+%   [M, thetas, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)
 %
 %
 %% Description
-% *M = generateDipoleRotationMoments(m0Amp, nTheta)* generate magnetic moments
+% *M = generateDipoleRotationMoments(m0, nTheta)* generate magnetic moments
 % for N numbers of rotation angles theta in 3 x N sized matrix. With a default
 % angle resoulution of 1° and a start angle of 0°.
 %
-% *[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta)* returns so
+% *[M, theta] = generateDipoleRotationMoments(m0, nTheta)* returns so
 % magnetic moments as before and related angles theta as 1 x N vector.
 %
-% *[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta, phi)* generate
+% *[M, theta] = generateDipoleRotationMoments(m0, nTheta, phi)* generate
 % magnetic moments for a rotation with a tilt angle phi.
 %
-% *[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution)*
+% *[M, theta] = generateDipoleRotationMoments(m0, nTheta, phi, resolution)*
 % return moments and angles like described above but with given resolution in
 % degree. The resolution is used in generation of full scale rotation angle base
 % and sometime not visible in the output caused by the number of angles. So
 % which angle are even picked from full scale rotation to compute a down sampled
 % set of angles.
 % 
-% *[M, theta, index] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution, pahseIndex)*
+% *[M, theta, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)*
 % returns the moments, the angles and index reprensetation of down sampled
 % angles in the full scale rotation vectort.
 %
@@ -64,21 +64,21 @@
 %% Examples
 %   % choose a huge moment amplitude to withdraw numeric erros in later H-field
 %   % strength calculations
-%   mAmp = 1e6;
+%   m0 = 1e6;
 %
 %   % get a full scale (FS) rotation of with 0.5° resolution and no tilt
-%   [MFS, thetaFS] = generateDipolRotationMoments(mAmp, 0, 0, 0.5);
+%   [MFS, thetaFS] = generateDipolRotationMoments(m0, 0, 0, 0.5);
 %
 %   % get down sampled (DS) rotation with equal distanced angles of the same full
 %   % scale and refered index to the full scale. 8 angles.
-%   [MDS, thetaDS, iFS] = generateDipolRotationMoments(mAmp, 8, 0, 0.5);
+%   [MDS, thetaDS, iFS] = generateDipolRotationMoments(m0, 8, 0, 0.5);
 %  
 %   % check distribution to full scale must be true if distribution is correct
 %   all(MFS(iFS) == MDS)
 %   all(thetaFS(iFS) == thetaDS)
 %
 %   % now shift the sample pick by 22 samples (11° with resolution of 0.5°)
-%   [MDSS, thetaDSS] = generateDipolRotationMoments(mAmp, 8, 0, 0.5, 22);
+%   [MDSS, thetaDSS] = generateDipolRotationMoments(m0, 8, 0, 0.5, 22);
 %
 %   % check with index shift by 22 in iFS index
 %   all(MFS(iFS + 22) == MDSS)
@@ -86,7 +86,7 @@
 %  
 %
 %% Input Arguments
-% *m0Amp* scalar value of magnetic moment amplitude. Choose huge value to
+% *m0* scalar value of magnetic moment magnitude. Choose huge value to
 % prevent numeric failures in later field strength calculation. 1e6 is a proven
 % value. The is later normated in the field calculation process. Can be any real
 % number.
@@ -137,11 +137,11 @@
 % -->
 % </html>
 %
-function [M, theta, index] = generateDipoleRotationMoments(m0Amp, nTheta, ...
+function [M, theta, index] = generateDipoleRotationMoments(m0, nTheta, ...
     phi, resolution, phaseIndex)
     arguments
         % validate amplitude of magnetic moment as real scalar value
-        m0Amp (1,1) double {mustBeNumeric, mustBeReal}
+        m0 (1,1) double {mustBeNumeric, mustBeReal}
         % validate number of used angulars as positive integer, for 0 return all
         nTheta (1,1) double {mustBeNumeric, mustBeNonnegative, mustBeInteger}
         % validate tilt angle as real value with default 0°
@@ -179,7 +179,7 @@ function [M, theta, index] = generateDipoleRotationMoments(m0Amp, nTheta, ...
     
     % create start moment with given magnetic moment amplitude basic moment to
     % produce rotate moments
-    m0 = m0Amp * [-1; 0; 0];
+    m0 = m0 * [-1; 0; 0];
     
     % allocate memory for the moments Matrix of rotated basic moments by i-th
     % theta and fixed tilt of phi and rotate of theta angulars
