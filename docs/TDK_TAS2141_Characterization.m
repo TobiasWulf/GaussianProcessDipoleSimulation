@@ -89,7 +89,7 @@
 % That runs for the rising modulation amplitude and falling amplitude until
 % every pixel is hit and ended up into a dimensional function image as:
 %
-% $V_{cos}(H_x, H_y) = [mV]$
+% $V_{cos}(H_x, H_y) = [mV/V]$
 % 
 % The information of the image is build up in row. Reference Hx for
 % constant Hy in each row. The method is also comparable to a
@@ -106,7 +106,7 @@
 % images but the information lays now in the columns so the data is
 % collected in each column for a constant Hx and variable Hy:
 %
-% $V_{sin}(H_x, H_y) = [mV]$
+% $V_{sin}(H_x, H_y) = [mV/V]$
 %
 % <html>
 % <img src="images/tdk_sinus_bridge.svg" height=650>
@@ -167,7 +167,7 @@
 %
 % * MagneticFieldStrength - string, kA/m
 % * Frequency - string, Hz
-% * SensorOutputVoltage - string, mV
+% * SensorOutputVoltage - string, mV/V
 %
 % *Data:*
 %
