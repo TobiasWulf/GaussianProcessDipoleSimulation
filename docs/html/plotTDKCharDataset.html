@@ -74,6 +74,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 Edited on October 26. 2020 by Tobias Wulf: Finish plots, docstring, adjust phi.
+Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -122,14 +123,15 @@ Edited on October 26. 2020 by Tobias Wulf: Finish plots, docstring, adjust phi.
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on October 26. 2020 by Tobias Wulf: Finish plots, docstring, adjust phi.
+% Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
 function [Figures] = plotTDKCharDataset()
     try
         % load dataset path and dataset content into function workspace
-        load('config.mat', 'tdkDatasetPath');
-        load(tdkDatasetPath, 'Data', 'Info');
+        load('config.mat', 'PathVariables');
+        load(PathVariables.tdkDatasetPath, 'Data', 'Info');
     catch ME
         rethrow(ME)
     end

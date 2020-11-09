@@ -246,8 +246,8 @@ TestOptions.nAngles = 720;
 
 
 %% Save Configuration
-% Save section wise each config part as struct or struct fields to standalone
-% variables in config.mat use newest save format with no compression.
+% Save section wise each config part as struct to standalone variables in
+% config.mat use newest save format with no compression.
 
 % create config.mat with timestamp of creation
 disp('Create config.mat ...');

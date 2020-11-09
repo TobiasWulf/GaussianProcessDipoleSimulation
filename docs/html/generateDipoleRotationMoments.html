@@ -67,28 +67,28 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>generateDipoleRotationMoments</h1><!--introduction--><p>Generate magnetic moments to perform a full rotation of a magnetic dipole in the z-axes with a certain tilt. The moments covers a rotation from 0&deg; to 360&deg; and are eqaul distributed between 0&deg; and 360&deg;. 0&deg; and 360&deg; are related to the first moment which is representated by the start vector of</p><p><img src="generateDipoleRotationMoments_eq02156387001121186147.png" alt="$\vec{m_0} = \hat{m_0} \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$"></p><p>Due to the start vecotor position the tilt of z-axes must be applied with a tilt angle in y-axes. So the rotated vector of the start moment is described by</p><p><img src="generateDipoleRotationMoments_eq13144448944558720671.png" alt="$\vec{m_i} = R_z(\theta_i) R_y(\phi) R_x(0^{\circ}) \vec{m_0}$"></p><p>The returning Moments matrix is 3 x N matrix where each moment vector</p><p><img src="generateDipoleRotationMoments_eq02631260398654063402.png" alt="$\vec{M} = \left[ \vec{m_i} \cdots \vec{m_N} \right]$"></p><p>corresponds to a i-th angle in 1 x N thetas vector.</p><p><img src="generateDipoleRotationMoments_eq09360118950742325886.png" alt="$\vec{\theta} = \left[ \theta_i \cdots \theta_N \right]$"></p><p>for</p><p><img src="generateDipoleRotationMoments_eq03073953994555033805.png" alt="$i = 1 \cdots N$"></p><p>The resolution of the angles can be modified additionally. At first the full angle vector theta is fully generated with given resolution and downsampled afterwards to the defined number of angles. On the resultating theta vector is base of magnetical moments.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">M = generateDipoleRotationMoments(m0Amp, nTheta)
-[M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta)
-[M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta, phi)
-[M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution)
-[M, thetas, index] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution, pahseIndex)
-</pre><h2 id="2">Description</h2><p><b>M = generateDipoleRotationMoments(m0Amp, nTheta)</b> generate magnetic moments for N numbers of rotation angles theta in 3 x N sized matrix. With a default angle resoulution of 1&deg; and a start angle of 0&deg;.</p><p><b>[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta)</b> returns so magnetic moments as before and related angles theta as 1 x N vector.</p><p><b>[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta, phi)</b> generate magnetic moments for a rotation with a tilt angle phi.</p><p><b>[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution)</b> return moments and angles like described above but with given resolution in degree. The resolution is used in generation of full scale rotation angle base and sometime not visible in the output caused by the number of angles. So which angle are even picked from full scale rotation to compute a down sampled set of angles.</p><p><b>[M, theta, index] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution, pahseIndex)</b> returns the moments, the angles and index reprensetation of down sampled angles in the full scale rotation vectort.</p><h2 id="3">Examples</h2><pre class="language-matlab"><span class="comment">% choose a huge moment amplitude to withdraw numeric erros in later H-field</span>
+  </style></head><body><div class="content"><h1>generateDipoleRotationMoments</h1><!--introduction--><p>Generate magnetic moments to perform a full rotation of a magnetic dipole in the z-axes with a certain tilt. The moments covers a rotation from 0&deg; to 360&deg; and are eqaul distributed between 0&deg; and 360&deg;. 0&deg; and 360&deg; are related to the first moment which is representated by the start vector of</p><p><img src="generateDipoleRotationMoments_eq07742183000174562091.png" alt="$\vec{m_0} = |m_0| \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$"></p><p>Due to the start vecotor position the tilt of z-axes must be applied with a tilt angle in y-axes. So the rotated vector of the start moment is described by</p><p><img src="generateDipoleRotationMoments_eq13144448944558720671.png" alt="$\vec{m_i} = R_z(\theta_i) R_y(\phi) R_x(0^{\circ}) \vec{m_0}$"></p><p>The returning Moments matrix is 3 x N matrix where each moment vector</p><p><img src="generateDipoleRotationMoments_eq02631260398654063402.png" alt="$\vec{M} = \left[ \vec{m_i} \cdots \vec{m_N} \right]$"></p><p>corresponds to a i-th angle in 1 x N thetas vector.</p><p><img src="generateDipoleRotationMoments_eq09360118950742325886.png" alt="$\vec{\theta} = \left[ \theta_i \cdots \theta_N \right]$"></p><p>for</p><p><img src="generateDipoleRotationMoments_eq03073953994555033805.png" alt="$i = 1 \cdots N$"></p><p>The resolution of the angles can be modified additionally. At first the full angle vector theta is fully generated with given resolution and downsampled afterwards to the defined number of angles. On the resultating theta vector is base of magnetical moments.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">M = generateDipoleRotationMoments(m0, nTheta)
+[M, thetas] = generateDipoleRotationMoments(m0, nTheta)
+[M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi)
+[M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi, resolution)
+[M, thetas, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)
+</pre><h2 id="2">Description</h2><p><b>M = generateDipoleRotationMoments(m0, nTheta)</b> generate magnetic moments for N numbers of rotation angles theta in 3 x N sized matrix. With a default angle resoulution of 1&deg; and a start angle of 0&deg;.</p><p><b>[M, theta] = generateDipoleRotationMoments(m0, nTheta)</b> returns so magnetic moments as before and related angles theta as 1 x N vector.</p><p><b>[M, theta] = generateDipoleRotationMoments(m0, nTheta, phi)</b> generate magnetic moments for a rotation with a tilt angle phi.</p><p><b>[M, theta] = generateDipoleRotationMoments(m0, nTheta, phi, resolution)</b> return moments and angles like described above but with given resolution in degree. The resolution is used in generation of full scale rotation angle base and sometime not visible in the output caused by the number of angles. So which angle are even picked from full scale rotation to compute a down sampled set of angles.</p><p><b>[M, theta, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)</b> returns the moments, the angles and index reprensetation of down sampled angles in the full scale rotation vectort.</p><h2 id="3">Examples</h2><pre class="language-matlab"><span class="comment">% choose a huge moment amplitude to withdraw numeric erros in later H-field</span>
 <span class="comment">% strength calculations</span>
-mAmp = 1e6;
+m0 = 1e6;
 </pre><pre class="language-matlab"><span class="comment">% get a full scale (FS) rotation of with 0.5&deg; resolution and no tilt</span>
-[MFS, thetaFS] = generateDipolRotationMoments(mAmp, 0, 0, 0.5);
+[MFS, thetaFS] = generateDipolRotationMoments(m0, 0, 0, 0.5);
 </pre><pre class="language-matlab"><span class="comment">% get down sampled (DS) rotation with equal distanced angles of the same full</span>
 <span class="comment">% scale and refered index to the full scale. 8 angles.</span>
-[MDS, thetaDS, iFS] = generateDipolRotationMoments(mAmp, 8, 0, 0.5);
+[MDS, thetaDS, iFS] = generateDipolRotationMoments(m0, 8, 0, 0.5);
 </pre><pre class="language-matlab"><span class="comment">% check distribution to full scale must be true if distribution is correct</span>
 all(MFS(iFS) == MDS)
 all(thetaFS(iFS) == thetaDS)
 </pre><pre class="language-matlab"><span class="comment">% now shift the sample pick by 22 samples (11&deg; with resolution of 0.5&deg;)</span>
-[MDSS, thetaDSS] = generateDipolRotationMoments(mAmp, 8, 0, 0.5, 22);
+[MDSS, thetaDSS] = generateDipolRotationMoments(m0, 8, 0, 0.5, 22);
 </pre><pre class="language-matlab"><span class="comment">% check with index shift by 22 in iFS index</span>
 all(MFS(iFS + 22) == MDSS)
 all(thetaFS(iFS + 22) == thetaDSS)
-</pre><h2 id="4">Input Arguments</h2><p><b>m0Amp</b> scalar value of magnetic moment amplitude. Choose huge value to prevent numeric failures in later field strength calculation. 1e6 is a proven value. The is later normated in the field calculation process. Can be any real number.</p><p><b>nTheat</b> scalar value and number of angles which are even picked from the full rotation to produce smaller rotatation datasets. Must be a positive integer or zero. If zero the full scale rotation is returned.</p><p><b>phi</b> scalar angule in degree to tilt the z-axes of the rotation. Can be any real number. Default is 0&deg;.</p><p><b>resolution</b> scalar angle resolution must be real positive number and probably smaller than 360&deg;. Default is 1&deg;.</p><p><b>phaseIndex</b> scalar integer number to shift the start index of down sampling the full scale rotation. Therfore nTheta must be greater than 0. Default is 0.</p><h2 id="5">Output Arguments</h2><p><b>M</b> matrix of magnetic moments related to vector theta. Matrix of size 3 x N.</p><p><b>theta</b> related angles to calculated magnetic moments in a row vector of size 1 x N.</p><p><b>index</b> reference to full scale angle vector. Empty if nTheta is zero and theta is the full scale vector.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: rotate3DVector.m</li><li>Subfunctions: length, downsample, ismember, find</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="rotate3DVector.html">rotate3DVector</a></li><li><a href="matlab:web(fullfile(docroot,'signal/ref/downsample.html'))">downsample</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/double.ismember.html'))">ismember</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/find.html'))">find</a></li></ul></div><p>Created on November 06. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</pre><h2 id="4">Input Arguments</h2><p><b>m0</b> scalar value of magnetic moment magnitude. Choose huge value to prevent numeric failures in later field strength calculation. 1e6 is a proven value. The is later normated in the field calculation process. Can be any real number.</p><p><b>nTheat</b> scalar value and number of angles which are even picked from the full rotation to produce smaller rotatation datasets. Must be a positive integer or zero. If zero the full scale rotation is returned.</p><p><b>phi</b> scalar angule in degree to tilt the z-axes of the rotation. Can be any real number. Default is 0&deg;.</p><p><b>resolution</b> scalar angle resolution must be real positive number and probably smaller than 360&deg;. Default is 1&deg;.</p><p><b>phaseIndex</b> scalar integer number to shift the start index of down sampling the full scale rotation. Therfore nTheta must be greater than 0. Default is 0.</p><h2 id="5">Output Arguments</h2><p><b>M</b> matrix of magnetic moments related to vector theta. Matrix of size 3 x N.</p><p><b>theta</b> related angles to calculated magnetic moments in a row vector of size 1 x N.</p><p><b>index</b> reference to full scale angle vector. Empty if nTheta is zero and theta is the full scale vector.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: rotate3DVector.m</li><li>Subfunctions: length, downsample, ismember, find</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="rotate3DVector.html">rotate3DVector</a></li><li><a href="matlab:web(fullfile(docroot,'signal/ref/downsample.html'))">downsample</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/double.ismember.html'))">ismember</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/find.html'))">find</a></li></ul></div><p>Created on November 06. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -101,7 +101,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % and are eqaul distributed between 0° and 360°. 0° and 360° are related to the
 % first moment which is representated by the start vector of
 %
-% $\vec{m_0} = \hat{m_0} \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$
+% $\vec{m_0} = |m_0| \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$
 % 
 % Due to the start vecotor position the tilt of z-axes must be applied with a
 % tilt angle in y-axes. So the rotated vector of the start moment is described
@@ -128,32 +128,32 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Syntax
-%   M = generateDipoleRotationMoments(m0Amp, nTheta)
-%   [M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta)
-%   [M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta, phi)
-%   [M, thetas] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution)
-%   [M, thetas, index] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution, pahseIndex)
+%   M = generateDipoleRotationMoments(m0, nTheta)
+%   [M, thetas] = generateDipoleRotationMoments(m0, nTheta)
+%   [M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi)
+%   [M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi, resolution)
+%   [M, thetas, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)
 %
 %
 %% Description
-% *M = generateDipoleRotationMoments(m0Amp, nTheta)* generate magnetic moments
+% *M = generateDipoleRotationMoments(m0, nTheta)* generate magnetic moments
 % for N numbers of rotation angles theta in 3 x N sized matrix. With a default
 % angle resoulution of 1° and a start angle of 0°.
 %
-% *[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta)* returns so
+% *[M, theta] = generateDipoleRotationMoments(m0, nTheta)* returns so
 % magnetic moments as before and related angles theta as 1 x N vector.
 %
-% *[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta, phi)* generate
+% *[M, theta] = generateDipoleRotationMoments(m0, nTheta, phi)* generate
 % magnetic moments for a rotation with a tilt angle phi.
 %
-% *[M, theta] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution)*
+% *[M, theta] = generateDipoleRotationMoments(m0, nTheta, phi, resolution)*
 % return moments and angles like described above but with given resolution in
 % degree. The resolution is used in generation of full scale rotation angle base
 % and sometime not visible in the output caused by the number of angles. So
 % which angle are even picked from full scale rotation to compute a down sampled
 % set of angles.
 % 
-% *[M, theta, index] = generateDipoleRotationMoments(m0Amp, nTheta, phi, resolution, pahseIndex)*
+% *[M, theta, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)*
 % returns the moments, the angles and index reprensetation of down sampled
 % angles in the full scale rotation vectort.
 %
@@ -161,21 +161,21 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %% Examples
 %   % choose a huge moment amplitude to withdraw numeric erros in later H-field
 %   % strength calculations
-%   mAmp = 1e6;
+%   m0 = 1e6;
 %
 %   % get a full scale (FS) rotation of with 0.5° resolution and no tilt
-%   [MFS, thetaFS] = generateDipolRotationMoments(mAmp, 0, 0, 0.5);
+%   [MFS, thetaFS] = generateDipolRotationMoments(m0, 0, 0, 0.5);
 %
 %   % get down sampled (DS) rotation with equal distanced angles of the same full
 %   % scale and refered index to the full scale. 8 angles.
-%   [MDS, thetaDS, iFS] = generateDipolRotationMoments(mAmp, 8, 0, 0.5);
+%   [MDS, thetaDS, iFS] = generateDipolRotationMoments(m0, 8, 0, 0.5);
 %  
 %   % check distribution to full scale must be true if distribution is correct
 %   all(MFS(iFS) == MDS)
 %   all(thetaFS(iFS) == thetaDS)
 %
 %   % now shift the sample pick by 22 samples (11° with resolution of 0.5°)
-%   [MDSS, thetaDSS] = generateDipolRotationMoments(mAmp, 8, 0, 0.5, 22);
+%   [MDSS, thetaDSS] = generateDipolRotationMoments(m0, 8, 0, 0.5, 22);
 %
 %   % check with index shift by 22 in iFS index
 %   all(MFS(iFS + 22) == MDSS)
@@ -183,7 +183,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %  
 %
 %% Input Arguments
-% *m0Amp* scalar value of magnetic moment amplitude. Choose huge value to
+% *m0* scalar value of magnetic moment magnitude. Choose huge value to
 % prevent numeric failures in later field strength calculation. 1e6 is a proven
 % value. The is later normated in the field calculation process. Can be any real
 % number.
@@ -234,11 +234,11 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function [M, theta, index] = generateDipoleRotationMoments(m0Amp, nTheta, ...
+function [M, theta, index] = generateDipoleRotationMoments(m0, nTheta, ...
     phi, resolution, phaseIndex)
     arguments
         % validate amplitude of magnetic moment as real scalar value
-        m0Amp (1,1) double {mustBeNumeric, mustBeReal}
+        m0 (1,1) double {mustBeNumeric, mustBeReal}
         % validate number of used angulars as positive integer, for 0 return all
         nTheta (1,1) double {mustBeNumeric, mustBeNonnegative, mustBeInteger}
         % validate tilt angle as real value with default 0°
@@ -276,7 +276,7 @@ function [M, theta, index] = generateDipoleRotationMoments(m0Amp, nTheta, ...
     
     % create start moment with given magnetic moment amplitude basic moment to
     % produce rotate moments
-    m0 = m0Amp * [-1; 0; 0];
+    m0 = m0 * [-1; 0; 0];
     
     % allocate memory for the moments Matrix of rotated basic moments by i-th
     % theta and fixed tilt of phi and rotate of theta angulars
