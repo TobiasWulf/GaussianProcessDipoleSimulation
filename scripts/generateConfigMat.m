@@ -22,6 +22,7 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on November 09. 2020 by Tobias Wulf: Save PathVariables as struct.
 % -->
 % </html>
 %
@@ -122,9 +123,9 @@ TileOptions.TileSpacing = 'compact';
 % Save section wise each config part as struct or struct fields to standalone
 % variables in config.mat use newest save format with no compression.
 
-% save PathVariables struct fields to config.mat with no compression
+% save PathVariables struct to config.mat with no compression
 disp('Save path variables configuration to config.mat ...');
-save(PathVariables.configPath, '-struct', 'PathVariables', ...
+save(PathVariables.configPath, 'PathVariables', ...
     '-v7.3', '-nocompression');
 
 % save PublishOptions struct to config.mat with no compression, append to file

@@ -47,6 +47,7 @@
 % Edited on October 29. 2020 by Tobias Wulf: Prepare to move config to mat-file.
 % Edited on October 31. 2020 by Tobias Wulf: Move publishing to function.
 % Edited on November 04. 2020 by Tobias Wulf: Delete equation png files before.
+% Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 % -->
 % </html>
 %
@@ -60,8 +61,7 @@ clearvars;
 clc;
 disp('Load configuration ...');
 try
-    load('config.mat', 'rootPath', 'docsPath', 'scriptsPath', 'srcPath', ... 
-         'helpsearchPath', 'PublishOptions');
+    load('config.mat', 'PathVariables', 'PublishOptions');
 catch ME
     rethrow(ME);
 end
@@ -81,7 +81,7 @@ removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 % output. Dir all m-files from docs path. Not recursively but verbose. No
 % expected directory tree search for m-files.
 disp('Publish project documentation files ...');
-publishFilesFromDir(docsPath, PublishOptions, false, true);
+publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 
 
 %% Executable Script Files
@@ -97,7 +97,7 @@ publishFilesFromDir(docsPath, PublishOptions, false, true);
 % recursively but verbose
 disp('Publish executable scripts ...');
 PublishOptions.evalCode = false;
-publishFilesFromDir(scriptsPath, PublishOptions, false, true);
+publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 
 
 %% Source Code Functions and Classes
@@ -112,7 +112,7 @@ publishFilesFromDir(scriptsPath, PublishOptions, false, true);
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
 PublishOptions.showCode = false;
-publishFilesFromDir(srcPath, PublishOptions, true, true);
+publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 
 
 %% Build Documentation Database for Matlab Help Browser
@@ -128,7 +128,7 @@ publishFilesFromDir(srcPath, PublishOptions, true, true);
 % and check if files do not exist any more. At least build up new search
 % database entries to Matlab help.
 disp('Remove old search entries ...');
-if removeFilesFromDir(helpsearchPath)
+if removeFilesFromDir(PathVariables.helpsearchPath)
     builddocsearchdb(PublishOptions.outputDir);
 else
     disp('Could not remove old search entries ...');

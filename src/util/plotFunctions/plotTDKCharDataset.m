@@ -43,14 +43,15 @@
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on October 26. 2020 by Tobias Wulf: Finish plots, docstring, adjust phi.
+% Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 % -->
 % </html>
 %
 function [Figures] = plotTDKCharDataset()
     try
         % load dataset path and dataset content into function workspace
-        load('config.mat', 'tdkDatasetPath');
-        load(tdkDatasetPath, 'Data', 'Info');
+        load('config.mat', 'PathVariables');
+        load(PathVariables.tdkDatasetPath, 'Data', 'Info');
     catch ME
         rethrow(ME)
     end
