@@ -1,5 +1,5 @@
 % sensor array geometry, distance to dipole and size
-nSensors = 8;
+nSensors = 3;
 sensorArraySize = 2;
 sensorArrayHalfSize = sensorArraySize / 2;
 sensorArrayResolution = sensorArraySize / (nSensors -1);
@@ -27,7 +27,7 @@ X = X + xPosition;
 Y = Y + yPosition;
 Z = zeros(nSensors, nSensors) + zPosition;
 
-% position of each sensor dot reshape grid to position radius 3xN^2 x,y,z column
+% position of each sensor reshape grid to radius vectors 3xN^2 x,y,z column
 R = [X(:), Y(:), Z(:)]';
 
 % magnitude of radius
@@ -55,7 +55,7 @@ thetaResolution = 0.5;
 % norm factor to relative positions in the sensor array to calculate
 % this means only z-component in r and only x-component in eliminates most
 % of field formulat term to constants with x-componet to simple eqaution
-Hnorm = abs(mAmp / 4 / pi / (abs(zPosition)^3));
+H0norm = HAmp / abs(mAmp / 4 / pi / (abs(zPosition)^3));
 
 % https://en.wikipedia.org/wiki/Magnetic_dipole
 % https://en.wikipedia.org/wiki/Magnetic_moment
@@ -67,8 +67,8 @@ Hy = zeros(nSensors, nSensors, nTheta);
 Hz = zeros(nSensors, nSensors, nTheta);
 for i = 1:nTheta
     % calculate H-field of one rotation step for all positions, this allows
-    % singel positions too
-    H = HAmp * (3 * Runit .* (M(:,i)' * Runit) - M(:,i)) / Hnorm / 4 / pi ./ Rabs.^3;
+    % singel positions too, the field is normed to zero position magnitude
+    H = H0norm * (3 * Runit .* (M(:,i)' * Runit) - M(:,i)) / 4 / pi ./ Rabs.^3;
     % separate parts or field in axes direction/ components
     Hx(:,:,i) = reshape(H(1,:), nSensors, nSensors);
     Hy(:,:,i) = reshape(H(2,:), nSensors, nSensors);
@@ -77,7 +77,7 @@ end
 
 % Reference data from TDK chracterization dataset use rise characterization
 % because of its big linear plateau
-TDK = load('data/TDK_TAS2141_Characterization_2019-07-24.mat');
+TDK = load('data/TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat');
 % Hx and Hy scales of 2D characterization bridge output data
 HxScale = TDK.Data.MagneticField.hx;
 HyScale = TDK.Data.MagneticField.hy;
@@ -100,3 +100,5 @@ for i = 1:nTheta
     Vcos(:,:,i) = interp2(HxGrid, HyGrid, VcosRef, Hx(:,:,i), Hy(:,:,i));
     Vsin(:,:,i) = interp2(HxGrid, HyGrid, VsinRef, Hx(:,:,i), Hy(:,:,i));
 end
+
+% needs to be saved with Info and Data struct
