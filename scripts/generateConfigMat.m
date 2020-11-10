@@ -145,8 +145,8 @@ SensorArrayOptions.geometry = 'square';
 % Sensor array square dimension
 SensorArrayOptions.dimension = 8;
 
-% Sensor array size in mm
-SensorArrayOptions.size = 2;
+% Sensor array edge length in mm
+SensorArrayOptions.edge = 2;
 
 % Sensor array simulated supply voltage in volts
 SensorArrayOptions.vcc = 3.3;
