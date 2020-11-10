@@ -1,6 +1,12 @@
 %% sensorArraySimulation
 %
 %
+%% generateSensorArraySquareGrid
+% Generat a square sensor array grid in a 3D coordinate system with
+% relative position to center of the system and an additional offset in z
+% direction.
+%
+%
 %% generateDipoleRotationMoments
 % Generate magnetic rotation moments to rotate a magnetic dipol in its z-axes
 % with a certain tilt.

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-09"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-10"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -153,8 +153,8 @@ SensorArrayOptions.geometry = <span class="string">'square'</span>;
 <span class="comment">% Sensor array square dimension</span>
 SensorArrayOptions.dimension = 8;
 
-<span class="comment">% Sensor array size in mm</span>
-SensorArrayOptions.size = 2;
+<span class="comment">% Sensor array edge length in mm</span>
+SensorArrayOptions.edge = 2;
 
 <span class="comment">% Sensor array simulated supply voltage in volts</span>
 SensorArrayOptions.vcc = 3.3;
@@ -233,7 +233,7 @@ TestOptions.angleRes = 0.5;
 <span class="comment">% relatead to the resolution or fast generate but wrong number to 0 to</span>
 <span class="comment">% generate full scale rotation.</span>
 TestOptions.nAngles = 720;
-</pre><h2 id="12">Save Configuration</h2><p>Save section wise each config part as struct or struct fields to standalone variables in config.mat use newest save format with no compression.</p><pre class="codeinput"><span class="comment">% create config.mat with timestamp of creation</span>
+</pre><h2 id="12">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression.</p><pre class="codeinput"><span class="comment">% create config.mat with timestamp of creation</span>
 disp(<span class="string">'Create config.mat ...'</span>);
 timestamp = datestr(now, GeneralOptions.dateFormat);
 save(PathVariables.configPath, <span class="keyword">...</span>
@@ -396,8 +396,8 @@ SensorArrayOptions.geometry = 'square';
 % Sensor array square dimension
 SensorArrayOptions.dimension = 8;
 
-% Sensor array size in mm
-SensorArrayOptions.size = 2;
+% Sensor array edge length in mm
+SensorArrayOptions.edge = 2;
 
 % Sensor array simulated supply voltage in volts
 SensorArrayOptions.vcc = 3.3;
@@ -497,8 +497,8 @@ TestOptions.nAngles = 720;
 
 
 %% Save Configuration
-% Save section wise each config part as struct or struct fields to standalone
-% variables in config.mat use newest save format with no compression.
+% Save section wise each config part as struct to standalone variables in
+% config.mat use newest save format with no compression.
 
 % create config.mat with timestamp of creation
 disp('Create config.mat ...');

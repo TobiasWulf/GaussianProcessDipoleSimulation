@@ -106,7 +106,7 @@
 %   % * Reference3
 %   %
 %   %
-%   % Created on Month DD. YYYY by Creator. Copyright Creator 2020.
+%   % Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
 %   %
 %   % <html>
 %   % <!--
