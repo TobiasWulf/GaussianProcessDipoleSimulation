@@ -31,7 +31,7 @@ N           = 8;
 % Position of the Magnet in  x y z
 shift_x     = 0; 
 shift_y     = 0;  
-tz          = 2;  
+tz          = 4;  
 
 M.x         = meshgrid([-sz/2:sz/(N-1):sz/2]); 
 M.y         = meshgrid([-sz/2:sz/(N-1):sz/2])'; 
@@ -64,7 +64,7 @@ end
 rot = 0; 
 pos = find(alpha==rot); 
 clc
-C = reshape(Mfield(pos).COS_VAL,N,N)./1e3.*VCC; % Warum 2x Normierung?
+C = reshape(Mfield(pos).COS_VAL,N,N)./1e3.*VCC;
 S = reshape(Mfield(pos).SIN_VAL,N,N)./1e3.*VCC;
 xx = Mfield(1).x; 
 yy = Mfield(1).y; 
