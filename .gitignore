@@ -16,5 +16,5 @@
 
 # ignore equation png files which are produced from publish process they are to
 # volotile to have them on track, rerun publish process instead
-#docs/html/[a-zA-Z_0-9]_eq[0-9].png
-docs/html/*.png
+docs/html/*eq*.png
+
