@@ -4,25 +4,25 @@
 % and are eqaul distributed between 0° and 360°. 0° and 360° are related to the
 % first moment which is representated by the start vector of
 %
-% $\vec{m_0} = |m_0| \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$
+% $$\vec{m_0} = |m_0| \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$$
 % 
 % Due to the start vecotor position the tilt of z-axes must be applied with a
 % tilt angle in y-axes. So the rotated vector of the start moment is described
 % by
 %
-% $\vec{m_i} = R_z(\theta_i) R_y(\phi) R_x(0^{\circ}) \vec{m_0}$
+% $$\vec{m_i} = R_z(\theta_i) R_y(\phi) R_x(0^{\circ}) \vec{m_0}$$
 %
 % The returning Moments matrix is 3 x N matrix where each moment vector
 %
-% $\vec{M} = \left[ \vec{m_i} \cdots \vec{m_N} \right]$
+% $$\vec{M} = \left[ \vec{m_i} \cdots \vec{m_N} \right]$$
 %
 % corresponds to a i-th angle in 1 x N thetas vector.
 %
-% $\vec{\theta} = \left[ \theta_i \cdots \theta_N \right]$
+% $$\vec{\theta} = \left[ \theta_i \cdots \theta_N \right]$$
 %
 % for
 %
-% $i = 1 \cdots N$
+% $$i = 1 \cdots N$$
 %
 % The resolution of the angles can be modified additionally. At first the full
 % angle vector theta is fully generated with given resolution and downsampled
@@ -35,7 +35,7 @@
 %   [M, thetas] = generateDipoleRotationMoments(m0, nTheta)
 %   [M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi)
 %   [M, thetas] = generateDipoleRotationMoments(m0, nTheta, phi, resolution)
-%   [M, thetas, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)
+%   [M, thetas, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, phaseIndex)
 %
 %
 %% Description
@@ -56,7 +56,7 @@
 % which angle are even picked from full scale rotation to compute a down sampled
 % set of angles.
 % 
-% *[M, theta, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, pahseIndex)*
+% *[M, theta, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, phaseIndex)*
 % returns the moments, the angles and index reprensetation of down sampled
 % angles in the full scale rotation vectort.
 %

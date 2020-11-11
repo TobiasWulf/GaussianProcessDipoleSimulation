@@ -26,50 +26,50 @@
 % The carrier function for the Hx-field stimulus is related to the cosinus
 % bridge and so:
 %
-% $c_1(t) = cos(\phi(t))$
+% $$c_1(t) = cos(\phi(t))$$
 %
 % Due to the physically phase shift the Hy-field stimulus is related to sinus:
 %
-% $c_2(t) = sin(\phi(t))$
+% $$c_2(t) = sin(\phi(t))$$
 %
 % Both carrier runs with same carrier frequency:
 %
-% $f_c = 3.2 Hz$
+% $$f_c = 3.2 Hz$$
 %
 % so they are executed with the phase vector over time:
 %
-% $\phi(t) = 2\pi f_c t$
+% $$\phi(t) = 2\pi f_c t$$
 %
 % The carrier functions are triangle modulated to generate rising and falling
 % amplituded. The modulation frequency is  set to:
 %
-% $f_m = 0.01Hz$
+% $$f_m = 0.01Hz$$
 %
 % Which generates a stimulus with 320 periods where 160 periods feeds a rising
 % and falling record each multiplied with maximum fieldstrength amplitude:
 %
-% $m(t) = H_{max} \cdot tri(t) = H_{max} \cdot tri(2(t-t_0)f_m)$
+% $$m(t) = H_{max} \cdot tri(t) = H_{max} \cdot tri(2(t-t_0)f_m)$$
 %
-% $t_0 = \frac{1}{2f_m}$
+% $$t_0 = \frac{1}{2f_m}$$
 % 
 % So the Hx- and Hy-field stimulus is described by:
 %
-% $H_x(t) = m(t) \cdot c_1(t)$
+% $$H_x(t) = m(t) \cdot c_1(t)$$
 %
-% $H_y(t) = m(t) \cdot c_1(t)$
+% $$H_y(t) = m(t) \cdot c_1(t)$$
 %
 % The stimulus amplitude depending on the phase in polar coordinates can be
 % displayed for both parts by:
 %
-% $H_{x,y}(\phi) = |H_{x,y}(\phi)| \cdot e^{j\phi} = m(t) \cdot e^{j\phi(t)}$
+% $$H_{x,y}(\phi) = |H_{x,y}(\phi)| \cdot e^{j\phi} = m(t) \cdot e^{j\phi(t)}$$
 %
 % Where a rising spiral runs from center outwards for:
 %
-% $0 < t < t_0$
+% $$0 < t < t_0$$
 %
 % And a falling spiral of amplitudes from outwards to center for:
 %
-% $t_0 < t < \frac{1}{f_m}$
+% $$t_0 < t < \frac{1}{f_m}$$
 %
 % <html>
 % <img src="images/tdk_magnetic_stimulus.svg" height=650>
@@ -89,7 +89,7 @@
 % That runs for the rising modulation amplitude and falling amplitude until
 % every pixel is hit and ended up into a dimensional function image as:
 %
-% $V_{cos}(H_x, H_y) = [mV/V]$
+% $$V_{cos}(H_x, H_y) = [mV/V]$$
 % 
 % The information of the image is build up in row. Reference Hx for
 % constant Hy in each row. The method is also comparable to a
@@ -106,7 +106,7 @@
 % images but the information lays now in the columns so the data is
 % collected in each column for a constant Hx and variable Hy:
 %
-% $V_{sin}(H_x, H_y) = [mV/V]$
+% $$V_{sin}(H_x, H_y) = [mV/V]$$
 %
 % <html>
 % <img src="images/tdk_sinus_bridge.svg" height=650>

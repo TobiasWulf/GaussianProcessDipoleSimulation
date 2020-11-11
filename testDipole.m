@@ -8,7 +8,7 @@ sensorArraySize = 2;
 % relative sensor array position from dipole sphere in a position vector p
 xPosition = 0;
 yPosition = 0;
-zPosition = 5;
+zPosition = 0;
 p = [xPosition; yPosition; zPosition];
 
 % sensor supply voltage and offset voltage
@@ -23,11 +23,11 @@ Vnorm = 1e3;
 sphereRadius = 2;
 
 % calculate magnetic moments for a subset of angles
-% the moment amplitude to huge value to prevent numeric failure
-m0 = 1e6;
+% set the moment magnitude to a huge value to prevent numeric failures
+Mmag = 1e6;
 
 % number of angles to observe, even from 0 to 360 degree
-nTheta = 15;
+nTheta = 5;
 
 % tilt angle in z-axes
 phi = 0;
@@ -35,8 +35,8 @@ phi = 0;
 % angele resolution of rotation (full scale)
 thetaResolution = 0.5;
 
-% H-amplitude, multiply after norming the field results in kA/m
-HAmp = 8.5;
+% H-magnitured, multiply after norming the field results in kA/m
+Hmag = 8.5;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,14 +45,11 @@ HAmp = 8.5;
 [X, Y, Z] = generateSensorArraySquareGrid(nSensors, sensorArraySize, ...
     p, sphereRadius);
 
-% compute moments
-[M, theta, index] = generateDipoleRotationMoments(m0, nTheta, phi, thetaResolution);
+% compute magnetic moments
+[M, theta, index] = generateDipoleRotationMoments(Mmag, nTheta, phi, thetaResolution);
 
-% calculate the H-field magnitude for the dipole in zero position to get a
-% norm factor to relative positions in the sensor array to calculate
-% this means only z-component in r and only x-component in eliminates most
-% of field formulat term to constants with x-componet to simple eqaution
-H0norm = HAmp / abs(m0 / 4 / pi / (abs(sphereRadius)^3));
+% comput dipole rest position norm to imprint a certain field strength magnitude
+H0norm = computeDipoleH0Norm(Hmag, Mmag, sphereRadius);
 
 
 % https://en.wikipedia.org/wiki/Magnetic_dipole
@@ -109,6 +106,7 @@ end
 
 % plot scratch for rotation
 f = figure('units','normalized','outerposition',[0 0 1 1]);
+
 t = tiledlayout(2, 2);
 ax1 = nexttile;
 scatter(ax1, X(:), Y(:), 10, 'filled')

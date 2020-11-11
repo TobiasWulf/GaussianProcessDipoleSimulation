@@ -6,42 +6,54 @@
 %
 % The size of the sensor array is described by its edge length a
 %
-% $A = a^2$
+% $$A = a^2$$
 %
 % and the distance d of each coordinate to the next point in x and y
 % direction
 %
-% $d = \frac{a}{N-1}$.
+% $$d = \frac{a}{N-1}$$
 %
 % The coordinates of the array are scale from center of the square.
 % So for the upper left corner position is described by
 %
-% $x_{1,1} = -\frac{a}{2} \quad y_{1,1} = -\frac{a}{2} \quad z = const.$
+% $$x_{1,1} = -\frac{a}{2} \quad y_{1,1} = -\frac{a}{2} \quad z = const.$$
 %
 % The coodinates of each dimension are placed in matrices of size N x N
 % related to the number of sensors at one edge of the square Array.
 % So position pattern in x dimension are returned as
 %
-% $X = \left[ \matrix{x_{1,1} & \cdots & x_{1,N} \cr
-%                     \vdots  & \ddots & \vdots  \cr
-%                     x_{N,1} & \cdots & x_{N,N}} \right]$
+% $$X_0 = \left[ \matrix{x_{1,1} & \cdots & x_{1,N} \cr
+%                      \vdots  & \ddots & \vdots  \cr
+%                      x_{N,1} & \cdots & x_{N,N}} \right]$$
 %
-% same wise for y dimension
+% $$x_{i,j} = x_{1,1} + j \cdot d - d$$
 %
-% $Y = \left[ \matrix{y_{1,1} & \cdots & y_{1,N} \cr
-%                     \vdots  & \ddots & \vdots  \cr
-%                     y_{N,1} & \cdots & y_{N,N}} \right]$
+% same wise for y dimension but transposed
+%
+% $$Y_0 = \left[ \matrix{y_{1,1} & \cdots & y_{1,N} \cr
+%                      \vdots  & \ddots & \vdots  \cr
+%                      y_{N,1} & \cdots & y_{N,N}} \right]$$
+%
+% $$y_{i,j} = y_{1,1} + i \cdot d - d$$
+%
+% $$Y_0 = X_0^T$$
 %
 % and z dimension
 %
-% $Z = \left[ \matrix{z_{1,1} & \cdots & z_{1,N} \cr
-%                     \vdots  & \ddots & \vdots  \cr
-%                     z_{N,1} & \cdots & z_{N,N}} \right]$.
+% $$Z_0 = \left[ \matrix{z_{1,1} & \cdots & z_{1,N} \cr
+%                      \vdots  & \ddots & \vdots  \cr
+%                      z_{N,1} & \cdots & z_{N,N}} \right]$$
+%
+% $$z_{i,j} = 0$$
+%
+% for
+%
+% $$i = 1, 2, \ldots, N \quad j = 1, 2, \ldots, N$$
 %
 % A relative position shift can be performed by pass a postion vector p
 % with relativ position to center
 %
-% $\vec{p} = \left[ \matrix{ x_p \cr y_p \cr z_p} \right]$.
+% $$\vec{p} = \left[ \matrix{ x_p \cr y_p \cr z_p} \right]$$
 %
 % So that a left shift in x and a up shift in y direction is performed by
 % egativ values in p. To gain distance in z from center point so that
@@ -52,7 +64,7 @@
 % array position is relative to the dipole or center. So shifts are
 % described by
 %
-% $X = X + x_p \quad Y = Y + y_p \quad Z = Z -(z_p + r_{sp})$.
+% $$X = X_0 + x_p \quad Y = Y_0 + y_p \quad Z = Z_0 -(z_p + r_{sp})$$
 %
 %
 %% Syntax

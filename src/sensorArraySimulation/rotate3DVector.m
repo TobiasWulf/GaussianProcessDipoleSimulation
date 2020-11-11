@@ -20,7 +20,7 @@
 % the vector is computed by the matrix and vector multiplacation of the rotation
 % matrices and the input vecotor.
 %
-% $v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$
+% $$v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$$
 %
 %
 %% Examples

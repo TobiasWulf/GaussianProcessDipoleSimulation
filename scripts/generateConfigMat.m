@@ -149,15 +149,15 @@ SensorArrayOptions.dimension = 8;
 SensorArrayOptions.edge = 2;
 
 % Sensor array simulated supply voltage in volts
-SensorArrayOptions.vcc = 3.3;
+SensorArrayOptions.Vcc = 3.3;
 
 % Sensor array simulated offset voltage for bridge outputs in volts
-SensorArrayOptions.voff = 1.65;
+SensorArrayOptions.Voff = 1.65;
 
 % Senor array voltage norm factor to recalculate norm bridge outputs to
 % given supply voltage and offset voltage, current normin is mV/V which
 % implements factor of 1e3
-SensorArrayOptions.vnorm = 1e3;
+SensorArrayOptions.Vnorm = 1e3;
 
 
 %% Dipole Options
@@ -169,18 +169,18 @@ DipoleOptions = struct;
 
 % Radius in mm of magnetic sphere in which the magnetic dipole is centered.
 % So it can be seen as z-offset to the sensor array.
-DipoleOptions.radius = 2;
+DipoleOptions.sphereRadius = 2;
 
 % H-field magnitude to multiply of generated and relative normed dipole
 % H-fields, the norming is done in zero position of [0 0 z+offset] for
 % 0° due to the position of the magnetic moment [-1 0 0] x and y components
 % are not relevant, norming without tilt. Magnitude in kA/m
-DipoleOptions.hMag = 8.5;
+DipoleOptions.Hmag = 8.5;
 
 % Magnetic moment magnitude attach rotation to the dipole field at a
 % certain position with x, y and z components. Choose a huge value to
 % prevent numeric failures
-DipoleOptions.mMag = 1e6;
+DipoleOptions.Mmag = 1e6;
 
 
 %% Traning Options
@@ -211,7 +211,7 @@ TrainingOptions.angleRes = 0.5;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number to 0 to
 % generate full scale rotation.
-TrainingOptions.nAngles = 7;
+TrainingOptions.nAngles = [7,];
 
 
 %% Test Options
@@ -242,7 +242,7 @@ TestOptions.angleRes = 0.5;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number to 0 to
 % generate full scale rotation.
-TestOptions.nAngles = 720;
+TestOptions.nAngles = [720,];
 
 
 %% Save Configuration

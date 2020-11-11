@@ -1,6 +1,12 @@
 %% sensorArraySimulation
 %
 %
+%% computeDipoleH0Norm
+% Compute a norm factor to imprint a magnetic field strength to magnetic dipole
+% fields with same magnetic moment magnitude and constant dipole sphere radius
+% on which the imprinted field strengt takes effect.
+%
+%
 %% generateSensorArraySquareGrid
 % Generat a square sensor array grid in a 3D coordinate system with
 % relative position to center of the system and an additional offset in z

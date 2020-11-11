@@ -1,7 +1,8 @@
 % build suite from test files
 suite = testsuite({'removeFilesFromDirTest', 'rotate3DVectorTest', ...
     'generateDipoleRotationMomentsTest', ...
-    'generateSensorArraySquareGridTest'});
+    'generateSensorArraySquareGridTest', ...
+    'computeDipoleH0NormTest'});
 
 % run tests
 results = run(suite);

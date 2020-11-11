@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-10"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-11"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -157,32 +157,32 @@ SensorArrayOptions.dimension = 8;
 SensorArrayOptions.edge = 2;
 
 <span class="comment">% Sensor array simulated supply voltage in volts</span>
-SensorArrayOptions.vcc = 3.3;
+SensorArrayOptions.Vcc = 3.3;
 
 <span class="comment">% Sensor array simulated offset voltage for bridge outputs in volts</span>
-SensorArrayOptions.voff = 1.65;
+SensorArrayOptions.Voff = 1.65;
 
 <span class="comment">% Senor array voltage norm factor to recalculate norm bridge outputs to</span>
 <span class="comment">% given supply voltage and offset voltage, current normin is mV/V which</span>
 <span class="comment">% implements factor of 1e3</span>
-SensorArrayOptions.vnorm = 1e3;
+SensorArrayOptions.Vnorm = 1e3;
 </pre><h2 id="9">Dipole Options</h2><p>Dipole options to calculate the magnetic field which stimulate the sensor array. The dipole is gained to sphere with additional z distance to the array by sphere radius.</p><pre class="codeinput">disp(<span class="string">'Set dipole options to calculate magnetic stimulus ...'</span>);
 DipoleOptions = struct;
 
 <span class="comment">% Radius in mm of magnetic sphere in which the magnetic dipole is centered.</span>
 <span class="comment">% So it can be seen as z-offset to the sensor array.</span>
-DipoleOptions.radius = 2;
+DipoleOptions.sphereRadius = 2;
 
 <span class="comment">% H-field magnitude to multiply of generated and relative normed dipole</span>
 <span class="comment">% H-fields, the norming is done in zero position of [0 0 z+offset] for</span>
 <span class="comment">% 0&deg; due to the position of the magnetic moment [-1 0 0] x and y components</span>
 <span class="comment">% are not relevant, norming without tilt. Magnitude in kA/m</span>
-DipoleOptions.hMag = 8.5;
+DipoleOptions.Hmag = 8.5;
 
 <span class="comment">% Magnetic moment magnitude attach rotation to the dipole field at a</span>
 <span class="comment">% certain position with x, y and z components. Choose a huge value to</span>
 <span class="comment">% prevent numeric failures</span>
-DipoleOptions.mMag = 1e6;
+DipoleOptions.Mmag = 1e6;
 </pre><h2 id="10">Traning Options</h2><p>Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set training options to generate dataset ...'</span>);
 TrainingOptions = struct;
 
@@ -207,7 +207,7 @@ TrainingOptions.angleRes = 0.5;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number to 0 to</span>
 <span class="comment">% generate full scale rotation.</span>
-TrainingOptions.nAngles = 7;
+TrainingOptions.nAngles = [7,];
 </pre><h2 id="11">Test Options</h2><p>Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate dataset ...'</span>);
 TestOptions = struct;
 
@@ -232,7 +232,7 @@ TestOptions.angleRes = 0.5;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number to 0 to</span>
 <span class="comment">% generate full scale rotation.</span>
-TestOptions.nAngles = 720;
+TestOptions.nAngles = [720,];
 </pre><h2 id="12">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression.</p><pre class="codeinput"><span class="comment">% create config.mat with timestamp of creation</span>
 disp(<span class="string">'Create config.mat ...'</span>);
 timestamp = datestr(now, GeneralOptions.dateFormat);
@@ -400,15 +400,15 @@ SensorArrayOptions.dimension = 8;
 SensorArrayOptions.edge = 2;
 
 % Sensor array simulated supply voltage in volts
-SensorArrayOptions.vcc = 3.3;
+SensorArrayOptions.Vcc = 3.3;
 
 % Sensor array simulated offset voltage for bridge outputs in volts
-SensorArrayOptions.voff = 1.65;
+SensorArrayOptions.Voff = 1.65;
 
 % Senor array voltage norm factor to recalculate norm bridge outputs to
 % given supply voltage and offset voltage, current normin is mV/V which
 % implements factor of 1e3
-SensorArrayOptions.vnorm = 1e3;
+SensorArrayOptions.Vnorm = 1e3;
 
 
 %% Dipole Options
@@ -420,18 +420,18 @@ DipoleOptions = struct;
 
 % Radius in mm of magnetic sphere in which the magnetic dipole is centered.
 % So it can be seen as z-offset to the sensor array.
-DipoleOptions.radius = 2;
+DipoleOptions.sphereRadius = 2;
 
 % H-field magnitude to multiply of generated and relative normed dipole
 % H-fields, the norming is done in zero position of [0 0 z+offset] for
 % 0° due to the position of the magnetic moment [-1 0 0] x and y components
 % are not relevant, norming without tilt. Magnitude in kA/m
-DipoleOptions.hMag = 8.5;
+DipoleOptions.Hmag = 8.5;
 
 % Magnetic moment magnitude attach rotation to the dipole field at a
 % certain position with x, y and z components. Choose a huge value to
 % prevent numeric failures
-DipoleOptions.mMag = 1e6;
+DipoleOptions.Mmag = 1e6;
 
 
 %% Traning Options
@@ -462,7 +462,7 @@ TrainingOptions.angleRes = 0.5;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number to 0 to
 % generate full scale rotation.
-TrainingOptions.nAngles = 7;
+TrainingOptions.nAngles = [7,];
 
 
 %% Test Options
@@ -493,7 +493,7 @@ TestOptions.angleRes = 0.5;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number to 0 to
 % generate full scale rotation.
-TestOptions.nAngles = 720;
+TestOptions.nAngles = [720,];
 
 
 %% Save Configuration

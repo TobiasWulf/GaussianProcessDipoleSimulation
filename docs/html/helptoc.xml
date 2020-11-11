@@ -29,6 +29,7 @@
                 <tocitem target="rotate3DVector.html">rotate3DVector</tocitem>
                 <tocitem target="generateDipoleRotationMoments.html">generateDipoleRotationMoments</tocitem>
                 <tocitem target="generateSensorArraySquareGrid.html">generateSensorArraySquareGrid</tocitem>
+                <tocitem target="computeDipoleH0Norm.html">computeDipoleH0Norm</tocitem>
             </tocitem>
             <tocitem target="util.html">util
                 <tocitem target="removeFilesFromDir.html">removeFilesFromDir</tocitem>
