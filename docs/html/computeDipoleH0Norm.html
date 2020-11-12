@@ -79,7 +79,7 @@ Hmag = 200
 Mmag = 1e6
 <span class="comment">% compute norm factor for dipole rest position</span>
 H0norm = computeDipoleH0Norm(Hmag, Mmag, z0, rsp)
-</pre><h2 id="4">Input Argurments</h2><p><b>Hmag</b> real scalar of H-field strength magnitude to imprint in norm factor to define a dipole sphere with constant radius and field strength at this radius.</p><p><b>m0</b> real scalar of magnetic moment magnitude which must be same as for later roatition of the dipole.</p><p><b>r</b> real scalar of dipole sphere radius on which a constant field strength has its effect.</p><h2 id="5">Output Argurments</h2><p><b>H0norm</b> real scalar of norm factor which relates to the zero position of the dipole sphere and can be multiplied to generated dipole H-field to imprint a magnetic field strength relative to the position of sensor array.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="rotate3DVector.html">rotate3DVector</a></li><li><a href="generateDipoleRotationMoments.html">generateDipoleRotationMoments</a></li><li><a href="https://en.wikipedia.org/wiki/Magnetic_dipole">Wikipedia Magnetic Dipole</a></li></ul></div><p>Created on November 11. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</pre><h2 id="4">Input Argurments</h2><p><b>Hmag</b> real scalar of H-field strength magnitude to imprint in norm factor to define a dipole sphere with constant radius and field strength at this radius.</p><p><b>m0</b> real scalar of magnetic moment magnitude which must be same as for later roatition of the dipole.</p><p><b>z0</b> real scalar of distance in rest position of spherical magnet.</p><p><b>rsp</b> real scalar of dipole sphere radius.</p><h2 id="5">Output Argurments</h2><p><b>H0norm</b> real scalar of norm factor which relates to the zero position of the dipole sphere and can be multiplied to generated dipole H-field to imprint a magnetic field strength relative to the position of sensor array. The imprinted field strength magnitude relates to the rest position z0 + rsp.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="rotate3DVector.html">rotate3DVector</a></li><li><a href="generateDipoleRotationMoments.html">generateDipoleRotationMoments</a></li><li><a href="https://en.wikipedia.org/wiki/Magnetic_dipole">Wikipedia Magnetic Dipole</a></li></ul></div><p>Created on November 11. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -159,14 +159,16 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % *m0* real scalar of magnetic moment magnitude which must be same as for later
 % roatition of the dipole.
 %
-% *r* real scalar of dipole sphere radius on which a constant field strength has
-% its effect.
+% *z0* real scalar of distance in rest position of spherical magnet.
+%
+% *rsp* real scalar of dipole sphere radius.
 %
 %
 %% Output Argurments
 % *H0norm* real scalar of norm factor which relates to the zero position of the
 % dipole sphere and can be multiplied to generated dipole H-field to imprint a
-% magnetic field strength relative to the position of sensor array.
+% magnetic field strength relative to the position of sensor array. The
+% imprinted field strength magnitude relates to the rest position z0 + rsp.
 %
 %
 %% Requirements
@@ -190,16 +192,17 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function [H0norm] = computeDipoleH0Norm(Hmag, m0, r)
+function [H0norm] = computeDipoleH0Norm(Hmag, m0, z0, rsp)
     arguments
         % validate inputs as real scalars
         Hmag (1,1) double {mustBeReal}
         m0 (1,1) double {mustBeReal}
-        r (1,1) double {mustBeReal}
+        z0 (1,1) double {mustBeReal}
+        rsp (1,1) double {mustBeReal}
     end
     
     % compute the norm factor like described in the equations
-    H0norm = 4 * pi * abs(r)^3 * Hmag / abs(m0);
+    H0norm = 4 * pi * abs(-(z0 + rsp))^3 * Hmag / abs(m0);
 end
 
 

@@ -33,7 +33,7 @@ Mmag = 1e6;
 nTheta = 12;
 
 % tilt angle in z-axes
-phi = 90;
+phi = 0;
 
 % angele resolution of rotation (full scale)
 thetaResolution = 0.5;
@@ -52,7 +52,7 @@ Hmag = 200;
 [M, theta, index] = generateDipoleRotationMoments(Mmag, nTheta, phi, thetaResolution);
 
 % compute dipole rest position norm to imprint a certain field strength magnitude
-H0norm = computeDipoleH0Norm(Hmag, Mmag, z0 + sphereRadius);
+H0norm = computeDipoleH0Norm(Hmag, Mmag, z0, sphereRadius);
 
 
 % https://en.wikipedia.org/wiki/Magnetic_dipole
