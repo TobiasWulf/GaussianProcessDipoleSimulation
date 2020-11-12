@@ -8,7 +8,7 @@ sensorArraySize = 2;
 % relative sensor array position from dipole sphere in a position vector p
 xPosition = 0;
 yPosition = 0;
-zPosition = 0;
+zPosition = 7;
 p = [xPosition; yPosition; zPosition];
 
 % sensor supply voltage and offset voltage
@@ -22,34 +22,37 @@ Vnorm = 1e3;
 % sphere radius arround the dipole in mm
 sphereRadius = 2;
 
+% distance from sphere surface in mm where H-magnitude value takes effect
+z0 = 0.8;
+
 % calculate magnetic moments for a subset of angles
 % set the moment magnitude to a huge value to prevent numeric failures
 Mmag = 1e6;
 
 % number of angles to observe, even from 0 to 360 degree
-nTheta = 5;
+nTheta = 12;
 
 % tilt angle in z-axes
-phi = 0;
+phi = 90;
 
 % angele resolution of rotation (full scale)
 thetaResolution = 0.5;
 
 % H-magnitured, multiply after norming the field results in kA/m
-Hmag = 8.5;
+Hmag = 200;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% scale sensor array grid
+% generate sensor array grid
 [X, Y, Z] = generateSensorArraySquareGrid(nSensors, sensorArraySize, ...
     p, sphereRadius);
 
-% compute magnetic moments
+% generate magnetic moments
 [M, theta, index] = generateDipoleRotationMoments(Mmag, nTheta, phi, thetaResolution);
 
-% comput dipole rest position norm to imprint a certain field strength magnitude
-H0norm = computeDipoleH0Norm(Hmag, Mmag, sphereRadius);
+% compute dipole rest position norm to imprint a certain field strength magnitude
+H0norm = computeDipoleH0Norm(Hmag, Mmag, z0 + sphereRadius);
 
 
 % https://en.wikipedia.org/wiki/Magnetic_dipole
@@ -97,8 +100,8 @@ VsinRef = TDK.Data.SensorOutput.SinusBridge.Rise .* (Vcc / Vnorm) + Voff;
 Vcos = zeros(nSensors, nSensors, nTheta);
 Vsin = zeros(nSensors, nSensors, nTheta);
 for i = 1:nTheta
-    Vcos(:,:,i) = interp2(HxGrid, HyGrid, VcosRef, Hx(:,:,i), Hy(:,:,i));
-    Vsin(:,:,i) = interp2(HxGrid, HyGrid, VsinRef, Hx(:,:,i), Hy(:,:,i));
+    Vcos(:,:,i) = interp2(HxGrid, HyGrid, VcosRef, Hx(:,:,i), Hy(:,:,i), 'nearest', NaN);
+    Vsin(:,:,i) = interp2(HxGrid, HyGrid, VsinRef, Hx(:,:,i), Hy(:,:,i), 'nearest', NaN);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -112,7 +115,8 @@ ax1 = nexttile;
 scatter(ax1, X(:), Y(:), 10, 'filled')
 ax1.NextPlot = 'add';
 scatter(ax1, 0, 0, 18, 'k', 'filled')
-quiver(ax1, X, Y, Vcos(:,:,1) - Voff, Vsin(:,:,1) - Voff, 'r');
+% contour(ax1, X,Y,Hz(:,:,1));
+quiver(ax1, X, Y, Vcos(:,:,1) - Voff, Vsin(:,:,1) - Voff, 0.5, 'r');
 axis square xy;
 grid on;
 minXLim = -(sensorArraySize + abs(xPosition));
@@ -127,6 +131,7 @@ ax2 = nexttile;
 scatter(ax2, X(:), Y(:), 10, 'filled')
 ax2.NextPlot = 'add';
 scatter(ax2, 0, 0, 18, 'k', 'filled')
+% contour(ax2, X,Y,Hz(:,:,1));
 quiver(ax2, X, Y, Hx(:,:,1), Hy(:,:,1), 'r');
 axis square xy;
 grid on;
@@ -159,12 +164,14 @@ for i = 1:nTheta
     scatter(ax1, X(:), Y(:), 10, 'filled')
     ax1.NextPlot = 'add';
     scatter(ax1, 0, 0, 18, 'k', 'filled')
+    % contour(ax1, X,Y,Hz(:,:,i));
     quiver(ax1, X, Y, Vcos(:,:,i) - Voff, Vsin(:,:,i) - Voff, 'r');
     ax1.NextPlot = 'replaceChildren';
 
     scatter(ax2, X(:), Y(:), 10, 'filled')
     ax2.NextPlot = 'add';
     scatter(ax2, 0, 0, 18, 'k', 'filled')
+    % contour(ax2, X,Y,Hz(:,:,i));
     quiver(ax2, X, Y, Hx(:,:,i), Hy(:,:,i), 'r');
     ax2.NextPlot = 'replaceChildren';
     
@@ -184,4 +191,4 @@ for i = 1:nTheta
     Frames(i) = getframe(f);
 end
 f.Visible = 'on';
-movie(f, Frames, 3);
+movie(f, Frames, 5, 6);

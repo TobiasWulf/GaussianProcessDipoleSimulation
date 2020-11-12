@@ -21,7 +21,17 @@ function circle_plot(M)
 % Schritt 2: Umspeichern und Normieren der Daten
 % Schritt 3: Plotten der XY-Darstellung als Schachbrett
 %==========================================================================
-
+% Die Ausgabe sollte ungefähr das folgende ergeben:
+% OL: Feldstärke, die an den Sensoren anliegt. Hier normiert auf das Maximum 
+%     über alle Punkte und eine volle Umdrehung => Feldverlauf und Stärke wird
+%     berücksichtigt
+% OR: Das Entsprechende Sensor-Ausgangssignal zur Feldstärke OL
+% UL: Feldstärke, die an den Sensoren anliegt. Hier normiert auf das Maximum an
+%     jedem einzelnen Punkt => Feldverlauf kann näher betrachtet werden aber
+%     keine Aussage mehr über die Feldstärke
+% UR: Das Entsprechende Sensor-Ausgangssignal zur Feldstärke UL hier dann auch
+%     für jeden Punkt auf das einzelne Maximum normiert
+ 
     arr_sz = sqrt(length(M(1).COS_VAL));
     dat_len= length(M);   
     

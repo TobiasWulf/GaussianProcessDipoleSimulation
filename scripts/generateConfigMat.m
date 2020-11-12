@@ -125,7 +125,7 @@ FigureOptions = struct;
 FigureOptions.NumberTitle = 'off';
 FigureOptions.Units = 'normalized';
 FigureOptions.WindowStyle = 'docked';
-% FigureOptions.OuterPosition = [0, 0, 1, 1];
+FigureOptions.OuterPosition = [0, 0, 1, 1];
 % FigureOptions.WindowState = 'maximized';
 TileOptions.Padding = 'normal';
 TileOptions.TileSpacing = 'compact';
@@ -172,10 +172,21 @@ DipoleOptions = struct;
 DipoleOptions.sphereRadius = 2;
 
 % H-field magnitude to multiply of generated and relative normed dipole
-% H-fields, the norming is done in zero position of [0 0 z+offset] for
+% H-fields, the norming is done in zero position of [0 0 z0 + sphere radius] for
 % 0° due to the position of the magnetic moment [-1 0 0] x and y components
-% are not relevant, norming without tilt. Magnitude in kA/m
-DipoleOptions.Hmag = 8.5;
+% are not relevant, norming without tilt. Magnitude in kA/m. The magnitude
+% refers that the sphere magnet has this H-field magnitude in a certain distance
+% z0 in example sphere with 2mm sphere radius has a H magnitude of 200kA/m in
+% 5mm distance. Standard field strength for ferrite sphere magnets are between
+% 180 and 200kA/m.
+DipoleOptions.Hmag = 200;
+
+% Distance in zero position of the spherical magnet in which the imprinted
+% H-field strength magnitude takes effect. Together with the sphere radius and
+% and the imprinted field strength magnitude the distance in rest position
+% characterizes the spherical magnet to later relative positions of the sensor
+% array and generated dipole H-fields in rotation simulation.
+DipoleOptions.z0 = 2;
 
 % Magnetic moment magnitude attach rotation to the dipole field at a
 % certain position with x, y and z components. Choose a huge value to

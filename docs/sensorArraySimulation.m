@@ -1,4 +1,22 @@
 %% sensorArraySimulation
+% A spherical magnet is assumed to be used for stimulation of the sensor array.
+% The far field of a spherical magnet can be approximately described by the
+% magnetic field of a magnetic dipole. The magnetization of the sphere is
+% assumed to be in y direction and the magnetic moment in rest position for 0°
+% points in x direction. The magnet must be defined in a way that its field
+% lines or field strengths own gradients sufficiently strong enough in the
+% distance to the sensor array and so the rotation of the magnet generates a
+% small scattering of the bridge outputs in the individual sensor points in the
+% array. That  all sensors in the array approximately perceive the same magnetic
+% field gradients of the current rotation step and the sensors in the array run
+% through approximately  equal circular paths in the characterization field.
+% This means the sperical magnet is characterized by a favorable mating of
+% sphere radius and a certain distance in rest position in which a sufficiently
+% high field strength takes effect. Here are neglected small necessary distances
+% which are demanded in standard automotive applications. The focus here is on
+% to generate simulation datasets, which are uniform and valid for angle
+% detection. The modelling of suitable small magnets is not taking place of
+% the work.
 %
 %
 %% computeDipoleH0Norm

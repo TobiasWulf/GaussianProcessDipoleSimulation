@@ -3,64 +3,65 @@
 % position. That means the maximum H-field magnitude in zero position with no
 % position shifts in x or y direction. So that norm factor is related to the
 % center point of coordinate system in x and y direction and to the dipoles
-% initial z position. Which can be a sphere radius in example or just its rest
-% position.
+% initial z position. Which can be seen as sphere magnet for far field of the
+% sphere. The norm relates that a dipole magnet in center of a sphere with a
+% radius has certain field strength in related distance. In example a sphere of
+% 2mm radius has in 5mm distance a field strength of 200kA/m
 %
 % It is simplified computation for the dipole equation for one position in
 % inital state without tilt in z-axes tor bring on a free choosen field strength
-% to define the magnet.
+% to define the magnet. Because far field of sphere can be seen as dipole.
 %
 % $$\vec{H_0}(\vec{r_0}) = \frac{1}{4\pi} \cdot \Biggl(
 % \frac{3\vec{r_0}\left(\vec{m_0}^T\vec{r_0}\right)}{|\vec{r_0}|^5} - 
 % \frac{\vec{m_0}}{|\vec{r_0}|^3}\Biggr)$$
 % 
-% For rest position without any tilt it is choosen to set the magnetic moment in
-% negative x direction although y direction would be fine. Because of there is
-% not tilt there is no z component in the moment vector so the vector. The
+% For rest position without tilt it is choosen to set the magnetic moment in
+% negative x direction although y direction would be fine. There is
+% no tilt, there is no z component in the moment vector. The
 % dipole position has no x and y components only z and so the half of equation
 % is set to zero.
 %
 % $$\vec{m_0} = \left[\matrix{-m_0 \cr 0 \cr 0}\right] \quad 
 %   \vec{r_0} = \left[\matrix{0 \cr 0 \cr z_0'}\right]$$
 %
-% $$|\vec{r_0}| = z_0' = |-(z_0 + r_{sp})| = |r_{sp}| \quad z_0 = 0$$
+% $$|\vec{r_0}| = |z_0'| = |-(z_0 + r_{sp})|$$
 % 
 % $$|\vec{m_0}| = |m_0|$$
 %
 % So on the H-field for the rest position is only related to z in the rest
-% position and the magnitude of the rest or start momnent without tilt.
+% position and the magnitude of the start momnent.
 %
-% $$|H_0(r_{sp})| = |H_0(z_0')| = |\vec{H_0}(\vec{r_0})| = \frac{|m_0|}{4\pi |r_{sp}|^3}$$
+% $$|H_0(z_0')| = |\vec{H_0}(\vec{r_0})| = \frac{|m_0|}{4\pi |z_0 + r_{sp}|^3}$$
 %
 % The norming to a free choosen field strength magnitude which shall define the
 % dipole magnet from rest to position to relative positions results in
 %
-% $$H_{0norm} = \frac{H_{mag}}{|H_0(r_{sp})|} = 4\pi |r_{sp}|^3 \cdot \frac{H_{mag}}{|m_0|}$$
+% $$H_{0norm} = \frac{H_{mag}}{|H_0(z_0')|} = 4\pi |z_0 +r_{sp}|^3 \cdot \frac{H_{mag}}{|m_0|}$$
 %   
 %% Syntax
-%   H0norm = functionName(Hmag, m0, r0)
+%   H0norm = functionName(Hmag, m0, z0, rsp)
 %
 %
 %% Description
-% *H0norm = functionName(Hmag, m0, r)* compute scalar norm factor related to
-% dipole rest position. Multiply that factor to dipole generated fields which
+% *H0norm = functionName(Hmag, m0, z0, rsp)* compute scalar norm factor related
+% to dipole rest position. Multiply that factor to dipole generated fields which
 % are computed with the same magnetic moment magnitude to imprint a choosen
 % magnetic field strength magnitude on the dipole field rotation.
 %
 %
 %% Examples
-%   % position of the sensor array in z direction an mm should be zero
-%   z0 = 0
+%   % distance where the magnetic field strength is the value of wished
+%   % magnitude, in mm
+%   z0 = 5
 %   % radius of dipoles sphere in mm
 %   rsp = 2
-%   % rest position of the dipole
-%   r0 = -(z0 + rsp)
 %   % field strength to imprint in norm factor in kA/m
-%   Hmag = 8.5
+%   Hmag = 200
 %   % magnetic moment magnitude which is used generate rotation moments
 %   Mmag = 1e6
 %   % compute norm factor for dipole rest position
-%   H0norm = computeDipoleH0Norm(Hmag, Mmag, r0)
+%   H0norm = computeDipoleH0Norm(Hmag, Mmag, z0, rsp)
 %
 %
 %% Input Argurments
