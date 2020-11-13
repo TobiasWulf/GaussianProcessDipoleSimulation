@@ -10,3 +10,4 @@ results = run(suite);
 % show results 
 disp(results)
 disp(table(results))
+cd ..

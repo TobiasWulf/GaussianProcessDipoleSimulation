@@ -8,7 +8,7 @@ sensorArraySize = 2;
 % relative sensor array position from dipole sphere in a position vector p
 xPosition = 0;
 yPosition = 0;
-zPosition = 7;
+zPosition = 12;
 p = [xPosition; yPosition; zPosition];
 
 % sensor supply voltage and offset voltage
@@ -23,20 +23,23 @@ Vnorm = 1e3;
 sphereRadius = 2;
 
 % distance from sphere surface in mm where H-magnitude value takes effect
-z0 = 0.8;
+z0 = 1;
 
 % calculate magnetic moments for a subset of angles
 % set the moment magnitude to a huge value to prevent numeric failures
 Mmag = 1e6;
 
 % number of angles to observe, even from 0 to 360 degree
-nTheta = 12;
+nTheta = 15;
 
 % tilt angle in z-axes
 phi = 0;
 
 % angele resolution of rotation (full scale)
 thetaResolution = 0.5;
+
+% phase index to perform a shift from start angle
+phaseIndex = 0;
 
 % H-magnitured, multiply after norming the field results in kA/m
 Hmag = 200;
@@ -49,7 +52,8 @@ Hmag = 200;
     p, sphereRadius);
 
 % generate magnetic moments
-[M, theta, index] = generateDipoleRotationMoments(Mmag, nTheta, phi, thetaResolution);
+[M, theta, index] = generateDipoleRotationMoments(Mmag, nTheta, phi, ...
+    thetaResolution, phaseIndex);
 
 % compute dipole rest position norm to imprint a certain field strength magnitude
 H0norm = computeDipoleH0Norm(Hmag, Mmag, z0, sphereRadius);
@@ -72,7 +76,8 @@ Hz = zeros(nSensors, nSensors, nTheta);
 for i = 1:nTheta
     % calculate H-field of one rotation step for all positions, this allows
     % singel positions too, the field is normed to zero position magnitude
-    H = H0norm * (3 * Runit .* (M(:,i)' * Runit) - M(:,i)) / 4 / pi ./ Rabs.^3;
+    % H = (H0norm / 4 / pi) * (3 * Runit .* (M(:,i)' * Runit) - M(:,i)) ./ Rabs.^3;
+    H = computeDipoleHField(X, Y, Z, M(:,i), H0norm);
     % separate parts or field in axes direction/ components
     Hx(:,:,i) = reshape(H(1,:), nSensors, nSensors);
     Hy(:,:,i) = reshape(H(2,:), nSensors, nSensors);
@@ -191,4 +196,4 @@ for i = 1:nTheta
     Frames(i) = getframe(f);
 end
 f.Visible = 'on';
-movie(f, Frames, 5, 6);
+movie(f, Frames, 1, 6);

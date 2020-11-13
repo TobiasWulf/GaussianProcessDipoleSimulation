@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>computeDipoleHField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-12"><meta name="DC.source" content="computeDipoleHField.m"><style type="text/css">
+      --><title>computeDipoleHField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-13"><meta name="DC.source" content="computeDipoleHField.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>computeDipoleHField</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
+  </style></head><body><div class="content"><h1>computeDipoleHField</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">H = nName(positionalArg)
 outputArg = functionName(positionalArg, optionalArg)
 </pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
 </pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: mustBeEqualSize</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on November 11. 2020 by Tobias Wulf. Copyright Tobias Wulf.</p><p>
@@ -79,9 +79,10 @@ Edited on Month DD. YYYY by Editor: Single line description.
 ##### SOURCE BEGIN #####
 %% computeDipoleHField
 % 
+% 
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
+%   H = nName(positionalArg)
 %   outputArg = functionName(positionalArg, optionalArg)
 %
 %
@@ -127,9 +128,34 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function [Hx, Hy, Hz] = computeDipoleHField(x, y, z, m, H0norm)
+function [H] = computeDipoleHField(x, y, z, m, H0norm)
     arguments
+        % validate position, can be any size but must be same size of
+        x (:,:) double {mustBeReal}
+        y (:,:) double {mustBeReal, mustBeEqualSize(x, y)}
+        z (:,:) double {mustBeNumeric, mustBeReal, mustBeEqualSize(y, z)}
+        % validate magnetic moment as 3 x 1 vector
+        m (3,1) double {mustBeReal, mustBeVector}
+        % validate norm factor as scalar
+        H0norm (1,1) double {mustBeReal}
     end
+    
+    % unify positions to column vector or matrix of column vectors if positions
+    % are not passed as column vectors or scalar, resulting size of position R
+    % is 3 x length(X), a indication if is column vector is not needed because
+    % x(:) is returning all content as column vector. Transpose to match shape.
+    r = [x(:), y(:), z(:)]';
+    
+    % calculate the magnitude of all positions
+    rabs = sqrt(sum(r.^2, 1));
+    
+    % calculate the the unit vector of all positions
+    rhat = r ./ rabs;
+    
+    % calculate H-field of current magnetic moment for all passed positions
+    % calculate constants in eqution once in the first bracket term, all vector
+    % products in the second term and finially divide by related magnitude ^3
+    H = (H0norm / 4 / pi) * (3 * rhat .* (m' * rhat) - m) ./ rabs.^3;
 end
 
 % Custom validation function
@@ -137,9 +163,10 @@ function mustBeEqualSize(a,b)
     % Test for equal size
     if ~isequal(size(a),size(b))
         eid = 'Size:notEqual';
-        msg = 'Size of first input must equal size of second input.';
+        msg = 'X Y Z positions must be the same size and orientation.';
         throwAsCaller(MException(eid,msg))
     end
 end
+
 ##### SOURCE END #####
 --></body></html>

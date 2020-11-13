@@ -206,22 +206,31 @@ TrainingOptions = struct;
 % shift and negative z to place the layer under the dipole decrease z to
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius
-TrainigOptions.xPos = [0,];
-TrainigOptions.yPos = [0,];
-TrainigOptions.zPos = [0,];
+TrainingOptions.xPos = [0,];
+TrainingOptions.yPos = [0,];
+TrainingOptions.zPos = [0,];
 
 % Dipole tilt in z-axes
-TrainigOptions.tilt = [0,];
+TrainingOptions.tilt = [0,];
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
 % test data sets 
 TrainingOptions.angleRes = 0.5;
 
+% Phase index applies a phase offset in the rotation, it is used as phase index
+% to a down sampling to generate even distributed angles of a full scale
+% rotation. Offset index of full rotation. In example a full scale rotation from
+% 0° to 360° - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
+% angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11° set
+% phaseIndex to 22 a multiple of the resolution angleRes and get
+% [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer.
+TrainingOptions.phaseIndex = 0;
+
 % Number rotaion angles, even distribute between 0° and 360° with respect
 % to the resolution, even down sampling. To generate full scale the number
-% relatead to the resolution or fast generate but wrong number to 0 to
-% generate full scale rotation.
+% relatead to the resolution or fast generate but wrong number set it to 0 to
+% generate full scale rotation too.
 TrainingOptions.nAngles = [7,];
 
 
@@ -248,6 +257,15 @@ TestOptions.tilt = [0,];
 % datasets to have the ability to back reference the index to fullscale
 % test data sets 
 TestOptions.angleRes = 0.5;
+
+% Phase index applies a phase offset in the rotation, it is used as phase index
+% to a down sampling to generate even distributed angles of a full scale
+% rotation. Offset index of full rotation. In example a full scale rotation from
+% 0° to 360° - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
+% angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11° set
+% phaseIndex to 22 a multiple of the resolution angleRes and get
+% [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer.
+TestOptions.phaseIndex = 0;
 
 % Number rotaion angles, even distribute between 0° and 360° with respect
 % to the resolution, even down sampling. To generate full scale the number

@@ -141,15 +141,15 @@ function [M, theta, index] = generateDipoleRotationMoments(m0, nTheta, ...
     phi, resolution, phaseIndex)
     arguments
         % validate amplitude of magnetic moment as real scalar value
-        m0 (1,1) double {mustBeNumeric, mustBeReal}
+        m0 (1,1) double {mustBeReal}
         % validate number of used angulars as positive integer, for 0 return all
-        nTheta (1,1) double {mustBeNumeric, mustBeNonnegative, mustBeInteger}
+        nTheta (1,1) double {mustBeNonnegative, mustBeInteger}
         % validate tilt angle as real value with default 0°
-        phi (1,1) double {mustBeNumeric, mustBeReal} = 0
+        phi (1,1) double {mustBeReal} = 0
         % validate angle resolution as real positive value
-        resolution (1,1) double {mustBeNumeric, mustBePositive} = 1
+        resolution (1,1) double {mustBePositive} = 1
         % validate downsample phase as positive integer with default 0, no shift
-        phaseIndex (1,1) double {mustBeNumeric, mustBeNonnegative, mustBeInteger} = 0
+        phaseIndex (1,1) double {mustBeNonnegative, mustBeInteger} = 0
     end
     
     % scale full rotation angle vector with given resolution from 0° to 360°

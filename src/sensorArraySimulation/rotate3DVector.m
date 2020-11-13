@@ -83,11 +83,11 @@
 function [rotated] = rotate3DVector(vector, alphaX, betaY, gammaZ)
     arguments
         % validate as vecotor or matrix of size 3 x N
-        vector (3,:) double {mustBeNumeric}
+        vector (3,:) double {mustBeReal}
         % validate angles as scalar
-        alphaX (1,1) double {mustBeNumeric}
-        betaY (1,1) double {mustBeNumeric}
-        gammaZ (1,1) double {mustBeNumeric}
+        alphaX (1,1) double {mustBeReal}
+        betaY (1,1) double {mustBeReal}
+        gammaZ (1,1) double {mustBeReal}
     end
     
     % rotate vector or vector field as 3 x N matrix counterclockwise by given
