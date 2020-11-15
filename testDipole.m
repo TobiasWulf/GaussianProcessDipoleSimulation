@@ -2,13 +2,22 @@ clear all
 close all
 
 % sensor array geometry, distance to dipole and size
-nSensors = 8;
-sensorArraySize = 2;
+nSensors = 9;
+sensorArraySize = 0.002;
+
+% ArrayPattern = ~logical([0 0 0 0 0 0 0 0 0; ...
+%                          0 0 0 0 0 0 0 0 0; ...
+%                          0 0 0 0 0 0 0 0 0; ...
+%                          0 0 0 0 0 0 0 0 0; ...
+%                          0 0 0 0 0 0 0 0 0; ...
+%                          0 0 0 0 0 0 0 0 0; ...
+%                          0 0 0 0 0 0 0 0 0; ...
+%                          0 0 0 0 0 0 0 0 0]);
 
 % relative sensor array position from dipole sphere in a position vector p
 xPosition = 0;
 yPosition = 0;
-zPosition = 12;
+zPosition = 0.0128;
 p = [xPosition; yPosition; zPosition];
 
 % sensor supply voltage and offset voltage
@@ -20,17 +29,17 @@ Voff = 1.65;
 Vnorm = 1e3;
 
 % sphere radius arround the dipole in mm
-sphereRadius = 2;
+sphereRadius = 0.002;
 
 % distance from sphere surface in mm where H-magnitude value takes effect
-z0 = 1;
+z0 = 0.0008;
 
 % calculate magnetic moments for a subset of angles
 % set the moment magnitude to a huge value to prevent numeric failures
 Mmag = 1e6;
 
 % number of angles to observe, even from 0 to 360 degree
-nTheta = 15;
+nTheta = 5;
 
 % tilt angle in z-axes
 phi = 0;
@@ -42,7 +51,7 @@ thetaResolution = 0.5;
 phaseIndex = 0;
 
 % H-magnitured, multiply after norming the field results in kA/m
-Hmag = 200;
+Hmag = 200000;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -50,6 +59,10 @@ Hmag = 200;
 % generate sensor array grid
 [X, Y, Z] = generateSensorArraySquareGrid(nSensors, sensorArraySize, ...
     p, sphereRadius);
+
+% X(ArrayPattern) = NaN;
+% Y(ArrayPattern) = NaN;
+% Z(ArrayPattern) = NaN;
 
 % generate magnetic moments
 [M, theta, index] = generateDipoleRotationMoments(Mmag, nTheta, phi, ...
@@ -77,7 +90,9 @@ for i = 1:nTheta
     % calculate H-field of one rotation step for all positions, this allows
     % singel positions too, the field is normed to zero position magnitude
     % H = (H0norm / 4 / pi) * (3 * Runit .* (M(:,i)' * Runit) - M(:,i)) ./ Rabs.^3;
+    tic
     H = computeDipoleHField(X, Y, Z, M(:,i), H0norm);
+    toc
     % separate parts or field in axes direction/ components
     Hx(:,:,i) = reshape(H(1,:), nSensors, nSensors);
     Hy(:,:,i) = reshape(H(2,:), nSensors, nSensors);
@@ -88,8 +103,8 @@ end
 % because of its big linear plateau
 TDK = load('data/TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat');
 % Hx and Hy scales of 2D characterization bridge output data
-HxScale = TDK.Data.MagneticField.hx;
-HyScale = TDK.Data.MagneticField.hy;
+HxScale = TDK.Data.MagneticField.hx * 1e3;
+HyScale = TDK.Data.MagneticField.hy * 1e3;
 % cosinus and sinus characteriazation bridge data in mV/V so multiply with
 % voltage norm factor build by supply voltage and offset voltage
 VcosRef = TDK.Data.SensorOutput.CosinusBridge.Rise .* (Vcc / Vnorm) + Voff;
@@ -114,7 +129,7 @@ end
 
 % plot scratch for rotation
 f = figure('units','normalized','outerposition',[0 0 1 1]);
-
+% f.WindowStyle = 'docked';
 t = tiledlayout(2, 2);
 ax1 = nexttile;
 scatter(ax1, X(:), Y(:), 10, 'filled')
@@ -124,10 +139,10 @@ scatter(ax1, 0, 0, 18, 'k', 'filled')
 quiver(ax1, X, Y, Vcos(:,:,1) - Voff, Vsin(:,:,1) - Voff, 0.5, 'r');
 axis square xy;
 grid on;
-minXLim = -(sensorArraySize + abs(xPosition));
-minYLim = -(sensorArraySize + abs(yPosition));
-maxXLim = sensorArraySize + abs(xPosition);
-maxYLim = sensorArraySize + abs(yPosition);
+maxXLim = sensorArraySize + sqrt(xPosition^2 + yPosition^2);
+maxYLim = maxXLim;
+minXLim = -maxXLim;
+minYLim = -maxYLim;
 xlim([minXLim, maxXLim])
 ylim([minYLim, maxYLim])
 ax1.NextPlot = 'replaceChildren';

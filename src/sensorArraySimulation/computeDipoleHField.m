@@ -52,9 +52,9 @@
 function [H] = computeDipoleHField(x, y, z, m, H0norm)
     arguments
         % validate position, can be any size but must be same size of
-        x (:,:) double {mustBeReal}
-        y (:,:) double {mustBeReal, mustBeEqualSize(x, y)}
-        z (:,:) double {mustBeNumeric, mustBeReal, mustBeEqualSize(y, z)}
+        x (:,:,:) double {mustBeReal}
+        y (:,:,:) double {mustBeReal, mustBeEqualSize(x, y)}
+        z (:,:,:) double {mustBeNumeric, mustBeReal, mustBeEqualSize(y, z)}
         % validate magnetic moment as 3 x 1 vector
         m (3,1) double {mustBeReal, mustBeVector}
         % validate norm factor as scalar
@@ -72,7 +72,7 @@ function [H] = computeDipoleHField(x, y, z, m, H0norm)
     
     % calculate the the unit vector of all positions
     rhat = r ./ rabs;
-    
+        
     % calculate H-field of current magnetic moment for all passed positions
     % calculate constants in eqution once in the first bracket term, all vector
     % products in the second term and finially divide by related magnitude ^3
