@@ -16,33 +16,33 @@
 % The coordinates of the array are scale from center of the square.
 % So for the upper left corner position is described by
 %
-% $$x_{1,1} = -\frac{a}{2} \quad y_{1,1} = -\frac{a}{2} \quad z = const.$$
+% $$x_{1,1} = -\frac{a}{2} \quad y_{1,1} = \frac{a}{2} \quad z = const.$$
 %
 % The coodinates of each dimension are placed in matrices of size N x N
 % related to the number of sensors at one edge of the square Array.
 % So position pattern in x dimension are returned as
 %
 % $$X_0 = \left[ \matrix{x_{1,1} & \cdots & x_{1,N} \cr
-%                      \vdots  & \ddots & \vdots  \cr
-%                      x_{N,1} & \cdots & x_{N,N}} \right]$$
+%                        \vdots  & \ddots & \vdots  \cr
+%                        x_{N,1} & \cdots & x_{N,N}} \right]$$
 %
 % $$x_{i,j} = x_{1,1} + j \cdot d - d$$
 %
 % same wise for y dimension but transposed
 %
 % $$Y_0 = \left[ \matrix{y_{1,1} & \cdots & y_{1,N} \cr
-%                      \vdots  & \ddots & \vdots  \cr
-%                      y_{N,1} & \cdots & y_{N,N}} \right]$$
+%                        \vdots  & \ddots & \vdots  \cr
+%                        y_{N,1} & \cdots & y_{N,N}} \right]$$
 %
-% $$y_{i,j} = y_{1,1} + i \cdot d - d$$
+% $$y_{i,j} = y_{1,1} - i \cdot d + d$$
 %
-% $$Y_0 = X_0^T$$
+% $$Y_0 = -X_0^T$$
 %
 % and z dimension
 %
 % $$Z_0 = \left[ \matrix{z_{1,1} & \cdots & z_{1,N} \cr
-%                      \vdots  & \ddots & \vdots  \cr
-%                      z_{N,1} & \cdots & z_{N,N}} \right]$$
+%                        \vdots  & \ddots & \vdots  \cr
+%                        z_{N,1} & \cdots & z_{N,N}} \right]$$
 %
 % $$z_{i,j} = 0$$
 %
@@ -55,14 +55,15 @@
 %
 % $$\vec{p} = \left[ \matrix{ x_p \cr y_p \cr z_p} \right]$$
 %
-% So that a left shift in x and a up shift in y direction is performed by
-% egativ values in p. To gain distance in z from center point so that
-% center is above the sensor array increase the z positive. In addition to
-% the z shift an offset r sphere can be set. The offset represents the
-% radius of a sphere magnet in which center the dipole is placed.
-% The dipole is placed in the center of the coordinate system and sensor
-% array position is relative to the dipole or center. So shifts are
-% described by
+% So that a left shift in x direction relative to the magnet in the center
+% of the coordinate system is done by negative values for p(1) and a up 
+% in shift in y direction is performed by positive values for p(2). To gain
+% distance in z from center point so the magnet is above the z layer of the
+% sensor array increase the z positive. In addition to the z shift an 
+% offset r sphere can be set. The offset represents the radius of a sphere
+% magnet in which center the dipole is placed. The dipole is placed in the
+% center of the coordinate system and sensor array position is relative to
+% the dipole or center. So shifts are described by
 %
 % $$X = X_0 + x_p \quad Y = Y_0 + y_p \quad Z = Z_0 -(z_p + r_{sp})$$
 %
@@ -152,17 +153,14 @@ function [X, Y, Z] = generateSensorArraySquareGrid(N, a, p, r)
     aHalf = a / 2;
     
     % distance in x and y direction of each coordinate to next point
-    d = a / (N -1);
+    d = a / (N - 1);
     
-    % grid vector for x and y coordinates
-    g = -aHalf:d:aHalf;
+    % grid vector for x and y coordinates z is constant layer with shifts
+    x = (-aHalf:d:aHalf) + p(1);
+    y = (aHalf:-d:-aHalf) + p(2);
+    z = -(p(3) + r);
 
-    % scale grid in x and y dimension and attach the array position related
-    % to the center of the coordinate system
-    [X, Y] = meshgrid(g + p(1), g + p(2));
-    
-    % scale a z dimension with constant distances in all array positions in
-    % the coordinate system and attach the z position and offset to it
-    Z = zeros(N, N) - (p(3) + r);
+    % scale grid in x, y dimension with constant z dimension
+    [X, Y, Z] = meshgrid(x, y, z);
 end
 

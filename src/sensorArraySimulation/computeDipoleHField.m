@@ -1,5 +1,5 @@
 %% computeDipoleHField
-% 
+% Computes the 
 % 
 %
 %% Syntax

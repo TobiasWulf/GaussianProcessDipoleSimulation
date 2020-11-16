@@ -26,7 +26,7 @@ assert(isequal(size(Y), [N N]))
 assert(isequal(size(Z), [N N]))
 
 %% Test 2: equal x and y distances
-assert(isequal(diff(Y), diff(X, [], 2)'))
+assert(isequal(diff(Y), diff(-X, [], 2)'))
 
 %% Test 3: constant z distances
 assert(all(Z == -(p(3) + r), 'all'))
