@@ -2,7 +2,7 @@ clear all
 close all
 
 % sensor array geometry, distance to dipole and size
-nSensors = 9;
+nSensors = 8;
 sensorArraySize = 2;
 
 % ArrayPattern = ~logical([0 0 0 0 0 0 0 0 0; ...
@@ -17,7 +17,7 @@ sensorArraySize = 2;
 % relative sensor array position from dipole sphere in a position vector p
 xPosition = 0;
 yPosition = 0;
-zPosition = 6.571;
+zPosition = 7;
 p = [xPosition; yPosition; zPosition];
 
 % sensor supply voltage and offset voltage
@@ -39,7 +39,7 @@ z0 = 1;
 Mmag = 1e6;
 
 % number of angles to observe, even from 0 to 360 degree
-nTheta = 1;
+nTheta = 20;
 
 % tilt angle in z-axes
 phi = 0;
@@ -67,6 +67,8 @@ Hmag = 200;
 % generate magnetic moments
 [M, theta, index] = generateDipoleRotationMoments(Mmag, nTheta, phi, ...
     thetaResolution, phaseIndex);
+
+thetaStep = theta(2) - theta(1);
 
 % compute dipole rest position norm to imprint a certain field strength magnitude
 H0norm = computeDipoleH0Norm(Hmag, Mmag, z0, sphereRadius);
@@ -125,16 +127,32 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % plot scratch for rotation
-f = figure('units','normalized','outerposition',[0 0 1 1]);
-% f.WindowStyle = 'docked';
-t = tiledlayout(2, 2);
+% f = figure('units','normalized','outerposition',[0 0 1 1]);
+sub = [sprintf("Square Array with %d sensors and an edge length of %.1fmm,", ...
+       nSensors^2, sensorArraySize); ...
+       sprintf("a rel. pos. from magnet (%.1f, %.1f, %.1f) in mm, a magnet tilt of %.1f°", ...
+       xPosition, yPosition, -zPosition, phi); ...
+       sprintf("and rotation step width of %.1f° with angle resolution of %.1f°.", ...
+       thetaStep, thetaResolution)];
+[f, t] = newConfigFigure('Sensor Array', 'Sensor Array Simulation', sub, 2, 2);
+%f.WindowStyle = 'normal';
+%f.OuterPosition = [0 0 1 1];
+% t = tiledlayout(2, 2);
+colormap('gray')
 ax1 = nexttile;
-scatter(ax1, X(:), Y(:), 10, 'filled')
+q1 = quiver(ax1, X, Y, Hx(:,:,1), Hy(:,:,1), 0.5, 'b');
 ax1.NextPlot = 'add';
-scatter(ax1, 0, 0, 18, 'k', 'filled')
-% contour(ax1, X,Y,Hz(:,:,1));
-quiver(ax1, X, Y, Vcos(:,:,1) - Voff, Vsin(:,:,1) - Voff, 0.5, 'r');
-axis square xy;
+q2 = quiver(ax1, X, Y, Vcos(:,:,1) - Voff, Vsin(:,:,1) - Voff, 0.5, 'r');
+scatter(ax1, X(:), Y(:), 18, 'k', 'filled')
+scatter(ax1, X(1,1), Y(1,1), 18, 'r', 'filled')
+scatter(ax1, X(1,end), Y(1,end), 18, 'g', 'filled')
+scatter(ax1, X(end,1), Y(end,1), 18, 'm', 'filled')
+scatter(ax1, X(end,end), Y(end,end), 18, 'c', 'filled')
+legend([q1, q2], 'quiver(Hx,Hy)', 'quiver(Vcos-Voff,Vsin-Voff)')
+xlabel('x in mm')
+ylabel('y in mm')
+axis square xy
+axis tight
 grid on;
 
 maxXLim = xPosition + sensorArraySize;
@@ -143,70 +161,96 @@ minXLim = xPosition - sensorArraySize;
 minYLim = yPosition - sensorArraySize;
 xlim([minXLim, maxXLim])
 ylim([minYLim, maxYLim])
+title(sprintf('Z-Layer of %d x %d Sensor Array', nSensors, nSensors))
 ax1.NextPlot = 'replaceChildren';
 
-ax2 = nexttile;
-scatter(ax2, X(:), Y(:), 10, 'filled')
+nexttile;
+polarscatter(theta/180*pi, ones(1, nTheta), 'r');
+ax2 = gca;
+rticks(1)
+rticklabels("")
+title('Rotation around Z-Axis')
 ax2.NextPlot = 'add';
-scatter(ax2, 0, 0, 18, 'k', 'filled')
-% contour(ax2, X,Y,Hz(:,:,1));
-quiver(ax2, X, Y, Hx(:,:,1), Hy(:,:,1), 'r');
-axis square xy;
-grid on;
-xlim([minXLim, maxXLim])
-ylim([minYLim, maxYLim])
-ax2.NextPlot = 'replaceChildren';
 
 ax3 = nexttile;
-immX = [min(HxScale) max(HxScale)];
-immY = [min(HyScale) max(HyScale)];
-p=imagesc(ax3, immX, immY, VcosRef);
+p=imagesc(ax3, HxScale, HyScale, VcosRef);
+set(gca, 'YDir', 'normal');
 set(p, 'AlphaData', ~isnan(VcosRef));
 ax3.NextPlot = 'add';
 scatter(ax3, reshape(Hx(:,:,1),1,nSensors^2), reshape(Hy(:,:,1),1,nSensors^2), 13, 'kx');
-axis square xy;
+scatter(ax3, Hx(1,1,1), Hy(1,1,1), 13, 'rx');
+scatter(ax3, Hx(1,end,1), Hy(1,end,1), 13, 'gx');
+scatter(ax3, Hx(end,1,1), Hy(end,1,1), 13, 'mx');
+scatter(ax3, Hx(end,end,1), Hy(end,end,1), 13, 'cx');
+axis square xy
+axis tight
+xlabel('Hx in kA/m')
+ylabel('Hy in kA/m')
+title('Vcos(Hx,Hy)')
+cb1 = colorbar;
+cb1.Label.String = sprintf('Vcos in V, Vcc = %1.1fV, Voff = %1.2fV', Vcc, Voff);
 ax3.NextPlot = 'replaceChildren';
 
 ax4 = nexttile;
-p=imagesc(ax4, immX, immY, VsinRef);
+p=imagesc(ax4, HxScale, HyScale, VsinRef);
+set(gca, 'YDir', 'normal');
 set(p, 'AlphaData', ~isnan(VsinRef));
 ax4.NextPlot = 'add';
 scatter(ax4, reshape(Hx(:,:,1),1,nSensors^2), reshape(Hy(:,:,1),1,nSensors^2), 13, 'kx');
-axis square xy;
+scatter(ax4, Hx(1,1,1), Hy(1,1,1), 13, 'rx');
+scatter(ax4, Hx(1,end,1), Hy(1,end,1), 13, 'gx');
+scatter(ax4, Hx(end,1,1), Hy(end,1,1), 13, 'mx');
+scatter(ax4, Hx(end,end,1), Hy(end,end,1), 13, 'cx');
+axis square xy
+axis tight
+xlabel('Hx in kA/m')
+ylabel('Hy in kA/m')
+title('Vsin(Hx,Hy)')
+cb2 = colorbar;
+cb2.Label.String = sprintf('Vsin in V, Vcc = %1.1fV, Voff = %1.2fV', Vcc, Voff);
 ax4.NextPlot = 'replaceChildren';
 
+
 Frames(nTheta) = struct('cdata',[],'colormap',[]);
-f.Visible = 'off';
+% f.Visible = 'off';
 for i = 1:nTheta
     fprintf('Render frame %d\n', i)
-    scatter(ax1, X(:), Y(:), 10, 'filled')
+    q1 = quiver(ax1, X, Y, Hx(:,:,i), Hy(:,:,i), 0.5, 'b');
     ax1.NextPlot = 'add';
-    scatter(ax1, 0, 0, 18, 'k', 'filled')
-    % contour(ax1, X,Y,Hz(:,:,i));
-    quiver(ax1, X, Y, Vcos(:,:,i) - Voff, Vsin(:,:,i) - Voff, 'r');
+    q2 = quiver(ax1, X, Y, Vcos(:,:,i) - Voff, Vsin(:,:,i) - Voff, 0.5, 'r');
+    scatter(ax1, X(:), Y(:), 18, 'k', 'filled')
+    scatter(ax1, X(1,1), Y(1,1), 18, 'r', 'filled')
+    scatter(ax1, X(1,end), Y(1,end), 18, 'g', 'filled')
+    scatter(ax1, X(end,1), Y(end,1), 18, 'm', 'filled')
+    scatter(ax1, X(end,end), Y(end,end), 18, 'c', 'filled')
+    legend([q1, q2], 'quiver(Hx,Hy)', 'quiver(Vcos-Voff,Vsin-Voff)')
     ax1.NextPlot = 'replaceChildren';
-
-    scatter(ax2, X(:), Y(:), 10, 'filled')
-    ax2.NextPlot = 'add';
-    scatter(ax2, 0, 0, 18, 'k', 'filled')
-    % contour(ax2, X,Y,Hz(:,:,i));
-    quiver(ax2, X, Y, Hx(:,:,i), Hy(:,:,i), 'r');
-    ax2.NextPlot = 'replaceChildren';
     
-    p=imagesc(ax3, immX, immY, VcosRef);
+    polarscatter(ax2 ,theta(i)/180*pi, 1, 'b', 'filled');
+    
+    p=imagesc(ax3, HxScale, HyScale, VcosRef);
     set(p, 'AlphaData', ~isnan(VcosRef));
+    set(gca, 'YDir', 'normal');
     ax3.NextPlot = 'add';
     scatter(ax3, reshape(Hx(:,:,i),1,nSensors^2), reshape(Hy(:,:,i),1,nSensors^2), 13, 'kx');
+    scatter(ax3, Hx(1,1,i), Hy(1,1,i), 13, 'rx');
+    scatter(ax3, Hx(1,end,i), Hy(1,end,i), 13, 'gx');
+    scatter(ax3, Hx(end,1,i), Hy(end,1,i), 13, 'mx');
+    scatter(ax3, Hx(end,end,i), Hy(end,end,i), 13, 'cx');
     ax3.NextPlot = 'replaceChildren';
     
-    p=imagesc(ax4, immX, immY, VsinRef);
+    p=imagesc(ax4, HxScale, HyScale, VsinRef);
+    set(gca, 'YDir', 'normal');
     set(p, 'AlphaData', ~isnan(VsinRef));
     ax4.NextPlot = 'add';
     scatter(ax4, reshape(Hx(:,:,i),1,nSensors^2), reshape(Hy(:,:,i),1,nSensors^2), 13, 'kx');
+    scatter(ax4, Hx(1,1,i), Hy(1,1,i), 13, 'rx');
+    scatter(ax4, Hx(1,end,i), Hy(1,end,i), 13, 'gx');
+    scatter(ax4, Hx(end,1,i), Hy(end,1,i), 13, 'mx');
+    scatter(ax4, Hx(end,end,i), Hy(end,end,i), 13, 'cx');
     ax4.NextPlot = 'replaceChildren';
     
-    %drawnow
+    drawnow
     Frames(i) = getframe(f);
 end
-f.Visible = 'on';
-movie(f, Frames, 1, 3);
+% movie(f, Frames, 1, 3);

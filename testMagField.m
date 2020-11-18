@@ -67,9 +67,8 @@ im = imagesc(x, z, log10(Habs), 'AlphaData', 1);
 set(gca, 'YDir', 'normal');
 colormap('jet');
 cb = colorbar;
-cb.Label.String = '|H| in kA/m';
+cb.Label.String = 'log10(|H|) in kA/m';
 cb.Label.FontSize = 12;
-cb.Title.String = 'log_{10}';
 % caxis([mag2db(0.1961) mag2db(200)]);
 shading flat
 % view(2)

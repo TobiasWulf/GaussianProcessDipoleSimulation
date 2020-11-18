@@ -159,6 +159,7 @@ function [Figures] = plotTDKCharDataset()
     % cosinus bridge recorded during rising stimulus 
     ax5 = nexttile;
     p5 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.CosinusBridge.Rise);
+    set(gca, 'YDir', 'normal');
     set(p5, 'AlphaData', ~isnan(Data.SensorOutput.CosinusBridge.Rise));
     caxis([cosMin, cosMax]);
     title(title21);
@@ -166,6 +167,7 @@ function [Figures] = plotTDKCharDataset()
     % cosinus bridge recorded during falling stimulus 
     ax6 = nexttile;
     p6 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.CosinusBridge.Fall);
+    set(gca, 'YDir', 'normal');
     set(p6, 'AlphaData', ~isnan(Data.SensorOutput.CosinusBridge.Fall));
     caxis([cosMin, cosMax]);
     title(title22);
@@ -173,6 +175,7 @@ function [Figures] = plotTDKCharDataset()
     % superimposed rising and falling
     ax7 = nexttile;
     p7 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.CosinusBridge.All);
+    set(gca, 'YDir', 'normal');
     set(p7, 'AlphaData', ~(~Data.SensorOutput.CosinusBridge.All));
     caxis([cosMin, cosMax]);
     title(title23);
@@ -180,6 +183,7 @@ function [Figures] = plotTDKCharDataset()
     % differentiated rising and falling
     ax8 = nexttile;
     p8 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.CosinusBridge.Diff);
+    set(gca, 'YDir', 'normal');
     set(p8, 'AlphaData', ~isnan(Data.SensorOutput.CosinusBridge.Diff));
     caxis([cosMin, cosMax]);
     title(title24);
@@ -206,6 +210,7 @@ function [Figures] = plotTDKCharDataset()
     % sinus bridge recorded during rising stimulus 
     ax9 = nexttile;
     p9 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.Rise);
+    set(gca, 'YDir', 'normal');
     set(p9, 'AlphaData', ~isnan(Data.SensorOutput.SinusBridge.Rise));
     caxis([sinMin, sinMax]);
     title(title21);
@@ -213,6 +218,7 @@ function [Figures] = plotTDKCharDataset()
     % cosinus bridge recorded during falling stimulus 
     ax10 = nexttile;
     p10 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.Fall);
+    set(gca, 'YDir', 'normal');
     set(p10, 'AlphaData', ~isnan(Data.SensorOutput.SinusBridge.Fall));
     caxis([sinMin, sinMax]);
     title(title22);
@@ -220,6 +226,7 @@ function [Figures] = plotTDKCharDataset()
     % superimposed rising and falling
     ax11 = nexttile;
     p11 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.All);
+    set(gca, 'YDir', 'normal');
     set(p11, 'AlphaData', ~(~Data.SensorOutput.SinusBridge.All));
     caxis([sinMin, sinMax]);
     title(title23);
@@ -227,6 +234,7 @@ function [Figures] = plotTDKCharDataset()
     % differentiated rising and falling
     ax12 = nexttile;
     p12 = imagesc([hMin hMax], [hMin hMax], Data.SensorOutput.SinusBridge.Diff);
+    set(gca, 'YDir', 'normal');
     set(p12, 'AlphaData', ~isnan(Data.SensorOutput.SinusBridge.Diff));
     caxis([sinMin, sinMax]);
     title(title24);

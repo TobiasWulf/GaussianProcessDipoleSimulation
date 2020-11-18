@@ -1,5 +1,31 @@
 %% computeDipoleHField
-% Computes the 
+% Computes the magnetic field strength H of a dipole magnet dependent of
+% position and magnetic moment and imprint a field strength magnitude on the
+% resultating field by passing a norm factor which relates to the rest position
+% of the dipole magnet. The resultating field strength has field components in
+% x, y and z direction.
+%
+% The magnetic dipole moment w must be a column vector or shape
+%
+% $$\vec{m} = \left[ \matrix{m_x \cr m_y \cr m_z} \right]$$
+%
+% so that the magnetic moment corresponds to a position vector
+%
+% $$\vec{r} = \left[ \matrix{x \cr y \cr z} \right]$$
+%
+% with coordinates for x, y and z in 3D coordinate system which can be taken
+% part of its unit vector and its magnitude.
+%
+% $$\vec{r} = \hat{r} \cdot |\vec{r}|$$
+%
+% It computes the field strenght at this position with the current magnetic
+% moment for field compents in the same orientation.
+%
+% $$\vec{H}(\vec{r}) = \left[ \matrix{H_x \cr H_y \cr H_z} \right]$$
+%
+% The originally equation of the magnetic dipole is known as
+%
+% $$\vec{H} = \frac{\vec{B}}{\my_0} = \frac{1}{4\pi} \cdot \frac{}{}$$
 % 
 %
 %% Syntax
