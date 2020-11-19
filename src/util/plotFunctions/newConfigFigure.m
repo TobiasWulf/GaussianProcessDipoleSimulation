@@ -91,7 +91,8 @@ function [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)
     % try to load figure options from config and push options in it
     try
         % load workspace
-        load('config.mat', 'FigureOptions', 'TileOptions');
+        load('config.mat', 'FigureOptions', 'TileOptions', ... 
+            'FigureLabelOptions');
         
         % get figure porperty names, values and count of
         figProps = fieldnames(FigureOptions);
@@ -111,8 +112,17 @@ function [fig, layout] = newConfigFigure(name, titleStr, subtitleStr, m, n)
         for i = 1:nProps, set(layout, tileProps{i}, tileVals{i}); end
         % set title and subtitle to figure layout
         layout.Title.String = titleStr;
+        layout.Title.FontSize = FigureLabelOptions.FigureTitleSize;
+        layout.Title.FontWeight = FigureLabelOptions.FigureTitleWeight;
+        layout.Title.Interpreter = FigureLabelOptions.Interpreter;
+        layout.Title.FontName = 'Times';
         layout.Subtitle.String = subtitleStr;
-        layout.Subtitle.FontSize = 8;
+        layout.Subtitle.FontSize = FigureLabelOptions.FigureSubTitleSize;
+        layout.Subtitle.FontWeight = FigureLabelOptions.FigureSubTitleWeight;
+        layout.XLabel.FontSize = FigureLabelOptions.LabelSize;
+        layout.XLabel.FontWeight = FigureLabelOptions.LabelWeight;
+        layout.YLabel.FontSize = FigureLabelOptions.LabelSize;
+        layout.YLabel.FontWeight = FigureLabelOptions.LabelWeight;
         
     catch ME
         rethrow(ME);

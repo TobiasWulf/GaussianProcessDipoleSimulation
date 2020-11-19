@@ -54,10 +54,10 @@ HabsDest = interp2(X, Z, Habs, xDest, zDest, 'nearest', NaN);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % create new figure
-sub = ["Sphere radius r = 2mm", "imprinted H-field strength magnitude of 200kA/m", ...
+sub = ["Sphere radius r = 2mm"; "imprinted H-field strength magnitude of 200kA/m"; ...
      "in distance d = 1mm from surface with d = |z| - r."];
-fig = newConfigFigure('Dipole Magnet', ...
-    'Approximated Spherical Magnet (Dipole Far Field)', ...
+[fig,tdl] = newConfigFigure('Dipole Magnet', ...
+    '$\vec{H}$ Approximated Spherical Magnet (Dipole Far Field)', ...
     join(sub, ' ')); 
 set(fig,'DoubleBuffer','on');
 set(gcf,'renderer','zbuffer')
@@ -68,7 +68,7 @@ set(gca, 'YDir', 'normal');
 colormap('jet');
 cb = colorbar;
 cb.Label.String = 'log10(|H|) in kA/m';
-cb.Label.FontSize = 12;
+cb.Label.FontSize = 14;
 % caxis([mag2db(0.1961) mag2db(200)]);
 shading flat
 % view(2)
@@ -108,8 +108,8 @@ xzlabels = string(xzticks);
 xzlabels(1:2:end) = "";
 xticklabels(xzlabels)
 yticklabels(xzlabels)
-xlabel('X in mm')
-ylabel('Z in mm')
+xlabel('X in mm', 'FontSize', 14)
+ylabel('Z in mm', 'FontSize', 14)
 
 % additional figure text
 text(-(xz-1), -(xz-1), 'Y = 0mm', 'Color', 'w', 'FontSize', 18)

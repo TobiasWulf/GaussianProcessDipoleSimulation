@@ -149,8 +149,8 @@ scatter(ax1, X(1,end), Y(1,end), 18, 'g', 'filled')
 scatter(ax1, X(end,1), Y(end,1), 18, 'm', 'filled')
 scatter(ax1, X(end,end), Y(end,end), 18, 'c', 'filled')
 legend([q1, q2], 'quiver(Hx,Hy)', 'quiver(Vcos-Voff,Vsin-Voff)')
-xlabel('x in mm')
-ylabel('y in mm')
+xlabel('x in mm', 'FontSize', 12)
+ylabel('y in mm', 'FontSize', 12)
 axis square xy
 axis tight
 grid on;
@@ -184,11 +184,12 @@ scatter(ax3, Hx(end,1,1), Hy(end,1,1), 13, 'mx');
 scatter(ax3, Hx(end,end,1), Hy(end,end,1), 13, 'cx');
 axis square xy
 axis tight
-xlabel('Hx in kA/m')
-ylabel('Hy in kA/m')
-title('Vcos(Hx,Hy)')
+xlabel('Hx in kA/m', 'FontSize', 12)
+ylabel('Hy in kA/m', 'FontSize', 12)
+title('Vcos(Hx,Hy)', 'FontSize', 12, 'FontWeight', 'bold')
 cb1 = colorbar;
 cb1.Label.String = sprintf('Vcos in V, Vcc = %1.1fV, Voff = %1.2fV', Vcc, Voff);
+cb1.Label.FontSize =12;
 ax3.NextPlot = 'replaceChildren';
 
 ax4 = nexttile;
@@ -203,15 +204,16 @@ scatter(ax4, Hx(end,1,1), Hy(end,1,1), 13, 'mx');
 scatter(ax4, Hx(end,end,1), Hy(end,end,1), 13, 'cx');
 axis square xy
 axis tight
-xlabel('Hx in kA/m')
-ylabel('Hy in kA/m')
+xlabel('Hx in kA/m', 'FontSize', 12)
+ylabel('Hy in kA/m', 'FontSize', 12)
 title('Vsin(Hx,Hy)')
 cb2 = colorbar;
 cb2.Label.String = sprintf('Vsin in V, Vcc = %1.1fV, Voff = %1.2fV', Vcc, Voff);
+cb2.Label.FontSize =12;
 ax4.NextPlot = 'replaceChildren';
 
 
-Frames(nTheta) = struct('cdata',[],'colormap',[]);
+%Frames(nTheta) = struct('cdata',[],'colormap',[]);
 % f.Visible = 'off';
 for i = 1:nTheta
     fprintf('Render frame %d\n', i)
@@ -251,6 +253,6 @@ for i = 1:nTheta
     ax4.NextPlot = 'replaceChildren';
     
     drawnow
-    Frames(i) = getframe(f);
+    %Frames(i) = getframe(f);
 end
 % movie(f, Frames, 1, 3);

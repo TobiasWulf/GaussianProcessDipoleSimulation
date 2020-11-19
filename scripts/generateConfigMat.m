@@ -76,6 +76,12 @@ PathVariables.docsPath = fullfile(PathVariables.rootPath, 'docs');
 % path to publish html documentation output directory, helptoc.xml location
 PathVariables.publishHtmlPath = fullfile(PathVariables.docsPath, 'html');
 
+% path to save plots as images svg, eps, png, etc.
+PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, 'images');
+
+% path to save matlab figures
+PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, 'figures');
+
 % path to style sheet for html documentation, Matlab provided style sheet
 PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...
     'matlab', 'codetools', 'private', 'mxdom2simplehtml.xsl'));
@@ -123,12 +129,31 @@ PublishOptions.showCode = true;
 disp('Set figure and tile options for unified plots ...');
 FigureOptions = struct;
 FigureOptions.NumberTitle = 'off';
-FigureOptions.Units = 'normalized';
-FigureOptions.WindowStyle = 'docked';
-% FigureOptions.OuterPosition = [0, 0, 1, 1];
+FigureOptions.Units = 'centimeters';
+FigureOptions.WindowStyle = 'normal';
+FigureOptions.OuterPosition = [0, 0, 29, 29];
+FigureOptions.ToolBar = 'none';
+FigureOptions.PaperType = 'a4';
+FigureOptions.PaperUnits = 'centimeters';
+FigureOptions.PaperOrientation = 'landscape';
 % FigureOptions.WindowState = 'maximized';
 TileOptions.Padding = 'normal';
 TileOptions.TileSpacing = 'compact';
+
+%% Additional Figure and Label Options
+% Figure and label options which must be set manually in plot functions via
+% arguments and cannont be flushed automatically in via structs into porperies.
+FigureLabelOptions = struct;
+FigureLabelOptions.FigureTitleSize = 18;
+FigureLabelOptions.FigureTitleWeight = 'bold';
+FigureLabelOptions.FigureSubTitleSize = 12;
+FigureLabelOptions.FigureSubTitleWeight = 'normal';
+FigureLabelOptions.LabelSize = 12;
+FigureLabelOptions.LabelWeight = 'normal';
+FigureLabelOptions.AxesTitleSize = 12;
+FigureLabelOptions.AxesTitleWeight = 'bold';
+FigureLabelOptions.Interpreter = 'latex';
+
 
 
 %% Sensor Array Options
@@ -287,6 +312,7 @@ save(PathVariables.configPath, ...
     'PublishOptions', ... 
     'FigureOptions', ...
     'TileOptions', ... 
+    'FigureLabelOptions', ...
     'SensorArrayOptions', ... 
     'DipoleOptions', ...
     'TrainingOptions', ... 

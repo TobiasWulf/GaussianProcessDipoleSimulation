@@ -48,3 +48,4 @@ segments_1 -crlf -diff -merge
 *.jpg -crlf -diff -merge
 *.png -crlf -diff -merge
 *.svg -crlf -diff -merge
+*.eps -crlf -diff -merge
