@@ -1,0 +1,328 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-20"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>plotDipoleMagnet</h1><!--introduction--><p>Plot dipole magnet which approximate a spherical magnet in its far field.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">Figures = plotDipoleMagnet()
+</pre><h2 id="2">Description</h2><p>fig = plotDipoleMagnet() load dipole constants from config.mat and construct magnet in its rest position in x and z layer for y = 0.</p><h2 id="3">Examples</h2><pre class="language-matlab">figs = plotDipoleMagnet();
+</pre><h2 id="4">Input Arguments</h2><p><b>None</b></p><h2 id="5">Output Arguments</h2><p><b>fig</b> created figure handle.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files: generateDipoleRotationMoments.m, computeDipoleH0Norm.m,   computeDipoleHField</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/quiver.html'))">quiver</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/imagesc.html'))">imagesc</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/streamslice.html'))">streamslice</a></li></ul></div><p>Created on November 20. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% plotDipoleMagnet
+% Plot dipole magnet which approximate a spherical magnet in its far field.
+%
+%% Syntax
+%   Figures = plotDipoleMagnet()
+%
+%
+%% Description
+% fig = plotDipoleMagnet() load dipole constants from config.mat and construct
+% magnet in its rest position in x and z layer for y = 0.
+%
+%
+%% Examples
+%   figs = plotDipoleMagnet();
+%
+%
+%% Input Arguments
+% *None*
+%
+%
+%% Output Arguments
+% *fig* created figure handle.
+%
+%
+%% Requirements
+% * Other m-files: generateDipoleRotationMoments.m, computeDipoleH0Norm.m,
+%   computeDipoleHField
+% * Subfunctions: none
+% * MAT-files required: data/config.mat
+%
+%
+%% See Also
+% * <matlab:web(fullfile(docroot,'matlab/ref/quiver.html')) quiver>
+% * <matlab:web(fullfile(docroot,'matlab/ref/imagesc.html')) imagesc>
+% * <matlab:web(fullfile(docroot,'matlab/ref/streamslice.html')) streamslice>
+%
+%
+% Created on November 20. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+function [fig] = plotDipoleMagnet()
+    try
+        % load dataset path and dataset content into function workspace
+        load('config.mat', 'PathVariables', 'DipoleOptions');
+        close all;
+    catch ME
+        rethrow(ME)
+    end
+    
+    % figure save path for different formats
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    figFilename = 'dipole_magnet';
+    figPath = fullfile(PathVariables.saveFiguresPath, figFilename);
+    figSvgPath = fullfile(PathVariables.saveImagesPath, figFilename);
+    figEpsPath = fullfile(PathVariables.saveImagesPath, figFilename);
+    figPdfPath = fullfile(PathVariables.saveImagesPath, figFilename);
+    
+    % load needed data from dataset in to local variables for better handling
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Radius in mm of magnetic sphere in which the magnetic dipole is centered.
+    % So it can be seen as z-offset to the sensor array.
+    rsp = DipoleOptions.sphereRadius;
+
+    % H-field magnitude to multiply of generated and relative normed dipole
+    Hmag = DipoleOptions.Hmag;
+
+    % Distance in zero position of the spherical magnet in which is imprinted
+    z0 = DipoleOptions.z0;
+
+    % Magnetic moment magnitude attach rotation to the dipole field
+    m0 = DipoleOptions.Mmag;
+    
+    % clear dataset all loaded
+    clear DipoleOptions;
+    
+    % set construction dipole magnet, all length in mm and areas mm^2
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % number of samples for good looking
+    nSamples = 501;
+    % slice in view for quiver, every 25th point
+    slice = 25:25:nSamples-25;
+    % grid edge of meshgrid, square grid
+    xz = 15;
+    % y layer in coordinate system
+    y = 0;
+    % orientat of magnet along z axes
+    pz = pi/2:0.01:3*pi/2;
+    % distances magnet surface to display in plot
+    zd = -rsp:-z0:-xz;
+    xd = zeros(1, length(zd));
+    % scale grid to simulate
+    x = linspace(-xz, xz, nSamples);
+    z = linspace(xz, -xz, nSamples);
+    [X, Z, Y] = meshgrid(x, z, y);
+    
+    % compute dipole and fetch to far field to approximate a sperical magnet
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % generate dipole moment for 0°
+    m = generateDipoleRotationMoments(m0, 1);
+    % compute H-field norm factor imprieng H magnitude on dipole, rest position
+    H0norm = computeDipoleH0Norm(Hmag, m0, z0, rsp);
+    % compute dipole H-field for rest position in y = 0 layer
+    H = computeDipoleHField(X, Y, Z, m, H0norm);
+    % calculate magnitudes for each point in the grid
+    Habs = reshape(sqrt(sum(H.^2, 1)), nSamples, nSamples);
+    % split H-field in componets and reshape to meshgrid
+    Hx = reshape(H(1,:), nSamples, nSamples) ./ Habs;
+    Hy = reshape(H(2,:), nSamples, nSamples) ./ Habs;
+    Hz = reshape(H(3,:), nSamples, nSamples) ./ Habs;
+    % exculde value within the spherical magnet, < rsp
+    innerField = X.^2 + Z.^2 <= rsp.^2; 
+    Habs(innerField) = NaN;
+    % find relevant magnitudes at anounced distances
+    Hd = interp2(X, Z, Habs, xd, zd, 'nearest', NaN);
+
+    
+    % figure dipole magnet
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fig = figure('Name', 'Dipole Magnet', ...
+        'NumberTitle' , 'off', ...
+        'WindowStyle', 'normal', ...
+        'MenuBar', 'none', ...
+        'ToolBar', 'none', ...
+        'Units', 'centimeters', ...
+        'OuterPosition', [0 0 30 30], ...
+        'PaperType', 'a4', ...
+        'PaperUnits', 'centimeters', ...
+        'PaperOrientation', 'landscape', ...
+        'PaperPositionMode', 'auto', ...
+        'DoubleBuffer', 'on', ...
+        'RendererMode', 'manual', ...
+        'Renderer', 'painters');
+    
+    % plot magnitude as colormap
+    imagesc(x, z, log10(Habs), 'AlphaData', 1);
+    set(gca, 'YDir', 'normal');
+    colormap('jet');
+    shading flat;
+    
+    % set colorbar to log10 scaling of map
+    cb = colorbar;
+    cb.Label.String = '$log_{10}(|H|)$ in kA/m';
+    cb.Label.Interpreter = 'latex';
+    cb.Label.FontSize = 16;
+    
+    hold on;
+    grid on;
+    
+    % plot field lines
+    st = streamslice(X, Z, Hx, Hz, 'noarrows', 'cubic');
+    set(st, 'Color', 'k');
+    
+    % plot field vectors
+    quiver(X(slice, slice), Z(slice, slice), Hx(slice, slice), ...
+        Hz(slice, slice), 0.5, 'k');
+    
+    % plot magnet with north and south pole
+    rectangle('Position', [-rsp -rsp 2*rsp 2*rsp], 'Curvature', [1 1]);
+    semicrc = rsp.*[cos(pz); sin(pz)];
+    patch(semicrc(1,:), semicrc(2,:),'r');
+    patch(-semicrc(1,:), -semicrc(2,:),'g');
+    text(-1.25, 0, 'N', 'FontSize', 18);
+    text(0.5, 0, 'S', 'FontSize', 18);
+    
+    % additional figure text and lines
+    text(-(xz-1), -(xz-1), ...
+        sprintf('$\\mathbf{Y = %.1f}$ \\textbf{mm}', y), ...
+        'Color', 'w', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    % distance scale in -z direction for x =0, distance from magnet surface
+    line(xd, zd, 'Marker', '_', 'LineStyle', '-', 'Color', 'w', 'LineWidth', 2.0);
+    
+    % place text along marker
+    for i = 2:length(zd)-1
+        text(0.5, zd(i), ...
+            sprintf('\\textbf{$\\mathbf{d = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}', ...
+                abs(zd(i))-rsp, Hd(i)), ...
+            'Color', 'w', ...
+            'FontSize', 14, ...
+            'FontName', 'Times', ...
+            'Interpreter', 'latex');
+    end
+
+    % limits ticks and labels
+    xlim([-xz xz]);
+    ylim([-xz xz]);
+
+    xticks(-xz:xz);
+    yticks(-xz:xz);
+    
+    labels = string(xticks);
+    labels(1:2:end) = "";
+    xticklabels(labels)
+    yticklabels(labels)
+    
+    % axis shape set
+    axis equal;
+    axis tight;
+    
+    % title and figure labels
+    title('Approximated Spherical Magnet with Dipole Far Field', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 18, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    subtitle([sprintf("Sphere whith imprinted H-field magnitude of $%.1f$ kA/m", Hmag); ...
+        sprintf("at distance $d = %.1f$ mm with $d = |z| - r_{sp}$", z0) + ...
+        sprintf(" and sphere radius $r_{sp} = %.1f$ mm", rsp)], ...
+        'FontWeight', 'normal', ...
+        'FontSize', 14, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    xlabel('$X$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    ylabel('$Z$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    % save results of figure
+    savefig(fig, figPath);
+    print(fig, figSvgPath, '-dsvg');
+    print(fig, figEpsPath, '-depsc', '-tiff', '-loose');
+    print(fig, figPdfPath, '-dpdf', '-loose', '-fillpage');
+
+end
+
+##### SOURCE END #####
+--></body></html>

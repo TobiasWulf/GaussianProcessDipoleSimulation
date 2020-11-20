@@ -7,9 +7,9 @@
 % plot the dataset content to visualize the base of dipol simulations.
 %
 %
-%% newConfigFigure
-% Create a new figure window with embedded tile layout and loaded configuration
-% if config.mat is available.
+%% plotDipoleMagnet
+% Plot dipole magnet and its approximation as spherical magnet from constants
+% set in config file. Plot manget in rest position.
 %
 %
 % Created on October 24. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
@@ -20,6 +20,8 @@
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.
 % Edited on November 01. 2020 by Tobias Wulf: Add newConfigFigure.
+% Edited on November 20. 2020 by Tobias Wulf: Remove newConfigFigure.
+% Edited on November 20. 2020 by Tobias Wulf: Add plotDipoleMagnet.
 % -->
 % </html>
 %

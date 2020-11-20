@@ -25,8 +25,9 @@
 %
 % The originally equation of the magnetic dipole is known as
 %
-% $$\vec{H} = \frac{\vec{B}}{\my_0} = \frac{1}{4\pi} \cdot \frac{}{}$$
+% $$\vec{H} = \frac{\vec{B}}{\mu_0} = \frac{1}{4\pi} \cdot \frac{1}{1}$$
 % 
+% TODO!
 %
 %% Syntax
 %   H = nName(positionalArg)

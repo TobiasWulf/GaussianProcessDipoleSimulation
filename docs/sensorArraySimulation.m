@@ -18,6 +18,10 @@
 % detection. The modelling of suitable small magnets is not taking place of
 % the work.
 %
+% <html>
+% <img src="images/dipole_magnet.svg" height=650>
+% </html>
+%
 %
 %% computeDipoleH0Norm
 % Compute a norm factor to imprint a magnetic field strength to magnetic dipole

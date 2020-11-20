@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>computeDipoleHField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-18"><meta name="DC.source" content="computeDipoleHField.m"><style type="text/css">
+      --><title>computeDipoleHField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-20"><meta name="DC.source" content="computeDipoleHField.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>computeDipoleHField</h1><!--introduction--><p>Computes the magnetic field strength H of a dipole magnet dependent of position and magnetic moment and imprint a field strength magnitude on the resultating field by passing a norm factor which relates to the rest position of the dipole magnet. The resultating field strength has field components in x, y and z direction.</p><p>The magnetic moment w must be a column vector or shape</p><p><img src="computeDipoleHField_eq01305638310057075822.png" alt="$$\vec{m} = \left[ \matrix{m_x \cr m_y \cr m_z} \right]$$"></p><p>so that the magnetic moment corresponds to a position vector</p><p><img src="computeDipoleHField_eq16534708260388191803.png" alt="$$\vec{r} = \left[ \matrix{x \cr y \cr z} \right]$$"></p><p>with coordinates for x, y and z in 3D coordinate system which can be taken part of its unit vector and its magnitude.</p><p><img src="computeDipoleHField_eq00445117415567646512.png" alt="$$\vec{r} = \hat{r} \cdot |\vec{r}|$$"></p><p>It computes the field strenght at this position with the current magnetic moment for field compents in the same orientation.</p><p><img src="computeDipoleHField_eq05368340117040415818.png" alt="$$\vec{H}(\vec{r}) = \left[ \matrix{H_x \cr H_y \cr H_z} \right]$$"></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">H = nName(positionalArg)
+  </style></head><body><div class="content"><h1>computeDipoleHField</h1><!--introduction--><p>Computes the magnetic field strength H of a dipole magnet dependent of position and magnetic moment and imprint a field strength magnitude on the resultating field by passing a norm factor which relates to the rest position of the dipole magnet. The resultating field strength has field components in x, y and z direction.</p><p>The magnetic dipole moment w must be a column vector or shape</p><p><img src="computeDipoleHField_eq01305638310057075822.png" alt="$$\vec{m} = \left[ \matrix{m_x \cr m_y \cr m_z} \right]$$"></p><p>so that the magnetic moment corresponds to a position vector</p><p><img src="computeDipoleHField_eq16534708260388191803.png" alt="$$\vec{r} = \left[ \matrix{x \cr y \cr z} \right]$$"></p><p>with coordinates for x, y and z in 3D coordinate system which can be taken part of its unit vector and its magnitude.</p><p><img src="computeDipoleHField_eq00445117415567646512.png" alt="$$\vec{r} = \hat{r} \cdot |\vec{r}|$$"></p><p>It computes the field strenght at this position with the current magnetic moment for field compents in the same orientation.</p><p><img src="computeDipoleHField_eq05368340117040415818.png" alt="$$\vec{H}(\vec{r}) = \left[ \matrix{H_x \cr H_y \cr H_z} \right]$$"></p><p>The originally equation of the magnetic dipole is known as</p><p><img src="computeDipoleHField_eq14495074428637868819.png" alt="$$\vec{H} = \frac{\vec{B}}{\mu_0} = \frac{1}{4\pi} \cdot \frac{1}{1}$$"></p><p>TODO!</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">H = nName(positionalArg)
 outputArg = functionName(positionalArg, optionalArg)
 </pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
 </pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: mustBeEqualSize</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on November 11. 2020 by Tobias Wulf. Copyright Tobias Wulf.</p><p>
@@ -84,7 +84,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % of the dipole magnet. The resultating field strength has field components in
 % x, y and z direction.
 %
-% The magnetic moment w must be a column vector or shape
+% The magnetic dipole moment w must be a column vector or shape
 %
 % $$\vec{m} = \left[ \matrix{m_x \cr m_y \cr m_z} \right]$$
 %
@@ -102,8 +102,11 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 % $$\vec{H}(\vec{r}) = \left[ \matrix{H_x \cr H_y \cr H_z} \right]$$
 %
+% The originally equation of the magnetic dipole is known as
+%
+% $$\vec{H} = \frac{\vec{B}}{\mu_0} = \frac{1}{4\pi} \cdot \frac{1}{1}$$
 % 
-% 
+% TODO!
 %
 %% Syntax
 %   H = nName(positionalArg)

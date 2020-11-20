@@ -121,41 +121,6 @@ PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
 
 
-%% Figure and Tiled Layout Options
-% Options to unify plot and figure views and fast create new plots controlled by
-% certain configurations. Use options with unique create functions for fast
-% forward plotting routines. See Matlab documentation for further figure
-% options if needed.
-disp('Set figure and tile options for unified plots ...');
-FigureOptions = struct;
-FigureOptions.NumberTitle = 'off';
-FigureOptions.Units = 'centimeters';
-FigureOptions.WindowStyle = 'normal';
-FigureOptions.OuterPosition = [0, 0, 29, 29];
-FigureOptions.ToolBar = 'none';
-FigureOptions.PaperType = 'a4';
-FigureOptions.PaperUnits = 'centimeters';
-FigureOptions.PaperOrientation = 'landscape';
-% FigureOptions.WindowState = 'maximized';
-TileOptions.Padding = 'normal';
-TileOptions.TileSpacing = 'compact';
-
-%% Additional Figure and Label Options
-% Figure and label options which must be set manually in plot functions via
-% arguments and cannont be flushed automatically in via structs into porperies.
-FigureLabelOptions = struct;
-FigureLabelOptions.FigureTitleSize = 18;
-FigureLabelOptions.FigureTitleWeight = 'bold';
-FigureLabelOptions.FigureSubTitleSize = 12;
-FigureLabelOptions.FigureSubTitleWeight = 'normal';
-FigureLabelOptions.LabelSize = 12;
-FigureLabelOptions.LabelWeight = 'normal';
-FigureLabelOptions.AxesTitleSize = 12;
-FigureLabelOptions.AxesTitleWeight = 'bold';
-FigureLabelOptions.Interpreter = 'latex';
-
-
-
 %% Sensor Array Options
 % The options control the build up of the sensor array in geometry and
 % techincal behavior. This means number of sensors in the array and its
@@ -211,7 +176,7 @@ DipoleOptions.Hmag = 200;
 % and the imprinted field strength magnitude the distance in rest position
 % characterizes the spherical magnet to later relative positions of the sensor
 % array and generated dipole H-fields in rotation simulation.
-DipoleOptions.z0 = 2;
+DipoleOptions.z0 = 1;
 
 % Magnetic moment magnitude attach rotation to the dipole field at a
 % certain position with x, y and z components. Choose a huge value to
@@ -310,9 +275,6 @@ save(PathVariables.configPath, ...
     'timestamp', ...
     'PathVariables', ...
     'PublishOptions', ... 
-    'FigureOptions', ...
-    'TileOptions', ... 
-    'FigureLabelOptions', ...
     'SensorArrayOptions', ... 
     'DipoleOptions', ...
     'TrainingOptions', ... 

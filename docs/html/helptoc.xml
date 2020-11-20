@@ -37,7 +37,7 @@
                 <tocitem target="publishFilesFromDir.html">publishFilesFromDir</tocitem>
                 <tocitem target="plotFunctions.html">plotFunctions
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset</tocitem>
-                    <tocitem target="newConfigFigure.html">newConfigFigure</tocitem>
+                    <tocitem target="plotDipoleMagnet.html">plotDipoleMagnet</tocitem>
                 </tocitem>
             </tocitem>
         </tocitem>

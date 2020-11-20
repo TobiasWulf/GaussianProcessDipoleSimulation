@@ -25,19 +25,19 @@
 % $$\vec{m_0} = \left[\matrix{-m_0 \cr 0 \cr 0}\right] \quad 
 %   \vec{r_0} = \left[\matrix{0 \cr 0 \cr z_0'}\right]$$
 %
-% $$|\vec{r_0}| = |z_0'| = |-(z_0 + r_{sp})|$$
+% $$|\vec{r_0}| = |z_0'| = |-(|z_0| + r_{sp})|$$
 % 
 % $$|\vec{m_0}| = |m_0|$$
 %
 % So on the H-field for the rest position is only related to z in the rest
 % position and the magnitude of the start momnent.
 %
-% $$|H_0(z_0')| = |\vec{H_0}(\vec{r_0})| = \frac{|m_0|}{4\pi |z_0 + r_{sp}|^3}$$
+% $$|H_0(z_0')| = |\vec{H_0}(\vec{r_0})| = \frac{|m_0|}{4\pi ||z_0| + r_{sp}|^3}$$
 %
 % The norming to a free choosen field strength magnitude which shall define the
 % dipole magnet from rest to position to relative positions results in
 %
-% $$H_{0norm} = \frac{H_{mag}}{|H_0(z_0')|} = 4\pi |z_0 +r_{sp}|^3 \cdot \frac{H_{mag}}{|m_0|}$$
+% $$H_{0norm} = \frac{H_{mag}}{|H_0(z_0')|} = 4\pi (|z_0| +r_{sp})^3 \cdot \frac{H_{mag}}{|m_0|}$$
 %   
 %% Syntax
 %   H0norm = functionName(Hmag, m0, z0, rsp)
@@ -114,6 +114,6 @@ function [H0norm] = computeDipoleH0Norm(Hmag, m0, z0, rsp)
     end
     
     % compute the norm factor like described in the equations
-    H0norm = 4 * pi * abs(-(z0 + rsp))^3 * Hmag / abs(m0);
+    H0norm = 4 * pi * (abs(z0) + rsp)^3 * Hmag / abs(m0);
 end
 

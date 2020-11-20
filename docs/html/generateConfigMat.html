@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-18"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-20"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>generateConfigMat</h1><!--introduction--><p>Generate configuration mat-file wich contains reusable configuration to control the software or certain function parameters. Centralized collection of configuration. If it is certain configuration needed place it here.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Clean Up</a></li><li><a href="#4">GeneralOptions</a></li><li><a href="#5">Path Variables</a></li><li><a href="#6">Publish Options</a></li><li><a href="#7">Figure and Tiled Layout Options</a></li><li><a href="#8">Sensor Array Options</a></li><li><a href="#9">Dipole Options</a></li><li><a href="#10">Traning Options</a></li><li><a href="#11">Test Options</a></li><li><a href="#12">Save Configuration</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/save.html'))">save</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/load.html'))">load</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.io.matfile.html'))">matfile</a></li></ul></div><p>Created on October 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>generateConfigMat</h1><!--introduction--><p>Generate configuration mat-file wich contains reusable configuration to control the software or certain function parameters. Centralized collection of configuration. If it is certain configuration needed place it here.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Clean Up</a></li><li><a href="#4">GeneralOptions</a></li><li><a href="#5">Path Variables</a></li><li><a href="#6">Publish Options</a></li><li><a href="#7">Sensor Array Options</a></li><li><a href="#8">Dipole Options</a></li><li><a href="#9">Traning Options</a></li><li><a href="#10">Test Options</a></li><li><a href="#11">Save Configuration</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/save.html'))">save</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/load.html'))">load</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/matlab.io.matfile.html'))">matfile</a></li></ul></div><p>Created on October 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -107,6 +107,12 @@ PathVariables.docsPath = fullfile(PathVariables.rootPath, <span class="string">'
 <span class="comment">% path to publish html documentation output directory, helptoc.xml location</span>
 PathVariables.publishHtmlPath = fullfile(PathVariables.docsPath, <span class="string">'html'</span>);
 
+<span class="comment">% path to save plots as images svg, eps, png, etc.</span>
+PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, <span class="string">'images'</span>);
+
+<span class="comment">% path to save matlab figures</span>
+PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, <span class="string">'figures'</span>);
+
 <span class="comment">% path to style sheet for html documentation, Matlab provided style sheet</span>
 PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, <span class="string">'toolbox'</span>, <span class="keyword">...</span>
     <span class="string">'matlab'</span>, <span class="string">'codetools'</span>, <span class="string">'private'</span>, <span class="string">'mxdom2simplehtml.xsl'</span>));
@@ -135,16 +141,7 @@ PublishOptions.catchError = true;
 PublishOptions.codeToEvaluate = [];
 PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
-</pre><h2 id="7">Figure and Tiled Layout Options</h2><p>Options to unify plot and figure views and fast create new plots controlled by certain configurations. Use options with unique create functions for fast forward plotting routines. See Matlab documentation for further figure options if needed.</p><pre class="codeinput">disp(<span class="string">'Set figure and tile options for unified plots ...'</span>);
-FigureOptions = struct;
-FigureOptions.NumberTitle = <span class="string">'off'</span>;
-FigureOptions.Units = <span class="string">'normalized'</span>;
-FigureOptions.WindowStyle = <span class="string">'docked'</span>;
-<span class="comment">% FigureOptions.OuterPosition = [0, 0, 1, 1];</span>
-<span class="comment">% FigureOptions.WindowState = 'maximized';</span>
-TileOptions.Padding = <span class="string">'normal'</span>;
-TileOptions.TileSpacing = <span class="string">'compact'</span>;
-</pre><h2 id="8">Sensor Array Options</h2><p>The options control the build up of the sensor array in geometry and techincal behavior. This means number of sensors in the array and its size in mm. The supply and offset voltage of each sensor which is needed for using the characterization which is normed in mV/V.</p><pre class="codeinput">disp(<span class="string">'Set sensor array option for geometry and behavior ...'</span>);
+</pre><h2 id="7">Sensor Array Options</h2><p>The options control the build up of the sensor array in geometry and techincal behavior. This means number of sensors in the array and its size in mm. The supply and offset voltage of each sensor which is needed for using the characterization which is normed in mV/V.</p><pre class="codeinput">disp(<span class="string">'Set sensor array option for geometry and behavior ...'</span>);
 SensorArrayOptions = struct;
 
 <span class="comment">% Geometry of the sensor array</span>
@@ -166,7 +163,7 @@ SensorArrayOptions.Voff = 1.65;
 <span class="comment">% given supply voltage and offset voltage, current normin is mV/V which</span>
 <span class="comment">% implements factor of 1e3</span>
 SensorArrayOptions.Vnorm = 1e3;
-</pre><h2 id="9">Dipole Options</h2><p>Dipole options to calculate the magnetic field which stimulate the sensor array. The dipole is gained to sphere with additional z distance to the array by sphere radius.</p><pre class="codeinput">disp(<span class="string">'Set dipole options to calculate magnetic stimulus ...'</span>);
+</pre><h2 id="8">Dipole Options</h2><p>Dipole options to calculate the magnetic field which stimulate the sensor array. The dipole is gained to sphere with additional z distance to the array by sphere radius.</p><pre class="codeinput">disp(<span class="string">'Set dipole options to calculate magnetic stimulus ...'</span>);
 DipoleOptions = struct;
 
 <span class="comment">% Radius in mm of magnetic sphere in which the magnetic dipole is centered.</span>
@@ -188,13 +185,13 @@ DipoleOptions.Hmag = 200;
 <span class="comment">% and the imprinted field strength magnitude the distance in rest position</span>
 <span class="comment">% characterizes the spherical magnet to later relative positions of the sensor</span>
 <span class="comment">% array and generated dipole H-fields in rotation simulation.</span>
-DipoleOptions.z0 = 2;
+DipoleOptions.z0 = 1;
 
 <span class="comment">% Magnetic moment magnitude attach rotation to the dipole field at a</span>
 <span class="comment">% certain position with x, y and z components. Choose a huge value to</span>
 <span class="comment">% prevent numeric failures</span>
 DipoleOptions.Mmag = 1e6;
-</pre><h2 id="10">Traning Options</h2><p>Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set training options to generate dataset ...'</span>);
+</pre><h2 id="9">Traning Options</h2><p>Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set training options to generate dataset ...'</span>);
 TrainingOptions = struct;
 
 <span class="comment">% Sensor array relative position to dipole magnet as position vector with</span>
@@ -228,7 +225,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too.</span>
 TrainingOptions.nAngles = [7,];
-</pre><h2 id="11">Test Options</h2><p>Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate dataset ...'</span>);
+</pre><h2 id="10">Test Options</h2><p>Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate dataset ...'</span>);
 TestOptions = struct;
 
 <span class="comment">% Sensor array relative position to dipole magnet as position vector with</span>
@@ -262,15 +259,13 @@ TestOptions.phaseIndex = 0;
 <span class="comment">% relatead to the resolution or fast generate but wrong number to 0 to</span>
 <span class="comment">% generate full scale rotation.</span>
 TestOptions.nAngles = [720,];
-</pre><h2 id="12">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression.</p><pre class="codeinput"><span class="comment">% create config.mat with timestamp of creation</span>
+</pre><h2 id="11">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression.</p><pre class="codeinput"><span class="comment">% create config.mat with timestamp of creation</span>
 disp(<span class="string">'Create config.mat ...'</span>);
 timestamp = datestr(now, GeneralOptions.dateFormat);
 save(PathVariables.configPath, <span class="keyword">...</span>
     <span class="string">'timestamp'</span>, <span class="keyword">...</span>
     <span class="string">'PathVariables'</span>, <span class="keyword">...</span>
     <span class="string">'PublishOptions'</span>, <span class="keyword">...</span>
-    <span class="string">'FigureOptions'</span>, <span class="keyword">...</span>
-    <span class="string">'TileOptions'</span>, <span class="keyword">...</span>
     <span class="string">'SensorArrayOptions'</span>, <span class="keyword">...</span>
     <span class="string">'DipoleOptions'</span>, <span class="keyword">...</span>
     <span class="string">'TrainingOptions'</span>, <span class="keyword">...</span>
@@ -356,6 +351,12 @@ PathVariables.docsPath = fullfile(PathVariables.rootPath, 'docs');
 % path to publish html documentation output directory, helptoc.xml location
 PathVariables.publishHtmlPath = fullfile(PathVariables.docsPath, 'html');
 
+% path to save plots as images svg, eps, png, etc.
+PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, 'images');
+
+% path to save matlab figures
+PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, 'figures');
+
 % path to style sheet for html documentation, Matlab provided style sheet
 PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...
     'matlab', 'codetools', 'private', 'mxdom2simplehtml.xsl'));
@@ -393,22 +394,6 @@ PublishOptions.catchError = true;
 PublishOptions.codeToEvaluate = [];
 PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
-
-
-%% Figure and Tiled Layout Options
-% Options to unify plot and figure views and fast create new plots controlled by
-% certain configurations. Use options with unique create functions for fast
-% forward plotting routines. See Matlab documentation for further figure
-% options if needed.
-disp('Set figure and tile options for unified plots ...');
-FigureOptions = struct;
-FigureOptions.NumberTitle = 'off';
-FigureOptions.Units = 'normalized';
-FigureOptions.WindowStyle = 'docked';
-% FigureOptions.OuterPosition = [0, 0, 1, 1];
-% FigureOptions.WindowState = 'maximized';
-TileOptions.Padding = 'normal';
-TileOptions.TileSpacing = 'compact';
 
 
 %% Sensor Array Options
@@ -466,7 +451,7 @@ DipoleOptions.Hmag = 200;
 % and the imprinted field strength magnitude the distance in rest position
 % characterizes the spherical magnet to later relative positions of the sensor
 % array and generated dipole H-fields in rotation simulation.
-DipoleOptions.z0 = 2;
+DipoleOptions.z0 = 1;
 
 % Magnetic moment magnitude attach rotation to the dipole field at a
 % certain position with x, y and z components. Choose a huge value to
@@ -565,8 +550,6 @@ save(PathVariables.configPath, ...
     'timestamp', ...
     'PathVariables', ...
     'PublishOptions', ... 
-    'FigureOptions', ...
-    'TileOptions', ... 
     'SensorArrayOptions', ... 
     'DipoleOptions', ...
     'TrainingOptions', ... 
