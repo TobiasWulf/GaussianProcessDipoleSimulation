@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-20"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-21"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -144,7 +144,8 @@ PublishOptions.showCode = true;
 </pre><h2 id="7">Sensor Array Options</h2><p>The options control the build up of the sensor array in geometry and techincal behavior. This means number of sensors in the array and its size in mm. The supply and offset voltage of each sensor which is needed for using the characterization which is normed in mV/V.</p><pre class="codeinput">disp(<span class="string">'Set sensor array option for geometry and behavior ...'</span>);
 SensorArrayOptions = struct;
 
-<span class="comment">% Geometry of the sensor array</span>
+<span class="comment">% Geometry of the sensor array current sensor array can be</span>
+<span class="comment">% square - square sensor array with even distances to each sensor point</span>
 SensorArrayOptions.geometry = <span class="string">'square'</span>;
 
 <span class="comment">% Sensor array square dimension</span>
@@ -404,7 +405,8 @@ PublishOptions.showCode = true;
 disp('Set sensor array option for geometry and behavior ...');
 SensorArrayOptions = struct;
 
-% Geometry of the sensor array
+% Geometry of the sensor array current sensor array can be
+% square - square sensor array with even distances to each sensor point
 SensorArrayOptions.geometry = 'square';
 
 % Sensor array square dimension

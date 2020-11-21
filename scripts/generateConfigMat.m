@@ -129,7 +129,8 @@ PublishOptions.showCode = true;
 disp('Set sensor array option for geometry and behavior ...');
 SensorArrayOptions = struct;
 
-% Geometry of the sensor array
+% Geometry of the sensor array current sensor array can be
+% square - square sensor array with even distances to each sensor point
 SensorArrayOptions.geometry = 'square';
 
 % Sensor array square dimension
