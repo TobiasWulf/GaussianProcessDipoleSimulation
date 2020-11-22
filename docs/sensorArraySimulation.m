@@ -23,6 +23,10 @@
 % </html>
 %
 %
+%% computeDipoleHField
+% Compute dipole field strength for meshgrids with additional abillity to
+% imprint a certain field strength in defined radius on resulting field.  
+%
 %% computeDipoleH0Norm
 % Compute a norm factor to imprint a magnetic field strength to magnetic dipole
 % fields with same magnetic moment magnitude and constant dipole sphere radius
@@ -51,7 +55,8 @@
 % <!--
 % Hidden Clutter.
 % Edited on November 04. 2020 by Tobias Wulf: Add rotate3DVector.
-% Edited on November 06/ 2020 by Tobias Wulf: Add generateDipoleRotationMoments.
+% Edited on November 06. 2020 by Tobias Wulf: Add generateDipoleRotationMoments.
+% Edited on November 22. 2020 by Tobias Wulf: Add dipole computation functions.
 % -->
 % </html>
 %

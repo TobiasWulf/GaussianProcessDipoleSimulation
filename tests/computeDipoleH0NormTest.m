@@ -10,10 +10,8 @@ Hmag = 8.5;
 Mmag = 1e6;
 
 % compute norm factor
-H0norm = computeDipoleH0Norm(Hmag, Mmag, z, r);
-Comp = 4 * pi * abs(z + r)^3 * Hmag / abs(Mmag);
+H0norm = computeDipoleH0Norm(Hmag, [Mmag; 0; 0], [0; 0; -(z + r)]);
 
 %% Test 1: positive scalar factor
 assert(isscalar(H0norm))
 assert(H0norm > 0)
-assert(H0norm == Comp)

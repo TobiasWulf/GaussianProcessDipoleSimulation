@@ -108,7 +108,7 @@ function [fig] = plotDipoleMagnet()
     % generate dipole moment for 0°
     m = generateDipoleRotationMoments(m0, 1);
     % compute H-field norm factor imprieng H magnitude on dipole, rest position
-    H0norm = computeDipoleH0Norm(Hmag, m0, z0, rsp);
+    H0norm = computeDipoleH0Norm(Hmag, m, [0; 0 ;-(z0 + rsp)]);
     % compute dipole H-field for rest position in y = 0 layer
     H = computeDipoleHField(X, Y, Z, m, H0norm);
     % calculate magnitudes for each point in the grid

@@ -16,35 +16,14 @@
 % \frac{3\vec{r_0}\left(\vec{m_0}^T\vec{r_0}\right)}{|\vec{r_0}|^5} - 
 % \frac{\vec{m_0}}{|\vec{r_0}|^3}\Biggr)$$
 % 
-% For rest position without tilt it is choosen to set the magnetic moment in
-% negative x direction although y direction would be fine. There is
-% no tilt, there is no z component in the moment vector. The
-% dipole position has no x and y components only z and so the half of equation
-% is set to zero.
-%
-% $$\vec{m_0} = \left[\matrix{-m_0 \cr 0 \cr 0}\right] \quad 
-%   \vec{r_0} = \left[\matrix{0 \cr 0 \cr z_0'}\right]$$
-%
-% $$|\vec{r_0}| = |z_0'| = |-(|z_0| + r_{sp})|$$
-% 
-% $$|\vec{m_0}| = |m_0|$$
-%
-% So on the H-field for the rest position is only related to z in the rest
-% position and the magnitude of the start momnent.
-%
-% $$|H_0(z_0')| = |\vec{H_0}(\vec{r_0})| = \frac{|m_0|}{4\pi ||z_0| + r_{sp}|^3}$$
-%
-% The norming to a free choosen field strength magnitude which shall define the
-% dipole magnet from rest to position to relative positions results in
-%
-% $$H_{0norm} = \frac{H_{mag}}{|H_0(z_0')|} = 4\pi (|z_0| +r_{sp})^3 \cdot \frac{H_{mag}}{|m_0|}$$
+% $$H_{0norm} = \frac{H_{mag}}{|H_0(r_0)|}$$
 %   
 %% Syntax
-%   H0norm = functionName(Hmag, m0, z0, rsp)
+%   H0norm = functionName(Hmag, m0, r0)
 %
 %
 %% Description
-% *H0norm = functionName(Hmag, m0, z0, rsp)* compute scalar norm factor related
+% *H0norm = functionName(Hmag, m0, r0)* compute scalar norm factor related
 % to dipole rest position. Multiply that factor to dipole generated fields which
 % are computed with the same magnetic moment magnitude to imprint a choosen
 % magnetic field strength magnitude on the dipole field rotation.
@@ -53,27 +32,23 @@
 %% Examples
 %   % distance where the magnetic field strength is the value of wished
 %   % magnitude, in mm
-%   z0 = 5
-%   % radius of dipoles sphere in mm
-%   rsp = 2
+%   r0 = [0; 0; -5]
 %   % field strength to imprint in norm factor in kA/m
 %   Hmag = 200
 %   % magnetic moment magnitude which is used generate rotation moments
-%   Mmag = 1e6
+%   m0 = [-1e6; 0; 0]
 %   % compute norm factor for dipole rest position
-%   H0norm = computeDipoleH0Norm(Hmag, Mmag, z0, rsp)
+%   H0norm = computeDipoleH0Norm(Hmag, m0, r0)
 %
 %
 %% Input Argurments
 % *Hmag* real scalar of H-field strength magnitude to imprint in norm factor to
 % define a dipole sphere with constant radius and field strength at this radius.
 %
-% *m0* real scalar of magnetic moment magnitude which must be same as for later
+% *m0* vector of magnetic moment magnitude which must be same as for later
 % roatition of the dipole.
 %
-% *z0* real scalar of distance in rest position of spherical magnet.
-%
-% *rsp* real scalar of dipole sphere radius.
+% *r0* vector of distance in rest position of magnet center.
 %
 %
 %% Output Argurments
@@ -104,16 +79,25 @@
 % -->
 % </html>
 %
-function [H0norm] = computeDipoleH0Norm(Hmag, m0, z0, rsp)
+function [H0norm] = computeDipoleH0Norm(Hmag, m0, r0)
     arguments
         % validate inputs as real scalars
         Hmag (1,1) double {mustBeReal}
-        m0 (1,1) double {mustBeReal}
-        z0 (1,1) double {mustBeReal}
-        rsp (1,1) double {mustBeReal}
+        m0 (3,1) double {mustBeReal, mustBeVector}
+        r0 (3,1) double {mustBeReal, mustBeVector}
     end
     
+    % calculate the magnitude of all positions
+    r0abs = sqrt(sum(r0.^2, 1));
+    
+    % calculate the the unit vector of all positions
+    r0hat = r0 ./ r0abs;
+    
+    % calculate field strength and magnitude at position
+    H0 = (3 * r0hat .* (m0' * r0hat) - m0) ./ (4 * pi *r0abs.^3);
+    H0abs = sqrt(sum(H0.^2, 1));
+    
     % compute the norm factor like described in the equations
-    H0norm = 4 * pi * (abs(z0) + rsp)^3 * Hmag / abs(m0);
+    H0norm = Hmag / H0abs;
 end
 
