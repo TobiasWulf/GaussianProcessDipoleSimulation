@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-22"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
+      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-24"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -70,6 +70,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   </style></head><body><div class="content"><h1>Project Structure</h1><!--introduction--><p>A good project directory structure is the key to build scalable and expandable software projects. Therfore each project folder has to fulfill an associated task. Additionally, a good structure facilitates project navigation and the retrieval and reuse of project content. Further on Matlab provides stratgies to add content to existing project structures and label it for script based execution of project task to manage project files. To add new content have a look at the links below.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li><li><a href="#2">Directory Overview</a></li><li><a href="#3">Directory Tasks</a></li><li><a href="#4">Add New Elements</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'simulink/ug/specify-project-path.html'))">Specify Project Path</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-files-to-the-project.html'))">Add Files to the Project</a></li><li><a href="matlab:web(fullfile(docroot,'simulink/ug/add-labels-to-files.html'))">Add Labels to Files</a></li></ul></div><h2 id="2">Directory Overview</h2><pre>
 GaussianProcessDipolSimulation
 &#9500;&#9472;&#9472; [4.0K]  data
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  test
+&#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  training
 &#9500;&#9472;&#9472; [4.0K]  docs
 &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  html
 &#9474;&nbsp;&nbsp;     &#9500;&#9472;&#9472; [4.0K]  figures
@@ -84,7 +86,7 @@ GaussianProcessDipolSimulation
 &#9500;&#9472;&#9472; [4.0K]  temp
 &#9492;&#9472;&#9472; [4.0K]  tests
 
-14 directories
+16 directories
 </pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab">tree <span class="string">-dhn</span> <span class="string">GaussianProcessDipolSimulation</span> <span class="string">-o</span> <span class="string">GaussianProcessDipolSimulation/docs/html/Directory_Tree.txt</span> <span class="string">-I</span> <span class="string">"project|Project_*"</span>
 </pre><h2 id="3">Directory Tasks</h2><p>
 <table border=1>
@@ -117,6 +119,18 @@ GaussianProcessDipolSimulation
   <tr>
     <td>./data</td>
     <td>Contains all project related datasets e.g. mat-files.
+    </td>
+  </tr>
+  <tr>
+    <td>./data/trainig</td>
+    <td>Contains mat-files from sensor array simulation for training
+    cases of the gaussian process.
+    </td>
+  </tr>
+  <tr>
+    <td>./data/test</td>
+    <td>Contains mat-files from sensor array simulation for test
+    cases of the gaussian process.
     </td>
   </tr>
   <tr>
@@ -267,6 +281,18 @@ Edited on November 04. 2020 by Tobias Wulf: Add sensorArraySimulation to src.
 %   <tr>
 %     <td>./data</td>
 %     <td>Contains all project related datasets e.g. mat-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./data/trainig</td>
+%     <td>Contains mat-files from sensor array simulation for training
+%     cases of the gaussian process.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./data/test</td>
+%     <td>Contains mat-files from sensor array simulation for test
+%     cases of the gaussian process.
 %     </td>
 %   </tr>
 %   <tr>

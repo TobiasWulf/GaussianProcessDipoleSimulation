@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-22"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-24"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -195,6 +195,10 @@ DipoleOptions.Mmag = 1e6;
 </pre><h2 id="9">Traning Options</h2><p>Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set training options to generate dataset ...'</span>);
 TrainingOptions = struct;
 
+<span class="comment">% Use case of options define what dataset it is and where to save resulting</span>
+<span class="comment">% datasets by simulation function.</span>
+TrainingOptions.useCase = <span class="string">'Training'</span>;
+
 <span class="comment">% Sensor array relative position to dipole magnet as position vector with</span>
 <span class="comment">% x, y and z posiotn in mm. Negative x for left shift, negative y for up</span>
 <span class="comment">% shift and negative z to place the layer under the dipole decrease z to</span>
@@ -228,6 +232,10 @@ TrainingOptions.phaseIndex = 0;
 TrainingOptions.nAngles = [7,];
 </pre><h2 id="10">Test Options</h2><p>Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole manget as stimulus which pushed with an z offeset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate dataset ...'</span>);
 TestOptions = struct;
+
+<span class="comment">% Use case of options define what dataset it is and where to save resulting</span>
+<span class="comment">% datasets by simulation function.</span>
+TestOptions.useCase = <span class="string">'Test'</span>;
 
 <span class="comment">% Sensor array relative position to dipole magnet as position vector with</span>
 <span class="comment">% x, y and z posiotn in mm. Negative x for left shift, negative y for up</span>
@@ -468,6 +476,10 @@ DipoleOptions.Mmag = 1e6;
 disp('Set training options to generate dataset ...');
 TrainingOptions = struct;
 
+% Use case of options define what dataset it is and where to save resulting
+% datasets by simulation function.
+TrainingOptions.useCase = 'Training';
+
 % Sensor array relative position to dipole magnet as position vector with
 % x, y and z posiotn in mm. Negative x for left shift, negative y for up
 % shift and negative z to place the layer under the dipole decrease z to
@@ -507,6 +519,10 @@ TrainingOptions.nAngles = [7,];
 % stimulus which pushed with an z offeset to a sphere.
 disp('Set test options to generate dataset ...');
 TestOptions = struct;
+
+% Use case of options define what dataset it is and where to save resulting
+% datasets by simulation function.
+TestOptions.useCase = 'Test';
 
 % Sensor array relative position to dipole magnet as position vector with
 % x, y and z posiotn in mm. Negative x for left shift, negative y for up

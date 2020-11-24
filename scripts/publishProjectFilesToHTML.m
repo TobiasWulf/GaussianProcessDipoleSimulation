@@ -71,7 +71,7 @@ end
 % Remove equation png file from HTML output folder before create or recreate
 % publishing files. To prevent the directory expanse of old or edited equation
 % files.
-%removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
+removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 
 
 %% Project Documentation Files

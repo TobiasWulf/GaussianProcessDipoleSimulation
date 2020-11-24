@@ -43,7 +43,7 @@ Hxds = Hx(idx,idx,idx) ./ Habs(idx,idx,idx);
 Hyds = Hy(idx,idx,idx) ./ Habs(idx,idx,idx);
 Hzds = Hz(idx,idx,idx) ./ Habs(idx,idx,idx);
 
-% show results
+% show results for test, comment out for regular unittest run, run suite
 % quiver3(Xds, Yds, Zds, Hxds, Hyds, Hzds);
 % axis equal;
 

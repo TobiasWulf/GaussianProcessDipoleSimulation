@@ -59,6 +59,18 @@
 %     </td>
 %   </tr>
 %   <tr>
+%     <td>./data/trainig</td>
+%     <td>Contains mat-files from sensor array simulation for training
+%     cases of the gaussian process.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./data/test</td>
+%     <td>Contains mat-files from sensor array simulation for test
+%     cases of the gaussian process.
+%     </td>
+%   </tr>
+%   <tr>
 %     <td>./docs</td>
 %     <td>Documentation directory which contains m-files only for documtation
 %     use and the direcoty where all project remarked files are published into
@@ -171,6 +183,7 @@
 % Edited on October 07. 2020 by Tobias Wulf: Add inital description.
 % Edited on October 08. 2020 by Tobias Wulf: Add workflow and overview.
 % Edited on November 04. 2020 by Tobias Wulf: Add sensorArraySimulation to src.
+% Edited on November 24. 2020 by Tobias Wulf: Add folders for training and test data
 % -->
 % </html>
 %

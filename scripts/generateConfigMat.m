@@ -38,7 +38,7 @@ clc;
 
 %% GeneralOptions
 % General options like formats for strings or date or anything else what
-% has no special relation to a theme complex.
+% has no special relation to a theme complex. Fix parameters.
 disp('Set general options ...');
 GeneralOptions = struct;
 GeneralOptions.dateFormat = 'yyyy-mm-dd_HH-MM-SS-FFF';
@@ -47,7 +47,7 @@ GeneralOptions.dateFormat = 'yyyy-mm-dd_HH-MM-SS-FFF';
 %% Path Variables
 % Key path variables and directories, often used in functions or scripts.
 % Collet the path in a struct for easier save the struct fields as variables to
-% config.mat via -struct flag.
+% config.mat via -struct flag. Fix parameters.
 
 disp('Create current project instance to gather information ...');
 
@@ -69,6 +69,12 @@ PathVariables.tdkDatasetPath = fullfile(PathVariables.dataPath, ...
 
 % path to config file dataset
 PathVariables.configPath = fullfile(PathVariables.dataPath, 'config.mat');
+
+% path to training dataset folder
+PathVariables.trainingDataPath = fullfile(PathVariables.dataPath, 'training');
+
+% path to test dataset folder
+PathVariables.testDataPath = fullfile(PathVariables.dataPath, 'test');
 
 % path to documentation and m-files only for documentation
 PathVariables.docsPath = fullfile(PathVariables.rootPath, 'docs');
@@ -103,7 +109,7 @@ PathVariables.srcPath = fullfile(PathVariables.rootPath, 'src');
 % The option struct can be copied and adjusted for differing publish
 % conditions in example for scripts, functions, and bare document m-files.
 % Initialize the option struct with output format field name and field value
-% and add further fields (options) with point value.
+% and add further fields (options) with point value. Fix parameters.
 disp('Set publish options struct for publish function ...');
 PublishOptions = struct('format', 'html');
 PublishOptions.outputDir = PathVariables.publishHtmlPath;
@@ -125,41 +131,46 @@ PublishOptions.showCode = true;
 % The options control the build up of the sensor array in geometry and
 % techincal behavior. This means number of sensors in the array and its
 % size in mm. The supply and offset voltage of each sensor which is needed
-% for using the characterization which is normed in mV/V.
+% for using the characterization which is normed in mV/V. These parameters
+% should be fix during generation a pulk of training or test data sets. The
+% simulation function does not covers vectors yet.
 disp('Set sensor array option for geometry and behavior ...');
 SensorArrayOptions = struct;
 
-% Geometry of the sensor array current sensor array can be
+% Geometry of the sensor array current sensor array can be. Fix parameter.
 % square - square sensor array with even distances to each sensor point
 SensorArrayOptions.geometry = 'square';
 
-% Sensor array square dimension
+% Sensor array square dimension. Fix parameter.
 SensorArrayOptions.dimension = 8;
 
-% Sensor array edge length in mm
+% Sensor array edge length in mm. Fix parameter.
 SensorArrayOptions.edge = 2;
 
-% Sensor array simulated supply voltage in volts
+% Sensor array simulated supply voltage in volts. Fix parameter.
 SensorArrayOptions.Vcc = 3.3;
 
-% Sensor array simulated offset voltage for bridge outputs in volts
+% Sensor array simulated offset voltage for bridge outputs in volts. Fix
+% paramter.
 SensorArrayOptions.Voff = 1.65;
 
 % Senor array voltage norm factor to recalculate norm bridge outputs to
 % given supply voltage and offset voltage, current normin is mV/V which
-% implements factor of 1e3
+% implements factor of 1e3. Fix paramter.
 SensorArrayOptions.Vnorm = 1e3;
 
 
 %% Dipole Options
 % Dipole options to calculate the magnetic field which stimulate the sensor
 % array. The dipole is gained to sphere with additional z distance to the
-% array by sphere radius.
+% array by sphere radius. These parameters should be fix during generation
+% a pulk of training or test data sets. The simulation function does not
+% covers vectors yet.
 disp('Set dipole options to calculate magnetic stimulus ...');
 DipoleOptions = struct;
 
 % Radius in mm of magnetic sphere in which the magnetic dipole is centered.
-% So it can be seen as z-offset to the sensor array.
+% So it can be seen as z-offset to the sensor array. Fix parameter.
 DipoleOptions.sphereRadius = 2;
 
 % H-field magnitude to multiply of generated and relative normed dipole
@@ -169,20 +180,22 @@ DipoleOptions.sphereRadius = 2;
 % refers that the sphere magnet has this H-field magnitude in a certain distance
 % z0 in example sphere with 2mm sphere radius has a H magnitude of 200kA/m in
 % 5mm distance. Standard field strength for ferrite sphere magnets are between
-% 180 and 200kA/m.
-DipoleOptions.Hmag = 200;
+% 180 and 200kA/m. Fix parameter.
+DipoleOptions.H0mag = 200;
 
 % Distance in zero position of the spherical magnet in which the imprinted
 % H-field strength magnitude takes effect. Together with the sphere radius and
 % and the imprinted field strength magnitude the distance in rest position
 % characterizes the spherical magnet to later relative positions of the sensor
-% array and generated dipole H-fields in rotation simulation.
+% array and generated dipole H-fields in rotation simulation. In mm. Fix
+% parameter.
 DipoleOptions.z0 = 1;
 
 % Magnetic moment magnitude attach rotation to the dipole field at a
 % certain position with x, y and z components. Choose a huge value to
-% prevent numeric failures
-DipoleOptions.Mmag = 1e6;
+% prevent numeric failures, by norming the factor is eleminated later. Fix
+% parameter.
+DipoleOptions.M0mag = 1e6;
 
 
 %% Traning Options
@@ -192,21 +205,26 @@ DipoleOptions.Mmag = 1e6;
 disp('Set training options to generate dataset ...');
 TrainingOptions = struct;
 
+% Use case of options define what dataset it is and where to save resulting
+% datasets by simulation function. Fix parameter.
+TrainingOptions.useCase = 'Training';
+
 % Sensor array relative position to dipole magnet as position vector with
 % x, y and z posiotn in mm. Negative x for left shift, negative y for up
 % shift and negative z to place the layer under the dipole decrease z to
 % increase the distance. The z-position will be subtracted by dipole sphere
-% radius in simulation. So there is an offset given by the sphere radius
+% radius in simulation. So there is an offset given by the sphere radius.
+% Loop parameters.
 TrainingOptions.xPos = [0,];
 TrainingOptions.yPos = [0,];
 TrainingOptions.zPos = [0,];
 
-% Dipole tilt in z-axes
-TrainingOptions.tilt = [0,];
+% Dipole tilt in z-axes in degree. Fix parameter.
+TrainingOptions.tilt = 0;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
-% test data sets 
+% test data sets. In degree. Fix parameter.
 TrainingOptions.angleRes = 0.5;
 
 % Phase index applies a phase offset in the rotation, it is used as phase index
@@ -215,14 +233,25 @@ TrainingOptions.angleRes = 0.5;
 % 0° to 360° - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
 % angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11° set
 % phaseIndex to 22 a multiple of the resolution angleRes and get
-% [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer.
+% [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer. Fix
+% parameter.
 TrainingOptions.phaseIndex = 0;
 
 % Number rotaion angles, even distribute between 0° and 360° with respect
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
-% generate full scale rotation too.
-TrainingOptions.nAngles = [7,];
+% generate full scale rotation too. Fix Parameter.
+TrainingOptions.nAngles = 7;
+
+% Characteraztion field which should be load as refernce image from
+% characterization data set, in TDK dataset are following fields. In the
+% current dataset Rise has the widest linear plateau with a radius of ca.
+% 8.5 kA/m. Fix parameter.
+% Rise - Bridge outputs for rising stimulus amplituded
+% Fall - Bridge outputs for falling stimulus amplitude
+% All  - Superimposed bridge outputs
+% Diff - Differentiated bridge outputs
+TrainingOptions.BridgeReference = 'Rise';
 
 
 %% Test Options
@@ -232,21 +261,26 @@ TrainingOptions.nAngles = [7,];
 disp('Set test options to generate dataset ...');
 TestOptions = struct;
 
+% Use case of options define what dataset it is and where to save resulting
+% datasets by simulation function. Fix Parameter.
+TestOptions.useCase = 'Test';
+
 % Sensor array relative position to dipole magnet as position vector with
 % x, y and z posiotn in mm. Negative x for left shift, negative y for up
 % shift and negative z to place the layer under the dipole decrease z to
 % increase the distance. The z-position will be subtracted by dipole sphere
-% radius in simulation. So there is an offset given by the sphere radius
+% radius in simulation. So there is an offset given by the sphere radius.
+% Loop parameter.
 TestOptions.xPos = [0,];
 TestOptions.yPos = [0,];
-TestOptions.zPos = [0, 1, 2, 3, 4];
+TestOptions.zPos = [10, 9, 8, 7, 6];
 
-% Dipole tilt in z-axes
-TestOptions.tilt = [0,];
+% Dipole tilt in z-axes in degree. Fix parameter.
+TestOptions.tilt = 0;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
-% test data sets 
+% test data sets. In degree. Fix parameter.
 TestOptions.angleRes = 0.5;
 
 % Phase index applies a phase offset in the rotation, it is used as phase index
@@ -255,20 +289,30 @@ TestOptions.angleRes = 0.5;
 % 0° to 360° - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
 % angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11° set
 % phaseIndex to 22 a multiple of the resolution angleRes and get
-% [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer.
+% [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer. Fix
+% parameter.
 TestOptions.phaseIndex = 0;
 
 % Number rotaion angles, even distribute between 0° and 360° with respect
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number to 0 to
-% generate full scale rotation.
-TestOptions.nAngles = [720,];
+% generate full scale rotation. Fix parameter.
+TestOptions.nAngles = 720;
+
+% Characteraztion field which should be load as refernce image from
+% characterization data set, in TDK dataset are following fields. In the
+% current dataset Rise has the widest linear plateau with a radius of ca.
+% 8.5 kA/m. Fix parameter.
+% Rise - Bridge outputs for rising stimulus amplituded
+% Fall - Bridge outputs for falling stimulus amplitude
+% All  - Superimposed bridge outputs
+% Diff - Differentiated bridge outputs
+TestOptions.BridgeReference = 'Rise';
 
 
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in
 % config.mat use newest save format with no compression.
-
 % create config.mat with timestamp of creation
 disp('Create config.mat ...');
 timestamp = datestr(now, GeneralOptions.dateFormat);
