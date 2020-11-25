@@ -7,8 +7,8 @@ a = 2;
 
 
 % relative sensor array position from dipole sphere in a position vector p
-xPos = 0;
-yPos = 0;
+xPos = 3;
+yPos = 5;
 zPos = 7;
 p = [xPos; yPos; zPos];
 
@@ -31,7 +31,7 @@ z0 = 1;
 M0mag = 1e6;
 
 % number of angles to observe, even from 0 to 360 degree
-nAngles = 12;
+nAngles = 15;
 
 % tilt angle in z-axes
 tilt = 0;

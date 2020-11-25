@@ -18,9 +18,32 @@
 % detection. The modelling of suitable small magnets is not taking place of
 % the work.
 %
+% A good working magnet is found emperical for H-field magnitudes of 200 kA/m
+% and a distance from surface of 1 mm. See below figure of used magnet.
+%
 % <html>
-% <img src="images/dipole_magnet.svg" height=650>
+% <img src="images/dipole_magnet.svg" height=500>
 % </html>
+%
+% To change settings for simulation edit the config script and rerun it. To
+% generate trainging and test data set use simulation script. It generates
+% dataset for all position are known to TrainingOptions and TestOptions in
+% config. Generate a set of dataset for one evaluation case. Evaluate datasets,
+% save results for later clustering, edit config for next use case and rerun
+% simulation.
+%
+%
+%% See Also
+%
+% * <generateConfigMat.html generateConfigMat>
+% * <generateSimulationDatasets.html generateSimulationDatasets>
+% * <deleteSimulationDatasets.html deleteSimulationDatasets>
+%
+%
+%% simulateDipoleSquareSenorArray
+% Simulate a square sensor array with dipole magnet as stimulus for a certain
+% setup of training or test options. Saves generated dataset to data/training or
+% data/test.
 %
 %
 %% computeDipoleHField
@@ -57,6 +80,7 @@
 % Edited on November 04. 2020 by Tobias Wulf: Add rotate3DVector.
 % Edited on November 06. 2020 by Tobias Wulf: Add generateDipoleRotationMoments.
 % Edited on November 22. 2020 by Tobias Wulf: Add dipole computation functions.
+% Edited on November 25. 2020 by Tobias Wulf: Add simulation function for squar senor arrays.
 % -->
 % </html>
 %

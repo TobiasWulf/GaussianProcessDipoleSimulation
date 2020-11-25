@@ -217,7 +217,7 @@ TrainingOptions.useCase = 'Training';
 % Loop parameters.
 TrainingOptions.xPos = [0,];
 TrainingOptions.yPos = [0,];
-TrainingOptions.zPos = [0,];
+TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TrainingOptions.tilt = 0;
@@ -273,7 +273,7 @@ TestOptions.useCase = 'Test';
 % Loop parameter.
 TestOptions.xPos = [0,];
 TestOptions.yPos = [0,];
-TestOptions.zPos = [10, 9, 8, 7, 6];
+TestOptions.zPos = [7, 8, 9, 10, 11];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;
@@ -318,6 +318,7 @@ disp('Create config.mat ...');
 timestamp = datestr(now, GeneralOptions.dateFormat);
 save(PathVariables.configPath, ...
     'timestamp', ...
+    'GeneralOptions', ...
     'PathVariables', ...
     'PublishOptions', ... 
     'SensorArrayOptions', ... 

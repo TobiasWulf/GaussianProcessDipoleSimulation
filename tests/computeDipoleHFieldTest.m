@@ -44,8 +44,8 @@ Hyds = Hy(idx,idx,idx) ./ Habs(idx,idx,idx);
 Hzds = Hz(idx,idx,idx) ./ Habs(idx,idx,idx);
 
 % show results for test, comment out for regular unittest run, run suite
-% quiver3(Xds, Yds, Zds, Hxds, Hyds, Hzds);
-% axis equal;
+quiver3(Xds, Yds, Zds, Hxds, Hyds, Hzds);
+axis equal;
 
 % pattern for logical indexing the center or opposite
 p0 = false(1, 41);

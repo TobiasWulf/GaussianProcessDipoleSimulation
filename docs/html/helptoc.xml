@@ -23,6 +23,8 @@
         <tocitem target="Executable_Scripts.html">Executable Scripts
             <tocitem target="publishProjectFilesToHTML.html">publishProjectFilesToHTML</tocitem>
             <tocitem target="generateConfigMat.html">generateConfigMat</tocitem>
+            <tocitem target="generateSimulationDatasets.html">generateSimulationDatasets</tocitem>
+            <tocitem target="deleteSimulationDatasets.html">deleteSimulationDatasets</tocitem>
         </tocitem>
         <tocitem target="Source_Code.html">Source Code
             <tocitem target="sensorArraySimulation.html">sensorArraySimulation
@@ -31,6 +33,7 @@
                 <tocitem target="generateSensorArraySquareGrid.html">generateSensorArraySquareGrid</tocitem>
                 <tocitem target="computeDipoleH0Norm.html">computeDipoleH0Norm</tocitem>
                 <tocitem target="computeDipoleHField.html">computeDipoleHField</tocitem>
+                <tocitem target="simulateDipoleSquareSensorArray.html">simulateDipoleSquareSensorArray</tocitem>
             </tocitem>
             <tocitem target="util.html">util
                 <tocitem target="removeFilesFromDir.html">removeFilesFromDir</tocitem>
@@ -38,6 +41,7 @@
                 <tocitem target="plotFunctions.html">plotFunctions
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset</tocitem>
                     <tocitem target="plotDipoleMagnet.html">plotDipoleMagnet</tocitem>
+                    <tocitem target="plotSimulationDataset.html">plotSimulationDataset</tocitem>
                 </tocitem>
             </tocitem>
         </tocitem>

@@ -1,0 +1,156 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>generateSimulationDatasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-25"><meta name="DC.source" content="generateSimulationDatasets.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>generateSimulationDatasets</h1><!--introduction--><p>Generate sensor array simulation datasets for training and test applications. Loads needed configurations from config.mat and characterization data from defined characterization dataset (current: PathVariables.tdkDatasetPath). Simulated dataset are saved to data/training and data/test path. Generate dataset for a predefined configuration at once. Best use is to generate simulation data, do wish application or evaluation on it and save results. Delete datasets, edit configuration and rerun for a new set of datasets.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Load Configuration and Characterization Dataset</a></li><li><a href="#4">Generate Training Datasets</a></li><li><a href="#5">Generate Test Datasets</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: simulateDipoleSquareSensorArray.m</li><li>Subfunctions: None</li><li>MAT-files required: config.mat, TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="simulateDipoleSquareSensorArray.html">simulateDipoleSquareSensorArray</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><h2 id="3">Load Configuration and Characterization Dataset</h2><p>Load configuration to generate dataset from config.mat and defined characterization dataset.</p><pre class="codeinput"><span class="keyword">try</span>
+    clearvars;
+    close <span class="string">all</span>;
+    disp(<span class="string">'Load configuration ...'</span>);
+    load(<span class="string">'config.mat'</span>, <span class="string">'GeneralOptions'</span>, <span class="string">'PathVariables'</span>, <span class="string">'SensorArrayOptions'</span>, <span class="keyword">...</span>
+        <span class="string">'DipoleOptions'</span>, <span class="string">'TrainingOptions'</span>, <span class="string">'TestOptions'</span>);
+    disp(<span class="string">'Load characterization dataset ...'</span>);
+    TDK = load(PathVariables.tdkDatasetPath);
+<span class="keyword">catch</span> ME
+    rethrow(ME)
+<span class="keyword">end</span>
+</pre><h2 id="4">Generate Training Datasets</h2><p>Generate training dataset from configuration and characterization dataset.</p><pre class="codeinput">disp(<span class="string">'Generate training datasets ...'</span>);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TDK)
+</pre><h2 id="5">Generate Test Datasets</h2><p>Generate test dataset from configuration and characterization dataset.</p><pre class="codeinput">disp(<span class="string">'Generate test datasets ...'</span>);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TestOptions, TDK)
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% generateSimulationDatasets
+% Generate sensor array simulation datasets for training and test applications.
+% Loads needed configurations from config.mat and characterization data from
+% defined characterization dataset (current: PathVariables.tdkDatasetPath).
+% Simulated dataset are saved to data/training and data/test path. Generate
+% dataset for a predefined configuration at once. Best use is to generate
+% simulation data, do wish application or evaluation on it and save results.
+% Delete datasets, edit configuration and rerun for a new set of datasets.
+% 
+%
+%% Requirements
+% * Other m-files required: simulateDipoleSquareSensorArray.m
+% * Subfunctions: None
+% * MAT-files required: config.mat, TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat
+%
+%
+%% See Also
+% * <sensorArraySimulation.html sensorArraySimulation>
+% * <simulateDipoleSquareSensorArray.html simulateDipoleSquareSensorArray>
+% * <generateConfigMat.html generateConfigMat>
+%
+%
+% Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+%
+%% Load Configuration and Characterization Dataset
+% Load configuration to generate dataset from config.mat and defined
+% characterization dataset.
+try
+    clearvars;
+    close all;
+    disp('Load configuration ...');
+    load('config.mat', 'GeneralOptions', 'PathVariables', 'SensorArrayOptions', ...
+        'DipoleOptions', 'TrainingOptions', 'TestOptions');
+    disp('Load characterization dataset ...');
+    TDK = load(PathVariables.tdkDatasetPath);
+catch ME
+    rethrow(ME)
+end
+
+
+%% Generate Training Datasets
+% Generate training dataset from configuration and characterization dataset.
+disp('Generate training datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TDK)
+
+
+%% Generate Test Datasets
+% Generate test dataset from configuration and characterization dataset.
+disp('Generate test datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TestOptions, TDK)
+
+##### SOURCE END #####
+--></body></html>

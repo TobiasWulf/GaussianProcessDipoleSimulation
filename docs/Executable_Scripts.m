@@ -6,6 +6,14 @@
 % by functions to control and execute task in a unified project structure.
 %
 %
+%% deleteSimulationDatasets
+% Delete generated simulation datasets from data path.
+%
+%
+%% generateSimulationDatasets
+% Generate simulation datasets from sensor array simulation configuration.
+%
+%
 %% publishProjectFilesHTML
 % Publish Matlab help browser integrated HTML documentation.
 %

@@ -1,6 +1,9 @@
 %% plotFunctions
 % Project related reusable plots for datasets and results. 
 %
+%% plotSimulationDataset
+% Plot simulation test or training dataset created by sensor array simulation.
+%
 %
 %% plotTDKCharDataset
 % Explore the basic dataset of characterized TDK TMR Sensor TAS2141 and
@@ -22,6 +25,7 @@
 % Edited on November 01. 2020 by Tobias Wulf: Add newConfigFigure.
 % Edited on November 20. 2020 by Tobias Wulf: Remove newConfigFigure.
 % Edited on November 20. 2020 by Tobias Wulf: Add plotDipoleMagnet.
+% Edited on November 25. 2020 by Tobias Wulf: Add plotSimulationDataset.
 % -->
 % </html>
 %
