@@ -19,3 +19,6 @@
 # volotile to have them on track, rerun publish process instead
 docs/html/*eq*.png
 
+# exclude datsets from sensor array simulation, test and training data.
+data/training/Training_*.mat
+data/test/Test_*.mat
