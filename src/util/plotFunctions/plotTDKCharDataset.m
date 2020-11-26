@@ -450,7 +450,7 @@ function [Figures] = plotTDKCharDataset()
     % add colorbar and place it overall plots
     cb = colorbar;
     cb.Layout.Tile = 'east';
-    cb.Label.String = sprintf('$Vcos(H_x, H_y)$ in %s', mV);
+    cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s', mV);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     
@@ -626,7 +626,7 @@ function [Figures] = plotTDKCharDataset()
     % add colorbar and place it overall plots
     cb = colorbar;
     cb.Layout.Tile = 'east';
-    cb.Label.String = sprintf('$Vcos(H_x, H_y)$ in %s', mV);
+    cb.Label.String = sprintf('$V_{sin}(H_x, H_y)$ in %s', mV);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     

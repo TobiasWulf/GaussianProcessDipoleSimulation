@@ -70,13 +70,13 @@ function [fig] = plotDipoleMagnet()
     rsp = DipoleOptions.sphereRadius;
 
     % H-field magnitude to multiply of generated and relative normed dipole
-    Hmag = DipoleOptions.Hmag;
+    Hmag = DipoleOptions.H0mag;
 
     % Distance in zero position of the spherical magnet in which is imprinted
     z0 = DipoleOptions.z0;
 
     % Magnetic moment magnitude attach rotation to the dipole field
-    m0 = DipoleOptions.Mmag;
+    m0 = DipoleOptions.M0mag;
     
     % clear dataset all loaded
     clear DipoleOptions;
