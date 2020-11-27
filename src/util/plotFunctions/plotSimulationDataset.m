@@ -79,7 +79,7 @@ function fig = plotSimulationDataset()
     end
     % get numeric user input to indicate which dataset to plot
     % iDataset = input('Type number to choose dataset to plot to: ');
-    iDataset = 6;
+    iDataset = 2;
     
     % load dataset and ask user which one and how many angles %%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,7 +90,7 @@ function fig = plotSimulationDataset()
         % render in polt
         fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
         % nSubAngles = input('How many angles to you wish to plot: ');
-        nSubAngles = 12;
+        nSubAngles = 120;
         % indices for data to plot, get sample distance for even distance
         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
         % get subset of angles
@@ -164,38 +164,39 @@ function fig = plotSimulationDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    % plot sensor grid in x and y coordinates and constant z layer %%%%%%%%%%%%%
+    % get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % get subset of needed data to plot
     N = ds.Info.SensorArrayOptions.dimension;
     X = ds.Data.X;
     Y = ds.Data.Y;
     Z = ds.Data.Z;
-    Hx = ds.Data.Hx(:,:,indices);
-    Hy = ds.Data.Hy(:,:,indices);
-    Vcos = ds.Data.Vcos(:,:,indices);
-    Vsin = ds.Data.Vsin(:,:,indices);
-    Voff = ds.Info.SensorArrayOptions.Voff;
+    
+    % calc limits of plot 1
     maxX = ds.Info.UseOptions.xPos + ds.Info.SensorArrayOptions.edge;
     maxY = ds.Info.UseOptions.yPos + ds.Info.SensorArrayOptions.edge;
     minX = ds.Info.UseOptions.xPos - ds.Info.SensorArrayOptions.edge;
     minY = ds.Info.UseOptions.yPos - ds.Info.SensorArrayOptions.edge;
-    nexttile(1);
+    
+    % calculate colormap to identify scatter points
+    c=zeros(N,N,3);
+    for i = 1:N
+        for j = 1:N
+            c(i,j,:) = [(2*N+1-2*i), (2*N+1-2*j), (i+j)]/2/N;
+        end
+    end
+    c = squeeze(reshape(c, N^2, 1, 3));
+    
+    % load offset voltage to subtract from cosinus, sinus voltage
+    Voff = ds.Info.SensorArrayOptions.Voff;
+    
+    % plot sensor grid in x and y coordinates and constant z layer %%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+    ax1 = nexttile(1);
     % plot each cooredinate in loop to create a special shading constant
     % reliable to orientation for all matrice
     hold on;
-    for i = 1:N
-        for j = 1:N
-            scatter(X(i,j), Y(i,j), [], [(2*N+1-2*i), (2*N+1-2*j), (i+j)]/2/N, ...
-                'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
-        end
-    end
-    
-    % add x y vectors for Hx, Hy and Vcos, Vsin for first rotation angle to
-    % initialize plot
-    qH = quiver(X, Y, Hx(:,:,1), Hy(:,:,1), 0.5, 'b');
-    qV = quiver(X, Y, Vcos(:,:,1) - Voff, Vsin(:,:,1) - Voff, 0.5, 'r');
-    
+    scatter(X(:), Y(:), [], c, 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+       
     % axis shape and ticks
     axis square xy;
     axis tight;
@@ -230,18 +231,11 @@ function fig = plotSimulationDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
-        'FontWeight', 'normal', ...
-        'FontSize', 9, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex', ...
-        'Location', 'NorthEast');
-    
     hold off;
     
     % plot rotation angles in polar view %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    nexttile;
+    nexttile(2);
     % plot all angles grayed out
     polarscatter(ds.Data.angles/180*pi, ones(1, ds.Info.UseOptions.nAngles), ...
         [], [0.8 0.8 0.8], 'filled');
@@ -252,35 +246,32 @@ function fig = plotSimulationDataset()
     hold on;
     
     % plot subset of angles
-    polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);
-    
-    % plot first subset angle to initialize
-    pA = polarscatter(subAngles(1)/180*pi, 1, 'b', 'filled', ...
-        'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
-    
+    % polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);
+    ax2 = gca;    
+        
     % axis shape
     axis tight;
-    
+
     % text an labels
     % init first rotation step label
     tA = text(2/3*pi, 1.5, ...
-        sprintf('$%.1f^\\circ$', subAngles(1)), ...
+        '$\\theta$', ...
         'Color', 'b', ...
         'FontSize', 16, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
-    
+
     title('Rotation around Z-Axis in Degree', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
-    
+
     hold off;
     
     % Cosinus bridge outputs for rotation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    nexttile;
+    ax3 = nexttile(3);
     hold on;
     
     % set colormap
@@ -290,13 +281,13 @@ function fig = plotSimulationDataset()
     imC = imagesc(ds.Data.HxScale, ds.Data.HyScale, ds.Data.VcosRef);
     set(imC, 'AlphaData', ~isnan(ds.Data.VcosRef));
     set(gca, 'YDir', 'normal')
-    
+
     % axis shape and ticks
     axis square xy;
     axis tight;
     yticks(xticks);
     grid on;
-    
+        
     % test and labels
     xlabel('$H_x$ in kA/m', ...
         'FontWeight', 'normal', ...
@@ -326,22 +317,143 @@ function fig = plotSimulationDataset()
     
     hold off;
     
+    % Sinus bridge outputs for rotation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    ax4 = nexttile(4);
+    hold on;
     
+    % set colormap
+    colormap('gray');
     
+    % plot sinus reference, set NaN values to white color, orient Y to normal
+    imS = imagesc(ds.Data.HxScale, ds.Data.HyScale, ds.Data.VsinRef);
+    set(imS, 'AlphaData', ~isnan(ds.Data.VsinRef));
+    set(gca, 'YDir', 'normal')
     
+    % axis shape and ticks
+    axis square xy;
+    axis tight;
+    yticks(xticks);
+    grid on;
     
+    % test and labels
+    xlabel('$H_x$ in kA/m', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
     
-%     pause(0.5)
-%     delete(pA)
-%     delete(qH)
-%     delete(qV)
-%     pause(0.5)
-%     nexttile(1)
-%     hold on;
-%     qV = quiver(X, Y, Vcos(:,:,1) - Voff, Vsin(:,:,1) - Voff, 0.5, 'r')
-%     nexttile(2)
-%     hold on;
-%     pA = polarscatter(subAngles(6)/180*pi, 1, 'b', 'filled', ...
-%         'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    ylabel('$H_y$ in kA/m', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    title('$V_{sin}(H_x, H_y)$', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    % add colorbar and place it
+    cb2 = colorbar;
+    cb2.Label.String = sprintf(...
+        '$V_{sin}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V', ...
+        ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);
+    cb2.Label.Interpreter = 'latex';
+    cb2.Label.FontSize = 12;
+    
+    hold off;
+    
+    % zoom axes for scatter on cosinuns reference images %%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    nexttile(3);
+    ax5 = axes('Position', [0.07 0.02 0.19 0.19], 'XColor', 'r', 'YColor', 'r');
+    hold on;
+    axis square xy;
+    grid on;
+    hold off;
+  
+    % draw everything prepared before start renewing frame wise
+    drawnow;
+    
+    % loop through subset angle dataset and renew plots %%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    for i = indices
+        % H load subset
+        Hx = ds.Data.Hx(:,:,i);
+        Hy = ds.Data.Hy(:,:,i);
+        % get min max
+        maxHx = max(Hx, [], 'all');
+        maxHy = max(Hy, [], 'all');
+        minHx = min(Hx, [], 'all');
+        minHy = min(Hy, [], 'all');
+        dHx = abs(maxHx - minHx);
+        dHy = abs(maxHy - minHy);
+        
+        % load V subset
+        Vcos = ds.Data.Vcos(:,:,i) - Voff;
+        Vsin = ds.Data.Vsin(:,:,i) - Voff;
+        angle = ds.Data.angles(i);
+                
+        % lock plots
+        hold(ax1, 'on');
+        hold(ax2, 'on');
+        hold(ax3, 'on');
+        hold(ax4, 'on');
+        hold(ax5, 'on');
+        
+        % update plot 1
+        qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
+        qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
+        legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
+            'FontWeight', 'normal', ...
+            'FontSize', 9, ...
+            'FontName', 'Times', ...
+            'Interpreter', 'latex', ...
+            'Location', 'NorthEast');
+        
+        % update plot 2
+        tA.String = sprintf('$%.1f^\\circ$', angle);
+        pA = polarscatter(ax2, angle/180*pi, 1, 'b', 'filled', ...
+            'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+        
+        % update plot 3 and 4
+        sC = scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+            'LineWidth', 0.8);
+        sS = scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+            'LineWidth', 0.8);
+        
+        % calc position of scatter area frame and reframe
+        pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
+        rtC = rectangle(ax3, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+        rtS = rectangle(ax4, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+        
+        % update plot 5 (zoom)
+        sZ = scatter(ax5, Hx(:), Hy(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
+            'LineWidth', 0.8);
+        xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
+        ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
+        
+        % release plots and draw
+        hold(ax1, 'off');
+        hold(ax2, 'off');
+        hold(ax3, 'off');
+        hold(ax4, 'off');
+        hold(ax5, 'off');
+        drawnow;
+        
+        % delete part of plots to renew for current angle, delete but last
+        if i ~= indices(end)
+            delete(qH);
+            delete(qV);
+            delete(pA);
+            delete(rtC);
+            delete(rtS);
+            delete(sC);
+            delete(sS);
+            delete(sZ);
+        end
+    end
 end
 
