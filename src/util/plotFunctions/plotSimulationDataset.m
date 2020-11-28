@@ -78,8 +78,8 @@ function fig = plotSimulationDataset()
         fprintf('%s\t:\t(%d)\n', allDatasets(i).name, i)
     end
     % get numeric user input to indicate which dataset to plot
-    % iDataset = input('Type number to choose dataset to plot to: ');
-    iDataset = 2;
+    iDataset = input('Type number to choose dataset to plot to: ');
+    % iDataset = 2;
     
     % load dataset and ask user which one and how many angles %%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,8 +89,8 @@ function fig = plotSimulationDataset()
         % check how many angles in dataset and let user decide how many to
         % render in polt
         fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
-        % nSubAngles = input('How many angles to you wish to plot: ');
-        nSubAngles = 120;
+        nSubAngles = input('How many angles to you wish to plot: ');
+        % nSubAngles = 120;
         % indices for data to plot, get sample distance for even distance
         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
         % get subset of angles
