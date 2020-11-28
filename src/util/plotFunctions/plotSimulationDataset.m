@@ -374,8 +374,25 @@ function fig = plotSimulationDataset()
     grid on;
     hold off;
   
-    % draw everything prepared before start renewing frame wise
+    % draw everything prepared before start renewing frame wise and prepare for
+    % recording frames to video file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % draw frame
     drawnow;
+    
+    % get file path and change extension
+    [fPath, fName, ~] = fileparts(ds.Info.filePath);
+    
+    % string allows simple cat ops
+    VW = VideoWriter(fullfile(fPath, fName + ".avi"), "Uncompressed AVI");
+    
+    % scale frame rate on 10 second movies, ensure at least 1 fps
+    fr = floor(nSubAngles / 10) + 1;
+    VW.FrameRate = fr;
+    
+    % open video file, ready to record frames
+    open(VW)
+    
     
     % loop through subset angle dataset and renew plots %%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -435,13 +452,19 @@ function fig = plotSimulationDataset()
         xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
         ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
         
-        % release plots and draw
+        % release plots
         hold(ax1, 'off');
         hold(ax2, 'off');
         hold(ax3, 'off');
         hold(ax4, 'off');
         hold(ax5, 'off');
+        
+        % draw frame
         drawnow;
+        
+        % record frame to file
+        frame = getframe(fig);
+        writeVideo(VW, frame);
         
         % delete part of plots to renew for current angle, delete but last
         if i ~= indices(end)
@@ -455,5 +478,7 @@ function fig = plotSimulationDataset()
             delete(sZ);
         end
     end
+    % close video file
+    close(VW)
 end
 
