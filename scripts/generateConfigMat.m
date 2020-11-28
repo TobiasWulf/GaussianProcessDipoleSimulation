@@ -241,7 +241,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 7;
+TrainingOptions.nAngles = 720;
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the
@@ -271,9 +271,9 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [0,];
+TestOptions.xPos = [13,];
 TestOptions.yPos = [0,];
-TestOptions.zPos = [7, 8, 9, 10, 11];
+TestOptions.zPos = [-2,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;

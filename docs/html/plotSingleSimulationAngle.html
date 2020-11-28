@@ -1,22 +1,101 @@
-%% plotSimulationDataset
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>plotSingleSimulationAngle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-28"><meta name="DC.source" content="plotSingleSimulationAngle.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>plotSingleSimulationAngle</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset and decide how many angles to plot. Plot single Angle and save figure to file. File name same as dataset with attach angles.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">fig = plotSingleSimulationAngle()
+</pre><h2 id="2">Description</h2><p><b>fig = plotSingleSimulationAngle()</b> plot training or test dataset which are loacated in data/test or data/training. The function list all datasets and the user must decide during user input dialog which dataset to plot and which angle to visualize to. It loads path from config.mat and scans for file automatically. Returns figure handle of created plots.</p><h2 id="3">Examples</h2><pre class="language-matlab">fig = plotSingleSimulationAngle()
+</pre><h2 id="4">Input Argurments</h2><p><b>None</b></p><h2 id="5">Output Argurments</h2><p><b>fig</b> figure handle to created plot.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 28. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% plotSingleSimulationAngle
 % Search for available trainings or test dataset and plot dataset. Follow user
 % input dialog to choose which dataset and decide how many angles to plot.
-% Save dataset content redered to an avi-file. Filename same as dataset.
+% Plot single Angle and save figure to file. File name same as dataset with
+% attach angles.
 %
 %% Syntax
-%   fig = plotSimulationDataset()
+%   fig = plotSingleSimulationAngle()
 %
 %
 %% Description
-% *fig = plotSimulationDataset()* plot training or test dataset which are
+% *fig = plotSingleSimulationAngle()* plot training or test dataset which are
 % loacated in data/test or data/training. The function list all datasets and the
-% user must decide during user input dialog which dataset to plot and how many
-% angles to to visualize. It loads path from config.mat and scans for file
+% user must decide during user input dialog which dataset to plot and which
+% angle to visualize to. It loads path from config.mat and scans for file
 % automatically. Returns figure handle of created plots.
 %
 %
 %% Examples
-%   fig = plotSimulationDataset()
+%   fig = plotSingleSimulationAngle()
 %
 %
 %% Input Argurments
@@ -39,20 +118,20 @@
 % * <generateConfigMat.html generateConfigMat>
 %
 %
-% Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on November 28. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
-% <!--
+% <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
-% -->
+% REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function fig = plotSimulationDataset()
+function fig = plotSingleSimulationAngle()
     % scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
-        disp('Plot simulation dataset ...');
+        disp('Plot single simulation angle ...');
         close all;
         % load path variables
         load('config.mat', 'PathVariables');
@@ -89,15 +168,13 @@ function fig = plotSimulationDataset()
             allDatasets(iDataset).name));
         % check how many angles in dataset and let user decide how many to
         % render in polt
-        fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
-        nSubAngles = input('How many angles to you wish to plot: ');
-        % nSubAngles = 120;
-        % indices for data to plot, get sample distance for even distance
-        sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
-        % get subset of angles
-        subAngles = downsample(ds.Data.angles, sampleDistance);
-        % get indices for subset data
-        indices = find(ismember(ds.Data.angles, subAngles));
+        fprintf('Detect %d angles ([1:%d]) in dataset ...\n', ...
+            ds.Info.UseOptions.nAngles, ds.Info.UseOptions.nAngles);
+        fprintf('Resolution\t:\t%.1f\n', ds.Info.UseOptions.angleRes);
+        fprintf('Step width\t:\t%.1f\n', ds.Data.angleStep);
+        fprintf('Start angle\t:\t%.1f\n', ds.Data.angles(1))
+        idx = input('Which angle do you wish to plot (enter index): ');
+        angle = interp1(ds.Data.angles, idx, 'nearest');
     catch ME
         rethrow(ME)
     end
@@ -133,8 +210,8 @@ function fig = plotSimulationDataset()
     subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
     subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
     subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
-    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
-    subline5 = "sample distance of $%d$ angles. Based on %s characterization reference %s.";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is rotatation %d angle $(%.1f^\\circ)$.";
+    subline5 = "Based on %s characterization reference %s.";
     sub = [sprintf(subline1, ...
                    ds.Info.SensorArrayOptions.geometry, ...
                    ds.Info.SensorArrayOptions.dimension, ...
@@ -153,9 +230,8 @@ function fig = plotSimulationDataset()
            sprintf(subline4, ...
                    ds.Data.angleStep, ...
                    ds.Info.UseOptions.angleRes, ...
-                   nSubAngles)
+                   idx, angle)
            sprintf(subline5, ...
-                   sampleDistance, ...
                    ds.Info.CharData, ...
                    ds.Info.UseOptions.BridgeReference)];
     
@@ -375,111 +451,74 @@ function fig = plotSimulationDataset()
     grid on;
     hold off;
   
-    % draw everything prepared before start renewing frame wise and prepare for
-    % recording frames to video file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    % plot angle into plots %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % draw frame
-    drawnow;
-    
-    % get file path and change extension
-    [fPath, fName, ~] = fileparts(ds.Info.filePath);
-    
-    % string allows simple cat ops
-    VW = VideoWriter(fullfile(fPath, fName + ".avi"), "Uncompressed AVI");
-    
-    % scale frame rate on 10 second movies, ensure at least 1 fps
-    fr = floor(nSubAngles / 10) + 1;
-    VW.FrameRate = fr;
-    
-    % open video file, ready to record frames
-    open(VW)
-    
-    
-    % loop through subset angle dataset and renew plots %%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    for i = indices
-        % H load subset
-        Hx = ds.Data.Hx(:,:,i);
-        Hy = ds.Data.Hy(:,:,i);
-        % get min max
-        maxHx = max(Hx, [], 'all');
-        maxHy = max(Hy, [], 'all');
-        minHx = min(Hx, [], 'all');
-        minHy = min(Hy, [], 'all');
-        dHx = abs(maxHx - minHx);
-        dHy = abs(maxHy - minHy);
+    % H load subset
+    Hx = ds.Data.Hx(:,:,idx);
+    Hy = ds.Data.Hy(:,:,idx);
+    % get min max
+    maxHx = max(Hx, [], 'all');
+    maxHy = max(Hy, [], 'all');
+    minHx = min(Hx, [], 'all');
+    minHy = min(Hy, [], 'all');
+    dHx = abs(maxHx - minHx);
+    dHy = abs(maxHy - minHy);
         
-        % load V subset
-        Vcos = ds.Data.Vcos(:,:,i) - Voff;
-        Vsin = ds.Data.Vsin(:,:,i) - Voff;
-        angle = ds.Data.angles(i);
+    % load V subset
+    Vcos = ds.Data.Vcos(:,:,idx) - Voff;
+    Vsin = ds.Data.Vsin(:,:,idx) - Voff;
+    angle = ds.Data.angles(idx);
                 
-        % lock plots
-        hold(ax1, 'on');
-        hold(ax2, 'on');
-        hold(ax3, 'on');
-        hold(ax4, 'on');
-        hold(ax5, 'on');
+    % lock plots
+    hold(ax1, 'on');
+    hold(ax2, 'on');
+    hold(ax3, 'on');
+    hold(ax4, 'on');
+    hold(ax5, 'on');
         
-        % update plot 1
-        qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
-        qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
-        legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
-            'FontWeight', 'normal', ...
-            'FontSize', 9, ...
-            'FontName', 'Times', ...
-            'Interpreter', 'latex', ...
-            'Location', 'NorthEast');
+    % update plot 1
+    qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
+    qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
+    legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
+        'FontWeight', 'normal', ...
+        'FontSize', 9, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex', ...
+        'Location', 'NorthEast');
         
-        % update plot 2
-        tA.String = sprintf('$%.1f^\\circ$', angle);
-        pA = polarscatter(ax2, angle/180*pi, 1, 'b', 'filled', ...
-            'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    % update plot 2
+    tA.String = sprintf('$%.1f^\\circ$', angle);
+    polarscatter(ax2, angle/180*pi, 1, 'b', 'filled', ...
+        'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
         
-        % update plot 3 and 4
-        sC = scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
-        sS = scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
+    % update plot 3 and 4
+    scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
+    scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
         
-        % calc position of scatter area frame and reframe
-        pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
-        rtC = rectangle(ax3, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
-        rtS = rectangle(ax4, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+    % calc position of scatter area frame and reframe
+    pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
+    rectangle(ax3, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+    rectangle(ax4, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+    
+    % update plot 5 (zoom)
+    scatter(ax5, Hx(:), Hy(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
+    xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
+    ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
         
-        % update plot 5 (zoom)
-        sZ = scatter(ax5, Hx(:), Hy(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
-        xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
-        ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
+    % release plots
+    hold(ax1, 'off');
+    hold(ax2, 'off');
+    hold(ax3, 'off');
+    hold(ax4, 'off');
+    hold(ax5, 'off');
         
-        % release plots
-        hold(ax1, 'off');
-        hold(ax2, 'off');
-        hold(ax3, 'off');
-        hold(ax4, 'off');
-        hold(ax5, 'off');
-        
-        % draw frame
-        drawnow;
-        
-        % record frame to file
-        frame = getframe(fig);
-        writeVideo(VW, frame);
-        
-        % delete part of plots to renew for current angle, delete but last
-        if i ~= indices(end)
-            delete(qH);
-            delete(qV);
-            delete(pA);
-            delete(rtC);
-            delete(rtS);
-            delete(sC);
-            delete(sS);
-            delete(sZ);
-        end
-    end
-    % close video file
-    close(VW)
+    
 end
 
+
+##### SOURCE END #####
+--></body></html>

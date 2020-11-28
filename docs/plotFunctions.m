@@ -1,6 +1,11 @@
 %% plotFunctions
 % Project related reusable plots for datasets and results. 
 %
+%
+%% plotSingleSimulationAngle
+% Plot single rotation step of test or training dataset.
+%
+%
 %% plotSimulationDataset
 % Plot simulation test or training dataset created by sensor array simulation.
 %
@@ -26,6 +31,7 @@
 % Edited on November 20. 2020 by Tobias Wulf: Remove newConfigFigure.
 % Edited on November 20. 2020 by Tobias Wulf: Add plotDipoleMagnet.
 % Edited on November 25. 2020 by Tobias Wulf: Add plotSimulationDataset.
+% Edited on November 28. 2020 by Tobias Wulf: Add plotSingleSimulationAngle.
 % -->
 % </html>
 %

@@ -42,6 +42,7 @@
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset</tocitem>
                     <tocitem target="plotDipoleMagnet.html">plotDipoleMagnet</tocitem>
                     <tocitem target="plotSimulationDataset.html">plotSimulationDataset</tocitem>
+                    <tocitem target="plotSingleSimulationAngle.html">plotSingleSimulationAngle</tocitem>
                 </tocitem>
             </tocitem>
         </tocitem>

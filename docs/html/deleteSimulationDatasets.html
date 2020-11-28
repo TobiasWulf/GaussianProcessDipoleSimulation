@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>deleteSimulationDatasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-25"><meta name="DC.source" content="deleteSimulationDatasets.m"><style type="text/css">
+      --><title>deleteSimulationDatasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-28"><meta name="DC.source" content="deleteSimulationDatasets.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -82,10 +82,14 @@ Edited on Month DD. YYYY by Editor: Single line description.
 <span class="keyword">catch</span> ME
     rethrow(ME)
 <span class="keyword">end</span>
-</pre><h2 id="4">Delete Datasets</h2><p>Delete datasets from training dataset path and test dataset path with certain file pattern.</p><pre class="codeinput">answer = removeFilesFromDir(PathVariables.trainingDataPath, <span class="string">'Training_*.mat'</span>);
+</pre><h2 id="4">Delete Datasets</h2><p>Delete datasets from training dataset path and test dataset path with certain file pattern.</p><pre class="codeinput">answer = removeFilesFromDir(PathVariables.trainingDataPath, <span class="string">'*.mat'</span>);
 fprintf(<span class="string">'Delete training datasets: %s\n'</span>, string(answer));
-answer = removeFilesFromDir(PathVariables.testDataPath, <span class="string">'Test_*.mat'</span>);
+answer = removeFilesFromDir(PathVariables.trainingDataPath, <span class="string">'*.avi'</span>);
+fprintf(<span class="string">'Delete training movies: %s\n'</span>, string(answer));
+answer = removeFilesFromDir(PathVariables.testDataPath, <span class="string">'*.mat'</span>);
 fprintf(<span class="string">'Delete test datasets: %s\n'</span>, string(answer));
+answer = removeFilesFromDir(PathVariables.testDataPath, <span class="string">'*.avi'</span>);
+fprintf(<span class="string">'Delete test movies: %s\n'</span>, string(answer));
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% deleteSimulationDatasets
@@ -130,10 +134,14 @@ end
 %% Delete Datasets
 % Delete datasets from training dataset path and test dataset path with certain
 % file pattern.
-answer = removeFilesFromDir(PathVariables.trainingDataPath, 'Training_*.mat');
+answer = removeFilesFromDir(PathVariables.trainingDataPath, '*.mat');
 fprintf('Delete training datasets: %s\n', string(answer));
-answer = removeFilesFromDir(PathVariables.testDataPath, 'Test_*.mat');
+answer = removeFilesFromDir(PathVariables.trainingDataPath, '*.avi');
+fprintf('Delete training movies: %s\n', string(answer));
+answer = removeFilesFromDir(PathVariables.testDataPath, '*.mat');
 fprintf('Delete test datasets: %s\n', string(answer));
+answer = removeFilesFromDir(PathVariables.testDataPath, '*.avi');
+fprintf('Delete test movies: %s\n', string(answer));
 
 ##### SOURCE END #####
 --></body></html>

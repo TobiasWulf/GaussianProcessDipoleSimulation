@@ -1,22 +1,23 @@
-%% plotSimulationDataset
+%% plotSingleSimulationAngle
 % Search for available trainings or test dataset and plot dataset. Follow user
 % input dialog to choose which dataset and decide how many angles to plot.
-% Save dataset content redered to an avi-file. Filename same as dataset.
+% Plot single Angle and save figure to file. File name same as dataset with
+% attach angle index.
 %
 %% Syntax
-%   fig = plotSimulationDataset()
+%   fig = plotSingleSimulationAngle()
 %
 %
 %% Description
-% *fig = plotSimulationDataset()* plot training or test dataset which are
+% *fig = plotSingleSimulationAngle()* plot training or test dataset which are
 % loacated in data/test or data/training. The function list all datasets and the
-% user must decide during user input dialog which dataset to plot and how many
-% angles to to visualize. It loads path from config.mat and scans for file
+% user must decide during user input dialog which dataset to plot and which
+% angle to visualize to. It loads path from config.mat and scans for file
 % automatically. Returns figure handle of created plots.
 %
 %
 %% Examples
-%   fig = plotSimulationDataset()
+%   fig = plotSingleSimulationAngle()
 %
 %
 %% Input Argurments
@@ -39,7 +40,7 @@
 % * <generateConfigMat.html generateConfigMat>
 %
 %
-% Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on November 28. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!--
@@ -48,11 +49,11 @@
 % -->
 % </html>
 %
-function fig = plotSimulationDataset()
+function fig = plotSingleSimulationAngle()
     % scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
-        disp('Plot simulation dataset ...');
+        disp('Plot single simulation angle ...');
         close all;
         % load path variables
         load('config.mat', 'PathVariables');
@@ -89,15 +90,13 @@ function fig = plotSimulationDataset()
             allDatasets(iDataset).name));
         % check how many angles in dataset and let user decide how many to
         % render in polt
-        fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
-        nSubAngles = input('How many angles to you wish to plot: ');
-        % nSubAngles = 120;
-        % indices for data to plot, get sample distance for even distance
-        sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
-        % get subset of angles
-        subAngles = downsample(ds.Data.angles, sampleDistance);
-        % get indices for subset data
-        indices = find(ismember(ds.Data.angles, subAngles));
+        fprintf('Detect %d angles ([1:%d]) in dataset ...\n', ...
+            ds.Info.UseOptions.nAngles, ds.Info.UseOptions.nAngles);
+        fprintf('Resolution\t:\t%.1f\n', ds.Info.UseOptions.angleRes);
+        fprintf('Step width\t:\t%.1f\n', ds.Data.angleStep);
+        fprintf('Start angle\t:\t%.1f\n', ds.Data.angles(1))
+        idx = input('Which angle do you wish to plot (enter index): ');
+        angle = interp1(ds.Data.angles, idx, 'nearest');
     catch ME
         rethrow(ME)
     end
@@ -133,8 +132,8 @@ function fig = plotSimulationDataset()
     subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
     subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
     subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
-    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
-    subline5 = "sample distance of $%d$ angles. Based on %s characterization reference %s.";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is rotatation angle %d $(%.1f^\\circ)$.";
+    subline5 = "Based on %s characterization reference %s.";
     sub = [sprintf(subline1, ...
                    ds.Info.SensorArrayOptions.geometry, ...
                    ds.Info.SensorArrayOptions.dimension, ...
@@ -153,9 +152,8 @@ function fig = plotSimulationDataset()
            sprintf(subline4, ...
                    ds.Data.angleStep, ...
                    ds.Info.UseOptions.angleRes, ...
-                   nSubAngles)
+                   idx, angle)
            sprintf(subline5, ...
-                   sampleDistance, ...
                    ds.Info.CharData, ...
                    ds.Info.UseOptions.BridgeReference)];
     
@@ -375,111 +373,82 @@ function fig = plotSimulationDataset()
     grid on;
     hold off;
   
-    % draw everything prepared before start renewing frame wise and prepare for
-    % recording frames to video file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    % plot angle into plots %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % draw frame
-    drawnow;
-    
-    % get file path and change extension
-    [fPath, fName, ~] = fileparts(ds.Info.filePath);
-    
-    % string allows simple cat ops
-    VW = VideoWriter(fullfile(fPath, fName + ".avi"), "Uncompressed AVI");
-    
-    % scale frame rate on 10 second movies, ensure at least 1 fps
-    fr = floor(nSubAngles / 10) + 1;
-    VW.FrameRate = fr;
-    
-    % open video file, ready to record frames
-    open(VW)
-    
-    
-    % loop through subset angle dataset and renew plots %%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    for i = indices
-        % H load subset
-        Hx = ds.Data.Hx(:,:,i);
-        Hy = ds.Data.Hy(:,:,i);
-        % get min max
-        maxHx = max(Hx, [], 'all');
-        maxHy = max(Hy, [], 'all');
-        minHx = min(Hx, [], 'all');
-        minHy = min(Hy, [], 'all');
-        dHx = abs(maxHx - minHx);
-        dHy = abs(maxHy - minHy);
+    % H load subset
+    Hx = ds.Data.Hx(:,:,idx);
+    Hy = ds.Data.Hy(:,:,idx);
+    % get min max
+    maxHx = max(Hx, [], 'all');
+    maxHy = max(Hy, [], 'all');
+    minHx = min(Hx, [], 'all');
+    minHy = min(Hy, [], 'all');
+    dHx = abs(maxHx - minHx);
+    dHy = abs(maxHy - minHy);
         
-        % load V subset
-        Vcos = ds.Data.Vcos(:,:,i) - Voff;
-        Vsin = ds.Data.Vsin(:,:,i) - Voff;
-        angle = ds.Data.angles(i);
+    % load V subset
+    Vcos = ds.Data.Vcos(:,:,idx) - Voff;
+    Vsin = ds.Data.Vsin(:,:,idx) - Voff;
+    angle = ds.Data.angles(idx);
                 
-        % lock plots
-        hold(ax1, 'on');
-        hold(ax2, 'on');
-        hold(ax3, 'on');
-        hold(ax4, 'on');
-        hold(ax5, 'on');
+    % lock plots
+    hold(ax1, 'on');
+    hold(ax2, 'on');
+    hold(ax3, 'on');
+    hold(ax4, 'on');
+    hold(ax5, 'on');
         
-        % update plot 1
-        qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
-        qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
-        legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
-            'FontWeight', 'normal', ...
-            'FontSize', 9, ...
-            'FontName', 'Times', ...
-            'Interpreter', 'latex', ...
-            'Location', 'NorthEast');
+    % update plot 1
+    qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
+    qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
+    legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
+        'FontWeight', 'normal', ...
+        'FontSize', 9, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex', ...
+        'Location', 'NorthEast');
         
-        % update plot 2
-        tA.String = sprintf('$%.1f^\\circ$', angle);
-        pA = polarscatter(ax2, angle/180*pi, 1, 'b', 'filled', ...
-            'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    % update plot 2
+    tA.String = sprintf('$%.1f^\\circ$', angle);
+    polarscatter(ax2, angle/180*pi, 1, 'b', 'filled', ...
+        'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
         
-        % update plot 3 and 4
-        sC = scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
-        sS = scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
+    % update plot 3 and 4
+    scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
+    scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
         
-        % calc position of scatter area frame and reframe
-        pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
-        rtC = rectangle(ax3, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
-        rtS = rectangle(ax4, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+    % calc position of scatter area frame and reframe
+    pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
+    rectangle(ax3, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+    rectangle(ax4, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+    
+    % update plot 5 (zoom)
+    scatter(ax5, Hx(:), Hy(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
+    xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
+    ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
         
-        % update plot 5 (zoom)
-        sZ = scatter(ax5, Hx(:), Hy(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
-        xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
-        ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
+    % release plots
+    hold(ax1, 'off');
+    hold(ax2, 'off');
+    hold(ax3, 'off');
+    hold(ax4, 'off');
+    hold(ax5, 'off');
         
-        % release plots
-        hold(ax1, 'off');
-        hold(ax2, 'off');
-        hold(ax3, 'off');
-        hold(ax4, 'off');
-        hold(ax5, 'off');
-        
-        % draw frame
-        drawnow;
-        
-        % record frame to file
-        frame = getframe(fig);
-        writeVideo(VW, frame);
-        
-        % delete part of plots to renew for current angle, delete but last
-        if i ~= indices(end)
-            delete(qH);
-            delete(qV);
-            delete(pA);
-            delete(rtC);
-            delete(rtS);
-            delete(sC);
-            delete(sS);
-            delete(sZ);
-        end
-    end
-    % close video file
-    close(VW)
+    % save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % get file path to save figure with angle index
+    [fPath, fName, ~] = fileparts(ds.Info.filePath);
+    figPath = fullfile(fPath, fName + "_angle_" + string(idx));
+    
+    % save to various formats
+    savefig(fig, figPath);
+    print(fig, figPath, '-dsvg');
+    print(fig, figPath, '-depsc', '-tiff', '-loose');
+    print(fig, figPath, '-dpdf', '-loose', '-fillpage');
+    
 end
 
