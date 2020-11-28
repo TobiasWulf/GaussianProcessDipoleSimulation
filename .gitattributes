@@ -49,3 +49,8 @@ segments_1 -crlf -diff -merge
 *.png -crlf -diff -merge
 *.svg -crlf -diff -merge
 *.eps -crlf -diff -merge
+
+# Additional video files created by Matlab,  render plot frames to videos
+*.avi -crlf -diff -merge
+*.mp4 -crlf -diff -merge
+*.mj2 -crlf -diff -merge

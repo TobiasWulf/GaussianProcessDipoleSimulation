@@ -21,4 +21,6 @@ docs/html/*eq*.png
 
 # exclude datsets from sensor array simulation, test and training data.
 data/training/Training_*.mat
+data/training/Training_*.mp4
 data/test/Test_*.mat
+data/test/Test_*.mp4
