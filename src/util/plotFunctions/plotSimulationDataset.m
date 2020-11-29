@@ -96,6 +96,7 @@ function fig = plotSimulationDataset()
         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
         % get subset of angles
         subAngles = downsample(ds.Data.angles, sampleDistance);
+        nSubAngles = length(subAngles); % just ensure
         % get indices for subset data
         indices = find(ismember(ds.Data.angles, subAngles));
     catch ME

@@ -10,6 +10,10 @@
 % Plot simulation test or training dataset created by sensor array simulation.
 %
 %
+%% plotTDKCharField
+% Plot characterization field and slice around 0, 5, 10 and  15 kA/m.
+%
+%
 %% plotTDKCharDataset
 % Explore the basic dataset of characterized TDK TMR Sensor TAS2141 and
 % plot the dataset content to visualize the base of dipol simulations.
@@ -32,6 +36,7 @@
 % Edited on November 20. 2020 by Tobias Wulf: Add plotDipoleMagnet.
 % Edited on November 25. 2020 by Tobias Wulf: Add plotSimulationDataset.
 % Edited on November 28. 2020 by Tobias Wulf: Add plotSingleSimulationAngle.
+% Edited on November 29. 2020 by Tobias Wulf: Add plotTDKCharField.
 % -->
 % </html>
 %

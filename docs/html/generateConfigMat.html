@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-28"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-29"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -240,7 +240,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 7;
+TrainingOptions.nAngles = 720;
 
 <span class="comment">% Characteraztion field which should be load as refernce image from</span>
 <span class="comment">% characterization data set, in TDK dataset are following fields. In the</span>
@@ -264,9 +264,9 @@ TestOptions.useCase = <span class="string">'Test'</span>;
 <span class="comment">% increase the distance. The z-position will be subtracted by dipole sphere</span>
 <span class="comment">% radius in simulation. So there is an offset given by the sphere radius.</span>
 <span class="comment">% Loop parameter.</span>
-TestOptions.xPos = [0,];
+TestOptions.xPos = [13,];
 TestOptions.yPos = [0,];
-TestOptions.zPos = [7, 8, 9, 10, 11];
+TestOptions.zPos = [-2,];
 
 <span class="comment">% Dipole tilt in z-axes in degree. Fix parameter.</span>
 TestOptions.tilt = 0;
@@ -558,7 +558,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 7;
+TrainingOptions.nAngles = 720;
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the
@@ -588,9 +588,9 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [0,];
+TestOptions.xPos = [13,];
 TestOptions.yPos = [0,];
-TestOptions.zPos = [7, 8, 9, 10, 11];
+TestOptions.zPos = [-2,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;

@@ -40,6 +40,7 @@
                 <tocitem target="publishFilesFromDir.html">publishFilesFromDir</tocitem>
                 <tocitem target="plotFunctions.html">plotFunctions
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset</tocitem>
+                    <tocitem target="plotTDKCharField.html">plotTDKCharField</tocitem>
                     <tocitem target="plotDipoleMagnet.html">plotDipoleMagnet</tocitem>
                     <tocitem target="plotSimulationDataset.html">plotSimulationDataset</tocitem>
                     <tocitem target="plotSingleSimulationAngle.html">plotSingleSimulationAngle</tocitem>

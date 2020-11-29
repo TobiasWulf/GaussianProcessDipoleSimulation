@@ -1,92 +1,14 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
-This HTML was auto-generated from MATLAB code.
-To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-29"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
-
-html { min-height:100%; margin-bottom:1px; }
-html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
-html body td { vertical-align:top; text-align:left; }
-
-h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
-h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
-h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
-
-a { color:#005fce; text-decoration:none; }
-a:hover { color:#005fce; text-decoration:underline; }
-a:visited { color:#004aa0; text-decoration:none; }
-
-p { padding:0px; margin:0px 0px 20px; }
-img { padding:0px; margin:0px 0px 20px; border:none; }
-p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
-
-ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
-ul li { padding:0px; margin:0px 0px 7px 0px; }
-ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
-ul li ol li { list-style:decimal; }
-ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
-ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
-ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
-ol li ol li { list-style-type:lower-alpha; }
-ol li ul { padding-top:7px; }
-ol li ul li { list-style:square; }
-
-.content { font-size:1.2em; line-height:140%; padding: 20px; }
-
-pre, code { font-size:12px; }
-tt { font-size: 1.2em; }
-pre { margin:0px 0px 20px; }
-pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
-pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
-pre.error { color:red; }
-
-@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
-
-span.keyword { color:#0000FF }
-span.comment { color:#228B22 }
-span.string { color:#A020F0 }
-span.untermstring { color:#B20000 }
-span.syscmd { color:#B28C00 }
-span.typesection { color:#A0522D }
-
-.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
-.footer p { margin:0px; }
-.footer a { color:#878787; }
-.footer a:hover { color:#878787; text-decoration:underline; }
-.footer a:visited { color:#878787; }
-
-table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
-table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
-
-
-
-
-
-  </style></head><body><div class="content"><h1>plotSimulationDataset</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset and decide how many angles to plot. Save dataset content redered to an avi-file. Filename same as dataset.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">fig = plotSimulationDataset()
-</pre><h2 id="2">Description</h2><p><b>fig = plotSimulationDataset()</b> plot training or test dataset which are loacated in data/test or data/training. The function list all datasets and the user must decide during user input dialog which dataset to plot and how many angles to to visualize. It loads path from config.mat and scans for file automatically. Returns figure handle of created plots.</p><h2 id="3">Examples</h2><pre class="language-matlab">fig = plotSimulationDataset()
-</pre><h2 id="4">Input Argurments</h2><p><b>None</b></p><h2 id="5">Output Argurments</h2><p><b>fig</b> figure handle to created plot.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
-<!--
-Hidden Clutter.
-Edited on Month DD. YYYY by Editor: Single line description.
--->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
-##### SOURCE BEGIN #####
 %% plotSimulationDataset
 % Search for available trainings or test dataset and plot dataset. Follow user
-% input dialog to choose which dataset and decide how many angles to plot.
-% Save dataset content redered to an avi-file. Filename same as dataset.
+% input dialog to choose which dataset and decide which array elements to plot.
+% Save created plot to file. Filename same as dataset with attached info.
 %
 %% Syntax
-%   fig = plotSimulationDataset()
+%   fig = plotSimulationSubset()
 %
 %
 %% Description
-% *fig = plotSimulationDataset()* plot training or test dataset which are
+% *fig = plotSimulationSubset()* plot training or test dataset which are
 % loacated in data/test or data/training. The function list all datasets and the
 % user must decide during user input dialog which dataset to plot and how many
 % angles to to visualize. It loads path from config.mat and scans for file
@@ -94,7 +16,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Examples
-%   fig = plotSimulationDataset()
+%   fig = plotSimulationSubset()
 %
 %
 %% Input Argurments
@@ -117,16 +39,16 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % * <generateConfigMat.html generateConfigMat>
 %
 %
-% Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on November 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
-% <!REPLACE_WITH_DASH_DASH
+% <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
-% REPLACE_WITH_DASH_DASH>
+% -->
 % </html>
 %
-function fig = plotSimulationDataset()
+function fig = plotSimulationSubset()
     % scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
@@ -167,6 +89,10 @@ function fig = plotSimulationDataset()
             allDatasets(iDataset).name));
         % check how many angles in dataset and let user decide how many to
         % render in polt
+        fprintf('Detect %d x %d sensors in dataset ...\n', ...
+            ds.Info.SensorArrayOptions.dimension, ds.Info.SensorArrayOptions.dimension);
+        xIdx = input("Enter x indices in [] or ':' for all: ");
+        yIdx = input("Enter y indices in [] or ':' for all: ");
         fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
         nSubAngles = input('How many angles to you wish to plot: ');
         % nSubAngles = 120;
@@ -174,8 +100,9 @@ function fig = plotSimulationDataset()
         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
         % get subset of angles
         subAngles = downsample(ds.Data.angles, sampleDistance);
+        nSubAngles = length(subAngles); % just ensure
         % get indices for subset data
-        indices = find(ismember(ds.Data.angles, subAngles));
+        indices = find(ismember(ds.Data.angles, subAngles));    
     catch ME
         rethrow(ME)
     end
@@ -197,7 +124,7 @@ function fig = plotSimulationDataset()
         'RendererMode', 'manual', ...
         'Renderer', 'painters');
     
-    tdl = tiledlayout(fig, 2, 2, ...
+    tdl = tiledlayout(fig, 3, 4, ...
         'Padding', 'normal', ...
         'TileSpacing' , 'compact');
     
@@ -246,15 +173,10 @@ function fig = plotSimulationDataset()
     % get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     N = ds.Info.SensorArrayOptions.dimension;
-    X = ds.Data.X;
-    Y = ds.Data.Y;
-    Z = ds.Data.Z;
     
-    % calc limits of plot 1
-    maxX = ds.Info.UseOptions.xPos + ds.Info.SensorArrayOptions.edge;
-    maxY = ds.Info.UseOptions.yPos + ds.Info.SensorArrayOptions.edge;
-    minX = ds.Info.UseOptions.xPos - ds.Info.SensorArrayOptions.edge;
-    minY = ds.Info.UseOptions.yPos - ds.Info.SensorArrayOptions.edge;
+    % build coordinates for symbolic legend plot of array without possitions
+    co = 1:N;
+    [X, Y] = meshgrid(co, co');
     
     % calculate colormap to identify scatter points
     c=zeros(N,N,3);
@@ -274,37 +196,33 @@ function fig = plotSimulationDataset()
     % plot each cooredinate in loop to create a special shading constant
     % reliable to orientation for all matrice
     hold on;
-    scatter(X(:), Y(:), [], c, 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
-       
+    scatter(X(:), Y(:), [], [0.8 0.8 0.8], 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    %scatter(X(xIdx,yIdx), Y(xIdx,yIdx), [], c, 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+      
     % axis shape and ticks
     axis square xy;
     axis tight;
     grid on;
-    xlim([minX maxX]);
-    ylim([minY maxY]);
+    set(gca, 'YDir', 'reverse');
+    xlim([0 N+1]);
+    ylim([0 N+1]);
+    xticks(co);
     yticks(xticks);
     
     % text and labels
-    text(minX+0.2, minY+0.2, ...
-        sprintf('$Z = %.1f$ mm', Z(1)), ...
-        'Color', 'k', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    xlabel('$X$ in mm', ...
+    xlabel('$i$', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    ylabel('$Y$ in mm', ...
+    ylabel('$j$', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title(sprintf('Sensor Array $%d\\times%d$', N, N), ...
+    title(sprintf('Sensor Array $%d\\times%d$, pos. $(i,j)$', N, N), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -317,7 +235,7 @@ function fig = plotSimulationDataset()
     nexttile(2);
     % plot all angles grayed out
     polarscatter(ds.Data.angles/180*pi, ones(1, ds.Info.UseOptions.nAngles), ...
-        [], [0.8 0.8 0.8], 'filled');
+        5, [0.8 0.8 0.8], 'filled');
     
     % radius ticks and label
     rticks(1);
@@ -325,20 +243,15 @@ function fig = plotSimulationDataset()
     hold on;
     
     % plot subset of angles
-    % polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);
+    polarscatter(subAngles/180*pi, ones(1, nSubAngles), 5, 'b', 'filled', ...
+        'MarkerEdgeColor', 'k', 'LineWidth', 0.5);
     ax2 = gca;    
         
     % axis shape
     axis tight;
 
     % text an labels
-    % init first rotation step label
-    tA = text(2/3*pi, 1.5, ...
-        '$\\theta$', ...
-        'Color', 'b', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    
 
     title('Rotation around Z-Axis in Degree', ...
         'FontWeight', 'normal', ...
@@ -561,6 +474,3 @@ function fig = plotSimulationDataset()
     close(VW)
 end
 
-
-##### SOURCE END #####
---></body></html>
