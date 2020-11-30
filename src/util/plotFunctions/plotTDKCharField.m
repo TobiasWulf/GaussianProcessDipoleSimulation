@@ -2,15 +2,15 @@
 % Explore TDK TAS2141 characterization field.
 %
 %% Syntax
-%   fig = plotTDKCharField()
+%   plotTDKCharField()
 %
 %
 %% Description
-% fig = plotTDKCharField() explore characterization field of TDK sensor.
+% plotTDKCharField() explore characterization field of TDK sensor.
 %
 %
 %% Examples
-%   figs = plotTDKCharField();
+%   plotTDKCharField();
 %
 %
 %% Input Arguments
@@ -18,7 +18,7 @@
 %
 %
 %% Output Arguments
-% *fig* created figure handle.
+% *None*
 %
 %
 %% Requirements
@@ -41,7 +41,7 @@
 % -->
 % </html>
 %
-function [fig] = plotTDKCharField()
+function plotTDKCharField()
     try
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables');
@@ -191,7 +191,7 @@ function [fig] = plotTDKCharField()
         'LineWidth', 1.5);
     hold off;
     
-    text(Hlims(1)-9, 100, ...
+    text(Hlims(1)-9.5, 100, ...
         sprintf('$%.1f$ %s', Hlims(1), kApm), ...
         'Color', 'k', ...
         'FontSize', 12, ...
@@ -286,7 +286,7 @@ function [fig] = plotTDKCharField()
         'LineWidth', 1.5);
     hold off;
     
-    text(Hlims(1)-9, 100, ...
+    text(Hlims(1)-9.5, 100, ...
         sprintf('$%.1f$ %s', Hlims(1), kApm), ...
         'Color', 'k', ...
         'FontSize', 12, ...
@@ -328,9 +328,13 @@ function [fig] = plotTDKCharField()
       
     % save results of figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    savefig(fig, fullfile(fPath1, fName));
-    print(fig, fullfile(fPath2, fName), '-dsvg');
-    print(fig, fullfile(fPath2, fName), '-depsc', '-tiff', '-loose');
-    print(fig, fullfile(fPath2, fName), '-dpdf', '-loose', '-fillpage');
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        savefig(fig, fullfile(fPath1, fName));
+        print(fig, fullfile(fPath2, fName), '-dsvg');
+        print(fig, fullfile(fPath2, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPath2, fName), '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig)
     
 end

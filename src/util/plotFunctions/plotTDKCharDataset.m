@@ -2,17 +2,17 @@
 % Explore TDK TAS2141 characterization dataset and plot its content.
 %
 %% Syntax
-%   Figures = plotTDKCharDataset()
+%   plotTDKCharDataset()
 %
 %
 %% Description
-% Figures = plotTDKCharDataset() explores the dataset and plot its
+% plotTDKCharDataset() explores the dataset and plot its
 % content in three docked figure windows. Loads dataset location from
 % config.mat.
 %
 %
 %% Examples
-%   figs = plotTDKCharDataset();
+%   plotTDKCharDataset();
 %
 %
 %% Input Arguments
@@ -20,7 +20,7 @@
 %
 %
 %% Output Arguments
-% *Figure* struct which contains the created figure handles.
+% *None*
 %
 %
 %% Requirements
@@ -47,7 +47,7 @@
 % -->
 % </html>
 %
-function [Figures] = plotTDKCharDataset()
+function plotTDKCharDataset()
     try
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables');
@@ -279,12 +279,6 @@ function [Figures] = plotTDKCharDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    % save results of figure 1
-    savefig(fig1, fig1Path);
-    print(fig1, fig1SvgPath, '-dsvg');
-    print(fig1, fig1EpsPath, '-depsc', '-tiff', '-loose');
-    print(fig1, fig1PdfPath, '-dpdf', '-loose', '-fillpage');
-    
     % figure 2 cosinus bridge outputs
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -453,13 +447,6 @@ function [Figures] = plotTDKCharDataset()
     cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s', mV);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
-    
-    % save results of figure 2
-    savefig(fig2, fig2Path);
-    print(fig2, fig2SvgPath, '-dsvg');
-    print(fig2, fig2EpsPath, '-depsc', '-tiff', '-loose');
-    print(fig2, fig2PdfPath, '-dpdf', '-loose', '-fillpage');
-    
     
     % figure 3 sinus bridge outputs
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -630,12 +617,27 @@ function [Figures] = plotTDKCharDataset()
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     
-    % save results of figure 3
-    savefig(fig3, fig3Path);
-    print(fig3, fig3SvgPath, '-dsvg');
-    print(fig3, fig3EpsPath, '-depsc', '-tiff', '-loose');
-    print(fig3, fig3PdfPath, '-dpdf', '-loose', '-fillpage');
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        % save results of figure 1
+        savefig(fig1, fig1Path);
+        print(fig1, fig1SvgPath, '-dsvg');
+        print(fig1, fig1EpsPath, '-depsc', '-tiff', '-loose');
+        print(fig1, fig1PdfPath, '-dpdf', '-loose', '-fillpage');
     
-    % return figure handles as struct
-    Figures = struct('fig1', fig1, 'fig2', fig2, 'fig3', fig3);
+        % save results of figure 2
+        savefig(fig2, fig2Path);
+        print(fig2, fig2SvgPath, '-dsvg');
+        print(fig2, fig2EpsPath, '-depsc', '-tiff', '-loose');
+        print(fig2, fig2PdfPath, '-dpdf', '-loose', '-fillpage');
+    
+        % save results of figure 3
+        savefig(fig3, fig3Path);
+        print(fig3, fig3SvgPath, '-dsvg');
+        print(fig3, fig3EpsPath, '-depsc', '-tiff', '-loose');
+        print(fig3, fig3PdfPath, '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig1)
+    close(fig2)
+    close(fig3)
 end

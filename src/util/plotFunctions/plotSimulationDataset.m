@@ -4,7 +4,7 @@
 % Save dataset content redered to an avi-file. Filename same as dataset.
 %
 %% Syntax
-%   fig = plotSimulationDataset()
+%   plotSimulationDataset()
 %
 %
 %% Description
@@ -16,7 +16,7 @@
 %
 %
 %% Examples
-%   fig = plotSimulationDataset()
+%   plotSimulationDataset()
 %
 %
 %% Input Argurments
@@ -24,7 +24,7 @@
 %
 %
 %% Output Argurments
-% *fig* figure handle to created plot.
+% *None*
 %
 %
 %% Requirements
@@ -48,7 +48,7 @@
 % -->
 % </html>
 %
-function fig = plotSimulationDataset()
+function plotSimulationDataset()
     % scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
@@ -197,7 +197,8 @@ function fig = plotSimulationDataset()
     % plot each cooredinate in loop to create a special shading constant
     % reliable to orientation for all matrice
     hold on;
-    scatter(X(:), Y(:), [], c, 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    scatter(X(:), Y(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
        
     % axis shape and ticks
     axis square xy;
@@ -382,7 +383,8 @@ function fig = plotSimulationDataset()
     drawnow;
     
     % get file path and change extension
-    [fPath, fName, ~] = fileparts(ds.Info.filePath);
+    [~, fName, ~] = fileparts(ds.Info.filePath);
+    fPath = PathVariables.saveImagesPath;
     
     % string allows simple cat ops
     VW = VideoWriter(fullfile(fPath, fName + ".avi"), "Uncompressed AVI");
@@ -481,5 +483,6 @@ function fig = plotSimulationDataset()
     end
     % close video file
     close(VW)
+    close(fig)
 end
 

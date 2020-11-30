@@ -44,6 +44,7 @@
                     <tocitem target="plotDipoleMagnet.html">plotDipoleMagnet</tocitem>
                     <tocitem target="plotSimulationDataset.html">plotSimulationDataset</tocitem>
                     <tocitem target="plotSingleSimulationAngle.html">plotSingleSimulationAngle</tocitem>
+                    <tocitem target="plotSimulationSubset.html">plotSimulationSubset</tocitem>
                 </tocitem>
             </tocitem>
         </tocitem>

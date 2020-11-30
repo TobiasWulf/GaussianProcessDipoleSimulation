@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-30"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
+      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-30"><meta name="DC.source" content="plotSimulationSubset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,9 +67,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>plotSimulationDataset</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset and decide how many angles to plot. Save dataset content redered to an avi-file. Filename same as dataset.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">plotSimulationDataset()
-</pre><h2 id="2">Description</h2><p><b>fig = plotSimulationDataset()</b> plot training or test dataset which are loacated in data/test or data/training. The function list all datasets and the user must decide during user input dialog which dataset to plot and how many angles to to visualize. It loads path from config.mat and scans for file automatically. Returns figure handle of created plots.</p><h2 id="3">Examples</h2><pre class="language-matlab">plotSimulationDataset()
-</pre><h2 id="4">Input Argurments</h2><p><b>None</b></p><h2 id="5">Output Argurments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>plotSimulationDataset</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset and decide which array elements to plot. Save created plot to file. Filename same as dataset with attached info.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">plotSimulationSubset()
+</pre><h2 id="2">Description</h2><p><b>fig = plotSimulationSubset()</b> plot training or test dataset which are loacated in data/test or data/training. The function list all datasets and the user must decide during user input dialog which dataset to plot and how many angles to to visualize. It loads path from config.mat and scans for file automatically. Returns figure handle of created plots.</p><h2 id="3">Examples</h2><pre class="language-matlab">plotSimulationSubset()
+</pre><h2 id="4">Input Argurments</h2><p><b>None</b></p><h2 id="5">Output Argurments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -78,15 +78,15 @@ Edited on Month DD. YYYY by Editor: Single line description.
 ##### SOURCE BEGIN #####
 %% plotSimulationDataset
 % Search for available trainings or test dataset and plot dataset. Follow user
-% input dialog to choose which dataset and decide how many angles to plot.
-% Save dataset content redered to an avi-file. Filename same as dataset.
+% input dialog to choose which dataset and decide which array elements to plot.
+% Save created plot to file. Filename same as dataset with attached info.
 %
 %% Syntax
-%   plotSimulationDataset()
+%   plotSimulationSubset()
 %
 %
 %% Description
-% *fig = plotSimulationDataset()* plot training or test dataset which are
+% *fig = plotSimulationSubset()* plot training or test dataset which are
 % loacated in data/test or data/training. The function list all datasets and the
 % user must decide during user input dialog which dataset to plot and how many
 % angles to to visualize. It loads path from config.mat and scans for file
@@ -94,7 +94,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Examples
-%   plotSimulationDataset()
+%   plotSimulationSubset()
 %
 %
 %% Input Argurments
@@ -117,7 +117,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % * <generateConfigMat.html generateConfigMat>
 %
 %
-% Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on November 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -126,7 +126,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function plotSimulationDataset()
+function plotSimulationSubset()
     % scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
@@ -158,8 +158,7 @@ function plotSimulationDataset()
     end
     % get numeric user input to indicate which dataset to plot
     iDataset = input('Type number to choose dataset to plot to: ');
-    % iDataset = 2;
-    
+        
     % load dataset and ask user which one and how many angles %%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
@@ -167,16 +166,22 @@ function plotSimulationDataset()
             allDatasets(iDataset).name));
         % check how many angles in dataset and let user decide how many to
         % render in polt
+        fprintf('Detect %d x %d sensors in dataset ...\n', ...
+            ds.Info.SensorArrayOptions.dimension, ds.Info.SensorArrayOptions.dimension);
+        xIdx = input("Enter x indices in []: ");
+        yIdx = input("Enter y indices in []: ");
+        if length(xIdx) ~= length(yIdx)
+            error('Indices must have the same length!')
+        end
         fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
         nSubAngles = input('How many angles to you wish to plot: ');
-        % nSubAngles = 120;
         % indices for data to plot, get sample distance for even distance
         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
         % get subset of angles
         subAngles = downsample(ds.Data.angles, sampleDistance);
         nSubAngles = length(subAngles); % just ensure
         % get indices for subset data
-        indices = find(ismember(ds.Data.angles, subAngles));
+        angleIdx = find(ismember(ds.Data.angles, subAngles));    
     catch ME
         rethrow(ME)
     end
@@ -189,7 +194,7 @@ function plotSimulationDataset()
         'MenuBar', 'none', ...
         'ToolBar', 'none', ...
         'Units', 'centimeters', ...
-        'OuterPosition', [0 0 30 30], ...
+        'OuterPosition', [0 0 37 29], ...
         'PaperType', 'a4', ...
         'PaperUnits', 'centimeters', ...
         'PaperOrientation', 'landscape', ...
@@ -198,9 +203,9 @@ function plotSimulationDataset()
         'RendererMode', 'manual', ...
         'Renderer', 'painters');
     
-    tdl = tiledlayout(fig, 2, 2, ...
+    tdl = tiledlayout(fig, 3, 4, ...
         'Padding', 'normal', ...
-        'TileSpacing' , 'compact');
+        'TileSpacing' , 'normal');
     
     
     title(tdl, 'Sensor Array Simulation', ...
@@ -265,9 +270,14 @@ function plotSimulationDataset()
         end
     end
     c = squeeze(reshape(c, N^2, 1, 3));
+    % reshape RGB for picking single sensors
+    R = reshape(c(:,1), N, N);
+    G = reshape(c(:,2), N, N);
+    B = reshape(c(:,3), N, N);
     
     % load offset voltage to subtract from cosinus, sinus voltage
     Voff = ds.Info.SensorArrayOptions.Voff;
+    Vcc = ds.Info.SensorArrayOptions.Vcc;
     
     % plot sensor grid in x and y coordinates and constant z layer %%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
@@ -275,8 +285,15 @@ function plotSimulationDataset()
     % plot each cooredinate in loop to create a special shading constant
     % reliable to orientation for all matrice
     hold on;
-    scatter(X(:), Y(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
-        'LineWidth', 0.8);
+    
+    scatter(X(:), Y(:), [], [0.8 0.8 0.8], 'filled', ...
+        'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    
+    for k = 1:length(xIdx)
+        i = xIdx(k); j = yIdx(k);
+        scatter(X(i,j), Y(i,j), [], [R(i,j), G(i,j), B(i,j)], 'filled', ...
+            'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    end
        
     % axis shape and ticks
     axis square xy;
@@ -289,7 +306,7 @@ function plotSimulationDataset()
     text(minX+0.2, minY+0.2, ...
         sprintf('$Z = %.1f$ mm', Z(1)), ...
         'Color', 'k', ...
-        'FontSize', 16, ...
+        'FontSize', 12, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
@@ -318,7 +335,7 @@ function plotSimulationDataset()
     nexttile(2);
     % plot all angles grayed out
     polarscatter(ds.Data.angles/180*pi, ones(1, ds.Info.UseOptions.nAngles), ...
-        [], [0.8 0.8 0.8], 'filled');
+        5, [0.8 0.8 0.8], 'filled');
     
     % radius ticks and label
     rticks(1);
@@ -326,21 +343,13 @@ function plotSimulationDataset()
     hold on;
     
     % plot subset of angles
-    % polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);
+    polarscatter(subAngles/180*pi, ones(1, nSubAngles), 5, 'b', 'filled');
     ax2 = gca;    
         
     % axis shape
     axis tight;
 
     % text an labels
-    % init first rotation step label
-    tA = text(2/3*pi, 1.5, ...
-        '$\\theta$', ...
-        'Color', 'b', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-
     title('Rotation around Z-Axis in Degree', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
@@ -388,12 +397,12 @@ function plotSimulationDataset()
         'Interpreter', 'latex');
     
     % add colorbar and place it
-    cb1 = colorbar;
-    cb1.Label.String = sprintf(...
-        '$V_{cos}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V', ...
-        ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);
-    cb1.Label.Interpreter = 'latex';
-    cb1.Label.FontSize = 12;
+%     cb1 = colorbar;
+%     cb1.Label.String = sprintf(...
+%         '$V_{cos}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V', ...
+%         ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);
+%     cb1.Label.Interpreter = 'latex';
+%     cb1.Label.FontSize = 12;
     
     hold off;
     
@@ -437,131 +446,137 @@ function plotSimulationDataset()
     
     % add colorbar and place it
     cb2 = colorbar;
-    cb2.Label.String = sprintf(...
-        '$V_{sin}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V', ...
-        ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);
+    cb2.Label.String = 'in V';
     cb2.Label.Interpreter = 'latex';
     cb2.Label.FontSize = 12;
     
     hold off;
     
-    % zoom axes for scatter on cosinuns reference images %%%%%%%%%%%%%%%%%%%%%%%
+    % plot Vcos Vsin over angles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    nexttile(3);
-    ax5 = axes('Position', [0.07 0.02 0.19 0.19], 'XColor', 'r', 'YColor', 'r');
-    hold on;
-    axis square xy;
+    % axes limits
+    xlimits = [-10 370];
+    ylimits = [min(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') - 0.1*Vcc, ...
+        max(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') + 0.1*Vcc];
+    
+    % Vcos
+    ax5 = nexttile([1 4]);
+    line(xlimits, [Voff Voff], 'Color', 'k', 'LineStyle', '-.', 'LineWidth', 1.2);
+    xlim(xlimits);
+    ylim(ylimits);
     grid on;
-    hold off;
-  
-    % draw everything prepared before start renewing frame wise and prepare for
-    % recording frames to video file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    text(300, 1.1, ...
+        sprintf('$V_{cc} = %.1f$ V, $V_{off} = %.2f$ V', Vcc, Voff), ...
+        'Color', 'k', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');    
+    
+    xlabel('$\theta$ in Degree', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    ylabel('$V{cos}(\theta)$ in V', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    title('$V{cos}$ of Enabled Array Positions over $\theta$', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+        
+    % Vsin
+    ax6 = nexttile([1 4]);
+    line(xlimits, [Voff Voff], 'Color', 'k', 'LineStyle', '-.', 'LineWidth', 1.2);
+    xlim(xlimits);
+    ylim(ylimits);
+    grid on;
+    
+    text(300, 2.1, ...
+        sprintf('$V_{cc} = %.1f$ V, $V_{off} = %.2f$ V', Vcc, Voff), ...
+        'Color', 'k', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');    
+    
+    xlabel('$\theta$ in Degree', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    ylabel('$V{sin}(\theta)$ in V', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    title('$V{sin}$ of Enabled Array Positions over $\theta$', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    % loop through subset of dataset and renew plots %%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % draw frame
-    drawnow;
+    % lock plots
+    hold(ax3, 'on');
+    hold(ax4, 'on');
+    hold(ax5, 'on');
+    hold(ax6, 'on');
     
-    % get file path and change extension
-    [~, fName, ~] = fileparts(ds.Info.filePath);
-    fPath = PathVariables.saveImagesPath;
-    
-    % string allows simple cat ops
-    VW = VideoWriter(fullfile(fPath, fName + ".avi"), "Uncompressed AVI");
-    
-    % scale frame rate on 10 second movies, ensure at least 1 fps
-    fr = floor(nSubAngles / 10) + 1;
-    VW.FrameRate = fr;
-    
-    % open video file, ready to record frames
-    open(VW)
-    
-    
-    % loop through subset angle dataset and renew plots %%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    for i = indices
+    % loop over indices
+    for k = 1:length(xIdx)
+        i = xIdx(k); j = yIdx(k);
         % H load subset
-        Hx = ds.Data.Hx(:,:,i);
-        Hy = ds.Data.Hy(:,:,i);
+        Hx = squeeze(ds.Data.Hx(i,j,angleIdx));
+        Hy = squeeze(ds.Data.Hy(i,j,angleIdx));
         % get min max
-        maxHx = max(Hx, [], 'all');
-        maxHy = max(Hy, [], 'all');
-        minHx = min(Hx, [], 'all');
-        minHy = min(Hy, [], 'all');
-        dHx = abs(maxHx - minHx);
-        dHy = abs(maxHy - minHy);
-        
+
         % load V subset
-        Vcos = ds.Data.Vcos(:,:,i) - Voff;
-        Vsin = ds.Data.Vsin(:,:,i) - Voff;
-        angle = ds.Data.angles(i);
-                
-        % lock plots
-        hold(ax1, 'on');
-        hold(ax2, 'on');
-        hold(ax3, 'on');
-        hold(ax4, 'on');
-        hold(ax5, 'on');
-        
-        % update plot 1
-        qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
-        qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
-        legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
-            'FontWeight', 'normal', ...
-            'FontSize', 9, ...
-            'FontName', 'Times', ...
-            'Interpreter', 'latex', ...
-            'Location', 'NorthEast');
-        
-        % update plot 2
-        tA.String = sprintf('$%.1f^\\circ$', angle);
-        pA = polarscatter(ax2, angle/180*pi, 1, 'b', 'filled', ...
-            'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
-        
-        % update plot 3 and 4
-        sC = scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
-        sS = scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
-        
-        % calc position of scatter area frame and reframe
-        pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
-        rtC = rectangle(ax3, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
-        rtS = rectangle(ax4, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
-        
-        % update plot 5 (zoom)
-        sZ = scatter(ax5, Hx(:), Hy(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
-            'LineWidth', 0.8);
-        xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
-        ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
-        
-        % release plots
-        hold(ax1, 'off');
-        hold(ax2, 'off');
-        hold(ax3, 'off');
-        hold(ax4, 'off');
-        hold(ax5, 'off');
-        
-        % draw frame
-        drawnow;
-        
-        % record frame to file
-        frame = getframe(fig);
-        writeVideo(VW, frame);
-        
-        % delete part of plots to renew for current angle, delete but last
-        if i ~= indices(end)
-            delete(qH);
-            delete(qV);
-            delete(pA);
-            delete(rtC);
-            delete(rtS);
-            delete(sC);
-            delete(sS);
-            delete(sZ);
-        end
+        Vcos = squeeze(ds.Data.Vcos(i,j,angleIdx));
+        Vsin = squeeze(ds.Data.Vsin(i,j,angleIdx));
+
+        % update plot 3, 4, 5 and 6
+        scatter(ax3, Hx, Hy, 1, [R(i,j), G(i,j), B(i,j)] , 'filled');
+        scatter(ax4, Hx, Hy, 1, [R(i,j), G(i,j), B(i,j)], 'filled');
+        scatter(ax5, subAngles, Vcos, 12, [R(i,j), G(i,j), B(i,j)] , ...
+            'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.5);
+        scatter(ax6, subAngles, Vsin, 12, [R(i,j), G(i,j), B(i,j)] , ...
+            'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.5);
     end
-    % close video file
-    close(VW)
-    close(fig)
+    
+    % release plots    
+    hold(ax3, 'off');
+    hold(ax4, 'off');
+    hold(ax5, 'off');
+    hold(ax6, 'off');
+    
+    % save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % get file path to save figure with angle index
+    [~, fName, ~] = fileparts(ds.Info.filePath);
+    
+    % save to various formats
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        fLabel = input('Enter file label: ', 's');
+        fPath1 = fullfile(PathVariables.saveFiguresPath, ...
+            fName + "_subset_" + fLabel);
+        fPath2 = fullfile(PathVariables.saveImagesPath, ...
+            fName + "_subset_" + fLabel);
+        savefig(fig, fPath1);
+        print(fig, fPath2, '-dsvg');
+        print(fig, fPath2, '-depsc', '-tiff', '-loose');
+        print(fig, fPath2, '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig);
 end
 
 

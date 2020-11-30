@@ -5,7 +5,7 @@
 % attach angle index.
 %
 %% Syntax
-%   fig = plotSingleSimulationAngle()
+%   plotSingleSimulationAngle()
 %
 %
 %% Description
@@ -17,7 +17,7 @@
 %
 %
 %% Examples
-%   fig = plotSingleSimulationAngle()
+%   plotSingleSimulationAngle()
 %
 %
 %% Input Argurments
@@ -25,7 +25,7 @@
 %
 %
 %% Output Argurments
-% *fig* figure handle to created plot.
+% *None*
 %
 %
 %% Requirements
@@ -49,7 +49,7 @@
 % -->
 % </html>
 %
-function fig = plotSingleSimulationAngle()
+function plotSingleSimulationAngle()
     % scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
@@ -194,7 +194,8 @@ function fig = plotSingleSimulationAngle()
     % plot each cooredinate in loop to create a special shading constant
     % reliable to orientation for all matrice
     hold on;
-    scatter(X(:), Y(:), [], c, 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
+    scatter(X(:), Y(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
+        'LineWidth', 0.8);
        
     % axis shape and ticks
     axis square xy;
@@ -440,14 +441,18 @@ function fig = plotSingleSimulationAngle()
     % save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get file path to save figure with angle index
-    [fPath, fName, ~] = fileparts(ds.Info.filePath);
-    figPath = fullfile(fPath, fName + "_angle_" + string(idx));
+    [~, fName, ~] = fileparts(ds.Info.filePath);
+    fPath1 = fullfile(PathVariables.saveFiguresPath, fName + "_angle_" + string(idx));
+    fPath2 = fullfile(PathVariables.saveImagesPath, fName + "_angle_" + string(idx));
     
     % save to various formats
-    savefig(fig, figPath);
-    print(fig, figPath, '-dsvg');
-    print(fig, figPath, '-depsc', '-tiff', '-loose');
-    print(fig, figPath, '-dpdf', '-loose', '-fillpage');
-    
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        savefig(fig, fPath1);
+        print(fig, fPath2, '-dsvg');
+        print(fig, fPath2, '-depsc', '-tiff', '-loose');
+        print(fig, fPath2, '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig);
 end
 

@@ -271,9 +271,9 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [13,];
-TestOptions.yPos = [0,];
-TestOptions.zPos = [-2,];
+TestOptions.xPos = [0,];
+TestOptions.yPos = [-5,];
+TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;

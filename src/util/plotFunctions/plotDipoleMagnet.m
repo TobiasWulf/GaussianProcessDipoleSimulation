@@ -2,16 +2,16 @@
 % Plot dipole magnet which approximate a spherical magnet in its far field.
 %
 %% Syntax
-%   Figures = plotDipoleMagnet()
+%   plotDipoleMagnet()
 %
 %
 %% Description
-% fig = plotDipoleMagnet() load dipole constants from config.mat and construct
+% plotDipoleMagnet() load dipole constants from config.mat and construct
 % magnet in its rest position in x and z layer for y = 0.
 %
 %
 %% Examples
-%   figs = plotDipoleMagnet();
+%   plotDipoleMagnet();
 %
 %
 %% Input Arguments
@@ -19,7 +19,7 @@
 %
 %
 %% Output Arguments
-% *fig* created figure handle.
+% *None*
 %
 %
 %% Requirements
@@ -44,7 +44,7 @@
 % -->
 % </html>
 %
-function [fig] = plotDipoleMagnet()
+function plotDipoleMagnet()
     try
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables', 'DipoleOptions');
@@ -239,9 +239,12 @@ function [fig] = plotDipoleMagnet()
         'Interpreter', 'latex');
     
     % save results of figure
-    savefig(fig, figPath);
-    print(fig, figSvgPath, '-dsvg');
-    print(fig, figEpsPath, '-depsc', '-tiff', '-loose');
-    print(fig, figPdfPath, '-dpdf', '-loose', '-fillpage');
-
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        savefig(fig, figPath);
+        print(fig, figSvgPath, '-dsvg');
+        print(fig, figEpsPath, '-depsc', '-tiff', '-loose');
+        print(fig, figPdfPath, '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig)
 end

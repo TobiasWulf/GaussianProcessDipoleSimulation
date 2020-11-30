@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotTDKCharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-29"><meta name="DC.source" content="plotTDKCharDataset.m"><style type="text/css">
+      --><title>plotTDKCharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-30"><meta name="DC.source" content="plotTDKCharDataset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,9 +67,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>plotTDKCharDataset</h1><!--introduction--><p>Explore TDK TAS2141 characterization dataset and plot its content.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">Figures = plotTDKCharDataset()
-</pre><h2 id="2">Description</h2><p>Figures = plotTDKCharDataset() explores the dataset and plot its content in three docked figure windows. Loads dataset location from config.mat.</p><h2 id="3">Examples</h2><pre class="language-matlab">figs = plotTDKCharDataset();
-</pre><h2 id="4">Input Arguments</h2><p><b>None</b></p><h2 id="5">Output Arguments</h2><p><b>Figure</b> struct which contains the created figure handles.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files: none</li><li>Subfunctions: none</li><li>MAT-files required: data/TDK_TAS2141_Characterization_2019-07-24.mat,   data/config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/plot.html'))">plot</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/imagesc.html'))">imagesc</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/polarplot.html'))">polarplot</a></li></ul></div><p>Created on October 24. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>plotTDKCharDataset</h1><!--introduction--><p>Explore TDK TAS2141 characterization dataset and plot its content.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">plotTDKCharDataset()
+</pre><h2 id="2">Description</h2><p>plotTDKCharDataset() explores the dataset and plot its content in three docked figure windows. Loads dataset location from config.mat.</p><h2 id="3">Examples</h2><pre class="language-matlab">plotTDKCharDataset();
+</pre><h2 id="4">Input Arguments</h2><p><b>None</b></p><h2 id="5">Output Arguments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files: none</li><li>Subfunctions: none</li><li>MAT-files required: data/TDK_TAS2141_Characterization_2019-07-24.mat,   data/config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/plot.html'))">plot</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/imagesc.html'))">imagesc</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/polarplot.html'))">polarplot</a></li></ul></div><p>Created on October 24. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -82,17 +82,17 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 % Explore TDK TAS2141 characterization dataset and plot its content.
 %
 %% Syntax
-%   Figures = plotTDKCharDataset()
+%   plotTDKCharDataset()
 %
 %
 %% Description
-% Figures = plotTDKCharDataset() explores the dataset and plot its
+% plotTDKCharDataset() explores the dataset and plot its
 % content in three docked figure windows. Loads dataset location from
 % config.mat.
 %
 %
 %% Examples
-%   figs = plotTDKCharDataset();
+%   plotTDKCharDataset();
 %
 %
 %% Input Arguments
@@ -100,7 +100,7 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 %
 %
 %% Output Arguments
-% *Figure* struct which contains the created figure handles.
+% *None*
 %
 %
 %% Requirements
@@ -127,7 +127,7 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function [Figures] = plotTDKCharDataset()
+function plotTDKCharDataset()
     try
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables');
@@ -359,12 +359,6 @@ function [Figures] = plotTDKCharDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    % save results of figure 1
-    savefig(fig1, fig1Path);
-    print(fig1, fig1SvgPath, '-dsvg');
-    print(fig1, fig1EpsPath, '-depsc', '-tiff', '-loose');
-    print(fig1, fig1PdfPath, '-dpdf', '-loose', '-fillpage');
-    
     % figure 2 cosinus bridge outputs
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -533,13 +527,6 @@ function [Figures] = plotTDKCharDataset()
     cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s', mV);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
-    
-    % save results of figure 2
-    savefig(fig2, fig2Path);
-    print(fig2, fig2SvgPath, '-dsvg');
-    print(fig2, fig2EpsPath, '-depsc', '-tiff', '-loose');
-    print(fig2, fig2PdfPath, '-dpdf', '-loose', '-fillpage');
-    
     
     % figure 3 sinus bridge outputs
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -710,14 +697,29 @@ function [Figures] = plotTDKCharDataset()
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     
-    % save results of figure 3
-    savefig(fig3, fig3Path);
-    print(fig3, fig3SvgPath, '-dsvg');
-    print(fig3, fig3EpsPath, '-depsc', '-tiff', '-loose');
-    print(fig3, fig3PdfPath, '-dpdf', '-loose', '-fillpage');
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        % save results of figure 1
+        savefig(fig1, fig1Path);
+        print(fig1, fig1SvgPath, '-dsvg');
+        print(fig1, fig1EpsPath, '-depsc', '-tiff', '-loose');
+        print(fig1, fig1PdfPath, '-dpdf', '-loose', '-fillpage');
     
-    % return figure handles as struct
-    Figures = struct('fig1', fig1, 'fig2', fig2, 'fig3', fig3);
+        % save results of figure 2
+        savefig(fig2, fig2Path);
+        print(fig2, fig2SvgPath, '-dsvg');
+        print(fig2, fig2EpsPath, '-depsc', '-tiff', '-loose');
+        print(fig2, fig2PdfPath, '-dpdf', '-loose', '-fillpage');
+    
+        % save results of figure 3
+        savefig(fig3, fig3Path);
+        print(fig3, fig3SvgPath, '-dsvg');
+        print(fig3, fig3EpsPath, '-depsc', '-tiff', '-loose');
+        print(fig3, fig3PdfPath, '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig1)
+    close(fig2)
+    close(fig3)
 end
 
 ##### SOURCE END #####

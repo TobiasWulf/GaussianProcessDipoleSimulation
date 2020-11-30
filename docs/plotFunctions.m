@@ -2,6 +2,11 @@
 % Project related reusable plots for datasets and results. 
 %
 %
+%% plotSimulationSubset
+% Plot subset of angles and sensor array position from training or test
+% dataset.
+%
+%
 %% plotSingleSimulationAngle
 % Plot single rotation step of test or training dataset.
 %
