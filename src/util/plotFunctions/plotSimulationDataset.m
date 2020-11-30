@@ -205,7 +205,6 @@ function fig = plotSimulationDataset()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
-    yticks(xticks);
     
     % text and labels
     text(minX+0.2, minY+0.2, ...
