@@ -149,8 +149,7 @@ function plotTDKCharField()
     % plot lines for slice to investigate
     hold on;
     for i = Hslice
-        line([Hmin Hmax], [HyScale(i), HyScale(i)], 'Color', 'k', ...
-            'LineStyle', ':', 'LineWidth', 2);
+        yline(HyScale(i), 'k:', 'LineWidth', 2);
     end
     hold off;
     
@@ -185,10 +184,8 @@ function plotTDKCharField()
     
     % plateau limits
     hold on;
-    line([Hlims(1) Hlims(1)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
-    line([Hlims(2) Hlims(2)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
+    xline(Hlims(1), 'k-.', 'LineWidth', 1.5);
+    xline(Hlims(2), 'k-.', 'LineWidth', 1.5);
     hold off;
     
     text(Hlims(1)-9.5, 100, ...
@@ -244,8 +241,7 @@ function plotTDKCharField()
     % plot lines for slice to investigate
     hold on;
     for i = Hslice
-        line([HxScale(i), HxScale(i)], [Hmin Hmax], 'Color', 'k', ...
-            'LineStyle', ':', 'LineWidth', 2);
+        xline(HxScale(i), 'k:', 'LineWidth', 2);
     end
     hold off;
     
@@ -280,10 +276,8 @@ function plotTDKCharField()
     
     % plateau limits
     hold on;
-    line([Hlims(1) Hlims(1)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
-    line([Hlims(2) Hlims(2)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
+    xline(Hlims(1), 'k-.', 'LineWidth', 1.5);
+    xline(Hlims(2), 'k-.', 'LineWidth', 1.5);
     hold off;
     
     text(Hlims(1)-9.5, 100, ...

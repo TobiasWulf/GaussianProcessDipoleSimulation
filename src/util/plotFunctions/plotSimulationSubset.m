@@ -1,4 +1,4 @@
-%% plotSimulationDataset
+%% plotSimulationSubset
 % Search for available trainings or test dataset and plot dataset. Follow user
 % input dialog to choose which dataset and decide which array elements to plot.
 % Save created plot to file. Filename same as dataset with attached info.
@@ -383,7 +383,7 @@ function plotSimulationSubset()
     
     % Vcos
     ax5 = nexttile([1 4]);
-    line(xlimits, [Voff Voff], 'Color', 'k', 'LineStyle', '-.', 'LineWidth', 1.2);
+    yline(Voff, 'k-.', 'LineWidth', 1.2);
     xlim(xlimits);
     ylim(ylimits);
     grid on;
@@ -407,7 +407,7 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title('$V{cos}$ of Enabled Array Positions over $\theta$', ...
+    title('$V_{cos}$ of Enabled Array Positions over $\theta$', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -415,7 +415,7 @@ function plotSimulationSubset()
         
     % Vsin
     ax6 = nexttile([1 4]);
-    line(xlimits, [Voff Voff], 'Color', 'k', 'LineStyle', '-.', 'LineWidth', 1.2);
+    yline(Voff, 'k-.', 'LineWidth', 1.2);
     xlim(xlimits);
     ylim(ylimits);
     grid on;
@@ -439,7 +439,7 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title('$V{sin}$ of Enabled Array Positions over $\theta$', ...
+    title('$V_{sin}$ of Enabled Array Positions over $\theta$', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...

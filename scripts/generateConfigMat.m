@@ -241,7 +241,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 720;
+TrainingOptions.nAngles = 16;
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the
