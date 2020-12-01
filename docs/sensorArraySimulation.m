@@ -22,7 +22,7 @@
 % and a distance from surface of 1 mm. See below figure of used magnet.
 %
 % <html>
-% <img src="images/dipole_magnet.svg" height=500>
+% <img src="images/svg/dipole_magnet.svg" height=500>
 % </html>
 %
 % To change settings for simulation edit the config script and rerun it. To
@@ -31,6 +31,30 @@
 % config. Generate a set of dataset for one evaluation case. Evaluate datasets,
 % save results for later clustering, edit config for next use case and rerun
 % simulation.
+%
+% The simulation bases on TDK TAS2141 "Rise" chracterization field. It has
+% the widest linear plateau for corresponding Hx and Hy field strengths.
+%
+% <html>
+% <img src="images/svg/tdk_char_field_Rise.svg" height=500>
+% </html>
+%
+% Here are some example plots of sensor array simulation with described
+% magnet configuration from above and TDK Rise characterzation field as
+% behavior base.
+%
+% <html>
+% <img src="images/svg/AnglePlot_10_example.svg" height=500>
+% </html>
+%
+% <html>
+% <img src="images/svg/SubsetPlot_example.svg" height=500>
+% </html>
+%
+%
+% <html>
+% <img src="images/svg/StatsPlot_example.svg" height=500>
+% </html>
 %
 %
 %% See Also

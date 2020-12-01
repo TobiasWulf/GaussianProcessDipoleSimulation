@@ -58,9 +58,9 @@ function plotDipoleMagnet()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     figFilename = 'dipole_magnet';
     figPath = fullfile(PathVariables.saveFiguresPath, figFilename);
-    figSvgPath = fullfile(PathVariables.saveImagesPath, figFilename);
-    figEpsPath = fullfile(PathVariables.saveImagesPath, figFilename);
-    figPdfPath = fullfile(PathVariables.saveImagesPath, figFilename);
+    figSvgPath = fullfile(PathVariables.saveImagesPath, 'svg', figFilename);
+    figEpsPath = fullfile(PathVariables.saveImagesPath, 'eps', figFilename);
+    figPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', figFilename);
     
     % load needed data from dataset in to local variables for better handling
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

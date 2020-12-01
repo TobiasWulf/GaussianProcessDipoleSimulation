@@ -101,6 +101,13 @@ function plotSingleSimulationAngle()
         rethrow(ME)
     end
     
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fPath = fullfile(PathVariables.saveFiguresPath);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
+    
     % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     fig = figure('Name', 'Sensor Array', ...
@@ -442,16 +449,16 @@ function plotSingleSimulationAngle()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get file path to save figure with angle index
     [~, fName, ~] = fileparts(ds.Info.filePath);
-    fPath1 = fullfile(PathVariables.saveFiguresPath, fName + "_angle_" + string(idx));
-    fPath2 = fullfile(PathVariables.saveImagesPath, fName + "_angle_" + string(idx));
     
     % save to various formats
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
-        savefig(fig, fPath1);
-        print(fig, fPath2, '-dsvg');
-        print(fig, fPath2, '-depsc', '-tiff', '-loose');
-        print(fig, fPath2, '-dpdf', '-loose', '-fillpage');
+        fLabel = input('Enter file label: ', 's');
+        fName = fName + sprintf("_AnglePlot_%d_", idx) + fLabel;
+        savefig(fig, fullfile(fPath, fName));
+        print(fig, fullfile(fSvgPath, fName), '-dsvg');
+        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
     end
     close(fig);
 end

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSingleSimulationAngle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-30"><meta name="DC.source" content="plotSingleSimulationAngle.m"><style type="text/css">
+      --><title>plotSingleSimulationAngle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-01"><meta name="DC.source" content="plotSingleSimulationAngle.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -178,6 +178,13 @@ function plotSingleSimulationAngle()
     catch ME
         rethrow(ME)
     end
+    
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fPath = fullfile(PathVariables.saveFiguresPath);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
     
     % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -520,16 +527,16 @@ function plotSingleSimulationAngle()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get file path to save figure with angle index
     [~, fName, ~] = fileparts(ds.Info.filePath);
-    fPath1 = fullfile(PathVariables.saveFiguresPath, fName + "_angle_" + string(idx));
-    fPath2 = fullfile(PathVariables.saveImagesPath, fName + "_angle_" + string(idx));
     
     % save to various formats
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
-        savefig(fig, fPath1);
-        print(fig, fPath2, '-dsvg');
-        print(fig, fPath2, '-depsc', '-tiff', '-loose');
-        print(fig, fPath2, '-dpdf', '-loose', '-fillpage');
+        fLabel = input('Enter file label: ', 's');
+        fName = fName + sprintf("_AnglePlot_%d_", idx) + fLabel;
+        savefig(fig, fullfile(fPath, fName));
+        print(fig, fullfile(fSvgPath, fName), '-dsvg');
+        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
     end
     close(fig);
 end

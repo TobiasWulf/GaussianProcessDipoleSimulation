@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotTDKCharField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-30"><meta name="DC.source" content="plotTDKCharField.m"><style type="text/css">
+      --><title>plotTDKCharField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-01"><meta name="DC.source" content="plotTDKCharField.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -129,12 +129,6 @@ function plotTDKCharField()
         rethrow(ME)
     end
     
-    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fNameFmt = "tdk_char_field_%s";
-    fPath1 = PathVariables.saveFiguresPath;
-    fPath2 = PathVariables.saveImagesPath;
-    
     % load needed data from dataset in to local variables for better handling %%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get from user which field to investigate and limits for plateau
@@ -149,8 +143,6 @@ function plotTDKCharField()
     field = fields{iField};
     pl = input('Plateu limit in kA/m: ');
     
-    % load characterization data
-    fName = sprintf(fNameFmt, field);
     Vcos = Data.SensorOutput.CosinusBridge.(field);
     Vsin = Data.SensorOutput.SinusBridge.(field);
     HxScale = Data.MagneticField.hx;
@@ -171,6 +163,14 @@ function plotTDKCharField()
     
     % clear dataset all loaded
     clear Data Info;
+    
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fName = sprintf("tdk_char_field_%s", field);
+    fPath = fullfile(PathVariables.saveFiguresPath, fName);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg', fName);
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps', fName);
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', fName);
     
     % define slices and limits to plot %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -227,8 +227,7 @@ function plotTDKCharField()
     % plot lines for slice to investigate
     hold on;
     for i = Hslice
-        line([Hmin Hmax], [HyScale(i), HyScale(i)], 'Color', 'k', ...
-            'LineStyle', ':', 'LineWidth', 2);
+        yline(HyScale(i), 'k:', 'LineWidth', 2);
     end
     hold off;
     
@@ -263,10 +262,8 @@ function plotTDKCharField()
     
     % plateau limits
     hold on;
-    line([Hlims(1) Hlims(1)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
-    line([Hlims(2) Hlims(2)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
+    xline(Hlims(1), 'k-.', 'LineWidth', 1.5);
+    xline(Hlims(2), 'k-.', 'LineWidth', 1.5);
     hold off;
     
     text(Hlims(1)-9.5, 100, ...
@@ -322,8 +319,7 @@ function plotTDKCharField()
     % plot lines for slice to investigate
     hold on;
     for i = Hslice
-        line([HxScale(i), HxScale(i)], [Hmin Hmax], 'Color', 'k', ...
-            'LineStyle', ':', 'LineWidth', 2);
+        xline(HxScale(i), 'k:', 'LineWidth', 2);
     end
     hold off;
     
@@ -358,10 +354,8 @@ function plotTDKCharField()
     
     % plateau limits
     hold on;
-    line([Hlims(1) Hlims(1)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
-    line([Hlims(2) Hlims(2)], mVpVlims, 'Color', 'k', 'LineStyle', '-.', ...
-        'LineWidth', 1.5);
+    xline(Hlims(1), 'k-.', 'LineWidth', 1.5);
+    xline(Hlims(2), 'k-.', 'LineWidth', 1.5);
     hold off;
     
     text(Hlims(1)-9.5, 100, ...
@@ -408,10 +402,10 @@ function plotTDKCharField()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
-        savefig(fig, fullfile(fPath1, fName));
-        print(fig, fullfile(fPath2, fName), '-dsvg');
-        print(fig, fullfile(fPath2, fName), '-depsc', '-tiff', '-loose');
-        print(fig, fullfile(fPath2, fName), '-dpdf', '-loose', '-fillpage');
+        savefig(fig, fPath);
+        print(fig, fSvgPath, '-dsvg');
+        print(fig, fEpsPath, '-depsc', '-tiff', '-loose');
+        print(fig, fPdfPath, '-dpdf', '-loose', '-fillpage');
     end
     close(fig)
     

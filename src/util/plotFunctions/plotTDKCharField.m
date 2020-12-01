@@ -51,12 +51,6 @@ function plotTDKCharField()
         rethrow(ME)
     end
     
-    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fNameFmt = "tdk_char_field_%s";
-    fPath1 = PathVariables.saveFiguresPath;
-    fPath2 = PathVariables.saveImagesPath;
-    
     % load needed data from dataset in to local variables for better handling %%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get from user which field to investigate and limits for plateau
@@ -71,8 +65,6 @@ function plotTDKCharField()
     field = fields{iField};
     pl = input('Plateu limit in kA/m: ');
     
-    % load characterization data
-    fName = sprintf(fNameFmt, field);
     Vcos = Data.SensorOutput.CosinusBridge.(field);
     Vsin = Data.SensorOutput.SinusBridge.(field);
     HxScale = Data.MagneticField.hx;
@@ -93,6 +85,14 @@ function plotTDKCharField()
     
     % clear dataset all loaded
     clear Data Info;
+    
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fName = sprintf("tdk_char_field_%s", field);
+    fPath = fullfile(PathVariables.saveFiguresPath, fName);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg', fName);
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps', fName);
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', fName);
     
     % define slices and limits to plot %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -324,10 +324,10 @@ function plotTDKCharField()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
-        savefig(fig, fullfile(fPath1, fName));
-        print(fig, fullfile(fPath2, fName), '-dsvg');
-        print(fig, fullfile(fPath2, fName), '-depsc', '-tiff', '-loose');
-        print(fig, fullfile(fPath2, fName), '-dpdf', '-loose', '-fillpage');
+        savefig(fig, fPath);
+        print(fig, fSvgPath, '-dsvg');
+        print(fig, fEpsPath, '-depsc', '-tiff', '-loose');
+        print(fig, fPdfPath, '-dpdf', '-loose', '-fillpage');
     end
     close(fig)
     

@@ -72,7 +72,7 @@
 % $$t_0 < t < \frac{1}{f_m}$$
 %
 % <html>
-% <img src="images/tdk_magnetic_stimulus.svg" height=650>
+% <img src="images/svg/tdk_magnetic_stimulus.svg" height=650>
 % </html>
 %
 %
@@ -97,7 +97,7 @@
 % Hy and so on next historgram append on the next row for the next Hy.
 %
 % <html>
-% <img src="images/tdk_cosinus_bridge.svg" height=650>
+% <img src="images/svg/tdk_cosinus_bridge.svg" height=650>
 % </html>
 %
 %
@@ -109,7 +109,7 @@
 % $$V_{sin}(H_x, H_y) = [mV/V]$$
 %
 % <html>
-% <img src="images/tdk_sinus_bridge.svg" height=650>
+% <img src="images/svg/tdk_sinus_bridge.svg" height=650>
 % </html>
 %
 %

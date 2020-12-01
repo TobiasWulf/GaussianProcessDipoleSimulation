@@ -1,0 +1,458 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>plotSimulationCosSinStats</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-01"><meta name="DC.source" content="plotSimulationCosSinStats.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>plotSimulationCosSinStats</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset to plot and statistics of cos sin. Save created plot to file. Filename same as dataset with attached info.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">plotSimulationCosSinStats()
+</pre><h2 id="2">Description</h2><p><b>fig = plotSimulationCosSinStats()</b> plot training or test dataset which are loacated in data/test or data/training. The function list all datasets and the user must decide during user input dialog which dataset to plot. It loads path from config.mat and scans for file automatically. Returns figure handle of created plots.</p><h2 id="3">Examples</h2><pre class="language-matlab">plotSimulationCosSinStats()
+</pre><h2 id="4">Input Argurments</h2><p><b>None</b></p><h2 id="5">Output Argurments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% plotSimulationCosSinStats
+% Search for available trainings or test dataset and plot dataset. Follow user
+% input dialog to choose which dataset to plot and statistics of cos sin.
+% Save created plot to file. Filename same as dataset with attached info.
+%
+%% Syntax
+%   plotSimulationCosSinStats()
+%
+%
+%% Description
+% *fig = plotSimulationCosSinStats()* plot training or test dataset which are
+% loacated in data/test or data/training. The function list all datasets and the
+% user must decide during user input dialog which dataset to plot.
+% It loads path from config.mat and scans for file
+% automatically. Returns figure handle of created plots.
+%
+%
+%% Examples
+%   plotSimulationCosSinStats()
+%
+%
+%% Input Argurments
+% *None*
+%
+%
+%% Output Argurments
+% *None*
+%
+%
+%% Requirements
+% * Other m-files required: None
+% * Subfunctions: None
+% * MAT-files required: config.mat
+%
+%
+%% See Also
+% * <generateSimulationDatasets.html generateSimulationDatasets>
+% * <sensorArraySimulation.html sensorArraySimulation>
+% * <generateConfigMat.html generateConfigMat>
+%
+%
+% Created on November 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+function plotSimulationCosSinStats()
+    % scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    try
+        disp('Plot simulation dataset ...');
+        close all;
+        % load path variables
+        load('config.mat', 'PathVariables');
+        % scan for datasets
+        TrainingDatasets = dir(fullfile(PathVariables.trainingDataPath, ...
+            'Training_*.mat'));
+        TestDatasets = dir(fullfile(PathVariables.testDataPath, 'Test_*.mat'));
+        allDatasets = [TrainingDatasets; TestDatasets];
+        % check if files available
+        if isempty(allDatasets)
+            error('No training or test datasets found.');
+        end
+    catch ME
+        rethrow(ME)
+    end
+    
+    % display availabe datasets to user, decide which to plot %%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    % number of datasets
+    nDatasets = length(allDatasets);
+    fprintf('Found %d datasets:\n', nDatasets)
+    for i = 1:nDatasets
+        fprintf('%s\t:\t(%d)\n', allDatasets(i).name, i)
+    end
+    % get numeric user input to indicate which dataset to plot
+    iDataset = input('Type number to choose dataset to plot to: ');
+        
+    % load dataset and ask user which one and how many angles %%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    try
+        ds = load(fullfile(allDatasets(iDataset).folder, ...
+            allDatasets(iDataset).name));
+        % check how many angles in dataset and let user decide how many to
+        % render in polt
+        fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
+        nSubAngles = input('How many angles to you wish to plot: ');
+        % nSubAngles = 120;
+        % indices for data to plot, get sample distance for even distance
+        sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
+        % get subset of angles
+        subAngles = downsample(ds.Data.angles, sampleDistance);
+        nSubAngles = length(subAngles); % just ensure
+        % get indices for subset data
+        indices = find(ismember(ds.Data.angles, subAngles));
+    catch ME
+        rethrow(ME)
+    end
+    
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fPath = fullfile(PathVariables.saveFiguresPath);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
+    
+    % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fig = figure('Name', 'Sensor Array', ...
+        'NumberTitle' , 'off', ...
+        'WindowStyle', 'normal', ...
+        'MenuBar', 'none', ...
+        'ToolBar', 'none', ...
+        'Units', 'centimeters', ...
+        'OuterPosition', [0 0 37 29], ...
+        'PaperType', 'a4', ...
+        'PaperUnits', 'centimeters', ...
+        'PaperOrientation', 'landscape', ...
+        'PaperPositionMode', 'auto', ...
+        'DoubleBuffer', 'on', ...
+        'RendererMode', 'manual', ...
+        'Renderer', 'painters');
+    
+    tdl = tiledlayout(fig, 2, 1, ...
+        'Padding', 'normal', ...
+        'TileSpacing' , 'normal');
+    
+    
+    title(tdl, 'Sensor Array Simulation', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 18, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
+    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
+    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
+    subline5 = "sample distance of $%d$ angles. Based on %s characterization reference %s.";
+    sub = [sprintf(subline1, ...
+                   ds.Info.SensorArrayOptions.geometry, ...
+                   ds.Info.SensorArrayOptions.dimension, ...
+                   ds.Info.SensorArrayOptions.dimension, ...
+                   ds.Info.SensorArrayOptions.edge); ...
+           sprintf(subline2, ...
+                   ds.Info.UseOptions.xPos, ...
+                   ds.Info.UseOptions.yPos, ...
+                   ds.Info.UseOptions.zPos, ...
+                   ds.Info.UseOptions.tilt, ...
+                   ds.Info.DipoleOptions.sphereRadius); ...
+           sprintf(subline3, ...
+                   ds.Info.DipoleOptions.H0mag, ...
+                   ds.Info.DipoleOptions.z0, ...
+                   ds.Info.UseOptions.nAngles); ...
+           sprintf(subline4, ...
+                   ds.Data.angleStep, ...
+                   ds.Info.UseOptions.angleRes, ...
+                   nSubAngles)
+           sprintf(subline5, ...
+                   sampleDistance, ...
+                   ds.Info.CharData, ...
+                   ds.Info.UseOptions.BridgeReference)];
+    
+    subtitle(tdl, sub, ...
+        'FontWeight', 'normal', ...
+        'FontSize', 14, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    % get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    M = ds.Info.SensorArrayOptions.dimension^2;
+    % N = ds.Info.UseOptions.nAngles;
+    res = ds.Info.UseOptions.angleRes;
+    %angles = ds.Data.angles;
+    anglesIP = 0:res:360-res;
+    
+    % load V subset and reshape for easier computing statistics
+    Vcos = squeeze(reshape(ds.Data.Vcos(:,:,indices), 1, M, nSubAngles));
+    Vsin = squeeze(reshape(ds.Data.Vsin(:,:,indices), 1, M, nSubAngles));
+    
+    % load offset voltage to subtract from cosinus, sinus voltage
+    Voff = ds.Info.SensorArrayOptions.Voff;
+    Vcc = ds.Info.SensorArrayOptions.Vcc;
+    
+    % compute statistics of Vcos Vsin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % interpolate with makima makes best results, ensure to kill nans for
+    % fill otherwise fill strokes, use linstyle none for fill without frame
+    interpM = 'makima';
+    VcosMean = mean(Vcos, 1);
+    VcosMeanIP = interp1(subAngles, VcosMean, anglesIP, interpM);
+     
+    VcosStd = std(Vcos, 1, 1); 
+    VcosVar = var(Vcos, 1, 1); % std^2
+    
+    % meanvariation coefficient in percent
+    VcosMVCP = mean(VcosStd ./ VcosMean) * 100;
+    
+    VcosUpper1 = VcosMean + VcosStd;
+    VcosUpper2 = VcosMean + VcosVar;
+    VcosLower1 = VcosMean - VcosStd;
+    VcosLower2 = VcosMean - VcosVar;
+    
+    VcosUpper1IP = interp1(subAngles, VcosUpper1, anglesIP, interpM);
+    VcosUpper1IP = fillmissing(VcosUpper1IP, 'previous');
+    
+    VcosLower1IP = interp1(subAngles, VcosLower1, anglesIP, interpM);
+    VcosLower1IP = fillmissing(VcosLower1IP, 'previous');
+    
+    VcosUpper2IP = interp1(subAngles, VcosUpper2, anglesIP, interpM);
+    VcosUpper2IP = fillmissing(VcosUpper2IP, 'previous');
+    
+    VcosLower2IP = interp1(subAngles, VcosLower2, anglesIP, interpM);
+    VcosLower2IP = fillmissing(VcosLower2IP, 'previous');
+    
+    VsinMean = mean(Vsin, 1);
+    VsinMeanIP = interp1(subAngles, VsinMean, anglesIP, interpM);
+     
+    VsinStd = std(Vsin, 1, 1); 
+    VsinVar = var(Vsin, 1, 1); % std^2
+    
+    % meanvariation coefficient in percent
+    VsinMVCP = mean(VsinStd ./ VsinMean) * 100;
+    
+    VsinUpper1 = VsinMean + VsinStd;
+    VsinUpper2 = VsinMean + VsinVar;
+    VsinLower1 = VsinMean - VsinStd;
+    VsinLower2 = VsinMean - VsinVar;
+    
+    VsinUpper1IP = interp1(subAngles, VsinUpper1, anglesIP, interpM);
+    VsinUpper1IP = fillmissing(VsinUpper1IP, 'previous');
+    
+    VsinLower1IP = interp1(subAngles, VsinLower1, anglesIP, interpM);
+    VsinLower1IP = fillmissing(VsinLower1IP, 'previous');
+    
+    VsinUpper2IP = interp1(subAngles, VsinUpper2, anglesIP, interpM);
+    VsinUpper2IP = fillmissing(VsinUpper2IP, 'previous');
+    
+    VsinLower2IP = interp1(subAngles, VsinLower2, anglesIP, interpM);
+    VsinLower2IP = fillmissing(VsinLower2IP, 'previous');
+    
+    % plot Vcos Vsin over angles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % axes limits
+    %xlimits = [-10 370];
+    %ylimits = [min(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') - 0.1*Vcc, ...
+    %    max(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') + 0.1*Vcc];
+    
+    % Vcos
+    nexttile;
+    hold on;
+    
+    fillStdX = [anglesIP, fliplr(anglesIP)];
+    fillStdY = [VcosLower1IP, fliplr(VcosUpper1IP)];
+    fill(fillStdX, fillStdY, [0.95 0.95 0.95], 'LineStyle', 'none');
+    
+    fillVarX = [anglesIP, fliplr(anglesIP)];
+    fillVarY = [VcosLower2IP, fliplr(VcosUpper2IP)];
+    fill(fillVarX, fillVarY, [0.7 0.7 0.7], 'LineStyle', 'none');
+    
+    yline(Voff, 'kREPLACE_WITH_DASH_DASH');
+    scatter(subAngles, VcosUpper1, [], 'r*');
+    plot(anglesIP, VcosUpper1IP, 'r-.');
+    scatter(subAngles, VcosMean, [], 'm*');
+    plot(anglesIP, VcosMeanIP, 'm-.');
+    scatter(subAngles, VcosLower1, [], 'b*');
+    plot(anglesIP, VcosLower1IP, 'b-.');
+    
+    
+    hold off;
+    xlim([-res 360-res]);
+    %ylim(ylimits);
+    grid on;
+    
+    xlabel('$\theta$ in Degree', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    ylabel('$V{cos}(\theta)$ in V', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    title(sprintf('Compare $V_{cos}(\\theta)$ for each Array Member $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V, $\\bar{\\sigma_\\mu} = %.2f$ perc.', ...
+                  Vcc, Voff, VcosMVCP), ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    % Vsin
+    nexttile;
+    hold on;
+    
+    fillStdX = [anglesIP, fliplr(anglesIP)];
+    fillStdY = [VsinLower1IP, fliplr(VsinUpper1IP)];
+    l1 = fill(fillStdX, fillStdY, [0.95 0.95 0.95], 'LineStyle', 'none');
+    
+    fillVarX = [anglesIP, fliplr(anglesIP)];
+    fillVarY = [VsinLower2IP, fliplr(VsinUpper2IP)];
+    l2 = fill(fillVarX, fillVarY, [0.7 0.7 0.7], 'LineStyle', 'none');
+    
+    l3 = yline(Voff, 'kREPLACE_WITH_DASH_DASH');
+    l4 = scatter(subAngles, VsinUpper1, [], 'r*');
+    l5 = plot(anglesIP, VsinUpper1IP, 'r-.');
+    l6 = scatter(subAngles, VsinMean, [], 'm*');
+    l7 = plot(anglesIP, VsinMeanIP, 'm-.');
+    l8 = scatter(subAngles, VsinLower1, [], 'b*');
+    l9 = plot(anglesIP, VsinLower1IP, 'b-.');
+
+    hold off;
+    xlim([-res 360-res]);
+    grid on;
+    
+    xlabel('$\theta$ in Degree', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    ylabel('$V{sin}(\theta)$ in V', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    title(sprintf('Compare $V_{sin}(\\theta)$ for each Array Member $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V, $\\bar{\\sigma_\\mu} = %.2f$ perc.'...
+            , Vcc, Voff, VsinMVCP), ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    % plot legend %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    l = [l1 l2 l3 l4 l5 l6 l7 l8 l9];
+    L = legend(l, {'$2\sigma$', ...
+                   '$2\sigma^2$', ...
+                   '$V_{off}$', ...
+                   '$U_{lim} = \mu + \sigma$', ...
+                   sprintf('$%s(U_{lim})$', interpM), ...
+                   '$\mu(V)$', ...
+                   sprintf('$%s(\\mu)$', interpM), ...
+                   '$L_{lim} = \mu - \sigma$', ...
+                   sprintf('$%s(L_{lim})$', interpM)}, ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    L.Layout.Tile = 'east';
+            
+    % save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % get file path to save figure with angle index
+    [~, fName, ~] = fileparts(ds.Info.filePath);
+    
+    % save to various formats
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        fLabel = input('Enter file label: ', 's');
+        fName =  fName + "_StatsPlot_" + fLabel;
+        savefig(fig, fullfile(fPath, fName));
+        print(fig, fullfile(fSvgPath, fName), '-dsvg');
+        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig);
+end
+
+
+##### SOURCE END #####
+--></body></html>

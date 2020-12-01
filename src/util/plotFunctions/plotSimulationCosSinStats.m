@@ -79,16 +79,35 @@ function plotSimulationCosSinStats()
         fprintf('%s\t:\t(%d)\n', allDatasets(i).name, i)
     end
     % get numeric user input to indicate which dataset to plot
-    iDataset = 1;%input('Type number to choose dataset to plot to: ');
+    iDataset = input('Type number to choose dataset to plot to: ');
         
     % load dataset and ask user which one and how many angles %%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
         ds = load(fullfile(allDatasets(iDataset).folder, ...
             allDatasets(iDataset).name));
+        % check how many angles in dataset and let user decide how many to
+        % render in polt
+        fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
+        nSubAngles = input('How many angles to you wish to plot: ');
+        % nSubAngles = 120;
+        % indices for data to plot, get sample distance for even distance
+        sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
+        % get subset of angles
+        subAngles = downsample(ds.Data.angles, sampleDistance);
+        nSubAngles = length(subAngles); % just ensure
+        % get indices for subset data
+        indices = find(ismember(ds.Data.angles, subAngles));
     catch ME
         rethrow(ME)
     end
+    
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fPath = fullfile(PathVariables.saveFiguresPath);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
     
     % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -118,52 +137,52 @@ function plotSimulationCosSinStats()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-%     subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
-%     subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
-%     subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
-%     subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
-%     subline5 = "sample distance of $%d$ angles. Based on %s characterization reference %s.";
-%     sub = [sprintf(subline1, ...
-%                    ds.Info.SensorArrayOptions.geometry, ...
-%                    ds.Info.SensorArrayOptions.dimension, ...
-%                    ds.Info.SensorArrayOptions.dimension, ...
-%                    ds.Info.SensorArrayOptions.edge); ...
-%            sprintf(subline2, ...
-%                    ds.Info.UseOptions.xPos, ...
-%                    ds.Info.UseOptions.yPos, ...
-%                    ds.Info.UseOptions.zPos, ...
-%                    ds.Info.UseOptions.tilt, ...
-%                    ds.Info.DipoleOptions.sphereRadius); ...
-%            sprintf(subline3, ...
-%                    ds.Info.DipoleOptions.H0mag, ...
-%                    ds.Info.DipoleOptions.z0, ...
-%                    ds.Info.UseOptions.nAngles); ...
-%            sprintf(subline4, ...
-%                    ds.Data.angleStep, ...
-%                    ds.Info.UseOptions.angleRes, ...
-%                    nSubAngles)
-%            sprintf(subline5, ...
-%                    sampleDistance, ...
-%                    ds.Info.CharData, ...
-%                    ds.Info.UseOptions.BridgeReference)];
-%     
-%     subtitle(tdl, sub, ...
-%         'FontWeight', 'normal', ...
-%         'FontSize', 14, ...
-%         'FontName', 'Times', ...
-%         'Interpreter', 'latex');
+    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
+    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
+    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
+    subline5 = "sample distance of $%d$ angles. Based on %s characterization reference %s.";
+    sub = [sprintf(subline1, ...
+                   ds.Info.SensorArrayOptions.geometry, ...
+                   ds.Info.SensorArrayOptions.dimension, ...
+                   ds.Info.SensorArrayOptions.dimension, ...
+                   ds.Info.SensorArrayOptions.edge); ...
+           sprintf(subline2, ...
+                   ds.Info.UseOptions.xPos, ...
+                   ds.Info.UseOptions.yPos, ...
+                   ds.Info.UseOptions.zPos, ...
+                   ds.Info.UseOptions.tilt, ...
+                   ds.Info.DipoleOptions.sphereRadius); ...
+           sprintf(subline3, ...
+                   ds.Info.DipoleOptions.H0mag, ...
+                   ds.Info.DipoleOptions.z0, ...
+                   ds.Info.UseOptions.nAngles); ...
+           sprintf(subline4, ...
+                   ds.Data.angleStep, ...
+                   ds.Info.UseOptions.angleRes, ...
+                   nSubAngles)
+           sprintf(subline5, ...
+                   sampleDistance, ...
+                   ds.Info.CharData, ...
+                   ds.Info.UseOptions.BridgeReference)];
+    
+    subtitle(tdl, sub, ...
+        'FontWeight', 'normal', ...
+        'FontSize', 14, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
     
     % get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     M = ds.Info.SensorArrayOptions.dimension^2;
-    N = ds.Info.UseOptions.nAngles;
+    % N = ds.Info.UseOptions.nAngles;
     res = ds.Info.UseOptions.angleRes;
-    angles = ds.Data.angles;
+    %angles = ds.Data.angles;
     anglesIP = 0:res:360-res;
     
     % load V subset and reshape for easier computing statistics
-    Vcos = squeeze(reshape(ds.Data.Vcos, 1, M, N));
-    Vsin = squeeze(reshape(ds.Data.Vsin, 1, M, N));
+    Vcos = squeeze(reshape(ds.Data.Vcos(:,:,indices), 1, M, nSubAngles));
+    Vsin = squeeze(reshape(ds.Data.Vsin(:,:,indices), 1, M, nSubAngles));
     
     % load offset voltage to subtract from cosinus, sinus voltage
     Voff = ds.Info.SensorArrayOptions.Voff;
@@ -173,18 +192,58 @@ function plotSimulationCosSinStats()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % interpolate with makima makes best results, ensure to kill nans for
     % fill otherwise fill strokes, use linstyle none for fill without frame
+    interpM = 'makima';
     VcosMean = mean(Vcos, 1);
-    VcosMeanIP = interp1(angles, VcosMean, anglesIP, 'makima');
+    VcosMeanIP = interp1(subAngles, VcosMean, anglesIP, interpM);
+     
     VcosStd = std(Vcos, 1, 1); 
     VcosVar = var(Vcos, 1, 1); % std^2
-    VcosCovF = zeros(1, N);
-    for i = 1:N
-        VcosCovF(i) = cov(Vcos(:,i), 1);
-    end
-    VcosUpper = VcosMean + VcosStd;
-    VcosUpperIP = interp1(angles, VcosUpper, anglesIP, 'makima');
-    VcosLower = VcosMean - VcosStd;
-    VcosLowerIP = interp1(angles, VcosLower, anglesIP, 'makima');
+    
+    % meanvariation coefficient in percent
+    VcosMVCP = mean(VcosStd ./ VcosMean) * 100;
+    
+    VcosUpper1 = VcosMean + VcosStd;
+    VcosUpper2 = VcosMean + VcosVar;
+    VcosLower1 = VcosMean - VcosStd;
+    VcosLower2 = VcosMean - VcosVar;
+    
+    VcosUpper1IP = interp1(subAngles, VcosUpper1, anglesIP, interpM);
+    VcosUpper1IP = fillmissing(VcosUpper1IP, 'previous');
+    
+    VcosLower1IP = interp1(subAngles, VcosLower1, anglesIP, interpM);
+    VcosLower1IP = fillmissing(VcosLower1IP, 'previous');
+    
+    VcosUpper2IP = interp1(subAngles, VcosUpper2, anglesIP, interpM);
+    VcosUpper2IP = fillmissing(VcosUpper2IP, 'previous');
+    
+    VcosLower2IP = interp1(subAngles, VcosLower2, anglesIP, interpM);
+    VcosLower2IP = fillmissing(VcosLower2IP, 'previous');
+    
+    VsinMean = mean(Vsin, 1);
+    VsinMeanIP = interp1(subAngles, VsinMean, anglesIP, interpM);
+     
+    VsinStd = std(Vsin, 1, 1); 
+    VsinVar = var(Vsin, 1, 1); % std^2
+    
+    % meanvariation coefficient in percent
+    VsinMVCP = mean(VsinStd ./ VsinMean) * 100;
+    
+    VsinUpper1 = VsinMean + VsinStd;
+    VsinUpper2 = VsinMean + VsinVar;
+    VsinLower1 = VsinMean - VsinStd;
+    VsinLower2 = VsinMean - VsinVar;
+    
+    VsinUpper1IP = interp1(subAngles, VsinUpper1, anglesIP, interpM);
+    VsinUpper1IP = fillmissing(VsinUpper1IP, 'previous');
+    
+    VsinLower1IP = interp1(subAngles, VsinLower1, anglesIP, interpM);
+    VsinLower1IP = fillmissing(VsinLower1IP, 'previous');
+    
+    VsinUpper2IP = interp1(subAngles, VsinUpper2, anglesIP, interpM);
+    VsinUpper2IP = fillmissing(VsinUpper2IP, 'previous');
+    
+    VsinLower2IP = interp1(subAngles, VsinLower2, anglesIP, interpM);
+    VsinLower2IP = fillmissing(VsinLower2IP, 'previous');
     
     % plot Vcos Vsin over angles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -197,29 +256,27 @@ function plotSimulationCosSinStats()
     nexttile;
     hold on;
     
-    fillX = [anglesIP, fliplr(anglesIP)];
-    fillY = [VcosLowerIP, fliplr(VcosUpperIP)];
-    fill(fillX, fillY, [0.9 0.9 0.9], 'LineStyle', 'none');
+    fillStdX = [anglesIP, fliplr(anglesIP)];
+    fillStdY = [VcosLower1IP, fliplr(VcosUpper1IP)];
+    fill(fillStdX, fillStdY, [0.95 0.95 0.95], 'LineStyle', 'none');
+    
+    fillVarX = [anglesIP, fliplr(anglesIP)];
+    fillVarY = [VcosLower2IP, fliplr(VcosUpper2IP)];
+    fill(fillVarX, fillVarY, [0.7 0.7 0.7], 'LineStyle', 'none');
+    
     yline(Voff, 'k--');
-    scatter(angles, VcosUpper, [], 'r*');
-    plot(anglesIP, VcosUpperIP, 'r-.');
-    scatter(angles, VcosMean, [], 'm*');
+    scatter(subAngles, VcosUpper1, [], 'r*');
+    plot(anglesIP, VcosUpper1IP, 'r-.');
+    scatter(subAngles, VcosMean, [], 'm*');
     plot(anglesIP, VcosMeanIP, 'm-.');
-    scatter(angles, VcosLower, [], 'b*');
-    plot(anglesIP, VcosLowerIP, 'b-.');
+    scatter(subAngles, VcosLower1, [], 'b*');
+    plot(anglesIP, VcosLower1IP, 'b-.');
     
     
     hold off;
-    xlim([-0.1 360]);
+    xlim([-res 360-res]);
     %ylim(ylimits);
     grid on;
-    
-    text(300, 1.1, ...
-        sprintf('$V_{cc} = %.1f$ V, $V_{off} = %.2f$ V', Vcc, Voff), ...
-        'Color', 'k', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');    
     
     xlabel('$\theta$ in Degree', ...
         'FontWeight', 'normal', ...
@@ -233,7 +290,8 @@ function plotSimulationCosSinStats()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title('$V{cos}$ of Enabled Array Positions over $\theta$', ...
+    title(sprintf('Compare $V_{cos}(\\theta)$ for each Array Member $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V, $\\bar{\\sigma_\\mu} = %.2f$ perc.', ...
+                  Vcc, Voff, VcosMVCP), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -243,20 +301,25 @@ function plotSimulationCosSinStats()
     nexttile;
     hold on;
     
-    yline(Voff, 'k--');
-
+    fillStdX = [anglesIP, fliplr(anglesIP)];
+    fillStdY = [VsinLower1IP, fliplr(VsinUpper1IP)];
+    l1 = fill(fillStdX, fillStdY, [0.95 0.95 0.95], 'LineStyle', 'none');
+    
+    fillVarX = [anglesIP, fliplr(anglesIP)];
+    fillVarY = [VsinLower2IP, fliplr(VsinUpper2IP)];
+    l2 = fill(fillVarX, fillVarY, [0.7 0.7 0.7], 'LineStyle', 'none');
+    
+    l3 = yline(Voff, 'k--');
+    l4 = scatter(subAngles, VsinUpper1, [], 'r*');
+    l5 = plot(anglesIP, VsinUpper1IP, 'r-.');
+    l6 = scatter(subAngles, VsinMean, [], 'm*');
+    l7 = plot(anglesIP, VsinMeanIP, 'm-.');
+    l8 = scatter(subAngles, VsinLower1, [], 'b*');
+    l9 = plot(anglesIP, VsinLower1IP, 'b-.');
 
     hold off;
-    %xlim(xlimits);
-    %ylim(ylimits);
+    xlim([-res 360-res]);
     grid on;
-    
-    text(300, 2.1, ...
-        sprintf('$V_{cc} = %.1f$ V, $V_{off} = %.2f$ V', Vcc, Voff), ...
-        'Color', 'k', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');    
     
     xlabel('$\theta$ in Degree', ...
         'FontWeight', 'normal', ...
@@ -269,32 +332,46 @@ function plotSimulationCosSinStats()
         'FontSize', 12, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
-    
-    title('$V{sin}$ of Enabled Array Positions over $\theta$', ...
+    title(sprintf('Compare $V_{sin}(\\theta)$ for each Array Member $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V, $\\bar{\\sigma_\\mu} = %.2f$ perc.'...
+            , Vcc, Voff, VsinMVCP), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    
+    % plot legend %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    l = [l1 l2 l3 l4 l5 l6 l7 l8 l9];
+    L = legend(l, {'$2\sigma$', ...
+                   '$2\sigma^2$', ...
+                   '$V_{off}$', ...
+                   '$U_{lim} = \mu + \sigma$', ...
+                   sprintf('$%s(U_{lim})$', interpM), ...
+                   '$\mu(V)$', ...
+                   sprintf('$%s(\\mu)$', interpM), ...
+                   '$L_{lim} = \mu - \sigma$', ...
+                   sprintf('$%s(L_{lim})$', interpM)}, ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    L.Layout.Tile = 'east';
+            
     % save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get file path to save figure with angle index
-%     [~, fName, ~] = fileparts(ds.Info.filePath);
-%     
-%     % save to various formats
-%     yesno = input('Save? [y/n]: ', 's');
-%     if strcmp(yesno, 'y')
-%         fLabel = input('Enter file label: ', 's');
-%         fPath1 = fullfile(PathVariables.saveFiguresPath, ...
-%             fName + "_subset_" + fLabel);
-%         fPath2 = fullfile(PathVariables.saveImagesPath, ...
-%             fName + "_subset_" + fLabel);
-%         savefig(fig, fPath1);
-%         print(fig, fPath2, '-dsvg');
-%         print(fig, fPath2, '-depsc', '-tiff', '-loose');
-%         print(fig, fPath2, '-dpdf', '-loose', '-fillpage');
-%     end
-%     close(fig);
+    [~, fName, ~] = fileparts(ds.Info.filePath);
+    
+    % save to various formats
+    yesno = input('Save? [y/n]: ', 's');
+    if strcmp(yesno, 'y')
+        fLabel = input('Enter file label: ', 's');
+        fName =  fName + "_StatsPlot_" + fLabel;
+        savefig(fig, fullfile(fPath, fName));
+        print(fig, fullfile(fSvgPath, fName), '-dsvg');
+        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
+    end
+    close(fig);
 end
 

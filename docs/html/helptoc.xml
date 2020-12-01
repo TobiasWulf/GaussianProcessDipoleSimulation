@@ -3,7 +3,7 @@
 <toc version="2.0">
 <!-- First tocitem specifies top level in Help browser Contents pane -->
 <!-- This can be a roadmap page, as shown below, or a content page -->
-    <tocitem target="GaussianProcessDipolSimulation.html">GaussianProcessDipolSimulation
+    <tocitem target="GaussianProcessDipoleSimulation.html">GaussianProcessDipoleSimulation
         <!-- Nest tocitems to create hierarchical entries in  Contents-->
         <!-- To include icons, use the following syntax for tocitems: -->
         <!-- <tocitem target="foo.html" image="HelpIcon.NAME"> -->
@@ -45,6 +45,7 @@
                     <tocitem target="plotSimulationDataset.html">plotSimulationDataset</tocitem>
                     <tocitem target="plotSingleSimulationAngle.html">plotSingleSimulationAngle</tocitem>
                     <tocitem target="plotSimulationSubset.html">plotSimulationSubset</tocitem>
+                    <tocitem target="plotSimulationCosSinStats.html">plotSimulationCosSinStats</tocitem>
                 </tocitem>
             </tocitem>
         </tocitem>

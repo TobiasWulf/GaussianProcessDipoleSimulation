@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-30"><meta name="DC.source" content="plotSimulationSubset.m"><style type="text/css">
+      --><title>plotSimulationSubset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-01"><meta name="DC.source" content="plotSimulationSubset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>plotSimulationDataset</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset and decide which array elements to plot. Save created plot to file. Filename same as dataset with attached info.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">plotSimulationSubset()
+  </style></head><body><div class="content"><h1>plotSimulationSubset</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset and decide which array elements to plot. Save created plot to file. Filename same as dataset with attached info.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">plotSimulationSubset()
 </pre><h2 id="2">Description</h2><p><b>fig = plotSimulationSubset()</b> plot training or test dataset which are loacated in data/test or data/training. The function list all datasets and the user must decide during user input dialog which dataset to plot and how many angles to to visualize. It loads path from config.mat and scans for file automatically. Returns figure handle of created plots.</p><h2 id="3">Examples</h2><pre class="language-matlab">plotSimulationSubset()
 </pre><h2 id="4">Input Argurments</h2><p><b>None</b></p><h2 id="5">Output Argurments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
@@ -76,7 +76,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% plotSimulationDataset
+%% plotSimulationSubset
 % Search for available trainings or test dataset and plot dataset. Follow user
 % input dialog to choose which dataset and decide which array elements to plot.
 % Save created plot to file. Filename same as dataset with attached info.
@@ -185,6 +185,13 @@ function plotSimulationSubset()
     catch ME
         rethrow(ME)
     end
+    
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fPath = fullfile(PathVariables.saveFiguresPath);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
     
     % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -461,7 +468,7 @@ function plotSimulationSubset()
     
     % Vcos
     ax5 = nexttile([1 4]);
-    line(xlimits, [Voff Voff], 'Color', 'k', 'LineStyle', '-.', 'LineWidth', 1.2);
+    yline(Voff, 'k-.', 'LineWidth', 1.2);
     xlim(xlimits);
     ylim(ylimits);
     grid on;
@@ -485,7 +492,7 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title('$V{cos}$ of Enabled Array Positions over $\theta$', ...
+    title('$V_{cos}$ of Enabled Array Positions over $\theta$', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -493,7 +500,7 @@ function plotSimulationSubset()
         
     % Vsin
     ax6 = nexttile([1 4]);
-    line(xlimits, [Voff Voff], 'Color', 'k', 'LineStyle', '-.', 'LineWidth', 1.2);
+    yline(Voff, 'k-.', 'LineWidth', 1.2);
     xlim(xlimits);
     ylim(ylimits);
     grid on;
@@ -517,7 +524,7 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title('$V{sin}$ of Enabled Array Positions over $\theta$', ...
+    title('$V_{sin}$ of Enabled Array Positions over $\theta$', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -567,14 +574,11 @@ function plotSimulationSubset()
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
         fLabel = input('Enter file label: ', 's');
-        fPath1 = fullfile(PathVariables.saveFiguresPath, ...
-            fName + "_subset_" + fLabel);
-        fPath2 = fullfile(PathVariables.saveImagesPath, ...
-            fName + "_subset_" + fLabel);
-        savefig(fig, fPath1);
-        print(fig, fPath2, '-dsvg');
-        print(fig, fPath2, '-depsc', '-tiff', '-loose');
-        print(fig, fPath2, '-dpdf', '-loose', '-fillpage');
+        fName = fName + "_SubsetPlot_" + fLabel;
+        savefig(fig, fullfile(fPath, fName));
+        print(fig, fullfile(fSvgPath, fName), '-dsvg');
+        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
     end
     close(fig);
 end

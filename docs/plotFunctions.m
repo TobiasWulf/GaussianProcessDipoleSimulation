@@ -2,6 +2,11 @@
 % Project related reusable plots for datasets and results. 
 %
 %
+%% plotSimulationCosSinStats
+% Statistical compare plot of Vcos and Vsin output voltages for each sensor
+% array members.
+%
+%
 %% plotSimulationSubset
 % Plot subset of angles and sensor array position from training or test
 % dataset.

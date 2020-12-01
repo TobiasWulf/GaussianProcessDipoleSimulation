@@ -108,6 +108,13 @@ function plotSimulationSubset()
         rethrow(ME)
     end
     
+    % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    fPath = fullfile(PathVariables.saveFiguresPath);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
+    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
+    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
+    
     % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     fig = figure('Name', 'Sensor Array', ...
@@ -489,14 +496,11 @@ function plotSimulationSubset()
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
         fLabel = input('Enter file label: ', 's');
-        fPath1 = fullfile(PathVariables.saveFiguresPath, ...
-            fName + "_subset_" + fLabel);
-        fPath2 = fullfile(PathVariables.saveImagesPath, ...
-            fName + "_subset_" + fLabel);
-        savefig(fig, fPath1);
-        print(fig, fPath2, '-dsvg');
-        print(fig, fPath2, '-depsc', '-tiff', '-loose');
-        print(fig, fPath2, '-dpdf', '-loose', '-fillpage');
+        fName = fName + "_SubsetPlot_" + fLabel;
+        savefig(fig, fullfile(fPath, fName));
+        print(fig, fullfile(fSvgPath, fName), '-dsvg');
+        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
     end
     close(fig);
 end

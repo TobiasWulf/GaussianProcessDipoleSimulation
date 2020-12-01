@@ -145,7 +145,7 @@
 %   <tr>
 %     <td>./temp</td>
 %     <td>Temporally working directory to save intermediate results or the last
-%     software state from session before.
+%     software state from session before or scratch files which flies arround.
 %     </td>
 %   </tr>
 % </tbody>
