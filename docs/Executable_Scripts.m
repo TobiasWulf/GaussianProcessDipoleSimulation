@@ -6,6 +6,11 @@
 % by functions to control and execute task in a unified project structure.
 %
 %
+%% deleteSimulationPlots
+% Delete simulation training and test dataset plots from figures and images path
+% with training and test filename pattern.
+%
+%
 %% deleteSimulationDatasets
 % Delete generated simulation datasets from data path.
 %
@@ -30,6 +35,7 @@
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on November 04. 2020 by Tobias Wulf: Add forgotten generateConigMAt.
+% Edited on December 02. 2020 by Tobias Wulf: Add scripts for delete and generate.
 % -->
 % </html>
 %

@@ -6,7 +6,7 @@
 %
 %
 %% Description
-% plotTDKCharDataset() explores the dataset and plot its
+% *plotTDKCharDataset()* explores the dataset and plot its
 % content in three docked figure windows. Loads dataset location from
 % config.mat.
 %
@@ -166,7 +166,7 @@ function plotTDKCharDataset()
         'Renderer', 'painters');
     
     tdl = tiledlayout(fig1, 2, 2, ...
-        'Padding', 'normal', ...
+        'Padding', 'compact', ...
         'TileSpacing' , 'compact');
     
     title(tdl, 'Reconstructed $H_x$-/ $H_y$-Stimulus in Reduced View', ...

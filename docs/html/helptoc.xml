@@ -25,6 +25,7 @@
             <tocitem target="generateConfigMat.html">generateConfigMat</tocitem>
             <tocitem target="generateSimulationDatasets.html">generateSimulationDatasets</tocitem>
             <tocitem target="deleteSimulationDatasets.html">deleteSimulationDatasets</tocitem>
+            <tocitem target="deleteSimulationPlots.html">deleteSimulationPlots</tocitem>
         </tocitem>
         <tocitem target="Source_Code.html">Source Code
             <tocitem target="sensorArraySimulation.html">sensorArraySimulation
@@ -46,6 +47,7 @@
                     <tocitem target="plotSingleSimulationAngle.html">plotSingleSimulationAngle</tocitem>
                     <tocitem target="plotSimulationSubset.html">plotSimulationSubset</tocitem>
                     <tocitem target="plotSimulationCosSinStats.html">plotSimulationCosSinStats</tocitem>
+                    <tocitem target="plotSimulationDatasetCircle.html">plotSimulationDatasetCircle</tocitem>
                 </tocitem>
             </tocitem>
         </tocitem>

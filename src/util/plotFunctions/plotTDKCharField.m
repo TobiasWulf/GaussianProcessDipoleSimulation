@@ -6,7 +6,7 @@
 %
 %
 %% Description
-% plotTDKCharField() explore characterization field of TDK sensor.
+% *plotTDKCharField()* explore characterization field of TDK sensor.
 %
 %
 %% Examples
@@ -118,7 +118,7 @@ function plotTDKCharField()
         'Renderer', 'painters');
     
     tdl = tiledlayout(fig, 2, 2, ...
-        'Padding', 'normal', ...
+        'Padding', 'compact', ...
         'TileSpacing' , 'compact');
     
     title(tdl, sprintf('Characterization Field: %s', field), ...

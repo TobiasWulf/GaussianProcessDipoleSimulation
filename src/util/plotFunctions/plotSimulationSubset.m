@@ -8,11 +8,11 @@
 %
 %
 %% Description
-% *fig = plotSimulationSubset()* plot training or test dataset which are
+% *plotSimulationSubset()* plot training or test dataset which are
 % loacated in data/test or data/training. The function list all datasets and the
 % user must decide during user input dialog which dataset to plot and how many
 % angles to to visualize. It loads path from config.mat and scans for file
-% automatically. Returns figure handle of created plots.
+% automatically.
 %
 %
 %% Examples
@@ -133,8 +133,8 @@ function plotSimulationSubset()
         'Renderer', 'painters');
     
     tdl = tiledlayout(fig, 3, 4, ...
-        'Padding', 'normal', ...
-        'TileSpacing' , 'normal');
+        'Padding', 'compact', ...
+        'TileSpacing' , 'compact');
     
     
     title(tdl, 'Sensor Array Simulation', ...

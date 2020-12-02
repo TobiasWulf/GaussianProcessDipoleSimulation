@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>sensorArraySimulation</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-01"><meta name="DC.source" content="sensorArraySimulation.m"><style type="text/css">
+      --><title>sensorArraySimulation</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-02"><meta name="DC.source" content="sensorArraySimulation.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -77,6 +77,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <img src="images/svg/SubsetPlot_example.svg" height=500>
 </p><p>
 <img src="images/svg/StatsPlot_example.svg" height=500>
+</p><p>
+<img src="images/svg/CirclePlot_example.svg" height=500>
 </p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li><li><a href="#2">simulateDipoleSquareSenorArray</a></li><li><a href="#3">computeDipoleHField</a></li><li><a href="#4">computeDipoleH0Norm</a></li><li><a href="#5">generateSensorArraySquareGrid</a></li><li><a href="#6">generateDipoleRotationMoments</a></li><li><a href="#7">rotate3DVector</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="deleteSimulationDatasets.html">deleteSimulationDatasets</a></li></ul></div><h2 id="2">simulateDipoleSquareSenorArray</h2><p>Simulate a square sensor array with dipole magnet as stimulus for a certain setup of training or test options. Saves generated dataset to data/training or data/test.</p><h2 id="3">computeDipoleHField</h2><p>Compute dipole field strength for meshgrids with additional abillity to imprint a certain field strength in defined radius on resulting field.</p><h2 id="4">computeDipoleH0Norm</h2><p>Compute a norm factor to imprint a magnetic field strength to magnetic dipole fields with same magnetic moment magnitude and constant dipole sphere radius on which the imprinted field strengt takes effect.</p><h2 id="5">generateSensorArraySquareGrid</h2><p>Generat a square sensor array grid in a 3D coordinate system with relative position to center of the system and an additional offset in z direction.</p><h2 id="6">generateDipoleRotationMoments</h2><p>Generate magnetic rotation moments to rotate a magnetic dipol in its z-axes with a certain tilt.</p><h2 id="7">rotate3DVector</h2><p>Rotate a vector with x-, y- and z-components in a 3D-coordinate system. Rotate one step of certain angles.</p><p>Created on November 04. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
@@ -84,6 +86,7 @@ Edited on November 04. 2020 by Tobias Wulf: Add rotate3DVector.
 Edited on November 06. 2020 by Tobias Wulf: Add generateDipoleRotationMoments.
 Edited on November 22. 2020 by Tobias Wulf: Add dipole computation functions.
 Edited on November 25. 2020 by Tobias Wulf: Add simulation function for squar senor arrays.
+Edited on December 02. 2020 by Tobias Wulf: Add simulation plots.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -145,6 +148,10 @@ Edited on November 25. 2020 by Tobias Wulf: Add simulation function for squar se
 % <img src="images/svg/StatsPlot_example.svg" height=500>
 % </html>
 %
+% <html>
+% <img src="images/svg/CirclePlot_example.svg" height=500>
+% </html>
+%
 %
 %% See Also
 %
@@ -194,6 +201,7 @@ Edited on November 25. 2020 by Tobias Wulf: Add simulation function for squar se
 % Edited on November 06. 2020 by Tobias Wulf: Add generateDipoleRotationMoments.
 % Edited on November 22. 2020 by Tobias Wulf: Add dipole computation functions.
 % Edited on November 25. 2020 by Tobias Wulf: Add simulation function for squar senor arrays.
+% Edited on December 02. 2020 by Tobias Wulf: Add simulation plots.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %

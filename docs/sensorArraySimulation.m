@@ -56,6 +56,10 @@
 % <img src="images/svg/StatsPlot_example.svg" height=500>
 % </html>
 %
+% <html>
+% <img src="images/svg/CirclePlot_example.svg" height=500>
+% </html>
+%
 %
 %% See Also
 %
@@ -105,6 +109,7 @@
 % Edited on November 06. 2020 by Tobias Wulf: Add generateDipoleRotationMoments.
 % Edited on November 22. 2020 by Tobias Wulf: Add dipole computation functions.
 % Edited on November 25. 2020 by Tobias Wulf: Add simulation function for squar senor arrays.
+% Edited on December 02. 2020 by Tobias Wulf: Add simulation plots.
 % -->
 % </html>
 %

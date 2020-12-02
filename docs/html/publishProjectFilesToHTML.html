@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-01"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-02"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -104,7 +104,7 @@ disp(<span class="string">'Load configuration ...'</span>);
 <span class="keyword">catch</span> ME
     rethrow(ME);
 <span class="keyword">end</span>
-</pre><h2 id="4">Remove Equation PNG Files</h2><p>Remove equation png file from HTML output folder before create or recreate publishing files. To prevent the directory expanse of old or edited equation files.</p><pre class="codeinput"><span class="comment">%removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');</span>
+</pre><h2 id="4">Remove Equation PNG Files</h2><p>Remove equation png file from HTML output folder before create or recreate publishing files. To prevent the directory expanse of old or edited equation files.</p><pre class="codeinput">removeFilesFromDir(PublishOptions.outputDir, <span class="string">'*_eq*.png'</span>);
 </pre><h2 id="5">Project Documentation Files</h2><p>In this section of the publish script every bare documentation script should be handled and executed to publish. These are m-files without any executeable code so they exist just to transport the documentation content into html output. Dir all m-files from docs path. Not recursively but verbose. No expected directory tree search for m-files.</p><pre class="codeinput">disp(<span class="string">'Publish project documentation files ...'</span>);
 publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 </pre><h2 id="6">Executable Script Files</h2><p>The section collects all ready to execute scripts from project scripts folder and publish them to html documentation folder. Every script must be notice in in Executable_Scripts.m file with one line description. That is very important to not execute the scripts during publishing. If a script contains critical or loop gaining code. In example the publishProjectFilesToHTML.m script such loop gaining code. If eval code during publishing is enabled the script starts publishing itself over and over again because it contains the loop entry via the publish function. So routine is minmal adjusted by evalCode parameter in PublishOptions struct. No expected directory to search for m-files so no recursively but verbose</p><pre class="codeinput">disp(<span class="string">'Publish executable scripts ...'</span>);
@@ -197,7 +197,7 @@ end
 % Remove equation png file from HTML output folder before create or recreate
 % publishing files. To prevent the directory expanse of old or edited equation
 % files.
-%removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
+removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 
 
 %% Project Documentation Files

@@ -2,6 +2,12 @@
 % Project related reusable plots for datasets and results. 
 %
 %
+%% plotSimulationDatasetCircle
+% Plot circular path of Hx, Hy and Vcos, Vsin at each sensor array position.
+% Normed to max overall array positions and normed to max at each array
+% position.
+%
+%
 %% plotSimulationCosSinStats
 % Statistical compare plot of Vcos and Vsin output voltages for each sensor
 % array members.
@@ -47,6 +53,10 @@
 % Edited on November 25. 2020 by Tobias Wulf: Add plotSimulationDataset.
 % Edited on November 28. 2020 by Tobias Wulf: Add plotSingleSimulationAngle.
 % Edited on November 29. 2020 by Tobias Wulf: Add plotTDKCharField.
+% Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset.
+% Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats.
+% Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
+
 % -->
 % </html>
 %

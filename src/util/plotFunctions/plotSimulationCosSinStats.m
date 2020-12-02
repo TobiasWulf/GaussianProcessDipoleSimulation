@@ -8,11 +8,10 @@
 %
 %
 %% Description
-% *fig = plotSimulationCosSinStats()* plot training or test dataset which are
+% *plotSimulationCosSinStats()* plot training or test dataset which are
 % loacated in data/test or data/training. The function list all datasets and the
 % user must decide during user input dialog which dataset to plot.
-% It loads path from config.mat and scans for file
-% automatically. Returns figure handle of created plots.
+% It loads path from config.mat and scans for file automatically.
 %
 %
 %% Examples
@@ -127,8 +126,8 @@ function plotSimulationCosSinStats()
         'Renderer', 'painters');
     
     tdl = tiledlayout(fig, 2, 1, ...
-        'Padding', 'normal', ...
-        'TileSpacing' , 'normal');
+        'Padding', 'compact', ...
+        'TileSpacing' , 'compact');
     
     
     title(tdl, 'Sensor Array Simulation', ...
