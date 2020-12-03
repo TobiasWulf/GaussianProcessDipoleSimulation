@@ -73,6 +73,7 @@ Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 Edited on November 09. 2020 by Tobias Wulf: Save PathVariables as struct.
 Edited on November 09. 2020 by Tobias Wulf: Add Options for dipole simulation with square sensor array.
+Edited on December 03. 2020 by Tobias Wulf: Add path and option for KMZ60.
 -->
 </p><h2 id="3">Clean Up</h2><p>Clear variables from workspace to build up a fresh new configuration workspace.</p><pre class="codeinput">disp(<span class="string">'Clean up workspace ...'</span>);
 clearvars;
@@ -97,6 +98,10 @@ PathVariables.dataPath = fullfile(PathVariables.rootPath, <span class="string">'
 <span class="comment">% path to TDK TAS2141 TMR angular sensor characterization dataset</span>
 PathVariables.tdkDatasetPath = fullfile(PathVariables.dataPath, <span class="keyword">...</span>
     <span class="string">'TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat'</span>);
+
+<span class="comment">% path to TDK TAS2141 TMR angular sensor characterization dataset</span>
+PathVariables.kmz60DatasetPath = fullfile(PathVariables.dataPath, <span class="keyword">...</span>
+    <span class="string">'NXP_KMZ60_Characterization_2020-12-03_16-53-16-721.mat'</span>);
 
 <span class="comment">% path to config file dataset</span>
 PathVariables.configPath = fullfile(PathVariables.dataPath, <span class="string">'config.mat'</span>);
@@ -240,7 +245,12 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 720;
+
+<span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
+<span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
+<span class="comment">% KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor</span>
+TrainingOptions.BaseReference = <span class="string">'TDK'</span>;
 
 <span class="comment">% Characteraztion field which should be load as refernce image from</span>
 <span class="comment">% characterization data set, in TDK dataset are following fields. In the</span>
@@ -292,6 +302,11 @@ TestOptions.phaseIndex = 0;
 <span class="comment">% generate full scale rotation. Fix parameter.</span>
 TestOptions.nAngles = 720;
 
+<span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
+<span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
+<span class="comment">% KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor</span>
+TestOptions.BaseReference = <span class="string">'KMZ60'</span>;
+
 <span class="comment">% Characteraztion field which should be load as refernce image from</span>
 <span class="comment">% characterization data set, in TDK dataset are following fields. In the</span>
 <span class="comment">% current dataset Rise has the widest linear plateau with a radius of ca.</span>
@@ -341,6 +356,7 @@ save(PathVariables.configPath, <span class="keyword">...</span>
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on November 09. 2020 by Tobias Wulf: Save PathVariables as struct.
 % Edited on November 09. 2020 by Tobias Wulf: Add Options for dipole simulation with square sensor array.
+% Edited on December 03. 2020 by Tobias Wulf: Add path and option for KMZ60.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -383,6 +399,10 @@ PathVariables.dataPath = fullfile(PathVariables.rootPath, 'data');
 % path to TDK TAS2141 TMR angular sensor characterization dataset
 PathVariables.tdkDatasetPath = fullfile(PathVariables.dataPath, ... 
     'TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat');
+
+% path to TDK TAS2141 TMR angular sensor characterization dataset
+PathVariables.kmz60DatasetPath = fullfile(PathVariables.dataPath, ... 
+    'NXP_KMZ60_Characterization_2020-12-03_16-53-16-721.mat');
 
 % path to config file dataset
 PathVariables.configPath = fullfile(PathVariables.dataPath, 'config.mat');
@@ -558,7 +578,12 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 720;
+
+% Charcterization datset to use in simulation. Current available datasets are
+% TDK - for characterization dataset of TDK TAS2141 TMR sensor
+% KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor
+TrainingOptions.BaseReference = 'TDK';
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the
@@ -615,6 +640,11 @@ TestOptions.phaseIndex = 0;
 % relatead to the resolution or fast generate but wrong number to 0 to
 % generate full scale rotation. Fix parameter.
 TestOptions.nAngles = 720;
+
+% Charcterization datset to use in simulation. Current available datasets are
+% TDK - for characterization dataset of TDK TAS2141 TMR sensor
+% KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor
+TestOptions.BaseReference = 'KMZ60';
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the

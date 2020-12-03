@@ -1,4 +1,4 @@
-%% GaussianProcessDipolSimulation
+%% GaussianProcessDipoleSimulation
 % The project of sensor array simulation and Gaussian Processes for angle
 % predictions on simulation datasets starts in
 %

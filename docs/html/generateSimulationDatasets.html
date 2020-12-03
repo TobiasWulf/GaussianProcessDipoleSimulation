@@ -71,6 +71,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
+Edited on December 02. 2020 by Tobias Wulf: Add
 -->
 </p><h2 id="3">Load Configuration and Characterization Dataset</h2><p>Load configuration to generate dataset from config.mat and defined characterization dataset.</p><pre class="codeinput"><span class="keyword">try</span>
     clearvars;
@@ -79,16 +80,33 @@ Edited on Month DD. YYYY by Editor: Single line description.
     load(<span class="string">'config.mat'</span>, <span class="string">'GeneralOptions'</span>, <span class="string">'PathVariables'</span>, <span class="string">'SensorArrayOptions'</span>, <span class="keyword">...</span>
         <span class="string">'DipoleOptions'</span>, <span class="string">'TrainingOptions'</span>, <span class="string">'TestOptions'</span>);
     disp(<span class="string">'Load characterization dataset ...'</span>);
-    TDK = load(PathVariables.tdkDatasetPath);
+    <span class="keyword">switch</span> TrainingOptions.BaseReference
+        <span class="keyword">case</span> <span class="string">'TDK'</span>
+            TrainingCharDataset = load(PathVariables.tdkDatasetPath);
+        <span class="keyword">case</span> <span class="string">'KMZ60'</span>
+            TrainingCharDataset = load(PathVariables.kmz60DatasetPath);
+        <span class="keyword">otherwise</span>
+            error(<span class="string">'Unknow characterization dataset in config.'</span>);
+    <span class="keyword">end</span>
+
+    <span class="keyword">switch</span> TestOptions.BaseReference
+        <span class="keyword">case</span> <span class="string">'TDK'</span>
+            TestCharDataset = load(PathVariables.tdkDatasetPath);
+        <span class="keyword">case</span> <span class="string">'KMZ60'</span>
+            TestCharDataset = load(PathVariables.kmz60DatasetPath);
+        <span class="keyword">otherwise</span>
+            error(<span class="string">'Unknow characterization dataset in config.'</span>);
+    <span class="keyword">end</span>
+
 <span class="keyword">catch</span> ME
     rethrow(ME)
 <span class="keyword">end</span>
 </pre><h2 id="4">Generate Training Datasets</h2><p>Generate training dataset from configuration and characterization dataset.</p><pre class="codeinput">disp(<span class="string">'Generate training datasets ...'</span>);
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
-    SensorArrayOptions, DipoleOptions, TrainingOptions, TDK)
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
 </pre><h2 id="5">Generate Test Datasets</h2><p>Generate test dataset from configuration and characterization dataset.</p><pre class="codeinput">disp(<span class="string">'Generate test datasets ...'</span>);
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
-    SensorArrayOptions, DipoleOptions, TestOptions, TDK)
+    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% generateSimulationDatasets
@@ -119,6 +137,7 @@ simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyw
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on December 02. 2020 by Tobias Wulf: Add
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -133,7 +152,24 @@ try
     load('config.mat', 'GeneralOptions', 'PathVariables', 'SensorArrayOptions', ...
         'DipoleOptions', 'TrainingOptions', 'TestOptions');
     disp('Load characterization dataset ...');
-    TDK = load(PathVariables.tdkDatasetPath);
+    switch TrainingOptions.BaseReference
+        case 'TDK'
+            TrainingCharDataset = load(PathVariables.tdkDatasetPath);
+        case 'KMZ60'
+            TrainingCharDataset = load(PathVariables.kmz60DatasetPath);
+        otherwise
+            error('Unknow characterization dataset in config.');
+    end
+    
+    switch TestOptions.BaseReference
+        case 'TDK'
+            TestCharDataset = load(PathVariables.tdkDatasetPath);
+        case 'KMZ60'
+            TestCharDataset = load(PathVariables.kmz60DatasetPath);
+        otherwise
+            error('Unknow characterization dataset in config.');
+    end
+    
 catch ME
     rethrow(ME)
 end
@@ -143,14 +179,14 @@ end
 % Generate training dataset from configuration and characterization dataset.
 disp('Generate training datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TrainingOptions, TDK)
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
 
 
 %% Generate Test Datasets
 % Generate test dataset from configuration and characterization dataset.
 disp('Generate test datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TestOptions, TDK)
+    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)
 
 ##### SOURCE END #####
 --></body></html>

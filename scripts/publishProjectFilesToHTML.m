@@ -48,6 +48,7 @@
 % Edited on October 31. 2020 by Tobias Wulf: Move publishing to function.
 % Edited on November 04. 2020 by Tobias Wulf: Delete equation png files before.
 % Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
+% Edited on December 03. 2020 by Tobias Wulf: User request to renew equations.
 % -->
 % </html>
 %
@@ -71,7 +72,10 @@ end
 % Remove equation png file from HTML output folder before create or recreate
 % publishing files. To prevent the directory expanse of old or edited equation
 % files.
-removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
+yesno = input('Renew eqautions in docs [y/n]: ', 's');
+if strcmp(yesno, 'y')
+    removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
+end
 
 
 %% Project Documentation Files
