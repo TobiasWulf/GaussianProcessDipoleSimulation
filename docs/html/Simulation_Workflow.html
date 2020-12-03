@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Datasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-03"><meta name="DC.source" content="Datasets.m"><style type="text/css">
+      --><title>Simulation Workflow</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-03"><meta name="DC.source" content="Simulation_Workflow.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,49 +67,44 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Datasets</h1><!--introduction--><p>Datasets are an appreciated way to save and reach done work and reuse it in progress. The easiest way to build and to use propper datasets in matlab are mat-files. They are easy to load and can be build by an script or function it just needs to save the variables from workspace. So latery save datasets can be used for futher calculations or to load certain configuration in to workspace and to solve task in a unified way.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">TDK_TAS2141_Characterization_2019-07-24.mat</a></li><li><a href="#2">config.mat</a></li><li><a href="#3">Training and Test Datasets</a></li></ul></div><h2 id="1">TDK_TAS2141_Characterization_2019-07-24.mat</h2><p>The characterization dataset of the TDK TMR angular sensor as base dataset for sensor array dipol simulation. The dataset contains information about the stimulus wich was used for characterization, the magnetic resolustion or the sensor bridge outputs for Hx and Hy fields and bridge outputs corresponding to stimulus amplitudes in Hx and Hy direction.</p><h2 id="2">config.mat</h2><p>Configuration dataset to control the main program from centralized config file. Includes any kind of configuration and parameters to load in function or script workspaces.</p><h2 id="3">Training and Test Datasets</h2><p>Sensor array simulation datasets for training and test purpose for angle prediction via gaussian processes.</p><p>Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>Simulation Workflow</h1><!--introduction--><p>That workflow describes a best practice way to simulate a sensor array with dipole (spherical magnet).</p><div><ol><li>Clean up old simuation datasets and plots of by executing   deleteSimulationDatasets and deleteSimulationPlots.</li><li>Edit generateConfigMat to needed specifications for simualtion and generate   or regenerate config.mat by executing the script.</li><li>Execute generateSimulationDatasets to generate configure training and test   datasets.</li><li>Execute the needed plots to describe the simulation as wished.</li><li>Execute other parts of the software to work with current setup of simualtion   datasets.</li><li>Rename plots or move them to a subfolder to save them.</li><li>Move or rename Datasets if it is needed to keep them after done work.</li><li>Restart workflow for a next configuration to investigate on.</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="deleteSimulationDatasets.html">deleteSimulationDatasets</a></li><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="deleteSimulationPlots.html">deleteSimulationPlots</a></li></ul></div><p>Created on December 03. 2020 by Tobias. Copyright Tobias 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
-Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Datasets
-% Datasets are an appreciated way to save and reach done work and reuse it in
-% progress. The easiest way to build and to use propper datasets in matlab are
-% mat-files. They are easy to load and can be build by an script or function
-% it just needs to save the variables from workspace. So latery save datasets
-% can be used for futher calculations or to load certain configuration in to
-% workspace and to solve task in a unified way.
+%% Simulation Workflow
+% That workflow describes a best practice way to simulate a sensor array with
+% dipole (spherical magnet).
+%
+% # Clean up old simuation datasets and plots of by executing
+%   deleteSimulationDatasets and deleteSimulationPlots.
+% # Edit generateConfigMat to needed specifications for simualtion and generate
+%   or regenerate config.mat by executing the script.
+% # Execute generateSimulationDatasets to generate configure training and test
+%   datasets.
+% # Execute the needed plots to describe the simulation as wished.
+% # Execute other parts of the software to work with current setup of simualtion
+%   datasets.
+% # Rename plots or move them to a subfolder to save them.
+% # Move or rename Datasets if it is needed to keep them after done work.
+% # Restart workflow for a next configuration to investigate on.
 %
 %
-%% TDK_TAS2141_Characterization_2019-07-24.mat
-% The characterization dataset of the TDK TMR angular sensor as base dataset for
-% sensor array dipol simulation. The dataset contains information about the
-% stimulus wich was used for characterization, the magnetic resolustion or the
-% sensor bridge outputs for Hx and Hy fields and bridge outputs corresponding to
-% stimulus amplitudes in Hx and Hy direction.
+%% See Also
+% * <generateConfigMat.html generateConfigMat>
+% * <deleteSimulationDatasets.html deleteSimulationDatasets>
+% * <generateSimulationDatasets.html generateSimulationDatasets>
+% * <deleteSimulationPlots.html deleteSimulationPlots>
 %
 %
-%% config.mat
-% Configuration dataset to control the main program from centralized config
-% file. Includes any kind of configuration and parameters to load in function or
-% script workspaces.
-%
-%
-%% Training and Test Datasets
-% Sensor array simulation datasets for training and test purpose for angle
-% prediction via gaussian processes.
-%
-%
-% Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.
+% Created on December 03. 2020 by Tobias. Copyright Tobias 2020.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
-% Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %

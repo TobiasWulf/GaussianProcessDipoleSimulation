@@ -7,16 +7,6 @@
 % workspace and to solve task in a unified way.
 %
 %
-% Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.
-%
-% <html>
-% <!--
-% Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
-% -->
-% </html>
-%
-%
 %% TDK_TAS2141_Characterization_2019-07-24.mat
 % The characterization dataset of the TDK TMR angular sensor as base dataset for
 % sensor array dipol simulation. The dataset contains information about the
@@ -29,4 +19,20 @@
 % Configuration dataset to control the main program from centralized config
 % file. Includes any kind of configuration and parameters to load in function or
 % script workspaces.
+%
+%
+%% Training and Test Datasets
+% Sensor array simulation datasets for training and test purpose for angle
+% prediction via gaussian processes.
+%
+%
+% Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!--
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
+% -->
+% </html>
 %

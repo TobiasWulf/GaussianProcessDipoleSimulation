@@ -19,6 +19,7 @@
             <tocitem target="Project_Structure.html">Project Structure</tocitem>
             <tocitem target="Git_Feature_Branch_Workflow.html">Git Feature Branch Workflow</tocitem>
             <tocitem target="Documentation_Workflow.html">Documentation Workflow</tocitem>
+            <tocitem target="Simulation_Workflow.html">Simulation Workflow</tocitem>
         </tocitem>
         <tocitem target="Executable_Scripts.html">Executable Scripts
             <tocitem target="publishProjectFilesToHTML.html">publishProjectFilesToHTML</tocitem>
@@ -54,6 +55,7 @@
         <tocitem target="Datasets.html">Datasets
             <tocitem target="TDK_TAS2141_Characterization.html">TDK TAS2141 Characterization</tocitem>
             <tocitem target="Config_Mat.html">Config Mat</tocitem>
+            <tocitem target="Training_and_Test_Datasets.html">Training and Test Datasets</tocitem>
         </tocitem>
     </tocitem>
 </toc>

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotFunctions</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-02"><meta name="DC.source" content="plotFunctions.m"><style type="text/css">
+      --><title>plotFunctions</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-03"><meta name="DC.source" content="plotFunctions.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,11 +67,22 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>plotFunctions</h1><!--introduction--><p>Project related reusable plots for datasets and results.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">plotSimulationDatasetCircle</a></li><li><a href="#2">plotSimulationCosSinStats</a></li><li><a href="#3">plotSimulationSubset</a></li><li><a href="#4">plotSingleSimulationAngle</a></li><li><a href="#5">plotSimulationDataset</a></li><li><a href="#6">plotTDKCharField</a></li><li><a href="#7">plotTDKCharDataset</a></li><li><a href="#8">plotDipoleMagnet</a></li></ul></div><h2 id="1">plotSimulationDatasetCircle</h2><p>Plot circular path of Hx, Hy and Vcos, Vsin at each sensor array position. Normed to max overall array positions and normed to max at each array position.</p><h2 id="2">plotSimulationCosSinStats</h2><p>Statistical compare plot of Vcos and Vsin output voltages for each sensor array members.</p><h2 id="3">plotSimulationSubset</h2><p>Plot subset of angles and sensor array position from training or test dataset.</p><h2 id="4">plotSingleSimulationAngle</h2><p>Plot single rotation step of test or training dataset.</p><h2 id="5">plotSimulationDataset</h2><p>Plot simulation test or training dataset created by sensor array simulation.</p><h2 id="6">plotTDKCharField</h2><p>Plot characterization field and slice around 0, 5, 10 and  15 kA/m.</p><h2 id="7">plotTDKCharDataset</h2><p>Explore the basic dataset of characterized TDK TMR Sensor TAS2141 and plot the dataset content to visualize the base of dipol simulations.</p><h2 id="8">plotDipoleMagnet</h2><p>Plot dipole magnet and its approximation as spherical magnet from constants set in config file. Plot manget in rest position.</p><p>Created on October 24. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p><a href="html">html</a> &lt;!-- Hidden Clutter. Edited on Month DD. YYYY by Editor: Single line description. Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset. Edited on November 01. 2020 by Tobias Wulf: Add newConfigFigure. Edited on November 20. 2020 by Tobias Wulf: Remove newConfigFigure. Edited on November 20. 2020 by Tobias Wulf: Add plotDipoleMagnet. Edited on November 25. 2020 by Tobias Wulf: Add plotSimulationDataset. Edited on November 28. 2020 by Tobias Wulf: Add plotSingleSimulationAngle. Edited on November 29. 2020 by Tobias Wulf: Add plotTDKCharField. Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset. Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats. Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.</p><pre class="codeinput"><span class="comment">% --&gt;</span>
-<span class="comment">% &lt;/html&gt;</span>
-<span class="comment">%</span>
-<span class="comment">%</span>
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>plotFunctions</h1><!--introduction--><p>Project related reusable plots for datasets and results.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">plotSimulationDatasetCircle</a></li><li><a href="#2">plotSimulationCosSinStats</a></li><li><a href="#3">plotSimulationSubset</a></li><li><a href="#4">plotSingleSimulationAngle</a></li><li><a href="#5">plotSimulationDataset</a></li><li><a href="#6">plotTDKCharField</a></li><li><a href="#7">plotTDKCharDataset</a></li><li><a href="#8">plotDipoleMagnet</a></li></ul></div><h2 id="1">plotSimulationDatasetCircle</h2><p>Plot circular path of Hx, Hy and Vcos, Vsin at each sensor array position. Normed to max overall array positions and normed to max at each array position.</p><h2 id="2">plotSimulationCosSinStats</h2><p>Statistical compare plot of Vcos and Vsin output voltages for each sensor array members.</p><h2 id="3">plotSimulationSubset</h2><p>Plot subset of angles and sensor array position from training or test dataset.</p><h2 id="4">plotSingleSimulationAngle</h2><p>Plot single rotation step of test or training dataset.</p><h2 id="5">plotSimulationDataset</h2><p>Plot simulation test or training dataset created by sensor array simulation.</p><h2 id="6">plotTDKCharField</h2><p>Plot characterization field and slice around 0, 5, 10 and  15 kA/m.</p><h2 id="7">plotTDKCharDataset</h2><p>Explore the basic dataset of characterized TDK TMR Sensor TAS2141 and plot the dataset content to visualize the base of dipol simulations.</p><h2 id="8">plotDipoleMagnet</h2><p>Plot dipole magnet and its approximation as spherical magnet from constants set in config file. Plot manget in rest position.</p><p>Created on October 24. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+Edited on October 26. 2020 by Tobias Wulf: Add plotTDKCharDataset.
+Edited on November 01. 2020 by Tobias Wulf: Add newConfigFigure.
+Edited on November 20. 2020 by Tobias Wulf: Remove newConfigFigure.
+Edited on November 20. 2020 by Tobias Wulf: Add plotDipoleMagnet.
+Edited on November 25. 2020 by Tobias Wulf: Add plotSimulationDataset.
+Edited on November 28. 2020 by Tobias Wulf: Add plotSingleSimulationAngle.
+Edited on November 29. 2020 by Tobias Wulf: Add plotTDKCharField.
+Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset.
+Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats.
+Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
+-->
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% plotFunctions
 % Project related reusable plots for datasets and results. 
@@ -131,7 +142,6 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset.
 % Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats.
 % Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
-
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %

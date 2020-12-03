@@ -56,7 +56,6 @@
 % Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset.
 % Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats.
 % Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
-
 % -->
 % </html>
 %
