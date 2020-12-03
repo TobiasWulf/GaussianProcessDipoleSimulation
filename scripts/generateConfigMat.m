@@ -24,6 +24,7 @@
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on November 09. 2020 by Tobias Wulf: Save PathVariables as struct.
 % Edited on November 09. 2020 by Tobias Wulf: Add Options for dipole simulation with square sensor array.
+% Edited on December 03. 2020 by Tobias Wulf: Add path and option for KMZ60.
 % -->
 % </html>
 %
@@ -66,6 +67,10 @@ PathVariables.dataPath = fullfile(PathVariables.rootPath, 'data');
 % path to TDK TAS2141 TMR angular sensor characterization dataset
 PathVariables.tdkDatasetPath = fullfile(PathVariables.dataPath, ... 
     'TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat');
+
+% path to TDK TAS2141 TMR angular sensor characterization dataset
+PathVariables.kmz60DatasetPath = fullfile(PathVariables.dataPath, ... 
+    'NXP_KMZ60_Characterization_2020-12-03_16-53-16-721.mat');
 
 % path to config file dataset
 PathVariables.configPath = fullfile(PathVariables.dataPath, 'config.mat');
@@ -241,7 +246,12 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 720;
+
+% Charcterization datset to use in simulation. Current available datasets are
+% TDK - for characterization dataset of TDK TAS2141 TMR sensor
+% KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor
+TrainingOptions.BaseReference = 'TDK';
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the
@@ -298,6 +308,11 @@ TestOptions.phaseIndex = 0;
 % relatead to the resolution or fast generate but wrong number to 0 to
 % generate full scale rotation. Fix parameter.
 TestOptions.nAngles = 720;
+
+% Charcterization datset to use in simulation. Current available datasets are
+% TDK - for characterization dataset of TDK TAS2141 TMR sensor
+% KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor
+TestOptions.BaseReference = 'KMZ60';
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the

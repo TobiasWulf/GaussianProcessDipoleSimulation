@@ -95,6 +95,7 @@
 % * phaseIndex - double, start phase of rotation as index of full scale rotation
 %   angles with angleRes
 % * nAngles - double, number of rotation angles in datasets
+% * BaseReference - char, identifier which characterization dataset was loaded
 % * BridgeReference - char, identifier which reference from characteriazation
 %   dataset was used to generate cosinus and sinus voltages
 %
@@ -166,6 +167,7 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on December 03. 2020 by Tobias Wulf: Add UseOption field BaseReference.
 % -->
 % </html>
 %

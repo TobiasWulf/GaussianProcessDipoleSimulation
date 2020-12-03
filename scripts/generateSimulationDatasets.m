@@ -26,6 +26,7 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on December 02. 2020 by Tobias Wulf: Add
 % -->
 % </html>
 %
@@ -40,7 +41,24 @@ try
     load('config.mat', 'GeneralOptions', 'PathVariables', 'SensorArrayOptions', ...
         'DipoleOptions', 'TrainingOptions', 'TestOptions');
     disp('Load characterization dataset ...');
-    TDK = load(PathVariables.tdkDatasetPath);
+    switch TrainingOptions.BaseReference
+        case 'TDK'
+            TrainingCharDataset = load(PathVariables.tdkDatasetPath);
+        case 'KMZ60'
+            TrainingCharDataset = load(PathVariables.kmz60DatasetPath);
+        otherwise
+            error('Unknow characterization dataset in config.');
+    end
+    
+    switch TestOptions.BaseReference
+        case 'TDK'
+            TestCharDataset = load(PathVariables.tdkDatasetPath);
+        case 'KMZ60'
+            TestCharDataset = load(PathVariables.kmz60DatasetPath);
+        otherwise
+            error('Unknow characterization dataset in config.');
+    end
+    
 catch ME
     rethrow(ME)
 end
@@ -50,11 +68,11 @@ end
 % Generate training dataset from configuration and characterization dataset.
 disp('Generate training datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TrainingOptions, TDK)
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
 
 
 %% Generate Test Datasets
 % Generate test dataset from configuration and characterization dataset.
 disp('Generate test datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TestOptions, TDK)
+    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)
