@@ -153,11 +153,11 @@ SensorArrayOptions.dimension = 8;
 SensorArrayOptions.edge = 2;
 
 % Sensor array simulated supply voltage in volts. Fix parameter.
-SensorArrayOptions.Vcc = 3.3;
+SensorArrayOptions.Vcc = 5;
 
 % Sensor array simulated offset voltage for bridge outputs in volts. Fix
 % paramter.
-SensorArrayOptions.Voff = 1.65;
+SensorArrayOptions.Voff = 2.5;
 
 % Senor array voltage norm factor to recalculate norm bridge outputs to
 % given supply voltage and offset voltage, current normin is mV/V which
@@ -283,7 +283,7 @@ TestOptions.useCase = 'Test';
 % Loop parameter.
 TestOptions.xPos = [0,];
 TestOptions.yPos = [0,];
-TestOptions.zPos = [7,];
+TestOptions.zPos = [4.5,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;

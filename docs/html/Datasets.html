@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Datasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-03"><meta name="DC.source" content="Datasets.m"><style type="text/css">
+      --><title>Datasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-05"><meta name="DC.source" content="Datasets.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,11 +67,12 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Datasets</h1><!--introduction--><p>Datasets are an appreciated way to save and reach done work and reuse it in progress. The easiest way to build and to use propper datasets in matlab are mat-files. They are easy to load and can be build by an script or function it just needs to save the variables from workspace. So latery save datasets can be used for futher calculations or to load certain configuration in to workspace and to solve task in a unified way.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">TDK_TAS2141_Characterization_2019-07-24.mat</a></li><li><a href="#2">config.mat</a></li><li><a href="#3">Training and Test Datasets</a></li></ul></div><h2 id="1">TDK_TAS2141_Characterization_2019-07-24.mat</h2><p>The characterization dataset of the TDK TMR angular sensor as base dataset for sensor array dipol simulation. The dataset contains information about the stimulus wich was used for characterization, the magnetic resolustion or the sensor bridge outputs for Hx and Hy fields and bridge outputs corresponding to stimulus amplitudes in Hx and Hy direction.</p><h2 id="2">config.mat</h2><p>Configuration dataset to control the main program from centralized config file. Includes any kind of configuration and parameters to load in function or script workspaces.</p><h2 id="3">Training and Test Datasets</h2><p>Sensor array simulation datasets for training and test purpose for angle prediction via gaussian processes.</p><p>Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>Datasets</h1><!--introduction--><p>Datasets are an appreciated way to save and reach done work and reuse it in progress. The easiest way to build and to use propper datasets in matlab are mat-files. They are easy to load and can be build by an script or function it just needs to save the variables from workspace. So latery save datasets can be used for futher calculations or to load certain configuration in to workspace and to solve task in a unified way.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">TDK TAS2141 Characterization</a></li><li><a href="#2">NXP KMZ60 Characterization</a></li><li><a href="#3">Config Mat</a></li><li><a href="#4">Training and Test Datasets</a></li></ul></div><h2 id="1">TDK TAS2141 Characterization</h2><p>The characterization dataset of the TDK TMR angular sensor as base dataset for sensor array dipol simulation. The dataset contains information about the stimulus wich was used for characterization, the magnetic resolustion or the sensor bridge outputs for Hx and Hy fields and bridge outputs corresponding to stimulus amplitudes in Hx and Hy direction.</p><h2 id="2">NXP KMZ60 Characterization</h2><p>The characterization dataset of the NXP AMR angular sensor is second characterization dataset which was aquirred in the same way as the TDK dataset. The dataset is integrated in the simulation software after finish for TDK and comes along with option choose between both dataset. Bridge gain is introduced to handle internal amplification of bridge outputs.</p><h2 id="3">Config Mat</h2><p>Configuration dataset to control the main program from centralized config file. Includes any kind of configuration and parameters to load in function or script workspaces.</p><h2 id="4">Training and Test Datasets</h2><p>Sensor array simulation datasets for training and test purpose for angle prediction via gaussian processes.</p><p>Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
+Edited on December 05. 2020 by Tobias Wulf: Add NXP KMZ60 characterization.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -84,7 +85,7 @@ Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
 % workspace and to solve task in a unified way.
 %
 %
-%% TDK_TAS2141_Characterization_2019-07-24.mat
+%% TDK TAS2141 Characterization
 % The characterization dataset of the TDK TMR angular sensor as base dataset for
 % sensor array dipol simulation. The dataset contains information about the
 % stimulus wich was used for characterization, the magnetic resolustion or the
@@ -92,7 +93,15 @@ Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
 % stimulus amplitudes in Hx and Hy direction.
 %
 %
-%% config.mat
+%% NXP KMZ60 Characterization
+% The characterization dataset of the NXP AMR angular sensor is second
+% characterization dataset which was aquirred in the same way as the TDK
+% dataset. The dataset is integrated in the simulation software after finish for
+% TDK and comes along with option choose between both dataset. Bridge gain is
+% introduced to handle internal amplification of bridge outputs.
+%
+%
+%% Config Mat
 % Configuration dataset to control the main program from centralized config
 % file. Includes any kind of configuration and parameters to load in function or
 % script workspaces.
@@ -110,6 +119,7 @@ Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
+% Edited on December 05. 2020 by Tobias Wulf: Add NXP KMZ60 characterization.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %

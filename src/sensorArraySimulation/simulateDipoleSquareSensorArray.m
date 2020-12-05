@@ -85,6 +85,7 @@
 % Edited on November 25. 2020 by Tobias Wulf: Using interp2 nearest.
 % Edited on November 25. 2020 by Tobias Wulf: Using new written src functions.
 % Edited on November 25. 2020 by Tobias Wulf: Loop over a set of positions.
+% Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to reference.
 % -->
 % </html>
 %
@@ -179,9 +180,10 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
         HyScale = CharData.Data.MagneticField.hy;
         % cosinus and sinus characterization images for corresponding field
         % amplitudes, load and norm to Vcc and Voff, references of
-        % simulation
-        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (Vcc / Vnorm) + Voff;
-        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (Vcc / Vnorm) + Voff;
+        % simulation, adjust reference to bridge gain for output volgates
+        gain = CharData.Info.SensorOutput.BridgeGain;
+        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
+        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
     catch ME
         rethrow(ME)
     end
@@ -248,6 +250,7 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     Data.HyScale = HyScale;
     Data.VcosRef = VcosRef;
     Data.VsinRef = VsinRef;
+    Data.Gain = gain;
     Data.r0 = r0;
     Data.m0 = m0;
     Data.H0norm = H0norm;

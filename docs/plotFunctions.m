@@ -2,6 +2,15 @@
 % Project related reusable plots for datasets and results. 
 %
 %
+%% plotKMZ60CharField
+% Plot NXP KMZ60 characterization field and slice around 0, 5, 10 and  15 kA/m.
+%
+%
+%% plotKMZ60CharDataset
+% Explore the basic dataset of characterized NXP AMR sensor KMZ60 and
+% plot the dataset content to visualize the base of dipol simulations.
+%
+%
 %% plotSimulationDatasetCircle
 % Plot circular path of Hx, Hy and Vcos, Vsin at each sensor array position.
 % Normed to max overall array positions and normed to max at each array
@@ -27,7 +36,7 @@
 %
 %
 %% plotTDKCharField
-% Plot characterization field and slice around 0, 5, 10 and  15 kA/m.
+% Plot TDK TAS2141 characterization field and slice around 0, 5, 10 and  15 kA/m.
 %
 %
 %% plotTDKCharDataset

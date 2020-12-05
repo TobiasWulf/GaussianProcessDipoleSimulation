@@ -26,7 +26,7 @@
 %% Requirements
 % * Other m-files: none
 % * Subfunctions: none
-% * MAT-files required: data/TDK_TAS2141_Characterization_2019-07-24.mat,
+% * MAT-files required: data/TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat,
 %   data/config.mat
 %
 %
@@ -116,6 +116,7 @@ function plotTDKCharDataset()
     % load characterization data
     Vcos = Data.SensorOutput.CosinusBridge;
     Vsin = Data.SensorOutput.SinusBridge;
+    gain = Info.SensorOutput.BridgeGain;
     
     % clear dataset all loaded
     clear Data Info;
@@ -444,7 +445,7 @@ function plotTDKCharDataset()
     % add colorbar and place it overall plots
     cb = colorbar;
     cb.Layout.Tile = 'east';
-    cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s', mV);
+    cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     
@@ -613,7 +614,7 @@ function plotTDKCharDataset()
     % add colorbar and place it overall plots
     cb = colorbar;
     cb.Layout.Tile = 'east';
-    cb.Label.String = sprintf('$V_{sin}(H_x, H_y)$ in %s', mV);
+    cb.Label.String = sprintf('$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     

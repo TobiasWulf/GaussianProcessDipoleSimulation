@@ -7,7 +7,7 @@
 % workspace and to solve task in a unified way.
 %
 %
-%% TDK_TAS2141_Characterization_2019-07-24.mat
+%% TDK TAS2141 Characterization
 % The characterization dataset of the TDK TMR angular sensor as base dataset for
 % sensor array dipol simulation. The dataset contains information about the
 % stimulus wich was used for characterization, the magnetic resolustion or the
@@ -15,7 +15,15 @@
 % stimulus amplitudes in Hx and Hy direction.
 %
 %
-%% config.mat
+%% NXP KMZ60 Characterization
+% The characterization dataset of the NXP AMR angular sensor is second
+% characterization dataset which was aquirred in the same way as the TDK
+% dataset. The dataset is integrated in the simulation software after finish for
+% TDK and comes along with option choose between both dataset. Bridge gain is
+% introduced to handle internal amplification of bridge outputs.
+%
+%
+%% Config Mat
 % Configuration dataset to control the main program from centralized config
 % file. Includes any kind of configuration and parameters to load in function or
 % script workspaces.
@@ -33,6 +41,7 @@
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on December 03. 2020 by Tobias Wulf: Add training and test datasets.
+% Edited on December 05. 2020 by Tobias Wulf: Add NXP KMZ60 characterization.
 % -->
 % </html>
 %

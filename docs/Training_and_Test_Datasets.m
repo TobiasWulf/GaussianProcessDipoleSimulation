@@ -118,6 +118,8 @@
 %   corresponding to HxScale and HyScale
 % * VsinRef - L x L double matrix of sinuns bridge characterization field
 %   corresponding to HxScale and HyScale
+% * Gain - double, scalar gain factor for bridge outputs (interanl
+%   amplification)
 % * r0 - 3 x 1 double vector of magnet rest position from magnet surface and
 %   respect to magnet magnet tilt, used in computation of H0norm to imprint a
 %   certain field strength on magnets H-field, respects sphere radius of magnet
@@ -168,6 +170,7 @@
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on December 03. 2020 by Tobias Wulf: Add UseOption field BaseReference.
+% Edited on December 05. 2020 by Tobias Wulf: Add Gain for reference voltages.
 % -->
 % </html>
 %

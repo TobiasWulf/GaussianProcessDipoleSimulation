@@ -26,7 +26,7 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
-% Edited on December 02. 2020 by Tobias Wulf: Add
+% Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to calc output voltages.
 % -->
 % </html>
 %

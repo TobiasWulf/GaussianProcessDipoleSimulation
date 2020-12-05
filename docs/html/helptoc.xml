@@ -43,6 +43,8 @@
                 <tocitem target="plotFunctions.html">plotFunctions
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset</tocitem>
                     <tocitem target="plotTDKCharField.html">plotTDKCharField</tocitem>
+                    <tocitem target="plotKMZ60CharDataset.html">plotKMZ60CharDataset</tocitem>
+                    <tocitem target="plotKMZ60CharField.html">plotKMZ60CharField</tocitem>
                     <tocitem target="plotDipoleMagnet.html">plotDipoleMagnet</tocitem>
                     <tocitem target="plotSimulationDataset.html">plotSimulationDataset</tocitem>
                     <tocitem target="plotSingleSimulationAngle.html">plotSingleSimulationAngle</tocitem>
@@ -54,6 +56,7 @@
         </tocitem>
         <tocitem target="Datasets.html">Datasets
             <tocitem target="TDK_TAS2141_Characterization.html">TDK TAS2141 Characterization</tocitem>
+            <tocitem target="NXP_KMZ60_Characterization.html">NXP KMZ60 Characterization</tocitem>
             <tocitem target="Config_Mat.html">Config Mat</tocitem>
             <tocitem target="Training_and_Test_Datasets.html">Training and Test Datasets</tocitem>
         </tocitem>

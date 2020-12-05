@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-03"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
+      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-05"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -88,6 +88,7 @@ Edited on November 25. 2020 by Tobias Wulf: New dataset format.
 Edited on November 25. 2020 by Tobias Wulf: Using interp2 nearest.
 Edited on November 25. 2020 by Tobias Wulf: Using new written src functions.
 Edited on November 25. 2020 by Tobias Wulf: Loop over a set of positions.
+Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to reference.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -178,6 +179,7 @@ Edited on November 25. 2020 by Tobias Wulf: Loop over a set of positions.
 % Edited on November 25. 2020 by Tobias Wulf: Using interp2 nearest.
 % Edited on November 25. 2020 by Tobias Wulf: Using new written src functions.
 % Edited on November 25. 2020 by Tobias Wulf: Loop over a set of positions.
+% Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to reference.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -272,9 +274,10 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
         HyScale = CharData.Data.MagneticField.hy;
         % cosinus and sinus characterization images for corresponding field
         % amplitudes, load and norm to Vcc and Voff, references of
-        % simulation
-        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (Vcc / Vnorm) + Voff;
-        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (Vcc / Vnorm) + Voff;
+        % simulation, adjust reference to bridge gain for output volgates
+        gain = CharData.Info.SensorOutput.BridgeGain;
+        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
+        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
     catch ME
         rethrow(ME)
     end
@@ -341,6 +344,7 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     Data.HyScale = HyScale;
     Data.VcosRef = VcosRef;
     Data.VsinRef = VsinRef;
+    Data.Gain = gain;
     Data.r0 = r0;
     Data.m0 = m0;
     Data.H0norm = H0norm;
