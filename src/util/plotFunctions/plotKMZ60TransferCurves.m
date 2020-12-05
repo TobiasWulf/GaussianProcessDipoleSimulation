@@ -1,16 +1,16 @@
-%% plotKMZ60CharField
-% Explore NXP KMZ60 characterization field.
+%% plotKMZ60TransferCurves
+% Plot NXP KMZ60 characterization field transfer curves.
 %
 %% Syntax
-%   plotKMZ60CharField()
+%   plotKMZ60TransferCurves()
 %
 %
 %% Description
-% *plotKMZ60CharField()* explore characterization field of KMZ60 sensor.
+% *plotKMZ60TransferCurves()* plot characterization field of KMZ 60 sensor.
 %
 %
 %% Examples
-%   plotKMZ60CharField();
+%   plotKMZ60TransferCurves();
 %
 %
 %% Input Arguments
@@ -29,7 +29,7 @@
 %
 %
 %% See Also
-% * <plotTDKCharField.html plotTDKCharField>
+% * <plotKMZ60CharField.html plotKMZ60CharField>
 %
 %
 % Created on December 05. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
@@ -41,7 +41,7 @@
 % -->
 % </html>
 %
-function plotKMZ60CharField()
+function plotKMZ60TransferCurves()
     try
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables');
@@ -89,7 +89,7 @@ function plotKMZ60CharField()
     
     % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fName = sprintf("kmz60_char_field_%s", field);
+    fName = sprintf("kmz60_transfer_curves_%s", field);
     fPath = fullfile(PathVariables.saveFiguresPath, fName);
     fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg', fName);
     fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps', fName);
@@ -97,13 +97,13 @@ function plotKMZ60CharField()
     
     % define slices and limits to plot %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    Hslice = [128 154 180 205]; % hit ca. 0, 5, 10, 15 kA/m
+    Hslice = 128; % hit ca. 0 kA/m
     Hlims = [-pl pl];
     mVpVlims = [-8 8];
     
     % create figure for plots %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fig = figure('Name', 'Char Field', ...
+    fig = figure('Name', 'Transfer Curves', ...
         'NumberTitle' , 'off', ...
         'WindowStyle', 'normal', ...
         'MenuBar', 'none', ...
@@ -122,7 +122,7 @@ function plotKMZ60CharField()
         'Padding', 'compact', ...
         'TileSpacing' , 'compact');
     
-    title(tdl, sprintf('Characterization Field: %s', field), ...
+    title(tdl, sprintf('Transfer Curves: %s', field), ...
         'FontWeight', 'normal', ...
         'FontSize', 18, ...
         'FontName', 'Times', ...
@@ -149,9 +149,7 @@ function plotKMZ60CharField()
     
     % plot lines for slice to investigate
     hold on;
-    for i = Hslice
-        yline(HyScale(i), 'k:', 'LineWidth', 2);
-    end
+    yline(HyScale(Hslice), 'k:', 'LineWidth', 3);
     hold off;
     
     xlabel(sprintf('$H_x$ in %s', kApm), ...
@@ -172,68 +170,9 @@ function plotKMZ60CharField()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    cb = colorbar;
-    cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
-    cb.Label.Interpreter = 'latex';
-    cb.Label.FontSize = 12;
-    
-    % cosinus bridge sclices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    nexttile(2);
-    % slices
-    p = plot(HxScale, Vcos(Hslice,:), 'LineWidth', 1.2);
-    
-    % plateau limits
-    if pl > 0
-        hold on;
-        xline(Hlims(1), 'k-.', 'LineWidth', 1.5);
-        xline(Hlims(2), 'k-.', 'LineWidth', 1.5);
-        hold off;
-
-        text(Hlims(1)-9.5, 4, ...
-            sprintf('$%.1f$ %s', Hlims(1), kApm), ...
-            'Color', 'k', ...
-            'FontSize', 12, ...
-            'FontName', 'Times', ...
-            'Interpreter', 'latex');
-
-        text(Hlims(2)+0.5, 4, ...
-            sprintf('$%.1f$ %s', Hlims(2), kApm), ...
-            'Color', 'k', ...
-            'FontSize', 12, ...
-            'FontName', 'Times', ...
-            'Interpreter', 'latex');
-    end
-    
-    legend(p, {'$H_y \approx 0$ kA/m', ...
-               '$H_y \approx 5$ kA/m', ...
-               '$H_y \approx 10$ kA/m', ...
-               '$H_y \approx 15$ kA/m'},...
-            'FontWeight', 'normal', ...
-            'FontSize', 9, ...
-            'FontName', 'Times', ...
-            'Interpreter', 'latex', ...
-            'Location', 'SouthEast');
-        
-    xlabel(sprintf('$H_x$ in %s', kApm), ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$V_{cos}(H_x,H_y)$ for $H_y = $ const.', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    grid on;  
-    ylim(mVpVlims);
-    xlim([Hmin Hmax])
-    
     % sinus bridge %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    nexttile(3);
+    nexttile(2);
     im = imagesc(HxScale, HyScale, Vsin);
     set(gca, 'YDir', 'normal');
     set(im, 'AlphaData', ~isnan(Vsin));    
@@ -243,9 +182,7 @@ function plotKMZ60CharField()
     
     % plot lines for slice to investigate
     hold on;
-    for i = Hslice
-        xline(HxScale(i), 'k:', 'LineWidth', 2);
-    end
+    xline(HxScale(Hslice), 'k:', 'LineWidth', 3);
     hold off;
     
     xlabel(sprintf('$H_x$ in %s', kApm), ...
@@ -266,16 +203,19 @@ function plotKMZ60CharField()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
+    % colorbar for both %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
     cb = colorbar;
-    cb.Label.String = sprintf('$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
+    cb.Label.String = sprintf('$V_{out}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 12;
     
-    % sinus bridge sclices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % cosinus bridge sclices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    nexttile(4);
+    nexttile([1 2]);
     % slices
-    p = plot(HxScale, Vsin(:,Hslice), 'LineWidth', 1.2);
+    p = plot(HxScale, Vcos(Hslice,:), HyScale, Vsin(:, Hslice)', 'LineWidth', 1.2);
     
     % plateau limits
     if pl > 0
@@ -284,7 +224,7 @@ function plotKMZ60CharField()
         xline(Hlims(2), 'k-.', 'LineWidth', 1.5);
         hold off;
 
-        text(Hlims(1)-9.5, 4, ...
+        text(Hlims(1)+0.5, 4, ...
             sprintf('$%.1f$ %s', Hlims(1), kApm), ...
             'Color', 'k', ...
             'FontSize', 12, ...
@@ -299,23 +239,27 @@ function plotKMZ60CharField()
             'Interpreter', 'latex');
     end
     
-    legend(p, {'$H_x \approx 0$ kA/m', ...
-               '$H_x \approx 5$ kA/m', ...
-               '$H_x \approx 10$ kA/m', ...
-               '$H_x \approx 15$ kA/m'},...
+    legend(p, {sprintf('$V_{cos}(H_x,H_y)$ $H_y \\approx 0$ %s', kApm), ...
+               sprintf('$V_{sin}(H_x,H_y)$ $H_x \\approx 0$ %s', kApm)},...
             'FontWeight', 'normal', ...
             'FontSize', 9, ...
             'FontName', 'Times', ...
             'Interpreter', 'latex', ...
             'Location', 'SouthEast');
-        
-    xlabel(sprintf('$H_y$ in %s', kApm), ...
+    
+    ylabel(sprintf('$V_{out}$ in %s', mV), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title('$V_{sin}(H_x,H_y)$ for $H_x = $ const.', ...
+    xlabel(sprintf('$H$ in %s', kApm), ...
+        'FontWeight', 'normal', ...
+        'FontSize', 12, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+    
+    title('$V_{out}(H_x,H_y)$, Cosinus and Sinus Transfer Curves', ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -324,7 +268,7 @@ function plotKMZ60CharField()
     grid on;  
     ylim(mVpVlims);
     xlim([Hmin Hmax])
-      
+    
     % save results of figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     yesno = input('Save? [y/n]: ', 's');

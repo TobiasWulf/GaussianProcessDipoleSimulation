@@ -43,8 +43,10 @@
                 <tocitem target="plotFunctions.html">plotFunctions
                     <tocitem target="plotTDKCharDataset.html">plotTDKCharDataset</tocitem>
                     <tocitem target="plotTDKCharField.html">plotTDKCharField</tocitem>
+                    <tocitem target="plotTDKTransferCurves.html">plotTDKTransferCurves</tocitem>
                     <tocitem target="plotKMZ60CharDataset.html">plotKMZ60CharDataset</tocitem>
                     <tocitem target="plotKMZ60CharField.html">plotKMZ60CharField</tocitem>
+                    <tocitem target="plotKMZ60TransferCurves.html">plotKMZ60TransferCurves</tocitem>
                     <tocitem target="plotDipoleMagnet.html">plotDipoleMagnet</tocitem>
                     <tocitem target="plotSimulationDataset.html">plotSimulationDataset</tocitem>
                     <tocitem target="plotSingleSimulationAngle.html">plotSingleSimulationAngle</tocitem>

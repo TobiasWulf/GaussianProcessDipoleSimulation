@@ -15,6 +15,10 @@
 % generates two sinoid output related on current angle position between 0° and
 % 180° or 180° and 360° of stimulus magnetic field.*
 %
+% <html>
+% <img src="images/svg/kmz60_transfer_curves_Rise.svg" height=650>
+% </html>
+%
 %
 %% See Also
 % * <https://ieeexplore.ieee.org/document/8706125 Two-Dimensional Characterization and Simplified Simulation Procedure for Tunnel Magnetoresistive Angle Sensors>

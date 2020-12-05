@@ -2,6 +2,14 @@
 % Project related reusable plots for datasets and results. 
 %
 %
+%% plotTDKTransferCurves
+% Plot transfer curves for bridge output voltages of TDK TAS2141.
+%
+%
+%% plotKMZ60TransferCurves
+% Plot transfer curves for bridge output voltages of NXP KMZ60.
+%
+%
 %% plotKMZ60CharField
 % Plot NXP KMZ60 characterization field and slice around 0, 5, 10 and  15 kA/m.
 %
@@ -65,6 +73,7 @@
 % Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset.
 % Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats.
 % Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
+% Edited on December 05. 2020 by Tobias Wulf: Add KMZ60 plots and Transfer Curves.
 % -->
 % </html>
 %

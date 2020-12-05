@@ -60,6 +60,15 @@
 % Matlab integrated documentation in html files. A full description of generated
 % datasets is included too.
 %
+% *December 05. 2020*
+%
+% Tobias Wulf integrated a second characterization dataset for NXP KMZ60 into
+% the sensor array simulation software. The dataset was manually modified in the
+% same way as the TDK TAS2141 dataset. The KMZ60 raw data was provided from
+% Thorben Schüthe. The simulation software was adjusted to run with both
+% datasets now. Additional plots for transfer curves are included for both and
+% same plots for characterization view of KMZ60 as for TAS2141 too.
+%
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %

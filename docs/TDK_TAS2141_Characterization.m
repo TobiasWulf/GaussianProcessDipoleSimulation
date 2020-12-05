@@ -17,6 +17,10 @@
 % generates one sinoid output related on current angle position of stimulus
 % magnetic field.*
 %
+% <html>
+% <img src="images/svg/tdk_transfer_curves_Rise.svg" height=650>
+% </html>
+%
 %
 %% See Also
 % * <https://ieeexplore.ieee.org/document/8706125 Two-Dimensional Characterization and Simplified Simulation Procedure for Tunnel Magnetoresistive Angle Sensors>

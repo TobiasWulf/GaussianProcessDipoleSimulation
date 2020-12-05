@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>plotFunctions</h1><!--introduction--><p>Project related reusable plots for datasets and results.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">plotKMZ60CharField</a></li><li><a href="#2">plotKMZ60CharDataset</a></li><li><a href="#3">plotSimulationDatasetCircle</a></li><li><a href="#4">plotSimulationCosSinStats</a></li><li><a href="#5">plotSimulationSubset</a></li><li><a href="#6">plotSingleSimulationAngle</a></li><li><a href="#7">plotSimulationDataset</a></li><li><a href="#8">plotTDKCharField</a></li><li><a href="#9">plotTDKCharDataset</a></li><li><a href="#10">plotDipoleMagnet</a></li></ul></div><h2 id="1">plotKMZ60CharField</h2><p>Plot NXP KMZ60 characterization field and slice around 0, 5, 10 and  15 kA/m.</p><h2 id="2">plotKMZ60CharDataset</h2><p>Explore the basic dataset of characterized NXP AMR sensor KMZ60 and plot the dataset content to visualize the base of dipol simulations.</p><h2 id="3">plotSimulationDatasetCircle</h2><p>Plot circular path of Hx, Hy and Vcos, Vsin at each sensor array position. Normed to max overall array positions and normed to max at each array position.</p><h2 id="4">plotSimulationCosSinStats</h2><p>Statistical compare plot of Vcos and Vsin output voltages for each sensor array members.</p><h2 id="5">plotSimulationSubset</h2><p>Plot subset of angles and sensor array position from training or test dataset.</p><h2 id="6">plotSingleSimulationAngle</h2><p>Plot single rotation step of test or training dataset.</p><h2 id="7">plotSimulationDataset</h2><p>Plot simulation test or training dataset created by sensor array simulation.</p><h2 id="8">plotTDKCharField</h2><p>Plot TDK TAS2141 characterization field and slice around 0, 5, 10 and  15 kA/m.</p><h2 id="9">plotTDKCharDataset</h2><p>Explore the basic dataset of characterized TDK TMR Sensor TAS2141 and plot the dataset content to visualize the base of dipol simulations.</p><h2 id="10">plotDipoleMagnet</h2><p>Plot dipole magnet and its approximation as spherical magnet from constants set in config file. Plot manget in rest position.</p><p>Created on October 24. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>plotFunctions</h1><!--introduction--><p>Project related reusable plots for datasets and results.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">plotTDKTransferCurves</a></li><li><a href="#2">plotKMZ60TransferCurves</a></li><li><a href="#3">plotKMZ60CharField</a></li><li><a href="#4">plotKMZ60CharDataset</a></li><li><a href="#5">plotSimulationDatasetCircle</a></li><li><a href="#6">plotSimulationCosSinStats</a></li><li><a href="#7">plotSimulationSubset</a></li><li><a href="#8">plotSingleSimulationAngle</a></li><li><a href="#9">plotSimulationDataset</a></li><li><a href="#10">plotTDKCharField</a></li><li><a href="#11">plotTDKCharDataset</a></li><li><a href="#12">plotDipoleMagnet</a></li></ul></div><h2 id="1">plotTDKTransferCurves</h2><p>Plot transfer curves for bridge output voltages of TDK TAS2141.</p><h2 id="2">plotKMZ60TransferCurves</h2><p>Plot transfer curves for bridge output voltages of NXP KMZ60.</p><h2 id="3">plotKMZ60CharField</h2><p>Plot NXP KMZ60 characterization field and slice around 0, 5, 10 and  15 kA/m.</p><h2 id="4">plotKMZ60CharDataset</h2><p>Explore the basic dataset of characterized NXP AMR sensor KMZ60 and plot the dataset content to visualize the base of dipol simulations.</p><h2 id="5">plotSimulationDatasetCircle</h2><p>Plot circular path of Hx, Hy and Vcos, Vsin at each sensor array position. Normed to max overall array positions and normed to max at each array position.</p><h2 id="6">plotSimulationCosSinStats</h2><p>Statistical compare plot of Vcos and Vsin output voltages for each sensor array members.</p><h2 id="7">plotSimulationSubset</h2><p>Plot subset of angles and sensor array position from training or test dataset.</p><h2 id="8">plotSingleSimulationAngle</h2><p>Plot single rotation step of test or training dataset.</p><h2 id="9">plotSimulationDataset</h2><p>Plot simulation test or training dataset created by sensor array simulation.</p><h2 id="10">plotTDKCharField</h2><p>Plot TDK TAS2141 characterization field and slice around 0, 5, 10 and  15 kA/m.</p><h2 id="11">plotTDKCharDataset</h2><p>Explore the basic dataset of characterized TDK TMR Sensor TAS2141 and plot the dataset content to visualize the base of dipol simulations.</p><h2 id="12">plotDipoleMagnet</h2><p>Plot dipole magnet and its approximation as spherical magnet from constants set in config file. Plot manget in rest position.</p><p>Created on October 24. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -81,11 +81,20 @@ Edited on November 29. 2020 by Tobias Wulf: Add plotTDKCharField.
 Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset.
 Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats.
 Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
+Edited on December 05. 2020 by Tobias Wulf: Add KMZ60 plots and Transfer Curves.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% plotFunctions
 % Project related reusable plots for datasets and results. 
+%
+%
+%% plotTDKTransferCurves
+% Plot transfer curves for bridge output voltages of TDK TAS2141.
+%
+%
+%% plotKMZ60TransferCurves
+% Plot transfer curves for bridge output voltages of NXP KMZ60.
 %
 %
 %% plotKMZ60CharField
@@ -151,6 +160,7 @@ Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
 % Edited on November 29. 2020 by Tobias Wulf: Add plotSimulationSubset.
 % Edited on December 01. 2020 by Tobias Wulf: Add plotSimulationCosSinStats.
 % Edited on December 02. 2020 by Tobias Wulf: Add plotSimulationCircle.
+% Edited on December 05. 2020 by Tobias Wulf: Add KMZ60 plots and Transfer Curves.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
