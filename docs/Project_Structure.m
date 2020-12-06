@@ -21,7 +21,7 @@
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   tree -dhn GaussianProcessDipolSimulation -o GaussianProcessDipolSimulation/docs/html/Directory_Tree.txt -I "project|Project_*"
+%   tree -dhn GaussianProcessDipoleSimulation -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I "project|Project_*"
 %
 %% Directory Tasks
 %
@@ -102,6 +102,17 @@
 %     <td>./docs/html/images</td>
 %     <td>Contains all needed image files like png-files which are used in the
 %     documentation.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/latex</td>
+%     <td>Documentation directory which LaTeX documentation of the project
+%     including subfolders for Thesis of each project participant.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/latex/BA_Thesis_Tobias_Wulf</td>
+%     <td>Bachelor Thesis directory of Tobias Wulf.
 %     </td>
 %   </tr>
 %   <tr>

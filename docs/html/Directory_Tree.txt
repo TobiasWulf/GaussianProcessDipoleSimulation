@@ -1,12 +1,18 @@
-GaussianProcessDipolSimulation
+GaussianProcessDipoleSimulation
 ├── [4.0K]  data
 │   ├── [4.0K]  test
 │   └── [4.0K]  training
 ├── [4.0K]  docs
-│   └── [4.0K]  html
-│       ├── [4.0K]  figures
-│       ├── [4.0K]  helpsearch-v3
-│       └── [4.0K]  images
+│   ├── [ 12K]  html
+│   │   ├── [4.0K]  figures
+│   │   ├── [4.0K]  helpsearch-v3
+│   │   └── [4.0K]  images
+│   │       ├── [4.0K]  avi
+│   │       ├── [4.0K]  eps
+│   │       ├── [4.0K]  pdf
+│   │       └── [4.0K]  svg
+│   └── [4.0K]  latex
+│       └── [4.0K]  BA_Thesis_Tobias_Wulf
 ├── [4.0K]  resources
 ├── [4.0K]  scripts
 ├── [4.0K]  src
@@ -16,4 +22,4 @@ GaussianProcessDipolSimulation
 ├── [4.0K]  temp
 └── [4.0K]  tests
 
-16 directories
+22 directories
