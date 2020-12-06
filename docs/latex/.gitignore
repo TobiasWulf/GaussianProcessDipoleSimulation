@@ -13,6 +13,8 @@
 .*.lb
 *.ist
 *.slo
+*.slg
+*.sls
 
 
 ## Intermediate documents:
