@@ -1,3 +1,6 @@
+% @author Tobias Wulf
+% thesis root document
+
 \documentclass[
   a4paper,            % DIN A4
   DIV=10,             % Schriftgröße und Satzspiegel
@@ -8,11 +11,14 @@
   bibtotoc,           % Literaturverzeichnis im Inhaltsverzeichnis
   listof=totoc        % Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis
 ]{scrreprt}
-\usepackage{style/thesisstyle}
-
-
+\usepackage{./style/thesisstyle}
+  
 \makeglossaries           % create all glossary entries (remember: run makeglossaries manually)
-%\loadglsentries{thesisglossaries.tex}  % load acronym, symbol and glossarie entries
+\makeindex
+\loadglsentries[main]{./glossaries/glossary}  % load acronym, symbol and glossarie entries
+\loadglsentries[\acronymtype]{./glossaries/acronyms}
+\loadglsentries[symbols]{./glossaries/symbols}
+
 
 \sisetup{locale = DE}     % siunitx locale setup
 %\DeclareSIUnit \fps{fps}  % a custom unit (usage: \SI{24}{\fps})
@@ -26,15 +32,15 @@
 \ICoverPage
 
 % PDF Metadata
-\input{style/metadata}
+\input{./style/metadata}
 
 % Titlepage is page one even if the number is not shown.
 \pagenumbering{roman}
 % Title page here
-\input{style/titlepage}
+\input{./style/titlepage}
 
 % Abstract page here
-\input{style/abstractpage}
+\input{./style/abstractpage}
 
 % Table of contents here
 \tableofcontents
@@ -55,21 +61,24 @@
 %\lstlistoflistings  % requires package listings, needs to uncommenting of usepackage
 
 % path to the chapters folder is set to find the images used there
-\graphicspath{ {./chapters/} }
+%\graphicspath{ {./chapters/} }
 
 % Chapters
 \clearpage
 \pagenumbering{arabic}
 %\input{chapters/Speicherbedarf}
 % Add additional chapters here
+\gls{gl:haw}
+\gls{ac:haw}
+\gls{sy:ohm}
 
-\nocite{*}
+%\nocite{*}
 %\bibliographystyle{plain}
 %\bibliographystyle{dinat}
 %\bibliography{literature}
 
 % Appendix
-\appendix
+%\appendix
 %\input{appendix/example_appendix}
 
 \IGlossary

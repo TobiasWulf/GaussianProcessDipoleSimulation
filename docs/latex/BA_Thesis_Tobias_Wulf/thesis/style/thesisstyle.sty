@@ -5,7 +5,7 @@
 % Maintainer:
 % Thomas Lehmann <t.l@haw-hamburg.de>
 %
-\ProvidesPackage{style/thesisstyle}
+\ProvidesPackage{thesisstyle}
 
 \RequirePackage[utf8]{inputenc}         % Universal encoding
 %\RequirePackage[ansinew]{inputenc}      % Windows encoding
@@ -58,14 +58,16 @@ urlcolor=blue
 nonumberlist,                       % no page numbers
 acronym,                            % acronyms
 symbols,                            % and symbols
+xindy,
 toc
 ]{glossaries}                       % for glossary, ...
+\RequirePackage[xindy]{imakeidx}
 
 \RequirePackage{pdfpages}           % for 2018 HAW Corporate Design cover page
 \RequirePackage{pdflscape}          % landscape pages in document
 
-\RequirePackage{style/configurationcommands}
-\RequirePackage{style/convenience}
+\RequirePackage{./style/configurationcommands}
+\RequirePackage{./style/convenience}
 
 % orphans and widows are typographically bad
 \clubpenalty=10000
