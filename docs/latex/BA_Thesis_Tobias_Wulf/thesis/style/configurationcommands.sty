@@ -36,10 +36,10 @@
 %% coverpage
 \newcommand{\Cover}[1]
 {
-  \ifthenelse{\equal{#1}{Std2018}} {\newcommand{\ICoverPage}{\input{../style/coverpage}}}{}
+  \ifthenelse{\equal{#1}{Std2018}} {\newcommand{\ICoverPage}{\input{style/coverpage}}}{}
   \ifthenelse{\equal{#1}{CD2017}} {
-     \newcommand{\ICoverPage}{\input{../style/coverpageCD2017}}
-     \newcommand{\ICDLogo}{\includegraphics[scale=0.5]{../style/HAW_Marke_schwarz}}
+     \newcommand{\ICoverPage}{\input{style/coverpageCD2017}}
+     \newcommand{\ICDLogo}{\includegraphics[scale=0.5]{style/HAW_Marke_schwarz}}
      \newcommand{\ICDBottomLogo}{
         % Bottom Logo
         \begin{textblock*}{\textwidth}(140mm,249mm)
@@ -65,7 +65,7 @@
         \end{textblock*}
         }} {}
   \ifthenelse{\equal{#1}{CD2017NoLogo}} {
-    \newcommand{\ICoverPage}{\input{../style/coverpageCD2017}}
+    \newcommand{\ICoverPage}{\input{style/coverpageCD2017}}
     \newcommand{\ICDLogo}{}
     \newcommand{\ICDBottomLogo}{}} {}
 }
@@ -117,11 +117,11 @@
 
 \newcommand{\department}[1]
 {
-  \ifthenelse{\equal{#1}{I}}{\newcommand{\IthesisDepartmentFull}{Department Informatik}\newcommand{\IthesisDepartmentFullEN}{Department Computer Science}\newcommand{\Istatement}{\input{../style/statement_i}}}{}
+  \ifthenelse{\equal{#1}{I}}{\newcommand{\IthesisDepartmentFull}{Department Informatik}\newcommand{\IthesisDepartmentFullEN}{Department Computer Science}\newcommand{\Istatement}{\input{style/statement_i}}}{}
   \ifthenelse{\equal{#1}{IE}}{\newcommand{\IthesisDepartmentFull}{Department Informations- und Elektrotechnik}\newcommand{\IthesisDepartmentFullEN}{Department
-      of Information and Electrical Engineering}\newcommand{\Istatement}{\input{../style/statement_ie}}}{}
+      of Information and Electrical Engineering}\newcommand{\Istatement}{\input{style/statement_ie}}}{}
   \ifthenelse{\equal{#1}{FF}}{\newcommand{\IthesisDepartmentFull}{Department Fahrzeugtechnik und Flugzeugbau}\newcommand{\IthesisDepartmentFullEN}{Department of Automotive and \\
-Aeronautical Engineering}\newcommand{\Istatement}{\input{../style/statement_fuf}}}{}
+Aeronautical Engineering}\newcommand{\Istatement}{\input{style/statement_fuf}}}{}
 }
 
 \newcommand{\studycourse}[1]
