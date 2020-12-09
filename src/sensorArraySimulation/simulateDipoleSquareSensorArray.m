@@ -145,10 +145,10 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
         switch useCase
             case 'Training'
                 fPath = PathVariables.trainingDataPath;
-                fName = 'Training_%s.mat';
+                fNameFmt = 'Training_%s.mat';
             case 'Test'
                 fPath = PathVariables.testDataPath;
-                fName = 'Test_%s.mat';
+                fNameFmt = 'Test_%s.mat';
             otherwise
                 error('Unknown use case: %s', UseOptions.useCase);
         end
@@ -308,7 +308,7 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
                 Data.Vcos = Vcos;
                 Data.Vsin = Vsin;
                 % save results to file 
-                fName = sprintf(fName, datestr(now(), dfStr));
+                fName = sprintf(fNameFmt, datestr(now, dfStr));
                 Info.filePath = fullfile(fPath, fName);
                 disp(Info.filePath)
                 save(Info.filePath, 'Info', 'Data', '-v7.3', '-nocompression');
