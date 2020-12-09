@@ -142,12 +142,15 @@
 % * <computeDipoleH0Norm.html computeDipoleH0Norm>
 %
 %
-% Created on November 11. 2020 by Tobias Wulf. Copyright Tobias Wulf.
+% Created on June 11. 2019 by Thorben Schüthe. Copyright Thorben Schüthe 2019.
 %
 % <html>
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on November 11. 2020 by Tobias Wulf: Rewritten, compute as vector in xyz.
+% Edited on November 11. 2020 by Tobias Wulf: Compute with unit vector.
+% Edited on November 11. 2020 by Tobias Wulf: Add norming on rest position.
 % -->
 % </html>
 %

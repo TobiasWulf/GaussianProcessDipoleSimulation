@@ -41,6 +41,11 @@
 % elements to publishing process.
 %
 %
+%% Simulation Workflow
+% Best practice simulation workflow for sensor array simulations to generate
+% training and test datasets.
+%
+%
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
 % <html>

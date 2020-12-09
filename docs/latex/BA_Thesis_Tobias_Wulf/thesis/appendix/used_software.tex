@@ -1,28 +1,38 @@
 % !TEX root = ../thesis.tex
-% appendix example chapter
+% appendix used software
 % @author Tobias Wulf
 %
 \chapter{Genutzte Software}
 
-%\gls{ac:cpu}
-%\gls{ac:ram}
-%\gls{ac:hdd}
-%\gls{ac:os}
-
+Für die Nachvollziehbarkeit der getätigten Entwicklungsarbeiten und die Erstellung der Bachelor-Thesis, ist das dafür jeweilige \gls{ac:os}
+und die verwendete \gls{ac:sw} tabellarisch aufgeführt. Es finden sich genutzte Versionen der SW und angaben zu Minimalanforderung für deren
+Nutzung. Die Anforderungen sind für \gls{ac:cpu}, \gls{ac:ram}, \gls{ac:hdd} näher aufgeschlüsselt. Die Programmierarbeiten mit Matlab sind
+jeweils auf einem Windows und Linux geschrieben bzw. getestet worden.
 
 \begin{table}[!htbp]
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{@{}lllll@{}}
 \toprule
-\textbf{Software}     & \textbf{Verwendungszweck/ Typ}  & \textbf{Min. Anforderung}    & textbf{Version} & \textbf{Erscheinungstag} \\ \midrule
-Ubunut Budgie         & Linux-Betriebssystem            & 2 GHz Dual-Core-CPU          & 18.04 LTS       & 26.04.2018               \\
-                      & (Laptop OS)                     & 4 GB RAM                     &                 &                          \\
-                      &                                 & 25 GB freier HDD-Speicher    &                 &                          \\ \hline
-Windows 10 Enterprise & Windows-Betriebssystem          & 1 GHz Core-CPU               & 1909            & 12.11.2020               \\
-                      & (Laptop OS)                     & 1 GB RAM                     &                 &                          \\
-                      &                                 & 32 GB freier HDD-Speicher    &                 &                          \\
-                      
+\textbf{Software}     & \textbf{Verwendungszweck (Typ)} & \textbf{Min.-Anforderung}    & \textbf{Version} & \textbf{Erscheinungstag} \\ \midrule
+Ubunut Budgie         & Linux-Betriebssystem            & 2 GHz Dual-Core-CPU          & 18.04 LTS        & 26.04.2018               \\
+                      & (Laptop OS)                     & 4 GB RAM                     &                  &                          \\
+                      &                                 & 25 GB freier HDD-Speicher    &                  &                          \\ \hline
+Windows 10 Enterprise & Windows-Betriebssystem          & 1 GHz Core-CPU               & 1909             & 12.11.2020               \\
+                      & (Laptop OS)                     & 1 GB RAM                     &                  &                          \\
+                      &                                 & 32 GB freier HDD-Speicher    &                  &                          \\ \hline
+Matlab                & Simulationssoftware             & Intel/ AMD x86-64 CPU        & 2020b            & 17.09.2020               \\
+                      & (Multi-Paradigmen Programmier-  & 4 GB RAM                     &                  &                          \\
+                      & Sprache, IDE)                   & 3.5 GB freier HDD-Speicher   &                  &                          \\ \hline
+Inkscape              & Vektorgrafikzeichenprogramm     & 1 GHz CPU                    & 0.92.3           & 11.03.2018               \\
+                      & (Grafikaufbereitung)            & 256 MB RAM                   &                  &                          \\
+                      &                                 & 302 MB freier HDD-Speicher   &                  &                          \\ \hline
+Texstudio             & Textbearbeitung f. LaTeX        & -                            & 2.12.6           & 25.07.2020               \\
+                      & Dokumente (Editor)              & -                            &                  &                          \\ 
+                      &                                 & 24.7 MB freier HDD Speicher  &                  &                          \\
 \bottomrule		
 \end{tabular}}
+\caption[Genutzte Software]{Genutzte Software zu Erstellung der Thesis und Dokumentation der Ergebnisse, Entwicklungsumgebung für die
+geschriebene Simulationssoftware zu Generierung und Auswertung der Sensor-Array-Simulation.}
+\label{tab:sw}
 \end{table}

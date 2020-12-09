@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>computeDipoleHField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-07"><meta name="DC.source" content="computeDipoleHField.m"><style type="text/css">
+      --><title>computeDipoleHField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="computeDipoleHField.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -102,10 +102,13 @@ Hzds = Hz(idx,idx,idx) ./ Habs(idx,idx,idx);
 </pre><pre class="language-matlab"><span class="comment">% show results</span>
 quiver3(Xds, Yds, Zds, Hxds, Hyds, Hzds);
 axis <span class="string">equal</span>;
-</pre><h2 id="4">Input Argurments</h2><p><b>x</b> coordinates of positions at the field strength is calculated can be scalar, vector or matrix of coordinates. Must be same size as y and z.</p><p><b>y</b> coordinates of positions at the field strength is calculated can be scalar, vector or matrix of coordinates. Must be same size as x and z.</p><p><b>z</b> coordinates of positions at the field strength is calculated can be scalar, vector or matrix of coordinates. Must be same size as x and y.</p><p><b>m</b> magnetic dipole moment as 3 x 1 vector. The magnetic field strength is calculated with the same moment for all passed positions.</p><p><b>H0norm</b> scalar factor to imprint a field strength to the dipole field. Must be computed with the same magnitude of passed magnetic moment vector. Set 1 to disable imprinting.</p><h2 id="5">Output Argurments</h2><p><b>H</b> computed magnetic field strength at passed positions with related magnetic moment. If passed position is scalar H has size of 3 X 1 with its components in x, y and z dircetion. H(1) -&gt; x, H(2) -&gt; y and  H(3) -&gt; z. If passed positions are not scalar H has size of 3 x numel(x) with position relations in columns. So reshape rows to shapes of positions to keep orientation as origin.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: mustBeEqualSize</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateDipoleRotationMoments.html">generateDipoleRotationMoments</a></li><li><a href="generateSensorArraySquareGrid.html">generateSensorArraySquareGrid</a></li><li><a href="computeDipoleH0Norm.html">computeDipoleH0Norm</a></li></ul></div><p>Created on November 11. 2020 by Tobias Wulf. Copyright Tobias Wulf.</p><p>
+</pre><h2 id="4">Input Argurments</h2><p><b>x</b> coordinates of positions at the field strength is calculated can be scalar, vector or matrix of coordinates. Must be same size as y and z.</p><p><b>y</b> coordinates of positions at the field strength is calculated can be scalar, vector or matrix of coordinates. Must be same size as x and z.</p><p><b>z</b> coordinates of positions at the field strength is calculated can be scalar, vector or matrix of coordinates. Must be same size as x and y.</p><p><b>m</b> magnetic dipole moment as 3 x 1 vector. The magnetic field strength is calculated with the same moment for all passed positions.</p><p><b>H0norm</b> scalar factor to imprint a field strength to the dipole field. Must be computed with the same magnitude of passed magnetic moment vector. Set 1 to disable imprinting.</p><h2 id="5">Output Argurments</h2><p><b>H</b> computed magnetic field strength at passed positions with related magnetic moment. If passed position is scalar H has size of 3 X 1 with its components in x, y and z dircetion. H(1) -&gt; x, H(2) -&gt; y and  H(3) -&gt; z. If passed positions are not scalar H has size of 3 x numel(x) with position relations in columns. So reshape rows to shapes of positions to keep orientation as origin.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: mustBeEqualSize</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateDipoleRotationMoments.html">generateDipoleRotationMoments</a></li><li><a href="generateSensorArraySquareGrid.html">generateSensorArraySquareGrid</a></li><li><a href="computeDipoleH0Norm.html">computeDipoleH0Norm</a></li></ul></div><p>Created on June 11. 2019 by Thorben Sch&uuml;the. Copyright Thorben Sch&uuml;the 2019.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
+Edited on November 11. 2020 by Tobias Wulf: Rewritten, compute as vector in xyz.
+Edited on November 11. 2020 by Tobias Wulf: Compute with unit vector.
+Edited on November 11. 2020 by Tobias Wulf: Add norming on rest position.
 -->
 </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -253,12 +256,15 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % * <computeDipoleH0Norm.html computeDipoleH0Norm>
 %
 %
-% Created on November 11. 2020 by Tobias Wulf. Copyright Tobias Wulf.
+% Created on June 11. 2019 by Thorben Schüthe. Copyright Thorben Schüthe 2019.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on November 11. 2020 by Tobias Wulf: Rewritten, compute as vector in xyz.
+% Edited on November 11. 2020 by Tobias Wulf: Compute with unit vector.
+% Edited on November 11. 2020 by Tobias Wulf: Add norming on rest position.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
