@@ -103,8 +103,9 @@ PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, 'latex');
 PathVariables.exportPublishPath = fullfile(PathVariables.latexDocsPath, 'Manual');
 
 % path to style sheet for html documentation, Matlab provided style sheet
-PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...
-    'matlab', 'codetools', 'private', 'mxdom2simplehtml.xsl'));
+PathVariables.publishStyleSheetPath = fullfile(PathVariables.publishHtmlPath, 'docsHtmlStyleSheet.xsl');
+% PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...
+%     'matlab', 'codetools', 'private', 'mxdom2simplehtml.xsl'));
 
 % path to documentation search database entries for Matlab help browser support
 PathVariables.helpsearchPath = fullfile(PathVariables.publishHtmlPath, ...

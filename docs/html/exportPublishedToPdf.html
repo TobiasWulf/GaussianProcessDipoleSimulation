@@ -3,7 +3,24 @@
   PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
@@ -67,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>exportPublishedToPdf</h1><!--introduction--><p>Export Matlab generated HTML documentation (publish) to pdf-files and combine them into a latex index file ready compile to pdf manual.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Exporting Script, Clean Up and Load Config</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: wkhtmltopdf (shell), pdflatex (shell)</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/system.html'))">system</a></li><li><a href="https://wkhtmltopdf.org/">wkhtmltopdf</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on December 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>exportPublishedToPdf</h1><!--introduction--><p>Export Matlab generated HTML documentation (publish) to pdf-files and combine them into a latex index file ready compile to pdf manual. This script works on unix sytems only or needs to be adjusted for windows systems for library path and wkhtmltopdf binary path.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Exporting Script, Clean Up and Load Config</a></li><li><a href="#4">Define Manual TOC</a></li><li><a href="#5">Scan for HTML Files</a></li><li><a href="#6">Export HTML to Pdf</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: wkhtmltopdf (shell), pdflatex (shell)</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/system.html'))">system</a></li><li><a href="https://wkhtmltopdf.org/">wkhtmltopdf</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on December 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -81,11 +98,53 @@ disp(<span class="string">'Load configuration ...'</span>);
 <span class="keyword">catch</span> ME
     rethrow(ME);
 <span class="keyword">end</span>
+</pre><h2 id="4">Define Manual TOC</h2><p>The maual toc must be in the same order as in helptoc.xml in the publish html folder. The toc is used to generate a latex file to include for appendices.</p><h2 id="5">Scan for HTML Files</h2><p>Scan for all published HTML files in the project publish directory.</p><pre class="codeinput">disp(<span class="string">'Scan for published files ...'</span>);
+HTML = dir(fullfile(PathVariables.publishHtmlPath, <span class="string">'*.html'</span>));
+</pre><h2 id="6">Export HTML to Pdf</h2><p>Export found HTML files to Pdf files. Each file gets its own Pdf represenstation. Filename is kept with pdf extension. Write files into Manual folder under latex subdirectory in docs path. Using wkhtmltopdf shell application. Get filename, add pdf extension new path to file. Create shell string to execute with system command. Get current library path (Matlab) and change it to system library path to execute wkhtmltopdf after that restor library back to Matlab.</p><pre class="codeinput">disp(<span class="string">'Change local library path to system path ...'</span>);
+matlabLibPath = getenv(<span class="string">'LD_LIBRARY_PATH'</span>);
+systemLibPath = <span class="string">'/usr/lib/x86_64-linux-gnu'</span>;
+setenv(<span class="string">'LD_LIBRARY_PATH'</span>, systemLibPath);
+
+disp(<span class="string">'Export published HTML to Pdf ...'</span>);
+fprintf(<span class="string">'Source: %s\n'</span>, HTML(1).folder);
+fprintf(<span class="string">'Destination: %s\n'</span>, PathVariables.exportPublishPath);
+<span class="keyword">for</span> fhtml = HTML'
+    disp(fhtml.name);
+    [~, fName, ~] = fileparts(fhtml.name);
+    sourcePath = fullfile(fhtml.folder, fhtml.name);
+    destinationPath = fullfile(PathVariables.exportPublishPath, [fName <span class="string">'.pdf'</span>]);
+    cmdStr = join([<span class="string">"wkhtmltopdf"</span>, <span class="keyword">...</span>
+        <span class="string">"-B 27mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-L 20mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-R 20mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-T 27mm"</span>, <span class="keyword">...</span>
+        <span class="keyword">...</span><span class="comment">"--window-status finished", ...</span>
+        <span class="keyword">...</span><span class="comment">"--no-stop-slow-scripts", ...</span>
+        <span class="string">"--javascript-delay 1000"</span>, <span class="keyword">...</span>
+        <span class="string">"%s %s"</span>]);
+    shellStr = sprintf(cmdStr, sourcePath, destinationPath);
+    <span class="keyword">try</span>
+        [status, cmdout] = system(shellStr);
+        <span class="comment">% disp(cmdout);</span>
+        <span class="keyword">if</span> status ~= 0
+            error(<span class="string">'Export failure.'</span>);
+        <span class="keyword">end</span>
+    <span class="keyword">catch</span> ME
+        setenv(<span class="string">'LD_LIBRARY_PATH'</span>, matlabLibPath);
+        disp(cmdout);
+        rethrow(ME)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+disp(<span class="string">'Restor local library path ...'</span>);
+setenv(<span class="string">'LD_LIBRARY_PATH'</span>, matlabLibPath);
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% exportPublishedToPdf
 % Export Matlab generated HTML documentation (publish) to pdf-files and combine
-% them into a latex index file ready compile to pdf manual.
+% them into a latex index file ready compile to pdf manual. This script works on
+% unix sytems only or needs to be adjusted for windows systems for library path
+% and wkhtmltopdf binary path.
 %
 %
 %% Requirements
@@ -125,5 +184,65 @@ try
 catch ME
     rethrow(ME);
 end
+
+%% Define Manual TOC
+% The maual toc must be in the same order as in helptoc.xml in the publish html
+% folder. The toc is used to generate a latex file to include for appendices.
+
+
+
+
+%% Scan for HTML Files
+% Scan for all published HTML files in the project publish directory.
+disp('Scan for published files ...');
+HTML = dir(fullfile(PathVariables.publishHtmlPath, '*.html'));
+
+%% Export HTML to Pdf
+% Export found HTML files to Pdf files. Each file gets its own Pdf
+% represenstation. Filename is kept with pdf extension. Write files into Manual
+% folder under latex subdirectory in docs path. Using wkhtmltopdf shell
+% application. Get filename, add pdf extension new path to file. Create shell
+% string to execute with system command. Get current library path (Matlab) and
+% change it to system library path to execute wkhtmltopdf after that restor
+% library back to Matlab.
+disp('Change local library path to system path ...');
+matlabLibPath = getenv('LD_LIBRARY_PATH');
+systemLibPath = '/usr/lib/x86_64-linux-gnu';
+setenv('LD_LIBRARY_PATH', systemLibPath);
+
+disp('Export published HTML to Pdf ...');
+fprintf('Source: %s\n', HTML(1).folder);
+fprintf('Destination: %s\n', PathVariables.exportPublishPath);
+for fhtml = HTML'
+    disp(fhtml.name);
+    [~, fName, ~] = fileparts(fhtml.name);
+    sourcePath = fullfile(fhtml.folder, fhtml.name);
+    destinationPath = fullfile(PathVariables.exportPublishPath, [fName '.pdf']);
+    cmdStr = join(["wkhtmltopdf", ...
+        "-B 27mm", ...
+        "-L 20mm", ...
+        "-R 20mm", ...
+        "-T 27mm", ...
+        ..."REPLACE_WITH_DASH_DASHwindow-status finished", ...
+        ..."REPLACE_WITH_DASH_DASHno-stop-slow-scripts", ...
+        "REPLACE_WITH_DASH_DASHjavascript-delay 1000", ...
+        "%s %s"]);
+    shellStr = sprintf(cmdStr, sourcePath, destinationPath);
+    try
+        [status, cmdout] = system(shellStr);
+        % disp(cmdout);
+        if status ~= 0
+            error('Export failure.');
+        end
+    catch ME
+        setenv('LD_LIBRARY_PATH', matlabLibPath);
+        disp(cmdout);
+        rethrow(ME)
+    end
+end
+
+disp('Restor local library path ...');
+setenv('LD_LIBRARY_PATH', matlabLibPath);
+
 ##### SOURCE END #####
 --></body></html>
