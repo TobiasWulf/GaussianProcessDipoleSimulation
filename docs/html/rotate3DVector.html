@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>rotate3DVector</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="rotate3DVector.m"><style type="text/css">
+      --><title>rotate3DVector</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="rotate3DVector.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -85,7 +85,22 @@ Edited on Month DD. YYYY by Editor: Single line description.
 Edited on November 04. 2020 by Tobias Wulf: Import and rewrite with built-ins.
 Edited on November 04. 2020 by Tobias Wulf: Write documentaion header, comment.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> [rotated] = rotate3DVector(vector, alphaX, betaY, gammaZ)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate as vecotor or matrix of size 3 x N</span>
+        vector <span class="typesection">(3,:) double {mustBeReal}</span>
+        <span class="comment">% validate angles as scalar</span>
+        alphaX <span class="typesection">(1,1) double {mustBeReal}</span>
+        betaY <span class="typesection">(1,1) double {mustBeReal}</span>
+        gammaZ <span class="typesection">(1,1) double {mustBeReal}</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% rotate vector or vector field as 3 x N matrix counterclockwise by given</span>
+    <span class="comment">% angles along axes, calculate rotation matrices for each axes and</span>
+    <span class="comment">% multiplicate with input vector</span>
+    rotated = rotz(gammaZ) * roty(betaY) * rotx(alphaX) * vector(:, 1:end);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% rotate3DVector
 % Rotate a 3 dimensional vector with x-, y- and z-components in 3 dimensional

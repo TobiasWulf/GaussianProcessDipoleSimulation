@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
+      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -74,7 +74,444 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> plotSimulationDataset()
+    <span class="comment">% scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="keyword">try</span>
+        disp(<span class="string">'Plot simulation dataset ...'</span>);
+        close <span class="string">all</span>;
+        <span class="comment">% load path variables</span>
+        load(<span class="string">'config.mat'</span>, <span class="string">'PathVariables'</span>);
+        <span class="comment">% scan for datasets</span>
+        TrainingDatasets = dir(fullfile(PathVariables.trainingDataPath, <span class="keyword">...</span>
+            <span class="string">'Training_*.mat'</span>));
+        TestDatasets = dir(fullfile(PathVariables.testDataPath, <span class="string">'Test_*.mat'</span>));
+        allDatasets = [TrainingDatasets; TestDatasets];
+        <span class="comment">% check if files available</span>
+        <span class="keyword">if</span> isempty(allDatasets)
+            error(<span class="string">'No training or test datasets found.'</span>);
+        <span class="keyword">end</span>
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    <span class="comment">% display availabe datasets to user, decide which to plot %%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+    <span class="comment">% number of datasets</span>
+    nDatasets = length(allDatasets);
+    fprintf(<span class="string">'Found %d datasets:\n'</span>, nDatasets)
+    <span class="keyword">for</span> i = 1:nDatasets
+        fprintf(<span class="string">'%s\t:\t(%d)\n'</span>, allDatasets(i).name, i)
+    <span class="keyword">end</span>
+    <span class="comment">% get numeric user input to indicate which dataset to plot</span>
+    iDataset = input(<span class="string">'Type number to choose dataset to plot to: '</span>);
+    <span class="comment">% iDataset = 2;</span>
+
+    <span class="comment">% load dataset and ask user which one and how many angles %%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="keyword">try</span>
+        ds = load(fullfile(allDatasets(iDataset).folder, <span class="keyword">...</span>
+            allDatasets(iDataset).name));
+        <span class="comment">% check how many angles in dataset and let user decide how many to</span>
+        <span class="comment">% render in polt</span>
+        fprintf(<span class="string">'Detect %d angles in dataset ...\n'</span>, ds.Info.UseOptions.nAngles);
+        nSubAngles = input(<span class="string">'How many angles to you wish to plot: '</span>);
+        <span class="comment">% nSubAngles = 120;</span>
+        <span class="comment">% indices for data to plot, get sample distance for even distance</span>
+        sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
+        <span class="comment">% get subset of angles</span>
+        subAngles = downsample(ds.Data.angles, sampleDistance);
+        nSubAngles = length(subAngles); <span class="comment">% just ensure</span>
+        <span class="comment">% get indices for subset data</span>
+        indices = find(ismember(ds.Data.angles, subAngles));
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    <span class="comment">% create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fig = figure(<span class="string">'Name'</span>, <span class="string">'Sensor Array'</span>, <span class="keyword">...</span>
+        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
+        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>, [0 0 30 30], <span class="keyword">...</span>
+        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
+        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
+        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
+        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+
+    tdl = tiledlayout(fig, 2, 2, <span class="keyword">...</span>
+        <span class="string">'Padding'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+
+
+    title(tdl, <span class="string">'Sensor Array Simulation'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
+    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
+    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a "</span>;
+    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in "</span>;
+    subline5 = <span class="string">"sample distance of $%d$ angles. Based on %s characterization reference %s."</span>;
+    sub = [sprintf(subline1, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.geometry, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.dimension, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.dimension, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.edge); <span class="keyword">...</span>
+           sprintf(subline2, <span class="keyword">...</span>
+                   ds.Info.UseOptions.xPos, <span class="keyword">...</span>
+                   ds.Info.UseOptions.yPos, <span class="keyword">...</span>
+                   ds.Info.UseOptions.zPos, <span class="keyword">...</span>
+                   ds.Info.UseOptions.tilt, <span class="keyword">...</span>
+                   ds.Info.DipoleOptions.sphereRadius); <span class="keyword">...</span>
+           sprintf(subline3, <span class="keyword">...</span>
+                   ds.Info.DipoleOptions.H0mag, <span class="keyword">...</span>
+                   ds.Info.DipoleOptions.z0, <span class="keyword">...</span>
+                   ds.Info.UseOptions.nAngles); <span class="keyword">...</span>
+           sprintf(subline4, <span class="keyword">...</span>
+                   ds.Data.angleStep, <span class="keyword">...</span>
+                   ds.Info.UseOptions.angleRes, <span class="keyword">...</span>
+                   nSubAngles)
+           sprintf(subline5, <span class="keyword">...</span>
+                   sampleDistance, <span class="keyword">...</span>
+                   ds.Info.CharData, <span class="keyword">...</span>
+                   ds.Info.UseOptions.BridgeReference)];
+
+    subtitle(tdl, sub, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    N = ds.Info.SensorArrayOptions.dimension;
+    X = ds.Data.X;
+    Y = ds.Data.Y;
+    Z = ds.Data.Z;
+
+    <span class="comment">% calc limits of plot 1</span>
+    maxX = ds.Info.UseOptions.xPos + ds.Info.SensorArrayOptions.edge;
+    maxY = ds.Info.UseOptions.yPos + ds.Info.SensorArrayOptions.edge;
+    minX = ds.Info.UseOptions.xPos - ds.Info.SensorArrayOptions.edge;
+    minY = ds.Info.UseOptions.yPos - ds.Info.SensorArrayOptions.edge;
+
+    <span class="comment">% calculate colormap to identify scatter points</span>
+    c=zeros(N,N,3);
+    <span class="keyword">for</span> i = 1:N
+        <span class="keyword">for</span> j = 1:N
+            c(i,j,:) = [(2*N+1-2*i), (2*N+1-2*j), (i+j)]/2/N;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    c = squeeze(reshape(c, N^2, 1, 3));
+
+    <span class="comment">% load offset voltage to subtract from cosinus, sinus voltage</span>
+    Voff = ds.Info.SensorArrayOptions.Voff;
+
+    <span class="comment">% plot sensor grid in x and y coordinates and constant z layer %%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    ax1 = nexttile(1);
+    <span class="comment">% plot each cooredinate in loop to create a special shading constant</span>
+    <span class="comment">% reliable to orientation for all matrice</span>
+    hold <span class="string">on</span>;
+    scatter(X(:), Y(:), [], c, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+        <span class="string">'LineWidth'</span>, 0.8);
+
+    <span class="comment">% axis shape and ticks</span>
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    axis <span class="string">tight</span>;
+    grid <span class="string">on</span>;
+    xlim([minX maxX]);
+    ylim([minY maxY]);
+
+    <span class="comment">% text and labels</span>
+    text(minX+0.2, minY+0.2, <span class="keyword">...</span>
+        sprintf(<span class="string">'$Z = %.1f$ mm'</span>, Z(1)), <span class="keyword">...</span>
+        <span class="string">'Color'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$Y$ in mm'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(sprintf(<span class="string">'Sensor Array $%d\\times%d$'</span>, N, N), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    hold <span class="string">off</span>;
+
+    <span class="comment">% plot rotation angles in polar view %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    nexttile(2);
+    <span class="comment">% plot all angles grayed out</span>
+    polarscatter(ds.Data.angles/180*pi, ones(1, ds.Info.UseOptions.nAngles), <span class="keyword">...</span>
+        [], [0.8 0.8 0.8], <span class="string">'filled'</span>);
+
+    <span class="comment">% radius ticks and label</span>
+    rticks(1);
+    rticklabels(<span class="string">""</span>);
+    hold <span class="string">on</span>;
+
+    <span class="comment">% plot subset of angles</span>
+    <span class="comment">% polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);</span>
+    ax2 = gca;
+
+    <span class="comment">% axis shape</span>
+    axis <span class="string">tight</span>;
+
+    <span class="comment">% text an labels</span>
+    <span class="comment">% init first rotation step label</span>
+    tA = text(2/3*pi, 1.5, <span class="keyword">...</span>
+        <span class="string">'$\\theta$'</span>, <span class="keyword">...</span>
+        <span class="string">'Color'</span>, <span class="string">'b'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Rotation around Z-Axis in Degree'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    hold <span class="string">off</span>;
+
+    <span class="comment">% Cosinus bridge outputs for rotation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    ax3 = nexttile(3);
+    hold <span class="string">on</span>;
+
+    <span class="comment">% set colormap</span>
+    colormap(<span class="string">'gray'</span>);
+
+    <span class="comment">% plot cosinus reference, set NaN values to white color, orient Y to normal</span>
+    imC = imagesc(ds.Data.HxScale, ds.Data.HyScale, ds.Data.VcosRef);
+    set(imC, <span class="string">'AlphaData'</span>, ~isnan(ds.Data.VcosRef));
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>)
+
+    <span class="comment">% axis shape and ticks</span>
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    axis <span class="string">tight</span>;
+    yticks(xticks);
+    grid <span class="string">on</span>;
+
+    <span class="comment">% test and labels</span>
+    xlabel(<span class="string">'$H_x$ in kA/m'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$ in kA/m'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'$V_{cos}(H_x, H_y)$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% add colorbar and place it</span>
+    cb1 = colorbar;
+    cb1.Label.String = sprintf(<span class="keyword">...</span>
+        <span class="string">'$V_{cos}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V'</span>, <span class="keyword">...</span>
+        ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);
+    cb1.Label.Interpreter = <span class="string">'latex'</span>;
+    cb1.Label.FontSize = 12;
+
+    hold <span class="string">off</span>;
+
+    <span class="comment">% Sinus bridge outputs for rotation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    ax4 = nexttile(4);
+    hold <span class="string">on</span>;
+
+    <span class="comment">% set colormap</span>
+    colormap(<span class="string">'gray'</span>);
+
+    <span class="comment">% plot sinus reference, set NaN values to white color, orient Y to normal</span>
+    imS = imagesc(ds.Data.HxScale, ds.Data.HyScale, ds.Data.VsinRef);
+    set(imS, <span class="string">'AlphaData'</span>, ~isnan(ds.Data.VsinRef));
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>)
+
+    <span class="comment">% axis shape and ticks</span>
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    axis <span class="string">tight</span>;
+    yticks(xticks);
+    grid <span class="string">on</span>;
+
+    <span class="comment">% test and labels</span>
+    xlabel(<span class="string">'$H_x$ in kA/m'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$ in kA/m'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'$V_{sin}(H_x, H_y)$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% add colorbar and place it</span>
+    cb2 = colorbar;
+    cb2.Label.String = sprintf(<span class="keyword">...</span>
+        <span class="string">'$V_{sin}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V'</span>, <span class="keyword">...</span>
+        ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);
+    cb2.Label.Interpreter = <span class="string">'latex'</span>;
+    cb2.Label.FontSize = 12;
+
+    hold <span class="string">off</span>;
+
+    <span class="comment">% zoom axes for scatter on cosinuns reference images %%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    nexttile(3);
+    ax5 = axes(<span class="string">'Position'</span>, [0.07 0.02 0.19 0.19], <span class="string">'XColor'</span>, <span class="string">'r'</span>, <span class="string">'YColor'</span>, <span class="string">'r'</span>);
+    hold <span class="string">on</span>;
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+    hold <span class="string">off</span>;
+
+    <span class="comment">% draw everything prepared before start renewing frame wise and prepare for</span>
+    <span class="comment">% recording frames to video file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">% draw frame</span>
+    drawnow;
+
+    <span class="comment">% get file path and change extension</span>
+    [~, fName, ~] = fileparts(ds.Info.filePath);
+    fPath = PathVariables.saveImagesPath;
+
+    <span class="comment">% string allows simple cat ops</span>
+    VW = VideoWriter(fullfile(fPath, <span class="string">'avi'</span>, fName + <span class="string">".avi"</span>), <span class="string">"Uncompressed AVI"</span>);
+
+    <span class="comment">% scale frame rate on 10 second movies, ensure at least 1 fps</span>
+    fr = floor(nSubAngles / 10) + 1;
+    VW.FrameRate = fr;
+
+    <span class="comment">% open video file, ready to record frames</span>
+    open(VW)
+
+
+    <span class="comment">% loop through subset angle dataset and renew plots %%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="keyword">for</span> i = indices
+        <span class="comment">% H load subset</span>
+        Hx = ds.Data.Hx(:,:,i);
+        Hy = ds.Data.Hy(:,:,i);
+        <span class="comment">% get min max</span>
+        maxHx = max(Hx, [], <span class="string">'all'</span>);
+        maxHy = max(Hy, [], <span class="string">'all'</span>);
+        minHx = min(Hx, [], <span class="string">'all'</span>);
+        minHy = min(Hy, [], <span class="string">'all'</span>);
+        dHx = abs(maxHx - minHx);
+        dHy = abs(maxHy - minHy);
+
+        <span class="comment">% load V subset</span>
+        Vcos = ds.Data.Vcos(:,:,i) - Voff;
+        Vsin = ds.Data.Vsin(:,:,i) - Voff;
+        angle = ds.Data.angles(i);
+
+        <span class="comment">% lock plots</span>
+        hold(ax1, <span class="string">'on'</span>);
+        hold(ax2, <span class="string">'on'</span>);
+        hold(ax3, <span class="string">'on'</span>);
+        hold(ax4, <span class="string">'on'</span>);
+        hold(ax5, <span class="string">'on'</span>);
+
+        <span class="comment">% update plot 1</span>
+        qH = quiver(ax1, X, Y, Hx, Hy, 0.5, <span class="string">'b'</span>);
+        qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, <span class="string">'r'</span>);
+        legend([qH qV], {<span class="string">'$quiver(H_x,H_y)$'</span>, <span class="string">'$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'</span>},<span class="keyword">...</span>
+            <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
+            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="keyword">...</span>
+            <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
+
+        <span class="comment">% update plot 2</span>
+        tA.String = sprintf(<span class="string">'$%.1f^\\circ$'</span>, angle);
+        pA = polarscatter(ax2, angle/180*pi, 1, <span class="string">'b'</span>, <span class="string">'filled'</span>, <span class="keyword">...</span>
+            <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 0.8);
+
+        <span class="comment">% update plot 3 and 4</span>
+        sC = scatter(ax3, Hx(:), Hy(:), 5, c, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+            <span class="string">'LineWidth'</span>, 0.8);
+        sS = scatter(ax4, Hx(:), Hy(:), 5, c, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+            <span class="string">'LineWidth'</span>, 0.8);
+
+        <span class="comment">% calc position of scatter area frame and reframe</span>
+        pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
+        rtC = rectangle(ax3, <span class="string">'Position'</span>, pos, <span class="string">'LineWidth'</span>, 1,  <span class="string">'EdgeColor'</span>, <span class="string">'r'</span>);
+        rtS = rectangle(ax4, <span class="string">'Position'</span>, pos, <span class="string">'LineWidth'</span>, 1,  <span class="string">'EdgeColor'</span>, <span class="string">'r'</span>);
+
+        <span class="comment">% update plot 5 (zoom)</span>
+        sZ = scatter(ax5, Hx(:), Hy(:), [], c, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+            <span class="string">'LineWidth'</span>, 0.8);
+        xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
+        ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
+
+        <span class="comment">% release plots</span>
+        hold(ax1, <span class="string">'off'</span>);
+        hold(ax2, <span class="string">'off'</span>);
+        hold(ax3, <span class="string">'off'</span>);
+        hold(ax4, <span class="string">'off'</span>);
+        hold(ax5, <span class="string">'off'</span>);
+
+        <span class="comment">% draw frame</span>
+        drawnow;
+
+        <span class="comment">% record frame to file</span>
+        frame = getframe(fig);
+        writeVideo(VW, frame);
+
+        <span class="comment">% delete part of plots to renew for current angle, delete but last</span>
+        <span class="keyword">if</span> i ~= indices(end)
+            delete(qH);
+            delete(qV);
+            delete(pA);
+            delete(rtC);
+            delete(rtS);
+            delete(sC);
+            delete(sS);
+            delete(sZ);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    <span class="comment">% close video file</span>
+    close(VW)
+    close(fig)
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% plotSimulationDataset
 % Search for available trainings or test dataset and plot dataset. Follow user

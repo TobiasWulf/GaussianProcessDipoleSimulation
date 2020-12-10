@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="publishFilesFromDir.m"><style type="text/css">
+      --><title>publishFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="publishFilesFromDir.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -82,7 +82,43 @@ publishFilesFromDir(srcPath, PublishOptions, true, true)
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> publishFilesFromDir(directory, PublishOptions, recursive, verbose)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate directory if exist</span>
+        directory <span class="typesection">(1,:) char {mustBeFolder}</span>
+        <span class="comment">% validate Publish options if it is a struct</span>
+        PublishOptions <span class="typesection">(1,1) struct {mustBeA(PublishOptions, ["struct"])}</span>
+        <span class="comment">% validate recursive if logical</span>
+        recursive <span class="typesection">(1,1) logical {mustBeNumericOrLogical}</span> = false
+        verbose <span class="typesection">(1,1) logical {mustBeNumericOrLogical}</span> = false
+    <span class="keyword">end</span>
+
+    <span class="comment">% file extension is alway m-file</span>
+    ext = <span class="string">'*.m'</span>;
+
+    <span class="comment">% reursive parsing for files with dir function needs a certain regex</span>
+    <span class="keyword">if</span> recursive
+        pathPattern = fullfile(directory, <span class="string">'**'</span>, ext);
+    <span class="keyword">else</span>
+        pathPattern = fullfile(directory, ext);
+    <span class="keyword">end</span>
+
+    <span class="comment">% scan directory for files returns a column struct with path fields</span>
+    files = dir(pathPattern);
+
+    <span class="comment">% transpose files struct and loop through for publish</span>
+    <span class="keyword">for</span> file = files'
+        <span class="comment">%  if not dir must be file</span>
+        <span class="keyword">if</span> ~file.isdir
+            <span class="comment">% build path by struct field for recursive tree</span>
+            written = publish(fullfile(file.folder, file.name), PublishOptions);
+            <span class="keyword">if</span> verbose
+                disp(written);
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% publishFilesFromDir
 % Publish m-files from given directory with passed publishing options.

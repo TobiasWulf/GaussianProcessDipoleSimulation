@@ -68,16 +68,31 @@
 \pagenumbering{arabic}
 %\input{chapters/Speicherbedarf}
 % Add additional chapters here
-
+\chapter{test}
+\section{testtest}
 %\nocite{*}
 %\bibliographystyle{plain}
 %\bibliographystyle{dinat}
 %\bibliography{literature}
 
 % Appendix
-\appendix
-\input{appendix/used_software}
-\input{appendix/used_hardware}
+% \appendix
+\renewcommand{\appendixtocname}{Anhang}
+\renewcommand{\appendixpagename}{Anhang}
+\begin{appendices}
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+	\makeatletter
+	\addtocontents{toc}{%
+		\begingroup
+		\let\protect\l@chapter\protect\l@section
+		\let\protect\l@section\protect\l@subsection
+	}
+	\makeatother
+	
+	% appendix pages
+	\input{appendix/used_software}
+	\input{appendix/used_hardware}
+\end{appendices}
 
 \IGlossary
 

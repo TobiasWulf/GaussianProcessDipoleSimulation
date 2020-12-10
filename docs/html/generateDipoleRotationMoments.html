@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateDipoleRotationMoments</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="generateDipoleRotationMoments.m"><style type="text/css">
+      --><title>generateDipoleRotationMoments</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="generateDipoleRotationMoments.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -93,7 +93,58 @@ all(thetaFS(iFS + 22) == thetaDSS)
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> [M, theta, index] = generateDipoleRotationMoments(m0, nTheta, <span class="keyword">...</span>
+    phi, resolution, phaseIndex)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate amplitude of magnetic moment as real scalar value</span>
+        m0 <span class="typesection">(1,1) double {mustBeReal}</span>
+        <span class="comment">% validate number of used angulars as positive integer, for 0 return all</span>
+        nTheta <span class="typesection">(1,1) double {mustBeNonnegative, mustBeInteger}</span>
+        <span class="comment">% validate tilt angle as real value with default 0&deg;</span>
+        phi <span class="typesection">(1,1) double {mustBeReal}</span> = 0
+        <span class="comment">% validate angle resolution as real positive value</span>
+        resolution <span class="typesection">(1,1) double {mustBePositive}</span> = 1
+        <span class="comment">% validate downsample phase as positive integer with default 0, no shift</span>
+        phaseIndex <span class="typesection">(1,1) double {mustBeNonnegative, mustBeInteger}</span> = 0
+    <span class="keyword">end</span>
+
+    <span class="comment">% scale full rotation angle vector with given resolution from 0&deg; to 360&deg;</span>
+    <span class="comment">% so run to 360&deg;-resolution because 0&deg; == 360&deg;, its a circle</span>
+    fullScale = 0:resolution:(360 - resolution);
+
+    <span class="comment">% if nThetas is greater than 0 downsample to nTheta else use full scale</span>
+    <span class="keyword">if</span> nTheta
+        <span class="comment">% get equal distribute distance of samples in thetas for nThetas</span>
+        sampleDistance = length(downsample(fullScale, nTheta));
+
+        <span class="comment">% downsample with equal sample distance and passed sample phase to shift</span>
+        <span class="comment">% first sample in downsample vector from 1 to phaseIndex</span>
+        theta = downsample(fullScale, sampleDistance, phaseIndex);
+
+        <span class="comment">% find index members of down sampled angles in full scale vector</span>
+        members = ismember(fullScale, theta);
+        index = find(members);
+
+    <span class="keyword">else</span>
+        <span class="comment">% 0 is given for number of theta so it returns the full scale rotation</span>
+        <span class="comment">% no index relations if full scale is returned</span>
+        nTheta = length(fullScale);
+        theta = fullScale;
+        index = [];
+    <span class="keyword">end</span>
+
+    <span class="comment">% create start moment with given magnetic moment amplitude basic moment to</span>
+    <span class="comment">% produce rotate moments</span>
+    m0 = m0 * [-1; 0; 0];
+
+    <span class="comment">% allocate memory for the moments Matrix of rotated basic moments by i-th</span>
+    <span class="comment">% theta and fixed tilt of phi and rotate of theta angulars</span>
+    M = zeros(3, nTheta);
+    <span class="keyword">for</span> i = 1:nTheta
+        M(:,i) = rotate3DVector(m0, 0, phi, theta(i));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% generateDipoleRotationMoments
 % Generate magnetic moments to perform a full rotation of a magnetic dipole in

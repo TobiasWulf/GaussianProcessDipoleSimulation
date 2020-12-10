@@ -17,6 +17,7 @@
 % * <publishFilesFromDir.html publishFilesFromDir>
 % * <matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html')) builddocsearchdb>
 % * <removeFilesFromDir.html removeFilesFromDir>
+% * <Documentation_Workflow.html Documentation Workflow>
 %
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
@@ -115,7 +116,7 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 % directory tree, verbose.
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
-PublishOptions.showCode = false;
+%PublishOptions.showCode = false;
 publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 
 

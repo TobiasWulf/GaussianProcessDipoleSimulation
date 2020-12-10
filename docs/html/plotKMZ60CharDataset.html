@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotKMZ60CharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="plotKMZ60CharDataset.m"><style type="text/css">
+      --><title>plotKMZ60CharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotKMZ60CharDataset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -74,7 +74,602 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> plotKMZ60CharDataset()
+    <span class="keyword">try</span>
+        <span class="comment">% load dataset path and dataset content into function workspace</span>
+        load(<span class="string">'config.mat'</span>, <span class="string">'PathVariables'</span>);
+        load(PathVariables.kmz60DatasetPath, <span class="string">'Data'</span>, <span class="string">'Info'</span>);
+        close <span class="string">all</span>;
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    <span class="comment">% figure save path for different formats</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fig1Filename = <span class="string">'kmz60_magnetic_stimulus'</span>;
+    fig1Path = fullfile(PathVariables.saveFiguresPath, fig1Filename);
+    fig1SvgPath = fullfile(PathVariables.saveImagesPath, <span class="string">'svg'</span>, fig1Filename);
+    fig1EpsPath = fullfile(PathVariables.saveImagesPath, <span class="string">'eps'</span>, fig1Filename);
+    fig1PdfPath = fullfile(PathVariables.saveImagesPath, <span class="string">'pdf'</span>, fig1Filename);
+
+    fig2Filename = <span class="string">'kmz60_cosinus_bridge'</span>;
+    fig2Path = fullfile(PathVariables.saveFiguresPath, fig2Filename);
+    fig2SvgPath = fullfile(PathVariables.saveImagesPath, <span class="string">'svg'</span>, fig2Filename);
+    fig2EpsPath = fullfile(PathVariables.saveImagesPath, <span class="string">'eps'</span>, fig2Filename);
+    fig2PdfPath = fullfile(PathVariables.saveImagesPath, <span class="string">'pdf'</span>, fig2Filename);
+
+    fig3Filename = <span class="string">'kmz60_sinus_bridge'</span>;
+    fig3Path = fullfile(PathVariables.saveFiguresPath, fig3Filename);
+    fig3SvgPath = fullfile(PathVariables.saveImagesPath, <span class="string">'svg'</span>, fig3Filename);
+    fig3EpsPath = fullfile(PathVariables.saveImagesPath, <span class="string">'eps'</span>, fig3Filename);
+    fig3PdfPath = fullfile(PathVariables.saveImagesPath, <span class="string">'pdf'</span>, fig3Filename);
+
+    <span class="comment">% load needed data from dataset in to local variables for better handling</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">% check if modulation fits to following reconstructioning</span>
+    <span class="keyword">if</span> ~strcmp(<span class="string">"triang"</span>, Info.MagneticField.Modulation)
+        error(<span class="string">"Modulation function is not triang."</span>);
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> ~(strcmp(<span class="string">"cos"</span>, Info.MagneticField.CarrierHx) &amp;&amp; <span class="keyword">...</span>
+            strcmp(<span class="string">"sin"</span>, Info.MagneticField.CarrierHy))
+        error(<span class="string">"Carrier functions are not cos or sin."</span>);
+    <span class="keyword">end</span>
+
+    <span class="comment">% modulation frequency</span>
+    fm = Info.MagneticField.ModulationFrequency;
+    <span class="comment">% carrier frequency</span>
+    fc = Info.MagneticField.CarrierFrequency;
+    <span class="comment">% max and min amplitude</span>
+    Hmax = Info.MagneticField.MaxAmplitude;
+    Hmin = Info.MagneticField.MinAmplitude;
+    <span class="comment">% step range or window size for output picking</span>
+    Hsteps = Info.MagneticField.Steps;
+    <span class="comment">% resoulution of H steps</span>
+    Hres = Info.MagneticField.Resolution;
+    <span class="comment">% get unit strings from</span>
+    kApm = Info.Units.MagneticFieldStrength;
+    Hz = Info.Units.Frequency;
+    mV = Info.Units.SensorOutputVoltage;
+
+    <span class="comment">% get dataset infos and format strings to place in figures</span>
+    <span class="comment">% subtitle string for all figures</span>
+    infoStr = join([Info.SensorManufacturer, Info.Sensor, Info.SensorTechnology, <span class="keyword">...</span>
+        Info.SensorType, <span class="string">"Sensor Characterization Dataset."</span>]);
+    dateStr = join([<span class="string">"Created on"</span>, Info.Created, <span class="string">"by"</span>, <span class="string">'Thorben Sch\"uthe'</span>, <span class="keyword">...</span>
+        <span class="string">"and updated on"</span>, Info.Edited, <span class="string">"by"</span>, Info.Editor + <span class="string">"."</span>]);
+
+    <span class="comment">% load characterization data</span>
+    Vcos = Data.SensorOutput.CosinusBridge;
+    Vsin = Data.SensorOutput.SinusBridge;
+    gain = Info.SensorOutput.BridgeGain;
+
+    <span class="comment">% clear dataset all loaded</span>
+    clear <span class="string">Data</span> <span class="string">Info</span>;
+
+    <span class="comment">% reconstruct magnetic stimulus and reduce the view for example plot by 10</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">% number of periods reduced by factor 10</span>
+    reduced = 10;
+    nPeriods = fc / fm / reduced;
+    <span class="comment">% number of samples for good looking 40 times nPeriods</span>
+    nSamples = nPeriods * 400;
+    <span class="comment">% half number of samples</span>
+    nHalf = round(nSamples / 2);
+    <span class="comment">% generate angle base</span>
+    phi = linspace(0, nPeriods * 2 * pi, nSamples);
+    <span class="comment">% calculate modulated amplitude, triang returns a column vector, transpose</span>
+    Hmag = Hmax * triang(nSamples)';
+    <span class="comment">% calculate Hx and Hy stimulus</span>
+    Hx = Hmag .* cos(phi);
+    Hy = Hmag .* sin(phi);
+    <span class="comment">% index for rising and falling stimulus</span>
+    idxR = 1:nHalf;
+    idxF = nHalf:nSamples;
+    <span class="comment">% find absolute min and max values in bridge outputs for uniform colormap</span>
+    A = cat(3, Vcos.Rise, Vcos.Fall, Vcos.All, Vcos.Diff, Vsin.Rise, <span class="keyword">...</span>
+        Vsin.Fall, Vsin.All, Vsin.Diff);
+    Vmax = max(A, [], <span class="string">'all'</span>);
+    Vmin = min(A, [], <span class="string">'all'</span>);
+    clear <span class="string">A</span>;
+
+    <span class="comment">% figure 1 magnetic stimulus</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fig1 = figure(<span class="string">'Name'</span>, <span class="string">'Magnetic Stimulus'</span>, <span class="keyword">...</span>
+        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
+        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>, [0 0 30 30], <span class="keyword">...</span>
+        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
+        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
+        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
+        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+
+    tdl = tiledlayout(fig1, 2, 2, <span class="keyword">...</span>
+        <span class="string">'Padding'</span>, <span class="string">'compact'</span>, <span class="keyword">...</span>
+        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+
+    title(tdl, <span class="string">'Reconstructed $H_x$-/ $H_y$-Stimulus in Reduced View'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    subtitle(tdl, [infoStr; dateStr], <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    xlabel(tdl, sprintf(<span class="string">'$\\phi$ in rad, %d periods, reduced by factor %d'</span>, nPeriods*reduced, reduced), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$, $|H|$ in %s'</span>, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% Hx stimulus</span>
+    nexttile;
+    p = plot(phi, Hmag, phi, -Hmag, phi(idxR), Hx(idxR), phi(idxF), Hx(idxF));
+    set(p, {<span class="string">'Color'</span>}, {<span class="string">'k'</span>, <span class="string">'k'</span>, <span class="string">'b'</span>, <span class="string">'r'</span>}');
+    legend([p(1) p(3) p(4)], {<span class="string">'mod'</span>, <span class="string">'rise'</span>, <span class="string">'fall'</span>},<span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="keyword">...</span>
+        <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
+
+    xticks((0:0.25*pi:2*pi) * nPeriods);
+    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>, <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
+    xlim([0 phi(end)]);
+    ylim([Hmin Hmax]);
+
+    xlabel(<span class="string">'$\phi$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_x(\phi)$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(sprintf(<span class="string">'Modulation $f_m = %1.2f$ %s, Cos-Carrier $f_c = %1.2f$ %s'</span>, fm, Hz, fc, Hz), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% Hy stimulus</span>
+    nexttile;
+    p = plot(phi, Hmag, phi, -Hmag, phi(idxR), Hy(idxR), phi(idxF), Hy(idxF));
+    set(p, {<span class="string">'Color'</span>}, {<span class="string">'k'</span>, <span class="string">'k'</span>, <span class="string">'b'</span>, <span class="string">'r'</span>}');
+    legend([p(1) p(3) p(4)], {<span class="string">'mod'</span>, <span class="string">'rise'</span>, <span class="string">'fall'</span>},<span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="keyword">...</span>
+        <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
+
+    xticks((0:0.25*pi:2*pi) * nPeriods);
+    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>, <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
+    xlim([0 phi(end)]);
+    ylim([Hmin Hmax]);
+
+    xlabel(<span class="string">'$\phi$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y(\phi)$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(sprintf(<span class="string">'Modulation $f_m = %1.2f$ %s, Sin-Carrier $f_c = %1.2f$ %s'</span>, fm, Hz, fc, Hz), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% polar for rising modulation</span>
+    nexttile;
+    polarplot(phi(idxR), Hmag(idxR), <span class="string">'b'</span>);
+    title(<span class="string">'$|H(\phi)| \cdot e^{-j\phi}$ f. $0 \le \phi \le 32\pi$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% polar for rising modulation</span>
+    nexttile;
+    polarplot(phi(idxF), Hmag(idxF), <span class="string">'r'</span>);
+    title(<span class="string">'$|H(\phi)| \cdot e^{-j\phi}$ f. $32\pi \le \phi \le 64\pi$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% figure 2 cosinus bridge outputs</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fig2 = figure(<span class="string">'Name'</span>, <span class="string">'Cosinus Bridge'</span>, <span class="keyword">...</span>
+        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
+        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>, [0.0 0.0 30.0 30.0], <span class="keyword">...</span>
+        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
+        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
+        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
+        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+
+    tdl = tiledlayout(fig2, 2, 2, <span class="keyword">...</span>
+        <span class="string">'Padding'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+
+    title(tdl, <span class="string">'Measured Cosinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    subtitle(tdl, [infoStr; dateStr], <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    colormap(<span class="string">'jet'</span>);
+
+    <span class="comment">% cosinus bridge recorded during rising stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.Rise);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vcos.Rise));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Rising $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% cosinus bridge recorded during falling stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.Fall);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vcos.Fall));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Falling $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% cosinus bridge recorded during superimposed stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.All);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~(~Vcos.All));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Superimposed $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% cosinus bridge recorded during differentiated stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.Diff);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vcos.Diff));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Differentiated $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% add colorbar and place it overall plots</span>
+    cb = colorbar;
+    cb.Layout.Tile = <span class="string">'east'</span>;
+    cb.Label.String = sprintf(<span class="string">'$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.Interpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 16;
+
+    <span class="comment">% figure 3 sinus bridge outputs</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fig3 = figure(<span class="string">'Name'</span>, <span class="string">'Sinus Bridge'</span>, <span class="keyword">...</span>
+        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
+        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>, [0.0 0.0 30.0 30.0], <span class="keyword">...</span>
+        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
+        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
+        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
+        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+
+    tdl = tiledlayout(fig3, 2, 2, <span class="keyword">...</span>
+        <span class="string">'Padding'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+
+    title(tdl, <span class="string">'Measured Sinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    subtitle(tdl, [infoStr; dateStr], <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    colormap(<span class="string">'jet'</span>);
+
+    <span class="comment">% sinus bridge recorded during rising stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.Rise);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vsin.Rise));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Rising $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% sinus bridge recorded during falling stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.Fall);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vsin.Fall));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Falling $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% sinus bridge recorded during superimposed stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.All);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~(~Vsin.All));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Superimposed $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% sinus bridge recorded during differentiated stimulus</span>
+    nexttile;
+    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.Diff);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vsin.Diff));
+    caxis([Vmin, Vmax]);
+    xlim([Hmin Hmax]);
+    ylim([Hmin Hmax]);
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'Differentiated $H$-Amplitudes'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% add colorbar and place it overall plots</span>
+    cb = colorbar;
+    cb.Layout.Tile = <span class="string">'east'</span>;
+    cb.Label.String = sprintf(<span class="string">'$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.Interpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 16;
+
+    yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
+    <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
+        <span class="comment">% save results of figure 1</span>
+        savefig(fig1, fig1Path);
+        print(fig1, fig1SvgPath, <span class="string">'-dsvg'</span>);
+        print(fig1, fig1EpsPath, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
+        print(fig1, fig1PdfPath, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
+
+        <span class="comment">% save results of figure 2</span>
+        savefig(fig2, fig2Path);
+        print(fig2, fig2SvgPath, <span class="string">'-dsvg'</span>);
+        print(fig2, fig2EpsPath, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
+        print(fig2, fig2PdfPath, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
+
+        <span class="comment">% save results of figure 3</span>
+        savefig(fig3, fig3Path);
+        print(fig3, fig3SvgPath, <span class="string">'-dsvg'</span>);
+        print(fig3, fig3EpsPath, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
+        print(fig3, fig3PdfPath, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
+    <span class="keyword">end</span>
+    close(fig1)
+    close(fig2)
+    close(fig3)
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% plotKMZ60CharDataset
 % Explore NXP KMZ60 characterization dataset and plot its content.

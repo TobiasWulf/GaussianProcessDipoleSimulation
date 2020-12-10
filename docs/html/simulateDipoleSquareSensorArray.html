@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
+      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -90,7 +90,234 @@ Edited on November 25. 2020 by Tobias Wulf: Using new written src functions.
 Edited on November 25. 2020 by Tobias Wulf: Loop over a set of positions.
 Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to reference.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, UseOptions, CharData)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate inputs as struct, structs generated in config.mat</span>
+        GeneralOptions <span class="typesection">struct {mustBeA(GeneralOptions, 'struct')}</span>
+        PathVariables <span class="typesection">struct {mustBeA(PathVariables, 'struct')}</span>
+        SensorArrayOptions <span class="typesection">struct {mustBeA(SensorArrayOptions, 'struct')}</span>
+        DipoleOptions <span class="typesection">struct {mustBeA(DipoleOptions, 'struct')}</span>
+        UseOptions <span class="typesection">struct {mustBeA(UseOptions, 'struct')}</span>
+        CharData <span class="typesection">struct {mustBeA(CharData, 'struct')}</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% try to load relavant values in local variable space for better</span>
+    <span class="comment">% handling and short names second check if struct fields are reachable</span>
+    <span class="keyword">try</span>
+        <span class="comment">% general options needed to create filenames etc.</span>
+        dfStr = GeneralOptions.dateFormat;
+
+        <span class="comment">% number of sensors at edge of square array, dimension N x N</span>
+        N = SensorArrayOptions.dimension;
+        <span class="comment">% sensor array edge length, square edge a</span>
+        a = SensorArrayOptions.edge;
+        <span class="comment">% sensor array supply voltage used to generate bridge outputs from</span>
+        <span class="comment">% characterization data in combination with bridge offset voltage</span>
+        <span class="comment">% characterization data should be in mv/V so check norm factor</span>
+        Vcc = SensorArrayOptions.Vcc;
+        Voff = SensorArrayOptions.Voff;
+        Vnorm = SensorArrayOptions.Vnorm;
+        <span class="keyword">switch</span> CharData.Info.Units.SensorOutputVoltage
+            <span class="keyword">case</span> <span class="string">'mV/V'</span>
+                <span class="keyword">if</span> Vnorm ~= 1e3
+                    error(<span class="string">'Wrong norming mV/V: %e'</span>, Vnorm);
+                <span class="keyword">end</span>
+            <span class="keyword">otherwise</span>
+                error(<span class="string">'Unknown norm voltage: %s'</span>, <span class="keyword">...</span>
+                    CharData.Info.Units.SensorOutputVoltage)
+        <span class="keyword">end</span>
+
+        <span class="comment">% sphere radius for dipole approximation of spherical magnet</span>
+        rsp = DipoleOptions.sphereRadius;
+        <span class="comment">% H-field magnitude to imprint in certain distance from magnet</span>
+        <span class="comment">% surface which sphere radius rsp plus distance z0</span>
+        H0mag = DipoleOptions.H0mag;
+        <span class="comment">% distance from magnet surface where to imprint the H0mag</span>
+        z0 = DipoleOptions.z0;
+        <span class="comment">% magnetic dipole moment magnitude which define orgin moment of the</span>
+        <span class="comment">% magnet in rest position</span>
+        M0mag = DipoleOptions.M0mag;
+
+        <span class="comment">% dataset type or use case in which later it is use in application</span>
+        useCase = UseOptions.useCase;
+        <span class="comment">% destination path and filename to save gernerated data sets with</span>
+        <span class="comment">% timestamps in filename, place timestamps with sprintf</span>
+        <span class="keyword">switch</span> useCase
+            <span class="keyword">case</span> <span class="string">'Training'</span>
+                fPath = PathVariables.trainingDataPath;
+                fNameFmt = <span class="string">'Training_%s.mat'</span>;
+            <span class="keyword">case</span> <span class="string">'Test'</span>
+                fPath = PathVariables.testDataPath;
+                fNameFmt = <span class="string">'Test_%s.mat'</span>;
+            <span class="keyword">otherwise</span>
+                error(<span class="string">'Unknown use case: %s'</span>, UseOptions.useCase);
+        <span class="keyword">end</span>
+        <span class="comment">% x, y and z positions in which pairing the datasets are generated</span>
+        <span class="comment">% position vectors are run through in all combinations with tilt</span>
+        <span class="comment">% and number of angles</span>
+        xPos = UseOptions.xPos;
+        yPos = UseOptions.yPos;
+        zPos = UseOptions.zPos;
+        tilt = UseOptions.tilt;
+        nAngles = UseOptions.nAngles;
+        <span class="comment">% constants for generated use case, angle resolution for generated</span>
+        <span class="comment">% rotation angles, phase index for a phase shift in generation of</span>
+        <span class="comment">% rotation angles</span>
+        angleRes = UseOptions.angleRes;
+        phaseIndex = UseOptions.phaseIndex;
+        <span class="comment">% which characterization reference should be load from CharData</span>
+        <span class="comment">% sensor output bridge fields (cos/sin)</span>
+        refImage = UseOptions.BridgeReference;
+
+        <span class="comment">% load values from characterization dataset</span>
+        <span class="comment">% scales of driven Hx and Hy amplitudes in characteriazation</span>
+        <span class="comment">% stimulus in kA/m</span>
+        <span class="keyword">if</span> ~strcmp(CharData.Info.Units.MagneticFieldStrength, <span class="string">'kA/m'</span>)
+            error(<span class="string">'Wrong H-field unit: %s'</span>, <span class="keyword">...</span>
+                CharData.Info.Units.MagneticFieldStrength);
+        <span class="keyword">end</span>
+        HxScale = CharData.Data.MagneticField.hx;
+        HyScale = CharData.Data.MagneticField.hy;
+        <span class="comment">% cosinus and sinus characterization images for corresponding field</span>
+        <span class="comment">% amplitudes, load and norm to Vcc and Voff, references of</span>
+        <span class="comment">% simulation, adjust reference to bridge gain for output volgates</span>
+        gain = CharData.Info.SensorOutput.BridgeGain;
+        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
+        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    <span class="comment">% now everything is successfully loaded, execute further constants</span>
+    <span class="comment">% which are needs to be generated once for all following operations</span>
+    <span class="comment">% meshgrids for refernece images to query bridge reference with interp2</span>
+    [HxScaleGrid, HyScaleGrid] = meshgrid(HxScale, HyScale);
+    <span class="comment">% allocate memory for results of on setup run, speed up compute by 10</span>
+    <span class="comment">% fix allocations which are not changing by varring parameters like</span>
+    <span class="comment">% number of angles or positon, for all parameter depended memory size</span>
+    <span class="comment">% allocalte matlab automatically by function call or need reallocation</span>
+    <span class="comment">% in for loops</span>
+    <span class="comment">% H-field components for each rotation step</span>
+    Hx = zeros(N, N, nAngles);
+    Hy = zeros(N, N, nAngles);
+    Hz = zeros(N, N, nAngles);
+    <span class="comment">% H-field abs for each rotation setp</span>
+    Habs = zeros(N, N, nAngles);
+    <span class="comment">% Bridge output voltages for each sensor in grid, H-fields, sensor</span>
+    <span class="comment">% grid, voltages all same orientation</span>
+    Vcos = zeros(N, N, nAngles);
+    Vsin = zeros(N, N, nAngles);
+
+
+    <span class="comment">% compute values which not changing by loop parameters</span>
+    <span class="comment">% magnetic dipole moments for each rotation step</span>
+    <span class="comment">% rotation angles to compute</span>
+    <span class="comment">% index corresponding to full scale rotation with angleRes</span>
+    [m, angles, angleRefIndex] = generateDipoleRotationMoments(M0mag, <span class="keyword">...</span>
+        nAngles, tilt, angleRes, phaseIndex);
+
+    <span class="comment">% rotation angle step width on full rotation 360&deg; with subset of angles</span>
+    <span class="keyword">if</span> length(angles) &gt; 1
+        angleStep =  angles(2) - angles(1);
+    <span class="keyword">else</span>
+        angleStep = 0;
+    <span class="keyword">end</span>
+
+    <span class="comment">% compute dipole rest position norm to imprint a certain field</span>
+    <span class="comment">% strength magnitude with respect of tilt in y axes and magnetization</span>
+    <span class="comment">% in x direction as in generate Dipole rotation moments</span>
+    r0 = rotate3DVector([0; 0; -(z0 + rsp)], 0, tilt, 0);
+    m0 = rotate3DVector([-M0mag; 0; 0], 0, tilt, 0);
+    H0norm = computeDipoleH0Norm(H0mag, m0, r0);
+
+    <span class="comment">% prepare file header Info struct, overwrite certain fields in loop like x,</span>
+    <span class="comment">% y, z positions</span>
+    Info = struct;
+    Info.SensorArrayOptions = SensorArrayOptions;
+    Info.SensorArrayOptions.SensorCount = N^2;
+    Info.DipoleOptions = DipoleOptions;
+    Info.UseOptions = UseOptions;
+    Info.CharData = join([CharData.Info.SensorManufacturer, CharData.Info.Sensor]);
+    Info.Units.SensorOutputVoltage = <span class="string">'V'</span>;
+    Info.Units.MagneticFieldStrength = <span class="string">'kA/m'</span>;
+    Info.Units.Angles = <span class="string">'degree'</span>;
+    Info.Units.Length = <span class="string">'mm'</span>;
+
+    <span class="comment">% collect relevant to Data struct for save to file with file</span>
+    <span class="comment">% header Info struct, overwrite position depended fields in loop before save</span>
+    Data = struct;
+    Data.HxScale = HxScale;
+    Data.HyScale = HyScale;
+    Data.VcosRef = VcosRef;
+    Data.VsinRef = VsinRef;
+    Data.Gain = gain;
+    Data.r0 = r0;
+    Data.m0 = m0;
+    Data.H0norm = H0norm;
+    Data.m = m;
+    Data.angles = angles;
+    Data.angleStep = angleStep;
+    Data.angleRefIndex = angleRefIndex;
+
+    <span class="comment">% generate dataset for all use case setup pairs in for loop and append</span>
+    <span class="comment">% generated dataset path to path struct for result</span>
+    <span class="comment">% outer to inner loop is positions to angles</span>
+    <span class="comment">% generate z layer wise</span>
+    <span class="keyword">for</span> z = zPos
+        <span class="keyword">for</span> x = xPos
+            <span class="keyword">for</span> y = yPos
+                <span class="comment">% generate sensor array grid according to current position</span>
+                <span class="comment">% current position vector of sensor array relative to</span>
+                <span class="comment">% magnet surface</span>
+                p = [x; y; z];
+                <span class="comment">% write current position in file header</span>
+                Info.UseOptions.xPos = x;
+                Info.UseOptions.yPos = y;
+                Info.UseOptions.zPos = z;
+                <span class="comment">% sensor array grid coordinates</span>
+                [X, Y, Z] = generateSensorArraySquareGrid(N, a, p, rsp);
+                <span class="comment">% save current sensor gird to Data struct</span>
+                Data.X = X;
+                Data.Y = Y;
+                Data.Z = Z;
+                <span class="keyword">for</span> i = 1:nAngles
+                    <span class="comment">% calculate H-field of one rotation step for all</span>
+                    <span class="comment">% positions, the field is normed to zero position</span>
+                    H = computeDipoleHField(X, Y, Z, m(:,i), H0norm);
+                    <span class="comment">% separate parts or field in axes direction/ components</span>
+                    Hx(:,:,i) = reshape(H(1,:), N, N);
+                    Hy(:,:,i) = reshape(H(2,:), N, N);
+                    Hz(:,:,i) = reshape(H(2,:), N, N);
+                    Habs(:,:,i) = reshape(sqrt(sum(H.^2, 1)), N, N);
+                    <span class="comment">% get bridge outputs from references by cross pick</span>
+                    <span class="comment">% references from grid, the Hx and Hy queries can be</span>
+                    <span class="comment">% served as matrix as long they have same size and</span>
+                    <span class="comment">% orientation the nearest neigbhor interpolation</span>
+                    <span class="comment">% returns of same size and related to orientation, for</span>
+                    <span class="comment">% outlayers return NaN, do this for every angle</span>
+                    Vcos(:,:,i) = interp2(HxScaleGrid, HyScaleGrid, VcosRef, <span class="keyword">...</span>
+                        Hx(:,:,i), Hy(:,:,i), <span class="string">'nearest'</span>, NaN);
+                    Vsin(:,:,i) = interp2(HxScaleGrid, HyScaleGrid, VsinRef, <span class="keyword">...</span>
+                        Hx(:,:,i), Hy(:,:,i), <span class="string">'nearest'</span>, NaN);
+                <span class="keyword">end</span> <span class="comment">% angles</span>
+                <span class="comment">% save rotation results to Data struct</span>
+                Data.Hx = Hx;
+                Data.Hy = Hy;
+                Data.Hz = Hz;
+                Data.Habs = Habs;
+                Data.Vcos = Vcos;
+                Data.Vsin = Vsin;
+                <span class="comment">% save results to file</span>
+                fName = sprintf(fNameFmt, datestr(now, dfStr));
+                Info.filePath = fullfile(fPath, fName);
+                disp(Info.filePath)
+                save(Info.filePath, <span class="string">'Info'</span>, <span class="string">'Data'</span>, <span class="string">'-v7.3'</span>, <span class="string">'-nocompression'</span>);
+            <span class="keyword">end</span> <span class="comment">% y</span>
+        <span class="keyword">end</span> <span class="comment">% x</span>
+    <span class="keyword">end</span> <span class="comment">% z</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% simulateDipoleSquareSensorArray
 % Simulate a sensor array of square shape with dipole magnet as stimulus. Needs

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationCosSinStats</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="plotSimulationCosSinStats.m"><style type="text/css">
+      --><title>plotSimulationCosSinStats</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotSimulationCosSinStats.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -74,7 +74,333 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> plotSimulationCosSinStats()
+    <span class="comment">% scan for datasets and load needed configurations %%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="keyword">try</span>
+        disp(<span class="string">'Plot simulation dataset ...'</span>);
+        close <span class="string">all</span>;
+        <span class="comment">% load path variables</span>
+        load(<span class="string">'config.mat'</span>, <span class="string">'PathVariables'</span>);
+        <span class="comment">% scan for datasets</span>
+        TrainingDatasets = dir(fullfile(PathVariables.trainingDataPath, <span class="keyword">...</span>
+            <span class="string">'Training_*.mat'</span>));
+        TestDatasets = dir(fullfile(PathVariables.testDataPath, <span class="string">'Test_*.mat'</span>));
+        allDatasets = [TrainingDatasets; TestDatasets];
+        <span class="comment">% check if files available</span>
+        <span class="keyword">if</span> isempty(allDatasets)
+            error(<span class="string">'No training or test datasets found.'</span>);
+        <span class="keyword">end</span>
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    <span class="comment">% display availabe datasets to user, decide which to plot %%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+    <span class="comment">% number of datasets</span>
+    nDatasets = length(allDatasets);
+    fprintf(<span class="string">'Found %d datasets:\n'</span>, nDatasets)
+    <span class="keyword">for</span> i = 1:nDatasets
+        fprintf(<span class="string">'%s\t:\t(%d)\n'</span>, allDatasets(i).name, i)
+    <span class="keyword">end</span>
+    <span class="comment">% get numeric user input to indicate which dataset to plot</span>
+    iDataset = input(<span class="string">'Type number to choose dataset to plot to: '</span>);
+
+    <span class="comment">% load dataset and ask user which one and how many angles %%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="keyword">try</span>
+        ds = load(fullfile(allDatasets(iDataset).folder, <span class="keyword">...</span>
+            allDatasets(iDataset).name));
+        <span class="comment">% check how many angles in dataset and let user decide how many to</span>
+        <span class="comment">% render in polt</span>
+        fprintf(<span class="string">'Detect %d angles in dataset ...\n'</span>, ds.Info.UseOptions.nAngles);
+        nSubAngles = input(<span class="string">'How many angles to you wish to plot: '</span>);
+        <span class="comment">% nSubAngles = 120;</span>
+        <span class="comment">% indices for data to plot, get sample distance for even distance</span>
+        sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
+        <span class="comment">% get subset of angles</span>
+        subAngles = downsample(ds.Data.angles, sampleDistance);
+        nSubAngles = length(subAngles); <span class="comment">% just ensure</span>
+        <span class="comment">% get indices for subset data</span>
+        indices = find(ismember(ds.Data.angles, subAngles));
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    <span class="comment">% figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fPath = fullfile(PathVariables.saveFiguresPath);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, <span class="string">'svg'</span>);
+    fEpsPath = fullfile(PathVariables.saveImagesPath, <span class="string">'eps'</span>);
+    fPdfPath = fullfile(PathVariables.saveImagesPath, <span class="string">'pdf'</span>);
+
+    <span class="comment">% create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fig = figure(<span class="string">'Name'</span>, <span class="string">'Sensor Array'</span>, <span class="keyword">...</span>
+        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
+        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>, [0 0 37 29], <span class="keyword">...</span>
+        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
+        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
+        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
+        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+
+    tdl = tiledlayout(fig, 2, 1, <span class="keyword">...</span>
+        <span class="string">'Padding'</span>, <span class="string">'compact'</span>, <span class="keyword">...</span>
+        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+
+
+    title(tdl, <span class="string">'Sensor Array Simulation'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
+    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
+    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a "</span>;
+    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in "</span>;
+    subline5 = <span class="string">"sample distance of $%d$ angles. Based on %s characterization reference %s."</span>;
+    sub = [sprintf(subline1, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.geometry, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.dimension, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.dimension, <span class="keyword">...</span>
+                   ds.Info.SensorArrayOptions.edge); <span class="keyword">...</span>
+           sprintf(subline2, <span class="keyword">...</span>
+                   ds.Info.UseOptions.xPos, <span class="keyword">...</span>
+                   ds.Info.UseOptions.yPos, <span class="keyword">...</span>
+                   ds.Info.UseOptions.zPos, <span class="keyword">...</span>
+                   ds.Info.UseOptions.tilt, <span class="keyword">...</span>
+                   ds.Info.DipoleOptions.sphereRadius); <span class="keyword">...</span>
+           sprintf(subline3, <span class="keyword">...</span>
+                   ds.Info.DipoleOptions.H0mag, <span class="keyword">...</span>
+                   ds.Info.DipoleOptions.z0, <span class="keyword">...</span>
+                   ds.Info.UseOptions.nAngles); <span class="keyword">...</span>
+           sprintf(subline4, <span class="keyword">...</span>
+                   ds.Data.angleStep, <span class="keyword">...</span>
+                   ds.Info.UseOptions.angleRes, <span class="keyword">...</span>
+                   nSubAngles)
+           sprintf(subline5, <span class="keyword">...</span>
+                   sampleDistance, <span class="keyword">...</span>
+                   ds.Info.CharData, <span class="keyword">...</span>
+                   ds.Info.UseOptions.BridgeReference)];
+
+    subtitle(tdl, sub, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    M = ds.Info.SensorArrayOptions.dimension^2;
+    <span class="comment">% N = ds.Info.UseOptions.nAngles;</span>
+    res = ds.Info.UseOptions.angleRes;
+    <span class="comment">%angles = ds.Data.angles;</span>
+    anglesIP = 0:res:360-res;
+
+    <span class="comment">% load V subset and reshape for easier computing statistics</span>
+    Vcos = squeeze(reshape(ds.Data.Vcos(:,:,indices), 1, M, nSubAngles));
+    Vsin = squeeze(reshape(ds.Data.Vsin(:,:,indices), 1, M, nSubAngles));
+
+    <span class="comment">% load offset voltage to subtract from cosinus, sinus voltage</span>
+    Voff = ds.Info.SensorArrayOptions.Voff;
+    Vcc = ds.Info.SensorArrayOptions.Vcc;
+
+    <span class="comment">% compute statistics of Vcos Vsin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">% interpolate with makima makes best results, ensure to kill nans for</span>
+    <span class="comment">% fill otherwise fill strokes, use linstyle none for fill without frame</span>
+    interpM = <span class="string">'makima'</span>;
+    VcosMean = mean(Vcos, 1);
+    VcosMeanIP = interp1(subAngles, VcosMean, anglesIP, interpM);
+
+    VcosStd = std(Vcos, 1, 1);
+    VcosVar = var(Vcos, 1, 1); <span class="comment">% std^2</span>
+
+    <span class="comment">% meanvariation coefficient in percent</span>
+    VcosMVCP = mean(VcosStd ./ VcosMean) * 100;
+
+    VcosUpper1 = VcosMean + VcosStd;
+    VcosUpper2 = VcosMean + VcosVar;
+    VcosLower1 = VcosMean - VcosStd;
+    VcosLower2 = VcosMean - VcosVar;
+
+    VcosUpper1IP = interp1(subAngles, VcosUpper1, anglesIP, interpM);
+    VcosUpper1IP = fillmissing(VcosUpper1IP, <span class="string">'previous'</span>);
+
+    VcosLower1IP = interp1(subAngles, VcosLower1, anglesIP, interpM);
+    VcosLower1IP = fillmissing(VcosLower1IP, <span class="string">'previous'</span>);
+
+    VcosUpper2IP = interp1(subAngles, VcosUpper2, anglesIP, interpM);
+    VcosUpper2IP = fillmissing(VcosUpper2IP, <span class="string">'previous'</span>);
+
+    VcosLower2IP = interp1(subAngles, VcosLower2, anglesIP, interpM);
+    VcosLower2IP = fillmissing(VcosLower2IP, <span class="string">'previous'</span>);
+
+    VsinMean = mean(Vsin, 1);
+    VsinMeanIP = interp1(subAngles, VsinMean, anglesIP, interpM);
+
+    VsinStd = std(Vsin, 1, 1);
+    VsinVar = var(Vsin, 1, 1); <span class="comment">% std^2</span>
+
+    <span class="comment">% meanvariation coefficient in percent</span>
+    VsinMVCP = mean(VsinStd ./ VsinMean) * 100;
+
+    VsinUpper1 = VsinMean + VsinStd;
+    VsinUpper2 = VsinMean + VsinVar;
+    VsinLower1 = VsinMean - VsinStd;
+    VsinLower2 = VsinMean - VsinVar;
+
+    VsinUpper1IP = interp1(subAngles, VsinUpper1, anglesIP, interpM);
+    VsinUpper1IP = fillmissing(VsinUpper1IP, <span class="string">'previous'</span>);
+
+    VsinLower1IP = interp1(subAngles, VsinLower1, anglesIP, interpM);
+    VsinLower1IP = fillmissing(VsinLower1IP, <span class="string">'previous'</span>);
+
+    VsinUpper2IP = interp1(subAngles, VsinUpper2, anglesIP, interpM);
+    VsinUpper2IP = fillmissing(VsinUpper2IP, <span class="string">'previous'</span>);
+
+    VsinLower2IP = interp1(subAngles, VsinLower2, anglesIP, interpM);
+    VsinLower2IP = fillmissing(VsinLower2IP, <span class="string">'previous'</span>);
+
+    <span class="comment">% plot Vcos Vsin over angles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">% axes limits</span>
+    <span class="comment">%xlimits = [-10 370];</span>
+    <span class="comment">%ylimits = [min(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') - 0.1*Vcc, ...</span>
+    <span class="comment">%    max(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') + 0.1*Vcc];</span>
+
+    <span class="comment">% Vcos</span>
+    nexttile;
+    hold <span class="string">on</span>;
+
+    fillStdX = [anglesIP, fliplr(anglesIP)];
+    fillStdY = [VcosLower1IP, fliplr(VcosUpper1IP)];
+    fill(fillStdX, fillStdY, [0.95 0.95 0.95], <span class="string">'LineStyle'</span>, <span class="string">'none'</span>);
+
+    fillVarX = [anglesIP, fliplr(anglesIP)];
+    fillVarY = [VcosLower2IP, fliplr(VcosUpper2IP)];
+    fill(fillVarX, fillVarY, [0.7 0.7 0.7], <span class="string">'LineStyle'</span>, <span class="string">'none'</span>);
+
+    yline(Voff, <span class="string">'k--'</span>);
+    scatter(subAngles, VcosUpper1, [], <span class="string">'r*'</span>);
+    plot(anglesIP, VcosUpper1IP, <span class="string">'r-.'</span>);
+    scatter(subAngles, VcosMean, [], <span class="string">'m*'</span>);
+    plot(anglesIP, VcosMeanIP, <span class="string">'m-.'</span>);
+    scatter(subAngles, VcosLower1, [], <span class="string">'b*'</span>);
+    plot(anglesIP, VcosLower1IP, <span class="string">'b-.'</span>);
+
+
+    hold <span class="string">off</span>;
+    xlim([-res 360-res]);
+    <span class="comment">%ylim(ylimits);</span>
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$\theta$ in Degree'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$V{cos}(\theta)$ in V'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(sprintf(<span class="string">'Compare $V_{cos}(\\theta)$ for each Array Member $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V, $\\bar{\\sigma_\\mu} = %.2f$ perc.'</span>, <span class="keyword">...</span>
+                  Vcc, Voff, VcosMVCP), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% Vsin</span>
+    nexttile;
+    hold <span class="string">on</span>;
+
+    fillStdX = [anglesIP, fliplr(anglesIP)];
+    fillStdY = [VsinLower1IP, fliplr(VsinUpper1IP)];
+    l1 = fill(fillStdX, fillStdY, [0.95 0.95 0.95], <span class="string">'LineStyle'</span>, <span class="string">'none'</span>);
+
+    fillVarX = [anglesIP, fliplr(anglesIP)];
+    fillVarY = [VsinLower2IP, fliplr(VsinUpper2IP)];
+    l2 = fill(fillVarX, fillVarY, [0.7 0.7 0.7], <span class="string">'LineStyle'</span>, <span class="string">'none'</span>);
+
+    l3 = yline(Voff, <span class="string">'k--'</span>);
+    l4 = scatter(subAngles, VsinUpper1, [], <span class="string">'r*'</span>);
+    l5 = plot(anglesIP, VsinUpper1IP, <span class="string">'r-.'</span>);
+    l6 = scatter(subAngles, VsinMean, [], <span class="string">'m*'</span>);
+    l7 = plot(anglesIP, VsinMeanIP, <span class="string">'m-.'</span>);
+    l8 = scatter(subAngles, VsinLower1, [], <span class="string">'b*'</span>);
+    l9 = plot(anglesIP, VsinLower1IP, <span class="string">'b-.'</span>);
+
+    hold <span class="string">off</span>;
+    xlim([-res 360-res]);
+    grid <span class="string">on</span>;
+
+    xlabel(<span class="string">'$\theta$ in Degree'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(<span class="string">'$V{sin}(\theta)$ in V'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    title(sprintf(<span class="string">'Compare $V_{sin}(\\theta)$ for each Array Member $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V, $\\bar{\\sigma_\\mu} = %.2f$ perc.'</span><span class="keyword">...</span>
+            , Vcc, Voff, VsinMVCP), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% plot legend %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    l = [l1 l2 l3 l4 l5 l6 l7 l8 l9];
+    L = legend(l, {<span class="string">'$2\sigma$'</span>, <span class="keyword">...</span>
+                   <span class="string">'$2\sigma^2$'</span>, <span class="keyword">...</span>
+                   <span class="string">'$V_{off}$'</span>, <span class="keyword">...</span>
+                   <span class="string">'$U_{lim} = \mu + \sigma$'</span>, <span class="keyword">...</span>
+                   sprintf(<span class="string">'$%s(U_{lim})$'</span>, interpM), <span class="keyword">...</span>
+                   <span class="string">'$\mu(V)$'</span>, <span class="keyword">...</span>
+                   sprintf(<span class="string">'$%s(\\mu)$'</span>, interpM), <span class="keyword">...</span>
+                   <span class="string">'$L_{lim} = \mu - \sigma$'</span>, <span class="keyword">...</span>
+                   sprintf(<span class="string">'$%s(L_{lim})$'</span>, interpM)}, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    L.Layout.Tile = <span class="string">'east'</span>;
+
+    <span class="comment">% save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">% get file path to save figure with angle index</span>
+    [~, fName, ~] = fileparts(ds.Info.filePath);
+
+    <span class="comment">% save to various formats</span>
+    yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
+    <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
+        fLabel = input(<span class="string">'Enter file label: '</span>, <span class="string">'s'</span>);
+        fName =  fName + <span class="string">"_StatsPlot_"</span> + fLabel;
+        savefig(fig, fullfile(fPath, fName));
+        print(fig, fullfile(fSvgPath, fName), <span class="string">'-dsvg'</span>);
+        print(fig, fullfile(fEpsPath, fName), <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
+        print(fig, fullfile(fPdfPath, fName), <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
+    <span class="keyword">end</span>
+    close(fig);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% plotSimulationCosSinStats
 % Search for available trainings or test dataset and plot dataset. Follow user

@@ -93,6 +93,15 @@ PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, 'images')
 % path to save matlab figures
 PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, 'figures');
 
+% path to latex docs folder
+PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, 'latex');
+
+% path to latex Thesis Tobias Wulf (take care if comment in)
+% PathVariables.thesisTobiasWulf = fullfile(PathVariables.latexDocsPath, 'BA_Thesis_Tobias_Wulf');
+
+% path to docs export folder for Manual
+PathVariables.exportPublishPath = fullfile(PathVariables.latexDocsPath, 'Manual');
+
 % path to style sheet for html documentation, Matlab provided style sheet
 PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...
     'matlab', 'codetools', 'private', 'mxdom2simplehtml.xsl'));
@@ -220,8 +229,8 @@ TrainingOptions.useCase = 'Training';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
-TrainingOptions.xPos = [0, -1];
-TrainingOptions.yPos = [0, 1];
+TrainingOptions.xPos = [0,];
+TrainingOptions.yPos = [0, -1, -2, -5];
 TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
@@ -246,7 +255,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 720;
+TrainingOptions.nAngles = 16;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -281,9 +290,9 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [0, -1];
-TestOptions.yPos = [0, 1];
-TestOptions.zPos = [4.5,];
+TestOptions.xPos = [];
+TestOptions.yPos = [];
+TestOptions.zPos = [];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;
@@ -312,7 +321,7 @@ TestOptions.nAngles = 720;
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
 % KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor
-TestOptions.BaseReference = 'KMZ60';
+TestOptions.BaseReference = 'TDK';
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the

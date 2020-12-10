@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -124,6 +124,15 @@ PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, <span cla
 <span class="comment">% path to save matlab figures</span>
 PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, <span class="string">'figures'</span>);
 
+<span class="comment">% path to latex docs folder</span>
+PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, <span class="string">'latex'</span>);
+
+<span class="comment">% path to latex Thesis Tobias Wulf (take care if comment in)</span>
+<span class="comment">% PathVariables.thesisTobiasWulf = fullfile(PathVariables.latexDocsPath, 'BA_Thesis_Tobias_Wulf');</span>
+
+<span class="comment">% path to docs export folder for Manual</span>
+PathVariables.exportPublishPath = fullfile(PathVariables.docsPath, <span class="string">'Manual'</span>);
+
 <span class="comment">% path to style sheet for html documentation, Matlab provided style sheet</span>
 PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, <span class="string">'toolbox'</span>, <span class="keyword">...</span>
     <span class="string">'matlab'</span>, <span class="string">'codetools'</span>, <span class="string">'private'</span>, <span class="string">'mxdom2simplehtml.xsl'</span>));
@@ -219,8 +228,8 @@ TrainingOptions.useCase = <span class="string">'Training'</span>;
 <span class="comment">% increase the distance. The z-position will be subtracted by dipole sphere</span>
 <span class="comment">% radius in simulation. So there is an offset given by the sphere radius.</span>
 <span class="comment">% Loop parameters.</span>
-TrainingOptions.xPos = [0, -1];
-TrainingOptions.yPos = [0, 1];
+TrainingOptions.xPos = [0,];
+TrainingOptions.yPos = [0, -1, -2, -5];
 TrainingOptions.zPos = [7,];
 
 <span class="comment">% Dipole tilt in z-axes in degree. Fix parameter.</span>
@@ -245,7 +254,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 720;
+TrainingOptions.nAngles = 16;
 
 <span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
 <span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
@@ -274,9 +283,9 @@ TestOptions.useCase = <span class="string">'Test'</span>;
 <span class="comment">% increase the distance. The z-position will be subtracted by dipole sphere</span>
 <span class="comment">% radius in simulation. So there is an offset given by the sphere radius.</span>
 <span class="comment">% Loop parameter.</span>
-TestOptions.xPos = [0, -1];
-TestOptions.yPos = [0, 1];
-TestOptions.zPos = [4.5,];
+TestOptions.xPos = [];
+TestOptions.yPos = [];
+TestOptions.zPos = [];
 
 <span class="comment">% Dipole tilt in z-axes in degree. Fix parameter.</span>
 TestOptions.tilt = 0;
@@ -305,7 +314,7 @@ TestOptions.nAngles = 720;
 <span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
 <span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
 <span class="comment">% KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor</span>
-TestOptions.BaseReference = <span class="string">'KMZ60'</span>;
+TestOptions.BaseReference = <span class="string">'TDK'</span>;
 
 <span class="comment">% Characteraztion field which should be load as refernce image from</span>
 <span class="comment">% characterization data set, in TDK dataset are following fields. In the</span>
@@ -424,6 +433,15 @@ PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, 'images')
 
 % path to save matlab figures
 PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, 'figures');
+
+% path to latex docs folder
+PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, 'latex');
+
+% path to latex Thesis Tobias Wulf (take care if comment in)
+% PathVariables.thesisTobiasWulf = fullfile(PathVariables.latexDocsPath, 'BA_Thesis_Tobias_Wulf');
+
+% path to docs export folder for Manual
+PathVariables.exportPublishPath = fullfile(PathVariables.docsPath, 'Manual');
 
 % path to style sheet for html documentation, Matlab provided style sheet
 PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...
@@ -552,8 +570,8 @@ TrainingOptions.useCase = 'Training';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
-TrainingOptions.xPos = [0, -1];
-TrainingOptions.yPos = [0, 1];
+TrainingOptions.xPos = [0,];
+TrainingOptions.yPos = [0, -1, -2, -5];
 TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
@@ -578,7 +596,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 720;
+TrainingOptions.nAngles = 16;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -613,9 +631,9 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [0, -1];
-TestOptions.yPos = [0, 1];
-TestOptions.zPos = [4.5,];
+TestOptions.xPos = [];
+TestOptions.yPos = [];
+TestOptions.zPos = [];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;
@@ -644,7 +662,7 @@ TestOptions.nAngles = 720;
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
 % KMZ60 - for characterization dataset of NXP KMZ60 AMR sensor
-TestOptions.BaseReference = 'KMZ60';
+TestOptions.BaseReference = 'TDK';
 
 % Characteraztion field which should be load as refernce image from
 % characterization data set, in TDK dataset are following fields. In the

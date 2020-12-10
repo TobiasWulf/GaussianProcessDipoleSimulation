@@ -21,7 +21,7 @@
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   tree -dhn GaussianProcessDipoleSimulation -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I "project|Project_*"
+%   tree -dhn GaussianProcessDipoleSimulation -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I "project|Project_*|thesis|images"
 %
 %% Directory Tasks
 %
@@ -105,6 +105,26 @@
 %     </td>
 %   </tr>
 %   <tr>
+%     <td>./docs/html/images/avi</td>
+%     <td>Contains video avi-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/images/eps</td>
+%     <td>Contains saved figures as eps-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/images/pdf</td>
+%     <td>Contains saved figures as pdf-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/images/svg</td>
+%     <td>Contains saved figures as svg-files.
+%     </td>
+%   </tr>
+%   <tr>
 %     <td>./docs/latex</td>
 %     <td>Documentation directory which LaTeX documentation of the project
 %     including subfolders for Thesis of each project participant.
@@ -115,6 +135,12 @@
 %     <td>Bachelor Thesis directory of Tobias Wulf.
 %     </td>
 %   </tr>
+%   <tr>
+%     <td>./docs/latex/Manual</td>
+%     <td>Export directory for documentation written in Matlab as pdf export.
+%     </td>
+%   </tr>
+%   <tr>
 %   <tr>
 %     <td>./scripts</td>
 %     <td>The sripts directory contains all executable script m-files to solve

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>removeFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="removeFilesFromDir.m"><style type="text/css">
+      --><title>removeFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="removeFilesFromDir.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -79,7 +79,30 @@ Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 Edited on October 11. 2020 by Tobias Wulf: Tested with R2020b.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> [removeStatus] = removeFilesFromDir(directory, filePattern)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate directory</span>
+        directory <span class="typesection">(1,:) char {mustBeFolder}</span>
+        <span class="comment">% validate filePattern</span>
+        filePattern <span class="typesection">(1,:) char {mustBeText}</span> = <span class="string">'*.*'</span>
+    <span class="keyword">end</span>
+    <span class="comment">% parse pattern for dir</span>
+    parsePattern = fullfile(directory, filePattern);
+    <span class="comment">% parse directory, returns struct</span>
+    filesToRemove = dir(parsePattern);
+    <span class="comment">% delete files, tranpose to loop through struct</span>
+    <span class="keyword">for</span> file = filesToRemove'
+        <span class="comment">% check before delete</span>
+        filePath = fullfile(file.folder, file.name);
+        <span class="keyword">if</span> isfile(filePath)
+            delete(filePath);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    <span class="comment">% check if dir returns an empty struct now</span>
+    check = dir(parsePattern);
+    removeStatus = isempty(check(~ismember({check.name}, {<span class="string">'.'</span>, <span class="string">'..'</span>})));
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% removeFilesFromDir
 % Remove files from passed direcotory.

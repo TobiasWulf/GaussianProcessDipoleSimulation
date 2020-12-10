@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateSensorSquareArrayGrid</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="generateSensorArraySquareGrid.m"><style type="text/css">
+      --><title>generateSensorSquareArrayGrid</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="generateSensorArraySquareGrid.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,33 @@ r = 2;
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> [X, Y, Z] = generateSensorArraySquareGrid(N, a, p, r)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate N as positive integer</span>
+        N <span class="typesection">(1,1) double {mustBePositive, mustBeInteger}</span>
+        <span class="comment">% validate array edge length as positive scalar</span>
+        a <span class="typesection">(1,1) double {mustBeReal, mustBePositive}</span>
+        <span class="comment">% validate p as column vector of real scalars</span>
+        p <span class="typesection">(3,1) double {mustBeReal, mustBeVector}</span>
+        <span class="comment">% validate r as real scalar</span>
+        r <span class="typesection">(1,1) double {mustBeReal}</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% half edge length for square corners</span>
+    aHalf = a / 2;
+
+    <span class="comment">% distance in x and y direction of each coordinate to next point</span>
+    d = a / (N - 1);
+
+    <span class="comment">% grid vector for x and y coordinates z is constant layer with shifts</span>
+    x = (-aHalf:d:aHalf) + p(1);
+    y = (aHalf:-d:-aHalf) + p(2);
+    z = -(p(3) + r);
+
+    <span class="comment">% scale grid in x, y dimension with constant z dimension</span>
+    [X, Y, Z] = meshgrid(x, y, z);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% generateSensorSquareArrayGrid
 % Generate a position grid of sensors in x, y and z dimension. So the

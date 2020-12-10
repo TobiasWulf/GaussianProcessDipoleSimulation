@@ -6,6 +6,10 @@
 % by functions to control and execute task in a unified project structure.
 %
 %
+%% exportPublishedToPdf
+% Export published HTML files to a pdf manual.
+%
+%
 %% deleteSimulationPlots
 % Delete simulation training and test dataset plots from figures and images path
 % with training and test filename pattern.
@@ -36,6 +40,7 @@
 % Edited on Month DD. YYYY by Editor: Single line description.
 % Edited on November 04. 2020 by Tobias Wulf: Add forgotten generateConigMAt.
 % Edited on December 02. 2020 by Tobias Wulf: Add scripts for delete and generate.
+% Edited on December 10. 2020 by Tobias Wulf: Add export script build pdf manual.
 % -->
 % </html>
 %

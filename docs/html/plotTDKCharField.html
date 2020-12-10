@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotTDKCharField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="plotTDKCharField.m"><style type="text/css">
+      --><title>plotTDKCharField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotTDKCharField.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -75,7 +75,303 @@ Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 Edited on December 05. 2020 by Tobias Wulf: Add bridge output gain.
 -->
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><pre class="codeinput"><span class="keyword">function</span> plotTDKCharField()
+    <span class="keyword">try</span>
+        <span class="comment">% load dataset path and dataset content into function workspace</span>
+        load(<span class="string">'config.mat'</span>, <span class="string">'PathVariables'</span>);
+        load(PathVariables.tdkDatasetPath, <span class="string">'Data'</span>, <span class="string">'Info'</span>);
+        close <span class="string">all</span>;
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    <span class="comment">% load needed data from dataset in to local variables for better handling %%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">% get from user which field to investigate and limits for plateau</span>
+    fields = Info.SensorOutput.CosinusBridge.Determination;
+    nFields = length(fields);
+    fprintf(<span class="string">'Choose 1 of %d fields ...\n'</span>, nFields);
+    <span class="keyword">for</span> i = 1:nFields
+        fprintf(<span class="string">'%s\t:\t(%d)\n'</span>, fields{i}, i);
+    <span class="keyword">end</span>
+
+    iField = input(<span class="string">'Choice: '</span>);
+    field = fields{iField};
+    pl = input(<span class="string">'Plateu limit in kA/m: '</span>);
+
+    Vcos = Data.SensorOutput.CosinusBridge.(field);
+    Vsin = Data.SensorOutput.SinusBridge.(field);
+    gain = Info.SensorOutput.BridgeGain;
+    HxScale = Data.MagneticField.hx;
+    HyScale = Data.MagneticField.hy;
+    Hmin = Info.MagneticField.MinAmplitude;
+    Hmax = Info.MagneticField.MaxAmplitude;
+
+    <span class="comment">% get unit strings from</span>
+    kApm = Info.Units.MagneticFieldStrength;
+    mV = Info.Units.SensorOutputVoltage;
+
+    <span class="comment">% get dataset infos and format strings to place in figures</span>
+    <span class="comment">% subtitle string for all figures</span>
+    infoStr = join([Info.SensorManufacturer, Info.Sensor, Info.SensorTechnology, <span class="keyword">...</span>
+        Info.SensorType, <span class="string">"Sensor Characterization Dataset."</span>]);
+    dateStr = join([<span class="string">"Created on"</span>, Info.Created, <span class="string">"by"</span>, <span class="string">'Thorben Sch\"uthe'</span>, <span class="keyword">...</span>
+        <span class="string">"and updated on"</span>, Info.Edited, <span class="string">"by"</span>, Info.Editor + <span class="string">"."</span>]);
+
+    <span class="comment">% clear dataset all loaded</span>
+    clear <span class="string">Data</span> <span class="string">Info</span>;
+
+    <span class="comment">% figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fName = sprintf(<span class="string">"tdk_char_field_%s"</span>, field);
+    fPath = fullfile(PathVariables.saveFiguresPath, fName);
+    fSvgPath = fullfile(PathVariables.saveImagesPath, <span class="string">'svg'</span>, fName);
+    fEpsPath = fullfile(PathVariables.saveImagesPath, <span class="string">'eps'</span>, fName);
+    fPdfPath = fullfile(PathVariables.saveImagesPath, <span class="string">'pdf'</span>, fName);
+
+    <span class="comment">% define slices and limits to plot %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    Hslice = [128 154 180 205]; <span class="comment">% hit ca. 0, 5, 10, 15 kA/m</span>
+    Hlims = [-pl pl];
+    mVpVlims = [-175 175];
+
+    <span class="comment">% create figure for plots %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    fig = figure(<span class="string">'Name'</span>, <span class="string">'Char Field'</span>, <span class="keyword">...</span>
+        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
+        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>, [0 0 33 30], <span class="keyword">...</span>
+        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
+        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
+        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
+        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
+        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+
+    tdl = tiledlayout(fig, 2, 2, <span class="keyword">...</span>
+        <span class="string">'Padding'</span>, <span class="string">'compact'</span>, <span class="keyword">...</span>
+        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+
+    title(tdl, sprintf(<span class="string">'Characterization Field: %s'</span>, field), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    subtitle(tdl, [infoStr; dateStr], <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    <span class="comment">% set colormap</span>
+    colormap(<span class="string">'jet'</span>);
+
+    <span class="comment">% cosinus bridge %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    nexttile(1);
+    im = imagesc(HxScale, HyScale, Vcos);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vcos));
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    <span class="comment">% plot lines for slice to investigate</span>
+    hold <span class="string">on</span>;
+    <span class="keyword">for</span> i = Hslice
+        yline(HyScale(i), <span class="string">'k:'</span>, <span class="string">'LineWidth'</span>, 2);
+    <span class="keyword">end</span>
+    hold <span class="string">off</span>;
+
+    xlabel(sprintf(<span class="string">'$H_x$ in %s'</span>, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(sprintf(<span class="string">'$H_y$ in %s'</span>, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'$V_{cos}(H_x,H_y)$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    cb = colorbar;
+    cb.Label.String = sprintf(<span class="string">'$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.Interpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 12;
+
+    <span class="comment">% cosinus bridge sclices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    nexttile(2);
+    <span class="comment">% slices</span>
+    p = plot(HxScale, Vcos(Hslice,:), <span class="string">'LineWidth'</span>, 1.2);
+
+    <span class="comment">% plateau limits</span>
+    <span class="keyword">if</span> pl &gt; 0
+        hold <span class="string">on</span>;
+        xline(Hlims(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 1.5);
+        xline(Hlims(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 1.5);
+        hold <span class="string">off</span>;
+
+        text(Hlims(1)-9.5, 100, <span class="keyword">...</span>
+            sprintf(<span class="string">'$%.1f$ %s'</span>, Hlims(1), kApm), <span class="keyword">...</span>
+            <span class="string">'Color'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+        text(Hlims(2)+0.5, -50, <span class="keyword">...</span>
+            sprintf(<span class="string">'$%.1f$ %s'</span>, Hlims(2), kApm), <span class="keyword">...</span>
+            <span class="string">'Color'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    <span class="keyword">end</span>
+
+    legend(p, {<span class="string">'$H_y \approx 0$ kA/m'</span>, <span class="keyword">...</span>
+               <span class="string">'$H_y \approx 5$ kA/m'</span>, <span class="keyword">...</span>
+               <span class="string">'$H_y \approx 10$ kA/m'</span>, <span class="keyword">...</span>
+               <span class="string">'$H_y \approx 15$ kA/m'</span>},<span class="keyword">...</span>
+            <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
+            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="keyword">...</span>
+            <span class="string">'Location'</span>, <span class="string">'SouthEast'</span>);
+
+    xlabel(sprintf(<span class="string">'$H_x$ in %s'</span>, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'$V_{cos}(H_x,H_y)$ for $H_y = $ const.'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    grid <span class="string">on</span>;
+    ylim(mVpVlims);
+    xlim([Hmin Hmax])
+
+    <span class="comment">% sinus bridge %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    nexttile(3);
+    im = imagesc(HxScale, HyScale, Vsin);
+    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
+    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vsin));
+    yticks(xticks);
+    axis <span class="string">square</span> <span class="string">xy</span>;
+    grid <span class="string">on</span>;
+
+    <span class="comment">% plot lines for slice to investigate</span>
+    hold <span class="string">on</span>;
+    <span class="keyword">for</span> i = Hslice
+        xline(HxScale(i), <span class="string">'k:'</span>, <span class="string">'LineWidth'</span>, 2);
+    <span class="keyword">end</span>
+    hold <span class="string">off</span>;
+
+    xlabel(sprintf(<span class="string">'$H_x$ in %s'</span>, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    ylabel(sprintf(<span class="string">'$H_y$ in %s'</span>, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'$V_{sin}(H_x,H_y)$'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    cb = colorbar;
+    cb.Label.String = sprintf(<span class="string">'$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.Interpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 12;
+
+    <span class="comment">% sinus bridge sclices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    nexttile(4);
+    <span class="comment">% slices</span>
+    p = plot(HxScale, Vsin(:,Hslice), <span class="string">'LineWidth'</span>, 1.2);
+
+    <span class="comment">% plateau limits</span>
+    <span class="keyword">if</span> pl &gt; 0
+        hold <span class="string">on</span>;
+        xline(Hlims(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 1.5);
+        xline(Hlims(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 1.5);
+        hold <span class="string">off</span>;
+
+        text(Hlims(1)-9.5, 100, <span class="keyword">...</span>
+            sprintf(<span class="string">'$%.1f$ %s'</span>, Hlims(1), kApm), <span class="keyword">...</span>
+            <span class="string">'Color'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+        text(Hlims(2)+0.5, -50, <span class="keyword">...</span>
+            sprintf(<span class="string">'$%.1f$ %s'</span>, Hlims(2), kApm), <span class="keyword">...</span>
+            <span class="string">'Color'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    <span class="keyword">end</span>
+
+    legend(p, {<span class="string">'$H_x \approx 0$ kA/m'</span>, <span class="keyword">...</span>
+               <span class="string">'$H_x \approx 5$ kA/m'</span>, <span class="keyword">...</span>
+               <span class="string">'$H_x \approx 10$ kA/m'</span>, <span class="keyword">...</span>
+               <span class="string">'$H_x \approx 15$ kA/m'</span>},<span class="keyword">...</span>
+            <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
+            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="keyword">...</span>
+            <span class="string">'Location'</span>, <span class="string">'SouthEast'</span>);
+
+    xlabel(sprintf(<span class="string">'$H_y$ in %s'</span>, kApm), <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    title(<span class="string">'$V_{sin}(H_x,H_y)$ for $H_x = $ const.'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+
+    grid <span class="string">on</span>;
+    ylim(mVpVlims);
+    xlim([Hmin Hmax])
+
+    <span class="comment">% save results of figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+    yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
+    <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
+        savefig(fig, fPath);
+        print(fig, fSvgPath, <span class="string">'-dsvg'</span>);
+        print(fig, fEpsPath, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
+        print(fig, fPdfPath, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
+    <span class="keyword">end</span>
+    close(fig)
+
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% plotTDKCharField
 % Explore TDK TAS2141 characterization field.

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-09"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
+      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -82,7 +82,8 @@ GaussianProcessDipoleSimulation
 &#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp;     &#9500;&#9472;&#9472; [4.0K]  pdf
 &#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp;     &#9492;&#9472;&#9472; [4.0K]  svg
 &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  latex
-&#9474;&nbsp;&nbsp;     &#9492;&#9472;&#9472; [4.0K]  BA_Thesis_Tobias_Wulf
+&#9474;&nbsp;&nbsp;     &#9500;&#9472;&#9472; [4.0K]  BA_Thesis_Tobias_Wulf
+&#9474;&nbsp;&nbsp;     &#9492;&#9472;&#9472; [4.0K]  Manual
 &#9500;&#9472;&#9472; [4.0K]  resources
 &#9500;&#9472;&#9472; [4.0K]  scripts
 &#9500;&#9472;&#9472; [4.0K]  src
@@ -92,8 +93,8 @@ GaussianProcessDipoleSimulation
 &#9500;&#9472;&#9472; [4.0K]  temp
 &#9492;&#9472;&#9472; [4.0K]  tests
 
-22 directories
-</pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab">tree <span class="string">-dhn</span> <span class="string">GaussianProcessDipoleSimulation</span> <span class="string">-o</span> <span class="string">GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt</span> <span class="string">-I</span> <span class="string">"project|Project_*"</span>
+23 directories
+</pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab">tree <span class="string">-dhn</span> <span class="string">GaussianProcessDipoleSimulation</span> <span class="string">-o</span> <span class="string">GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt</span> <span class="string">-I</span> <span class="string">"project|Project_*|thesis|images"</span>
 </pre><h2 id="3">Directory Tasks</h2><p>
 <table border=1>
 <thead>
@@ -174,6 +175,26 @@ GaussianProcessDipoleSimulation
     </td>
   </tr>
   <tr>
+    <td>./docs/html/images/avi</td>
+    <td>Contains video avi-files.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs/html/images/eps</td>
+    <td>Contains saved figures as eps-files.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs/html/images/pdf</td>
+    <td>Contains saved figures as pdf-files.
+    </td>
+  </tr>
+  <tr>
+    <td>./docs/html/images/svg</td>
+    <td>Contains saved figures as svg-files.
+    </td>
+  </tr>
+  <tr>
     <td>./docs/latex</td>
     <td>Documentation directory which LaTeX documentation of the project
     including subfolders for Thesis of each project participant.
@@ -184,6 +205,12 @@ GaussianProcessDipoleSimulation
     <td>Bachelor Thesis directory of Tobias Wulf.
     </td>
   </tr>
+  <tr>
+    <td>./docs/latex/Manual</td>
+    <td>Export directory for documentation written in Matlab as pdf export.
+    </td>
+  </tr>
+  <tr>
   <tr>
     <td>./scripts</td>
     <td>The sripts directory contains all executable script m-files to solve
@@ -264,7 +291,7 @@ Edited on November 24. 2020 by Tobias Wulf: Add folders for training and test da
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   tree -dhn GaussianProcessDipoleSimulation -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I "project|Project_*"
+%   tree -dhn GaussianProcessDipoleSimulation -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I "project|Project_*|thesis|images"
 %
 %% Directory Tasks
 %
@@ -348,6 +375,26 @@ Edited on November 24. 2020 by Tobias Wulf: Add folders for training and test da
 %     </td>
 %   </tr>
 %   <tr>
+%     <td>./docs/html/images/avi</td>
+%     <td>Contains video avi-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/images/eps</td>
+%     <td>Contains saved figures as eps-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/images/pdf</td>
+%     <td>Contains saved figures as pdf-files.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./docs/html/images/svg</td>
+%     <td>Contains saved figures as svg-files.
+%     </td>
+%   </tr>
+%   <tr>
 %     <td>./docs/latex</td>
 %     <td>Documentation directory which LaTeX documentation of the project
 %     including subfolders for Thesis of each project participant.
@@ -358,6 +405,12 @@ Edited on November 24. 2020 by Tobias Wulf: Add folders for training and test da
 %     <td>Bachelor Thesis directory of Tobias Wulf.
 %     </td>
 %   </tr>
+%   <tr>
+%     <td>./docs/latex/Manual</td>
+%     <td>Export directory for documentation written in Matlab as pdf export.
+%     </td>
+%   </tr>
+%   <tr>
 %   <tr>
 %     <td>./scripts</td>
 %     <td>The sripts directory contains all executable script m-files to solve

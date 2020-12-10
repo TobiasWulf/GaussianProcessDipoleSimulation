@@ -12,7 +12,8 @@ GaussianProcessDipoleSimulation
 │   │       ├── [4.0K]  pdf
 │   │       └── [4.0K]  svg
 │   └── [4.0K]  latex
-│       └── [4.0K]  BA_Thesis_Tobias_Wulf
+│       ├── [4.0K]  BA_Thesis_Tobias_Wulf
+│       └── [4.0K]  Manual
 ├── [4.0K]  resources
 ├── [4.0K]  scripts
 ├── [4.0K]  src
@@ -22,4 +23,4 @@ GaussianProcessDipoleSimulation
 ├── [4.0K]  temp
 └── [4.0K]  tests
 
-22 directories
+23 directories
