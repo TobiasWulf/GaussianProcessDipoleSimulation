@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
+      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -132,7 +132,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
             allDatasets(iDataset).name));
         <span class="comment">% check how many angles in dataset and let user decide how many to</span>
         <span class="comment">% render in polt</span>
-        fprintf(<span class="string">'Detect %d angles in dataset ...\n'</span>, ds.Info.UseOptions.nAngles);
+        fprintf(<span class="string">'Detect %d angles in dataset ...\n'</span>,<span class="keyword">...</span>
+            ds.Info.UseOptions.nAngles);
         nSubAngles = input(<span class="string">'How many angles to you wish to plot: '</span>);
         <span class="comment">% nSubAngles = 120;</span>
         <span class="comment">% indices for data to plot, get sample distance for even distance</span>
@@ -174,11 +175,16 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
-    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
-    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a "</span>;
-    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in "</span>;
-    subline5 = <span class="string">"sample distance of $%d$ angles. Based on %s characterization reference %s."</span>;
+    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, an edge"</span> + <span class="keyword">...</span>
+        <span class="string">" length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
+    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet"</span> + <span class="keyword">...</span>
+        <span class="string">" tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
+    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm"</span> + <span class="keyword">...</span>
+        <span class="string">" from sphere surface in z-axis, $%d$ rotation angles with a "</span>;
+    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution"</span> + <span class="keyword">...</span>
+        <span class="string">" of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in "</span>;
+    subline5 = <span class="string">"sample distance of $%d$ angles. Based on %s"</span> + <span class="keyword">...</span>
+        <span class="string">" characterization reference %s."</span>;
     sub = [sprintf(subline1, <span class="keyword">...</span>
                    ds.Info.SensorArrayOptions.geometry, <span class="keyword">...</span>
                    ds.Info.SensorArrayOptions.dimension, <span class="keyword">...</span>
@@ -282,7 +288,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     nexttile(2);
     <span class="comment">% plot all angles grayed out</span>
-    polarscatter(ds.Data.angles/180*pi, ones(1, ds.Info.UseOptions.nAngles), <span class="keyword">...</span>
+    polarscatter(ds.Data.angles/180*pi, <span class="keyword">...</span>
+        ones(1, ds.Info.UseOptions.nAngles), <span class="keyword">...</span>
         [], [0.8 0.8 0.8], <span class="string">'filled'</span>);
 
     <span class="comment">% radius ticks and label</span>
@@ -291,7 +298,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     hold <span class="string">on</span>;
 
     <span class="comment">% plot subset of angles</span>
-    <span class="comment">% polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);</span>
+    <span class="comment">% polarscatter(subAngles/180*pi, ones(1, nSubAngles), ...</span>
+    <span class="comment">%    'k', 'LineWidth', 0.8);</span>
     ax2 = gca;
 
     <span class="comment">% axis shape</span>
@@ -430,7 +438,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     fPath = PathVariables.saveImagesPath;
 
     <span class="comment">% string allows simple cat ops</span>
-    VW = VideoWriter(fullfile(fPath, <span class="string">'avi'</span>, fName + <span class="string">".avi"</span>), <span class="string">"Uncompressed AVI"</span>);
+    VW = VideoWriter(fullfile(fPath, <span class="string">'avi'</span>, fName + <span class="string">".avi"</span>), <span class="keyword">...</span>
+        <span class="string">"Uncompressed AVI"</span>);
 
     <span class="comment">% scale frame rate on 10 second movies, ensure at least 1 fps</span>
     fr = floor(nSubAngles / 10) + 1;
@@ -469,7 +478,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="comment">% update plot 1</span>
         qH = quiver(ax1, X, Y, Hx, Hy, 0.5, <span class="string">'b'</span>);
         qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, <span class="string">'r'</span>);
-        legend([qH qV], {<span class="string">'$quiver(H_x,H_y)$'</span>, <span class="string">'$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'</span>},<span class="keyword">...</span>
+        legend([qH qV], {<span class="string">'$quiver(H_x,H_y)$'</span>, <span class="keyword">...</span>
+            <span class="string">'$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'</span>},<span class="keyword">...</span>
             <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
             <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
             <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -482,18 +492,23 @@ Edited on Month DD. YYYY by Editor: Single line description.
             <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 0.8);
 
         <span class="comment">% update plot 3 and 4</span>
-        sC = scatter(ax3, Hx(:), Hy(:), 5, c, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+        sC = scatter(ax3, Hx(:), Hy(:), 5, c, <span class="string">'filled'</span>, <span class="keyword">...</span>
+            <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
             <span class="string">'LineWidth'</span>, 0.8);
-        sS = scatter(ax4, Hx(:), Hy(:), 5, c, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+        sS = scatter(ax4, Hx(:), Hy(:), 5, c, <span class="string">'filled'</span>, <span class="keyword">...</span>
+            <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
             <span class="string">'LineWidth'</span>, 0.8);
 
         <span class="comment">% calc position of scatter area frame and reframe</span>
         pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
-        rtC = rectangle(ax3, <span class="string">'Position'</span>, pos, <span class="string">'LineWidth'</span>, 1,  <span class="string">'EdgeColor'</span>, <span class="string">'r'</span>);
-        rtS = rectangle(ax4, <span class="string">'Position'</span>, pos, <span class="string">'LineWidth'</span>, 1,  <span class="string">'EdgeColor'</span>, <span class="string">'r'</span>);
+        rtC = rectangle(ax3, <span class="string">'Position'</span>, pos, <span class="string">'LineWidth'</span>, 1,<span class="keyword">...</span>
+            <span class="string">'EdgeColor'</span>, <span class="string">'r'</span>);
+        rtS = rectangle(ax4, <span class="string">'Position'</span>, pos, <span class="string">'LineWidth'</span>, 1,<span class="keyword">...</span>
+            <span class="string">'EdgeColor'</span>, <span class="string">'r'</span>);
 
         <span class="comment">% update plot 5 (zoom)</span>
-        sZ = scatter(ax5, Hx(:), Hy(:), [], c, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
+        sZ = scatter(ax5, Hx(:), Hy(:), [], c, <span class="string">'filled'</span>, <span class="keyword">...</span>
+            <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="keyword">...</span>
             <span class="string">'LineWidth'</span>, 0.8);
         xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
         ylim(ax5, [pos(2) maxHy + 0.3 * dHy])
@@ -621,7 +636,8 @@ function plotSimulationDataset()
             allDatasets(iDataset).name));
         % check how many angles in dataset and let user decide how many to
         % render in polt
-        fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
+        fprintf('Detect %d angles in dataset ...\n',...
+            ds.Info.UseOptions.nAngles);
         nSubAngles = input('How many angles to you wish to plot: ');
         % nSubAngles = 120;
         % indices for data to plot, get sample distance for even distance
@@ -663,11 +679,16 @@ function plotSimulationDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
-    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
-    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
-    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
-    subline5 = "sample distance of $%d$ angles. Based on %s characterization reference %s.";
+    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge" + ...
+        " length of $%.1f$ mm, a rel. pos. to magnet surface of";
+    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet" + ...
+        " tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
+    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm" + ...
+        " from sphere surface in z-axis, $%d$ rotation angles with a ";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution" + ...
+        " of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
+    subline5 = "sample distance of $%d$ angles. Based on %s" + ...
+        " characterization reference %s.";
     sub = [sprintf(subline1, ...
                    ds.Info.SensorArrayOptions.geometry, ...
                    ds.Info.SensorArrayOptions.dimension, ...
@@ -771,7 +792,8 @@ function plotSimulationDataset()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     nexttile(2);
     % plot all angles grayed out
-    polarscatter(ds.Data.angles/180*pi, ones(1, ds.Info.UseOptions.nAngles), ...
+    polarscatter(ds.Data.angles/180*pi, ...
+        ones(1, ds.Info.UseOptions.nAngles), ...
         [], [0.8 0.8 0.8], 'filled');
     
     % radius ticks and label
@@ -780,7 +802,8 @@ function plotSimulationDataset()
     hold on;
     
     % plot subset of angles
-    % polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);
+    % polarscatter(subAngles/180*pi, ones(1, nSubAngles), ...
+    %    'k', 'LineWidth', 0.8);
     ax2 = gca;    
         
     % axis shape
@@ -919,7 +942,8 @@ function plotSimulationDataset()
     fPath = PathVariables.saveImagesPath;
     
     % string allows simple cat ops
-    VW = VideoWriter(fullfile(fPath, 'avi', fName + ".avi"), "Uncompressed AVI");
+    VW = VideoWriter(fullfile(fPath, 'avi', fName + ".avi"), ...
+        "Uncompressed AVI");
     
     % scale frame rate on 10 second movies, ensure at least 1 fps
     fr = floor(nSubAngles / 10) + 1;
@@ -958,7 +982,8 @@ function plotSimulationDataset()
         % update plot 1
         qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
         qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
-        legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
+        legend([qH qV], {'$quiver(H_x,H_y)$', ...
+            '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
             'FontWeight', 'normal', ...
             'FontSize', 9, ...
             'FontName', 'Times', ...
@@ -971,18 +996,23 @@ function plotSimulationDataset()
             'MarkerEdgeColor', 'k', 'LineWidth', 0.8);
         
         % update plot 3 and 4
-        sC = scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+        sC = scatter(ax3, Hx(:), Hy(:), 5, c, 'filled', ...
+            'MarkerEdgeColor', 'k', ...
             'LineWidth', 0.8);
-        sS = scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', 'MarkerEdgeColor', 'k', ...
+        sS = scatter(ax4, Hx(:), Hy(:), 5, c, 'filled', ...
+            'MarkerEdgeColor', 'k', ...
             'LineWidth', 0.8);
         
         % calc position of scatter area frame and reframe
         pos = [minHx - 0.3 * dHx, minHy - 0.3 * dHy, 1.6 * dHx, 1.6 * dHy];
-        rtC = rectangle(ax3, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
-        rtS = rectangle(ax4, 'Position', pos, 'LineWidth', 1,  'EdgeColor', 'r');
+        rtC = rectangle(ax3, 'Position', pos, 'LineWidth', 1,...
+            'EdgeColor', 'r');
+        rtS = rectangle(ax4, 'Position', pos, 'LineWidth', 1,...
+            'EdgeColor', 'r');
         
         % update plot 5 (zoom)
-        sZ = scatter(ax5, Hx(:), Hy(:), [], c, 'filled', 'MarkerEdgeColor', 'k', ...
+        sZ = scatter(ax5, Hx(:), Hy(:), [], c, 'filled', ...
+            'MarkerEdgeColor', 'k', ...
             'LineWidth', 0.8);
         xlim(ax5, [pos(1) maxHx + 0.3 * dHx])
         ylim(ax5, [pos(2) maxHy + 0.3 * dHy])

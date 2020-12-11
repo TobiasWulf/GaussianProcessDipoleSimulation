@@ -182,8 +182,10 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
         % amplitudes, load and norm to Vcc and Voff, references of
         % simulation, adjust reference to bridge gain for output volgates
         gain = CharData.Info.SensorOutput.BridgeGain;
-        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
-        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
+        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) ...
+            .* (gain * Vcc / Vnorm) + Voff;
+        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) ...
+            .* (gain * Vcc / Vnorm) + Voff;
     catch ME
         rethrow(ME)
     end
@@ -237,7 +239,8 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     Info.SensorArrayOptions.SensorCount = N^2;
     Info.DipoleOptions = DipoleOptions;
     Info.UseOptions = UseOptions;
-    Info.CharData = join([CharData.Info.SensorManufacturer, CharData.Info.Sensor]);
+    Info.CharData = join( ...
+        [CharData.Info.SensorManufacturer, CharData.Info.Sensor]);
     Info.Units.SensorOutputVoltage = 'V';
     Info.Units.MagneticFieldStrength = 'kA/m';
     Info.Units.Angles = 'degree';

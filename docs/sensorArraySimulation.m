@@ -22,7 +22,7 @@
 % and a distance from surface of 1 mm. See below figure of used magnet.
 %
 % <html>
-% <img src="images/svg/dipole_magnet.svg" height=500>
+% <img src="images/svg/dipole_magnet.svg.png" height=500>
 % </html>
 %
 % To change settings for simulation edit the config script and rerun it. To
@@ -36,7 +36,7 @@
 % the widest linear plateau for corresponding Hx and Hy field strengths.
 %
 % <html>
-% <img src="images/svg/tdk_char_field_Rise.svg" height=500>
+% <img src="images/svg/tdk_char_field_Rise.svg.png" height=500>
 % </html>
 %
 % Here are some example plots of sensor array simulation with described
@@ -44,20 +44,20 @@
 % behavior base.
 %
 % <html>
-% <img src="images/svg/AnglePlot_10_example.svg" height=500>
+% <img src="images/svg/AnglePlot_10_example.svg.png" height=500>
 % </html>
 %
 % <html>
-% <img src="images/svg/SubsetPlot_example.svg" height=500>
+% <img src="images/svg/SubsetPlot_example.svg.png" height=500>
 % </html>
 %
 %
 % <html>
-% <img src="images/svg/StatsPlot_example.svg" height=500>
+% <img src="images/svg/StatsPlot_example.svg.png" height=500>
 % </html>
 %
 % <html>
-% <img src="images/svg/CirclePlot_example.svg" height=500>
+% <img src="images/svg/CirclePlot_example.svg.png" height=500>
 % </html>
 %
 %

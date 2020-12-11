@@ -18,12 +18,12 @@
 % magnetic field.*
 %
 % <html>
-% <img src="images/svg/tdk_transfer_curves_Rise.svg" height=650>
+% <img src="images/svg/tdk_transfer_curves_Rise.svg.png" height=650>
 % </html>
 %
 %
 %% See Also
-% * <https://ieeexplore.ieee.org/document/8706125 Two-Dimensional Characterization and Simplified Simulation Procedure for Tunnel Magnetoresistive Angle Sensors>
+% * <https://ieeexplore.ieee.org/document/8706125 Two-Dimensional Characterization (Schüthe)>
 %
 %
 %% Magnetic Stimulus
@@ -82,7 +82,7 @@
 % $$t_0 < t < \frac{1}{f_m}$$
 %
 % <html>
-% <img src="images/svg/tdk_magnetic_stimulus.svg" height=650>
+% <img src="images/svg/tdk_magnetic_stimulus.svg.png" height=650>
 % </html>
 %
 %
@@ -107,7 +107,7 @@
 % Hy and so on next historgram append on the next row for the next Hy.
 %
 % <html>
-% <img src="images/svg/tdk_cosinus_bridge.svg" height=650>
+% <img src="images/svg/tdk_cosinus_bridge.svg.png" height=650>
 % </html>
 %
 %
@@ -119,7 +119,7 @@
 % $$V_{sin}(H_x, H_y) = [mV/V]$$
 %
 % <html>
-% <img src="images/svg/tdk_sinus_bridge.svg" height=650>
+% <img src="images/svg/tdk_sinus_bridge.svg.png" height=650>
 % </html>
 %
 %
@@ -133,11 +133,11 @@
 % saturation.
 %
 % <html>
-% <img src="images/svg/tdk_char_field_Rise.svg" height=650>
+% <img src="images/svg/tdk_char_field_Rise.svg.png" height=650>
 % </html>
 %
 % <html>
-% <img src="images/svg/tdk_char_field_Fall.svg" height=650>
+% <img src="images/svg/tdk_char_field_Fall.svg.png" height=650>
 % </html>
 %
 %
@@ -257,7 +257,8 @@
 % build-in save function in a certain way to perform partial loads from the
 % dataset.
 %
-%   save('data/TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat', 'Info', 'Data', '-v7.3', '-nocompression')
+%   save('data/TDK_TAS2141_Characterization_2020-10-22_18-12-16-827.mat', ...
+%        'Info', 'Data', '-v7.3', '-nocompression')
 %
 %
 % Created on October 27. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.

@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -141,7 +141,8 @@ publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 <span class="keyword">else</span>
     disp(<span class="string">'Could not remove old search entries ...'</span>);
 <span class="keyword">end</span>
-</pre><h2 id="9">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="string">'GaussianProcessDipoleSimulation.html'</span>));
+</pre><h2 id="9">Open Generated Documentation.</h2><p>Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.</p><pre class="codeinput">open(fullfile(PublishOptions.outputDir, <span class="keyword">...</span>
+    <span class="string">'GaussianProcessDipoleSimulation.html'</span>));
 disp(<span class="string">'Done ...'</span>);
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -291,7 +292,8 @@ end
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'GaussianProcessDipoleSimulation.html'));
+open(fullfile(PublishOptions.outputDir, ...
+    'GaussianProcessDipoleSimulation.html'));
 disp('Done ...');
 
 ##### SOURCE END #####

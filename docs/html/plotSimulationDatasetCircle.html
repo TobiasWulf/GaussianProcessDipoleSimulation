@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDatasetCircle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotSimulationDatasetCircle.m"><style type="text/css">
+      --><title>plotSimulationDatasetCircle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="plotSimulationDatasetCircle.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -129,24 +129,6 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="keyword">try</span>
         ds = load(fullfile(allDatasets(iDataset).folder, <span class="keyword">...</span>
             allDatasets(iDataset).name));
-        <span class="comment">% check how many angles in dataset and let user decide how many to</span>
-        <span class="comment">% render in polt</span>
-<span class="comment">%         fprintf('Detect %d x %d sensors in dataset ...\n', ...</span>
-<span class="comment">%             ds.Info.SensorArrayOptions.dimension, ds.Info.SensorArrayOptions.dimension);</span>
-<span class="comment">%         xIdx = input("Enter x indices in []: ");</span>
-<span class="comment">%         yIdx = input("Enter y indices in []: ");</span>
-<span class="comment">%         if length(xIdx) ~= length(yIdx)</span>
-<span class="comment">%             error('Indices must have the same length!')</span>
-<span class="comment">%         end</span>
-<span class="comment">%         fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);</span>
-<span class="comment">%         nSubAngles = input('How many angles to you wish to plot: ');</span>
-<span class="comment">%         % indices for data to plot, get sample distance for even distance</span>
-<span class="comment">%         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));</span>
-<span class="comment">%         % get subset of angles</span>
-<span class="comment">%         subAngles = downsample(ds.Data.angles, sampleDistance);</span>
-<span class="comment">%         nSubAngles = length(subAngles); % just ensure</span>
-<span class="comment">%         % get indices for subset data</span>
-<span class="comment">%         angleIdx = find(ismember(ds.Data.angles, subAngles));</span>
     <span class="keyword">catch</span> ME
         rethrow(ME)
     <span class="keyword">end</span>
@@ -179,29 +161,20 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'Padding'</span>, <span class="string">'compact'</span>, <span class="keyword">...</span>
         <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
 
-<span class="comment">%     xlabel(tdl, '$X$ in mm', ...</span>
-<span class="comment">%         'FontWeight', 'normal', ...</span>
-<span class="comment">%         'FontSize', 16, ...</span>
-<span class="comment">%         'FontName', 'Times', ...</span>
-<span class="comment">%         'Interpreter', 'latex');</span>
-<span class="comment">%</span>
-<span class="comment">%     ylabel(tdl, '$Y$ in mm', ...</span>
-<span class="comment">%         'FontWeight', 'normal', ...</span>
-<span class="comment">%         'FontSize', 16, ...</span>
-<span class="comment">%         'FontName', 'Times', ...</span>
-<span class="comment">%         'Interpreter', 'latex');</span>
-<span class="comment">%</span>
-
     title(tdl, <span class="string">'Sensor Array Simulation'</span>, <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
-    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
-    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a "</span>;
-    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized are circular path of each array position  "</span>;
+    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors,"</span> + <span class="keyword">...</span>
+        <span class="string">" an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
+    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt"</span> + <span class="keyword">...</span>
+        <span class="string">" of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
+    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from"</span> + <span class="keyword">...</span>
+        <span class="string">" sphere surface in z-axis, $%d$ rotation angles with a "</span>;
+    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of"</span> + <span class="keyword">...</span>
+        <span class="string">" $%.1f^\\circ$. Visualized are circular path of each array position  "</span>;
     subline5 = <span class="string">"Based on %s characterization reference %s."</span>;
     sub = [sprintf(subline1, <span class="keyword">...</span>
                    ds.Info.SensorArrayOptions.geometry, <span class="keyword">...</span>
@@ -568,25 +541,7 @@ function plotSimulationDatasetCircle()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     try
         ds = load(fullfile(allDatasets(iDataset).folder, ...
-            allDatasets(iDataset).name));
-        % check how many angles in dataset and let user decide how many to
-        % render in polt
-%         fprintf('Detect %d x %d sensors in dataset ...\n', ...
-%             ds.Info.SensorArrayOptions.dimension, ds.Info.SensorArrayOptions.dimension);
-%         xIdx = input("Enter x indices in []: ");
-%         yIdx = input("Enter y indices in []: ");
-%         if length(xIdx) ~= length(yIdx)
-%             error('Indices must have the same length!')
-%         end
-%         fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
-%         nSubAngles = input('How many angles to you wish to plot: ');
-%         % indices for data to plot, get sample distance for even distance
-%         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
-%         % get subset of angles
-%         subAngles = downsample(ds.Data.angles, sampleDistance);
-%         nSubAngles = length(subAngles); % just ensure
-%         % get indices for subset data
-%         angleIdx = find(ismember(ds.Data.angles, subAngles));    
+            allDatasets(iDataset).name));    
     catch ME
         rethrow(ME)
     end
@@ -619,29 +574,20 @@ function plotSimulationDatasetCircle()
         'Padding', 'compact', ...
         'TileSpacing' , 'compact');
     
-%     xlabel(tdl, '$X$ in mm', ...
-%         'FontWeight', 'normal', ...
-%         'FontSize', 16, ...
-%         'FontName', 'Times', ...
-%         'Interpreter', 'latex');
-%     
-%     ylabel(tdl, '$Y$ in mm', ...
-%         'FontWeight', 'normal', ...
-%         'FontSize', 16, ...
-%         'FontName', 'Times', ...
-%         'Interpreter', 'latex');
-%     
-    
     title(tdl, 'Sensor Array Simulation', ...
         'FontWeight', 'normal', ...
         'FontSize', 18, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
-    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
-    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
-    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized are circular path of each array position  ";
+    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors," + ...
+        " an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
+    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt" + ...
+        " of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
+    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from" + ...
+        " sphere surface in z-axis, $%d$ rotation angles with a ";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution of" + ...
+        " $%.1f^\\circ$. Visualized are circular path of each array position  ";
     subline5 = "Based on %s characterization reference %s.";
     sub = [sprintf(subline1, ...
                    ds.Info.SensorArrayOptions.geometry, ...

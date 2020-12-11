@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotTDKCharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotTDKCharDataset.m"><style type="text/css">
+      --><title>plotTDKCharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="plotTDKCharDataset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -154,7 +154,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 
     <span class="comment">% get dataset infos and format strings to place in figures</span>
     <span class="comment">% subtitle string for all figures</span>
-    infoStr = join([Info.SensorManufacturer, Info.Sensor, Info.SensorTechnology, <span class="keyword">...</span>
+    infoStr = join([Info.SensorManufacturer, Info.Sensor, <span class="keyword">...</span>
+        Info.SensorTechnology, <span class="keyword">...</span>
         Info.SensorType, <span class="string">"Sensor Characterization Dataset."</span>]);
     dateStr = join([<span class="string">"Created on"</span>, Info.Created, <span class="string">"by"</span>, <span class="string">'Thorben Sch\"uthe'</span>, <span class="keyword">...</span>
         <span class="string">"and updated on"</span>, Info.Edited, <span class="string">"by"</span>, Info.Editor + <span class="string">"."</span>]);
@@ -228,7 +229,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    xlabel(tdl, sprintf(<span class="string">'$\\phi$ in rad, %d periods, reduced by factor %d'</span>, nPeriods*reduced, reduced), <span class="keyword">...</span>
+    xlabel(tdl, sprintf(<span class="string">'$\\phi$ in rad, %d periods, reduced by factor %d'</span>, <span class="keyword">...</span>
+        nPeriods*reduced, reduced), <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -252,7 +254,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
 
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>, <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
+    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>, <span class="keyword">...</span>
+        <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
 
@@ -268,7 +271,9 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    title(sprintf(<span class="string">'Modulation $f_m = %1.2f$ %s, Cos-Carrier $f_c = %1.2f$ %s'</span>, fm, Hz, fc, Hz), <span class="keyword">...</span>
+    title(sprintf(<span class="keyword">...</span>
+        <span class="string">'Modulation $f_m = %1.2f$ %s, Cos-Carrier $f_c = %1.2f$ %s'</span>, <span class="keyword">...</span>
+        fm, Hz, fc, Hz), <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -286,7 +291,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
 
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>, <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
+    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>,<span class="keyword">...</span>
+        <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
 
@@ -302,7 +308,9 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    title(sprintf(<span class="string">'Modulation $f_m = %1.2f$ %s, Sin-Carrier $f_c = %1.2f$ %s'</span>, fm, Hz, fc, Hz), <span class="keyword">...</span>
+    title(sprintf(<span class="keyword">...</span>
+        <span class="string">'Modulation $f_m = %1.2f$ %s, Sin-Carrier $f_c = %1.2f$ %s'</span>, <span class="keyword">...</span>
+        fm, Hz, fc, Hz), <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -348,7 +356,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'Padding'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
 
-    title(tdl, <span class="string">'Measured Cosinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
+    title(tdl, <span class="keyword">...</span>
+        <span class="string">'Measured Cosinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -360,7 +369,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
+    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, <span class="keyword">...</span>
+        kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -491,7 +501,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     <span class="comment">% add colorbar and place it overall plots</span>
     cb = colorbar;
     cb.Layout.Tile = <span class="string">'east'</span>;
-    cb.Label.String = sprintf(<span class="string">'$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.String = sprintf(<span class="keyword">...</span>
+        <span class="string">'$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
     cb.Label.Interpreter = <span class="string">'latex'</span>;
     cb.Label.FontSize = 16;
 
@@ -517,7 +528,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'Padding'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
 
-    title(tdl, <span class="string">'Measured Sinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
+    title(tdl,<span class="keyword">...</span>
+        <span class="string">'Measured Sinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -529,7 +541,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
+    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, <span class="keyword">...</span>
+        kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -660,7 +673,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     <span class="comment">% add colorbar and place it overall plots</span>
     cb = colorbar;
     cb.Layout.Tile = <span class="string">'east'</span>;
-    cb.Label.String = sprintf(<span class="string">'$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.String = sprintf(<span class="keyword">...</span>
+        <span class="string">'$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
     cb.Label.Interpreter = <span class="string">'latex'</span>;
     cb.Label.FontSize = 16;
 
@@ -800,7 +814,8 @@ function plotTDKCharDataset()
     
     % get dataset infos and format strings to place in figures
     % subtitle string for all figures
-    infoStr = join([Info.SensorManufacturer, Info.Sensor, Info.SensorTechnology, ...
+    infoStr = join([Info.SensorManufacturer, Info.Sensor, ...
+        Info.SensorTechnology, ...
         Info.SensorType, "Sensor Characterization Dataset."]);
     dateStr = join(["Created on", Info.Created, "by", 'Thorben Sch\"uthe', ...
         "and updated on", Info.Edited, "by", Info.Editor + "."]);
@@ -874,7 +889,8 @@ function plotTDKCharDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    xlabel(tdl, sprintf('$\\phi$ in rad, %d periods, reduced by factor %d', nPeriods*reduced, reduced), ...
+    xlabel(tdl, sprintf('$\\phi$ in rad, %d periods, reduced by factor %d', ...
+        nPeriods*reduced, reduced), ...
         'FontWeight', 'normal', ...
         'FontSize', 16, ...
         'FontName', 'Times', ...
@@ -898,7 +914,8 @@ function plotTDKCharDataset()
         'Location', 'NorthEast');
         
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi', '56\pi', '64\pi'});
+    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi', ...
+        '56\pi', '64\pi'});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
     
@@ -914,7 +931,9 @@ function plotTDKCharDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title(sprintf('Modulation $f_m = %1.2f$ %s, Cos-Carrier $f_c = %1.2f$ %s', fm, Hz, fc, Hz), ...
+    title(sprintf(...
+        'Modulation $f_m = %1.2f$ %s, Cos-Carrier $f_c = %1.2f$ %s', ...
+        fm, Hz, fc, Hz), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -932,7 +951,8 @@ function plotTDKCharDataset()
         'Location', 'NorthEast');
         
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi', '56\pi', '64\pi'});
+    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi',...
+        '56\pi', '64\pi'});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
     
@@ -948,7 +968,9 @@ function plotTDKCharDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title(sprintf('Modulation $f_m = %1.2f$ %s, Sin-Carrier $f_c = %1.2f$ %s', fm, Hz, fc, Hz), ...
+    title(sprintf(...
+        'Modulation $f_m = %1.2f$ %s, Sin-Carrier $f_c = %1.2f$ %s', ...
+        fm, Hz, fc, Hz), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -994,7 +1016,8 @@ function plotTDKCharDataset()
         'Padding', 'normal', ...
         'TileSpacing' , 'compact');
     
-    title(tdl, 'Measured Cosinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes', ...
+    title(tdl, ...
+        'Measured Cosinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes', ...
         'FontWeight', 'normal', ...
         'FontSize', 18, ...
         'FontName', 'Times', ...
@@ -1006,7 +1029,8 @@ function plotTDKCharDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    xlabel(tdl, sprintf('$H_x$, $H_y$ in %s, %d Steps in %.4f %s', kApm, Hsteps, Hres, kApm), ...
+    xlabel(tdl, sprintf('$H_x$, $H_y$ in %s, %d Steps in %.4f %s', ...
+        kApm, Hsteps, Hres, kApm), ...
         'FontWeight', 'normal', ...
         'FontSize', 16, ...
         'FontName', 'Times', ...
@@ -1137,7 +1161,8 @@ function plotTDKCharDataset()
     % add colorbar and place it overall plots
     cb = colorbar;
     cb.Layout.Tile = 'east';
-    cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
+    cb.Label.String = sprintf(...
+        '$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     
@@ -1163,7 +1188,8 @@ function plotTDKCharDataset()
         'Padding', 'normal', ...
         'TileSpacing' , 'compact');
     
-    title(tdl, 'Measured Sinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes', ...
+    title(tdl,...
+        'Measured Sinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes', ...
         'FontWeight', 'normal', ...
         'FontSize', 18, ...
         'FontName', 'Times', ...
@@ -1175,7 +1201,8 @@ function plotTDKCharDataset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    xlabel(tdl, sprintf('$H_x$, $H_y$ in %s, %d Steps in %.4f %s', kApm, Hsteps, Hres, kApm), ...
+    xlabel(tdl, sprintf('$H_x$, $H_y$ in %s, %d Steps in %.4f %s', ...
+        kApm, Hsteps, Hres, kApm), ...
         'FontWeight', 'normal', ...
         'FontSize', 16, ...
         'FontName', 'Times', ...
@@ -1306,7 +1333,8 @@ function plotTDKCharDataset()
     % add colorbar and place it overall plots
     cb = colorbar;
     cb.Layout.Tile = 'east';
-    cb.Label.String = sprintf('$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
+    cb.Label.String = sprintf(...
+        '$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 16;
     

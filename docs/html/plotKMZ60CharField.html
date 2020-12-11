@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotKMZ60CharField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotKMZ60CharField.m"><style type="text/css">
+      --><title>plotKMZ60CharField</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="plotKMZ60CharField.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -129,7 +129,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
 
     <span class="comment">% get dataset infos and format strings to place in figures</span>
     <span class="comment">% subtitle string for all figures</span>
-    infoStr = join([Info.SensorManufacturer, Info.Sensor, Info.SensorTechnology, <span class="keyword">...</span>
+    infoStr = join([Info.SensorManufacturer, <span class="keyword">...</span>
+        Info.Sensor, Info.SensorTechnology, <span class="keyword">...</span>
         Info.SensorType, <span class="string">"Sensor Characterization Dataset."</span>]);
     dateStr = join([<span class="string">"Created on"</span>, Info.Created, <span class="string">"by"</span>, <span class="string">'Thorben Sch\"uthe'</span>, <span class="keyword">...</span>
         <span class="string">"and updated on"</span>, Info.Edited, <span class="string">"by"</span>, Info.Editor + <span class="string">"."</span>]);
@@ -223,7 +224,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
     cb = colorbar;
-    cb.Label.String = sprintf(<span class="string">'$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.String = sprintf(<span class="keyword">...</span>
+        <span class="string">'$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
     cb.Label.Interpreter = <span class="string">'latex'</span>;
     cb.Label.FontSize = 12;
 
@@ -317,7 +319,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
     cb = colorbar;
-    cb.Label.String = sprintf(<span class="string">'$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+    cb.Label.String = sprintf(<span class="keyword">...</span>
+        <span class="string">'$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
     cb.Label.Interpreter = <span class="string">'latex'</span>;
     cb.Label.FontSize = 12;
 
@@ -470,7 +473,8 @@ function plotKMZ60CharField()
     
     % get dataset infos and format strings to place in figures
     % subtitle string for all figures
-    infoStr = join([Info.SensorManufacturer, Info.Sensor, Info.SensorTechnology, ...
+    infoStr = join([Info.SensorManufacturer, ...
+        Info.Sensor, Info.SensorTechnology, ...
         Info.SensorType, "Sensor Characterization Dataset."]);
     dateStr = join(["Created on", Info.Created, "by", 'Thorben Sch\"uthe', ...
         "and updated on", Info.Edited, "by", Info.Editor + "."]);
@@ -564,7 +568,8 @@ function plotKMZ60CharField()
         'Interpreter', 'latex');
     
     cb = colorbar;
-    cb.Label.String = sprintf('$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
+    cb.Label.String = sprintf(...
+        '$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 12;
     
@@ -658,7 +663,8 @@ function plotKMZ60CharField()
         'Interpreter', 'latex');
     
     cb = colorbar;
-    cb.Label.String = sprintf('$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
+    cb.Label.String = sprintf(...
+        '$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 12;
     

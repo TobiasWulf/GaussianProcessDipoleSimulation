@@ -38,8 +38,9 @@ try
     clearvars;
     close all;
     disp('Load configuration ...');
-    load('config.mat', 'GeneralOptions', 'PathVariables', 'SensorArrayOptions', ...
-        'DipoleOptions', 'TrainingOptions', 'TestOptions');
+    load('config.mat', 'GeneralOptions', 'PathVariables', ...
+        'SensorArrayOptions', 'DipoleOptions', ...
+        'TrainingOptions', 'TestOptions');
     disp('Load characterization dataset ...');
     switch TrainingOptions.BaseReference
         case 'TDK'

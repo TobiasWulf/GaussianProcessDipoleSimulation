@@ -16,12 +16,12 @@
 % 180° or 180° and 360°.*
 %
 % <html>
-% <img src="images/svg/kmz60_transfer_curves_Rise.svg" height=650>
+% <img src="images/svg/kmz60_transfer_curves_Rise.svg.png" height=650>
 % </html>
 %
 %
 %% See Also
-% * <https://ieeexplore.ieee.org/document/8706125 Two-Dimensional Characterization and Simplified Simulation Procedure for Tunnel Magnetoresistive Angle Sensors>
+% * <https://ieeexplore.ieee.org/document/8706125 Two-Dimensional Characterization (Schüthe)>
 %
 %
 %% Magnetic Stimulus
@@ -80,7 +80,7 @@
 % $$t_0 < t < \frac{1}{f_m}$$
 %
 % <html>
-% <img src="images/svg/kmz60_magnetic_stimulus.svg" height=650>
+% <img src="images/svg/kmz60_magnetic_stimulus.svg.png" height=650>
 % </html>
 %
 %
@@ -105,7 +105,7 @@
 % Hy and so on next historgram append on the next row for the next Hy.
 %
 % <html>
-% <img src="images/svg/kmz60_cosinus_bridge.svg" height=650>
+% <img src="images/svg/kmz60_cosinus_bridge.svg.png" height=650>
 % </html>
 %
 %
@@ -117,7 +117,7 @@
 % $$V_{sin}(H_x, H_y) = [mV/V]$$
 %
 % <html>
-% <img src="images/svg/kmz60_sinus_bridge.svg" height=650>
+% <img src="images/svg/kmz60_sinus_bridge.svg.png" height=650>
 % </html>
 %
 %
@@ -132,11 +132,11 @@
 % should be described at 20 kA/m to 25 kA/m path radius.
 %
 % <html>
-% <img src="images/svg/kmz60_char_field_Rise.svg" height=650>
+% <img src="images/svg/kmz60_char_field_Rise.svg.png" height=650>
 % </html>
 %
 % <html>
-% <img src="images/svg/kmz60_char_field_Fall.svg" height=650>
+% <img src="images/svg/kmz60_char_field_Fall.svg.png" height=650>
 % </html>
 %
 %
@@ -256,7 +256,8 @@
 % build-in save function in a certain way to perform partial loads from the
 % dataset.
 %
-%   save('data/NXP_KMZ60_Characterization_2020-12-03_16-53-16-721.mat', 'Info', 'Data', '-v7.3', '-nocompression')
+%   save('data/NXP_KMZ60_Characterization_2020-12-03_16-53-16-721.mat', ...
+%        'Info', 'Data', '-v7.3', '-nocompression')
 %
 %
 % Created on December 05. 2020 Tobias Wulf. Copyright Tobias Wulf 2020.

@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
+      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -111,7 +111,9 @@ GaussianProcessDipoleSimulation
 &#9492;&#9472;&#9472; [4.0K]  tests
 
 23 directories
-</pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab">tree <span class="string">-dhn</span> <span class="string">GaussianProcessDipoleSimulation</span> <span class="string">-o</span> <span class="string">GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt</span> <span class="string">-I</span> <span class="string">"project|Project_*|thesis|images"</span>
+</pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab">tree <span class="string">-dhn</span> <span class="string">GaussianProcessDipoleSimulation</span> <span class="keyword">...</span>
+    <span class="string">-o</span> <span class="string">GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt</span> <span class="string">-I</span> <span class="keyword">...</span>
+    <span class="string">"project|Project_*|thesis|images"</span>
 </pre><h2 id="3">Directory Tasks</h2><p>
 <table border=1>
 <thead>
@@ -274,7 +276,7 @@ GaussianProcessDipoleSimulation
   </tr>
 </tbody>
 </table>
-</p><h2 id="4">Add New Elements</h2><p><b>Add new folder to project:</b></p><div><ol><li>Create a new folder and add to Project Path after Matlab flow.</li><li>Run Checks <b>&gt;</b> Add Files.</li><li>Run tree command from shell to update directory for the documentation   (optional).</li><li>Update directorry task table of this document.</li></ol></div><p><b>Add new file to project:</b></p><div><ol><li>Create new File and edit the file after <a href="Documentation_Workflow.html">Documentation Workflow</a>   and Conventions.</li><li>Run Checks <b>&gt;</b> Add Files.</li><li>Label the new file from project pane.</li><li>Commit file into active branch.</li><li>Registrate to the documentation if needed (publish, toc and listings docs).</li></ol></div><p>Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</p><h2 id="4">Add New Elements</h2><p><b>Add new folder to project:</b></p><div><ol><li>Create a new folder and add to Project Path after Matlab flow.</li><li>Run Checks <b>&gt;</b> Add Files.</li><li>Run tree command from shell to update directory for the documentation   (optional).</li><li>Update directorry task table of this document.</li></ol></div><p><b>Add new file to project:</b></p><div><ol><li>Create new File and edit the file after Documentation Workflow.   and Conventions.</li><li>Run Checks <b>&gt;</b> Add Files.</li><li>Label the new file from project pane.</li><li>Commit file into active branch.</li><li>Registrate to the documentation if needed (publish, toc and listings docs).</li></ol></div><p>Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -308,7 +310,9 @@ Edited on November 24. 2020 by Tobias Wulf: Add folders for training and test da
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   tree -dhn GaussianProcessDipoleSimulation -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I "project|Project_*|thesis|images"
+%   tree -dhn GaussianProcessDipoleSimulation ...
+%       -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I ...
+%       "project|Project_*|thesis|images"
 %
 %% Directory Tasks
 %
@@ -490,7 +494,7 @@ Edited on November 24. 2020 by Tobias Wulf: Add folders for training and test da
 %
 % *Add new file to project:*
 %
-% # Create new File and edit the file after <Documentation_Workflow.html Documentation Workflow>
+% # Create new File and edit the file after Documentation Workflow.
 %   and Conventions.
 % # Run Checks *>* Add Files.
 % # Label the new file from project pane.

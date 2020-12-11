@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
+      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -200,8 +200,10 @@ Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to reference.
         <span class="comment">% amplitudes, load and norm to Vcc and Voff, references of</span>
         <span class="comment">% simulation, adjust reference to bridge gain for output volgates</span>
         gain = CharData.Info.SensorOutput.BridgeGain;
-        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
-        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
+        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) <span class="keyword">...</span>
+            .* (gain * Vcc / Vnorm) + Voff;
+        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) <span class="keyword">...</span>
+            .* (gain * Vcc / Vnorm) + Voff;
     <span class="keyword">catch</span> ME
         rethrow(ME)
     <span class="keyword">end</span>
@@ -255,7 +257,8 @@ Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to reference.
     Info.SensorArrayOptions.SensorCount = N^2;
     Info.DipoleOptions = DipoleOptions;
     Info.UseOptions = UseOptions;
-    Info.CharData = join([CharData.Info.SensorManufacturer, CharData.Info.Sensor]);
+    Info.CharData = join( <span class="keyword">...</span>
+        [CharData.Info.SensorManufacturer, CharData.Info.Sensor]);
     Info.Units.SensorOutputVoltage = <span class="string">'V'</span>;
     Info.Units.MagneticFieldStrength = <span class="string">'kA/m'</span>;
     Info.Units.Angles = <span class="string">'degree'</span>;
@@ -520,8 +523,10 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
         % amplitudes, load and norm to Vcc and Voff, references of
         % simulation, adjust reference to bridge gain for output volgates
         gain = CharData.Info.SensorOutput.BridgeGain;
-        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
-        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) .* (gain * Vcc / Vnorm) + Voff;
+        VcosRef = CharData.Data.SensorOutput.CosinusBridge.(refImage) ...
+            .* (gain * Vcc / Vnorm) + Voff;
+        VsinRef = CharData.Data.SensorOutput.SinusBridge.(refImage) ...
+            .* (gain * Vcc / Vnorm) + Voff;
     catch ME
         rethrow(ME)
     end
@@ -575,7 +580,8 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     Info.SensorArrayOptions.SensorCount = N^2;
     Info.DipoleOptions = DipoleOptions;
     Info.UseOptions = UseOptions;
-    Info.CharData = join([CharData.Info.SensorManufacturer, CharData.Info.Sensor]);
+    Info.CharData = join( ...
+        [CharData.Info.SensorManufacturer, CharData.Info.Sensor]);
     Info.Units.SensorOutputVoltage = 'V';
     Info.Units.MagneticFieldStrength = 'kA/m';
     Info.Units.Angles = 'degree';

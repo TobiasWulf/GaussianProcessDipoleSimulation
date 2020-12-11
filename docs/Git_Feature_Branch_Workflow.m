@@ -49,7 +49,7 @@
 %  ongoing work accessable to third.*
 %
 % <html>
-% <img src="images/svg/feature_branch_workflow.svg" height=350>
+% <img src="images/svg/feature_branch_workflow.svg.png" height=350>
 % </html>
 %
 %

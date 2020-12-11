@@ -50,11 +50,12 @@ Edited on December 10. 2020 by Tobias Wulf: Establish MathJax to style sheet.
                 scale: 110
             }
         });
-        <!--MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});-->
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script>
     <script type="text/javascript"
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
+    
 <xsl:comment>
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.

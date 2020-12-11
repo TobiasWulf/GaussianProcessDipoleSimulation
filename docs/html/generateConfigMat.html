@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -106,7 +106,8 @@ projectInstance = matlab.project.currentProject;
 disp(<span class="string">'Set path variables ...'</span>);
 PathVariables =struct;
 
-<span class="comment">% project root path, needs to be recreated generic to work on different machines</span>
+<span class="comment">% project root path, needs to be recreated generic to work on</span>
+<span class="comment">% different machines</span>
 PathVariables.rootPath = projectInstance.RootFolder;
 
 <span class="comment">% path to data folder, which contains datasets and config.mat</span>
@@ -121,39 +122,47 @@ PathVariables.kmz60DatasetPath = fullfile(PathVariables.dataPath, <span class="k
     <span class="string">'NXP_KMZ60_Characterization_2020-12-03_16-53-16-721.mat'</span>);
 
 <span class="comment">% path to config file dataset</span>
-PathVariables.configPath = fullfile(PathVariables.dataPath, <span class="string">'config.mat'</span>);
+PathVariables.configPath = fullfile(PathVariables.dataPath, <span class="keyword">...</span>
+    <span class="string">'config.mat'</span>);
 
 <span class="comment">% path to training dataset folder</span>
-PathVariables.trainingDataPath = fullfile(PathVariables.dataPath, <span class="string">'training'</span>);
+PathVariables.trainingDataPath = fullfile(PathVariables.dataPath, <span class="keyword">...</span>
+    <span class="string">'training'</span>);
 
 <span class="comment">% path to test dataset folder</span>
-PathVariables.testDataPath = fullfile(PathVariables.dataPath, <span class="string">'test'</span>);
+PathVariables.testDataPath = fullfile(PathVariables.dataPath, <span class="keyword">...</span>
+    <span class="string">'test'</span>);
 
 <span class="comment">% path to documentation and m-files only for documentation</span>
-PathVariables.docsPath = fullfile(PathVariables.rootPath, <span class="string">'docs'</span>);
+PathVariables.docsPath = fullfile(PathVariables.rootPath, <span class="keyword">...</span>
+    <span class="string">'docs'</span>);
 
 <span class="comment">% path to publish html documentation output directory, helptoc.xml location</span>
 PathVariables.publishHtmlPath = fullfile(PathVariables.docsPath, <span class="string">'html'</span>);
 
 <span class="comment">% path to save plots as images svg, eps, png, etc.</span>
-PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, <span class="string">'images'</span>);
+PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, <span class="keyword">...</span>
+    <span class="string">'images'</span>);
 
 <span class="comment">% path to save matlab figures</span>
-PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, <span class="string">'figures'</span>);
+PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, <span class="keyword">...</span>
+    <span class="string">'figures'</span>);
 
 <span class="comment">% path to latex docs folder</span>
-PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, <span class="string">'latex'</span>);
+PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, <span class="keyword">...</span>
+    <span class="string">'latex'</span>);
 
 <span class="comment">% path to latex Thesis Tobias Wulf (take care if comment in)</span>
-<span class="comment">% PathVariables.thesisTobiasWulf = fullfile(PathVariables.latexDocsPath, 'BA_Thesis_Tobias_Wulf');</span>
+<span class="comment">% PathVariables.thesisTobiasWulf = fullfile(PathVariables.latexDocsPath, ...</span>
+<span class="comment">%     'BA_Thesis_Tobias_Wulf');</span>
 
 <span class="comment">% path to docs export folder for Manual</span>
-PathVariables.exportPublishPath = fullfile(PathVariables.latexDocsPath, <span class="string">'Manual'</span>);
+PathVariables.exportPublishPath = fullfile(PathVariables.latexDocsPath, <span class="keyword">...</span>
+    <span class="string">'Manual'</span>);
 
 <span class="comment">% path to style sheet for html documentation, Matlab provided style sheet</span>
-PathVariables.publishStyleSheetPath = fullfile(PathVariables.publishHtmlPath, <span class="string">'docsHtmlStyleSheet.xsl'</span>);
-<span class="comment">% PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...</span>
-<span class="comment">%     'matlab', 'codetools', 'private', 'mxdom2simplehtml.xsl'));</span>
+PathVariables.publishStyleSheetPath = fullfile(PathVariables.publishHtmlPath, <span class="keyword">...</span>
+    <span class="string">'docsHtmlStyleSheet.xsl'</span>);
 
 <span class="comment">% path to documentation search database entries for Matlab help browser support</span>
 PathVariables.helpsearchPath = fullfile(PathVariables.publishHtmlPath, <span class="keyword">...</span>
@@ -406,8 +415,8 @@ GeneralOptions.dateFormat = 'yyyy-mm-dd_HH-MM-SS-FFF';
 
 %% Path Variables
 % Key path variables and directories, often used in functions or scripts.
-% Collet the path in a struct for easier save the struct fields as variables to
-% config.mat via -struct flag. Fix parameters.
+% Collet the path in a struct for easier save the struct fields as
+% variables to config.mat via -struct flag. Fix parameters.
 
 disp('Create current project instance to gather information ...');
 
@@ -417,7 +426,8 @@ projectInstance = matlab.project.currentProject;
 disp('Set path variables ...');
 PathVariables =struct;
 
-% project root path, needs to be recreated generic to work on different machines
+% project root path, needs to be recreated generic to work on 
+% different machines
 PathVariables.rootPath = projectInstance.RootFolder;
 
 % path to data folder, which contains datasets and config.mat
@@ -432,39 +442,47 @@ PathVariables.kmz60DatasetPath = fullfile(PathVariables.dataPath, ...
     'NXP_KMZ60_Characterization_2020-12-03_16-53-16-721.mat');
 
 % path to config file dataset
-PathVariables.configPath = fullfile(PathVariables.dataPath, 'config.mat');
+PathVariables.configPath = fullfile(PathVariables.dataPath, ...
+    'config.mat');
 
 % path to training dataset folder
-PathVariables.trainingDataPath = fullfile(PathVariables.dataPath, 'training');
+PathVariables.trainingDataPath = fullfile(PathVariables.dataPath, ...
+    'training');
 
 % path to test dataset folder
-PathVariables.testDataPath = fullfile(PathVariables.dataPath, 'test');
+PathVariables.testDataPath = fullfile(PathVariables.dataPath, ...
+    'test');
 
 % path to documentation and m-files only for documentation
-PathVariables.docsPath = fullfile(PathVariables.rootPath, 'docs');
+PathVariables.docsPath = fullfile(PathVariables.rootPath, ...
+    'docs');
 
 % path to publish html documentation output directory, helptoc.xml location
 PathVariables.publishHtmlPath = fullfile(PathVariables.docsPath, 'html');
 
 % path to save plots as images svg, eps, png, etc.
-PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, 'images');
+PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, ...
+    'images');
 
 % path to save matlab figures
-PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, 'figures');
+PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, ...
+    'figures');
 
 % path to latex docs folder
-PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, 'latex');
+PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, ...
+    'latex');
 
 % path to latex Thesis Tobias Wulf (take care if comment in)
-% PathVariables.thesisTobiasWulf = fullfile(PathVariables.latexDocsPath, 'BA_Thesis_Tobias_Wulf');
+% PathVariables.thesisTobiasWulf = fullfile(PathVariables.latexDocsPath, ...
+%     'BA_Thesis_Tobias_Wulf');
 
 % path to docs export folder for Manual
-PathVariables.exportPublishPath = fullfile(PathVariables.latexDocsPath, 'Manual');
+PathVariables.exportPublishPath = fullfile(PathVariables.latexDocsPath, ...
+    'Manual');
 
 % path to style sheet for html documentation, Matlab provided style sheet
-PathVariables.publishStyleSheetPath = fullfile(PathVariables.publishHtmlPath, 'docsHtmlStyleSheet.xsl');
-% PathVariables.publishStyleSheetPath = string(fullfile(matlabroot, 'toolbox', ...
-%     'matlab', 'codetools', 'private', 'mxdom2simplehtml.xsl'));
+PathVariables.publishStyleSheetPath = fullfile(PathVariables.publishHtmlPath, ...
+    'docsHtmlStyleSheet.xsl');
 
 % path to documentation search database entries for Matlab help browser support
 PathVariables.helpsearchPath = fullfile(PathVariables.publishHtmlPath, ...

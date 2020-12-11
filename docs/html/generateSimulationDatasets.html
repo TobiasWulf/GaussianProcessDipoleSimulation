@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateSimulationDatasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="generateSimulationDatasets.m"><style type="text/css">
+      --><title>generateSimulationDatasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="generateSimulationDatasets.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -94,8 +94,9 @@ Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to calc output volta
     clearvars;
     close <span class="string">all</span>;
     disp(<span class="string">'Load configuration ...'</span>);
-    load(<span class="string">'config.mat'</span>, <span class="string">'GeneralOptions'</span>, <span class="string">'PathVariables'</span>, <span class="string">'SensorArrayOptions'</span>, <span class="keyword">...</span>
-        <span class="string">'DipoleOptions'</span>, <span class="string">'TrainingOptions'</span>, <span class="string">'TestOptions'</span>);
+    load(<span class="string">'config.mat'</span>, <span class="string">'GeneralOptions'</span>, <span class="string">'PathVariables'</span>, <span class="keyword">...</span>
+        <span class="string">'SensorArrayOptions'</span>, <span class="string">'DipoleOptions'</span>, <span class="keyword">...</span>
+        <span class="string">'TrainingOptions'</span>, <span class="string">'TestOptions'</span>);
     disp(<span class="string">'Load characterization dataset ...'</span>);
     <span class="keyword">switch</span> TrainingOptions.BaseReference
         <span class="keyword">case</span> <span class="string">'TDK'</span>
@@ -166,8 +167,9 @@ try
     clearvars;
     close all;
     disp('Load configuration ...');
-    load('config.mat', 'GeneralOptions', 'PathVariables', 'SensorArrayOptions', ...
-        'DipoleOptions', 'TrainingOptions', 'TestOptions');
+    load('config.mat', 'GeneralOptions', 'PathVariables', ...
+        'SensorArrayOptions', 'DipoleOptions', ...
+        'TrainingOptions', 'TestOptions');
     disp('Load characterization dataset ...');
     switch TrainingOptions.BaseReference
         case 'TDK'

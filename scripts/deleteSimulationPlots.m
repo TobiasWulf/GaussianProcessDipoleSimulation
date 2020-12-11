@@ -1,4 +1,4 @@
-%% deleteSimulationDatasets
+%% deleteSimulationPlots
 % Delete plots of simulation dataset from figure and image path at once.
 %
 %

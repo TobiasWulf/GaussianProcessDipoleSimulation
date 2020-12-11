@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
+      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -229,13 +229,15 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
     <span class="comment">% distance scale in -z direction for x =0, distance from magnet surface</span>
-    line(xd, zd, <span class="string">'Marker'</span>, <span class="string">'_'</span>, <span class="string">'LineStyle'</span>, <span class="string">'-'</span>, <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="string">'LineWidth'</span>, 2.0);
+    line(xd, zd, <span class="string">'Marker'</span>, <span class="string">'_'</span>, <span class="string">'LineStyle'</span>, <span class="string">'-'</span>,<span class="keyword">...</span>
+        <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="string">'LineWidth'</span>, 2.0);
 
     <span class="comment">% place text along marker</span>
     <span class="keyword">for</span> i = 2:length(zd)-1
         text(0.5, zd(i), <span class="keyword">...</span>
-            sprintf(<span class="string">'\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}'</span>, <span class="keyword">...</span>
-                abs(zd(i))-rsp, Hd(i)), <span class="keyword">...</span>
+            sprintf(<span class="keyword">...</span>
+            <span class="string">'\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}'</span>, <span class="keyword">...</span>
+            abs(zd(i))-rsp, Hd(i)), <span class="keyword">...</span>
             <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="keyword">...</span>
             <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
             <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -265,7 +267,9 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    subtitle([sprintf(<span class="string">"Sphere whith imprinted H-field magnitude of $%.1f$ kA/m"</span>, Hmag); <span class="keyword">...</span>
+    subtitle(<span class="keyword">...</span>
+        [sprintf(<span class="keyword">...</span>
+        <span class="string">"Sphere whith imprinted H-field magnitude of $%.1f$ kA/m"</span>, Hmag); <span class="keyword">...</span>
         sprintf(<span class="string">"at distance $d = %.1f$ mm with $d_z = |z| - r_{sp}$"</span>, z0) + <span class="keyword">...</span>
         sprintf(<span class="string">" and sphere radius $r_{sp} = %.1f$ mm"</span>, rsp)], <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
@@ -481,13 +485,15 @@ function plotDipoleMagnet()
         'Interpreter', 'latex');
     
     % distance scale in -z direction for x =0, distance from magnet surface
-    line(xd, zd, 'Marker', '_', 'LineStyle', '-', 'Color', 'w', 'LineWidth', 2.0);
+    line(xd, zd, 'Marker', '_', 'LineStyle', '-',...
+        'Color', 'w', 'LineWidth', 2.0);
     
     % place text along marker
     for i = 2:length(zd)-1
         text(0.5, zd(i), ...
-            sprintf('\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}', ...
-                abs(zd(i))-rsp, Hd(i)), ...
+            sprintf(...
+            '\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}', ...
+            abs(zd(i))-rsp, Hd(i)), ...
             'Color', 'w', ...
             'FontSize', 14, ...
             'FontName', 'Times', ...
@@ -517,7 +523,9 @@ function plotDipoleMagnet()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    subtitle([sprintf("Sphere whith imprinted H-field magnitude of $%.1f$ kA/m", Hmag); ...
+    subtitle(...
+        [sprintf(...
+        "Sphere whith imprinted H-field magnitude of $%.1f$ kA/m", Hmag); ...
         sprintf("at distance $d = %.1f$ mm with $d_z = |z| - r_{sp}$", z0) + ...
         sprintf(" and sphere radius $r_{sp} = %.1f$ mm", rsp)], ...
         'FontWeight', 'normal', ...

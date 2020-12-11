@@ -42,11 +42,11 @@
 %   Git repository.
 %
 % <html>
-% <img src="images/Project_Preparation/1_create_matlab_project_empty_toolbox.png" height=200>
+% <img src="images/Project_Preparation/1_create_matlab_project_empty_toolbox.png" height=100>
 % </html> 
 %
 % <html>
-% <img src="images/Project_Preparation/2_create_matlab_project_empty_git.png" height=200>
+% <img src="images/Project_Preparation/2_create_matlab_project_empty_git.png" height=150>
 % </html>
 %
 %
@@ -86,35 +86,35 @@
 % *The project itself is under source control now.*
 %
 % <html>
-% <img src="images/Project_Preparation/3_create_matlab_project_from_git.png" height=250>
+% <img src="images/Project_Preparation/3_create_matlab_project_from_git.png" height=200>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/4_set_repository_sandbox_path.png" height=200>
+% <img src="images/Project_Preparation/4_set_repository_sandbox_path.png" height=150>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/5_set_project_name_after_repo_create.png" height=150>
+% <img src="images/Project_Preparation/5_set_project_name_after_repo_create.png" height=100>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/6_setup_created_project.png" height=250>
+% <img src="images/Project_Preparation/6_setup_created_project.png" height=200>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/7_next_skip_add_folders.png" height=250>
+% <img src="images/Project_Preparation/7_next_skip_add_folders.png" height=200>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/8_finish_skip_startup_cleanup_scripts.png" height=250>
+% <img src="images/Project_Preparation/8_finish_skip_startup_cleanup_scripts.png" height=200>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/9_check_git_details.png" height=200>
+% <img src="images/Project_Preparation/9_check_git_details.png" height=150>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/10_check_project_details_add_description.png" height=300>
+% <img src="images/Project_Preparation/10_check_project_details_add_description.png" height=250>
 % </html>
 %
 %
@@ -158,11 +158,11 @@
 % 
 % 
 % <html>
-% <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=400>
+% <img src="images/Project_Preparation/11_registrate_binaries_with_git.png" height=350>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/12_setup_gitignore.png" height=400>
+% <img src="images/Project_Preparation/12_setup_gitignore.png" height=350>
 % </html>
 %
 %
@@ -183,15 +183,15 @@
 % *The project is now initialized.*
 %
 % <html>
-% <img src="images/Project_Preparation/13_check_add_files.png" height=200>
+% <img src="images/Project_Preparation/13_check_add_files.png" height=100>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/14_add_git_files.png" height=300>
+% <img src="images/Project_Preparation/14_add_git_files.png" height=250>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/15_commit_initialized_project.png" height=300>
+% <img src="images/Project_Preparation/15_commit_initialized_project.png" height=250>
 % </html>
 %
 %
@@ -209,11 +209,11 @@
 % # Pull from remote to check if everything is up to date.
 % 
 % <html>
-% <img src="images/Project_Preparation/16_push_to_remote.png" height=100>
+% <img src="images/Project_Preparation/16_push_to_remote.png" height=50>
 % </html>
 %
 % <html>
-% <img src="images/Project_Preparation/17_clone_and_backup.png" height=350>
+% <img src="images/Project_Preparation/17_clone_and_backup.png" height=300>
 % </html>
 %
 % If further changes are comitted to the project push again to the remote from
@@ -222,7 +222,7 @@
 % pull again. See below as an example how does it look like.
 %
 % <html>
-% <img src="images/Project_Preparation/18_pull_after_changes.png" height=350>
+% <img src="images/Project_Preparation/18_pull_after_changes.png" height=200>
 % </html>
 %
 %

@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationSubset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotSimulationSubset.m"><style type="text/css">
+      --><title>plotSimulationSubset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="plotSimulationSubset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -132,13 +132,15 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="comment">% check how many angles in dataset and let user decide how many to</span>
         <span class="comment">% render in polt</span>
         fprintf(<span class="string">'Detect %d x %d sensors in dataset ...\n'</span>, <span class="keyword">...</span>
-            ds.Info.SensorArrayOptions.dimension, ds.Info.SensorArrayOptions.dimension);
+            ds.Info.SensorArrayOptions.dimension, <span class="keyword">...</span>
+            ds.Info.SensorArrayOptions.dimension);
         xIdx = input(<span class="string">"Enter x indices in []: "</span>);
         yIdx = input(<span class="string">"Enter y indices in []: "</span>);
         <span class="keyword">if</span> length(xIdx) ~= length(yIdx)
             error(<span class="string">'Indices must have the same length!'</span>)
         <span class="keyword">end</span>
-        fprintf(<span class="string">'Detect %d angles in dataset ...\n'</span>, ds.Info.UseOptions.nAngles);
+        fprintf(<span class="string">'Detect %d angles in dataset ...\n'</span>, <span class="keyword">...</span>
+            ds.Info.UseOptions.nAngles);
         nSubAngles = input(<span class="string">'How many angles to you wish to plot: '</span>);
         <span class="comment">% indices for data to plot, get sample distance for even distance</span>
         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
@@ -186,11 +188,16 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
-    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
-    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a "</span>;
-    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in "</span>;
-    subline5 = <span class="string">"sample distance of $%d$ angles. Based on %s characterization reference %s."</span>;
+    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors,"</span> + <span class="keyword">...</span>
+        <span class="string">" an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
+    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt"</span> + <span class="keyword">...</span>
+        <span class="string">" of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
+    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from"</span> + <span class="keyword">...</span>
+        <span class="string">" sphere surface in z-axis, $%d$ rotation angles with a "</span>;
+    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution"</span> + <span class="keyword">...</span>
+        <span class="string">" of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in "</span>;
+    subline5 = <span class="string">"sample distance of $%d$ angles. Based on %s"</span> + <span class="keyword">...</span>
+        <span class="string">" characterization reference %s."</span>;
     sub = [sprintf(subline1, <span class="keyword">...</span>
                    ds.Info.SensorArrayOptions.geometry, <span class="keyword">...</span>
                    ds.Info.SensorArrayOptions.dimension, <span class="keyword">...</span>
@@ -368,14 +375,6 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    <span class="comment">% add colorbar and place it</span>
-<span class="comment">%     cb1 = colorbar;</span>
-<span class="comment">%     cb1.Label.String = sprintf(...</span>
-<span class="comment">%         '$V_{cos}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V', ...</span>
-<span class="comment">%         ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);</span>
-<span class="comment">%     cb1.Label.Interpreter = 'latex';</span>
-<span class="comment">%     cb1.Label.FontSize = 12;</span>
-
     hold <span class="string">off</span>;
 
     <span class="comment">% Sinus bridge outputs for rotation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -428,7 +427,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">% axes limits</span>
     xlimits = [-10 370];
-    ylimits = [min(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], <span class="string">'all'</span>) - 0.1*Vcc, <span class="keyword">...</span>
+    ylimits = [min(cat(<span class="keyword">...</span>
+        3, ds.Data.VsinRef, ds.Data.VcosRef), [], <span class="string">'all'</span>) - 0.1*Vcc, <span class="keyword">...</span>
         max(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], <span class="string">'all'</span>) + 0.1*Vcc];
 
     <span class="comment">% Vcos</span>
@@ -450,7 +450,9 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    title(sprintf(<span class="string">'$V_{cos}$ of Enabled Array Positions over $\\theta$, $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V'</span>, Vcc, Voff), <span class="keyword">...</span>
+    title(sprintf(<span class="keyword">...</span>
+        <span class="string">"$V_{cos}$ of Enabled Array Positions over $\\theta$,"</span> + <span class="keyword">...</span>
+        <span class="string">" $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V"</span>, Vcc, Voff), <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -475,7 +477,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    title(sprintf(<span class="string">'$V_{sin}$ of Enabled Array Positions over $\\theta$, $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V'</span>, Vcc, Voff), <span class="keyword">...</span>
+    title(sprintf(<span class="string">"$V_{sin}$ of Enabled Array Positions over"</span> + <span class="keyword">...</span>
+        <span class="string">" $\\theta$, $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V"</span>, Vcc, Voff), <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -626,13 +629,15 @@ function plotSimulationSubset()
         % check how many angles in dataset and let user decide how many to
         % render in polt
         fprintf('Detect %d x %d sensors in dataset ...\n', ...
-            ds.Info.SensorArrayOptions.dimension, ds.Info.SensorArrayOptions.dimension);
+            ds.Info.SensorArrayOptions.dimension, ...
+            ds.Info.SensorArrayOptions.dimension);
         xIdx = input("Enter x indices in []: ");
         yIdx = input("Enter y indices in []: ");
         if length(xIdx) ~= length(yIdx)
             error('Indices must have the same length!')
         end
-        fprintf('Detect %d angles in dataset ...\n', ds.Info.UseOptions.nAngles);
+        fprintf('Detect %d angles in dataset ...\n', ...
+            ds.Info.UseOptions.nAngles);
         nSubAngles = input('How many angles to you wish to plot: ');
         % indices for data to plot, get sample distance for even distance
         sampleDistance = length(downsample(ds.Data.angles, nSubAngles));
@@ -680,11 +685,16 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
-    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
-    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
-    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
-    subline5 = "sample distance of $%d$ angles. Based on %s characterization reference %s.";
+    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors," + ...
+        " an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
+    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt" + ...
+        " of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
+    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from" + ...
+        " sphere surface in z-axis, $%d$ rotation angles with a ";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution" + ...
+        " of $%.1f^\\circ$. Visualized is a subset of $%d$ angles in ";
+    subline5 = "sample distance of $%d$ angles. Based on %s" + ...
+        " characterization reference %s.";
     sub = [sprintf(subline1, ...
                    ds.Info.SensorArrayOptions.geometry, ...
                    ds.Info.SensorArrayOptions.dimension, ...
@@ -862,14 +872,6 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    % add colorbar and place it
-%     cb1 = colorbar;
-%     cb1.Label.String = sprintf(...
-%         '$V_{cos}(H_x, H_y)$ in V, $V_{cc} = %1.1f$ V, $V_{off} = %1.2f$ V', ...
-%         ds.Info.SensorArrayOptions.Vcc, ds.Info.SensorArrayOptions.Voff);
-%     cb1.Label.Interpreter = 'latex';
-%     cb1.Label.FontSize = 12;
-    
     hold off;
     
     % Sinus bridge outputs for rotation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -922,7 +924,8 @@ function plotSimulationSubset()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % axes limits
     xlimits = [-10 370];
-    ylimits = [min(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') - 0.1*Vcc, ...
+    ylimits = [min(cat(...
+        3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') - 0.1*Vcc, ...
         max(cat(3, ds.Data.VsinRef, ds.Data.VcosRef), [], 'all') + 0.1*Vcc];
     
     % Vcos
@@ -944,7 +947,9 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title(sprintf('$V_{cos}$ of Enabled Array Positions over $\\theta$, $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V', Vcc, Voff), ...
+    title(sprintf(...
+        "$V_{cos}$ of Enabled Array Positions over $\\theta$," + ...
+        " $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V", Vcc, Voff), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...
@@ -969,7 +974,8 @@ function plotSimulationSubset()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    title(sprintf('$V_{sin}$ of Enabled Array Positions over $\\theta$, $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V', Vcc, Voff), ...
+    title(sprintf("$V_{sin}$ of Enabled Array Positions over" + ...
+        " $\\theta$, $V_{cc} = %.1f$ V, $V_{off} = %.2f$ V", Vcc, Voff), ...
         'FontWeight', 'normal', ...
         'FontSize', 12, ...
         'FontName', 'Times', ...

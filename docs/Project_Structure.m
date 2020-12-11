@@ -21,7 +21,9 @@
 % _Generated with linux shell command from on directory above the main project
 % directory._
 %  
-%   tree -dhn GaussianProcessDipoleSimulation -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I "project|Project_*|thesis|images"
+%   tree -dhn GaussianProcessDipoleSimulation ...
+%       -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I ...
+%       "project|Project_*|thesis|images"
 %
 %% Directory Tasks
 %
@@ -203,7 +205,7 @@
 %
 % *Add new file to project:*
 %
-% # Create new File and edit the file after <Documentation_Workflow.html Documentation Workflow>
+% # Create new File and edit the file after Documentation Workflow.
 %   and Conventions.
 % # Run Checks *>* Add Files.
 % # Label the new file from project pane.

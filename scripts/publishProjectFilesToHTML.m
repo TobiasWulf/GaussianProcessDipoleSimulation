@@ -144,5 +144,6 @@ end
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, 'GaussianProcessDipoleSimulation.html'));
+open(fullfile(PublishOptions.outputDir, ...
+    'GaussianProcessDipoleSimulation.html'));
 disp('Done ...');

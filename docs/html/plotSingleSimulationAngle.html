@@ -19,11 +19,11 @@
                 scale: 110
             }
         });
-        
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSingleSimulationAngle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-10"><meta name="DC.source" content="plotSingleSimulationAngle.m"><style type="text/css">
+      --><title>plotSingleSimulationAngle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="plotSingleSimulationAngle.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -178,10 +178,14 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
-    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
-    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
-    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a "</span>;
-    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is rotatation angle %d $(%.1f^\\circ)$."</span>;
+    subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors, "</span> + <span class="keyword">...</span>
+        <span class="string">"an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
+    subline2 = <span class="string">" $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt"</span> + <span class="keyword">...</span>
+        <span class="string">" of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted"</span>;
+    subline3 = <span class="string">"field strength of $%.1f$ kA/m at $%.1f$ mm from"</span> + <span class="keyword">...</span>
+        <span class="string">" sphere surface in z-axis, $%d$ rotation angles with a "</span>;
+    subline4 = <span class="string">"step width of $%.1f^\\circ$ and a resolution of"</span> + <span class="keyword">...</span>
+        <span class="string">" $%.1f^\\circ$. Visualized is rotatation angle %d $(%.1f^\\circ)$."</span>;
     subline5 = <span class="string">"Based on %s characterization reference %s."</span>;
     sub = [sprintf(subline1, <span class="keyword">...</span>
                    ds.Info.SensorArrayOptions.geometry, <span class="keyword">...</span>
@@ -294,7 +298,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     hold <span class="string">on</span>;
 
     <span class="comment">% plot subset of angles</span>
-    <span class="comment">% polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);</span>
+    <span class="comment">% polarscatter(subAngles/180*pi, ones(1, nSubAngles),...</span>
+    <span class="comment">%    'k', 'LineWidth', 0.8);</span>
     ax2 = gca;
 
     <span class="comment">% axis shape</span>
@@ -451,7 +456,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">% update plot 1</span>
     qH = quiver(ax1, X, Y, Hx, Hy, 0.5, <span class="string">'b'</span>);
     qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, <span class="string">'r'</span>);
-    legend([qH qV], {<span class="string">'$quiver(H_x,H_y)$'</span>, <span class="string">'$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'</span>},<span class="keyword">...</span>
+    legend([qH qV], {<span class="string">'$quiver(H_x,H_y)$'</span>, <span class="keyword">...</span>
+        <span class="string">'$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'</span>},<span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
         <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
@@ -644,10 +650,14 @@ function plotSingleSimulationAngle()
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
-    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
-    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
-    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from sphere surface in z-axis, $%d$ rotation angles with a ";
-    subline4 = "step width of $%.1f^\\circ$ and a resolution of $%.1f^\\circ$. Visualized is rotatation angle %d $(%.1f^\\circ)$.";
+    subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors, " + ...
+        "an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
+    subline2 = " $(%.1f, %.1f, -(%.1f))$ in mm, a magnet tilt" + ...
+        " of $%.1f^\\circ$, a sphere radius of $%.1f$ mm, a imprinted";
+    subline3 = "field strength of $%.1f$ kA/m at $%.1f$ mm from" + ...
+        " sphere surface in z-axis, $%d$ rotation angles with a ";
+    subline4 = "step width of $%.1f^\\circ$ and a resolution of" + ...
+        " $%.1f^\\circ$. Visualized is rotatation angle %d $(%.1f^\\circ)$.";
     subline5 = "Based on %s characterization reference %s.";
     sub = [sprintf(subline1, ...
                    ds.Info.SensorArrayOptions.geometry, ...
@@ -760,7 +770,8 @@ function plotSingleSimulationAngle()
     hold on;
     
     % plot subset of angles
-    % polarscatter(subAngles/180*pi, ones(1, nSubAngles), 'k', 'LineWidth', 0.8);
+    % polarscatter(subAngles/180*pi, ones(1, nSubAngles),...
+    %    'k', 'LineWidth', 0.8);
     ax2 = gca;    
         
     % axis shape
@@ -917,7 +928,8 @@ function plotSingleSimulationAngle()
     % update plot 1
     qH = quiver(ax1, X, Y, Hx, Hy, 0.5, 'b');
     qV = quiver(ax1, X, Y, Vcos, Vsin, 0.5, 'r');
-    legend([qH qV], {'$quiver(H_x,H_y)$', '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
+    legend([qH qV], {'$quiver(H_x,H_y)$', ...
+        '$quiver(V_{cos}-V_{off},V_{sin}-V_{off})$'},...
         'FontWeight', 'normal', ...
         'FontSize', 9, ...
         'FontName', 'Times', ...

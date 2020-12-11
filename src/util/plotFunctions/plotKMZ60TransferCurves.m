@@ -79,7 +79,8 @@ function plotKMZ60TransferCurves()
     
     % get dataset infos and format strings to place in figures
     % subtitle string for all figures
-    infoStr = join([Info.SensorManufacturer, Info.Sensor, Info.SensorTechnology, ...
+    infoStr = join([Info.SensorManufacturer, ...
+        Info.Sensor, Info.SensorTechnology, ...
         Info.SensorType, "Sensor Characterization Dataset."]);
     dateStr = join(["Created on", Info.Created, "by", 'Thorben Sch\"uthe', ...
         "and updated on", Info.Edited, "by", Info.Editor + "."]);
@@ -207,7 +208,8 @@ function plotKMZ60TransferCurves()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     cb = colorbar;
-    cb.Label.String = sprintf('$V_{out}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
+    cb.Label.String = sprintf(...
+        '$V_{out}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 12;
     
@@ -215,7 +217,8 @@ function plotKMZ60TransferCurves()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     nexttile([1 2]);
     % slices
-    p = plot(HxScale, Vcos(Hslice,:), HyScale, Vsin(:, Hslice)', 'LineWidth', 1.2);
+    p = plot(HxScale, Vcos(Hslice,:),...
+        HyScale, Vsin(:, Hslice)', 'LineWidth', 1.2);
     
     % plateau limits
     if pl > 0

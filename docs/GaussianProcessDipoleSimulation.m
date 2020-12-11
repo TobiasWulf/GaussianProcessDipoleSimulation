@@ -13,8 +13,7 @@
 %
 % Thorben Schüthe came up with a high experimental scripting for abstracting
 % sensor characterization fields to an array of sensor fields which was
-% stimulated by bare dipole field eqautions and a not clear figured out way to
-% norm field strength in stimulus. Rare Documented set of scripts.
+% stimulated by magnetic dipole field eqautions to approximate a sperical magnet.
 %
 % *November 06. 2019*
 %
@@ -25,9 +24,10 @@
 % experimental with rare documentation and few set of functions and script. The
 % math of this very solution based the standard book for Gaussian Process by
 % Williams and Rasmussen. The algorithm is related to the guidline for linear
-% regression model and still not working stable enough to generate valid results
-% in some use cases. Needs further investigation of parameters and function
-% space.
+% regression model which worked fine for a setup of standard use cases but
+% needed further investigation for a wider set of parameters and functions to
+% identify general and relevant parameter settings to provide an applicable
+% angular prediction.
 %
 % *September 21. 2020*
 %
