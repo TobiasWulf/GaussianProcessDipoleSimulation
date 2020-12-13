@@ -19,6 +19,7 @@
 \loadglsentries[\acronymtype]{./glossaries/acronyms}
 \loadglsentries[symbols]{./glossaries/symbols}
 
+\addbibresource{literature/literature.bib}
 
 \sisetup{locale = DE}     % siunitx locale setup
 %\DeclareSIUnit \fps{fps}  % a custom unit (usage: \SI{24}{\fps})
@@ -45,18 +46,6 @@
 % Table of contents here
 \tableofcontents
 
-% List of figures here
-\IListOfFigures
-
-% List of tables here
-\IListOfTables
-
-% List of accronyms here
-\IListOfAccronyms
-
-% List of symbols here
-\IListOfSymbols
-
 % Uncomment if list of source code is needed (rarely).
 %\lstlistoflistings  % requires package listings, needs to uncommenting of usepackage
 
@@ -69,10 +58,30 @@
 %\input{chapters/Speicherbedarf}
 % Add additional chapters here
 
-%\nocite{*}
-%\bibliographystyle{plain}
+% List of figures here
+\IListOfFigures
+
+% List of tables here
+\IListOfTables
+
+% List glossary entries
+\IGlossary
+
+% List of accronyms here
+\IListOfAccronyms
+
+% List of symbols here
+\IListOfSymbols
+
+% List of used literature
+\nocite{*}
+\printbibheading
+\printbibliography[nottype=online, keyword={paper}, heading=subbibliography, title={Paper}]
+\printbibliography[nottype=online, keyword={manual}, heading=subbibliography, title={Manual}]
+\printbibliography[type=online, keyword={webpage}, heading=subbibliography, title={Web-Recherche}]
+% \bibliographystyle{plain}
 %\bibliographystyle{dinat}
-%\bibliography{literature}
+%\bibliography{literature/literature}
 
 % Appendix
 % \appendix
@@ -92,8 +101,6 @@
 	\input{appendix/used_software}
 	\input{appendix/software_documentation}
 \end{appendices}
-
-\IGlossary
 
 \Istatement
 

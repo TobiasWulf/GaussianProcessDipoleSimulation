@@ -13,14 +13,14 @@
 % of the sensor array, so it completes the rotation in related data matrices.
 %
 % <html>
-% <img src="images/svg/AnglePlot_10_example.svg" height=500>
+% <img src="images/svg/AnglePlot_10_example.svg.png" height=500>
 % </html>
 %
 % Above image shows the 10th rotation angle of a rotation with 16 even
 % distributed angles between 0° and 360°.
 %
 % <html>
-% <img src="images/svg/CirclePlot_example.svg" height=500>
+% <img src="images/svg/CirclePlot_example.svg.png" height=500>
 % </html>
 %
 % Here a visualization of the full rotation at once with colored position

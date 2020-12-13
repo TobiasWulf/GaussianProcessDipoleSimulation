@@ -36,7 +36,8 @@
 
 \RequirePackage{graphicx}           % Include graphics to document
 \RequirePackage{subcaption}         % Multiple Pictures next to each other
-\RequirePackage[numbers]{natbib}    % More citation styles
+%\RequirePackage[numbers]{natbib}    % More citation styles
+\RequirePackage[autostyle]{csquotes}
 \parindent0pt                       % First line starts imediately
 \RequirePackage{todonotes}          % Adds notes on marginpar (can lead to warnings!)
 
@@ -83,4 +84,13 @@ toc
 
 \RequirePackage[toc,page]{appendix} % custom appendix pages with toc support
 \RequirePackage{import}				% subimports with rel. path
-
+\RequirePackage[
+backend=biber,
+style=numeric,
+sorting=ynt,
+defernumbers=true,
+language=auto,
+hyperref=auto,
+backref=true,
+date=year
+]{biblatex}							% bibliography database with more choice and complexity for literature
