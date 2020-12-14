@@ -126,6 +126,9 @@ PathVariables.scriptsPath = fullfile(PathVariables.rootPath, 'scripts');
 % path to source code files, function and class files
 PathVariables.srcPath = fullfile(PathVariables.rootPath, 'src');
 
+% path to unittest files, scripts and script suite
+PathVariables.unittestPath = fullfile(PathVariables.rootPath, 'tests');
+
 
 %% Publish Options
 % These are general options for documents to publish. They are passed to the

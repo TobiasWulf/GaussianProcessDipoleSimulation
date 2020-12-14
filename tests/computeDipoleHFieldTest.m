@@ -1,7 +1,8 @@
 % compute a single point without norming
 Hsingle = computeDipoleHField(1, 2, 3, [1; 0; 0], 1);
 
-% compute a 3D grid of positions n+1 samples for even values in the grid and to
+% compute a 3D grid of positions n+1 samples for even values 
+% in the grid and to
 % include (0,0,0), in mm
 x = linspace(-4, 4, 41);
 y = linspace(4, -4, 41);
@@ -11,7 +12,8 @@ z = linspace(4, -4, 41);
 % magnetic dipole moment to define magnet orientation, no tilt
 m = generateDipoleRotationMoments(-1e6, 1, 0);
 
-% norm factor to imprint field strength in certain distance d = 1, r = 2 in mm, 
+% norm factor to imprint field strength in certain distance d = 1,
+% r = 2 in mm, 
 % 200 kA/m, no tilt
 r0 = rotate3DVector([0; 0; -3], 0, 0, 0);
 H0norm = computeDipoleH0Norm(200, m, r0); 
@@ -45,6 +47,31 @@ Hzds = Hz(idx,idx,idx) ./ Habs(idx,idx,idx);
 
 % show results for test, comment out for regular unittest run, run suite
 quiver3(Xds, Yds, Zds, Hxds, Hyds, Hzds);
+xlabel('$X$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+ylabel('$Y$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+zlabel('$Z$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+title('Dipole H-Field - Equation Test', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 18, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+subtitle('$X$-, $Y$-, $Z$-Meshgrid from $-4 \ldots 4$ mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 14, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
 axis equal;
 
 % pattern for logical indexing the center or opposite
@@ -57,7 +84,8 @@ pN0(21,21, 21) = false;
 plu = [true(1, 20), false, false(1, 20)];
 prl = [false(1, 20), false, true(1,  20)];
 
-% compare values to check if fits in unit pairs of m and A/m and mm and kA/m
+% compare values to check if fits in unit pairs of m and A/m
+% and mm and kA/m
 r0Apm = rotate3DVector([0; 0; -3e-3], 0, 0, 0);
 H0normApm = computeDipoleH0Norm(200e3, m, r0Apm); 
 Xm = X * 1e-3;
@@ -104,7 +132,8 @@ assert(all(Hz(p0,~p0,~p0) ~= 0, 'all'))
 assert(all(Hz(p0,p0,~p0) == 0, 'all'))
 
 %% Test 4: imprinting
-% index 6 is 3mm and 36 is -3mm from surface where 200 kA/m should be imprinted
+% index 6 is 3mm and 36 is -3mm from surface where 200 kA/m
+% should be imprinted
 assert(round(abs(Hx(p0,p0,6)),6) == 200)
 assert(round(abs(Hx(p0,p0,36)),6) == 200)
 

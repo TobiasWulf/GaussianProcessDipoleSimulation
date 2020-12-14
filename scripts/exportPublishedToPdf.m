@@ -88,7 +88,16 @@ toc = ["section",       "GaussianProcessDipoleSimulation.pdf";
        "subsubsection", "TDK_TAS2141_Characterization.pdf";
        "subsubsection", "NXP_KMZ60_Characterization.pdf";
        "subsubsection", "Config_Mat.pdf";
-       "subsubsection", "Training_and_Test_Datasets.pdf"];
+       "subsubsection", "Training_and_Test_Datasets.pdf";
+       "subsection",    "Unit_Tests.pdf";
+       "subsubsection", "runTests.pdf";
+       "subsubsection", "removeFilesFromDirTest.pdf";
+       "subsubsection", "rotate3DVectorTest.pdf";
+       "subsubsection", "generateDipoleRotationMomentsTest.pdf";
+       "subsubsection", "generateSensorArraySquareGridTest.pdf";
+       "subsubsection", "computeDipoleH0NormTest.pdf";
+       "subsubsection", "computeDipoleHFieldTest.pdf";
+       "subsubsection", "tiltRotationTest.pdf";];
 
 nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);

@@ -1,0 +1,207 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>rotate3DVectorTest</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-14"><meta name="DC.source" content="rotate3DVectorTest.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Test 1: output dimensions</a></li><li><a href="#3">Test 2: rotate vectors in x-axes</a></li><li><a href="#4">Test 3: rotate vectors in y-axes</a></li><li><a href="#5">Test 4: rotate vectors in z-axes</a></li></ul></div><pre class="codeinput"><span class="comment">% create column vectors with simple direction for rotations along the axes</span>
+<span class="comment">% without tilts in other achses.</span>
+x = [-1; 0; 0];
+y = [0; -1; 0];
+z = [0; 0; -1];
+
+<span class="comment">% set angle step width in degree to rotate at choosen axes (x, y, or z)</span>
+angle = 90;
+</pre><h2 id="2">Test 1: output dimensions</h2><pre class="codeinput">rotated = rotate3DVector(x, 0, 0, angle);
+assert(isequal(size(rotated), [3, 1]))
+rotated = rotate3DVector([x x x x x x], 0, 0, angle);
+assert(isequal(size(rotated), [3, 6]))
+</pre><h2 id="3">Test 2: rotate vectors in x-axes</h2><pre class="codeinput">rotated = rotate3DVector([x y z], 0, 0, 0); <span class="comment">% 0 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], angle, 0, 0); <span class="comment">% 90 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 0 1; 0 -1 0]))
+
+rotated = rotate3DVector([x y z], 2 * angle, 0, 0); <span class="comment">% 180 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 1 0; 0 0 1]))
+
+rotated = rotate3DVector([x y z], 3 * angle, 0, 0); <span class="comment">% 270 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 0 -1; 0 1 0]))
+
+rotated = rotate3DVector([x y z], 4 * angle, 0, 0); <span class="comment">% 360 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+</pre><h2 id="4">Test 3: rotate vectors in y-axes</h2><pre class="codeinput">rotated = rotate3DVector([x y z], 0, 0, 0); <span class="comment">% 0 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, angle, 0); <span class="comment">% 90 degree</span>
+assert(isequal(rotated, [0 0 -1; 0 -1 0; 1 0 0]))
+
+rotated = rotate3DVector([x y z], 0, 2 * angle, 0); <span class="comment">% 180 degree</span>
+assert(isequal(rotated, [1 0 0; 0 -1 0; 0 0 1]))
+
+rotated = rotate3DVector([x y z], 0, 3 * angle, 0); <span class="comment">% 270 degree</span>
+assert(isequal(rotated, [0 0 1; 0 -1 0; -1 0 0]))
+
+rotated = rotate3DVector([x y z], 0, 4 * angle, 0); <span class="comment">% 360 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+</pre><h2 id="5">Test 4: rotate vectors in z-axes</h2><pre class="codeinput">rotated = rotate3DVector([x y z], 0, 0, 0); <span class="comment">% 0 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, angle); <span class="comment">% 90 degree</span>
+assert(isequal(rotated, [0 1 0; -1 0 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, 2 * angle); <span class="comment">% 180 degree</span>
+assert(isequal(rotated, [1 0 0; 0 1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, 3 * angle); <span class="comment">% 270 degree</span>
+assert(isequal(rotated, [0 -1 0; 1 0 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, 4 * angle); <span class="comment">% 360 degree</span>
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% create column vectors with simple direction for rotations along the axes
+% without tilts in other achses.
+x = [-1; 0; 0];
+y = [0; -1; 0];
+z = [0; 0; -1];
+
+% set angle step width in degree to rotate at choosen axes (x, y, or z)
+angle = 90;
+
+%% Test 1: output dimensions
+rotated = rotate3DVector(x, 0, 0, angle);
+assert(isequal(size(rotated), [3, 1]))
+rotated = rotate3DVector([x x x x x x], 0, 0, angle);
+assert(isequal(size(rotated), [3, 6]))
+
+%% Test 2: rotate vectors in x-axes
+rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], angle, 0, 0); % 90 degree
+assert(isequal(rotated, [-1 0 0; 0 0 1; 0 -1 0]))
+
+rotated = rotate3DVector([x y z], 2 * angle, 0, 0); % 180 degree
+assert(isequal(rotated, [-1 0 0; 0 1 0; 0 0 1]))
+
+rotated = rotate3DVector([x y z], 3 * angle, 0, 0); % 270 degree
+assert(isequal(rotated, [-1 0 0; 0 0 -1; 0 1 0]))
+
+rotated = rotate3DVector([x y z], 4 * angle, 0, 0); % 360 degree
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+%% Test 3: rotate vectors in y-axes
+rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, angle, 0); % 90 degree
+assert(isequal(rotated, [0 0 -1; 0 -1 0; 1 0 0]))
+
+rotated = rotate3DVector([x y z], 0, 2 * angle, 0); % 180 degree
+assert(isequal(rotated, [1 0 0; 0 -1 0; 0 0 1]))
+
+rotated = rotate3DVector([x y z], 0, 3 * angle, 0); % 270 degree
+assert(isequal(rotated, [0 0 1; 0 -1 0; -1 0 0]))
+
+rotated = rotate3DVector([x y z], 0, 4 * angle, 0); % 360 degree
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+%% Test 4: rotate vectors in z-axes
+rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, angle); % 90 degree
+assert(isequal(rotated, [0 1 0; -1 0 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, 2 * angle); % 180 degree
+assert(isequal(rotated, [1 0 0; 0 1 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, 3 * angle); % 270 degree
+assert(isequal(rotated, [0 -1 0; 1 0 0; 0 0 -1]))
+
+rotated = rotate3DVector([x y z], 0, 0, 4 * angle); % 360 degree
+assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
+
+##### SOURCE END #####
+--></body></html>

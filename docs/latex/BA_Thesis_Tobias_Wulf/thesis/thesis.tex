@@ -19,7 +19,7 @@
 \loadglsentries[\acronymtype]{./glossaries/acronyms}
 \loadglsentries[symbols]{./glossaries/symbols}
 
-\addbibresource{literature/literature.bib}
+\addbibresource{./literature/literature.bib}
 
 \sisetup{locale = DE}     % siunitx locale setup
 %\DeclareSIUnit \fps{fps}  % a custom unit (usage: \SI{24}{\fps})
@@ -50,13 +50,18 @@
 %\lstlistoflistings  % requires package listings, needs to uncommenting of usepackage
 
 % path to the chapters folder is set to find the images used there
-%\graphicspath{ {./chapters/} }
+\graphicspath{ {./chapters/} {.chapters/images}}
 
 % Chapters
 \clearpage
 \pagenumbering{arabic}
-%\input{chapters/Speicherbedarf}
 % Add additional chapters here
+\input{chapters/1_chapter}
+\input{chapters/2_chapter}
+\input{chapters/3_chapter}
+\input{chapters/4_chapter}
+\input{chapters/5_chapter}
+\input{chapters/6_chapter}
 
 % List of figures here
 \IListOfFigures
@@ -98,8 +103,8 @@
 	\makeatother
 	
 	% appendix pages
-	\input{appendix/used_software}
-	\input{appendix/software_documentation}
+	\input{appendix/1_appendix}
+	\input{appendix/2_appendix}
 \end{appendices}
 
 \Istatement

@@ -63,6 +63,16 @@
             <tocitem target="Config_Mat.html">Config Mat</tocitem>
             <tocitem target="Training_and_Test_Datasets.html">Training and Test Datasets</tocitem>
         </tocitem>
+        <tocitem target="Unit_Tests.html">Unit Tests
+            <tocitem target="runTests.html">runTests</tocitem>
+            <tocitem target="removeFilesFromDirTest.html">removeFilesFromDirTest</tocitem>
+            <tocitem target="rotate3DVectorTest.html">rotate3DVectorTest</tocitem>
+            <tocitem target="generateDipoleRotationMomentsTest.html">generateDipoleRotationMomentsTest</tocitem>
+            <tocitem target="generateSensorArraySquareGridTest.html">generateSensorArraySquareGridTest</tocitem>
+            <tocitem target="computeDipoleH0NormTest.html">computeDipoleH0NormTest</tocitem>
+            <tocitem target="computeDipoleHFieldTest.html">computeDipoleHFieldTest</tocitem>
+            <tocitem target="tiltRotationTest.html">tiltRotationTest</tocitem>
+        </tocitem>
     </tocitem>
 </toc>
 

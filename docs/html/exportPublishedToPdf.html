@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-11"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
+      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-14"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -140,7 +140,16 @@ disp(<span class="string">'Load configuration ...'</span>);
        <span class="string">"subsubsection"</span>, <span class="string">"TDK_TAS2141_Characterization.pdf"</span>;
        <span class="string">"subsubsection"</span>, <span class="string">"NXP_KMZ60_Characterization.pdf"</span>;
        <span class="string">"subsubsection"</span>, <span class="string">"Config_Mat.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Training_and_Test_Datasets.pdf"</span>];
+       <span class="string">"subsubsection"</span>, <span class="string">"Training_and_Test_Datasets.pdf"</span>;
+       <span class="string">"subsection"</span>,    <span class="string">"Unit_Tests.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"runTests.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"removeFilesFromDireTest.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"rotate3DVectorTest.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"generateDipoleRotationMomentsTest.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"generateSensorArraySquareGridTest.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"computeDipoleH0NormTest.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"computeDipoleHFieldTest.pdf"</span>;
+       <span class="string">"subsubsection"</span>, <span class="string">"tiltRotationTest.pdf"</span>;];
 
 nToc = length(toc);
 fprintf(<span class="string">"%d toc entries remarked ...\n"</span>, nToc);
@@ -310,7 +319,16 @@ toc = ["section",       "GaussianProcessDipoleSimulation.pdf";
        "subsubsection", "TDK_TAS2141_Characterization.pdf";
        "subsubsection", "NXP_KMZ60_Characterization.pdf";
        "subsubsection", "Config_Mat.pdf";
-       "subsubsection", "Training_and_Test_Datasets.pdf"];
+       "subsubsection", "Training_and_Test_Datasets.pdf";
+       "subsection",    "Unit_Tests.pdf";
+       "subsubsection", "runTests.pdf";
+       "subsubsection", "removeFilesFromDireTest.pdf";
+       "subsubsection", "rotate3DVectorTest.pdf";
+       "subsubsection", "generateDipoleRotationMomentsTest.pdf";
+       "subsubsection", "generateSensorArraySquareGridTest.pdf";
+       "subsubsection", "computeDipoleH0NormTest.pdf";
+       "subsubsection", "computeDipoleHFieldTest.pdf";
+       "subsubsection", "tiltRotationTest.pdf";];
 
 nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);

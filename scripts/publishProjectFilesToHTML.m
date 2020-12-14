@@ -116,8 +116,19 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 % directory tree, verbose.
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
-%PublishOptions.showCode = false;
 publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
+
+
+%% Unit Test Scripts
+% Publish unit tests scripts and run test suite to include unit test
+% results. It is the only section of whole publish process which executes
+% script code. The test files are closed loop and do not harm other
+% sections of source code.
+disp('Publish unit tests scripts ...');
+PublishOptions.evalCode = true;
+publishFilesFromDir(PathVariables.unittestPath, ...
+    PublishOptions, true, true);
+
 
 
 %% Build Documentation Database for Matlab Help Browser
@@ -133,6 +144,15 @@ publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 % and check if files do not exist any more. At least build up new search
 % database entries to Matlab help.
 disp('Remove old search entries ...');
+clearvars;
+close all;
+clc;
+disp('Reload configuration after unit test execution ...');
+try
+    load('config.mat', 'PathVariables', 'PublishOptions');
+catch ME
+    rethrow(ME);
+end
 if removeFilesFromDir(PathVariables.helpsearchPath)
     builddocsearchdb(PublishOptions.outputDir);
 else

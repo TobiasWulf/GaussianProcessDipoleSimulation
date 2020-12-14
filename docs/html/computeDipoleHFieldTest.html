@@ -1,0 +1,378 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>computeDipoleHFieldTest</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-14"><meta name="DC.source" content="computeDipoleHFieldTest.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Test 1: output dimensions</a></li><li><a href="#3">Test 2: center of field</a></li><li><a href="#4">Test 3: magnetization</a></li><li><a href="#5">Test 4: imprinting</a></li><li><a href="#6">Test 5: symmetry</a></li><li><a href="#7">Test 6: units milli kilo</a></li></ul></div><pre class="codeinput"><span class="comment">% compute a single point without norming</span>
+Hsingle = computeDipoleHField(1, 2, 3, [1; 0; 0], 1);
+
+<span class="comment">% compute a 3D grid of positions n+1 samples for even values</span>
+<span class="comment">% in the grid and to</span>
+<span class="comment">% include (0,0,0), in mm</span>
+x = linspace(-4, 4, 41);
+y = linspace(4, -4, 41);
+z = linspace(4, -4, 41);
+[X, Y, Z] = meshgrid(x, y, z);
+
+<span class="comment">% magnetic dipole moment to define magnet orientation, no tilt</span>
+m = generateDipoleRotationMoments(-1e6, 1, 0);
+
+<span class="comment">% norm factor to imprint field strength in certain distance d = 1,</span>
+<span class="comment">% r = 2 in mm,</span>
+<span class="comment">% 200 kA/m, no tilt</span>
+r0 = rotate3DVector([0; 0; -3], 0, 0, 0);
+H0norm = computeDipoleH0Norm(200, m, r0);
+
+<span class="comment">% allocate memory for field components in x,y,z</span>
+Hx = zeros(41, 41, 41);
+Hy = zeros(41, 41, 41);
+Hz = zeros(41, 41, 41);
+
+<span class="comment">% compute without norming for each z layer and reshape results into layer</span>
+<span class="keyword">for</span> i=1:41
+    Hgrid = computeDipoleHField(X(:,:,i),Y(:,:,i),Z(:,:,i),m,H0norm);
+    Hx(:,:,i) = reshape(Hgrid(1,:),41,41);
+    Hy(:,:,i) = reshape(Hgrid(2,:),41,41);
+    Hz(:,:,i) = reshape(Hgrid(3,:),41,41);
+<span class="keyword">end</span>
+
+<span class="comment">% calculate magnitude in each point for better view the results</span>
+Habs = sqrt(Hx.^2+Hy.^2+Hz.^2);
+
+<span class="comment">% define a index to view only every 4th point for not overcrowded plot</span>
+idx = 1:4:41;
+
+<span class="comment">% downsample and norm</span>
+Xds = X(idx,idx,idx);
+Yds = Y(idx,idx,idx);
+Zds = Z(idx,idx,idx);
+Hxds = Hx(idx,idx,idx) ./ Habs(idx,idx,idx);
+Hyds = Hy(idx,idx,idx) ./ Habs(idx,idx,idx);
+Hzds = Hz(idx,idx,idx) ./ Habs(idx,idx,idx);
+
+<span class="comment">% show results for test, comment out for regular unittest run, run suite</span>
+quiver3(Xds, Yds, Zds, Hxds, Hyds, Hzds);
+xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+ylabel(<span class="string">'$Y$ in mm'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+zlabel(<span class="string">'$Z$ in mm'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+title(<span class="string">'Dipole H-Field - Equation Test'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+subtitle(<span class="string">'$X$-, $Y$-, $Z$-Meshgrid from $-4 \ldots 4$ mm'</span>, <span class="keyword">...</span>
+        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
+        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
+        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+axis <span class="string">equal</span>;
+
+<span class="comment">% pattern for logical indexing the center or opposite</span>
+p0 = false(1, 41);
+p0(21) = true;
+pN0 = true(41, 41, 41);
+pN0(21,21, 21) = false;
+
+<span class="comment">% pattern for symmetry investigation</span>
+plu = [true(1, 20), false, false(1, 20)];
+prl = [false(1, 20), false, true(1,  20)];
+
+<span class="comment">% compare values to check if fits in unit pairs of m and A/m</span>
+<span class="comment">% and mm and kA/m</span>
+r0Apm = rotate3DVector([0; 0; -3e-3], 0, 0, 0);
+H0normApm = computeDipoleH0Norm(200e3, m, r0Apm);
+Xm = X * 1e-3;
+Ym = Y * 1e-3;
+Zm = Z * 1e-3;
+HxApm = zeros(41, 41, 41);
+HyApm = zeros(41, 41, 41);
+HzApm = zeros(41, 41, 41);
+<span class="keyword">for</span> i=1:41
+    HApm = computeDipoleHField(Xm(:,:,i),Ym(:,:,i),Zm(:,:,i),m,H0normApm);
+    HxApm(:,:,i) = reshape(HApm(1,:),41,41);
+    HyApm(:,:,i) = reshape(HApm(2,:),41,41);
+    HzApm(:,:,i) = reshape(HApm(3,:),41,41);
+<span class="keyword">end</span>
+HabsApm = sqrt(HxApm.^2+HyApm.^2+HzApm.^2);
+</pre><img vspace="5" hspace="5" src="computeDipoleHFieldTest_01.png" alt=""> <h2 id="2">Test 1: output dimensions</h2><pre class="codeinput">assert(isequal(size(Hsingle), [3, 1]))
+assert(isequal(size(Hgrid), [3, 1681]))
+</pre><h2 id="3">Test 2: center of field</h2><pre class="codeinput">assert(X(p0,p0,p0) == 0)
+assert(Y(p0,p0,p0) == 0)
+assert(Z(p0,p0,p0) == 0)
+assert(isnan(Hx(p0,p0,p0)))
+assert(isnan(Hy(p0,p0,p0)))
+assert(isnan(Hz(p0,p0,p0)))
+assert(all(Hx(~p0,p0,p0) ~= 0, <span class="string">'all'</span>))
+assert(all(Hx(p0,~p0,p0) ~= 0, <span class="string">'all'</span>))
+assert(all(Hy(~p0,p0,p0) == 0, <span class="string">'all'</span>))
+assert(all(Hy(p0,~p0,p0) == 0, <span class="string">'all'</span>))
+assert(all(Hz(~p0,~p0,p0) == 0, <span class="string">'all'</span>))
+</pre><h2 id="4">Test 3: magnetization</h2><pre class="codeinput">assert(all(Hx(~p0,p0,~p0) ~= 0, <span class="string">'all'</span>))
+assert(all(Hx(p0,~p0,~p0) ~= 0, <span class="string">'all'</span>))
+assert(all(Hx(p0,p0,~p0) ~= 0, <span class="string">'all'</span>))
+assert(all(Hy(~p0,p0,~p0) == 0, <span class="string">'all'</span>))
+assert(all(Hy(p0,~p0,~p0) == 0, <span class="string">'all'</span>))
+assert(all(Hy(p0,p0,~p0) == 0, <span class="string">'all'</span>))
+assert(all(Hz(~p0,p0,~p0) == 0, <span class="string">'all'</span>))
+assert(all(Hz(p0,~p0,~p0) ~= 0, <span class="string">'all'</span>))
+assert(all(Hz(p0,p0,~p0) == 0, <span class="string">'all'</span>))
+</pre><h2 id="5">Test 4: imprinting</h2><p>index 6 is 3mm and 36 is -3mm from surface where 200 kA/m should be imprinted</p><pre class="codeinput">assert(round(abs(Hx(p0,p0,6)),6) == 200)
+assert(round(abs(Hx(p0,p0,36)),6) == 200)
+</pre><h2 id="6">Test 5: symmetry</h2><pre class="codeinput">assert(all((Hx(plu,:,:) - flip(Hx(prl,:,:),1))==0, <span class="string">'all'</span>))
+assert(all((Hx(:,plu,:) - flip(Hx(:,prl,:),2))==0, <span class="string">'all'</span>))
+assert(all((Hy(plu,:,:) + flip(Hy(prl,:,:),1))==0, <span class="string">'all'</span>))
+assert(all((Hy(:,plu,:) + flip(Hy(:,prl,:),2))==0, <span class="string">'all'</span>))
+assert(all((Hz(:,:,~p0) + flip(Hz(:,:,~p0),2))==0, <span class="string">'all'</span>))
+</pre><h2 id="7">Test 6: units milli kilo</h2><pre class="codeinput">assert(all(round(HxApm(pN0) * 1e-3, 6) == round(Hx(pN0), 6), <span class="string">'all'</span>))
+assert(all(round(HyApm(pN0) * 1e-3, 6) == round(Hy(pN0), 6), <span class="string">'all'</span>))
+assert(all(round(HzApm(pN0) * 1e-3, 6) == round(Hz(pN0), 6), <span class="string">'all'</span>))
+assert(all(round(HabsApm(pN0) * 1e-3, 6) == round(Habs(pN0), 6), <span class="string">'all'</span>))
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% compute a single point without norming
+Hsingle = computeDipoleHField(1, 2, 3, [1; 0; 0], 1);
+
+% compute a 3D grid of positions n+1 samples for even values 
+% in the grid and to
+% include (0,0,0), in mm
+x = linspace(-4, 4, 41);
+y = linspace(4, -4, 41);
+z = linspace(4, -4, 41);
+[X, Y, Z] = meshgrid(x, y, z);
+
+% magnetic dipole moment to define magnet orientation, no tilt
+m = generateDipoleRotationMoments(-1e6, 1, 0);
+
+% norm factor to imprint field strength in certain distance d = 1,
+% r = 2 in mm, 
+% 200 kA/m, no tilt
+r0 = rotate3DVector([0; 0; -3], 0, 0, 0);
+H0norm = computeDipoleH0Norm(200, m, r0); 
+
+% allocate memory for field components in x,y,z
+Hx = zeros(41, 41, 41);
+Hy = zeros(41, 41, 41);
+Hz = zeros(41, 41, 41);
+
+% compute without norming for each z layer and reshape results into layer
+for i=1:41
+    Hgrid = computeDipoleHField(X(:,:,i),Y(:,:,i),Z(:,:,i),m,H0norm);
+    Hx(:,:,i) = reshape(Hgrid(1,:),41,41);
+    Hy(:,:,i) = reshape(Hgrid(2,:),41,41);
+    Hz(:,:,i) = reshape(Hgrid(3,:),41,41);
+end
+
+% calculate magnitude in each point for better view the results
+Habs = sqrt(Hx.^2+Hy.^2+Hz.^2);
+
+% define a index to view only every 4th point for not overcrowded plot
+idx = 1:4:41;
+
+% downsample and norm
+Xds = X(idx,idx,idx);
+Yds = Y(idx,idx,idx);
+Zds = Z(idx,idx,idx);
+Hxds = Hx(idx,idx,idx) ./ Habs(idx,idx,idx);
+Hyds = Hy(idx,idx,idx) ./ Habs(idx,idx,idx);
+Hzds = Hz(idx,idx,idx) ./ Habs(idx,idx,idx);
+
+% show results for test, comment out for regular unittest run, run suite
+quiver3(Xds, Yds, Zds, Hxds, Hyds, Hzds);
+xlabel('$X$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+ylabel('$Y$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+zlabel('$Z$ in mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 16, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+title('Dipole H-Field - Equation Test', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 18, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+subtitle('$X$-, $Y$-, $Z$-Meshgrid from $-4 \ldots 4$ mm', ...
+        'FontWeight', 'normal', ...
+        'FontSize', 14, ...
+        'FontName', 'Times', ...
+        'Interpreter', 'latex');
+axis equal;
+
+% pattern for logical indexing the center or opposite
+p0 = false(1, 41);
+p0(21) = true;
+pN0 = true(41, 41, 41);
+pN0(21,21, 21) = false;
+
+% pattern for symmetry investigation
+plu = [true(1, 20), false, false(1, 20)];
+prl = [false(1, 20), false, true(1,  20)];
+
+% compare values to check if fits in unit pairs of m and A/m
+% and mm and kA/m
+r0Apm = rotate3DVector([0; 0; -3e-3], 0, 0, 0);
+H0normApm = computeDipoleH0Norm(200e3, m, r0Apm); 
+Xm = X * 1e-3;
+Ym = Y * 1e-3;
+Zm = Z * 1e-3;
+HxApm = zeros(41, 41, 41);
+HyApm = zeros(41, 41, 41);
+HzApm = zeros(41, 41, 41);
+for i=1:41
+    HApm = computeDipoleHField(Xm(:,:,i),Ym(:,:,i),Zm(:,:,i),m,H0normApm);
+    HxApm(:,:,i) = reshape(HApm(1,:),41,41);
+    HyApm(:,:,i) = reshape(HApm(2,:),41,41);
+    HzApm(:,:,i) = reshape(HApm(3,:),41,41);
+end
+HabsApm = sqrt(HxApm.^2+HyApm.^2+HzApm.^2);
+
+%% Test 1: output dimensions
+assert(isequal(size(Hsingle), [3, 1]))
+assert(isequal(size(Hgrid), [3, 1681]))
+
+%% Test 2: center of field
+assert(X(p0,p0,p0) == 0)
+assert(Y(p0,p0,p0) == 0)
+assert(Z(p0,p0,p0) == 0)
+assert(isnan(Hx(p0,p0,p0)))
+assert(isnan(Hy(p0,p0,p0)))
+assert(isnan(Hz(p0,p0,p0)))
+assert(all(Hx(~p0,p0,p0) ~= 0, 'all'))
+assert(all(Hx(p0,~p0,p0) ~= 0, 'all'))
+assert(all(Hy(~p0,p0,p0) == 0, 'all'))
+assert(all(Hy(p0,~p0,p0) == 0, 'all'))
+assert(all(Hz(~p0,~p0,p0) == 0, 'all'))
+
+
+%% Test 3: magnetization
+assert(all(Hx(~p0,p0,~p0) ~= 0, 'all'))
+assert(all(Hx(p0,~p0,~p0) ~= 0, 'all'))
+assert(all(Hx(p0,p0,~p0) ~= 0, 'all'))
+assert(all(Hy(~p0,p0,~p0) == 0, 'all'))
+assert(all(Hy(p0,~p0,~p0) == 0, 'all'))
+assert(all(Hy(p0,p0,~p0) == 0, 'all'))
+assert(all(Hz(~p0,p0,~p0) == 0, 'all'))
+assert(all(Hz(p0,~p0,~p0) ~= 0, 'all'))
+assert(all(Hz(p0,p0,~p0) == 0, 'all'))
+
+%% Test 4: imprinting
+% index 6 is 3mm and 36 is -3mm from surface where 200 kA/m
+% should be imprinted
+assert(round(abs(Hx(p0,p0,6)),6) == 200)
+assert(round(abs(Hx(p0,p0,36)),6) == 200)
+
+%% Test 5: symmetry
+assert(all((Hx(plu,:,:) - flip(Hx(prl,:,:),1))==0, 'all'))
+assert(all((Hx(:,plu,:) - flip(Hx(:,prl,:),2))==0, 'all'))
+assert(all((Hy(plu,:,:) + flip(Hy(prl,:,:),1))==0, 'all'))
+assert(all((Hy(:,plu,:) + flip(Hy(:,prl,:),2))==0, 'all'))
+assert(all((Hz(:,:,~p0) + flip(Hz(:,:,~p0),2))==0, 'all'))
+
+%% Test 6: units milli kilo
+assert(all(round(HxApm(pN0) * 1e-3, 6) == round(Hx(pN0), 6), 'all'))
+assert(all(round(HyApm(pN0) * 1e-3, 6) == round(Hy(pN0), 6), 'all'))
+assert(all(round(HzApm(pN0) * 1e-3, 6) == round(Hz(pN0), 6), 'all'))
+assert(all(round(HabsApm(pN0) * 1e-3, 6) == round(Habs(pN0), 6), 'all'))
+
+##### SOURCE END #####
+--></body></html>
