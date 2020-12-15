@@ -4,11 +4,20 @@ clear all
 % clc 
 addpath('../linAlg/');
 % Daten für die Lernphase 
-D       = load('DIP_SIM_tx_0.0000_ty_0.0000_tz_2.0000.mat');
-% Datan für die Arbeitsphase
-Dpred   = load('DIP_SIM_tx_0.0000_ty_0.0000_tz_2.0000.mat');
+load('../../data/training/Training_2020-12-15_17-07-12-776.mat', 'Data');
+D = struct();
+D.Vc = Data.Vcos;
+D.Vs = Data.Vsin;
+D.alpha = Data.angles * pi /180;
 
-nRef        = 7;                    % Number of ref angles 
+% Datan für die Arbeitsphase
+load('../../data/training/Training_2020-12-15_17-07-12-776.mat', 'Data');
+Dpred = struct();
+Dpred.Vc = Data.Vcos;
+Dpred.Vs = Data.Vsin;
+Dpred.alpha = Data.angles * pi /180;
+
+nRef        = 16;                    % Number of ref angles 
 labelSize   = 10; 
 tickSize    = 9; 
 legendSize  = 8; 
@@ -48,7 +57,7 @@ clc
 % c = s2f / ( len2 + r ) ;  
 params.s2f          = 1;
 params.s2n          = 0;        % Parameter zur Bildung der Inversen Matrix
-params.len          = 1;       % 
+params.len          = 2;       % 
 params.lenV         = 5;       % Varianz adaptieren 
 params.len2         = Dref.alpha(2).*180./pi;
 params.castFunc     = @double; % @(x) fi(x, 1, 16, 9);
