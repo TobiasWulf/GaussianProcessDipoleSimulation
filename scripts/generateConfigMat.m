@@ -169,7 +169,7 @@ SensorArrayOptions = struct;
 SensorArrayOptions.geometry = 'square';
 
 % Sensor array square dimension. Fix parameter.
-SensorArrayOptions.dimension = 8;
+SensorArrayOptions.dimension = 16;
 
 % Sensor array edge length in mm. Fix parameter.
 SensorArrayOptions.edge = 2;
@@ -243,11 +243,11 @@ TrainingOptions.useCase = 'Training';
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
 TrainingOptions.xPos = [0,];
-TrainingOptions.yPos = [0, -1, -2, -5];
+TrainingOptions.yPos = [0,];
 TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TrainingOptions.tilt = 0;
+TrainingOptions.tilt = 14;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
@@ -268,7 +268,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 8;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
