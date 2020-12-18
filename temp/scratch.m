@@ -17,3 +17,12 @@ trainDS = load(fullfile(trainFiles(1).folder, trainFiles(1).name));
 % load test dataset
 testDS = load(fullfile(testFiles(1).folder, testFiles(1).name));
 
+% build reference for training data angulars
+% in degree
+angles = trainDS.Data.angles;
+cosRef = cosd(trainDS.Data.angles);
+sinRef = sind(trainDS.Data.angles);
+
+% get needed training dataset infos to reconstruct angles by output
+% voltages
+Voff = trainDS.Info.SensorArrayOptions.Voff;
