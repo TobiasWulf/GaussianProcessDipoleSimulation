@@ -239,6 +239,10 @@ function plotSimulationDatasetCircle()
                 'Color','k','LineWidth',1.5)
         end
     end
+    
+    % scatter magnet x,y position (0,0,z)
+    scatter(0, 0, 32, 'r', 'filled');
+    
     hold off; 
    
     % axis shape and ticks
@@ -281,6 +285,10 @@ function plotSimulationDatasetCircle()
                 'Color','k','LineWidth',1.5)
         end
     end
+    
+    % scatter magnet x,y position (0,0,z)
+    scatter(0, 0, 32, 'r', 'filled');
+    
     hold off; 
    
     % axis shape and ticks
@@ -323,6 +331,10 @@ function plotSimulationDatasetCircle()
                 'Color','k','LineWidth',1.5)
         end
     end
+    
+    % scatter magnet x,y position (0,0,z)
+    scatter(0, 0, 32, 'r', 'filled');
+    
     hold off; 
    
     % axis shape and ticks
@@ -365,6 +377,10 @@ function plotSimulationDatasetCircle()
                 'Color','k','LineWidth',1.5)
         end
     end
+    
+    % scatter magnet x,y position (0,0,z)
+    scatter(0, 0, 32, 'r', 'filled');
+    
     hold off; 
    
     % axis shape and ticks
