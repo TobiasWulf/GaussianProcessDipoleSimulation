@@ -1,10 +1,19 @@
-clear c s sn mn
-for i=1:16
-c=ds.Data.Vcos(:,:,i);
-s = ds.Data.Vsin(:,:,i);
-sn(i,:)=sqrt(c(:).^2+s(:).^2);
-mn(i)=max(sqrt(c(:).^2+s(:).^2));
-end
+% clear and clean
+clearvars
+clc
 
-sn2=max(sn)'*2;
-mn2=max(mn)*2;
+% load path var
+load config.mat PathVariables
+
+% scan for training dataset
+trainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
+
+% scan for test dataset
+testFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
+
+% load training dataset
+trainDS = load(fullfile(trainFiles(1).folder, trainFiles(1).name));
+
+% load test dataset
+testDS = load(fullfile(testFiles(1).folder, testFiles(1).name));
+
