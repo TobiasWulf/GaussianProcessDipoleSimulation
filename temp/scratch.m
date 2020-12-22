@@ -45,71 +45,124 @@ VcosTrain = trainDS.Data.Vcos;
 VsinTrain = trainDS.Data.Vsin;
 
 
-%% angular error in training data without gp
-% cosinus training offset error absolute/ relative
-cto = mean2(VcosTrain);
-ctoea = abs(Voff - cto);
-ctoer = ctoea / Voff;
+%% analyze training dataset
+% build table data step by step
+head = {};
+data = [];
+rows = string(1:N);
 
-% sinus training offset error absolute/ relative
-sto = mean2(VsinTrain);
-stoea = abs(Voff - sto);
-stoer = stoea / Voff;
+% offset voltage, referenct vector
+head{1} = 'VOff [V]';
+data = [data, ones(N, 1) * Voff];
 
-% cosinus training mean, std, var over all sensor array members
-ctm = mean(squeeze(reshape(VcosTrain, 1, M, N)), 1);
-cts = std(squeeze(reshape(VcosTrain, 1, M, N)), 1, 1);
-ctv = var(squeeze(reshape(VcosTrain, 1, M, N)), 1, 1);
+% cosinus offset error absolute/ relative
+head{2} = 'VcosOff [V]';
+data = [data, ones(N, 1) * mean2(VcosTrain)];
+head{3} = 'E(VcosOff) [V]';
+data = [data, abs(data(:,1) - data(:,2))];
+head{4} = 'E(VcosOff) [%]';
+data = [data, 100 * (data(:,3) ./ data(:,1))];
 
-% cosinus training confidence interval lower/ upper for 95% and z = 1.96
-ctcil = ctm - 1.96 * cts / sqrt(M);
-ctciu = ctm + 1.96 * cts / sqrt(M);
+% cosinus output normal distribution, cleaned from offset
+head{5} = 'Mu(Vcos) [V]';
+data = [data, mean(squeeze(reshape(VcosTrain, 1, M, N)), 1)' - data(:,2)];
+head{6} = 'Std(Vcos) [V]';
+data = [data, std(squeeze(reshape(VcosTrain, 1, M, N)), 1, 1)'];
+head{7} = 'Var(Vcos) [V]';
+data = [data, var(squeeze(reshape(VcosTrain, 1, M, N)), 1, 1)'];
 
-% cosinus training rel. std
-ctrs = cts ./ ctm;
+% cosinus 95% confidence interval (z=1.96)
+head{8} = 'CI95L(Vcos) [V]';
+data = [data, data(:,5) - 1.96 * data(:,6) / sqrt(M)];
+head{9} = 'CI95U(Vcos) [V]';
+data = [data, data(:,5) + 1.96 * data(:,6) / sqrt(M)];
+head{10} = 'CI95D(Vcos) [V]';
+data = [data, data(:,9) - data(:,8)];
 
-% sinus training mean, std, var over all sensor array members
-stm = mean(squeeze(reshape(VsinTrain, 1, M, N)), 1);
-sts = std(squeeze(reshape(VsinTrain, 1, M, N)), 1, 1);
-stv = var(squeeze(reshape(VsinTrain, 1, M, N)), 1, 1);
+% cosinus relative dispersion
+head{11} = 'Disp(Vcos) [%]';
+data = [data, 100 * (data(:,6) ./ (data(:,5) + data(:,2)))];
 
-% sinus training confidence interval lower/ upper for 95% and z = 1.96
-stcil = stm - 1.96 * sts / sqrt(M);
-stciu = stm + 1.96 * sts / sqrt(M);
+% sinus offset error absolute/ relative
+head{12} = 'SinOff [V]';
+data = [data, ones(N, 1) * mean2(VsinTrain)];
+head{13} = 'E(SinOff) [V]';
+data = [data, abs(data(:,1) - data(:,12))];
+head{14} = 'E(SinOff) [%]';
+data = [data, data(:,13) ./ data(:,1)];
 
-% sinus training rel. std
-strs = sts ./ stm;
+% sinus output normal distribution
+head{15} = 'Mu(Vsin) [V]';
+data = [data, mean(squeeze(reshape(VsinTrain, 1, M, N)), 1)' - data(:,12)];
+head{16} = 'Std(Vsin) [V]';
+data = [data, std(squeeze(reshape(VsinTrain, 1, M, N)), 1, 1)'];
+head{17} = 'Var(Vsin) [V]';
+data = [data, var(squeeze(reshape(VsinTrain, 1, M, N)), 1, 1)'];
 
-% angles training and difference to ref angles
-[at, atd] = sinoids2angles(stm - sto, ctm - cto, 'origin', refAnglesRad);
+% sinus 95% confidence interval (z=1.96)
+head{18} = 'CI95L(Vsin) [V]';
+data = [data, data(:,15) - 1.96 * data(:,16) / sqrt(M)];
+head{19} = 'CI95U(Vsin) [V]';
+data = [data, data(:,15) + 1.96 * data(:,16) / sqrt(M)];
+head{20} = 'CI95D(Vsin) [V]';
+data = [data, data(:,19) - data(:,18)];
 
-% angular training error absolute/ relative
-atea = abs(atd) * 180 / pi;
-ater = (atea + eps) ./ (refAnglesDeg + eps);
+% sinus relative dispersion
+head{21} = 'Disp(Vsin) [%]';
+data = [data, 100 * (data(:,16) ./ (data(:,15) + data(:,12)))];
 
-%%%%%%% add full table for all angularS!
+% reference angles in degree
+head{22} = 'Ref. Angle [°]';
+data = [data, refAnglesDeg'];
 
-% training without prediction summary table
-headTWPS = {'EaOff', 'ErOff', 'Mu(Std)', 'Max(Std)', 'Mu(Var)', 'Max(Var)', ...
-    'Mu(StdR)', 'Max(StdR)', 'Mu(EaAng)', 'Max(EaAng)', 'Mu(ErAng)', 'Max(ErAng)'};
-TWPS = table( ...
-    [ctoea; stoea], ...
-    [ctoer; stoer], ...
-    [mean(cts); mean(sts)], ...
-    [max(cts); max(sts)], ...
-    [mean(ctv); mean(stv)], ...
-    [max(ctv); max(stv)], ...
-    [mean(ctrs); mean(strs)], ...
-    [max(ctrs); max(strs)], ...
-    [mean(atea); mean(atea)], ...
-    [max(atea); max(atea)], ...
-    [mean(ater); mean(ater)], ...
-    [max(ater); max(ater)], ...
-    'VariableNames', headTWP, ...
-    'RowNames', {'cos', 'sin'});
+% compute angles from mean of Vcos, Vsin
+[a, da] = sinoids2angles(data(:,15)', data(:,5)', 'origin', refAnglesRad);
+head{23} = 'Angle(Vsin,Vcos) [°]';
+data = [data, a' * 180 / pi];
+head{24} = 'E(Angle) [°]';
+data = [data, abs(da)' * 180 / pi];
+head{25} = 'E(Angle) [%]';
+i = refAnglesDeg == 0;
+er0 = 100 * ((data(i, 24) + 360) ./ (data(i, 22) + 360));
+data = [data, 100 * (data(:,24) ./ data(:,22))];
+data(i,25) = er0;
 
-disp(TWPS)
 
+% create data table
+TrainingDataTable = array2table(data, 'VariableNames', head, 'RowNames', rows);
+disp(TrainingDataTable);
+
+ 
+% % angles training and difference to ref angles
+
+% 
+% % angular training error absolute/ relative
+% atea = abs(atd) * 180 / pi;
+% ater = (atea + eps) ./ (refAnglesDeg + eps);
+% 
+% %%%%%%% add full table for all angularS!
+% 
+% % training without prediction summary table
+% headTWPS = {'EaOff', 'ErOff', 'Mu(Std)', 'Max(Std)', 'Mu(Var)', 'Max(Var)', ...
+%     'Mu(StdR)', 'Max(StdR)', 'Mu(EaAng)', 'Max(EaAng)', 'Mu(ErAng)', 'Max(ErAng)'};
+% TWPS = table( ...
+%     [ctoea; stoea], ...
+%     [ctoer; stoer], ...
+%     [mean(cts); mean(sts)], ...
+%     [max(cts); max(sts)], ...
+%     [mean(ctv); mean(stv)], ...
+%     [max(ctv); max(stv)], ...
+%     [mean(ctrs); mean(strs)], ...
+%     [max(ctrs); max(strs)], ...
+%     [mean(atea); mean(atea)], ...
+%     [max(atea); max(atea)], ...
+%     [mean(ater); mean(ater)], ...
+%     [max(ater); max(ater)], ...
+%     'VariableNames', headTWPS, ...
+%     'RowNames', {'cos', 'sin'});
+% 
+% disp(TWPS)
+% 
 
 %% train gp model for prediction
 
