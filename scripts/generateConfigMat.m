@@ -242,8 +242,8 @@ TrainingOptions.useCase = 'Training';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
-TrainingOptions.xPos = [0,];
-TrainingOptions.yPos = [0,];
+TrainingOptions.xPos = [1,];
+TrainingOptions.yPos = [1,];
 TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.

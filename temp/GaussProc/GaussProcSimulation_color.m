@@ -4,14 +4,14 @@ clear all
 % clc 
 addpath('../linAlg/');
 % Daten für die Lernphase 
-load('../../data/training/Training_2020-12-15_17-07-12-776.mat', 'Data');
+load('../../data/test/Test_2020-12-18_12-44-21-946.mat', 'Data');
 D = struct();
 D.Vc = Data.Vcos;
 D.Vs = Data.Vsin;
 D.alpha = Data.angles * pi /180;
 
 % Datan für die Arbeitsphase
-load('../../data/training/Training_2020-12-15_17-07-12-776.mat', 'Data');
+load('../../data/test/Test_2020-12-18_12-44-21-946.mat', 'Data');
 Dpred = struct();
 Dpred.Vc = Data.Vcos;
 Dpred.Vs = Data.Vsin;

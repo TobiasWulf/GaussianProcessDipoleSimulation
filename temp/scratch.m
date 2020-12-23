@@ -65,11 +65,11 @@ data = [data, 100 * (data(:,3) ./ data(:,1))];
 
 % cosinus output normal distribution, cleaned from offset
 head{5} = 'Mu(Vcos) [V]';
-data = [data, mean(squeeze(reshape(VcosTrain, 1, M, N)), 1)' - data(:,2)];
+data = [data, mean(squeeze(reshape(VcosTrain, M, 1, N)), 1)' - data(:,2)];
 head{6} = 'Std(Vcos) [V]';
-data = [data, std(squeeze(reshape(VcosTrain, 1, M, N)), 1, 1)'];
+data = [data, std(squeeze(reshape(VcosTrain, M, 1, N)), 1, 1)'];
 head{7} = 'Var(Vcos) [V]';
-data = [data, var(squeeze(reshape(VcosTrain, 1, M, N)), 1, 1)'];
+data = [data, var(squeeze(reshape(VcosTrain, M, 1, N)), 1, 1)'];
 
 % cosinus 95% confidence interval (z=1.96)
 head{8} = 'CI95L(Vcos) [V]';
@@ -93,11 +93,11 @@ data = [data, data(:,13) ./ data(:,1)];
 
 % sinus output normal distribution
 head{15} = 'Mu(Vsin) [V]';
-data = [data, mean(squeeze(reshape(VsinTrain, 1, M, N)), 1)' - data(:,12)];
+data = [data, mean(squeeze(reshape(VsinTrain, M, 1, N)), 1)' - data(:,12)];
 head{16} = 'Std(Vsin) [V]';
-data = [data, std(squeeze(reshape(VsinTrain, 1, M, N)), 1, 1)'];
+data = [data, std(squeeze(reshape(VsinTrain, M, 1, N)), 1, 1)'];
 head{17} = 'Var(Vsin) [V]';
-data = [data, var(squeeze(reshape(VsinTrain, 1, M, N)), 1, 1)'];
+data = [data, var(squeeze(reshape(VsinTrain, M, 1, N)), 1, 1)'];
 
 % sinus 95% confidence interval (z=1.96)
 head{18} = 'CI95L(Vsin) [V]';
@@ -122,50 +122,40 @@ data = [data, a' * 180 / pi];
 head{24} = 'E(Angle) [°]';
 data = [data, abs(da)' * 180 / pi];
 head{25} = 'E(Angle) [%]';
-i = refAnglesDeg == 0;
-er0 = 100 * ((data(i, 24) + 360) ./ (data(i, 22) + 360));
+a0 = refAnglesDeg == 0;
+er0 = data(a0, 24) * 100 / 360; % abstract  0° to 360° else divide by zero
 data = [data, 100 * (data(:,24) ./ data(:,22))];
-data(i,25) = er0;
-
+data(a0,25) = er0;
+head{26} = 'E(Abs/360°) [%]';
+data = [data, data(:,24) * 100 / 360];
 
 % create data table
-TrainingDataTable = array2table(data, 'VariableNames', head, 'RowNames', rows);
-disp(TrainingDataTable);
+TrainingDataTable = array2table(data, 'VariableNames', head);
 
- 
-% % angles training and difference to ref angles
+% compute mean and max of each data table column and append as extra rows
+rows = [rows, "mean", "max"];
+MeanRow = varfun(@mean, TrainingDataTable);
+MeanRow.Properties.VariableNames = TrainingDataTable.Properties.VariableNames;
+MaxRow = varfun(@max, TrainingDataTable);
+MaxRow.Properties.VariableNames = TrainingDataTable.Properties.VariableNames;
 
-% 
-% % angular training error absolute/ relative
-% atea = abs(atd) * 180 / pi;
-% ater = (atea + eps) ./ (refAnglesDeg + eps);
-% 
-% %%%%%%% add full table for all angularS!
-% 
-% % training without prediction summary table
-% headTWPS = {'EaOff', 'ErOff', 'Mu(Std)', 'Max(Std)', 'Mu(Var)', 'Max(Var)', ...
-%     'Mu(StdR)', 'Max(StdR)', 'Mu(EaAng)', 'Max(EaAng)', 'Mu(ErAng)', 'Max(ErAng)'};
-% TWPS = table( ...
-%     [ctoea; stoea], ...
-%     [ctoer; stoer], ...
-%     [mean(cts); mean(sts)], ...
-%     [max(cts); max(sts)], ...
-%     [mean(ctv); mean(stv)], ...
-%     [max(ctv); max(stv)], ...
-%     [mean(ctrs); mean(strs)], ...
-%     [max(ctrs); max(strs)], ...
-%     [mean(atea); mean(atea)], ...
-%     [max(atea); max(atea)], ...
-%     [mean(ater); mean(ater)], ...
-%     [max(ater); max(ater)], ...
-%     'VariableNames', headTWPS, ...
-%     'RowNames', {'cos', 'sin'});
-% 
-% disp(TWPS)
-% 
+% add extra rows to table
+TrainingDataTable = [TrainingDataTable; MeanRow; MaxRow];
+TrainingDataTable.Properties.RowNames = rows;
+
+% show table
+disp(TrainingDataTable(end-1:end,:));
+
 
 %% train gp model for prediction
-
+% generate index to label senor array observation points
+arrayIdx = 1:trainDS.Info.SensorArrayOptions.dimension;
+[i, j] = meshgrid(arrayIdx, arrayIdx);
+i = string(reshape(i, M, 1));
+j = string(reshape(j, M, 1));
+Xname = "x" + i + j;
+%%%% Zuordung stimmt noch nicht in der Tabelle, muss kontrolliert werden!!
+Xcos = array2table(squeeze(reshape(VcosTrain, 1, M, N))','VariableNames', Xname)
 
 
 %% angles2sinoids
