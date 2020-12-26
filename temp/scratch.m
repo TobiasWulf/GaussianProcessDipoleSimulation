@@ -31,7 +31,6 @@ refAnglesDeg = trainDS.Data.angles;
 %[or2, d] = sinoids2angles(s, c, 'origin', or1)
 
 
-
 %% get needed training dataset infos to reconstruct angles by output
 % M number of sensor array members
 M = trainDS.Info.SensorArrayOptions.SensorCount;
@@ -149,14 +148,35 @@ disp(TrainingDataTable(end-1:end,:));
 
 %% train gp model for prediction
 % generate index to label senor array observation points
-arrayIdx = 1:trainDS.Info.SensorArrayOptions.dimension;
-[i, j] = meshgrid(arrayIdx, arrayIdx);
-i = string(reshape(i, M, 1));
-j = string(reshape(j, M, 1));
-Xname = "x" + i + j;
-%%%% Zuordung stimmt noch nicht in der Tabelle, muss kontrolliert werden!!
-Xcos = array2table(squeeze(reshape(VcosTrain, 1, M, N))','VariableNames', Xname)
+% row and column index must twist by transposing the array in table
+rng default
 
+arrayIdx = 1:trainDS.Info.SensorArrayOptions.dimension;
+[j, i] = meshgrid(arrayIdx, arrayIdx);
+i = reshape(i, M, 1);
+j = reshape(j, M, 1);
+Xname = ["x" + i + j; "Ref"];
+
+CData = [squeeze(reshape(VcosTrain, M, 1, N))'-Voff, cosRef'];
+CTable = array2table(CData, 'VariableNames', Xname);
+CgprMdl = fitrgp(CTable, 'Ref', 'KernelFunction', 'squaredexponential', 'verbose', 1,...
+    'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
+    struct('AcquisitionFunctionName','expected-improvement-plus'));
+CTest= array2table(squeeze(reshape(testDS.Data.Vcos, M, 1, 720))'-Voff, 'VariableNames', Xname(1:end-1));
+CP=predict(CgprMdl,CTest);
+
+SData = [squeeze(reshape(VsinTrain, M, 1, N))'-Voff, sinRef'];
+STable = array2table(SData, 'VariableNames', Xname);
+SgprMdl = fitrgp(STable, 'Ref', 'KernelFunction', 'squaredexponential', 'verbose', 1, ...
+    'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
+    struct('AcquisitionFunctionName','expected-improvement-plus'));
+STest= array2table(squeeze(reshape(testDS.Data.Vsin, M, 1, 720))'-Voff, 'VariableNames', Xname(1:end-1));
+SP=predict(SgprMdl,STest);
+
+ta= testDS.Data.angles;
+[a2, ad2] = sinoids2angles(SP, CP, false, 'origin', ta);
+mean(abs(ad2)) * 180/pi
+max(abs(ad2)) * 180/pi
 
 %% angles2sinoids
 % helper function to convert angles (rad or degree) to sinus and cosinus waves
