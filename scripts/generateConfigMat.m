@@ -304,7 +304,7 @@ TestOptions.useCase = 'Test';
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
 TestOptions.xPos = [0,];
-TestOptions.yPos = [0,];
+TestOptions.yPos = [1,];
 TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.

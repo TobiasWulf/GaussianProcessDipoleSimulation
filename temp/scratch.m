@@ -83,7 +83,7 @@ head{11} = 'Disp(Vcos) [%]';
 data = [data, 100 * (data(:,6) ./ (data(:,5) + data(:,2)))];
 
 % sinus offset error absolute/ relative
-head{12} = 'SinOff [V]';
+head{12} = 'VsinOff [V]';
 data = [data, ones(N, 1) * mean2(VsinTrain)];
 head{13} = 'E(SinOff) [V]';
 data = [data, abs(data(:,1) - data(:,12))];
@@ -146,37 +146,125 @@ TrainingDataTable.Properties.RowNames = rows;
 disp(TrainingDataTable(end-1:end,:));
 
 
-%% train gp model for prediction
+%% second try train gp model for prediction
+aTrain = refAnglesDeg';
+y1Train = cosRef';
+X1Train = zeros(N, M);
+x1Off = mean2(VcosTrain);
+for n = 1:N, X1Train(n,:) = reshape(VcosTrain(:,:,n),1,M) - x1Off; end
+%X1Train = wiener2(X1Train, [1 8]);
+cgpm = fitrgp(X1Train, y1Train, ...
+    'KernelFunction', @forbeniusNormKernel, ...
+    'KernelParameters', log([1; 2]), ...
+    'verbose', 1);
+disp(cgpm);
+[y1Res, s1Res, ci1Res] = resubPredict(cgpm, 'Alpha', 0.01);
+
+aTest = testDS.Data.angles';
+o1Test = cosd(aTest);
+y1Pred = zeros(720, 1);
+s1Pred = zeros(720, 1);
+ci1Pred = zeros(720, 2);
+for n = 1:720
+    X1Test = reshape(testDS.Data.Vcos(:,:,n),1,M) - x1Off;
+    %X1Test = wiener2(X1Test, [1 8]);
+    [y1Pred(n), s1Pred(n), ci1Pred(n,:)] = predict(cgpm, X1Test);
+end
+
+
+
+
+%% plot prediction
+close all;
+pause(1);
+fig1 = figure('WindowState', 'maximized');
+p1 = plot(aTest, o1Test, 'k-.', 'LineWidth', 1.2);
+hold on;
+p2 = stem(aTrain, y1Train, 'ko', 'LineWidth', 1.2);
+p3 = errorbar(aTrain, y1Res, abs(ci1Res(:,1)-y1Res), abs(ci1Res(:,2)-y1Res), ...
+    'ro', 'LineWidth', 1.2, 'CapSize', 10);
+p4 = plot(aTest, y1Pred, 'b', 'LineWidth', 1.2);
+p5 = patch([aTest; flipud(aTest)], [ci1Pred(:,1); flipud(ci1Pred(:,2))], 'k', 'FaceAlpha', 0.1);
+hold off;
+grid on;
+legend([p1, p2, p3, p4, p5], {'cos', 'reference', 'confidence 99%', 'gp', '99% confidence'}, 'Location', 'best');
+xticks(aTrain');
+yticks(sort(cosRef));
+xlim([0 360]);
+ylim([-1.2 1.2]);
+
+%% first try train gp model for prediction
 % generate index to label senor array observation points
 % row and column index must twist by transposing the array in table
-rng default
+% rng default
+% 
+% arrayIdx = 1:trainDS.Info.SensorArrayOptions.dimension;
+% [j, i] = meshgrid(arrayIdx, arrayIdx);
+% i = reshape(i, M, 1);
+% j = reshape(j, M, 1);
+% Xname = ["x" + i + j; "Ref"];
+% 
+% CO = TrainingDataTable.("VcosOff [V]")(end);
+% CM = TrainingDataTable.("Mu(Vcos) [V]")(1:end-2);
+% CStd = TrainingDataTable.("Std(Vcos) [V]")(1:end-2);
+% SO = TrainingDataTable.("VsinOff [V]")(end);
+% SM = TrainingDataTable.("Mu(Vsin) [V]")(1:end-2);
+% SStd = TrainingDataTable.("Std(Vsin) [V]")(1:end-2);
+% 
+% kernel = 'matern32';
+% 
+% CData = [squeeze(reshape(VcosTrain, M, 1, N))' - CO, cosRef'];
+% CTable = array2table(CData, 'VariableNames', Xname);
+% CgprMdl = fitrgp(CTable, 'Ref', 'KernelFunction', kernel,...
+%     'Standardize', 1, ...
+%     'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
+%     struct('AcquisitionFunctionName','expected-improvement-plus'));
+% 
+% SData = [squeeze(reshape(VsinTrain, M, 1, N))' - SO, sinRef'];
+% STable = array2table(SData, 'VariableNames', Xname);
+% SgprMdl = fitrgp(STable, 'Ref', 'KernelFunction', kernel, ...
+%     'Standardize', 1, ...
+%     'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
+%     struct('AcquisitionFunctionName','expected-improvement-plus'));
+% 
+% 
+% %% test gpr model
+% CTest= array2table(squeeze(reshape(testDS.Data.Vcos, M, 1, 720))'-CO, 'VariableNames', Xname(1:end-1));
+% CP=predict(CgprMdl,CTest);
+% 
+% STest= array2table(squeeze(reshape(testDS.Data.Vsin, M, 1, 720))'-SO, 'VariableNames', Xname(1:end-1));
+% SP=predict(SgprMdl,STest);
+% 
+% ta= testDS.Data.angles;
+% [a2, ad2, tar] = sinoids2angles(SP, CP, false, 'origin', ta);
+% mean(abs(ad2)) * 180/pi
+% max(abs(ad2)) * 180/pi
+% 
+% [~, ~, ~, sd, cd] = angles2sinoids(tar, 'sinus', SP, 'cosinus', CP);
+% mean(abs(sd))
+% max(abs(sd))
+% mean(abs(cd))
+% max(abs(cd))
 
-arrayIdx = 1:trainDS.Info.SensorArrayOptions.dimension;
-[j, i] = meshgrid(arrayIdx, arrayIdx);
-i = reshape(i, M, 1);
-j = reshape(j, M, 1);
-Xname = ["x" + i + j; "Ref"];
 
-CData = [squeeze(reshape(VcosTrain, M, 1, N))'-Voff, cosRef'];
-CTable = array2table(CData, 'VariableNames', Xname);
-CgprMdl = fitrgp(CTable, 'Ref', 'KernelFunction', 'squaredexponential', 'verbose', 1,...
-    'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
-    struct('AcquisitionFunctionName','expected-improvement-plus'));
-CTest= array2table(squeeze(reshape(testDS.Data.Vcos, M, 1, 720))'-Voff, 'VariableNames', Xname(1:end-1));
-CP=predict(CgprMdl,CTest);
+%% custom kernel function
+function KMN = forbeniusNormKernel(XM, XN , theta)
+    params = exp(theta);
+    sigmaL = params(1);
+    sigma2F = params(2);
+    M = size(XM, 1);
+    N = size(XN, 1);
+    KMN = zeros(M,N);
+    for m = 1:M
+        for n = 1:N
+            dX = XM(m,:) - XN(n,:);
+            r2 = sum(dX(:).^2);
+            c = 1 / (sigmaL + r2);
+            KMN(m,n) = sigma2F * c;
+        end
+    end
+end
 
-SData = [squeeze(reshape(VsinTrain, M, 1, N))'-Voff, sinRef'];
-STable = array2table(SData, 'VariableNames', Xname);
-SgprMdl = fitrgp(STable, 'Ref', 'KernelFunction', 'squaredexponential', 'verbose', 1, ...
-    'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
-    struct('AcquisitionFunctionName','expected-improvement-plus'));
-STest= array2table(squeeze(reshape(testDS.Data.Vsin, M, 1, 720))'-Voff, 'VariableNames', Xname(1:end-1));
-SP=predict(SgprMdl,STest);
-
-ta= testDS.Data.angles;
-[a2, ad2] = sinoids2angles(SP, CP, false, 'origin', ta);
-mean(abs(ad2)) * 180/pi
-max(abs(ad2)) * 180/pi
 
 %% angles2sinoids
 % helper function to convert angles (rad or degree) to sinus and cosinus waves
