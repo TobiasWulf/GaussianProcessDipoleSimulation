@@ -153,32 +153,60 @@ X1Train = zeros(N, M);
 x1Off = mean2(VcosTrain);
 for n = 1:N, X1Train(n,:) = reshape(VcosTrain(:,:,n),1,M) - x1Off; end
 %X1Train = wiener2(X1Train, [1 8]);
+beta1 = y1Train ./ mean(X1Train,2);
 cgpm = fitrgp(X1Train, y1Train, ...
     'KernelFunction', @forbeniusNormKernel, ...
     'KernelParameters', log([1; 2]), ...
+    ...'BasisFunction', @hfcn2, ...
+    ...'Beta', beta1,...
     'verbose', 1);
-disp(cgpm);
+%disp(cgpm);
 [y1Res, s1Res, ci1Res] = resubPredict(cgpm, 'Alpha', 0.01);
+
+y2Train = sinRef';
+X2Train = zeros(N, M);
+x2Off = mean2(VsinTrain);
+for n = 1:N, X2Train(n,:) = reshape(VsinTrain(:,:,n),1,M) - x2Off; end
+%X2Train = wiener2(X2Train, [1 8]);
+beta2 = y2Train ./ mean(X2Train,2);
+sgpm = fitrgp(X2Train, y2Train, ...
+    'KernelFunction', @forbeniusNormKernel, ...
+    'KernelParameters', log([1; 2]), ...
+    ...'BasisFunction', @hfcn2, ...
+    ...'Beta', beta2,...
+    'verbose', 1);
+%disp(sgpm);
+[y2Res, s2Res, ci2Res] = resubPredict(sgpm, 'Alpha', 0.01);
 
 aTest = testDS.Data.angles';
 o1Test = cosd(aTest);
+o2Test = sind(aTest);
 y1Pred = zeros(720, 1);
 s1Pred = zeros(720, 1);
 ci1Pred = zeros(720, 2);
+y2Pred = zeros(720, 1);
+s2Pred = zeros(720, 1);
+ci2Pred = zeros(720, 2);
 for n = 1:720
     X1Test = reshape(testDS.Data.Vcos(:,:,n),1,M) - x1Off;
+    X2Test = reshape(testDS.Data.Vsin(:,:,n),1,M) - x2Off;
     %X1Test = wiener2(X1Test, [1 8]);
+    %X2Test = wiener2(X2Test, [1 8]);
     [y1Pred(n), s1Pred(n), ci1Pred(n,:)] = predict(cgpm, X1Test);
+    [y2Pred(n), s2Pred(n), ci2Pred(n,:)] = predict(sgpm, X2Test);
 end
 
-
-
+aPred = unwrap(atan2(y2Pred,y1Pred));
+mean(abs(aTest - aPred*180/pi))
+max(abs(aTest - aPred*180/pi))
 
 %% plot prediction
 close all;
 pause(1);
-fig1 = figure('WindowState', 'maximized');
-p1 = plot(aTest, o1Test, 'k-.', 'LineWidth', 1.2);
+figure('WindowState', 'maximized');
+tiledlayout(2,1);
+nexttile;
+p1 = plot(aTest, o1Test, 'm-.', 'LineWidth', 1.2);
 hold on;
 p2 = stem(aTrain, y1Train, 'ko', 'LineWidth', 1.2);
 p3 = errorbar(aTrain, y1Res, abs(ci1Res(:,1)-y1Res), abs(ci1Res(:,2)-y1Res), ...
@@ -189,65 +217,89 @@ hold off;
 grid on;
 legend([p1, p2, p3, p4, p5], {'cos', 'reference', 'confidence 99%', 'gp', '99% confidence'}, 'Location', 'best');
 xticks(aTrain');
-yticks(sort(cosRef));
+%yticks(sort(cosRef));
 xlim([0 360]);
 ylim([-1.2 1.2]);
 
-%% first try train gp model for prediction
-% generate index to label senor array observation points
-% row and column index must twist by transposing the array in table
-% rng default
-% 
-% arrayIdx = 1:trainDS.Info.SensorArrayOptions.dimension;
-% [j, i] = meshgrid(arrayIdx, arrayIdx);
-% i = reshape(i, M, 1);
-% j = reshape(j, M, 1);
-% Xname = ["x" + i + j; "Ref"];
-% 
-% CO = TrainingDataTable.("VcosOff [V]")(end);
-% CM = TrainingDataTable.("Mu(Vcos) [V]")(1:end-2);
-% CStd = TrainingDataTable.("Std(Vcos) [V]")(1:end-2);
-% SO = TrainingDataTable.("VsinOff [V]")(end);
-% SM = TrainingDataTable.("Mu(Vsin) [V]")(1:end-2);
-% SStd = TrainingDataTable.("Std(Vsin) [V]")(1:end-2);
-% 
-% kernel = 'matern32';
-% 
-% CData = [squeeze(reshape(VcosTrain, M, 1, N))' - CO, cosRef'];
-% CTable = array2table(CData, 'VariableNames', Xname);
-% CgprMdl = fitrgp(CTable, 'Ref', 'KernelFunction', kernel,...
-%     'Standardize', 1, ...
-%     'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
-%     struct('AcquisitionFunctionName','expected-improvement-plus'));
-% 
-% SData = [squeeze(reshape(VsinTrain, M, 1, N))' - SO, sinRef'];
-% STable = array2table(SData, 'VariableNames', Xname);
-% SgprMdl = fitrgp(STable, 'Ref', 'KernelFunction', kernel, ...
-%     'Standardize', 1, ...
-%     'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',...
-%     struct('AcquisitionFunctionName','expected-improvement-plus'));
-% 
-% 
-% %% test gpr model
-% CTest= array2table(squeeze(reshape(testDS.Data.Vcos, M, 1, 720))'-CO, 'VariableNames', Xname(1:end-1));
-% CP=predict(CgprMdl,CTest);
-% 
-% STest= array2table(squeeze(reshape(testDS.Data.Vsin, M, 1, 720))'-SO, 'VariableNames', Xname(1:end-1));
-% SP=predict(SgprMdl,STest);
-% 
-% ta= testDS.Data.angles;
-% [a2, ad2, tar] = sinoids2angles(SP, CP, false, 'origin', ta);
-% mean(abs(ad2)) * 180/pi
-% max(abs(ad2)) * 180/pi
-% 
-% [~, ~, ~, sd, cd] = angles2sinoids(tar, 'sinus', SP, 'cosinus', CP);
-% mean(abs(sd))
-% max(abs(sd))
-% mean(abs(cd))
-% max(abs(cd))
+nexttile;
+p1 = plot(aTest, o2Test, 'm-.', 'LineWidth', 1.2);
+hold on;
+p2 = stem(aTrain, y2Train, 'ko', 'LineWidth', 1.2);
+p3 = errorbar(aTrain, y2Res, abs(ci2Res(:,1)-y2Res), abs(ci2Res(:,2)-y2Res), ...
+    'ro', 'LineWidth', 1.2, 'CapSize', 10);
+p4 = plot(aTest, y2Pred, 'b', 'LineWidth', 1.2);
+p5 = patch([aTest; flipud(aTest)], [ci2Pred(:,1); flipud(ci2Pred(:,2))], 'k', 'FaceAlpha', 0.1);
+hold off;
+grid on;
+legend([p1, p2, p3, p4, p5], {'sin', 'reference', 'confidence 99%', 'gp', '99% confidence'}, 'Location', 'best');
+xticks(aTrain');
+%yticks(sort(sinRef));
+xlim([0 360]);
+ylim([-1.2 1.2]);
 
+
+%% custom basis function
+%y1=refAnglesRad';
+%y1=linspace(0,2*pi,16)';
+y1=atan2(sinRef', cosRef');
+%X=[mean(squeeze(reshape(trainDS.Data.Vcos,M,1,N)),1)'-Voff, ...
+%   mean(squeeze(reshape(trainDS.Data.Vsin,M,1,N)),1)'-Voff];
+%X=[cos(y1),sin(y1)];
+X=[cosRef',sinRef'];
+%beta = hfcn(X)./y1;
+%beta(1) = 1;
+beta = ones(N,1);
+sigma = mean(std(atan2(X2Train,X1Train),1,2));
+gp=fitrgp(X,y1, ...
+    'BasisFunction', @hfcn, 'Beta', beta, ...
+    'Sigma', sigma, ...
+    'KernelFunction', @forbeniusNormKernel2, ...
+    'KernelParameters', [1; 2]);
+max(abs(resubPredict(gp)-y1))
+y2=testDS.Data.angles'*pi/180;
+X2=[mean(squeeze(reshape(testDS.Data.Vcos,M,1,720)),1)'-Voff,...
+    mean(squeeze(reshape(testDS.Data.Vsin,M,1,720)),1)'-Voff];
+yp=zeros(720,1);
+for n=1:720
+    yp(n) = predict(gp,X2(n,:));
+end
+mean(abs(y2-unwrap(yp))*180/pi)
+max(abs(y2-unwrap(yp))*180/pi)
+
+figure('WindowState', 'maximized');
+plot(y2)
+hold on
+plot(unwrap(yp))
+plot(aPred)
+
+function h = hfcn(X)
+    h = atan2(X(:,2),X(:,1));
+end
+
+function h = hfcn2(X)
+    h = mean(X,2);
+end
 
 %% custom kernel function
+function KMN = forbeniusNormKernel2(XM, XN , theta)
+    params = exp(theta);
+    sigmaL = params(1);
+    sigma2F = params(2);
+    M = size(XM, 1);
+    N = size(XN, 1);
+    KMN = zeros(M,N);
+    for m = 1:M
+        for n = 1:N
+            dX1 = XM(m,1) - XN(n,1);
+            dX2 = XM(m,2) - XN(n,2);
+            r2 = sum(dX1(:).^2) + sum(dX2(:).^2);
+            c = 1 / (sigmaL + r2);
+            KMN(m,n) = sigma2F * c;
+        end
+    end
+end
+
+
 function KMN = forbeniusNormKernel(XM, XN , theta)
     params = exp(theta);
     sigmaL = params(1);
