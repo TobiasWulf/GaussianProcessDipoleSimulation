@@ -190,5 +190,5 @@ for fhtml = HTML'
     end
 end
 
-disp('Restor local library path ...');
+disp('Restore local library path ...');
 setenv('LD_LIBRARY_PATH', matlabLibPath);
