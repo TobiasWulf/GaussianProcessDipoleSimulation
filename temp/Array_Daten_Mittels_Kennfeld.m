@@ -8,7 +8,7 @@
 % close all
 clear all 
 clc 
-addpath('Functions/')   
+%addpath('Functions/')   
 
 
 %  TDK 
