@@ -1,6 +1,8 @@
+% Created on January 01. 2021 by Tobias Wulf. Tobias Wulf 2021.
 % start script
 clearvars
 clc
+close all
 
 % load data files
 load config.mat PathVariables
@@ -52,25 +54,26 @@ sigma = optimizableVariable('Sigma',[1e-4,10],'Transform','log');
 
 % Call bayesopt, capturing XCTrain and refTrainCos in the objective function
 BOC = bayesopt(@(T)objFcn(T,XCTrain,refTrainCos), [sigma, kernel], ...
-    'AcquisitionFunctionName', 'expected-improvement-per-second', ...
+    ... 'AcquisitionFunctionName', 'expected-improvement-per-second', ...
     'MaxObjectiveEvaluations', 100);
 
 % Call bayesopt, capturing XCTrain and refTrainCos in the objective function
 BOS = bayesopt(@(T)objFcn(T,XSTrain,refTrainSin), [sigma, kernel], ...
-    'AcquisitionFunctionName', 'expected-improvement-per-second', ...
+    ... 'AcquisitionFunctionName', 'expected-improvement-per-second', ...
     'MaxObjectiveEvaluations', 100);
+
 
 % build GP with best fit kernel for cosinus
 kernelC = char(BOC.XAtMinObjective.KernelFunction);
 sigmaC = BOC.XAtMinObjective.Sigma;
 gpC = fitrgp(XCTrain, refTrainCos, 'KernelFunction', kernelC, 'Sigma', sigmaC, ...
-    'DistanceMethod', 'accurate');
+    'DistanceMethod', 'accurate', 'Verbose', 1);
 
 % build GP with best fit kernel for cosinus
 kernelS = char(BOS.XAtMinObjective.KernelFunction);
 sigmaS = BOS.XAtMinObjective.Sigma;
 gpS = fitrgp(XSTrain, refTrainSin, 'KernelFunction', kernelS, 'Sigma', sigmaS, ...
-    'DistanceMethod', 'accurate');
+    'DistanceMethod', 'accurate', 'Verbose', 1);
 
 % predict test inputs for cosinus and sinus
 predC = zeros(length(refTestCos), 1);
@@ -82,6 +85,37 @@ for n = 1:length(refTestCos)
     predS(n) = predict(gpS, XSTest);
 end
 
+% calculate mean and max erros
+ECOS = abs(predC - refTestCos);
+ESIN = abs(predS - refTestSin);
+EATAN2 = abs(unwrap(atan2(predS, predC) - refTestRad)) * 180 / pi;
+MECOS = mean(ECOS);
+XECOS = max(ECOS);
+MESIN = mean(ESIN);
+XESIN = max(ESIN);
+MEATAN2 = mean(EATAN2);
+XEATAN2 = max(EATAN2);
+
+% plot errors
+figure();
+plot(ECOS);
+xlabel('n');
+ylabel('abs');
+title(sprintf('Cos Error \\mu = %.3f, max = %.3f', MECOS, XECOS));
+
+figure();
+plot(ESIN);
+xlabel('n');
+ylabel('abs');
+title(sprintf('Sin Error \\mu = %.3f, max = %.3f', MESIN, XESIN));
+
+figure();
+plot(EATAN2);
+xlabel('n');
+ylabel('abs [\circ]');
+title(sprintf('Atan2 Error \\mu = %.3f^\\circ, max = %.3f^\\circ', MEATAN2, XEATAN2));
+
+save('temp/WS-scratch2.mat');
 
 % function object to perform bayes optimazation on kernel and simga
 function Loss = objFcn(Vars, x, y)
