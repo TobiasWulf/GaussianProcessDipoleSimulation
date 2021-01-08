@@ -1,6 +1,6 @@
 %% exportPublishedToPdf
 % Export Matlab generated HTML documentation (publish) to pdf-files and combine
-% them into a latex index file ready compile to pdf manual. This script works on
+% them into a LaTeX index file ready compile to pdf manual. This script works on
 % unix sytems only or needs to be adjusted for windows systems for library path
 % and wkhtmltopdf binary path.
 %
@@ -103,7 +103,7 @@ nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);
 
 %% Write TOC to LaTeX File
-% Wirete TOC to latex file and generate for each pdf to include a toc content
+% Wirete TOC to LaTeX file and generate for each pdf to include a toc content
 % line with marked toc depth.
 disp('Write TOC to Manual.tex ...');
 addPdfStr = "\\includepdf[page=-, pagecommand={\\phantomsection" + ...
@@ -141,7 +141,7 @@ end
 %% Export HTML to Pdf
 % Export found HTML files to Pdf files. Each file gets its own Pdf
 % represenstation. Filename is kept with pdf extension. Write files into Manual
-% folder under latex subdirectory in docs path. Using wkhtmltopdf shell
+% folder under LaTeX subdirectory in docs path. Using wkhtmltopdf shell
 % application. Get filename, add pdf extension new path to file. Create shell
 % string to execute with system command. Get current library path (Matlab) and
 % change it to system library path to execute wkhtmltopdf after that restor

@@ -15,13 +15,13 @@
 % # Introduce the new file to the publish script and make an entry under a
 %   fitting section or make a new one if it is a new module or folder.
 % # Introduce the new file to export published files script and do toc entries
-%   into script file generate pdf-manual
+%   into script file generate pdf-manual.
 % # Commit the done work.
 % 
 %
 %% See Also
 % * <Project_Structure.html Project Structure>.
-% * <matlab:web(fullfile(docroot,'matlab/matlab_prog/display-custom-documentation.html')) Display Costum Documentation>
+% * <matlab:web(fullfile(docroot,'matlab/matlab_prog/display-custom-documentation.html')) Display Custom Documentation>
 % * <publishProjectFilesToHTML.html publishProjectFilesToHTML>
 % * <exportPublishedToPdf.html exportPublishedToPdf>
 %

@@ -4,7 +4,7 @@
 %
 % # Clean up old simuation datasets and plots of by executing
 %   deleteSimulationDatasets and deleteSimulationPlots.
-% # Edit generateConfigMat to needed specifications for simualtion and generate
+% # Edit generateConfigMat to needed specifications for simulation and generate
 %   or regenerate config.mat by executing the script.
 % # Execute generateSimulationDatasets to generate configure training and test
 %   datasets.

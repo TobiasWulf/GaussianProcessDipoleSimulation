@@ -5,7 +5,7 @@
 % source code is located here. The combination of module functionality takes
 % place in executable area of the project. So use the functions and classes in
 % scripts and further on compiled binaries. Do not write bare executable source
-% code here. For reproducable results and source code tracebillity each module
+% code here. For reproducible results and source code tracebility each module
 % has its own documentation entry where all underlaying functions and classses
 % are listed. The best practice to develop new source code or modules is to do
 % it in test driven way. This means write a test m-file for every new function
@@ -18,8 +18,8 @@
 % Function space to solve sensor array simulation with a certain magnetic
 % stimulus. The Array simulation is based on the TDK TAS2141 characterization
 % dataset. A magnetic dipole is used as basic magnetic stimulus and moved as
-% imaginary sphere magnet with an certain radius tained as dipole with offset
-% radius. The magnet rotate in z-direction counterclockwise.
+% imaginary sphere magnet with a certain radius. The magnet rotates in
+% z-direction counterclockwise.
 %
 %
 %% util

@@ -2,7 +2,7 @@
 % Generate sensor array simulation datasets for training and test applications.
 % Loads needed configurations from config.mat and characterization data from
 % defined characterization dataset (current: PathVariables.tdkDatasetPath).
-% Simulated dataset are saved to data/training and data/test path. Generate
+% Simulated datasets are saved to data/training and data/test path. Generate
 % dataset for a predefined configuration at once. Best use is to generate
 % simulation data, do wish application or evaluation on it and save results.
 % Delete datasets, edit configuration and rerun for a new set of datasets.

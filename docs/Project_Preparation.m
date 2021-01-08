@@ -4,7 +4,7 @@
 % projects a well known scalable project structure helps to combine different
 % software parts to bigger environment packages. Therefore a project preparation
 % flow needs to be documented. It unifies the outcome of software projects and
-% part guarantee certain quality aspects.
+% partly guarantees certain quality aspects.
 %
 % The following steps can be used as guidance to establish a propper Matlab
 % project structure in general. Each step is documented with screenshots to give 
@@ -62,7 +62,7 @@
 % *It is recommend to do no further Git actions on the created Git repository
 % via Git terminal!*
 %
-% These steps only proceed the project setup further Matlab framework
+% These steps only proceed the project setup, further Matlab framework
 % functionality is added later.
 %
 % *Second step:*
@@ -120,18 +120,18 @@
 %
 %% Registrate Binaries to Git and Prepare Git Ignore Cases
 % The root of Git is to work as text file versioner. Source code files are just
-% text files. So git versionates, tags and merges them in various ways in work
-% flow process. That means git edits files. This point can be critical if git
+% text files. So Git versionates, tags and merges them in various ways in a work
+% flow process. That means Git edits files. This point can be critical if Git
 % does edit a binary file and corrupts it, so that is not executable any more.
 % Therefore binary files must be registrated to Git. Another good reason is to
-% registrated binary or other none text files beccause Git performs no automatic
-% merges on file if they are not known  text files. To keep the versionating Git
+% registrate binary or other none text files because Git performs no automatic
+% merges on file if they are not known text files. To keep the versionating Git
 % makes a taged copy of that file every time the file changed. That can be a
 % very junk of memory and lets repository expands to wide.
 %
-% To prevent Git for misshandling binaries it is able to regestrate them in a
+% To prevent Git for mishandling binaries it is able to register them in a
 % certain file and mark the file types how to handle them in progress. The file
-% is called .gitattributes must be placed in the Git assinged working directory
+% is called .gitattributes must be placed in the Git working directory
 % which is the sandbox folder for Matlab projects. The .gitattributes file
 % itself is hidden. 
 %
@@ -177,7 +177,7 @@
 % # Check the files to add to the project.
 % # Click OK.
 % # Right click in the white space of Current Folder pane and click Source
-% Control *>* View and Commit Changes... and add commemt to the commit.
+% Control *>* View and Commit Changes... and add comment to the commit.
 % # Click Commit.
 %
 % *The project is now initialized.*
@@ -198,7 +198,7 @@
 %% Push to Remote and Backup
 % The project is ready to work with. Finally it needs a backup meachnism to save
 % the done work after closing the Matlab session. Git and how the project is
-% build up provide an easy way to make backups. 
+% built up to provide an easy way to make backups. 
 % 
 % # Push the committed changes to remote repository.
 % # Insert a backup medium e.g. USB stick and open a git terminal there.
@@ -216,8 +216,8 @@
 % <img src="images/Project_Preparation/17_clone_and_backup.png" height=300>
 % </html>
 %
-% If further changes are comitted to the project push again to the remote from
-% Matlab environment and repeat update the backup from time to time by inserting
+% If further changes are committed to the project push again to the remote from
+% Matlab environment and update the backup from time to time by inserting
 % your medium and make a fresh pull. Change the directory to the folder and just
 % pull again. See below as an example how does it look like.
 %
@@ -233,7 +233,7 @@
 % # According to new rules on GitHub the master branch is renamed to main.
 % # Due to that a new upstream is set to origin/main from origin/master
 % # To fetch all casualties a merge was needed from origin/main on local
-%   main. The orign/master reference was included.
+%   main. The origin/master reference was included.
 % # Change remote repository to GitHub URL
 %   https://github.com/TobiasWulf/GuassianProcessDipolSimulation.git
 % # At the moment the GitHub repository is private and not visible in the

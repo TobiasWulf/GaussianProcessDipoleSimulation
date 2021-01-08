@@ -1,5 +1,5 @@
 %% publishProjectFilesToHTML
-% The is script is used to publish all toolbox included files to HTML
+% The script is used to publish all toolbox included files to HTML
 % documentation folder docs/html. The script runs a section with certain
 % options for each project part and uses the built-in function to generate the
 % documentation files. For a complete documentation support each generated html
@@ -83,7 +83,7 @@ end
 % In this section of the publish script every bare documentation script should
 % be handled and executed to publish. These are m-files without any executeable
 % code so they exist just to transport the documentation content into html
-% output. Dir all m-files from docs path. Not recursively but verbose. No
+% output. Get all m-files from docs path. Not recursively but verbose. No
 % expected directory tree search for m-files.
 disp('Publish project documentation files ...');
 publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
@@ -91,7 +91,7 @@ publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 
 %% Executable Script Files
 % The section collects all ready to execute scripts from project scripts folder
-% and publish them to html documentation folder. Every script must be notice in
+% and publish them to html documentation folder. Every script must be noticed in
 % in Executable_Scripts.m file with one line description. That is very important
 % to not execute the scripts during publishing. If a script contains critical or
 % loop gaining code. In example the publishProjectFilesToHTML.m script such loop
@@ -99,7 +99,7 @@ publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 % publishing itself over and over again because it contains the loop entry via
 % the publish function. So routine is minmal adjusted by evalCode parameter in
 % PublishOptions struct. No expected directory to search for m-files so no
-% recursively but verbose
+% recursively but verbose.
 disp('Publish executable scripts ...');
 PublishOptions.evalCode = false;
 publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
@@ -135,7 +135,7 @@ publishFilesFromDir(PathVariables.unittestPath, ...
 % To support Matlabs help browser it is needed build searchable help browser
 % entries including a searchable database backend. Matlabs built-in function
 % builddocsearchdb does the trick. The function just needs the output directory
-% of builded html documentation and it creates a subfolder which includes the
+% of built HTML documentation and it creates a subfolder which includes the
 % database. About the info.xml from the project root and the helptoc.xml file
 % the html documentation folder all listet documentation is accessable.
 % At first remove old database before build the new reference database.

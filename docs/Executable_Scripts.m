@@ -1,5 +1,5 @@
 %% Executable Scripts
-% Executable scripts of the project to solve various actions or prject tasks.
+% Executable scripts of the project to solve various actions or project tasks.
 % The main approach of project scripts is an automated way to collect and
 % execute certain actions in an example to run project documentation at once or
 % generate project configuration file which are used by other scripts or loaded

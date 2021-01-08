@@ -155,7 +155,7 @@ PublishOptions.showCode = true;
 
 
 %% Sensor Array Options
-% The options control the build up of the sensor array in geometry and
+% The options control the built-up of the sensor array in geometry and
 % techincal behavior. This means number of sensors in the array and its
 % size in mm. The supply and offset voltage of each sensor which is needed
 % for using the characterization which is normed in mV/V. These parameters
@@ -227,8 +227,8 @@ DipoleOptions.M0mag = 1e6;
 
 %% Traning Options
 % Training options gives the software the needed information to generate
-% training datasets by the sensor array simulation with a dipole manget as
-% stimulus which pushed with an z offeset to a sphere.
+% training datasets by the sensor array simulation with a dipole magnet as
+% stimulus which pushed with an z offset to a sphere.
 disp('Set training options to generate dataset ...');
 TrainingOptions = struct;
 
@@ -288,8 +288,8 @@ TrainingOptions.BridgeReference = 'Rise';
 
 %% Test Options
 % Test options gives the software the needed information to generate
-% test datasets by the sensor array simulation with a dipole manget as
-% stimulus which pushed with an z offeset to a sphere.
+% test datasets by the sensor array simulation with a dipole magnet as
+% stimulus which pushed with an z offset to a sphere.
 disp('Set test options to generate dataset ...');
 TestOptions = struct;
 
@@ -350,7 +350,7 @@ TestOptions.BridgeReference = 'Rise';
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in
 % config.mat use newest save format with no compression.
-% create config.mat with timestamp of creation
+% create config.mat with timestamp.
 disp('Create config.mat ...');
 timestamp = datestr(now, GeneralOptions.dateFormat);
 save(PathVariables.configPath, ...
