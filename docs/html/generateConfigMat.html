@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-15"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-06"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -259,7 +259,7 @@ TrainingOptions.useCase = <span class="string">'Training'</span>;
 <span class="comment">% radius in simulation. So there is an offset given by the sphere radius.</span>
 <span class="comment">% Loop parameters.</span>
 TrainingOptions.xPos = [0,];
-TrainingOptions.yPos = [0, -1, -2, -5];
+TrainingOptions.yPos = [0,];
 TrainingOptions.zPos = [7,];
 
 <span class="comment">% Dipole tilt in z-axes in degree. Fix parameter.</span>
@@ -313,9 +313,9 @@ TestOptions.useCase = <span class="string">'Test'</span>;
 <span class="comment">% increase the distance. The z-position will be subtracted by dipole sphere</span>
 <span class="comment">% radius in simulation. So there is an offset given by the sphere radius.</span>
 <span class="comment">% Loop parameter.</span>
-TestOptions.xPos = [];
-TestOptions.yPos = [];
-TestOptions.zPos = [];
+TestOptions.xPos = [0, 1];
+TestOptions.yPos = [0, 1];
+TestOptions.zPos = [7,];
 
 <span class="comment">% Dipole tilt in z-axes in degree. Fix parameter.</span>
 TestOptions.tilt = 0;
@@ -614,7 +614,7 @@ TrainingOptions.useCase = 'Training';
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
 TrainingOptions.xPos = [0,];
-TrainingOptions.yPos = [0, -1, -2, -5];
+TrainingOptions.yPos = [0,];
 TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
@@ -674,9 +674,9 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [];
-TestOptions.yPos = [];
-TestOptions.zPos = [];
+TestOptions.xPos = [0, 1];
+TestOptions.yPos = [0, 1];
+TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;
