@@ -2,7 +2,7 @@
 close all
 clear all
 % clc 
-addpath('../linAlg/');
+%addpath('../linAlg/');
 % Daten für die Lernphase 
 load('../../data/test/Test_2021-01-05_13-57-09-083.mat', 'Data');
 D = struct();
