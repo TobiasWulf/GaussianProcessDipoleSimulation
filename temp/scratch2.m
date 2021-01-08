@@ -115,7 +115,7 @@ xlabel('n');
 ylabel('abs [\circ]');
 title(sprintf('Atan2 Error \\mu = %.3f^\\circ, max = %.3f^\\circ', MEATAN2, XEATAN2));
 
-save('temp/WS-scratch2.mat');
+% save('temp/WS-scratch2.mat');
 
 % function object to perform bayes optimazation on kernel and simga
 function Loss = objFcn(Vars, x, y)
