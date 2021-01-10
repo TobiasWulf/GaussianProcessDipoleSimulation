@@ -16,7 +16,7 @@
 %
 %% plotKMZ60CharDataset
 % Explore the basic dataset of characterized NXP AMR sensor KMZ60 and
-% plot the dataset content to visualize the base of dipol simulations.
+% plot the dataset content to visualize the base of dipole simulations.
 %
 %
 %% plotSimulationDatasetCircle
@@ -49,7 +49,7 @@
 %
 %% plotTDKCharDataset
 % Explore the basic dataset of characterized TDK TMR Sensor TAS2141 and
-% plot the dataset content to visualize the base of dipol simulations.
+% plot the dataset content to visualize the base of dipole simulations.
 %
 %
 %% plotDipoleMagnet

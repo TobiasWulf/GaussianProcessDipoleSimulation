@@ -5,11 +5,11 @@
 % tasks or functions. It centralizes the program controlling configuration at
 % once and can be full or partial loaded at different program stages. The key
 % point is the configuration can only be modified by the generating script so
-% that the config values are truly constant. Varaition should be saved to temp
+% that the config values are truly constant. Variation should be saved to temp
 % folder or a temp mat-file. The configuration should be generated after major
 % changes to the program or an established regeneration flow at program startup.
 % The config.mat file is located under data directory and to path variable. Just
-% load in to the needed workspace.
+% load into the needed workspace.
 %
 %   load('config.mat')
 %

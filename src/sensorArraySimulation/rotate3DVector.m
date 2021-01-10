@@ -1,5 +1,5 @@
 %% rotate3DVector
-% Rotate a 3 dimensional vector with x-, y- and z-components in 3 dimensional
+% Rotates a 3 dimensional vector with x-, y- and z-components in a 3 dimensional
 % coordinate system along the x-, y- and z-axes. Using rotation matrix for x-,
 % y- and z-axes. Angle must be served in degree. Vector must be a column vector
 % 3 x 1 or matrix related x-, y-, z-components 3 x N.
@@ -16,7 +16,7 @@
 % *rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)* returns a rotated
 % vector which is rotated by given angles on related axes. alphaX rotates along
 % the x-axes, betaY along the y-axes and gammaZ along the z-axes. Therfore each
-% rotations is described by belonging rotation matrix. The resulting rotation of
+% rotation is described by belonging rotation matrix. The resulting rotation of
 % the vector is computed by the matrix and vector multiplacation of the rotation
 % matrices and the input vecotor.
 %
@@ -39,7 +39,7 @@
 %
 %
 %% Input Arguments
-% *vector* is a 3 x N column vector of real numbers which representates the a
+% *vector* is a 3 x N column vector of real numbers which represents the a
 % vector in a 3D coordinate system with x-, y- and z-components.
 %
 % *alphaX* is a scalar angular value in degree and rotates the vector in the

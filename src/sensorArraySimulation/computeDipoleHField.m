@@ -1,8 +1,8 @@
 %% computeDipoleHField
 % Computes the magnetic field strength H of a dipole magnet dependent of
 % position and magnetic moment and imprint a field strength magnitude on the
-% resultating field by passing a norm factor which relates to the rest position
-% of the dipole magnet. The resultating field strength has field components in
+% resulting field by passing a norm factor which relates to the rest position
+% of the dipole magnet. The resulting field strength has field components in
 % x, y and z direction.
 %
 % The magnetic dipole moment w must be a column vector or shape
@@ -50,13 +50,13 @@
 %
 %
 %% Description
-% *H = computeDipoleHField(x, y, z, m, H0norm)* compute dipole field strength at
-% passed position (x,y,z) with the magnetic dipole moment m. The resulting field
-% strenght is a vector with components in x, y and z direction. A field strength
-% norming is imprinted on a rest position computation and multiplied on the
-% result by multiplying a norm factor to the field. The normfactor must be
+% *H = computeDipoleHField(x, y, z, m, H0norm)* computes dipole field strength 
+% at passed position (x,y,z) with the magnetic dipole moment m. The resulting
+% field strenght is a vector with components in x, y and z direction. A field
+% strength norming is imprinted on a rest position computation and multiplied on
+% the result by multiplying a norm factor to the field. The normfactor must be
 % relate to the same magnitude of the magnetic dipole moment which is used here
-% and correspond to the magnets rest position in defined distance of the magnets
+% and corresponds to the magnets rest position in defined distance of the magnets
 % surface.
 %
 %
@@ -124,7 +124,7 @@
 %
 %% Output Argurments
 % *H* computed magnetic field strength at passed positions with related magnetic
-% moment. If passed position is scalar H has size of 3 X 1 with its components
+% moment. If passed position is a scalar H has size of 3 X 1 with its components
 % in x, y and z dircetion. H(1) -> x, H(2) -> y and  H(3) -> z. If passed
 % positions are not scalar H has size of 3 x numel(x) with position relations in
 % columns. So reshape rows to shapes of positions to keep orientation as origin.

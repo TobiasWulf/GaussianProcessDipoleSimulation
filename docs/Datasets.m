@@ -1,6 +1,6 @@
 %% Datasets
 % Datasets are an appreciated way to save and reach done work and reuse it in
-% progress. The easiest way to build and to use propper datasets in matlab are
+% progress. The easiest way to build and to use proper datasets in matlab are
 % mat-files. They are easy to load and can be build by an script or function
 % it just needs to save the variables from workspace. So latery save datasets
 % can be used for futher calculations or to load certain configuration in to

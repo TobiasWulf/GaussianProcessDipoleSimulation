@@ -9,8 +9,8 @@
 %
 %% Description
 % *plotSimulationCosSinStats()* plot training or test dataset which are
-% loacated in data/test or data/training. The function list all datasets and the
-% user must decide during user input dialog which dataset to plot.
+% loacated in data/test or data/training. The function lists all datasets and
+% the user must decide during user input dialog which dataset to plot.
 % It loads path from config.mat and scans for file automatically.
 %
 %

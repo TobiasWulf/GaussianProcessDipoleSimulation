@@ -9,9 +9,9 @@
 %
 %% Description
 % *plotSimulationDataset()* plot training or test dataset which are
-% loacated in data/test or data/training. The function list all datasets and the
-% user must decide during user input dialog which dataset to plot and how many
-% angles to to visualize. It loads path from config.mat and scans for file
+% loacated in data/test or data/training. The function lists all datasets and
+% the user must decide during user input dialog which dataset to plot and how
+% many angles to visualize. It loads path from config.mat and scans for file
 % automatically.
 %
 %

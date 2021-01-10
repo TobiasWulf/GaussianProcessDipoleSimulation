@@ -1,8 +1,8 @@
 %% generateSensorSquareArrayGrid
-% Generate a position grid of sensors in x, y and z dimension. So the
+% Generates a position grid of sensors in x, y and z dimension. So the
 % function returns a grid in shape of a square in which all sensors have 
 % even distances to each and another in x and y direction z is constant due
-% to that all sensor are in the same distance to the .
+% to that all sensor are in the same distance to the magnet.
 %
 % The size of the sensor array is described by its edge length a
 %
@@ -50,14 +50,14 @@
 %
 % $$i = 1, 2, \ldots, N \quad j = 1, 2, \ldots, N$$
 %
-% A relative position shift can be performed by pass a postion vector p
+% A relative position shift can be performed by pass a position vector p
 % with relativ position to center
 %
 % $$\vec{p} = \left[ \matrix{ x_p \cr y_p \cr z_p} \right]$$
 %
 % So that a left shift in x direction relative to the magnet in the center
-% of the coordinate system is done by negative values for p(1) and a up 
-% in shift in y direction is performed by positive values for p(2). To gain
+% of the coordinate system is done by negative values for p(1) and an up 
+% shift in y direction is performed by positive values for p(2). To gain
 % distance in z from center point so the magnet is above the z layer of the
 % sensor array increase the z positive. In addition to the z shift an 
 % offset r sphere can be set. The offset represents the radius of a sphere

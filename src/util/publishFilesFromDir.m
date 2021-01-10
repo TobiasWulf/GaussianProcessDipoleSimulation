@@ -10,7 +10,7 @@
 %% Description
 % *publishFilesFromDir(directory, PublishOptions)* publish m-files wich are
 % located in the passed directory with options from passed publishing options
-% struct which is must be strict formatted after given example from Matlab
+% struct which is must be strictly formatted after given example from Matlab
 % documentation.
 %
 % *publishFilesFromDir(directory, PublishOptions, recursive)* publishing like
@@ -44,7 +44,7 @@
 % m-files in passed directory if true. Default is false.
 %
 % *verbose* logical scalar which determines to display the filenames and path to
-% published file if true. Defaults is false.
+% published file if true. Default is false.
 %
 %
 %% Output Arguments

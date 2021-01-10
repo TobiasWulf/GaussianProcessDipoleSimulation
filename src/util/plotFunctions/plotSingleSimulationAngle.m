@@ -10,8 +10,8 @@
 %
 %% Description
 % *plotSingleSimulationAngle()* plot training or test dataset which are
-% loacated in data/test or data/training. The function list all datasets and the
-% user must decide during user input dialog which dataset to plot and which
+% loacated in data/test or data/training. The function lists all datasets and
+% the user must decide during user input dialog which dataset to plot and which
 % angle to visualize to. It loads path from config.mat and scans for file
 % automatically.
 %

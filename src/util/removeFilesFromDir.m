@@ -32,9 +32,9 @@
 % *directory* char vector, path directory in which to scan for files with
 % file pattern and to delete found files.
 %
-% *filePattern* char vector of file pattern with extension. Default is *.* to
-% delete all files. Possible patterns can be e.g. *.m or *part_name_*.* or
-% *_part_name_*.png.
+% *filePattern* char vector of file pattern with extension. Default is to
+% delete all files. Possible patterns can be passed with filename parts with
+% start operator as place holder.
 %
 %
 %% Output Arguments

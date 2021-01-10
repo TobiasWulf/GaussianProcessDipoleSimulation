@@ -1,12 +1,12 @@
 %% generateDipoleRotationMoments
 % Generate magnetic moments to perform a full rotation of a magnetic dipole in
 % the z-axes with a certain tilt. The moments covers a rotation from 0° to 360°
-% and are eqaul distributed between 0° and 360°. 0° and 360° are related to the
+% and are equal distributed between 0° and 360°. 0° and 360° are related to the
 % first moment which is representated by the start vector of
 %
 % $$\vec{m_0} = |m_0| \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$$
 % 
-% Due to the start vecotor position the tilt of z-axes must be applied with a
+% Due to the start vector position the tilt of z-axes must be applied with a
 % tilt angle in y-axes. So the rotated vector of the start moment is described
 % by
 %
@@ -16,7 +16,7 @@
 %
 % $$\vec{M} = \left[ \vec{m_i} \cdots \vec{m_N} \right]$$
 %
-% corresponds to a i-th angle in 1 x N thetas vector.
+% corresponds to an i-th angle in 1 x N thetas vector.
 %
 % $$\vec{\theta} = \left[ \theta_i \cdots \theta_N \right]$$
 %
@@ -58,7 +58,7 @@
 % 
 % *[M, theta, index] = generateDipoleRotationMoments(m0, nTheta, phi, resolution, phaseIndex)*
 % returns the moments, the angles and index reprensetation of down sampled
-% angles in the full scale rotation vectort.
+% angles in the full scale rotation vector.
 %
 %
 %% Examples
@@ -88,7 +88,7 @@
 %% Input Arguments
 % *m0* scalar value of magnetic moment magnitude. Choose huge value to
 % prevent numeric failures in later field strength calculation. 1e6 is a proven
-% value. The is later normated in the field calculation process. Can be any real
+% value. Later normated in the field calculation process. Can be any real
 % number.
 %
 % *nTheat* scalar value and number of angles which are even picked from the full

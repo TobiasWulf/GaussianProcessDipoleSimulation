@@ -21,10 +21,6 @@
 % A good working magnet is found emperical for H-field magnitudes of 200 kA/m
 % and a distance from surface of 1 mm. See below figure of used magnet.
 %
-% <html>
-% <img src="images/svg/dipole_magnet.svg.png" height=500>
-% </html>
-%
 % To change settings for simulation edit the config script and rerun it. To
 % generate trainging and test data set use simulation script. It generates
 % dataset for all position are known to TrainingOptions and TestOptions in
@@ -35,31 +31,6 @@
 % The simulation bases on TDK TAS2141 "Rise" chracterization field. It has
 % the widest linear plateau for corresponding Hx and Hy field strengths.
 %
-% <html>
-% <img src="images/svg/tdk_char_field_Rise.svg.png" height=500>
-% </html>
-%
-% Here are some example plots of sensor array simulation with described
-% magnet configuration from above and TDK Rise characterzation field as
-% behavior base.
-%
-% <html>
-% <img src="images/svg/AnglePlot_10_example.svg.png" height=500>
-% </html>
-%
-% <html>
-% <img src="images/svg/SubsetPlot_example.svg.png" height=500>
-% </html>
-%
-%
-% <html>
-% <img src="images/svg/StatsPlot_example.svg.png" height=500>
-% </html>
-%
-% <html>
-% <img src="images/svg/CirclePlot_example.svg.png" height=500>
-% </html>
-%
 %
 %% See Also
 %
@@ -69,34 +40,34 @@
 %
 %
 %% simulateDipoleSquareSenorArray
-% Simulate a square sensor array with dipole magnet as stimulus for a certain
+% Simulates a square sensor array with dipole magnet as stimulus for a certain
 % setup of training or test options. Saves generated dataset to data/training or
 % data/test.
 %
 %
 %% computeDipoleHField
-% Compute dipole field strength for meshgrids with additional abillity to
+% Computes the dipole field strength for meshgrids with additional abillity to
 % imprint a certain field strength in defined radius on resulting field.  
 %
 %% computeDipoleH0Norm
-% Compute a norm factor to imprint a magnetic field strength to magnetic dipole
+% Computes a norm factor to imprint a magnetic field strength to magnetic dipole
 % fields with same magnetic moment magnitude and constant dipole sphere radius
 % on which the imprinted field strengt takes effect.
 %
 %
 %% generateSensorArraySquareGrid
-% Generat a square sensor array grid in a 3D coordinate system with
+% Generates a square sensor array grid in a 3D coordinate system with
 % relative position to center of the system and an additional offset in z
 % direction.
 %
 %
 %% generateDipoleRotationMoments
-% Generate magnetic rotation moments to rotate a magnetic dipol in its z-axes
+% Generates magnetic rotation moments to rotate a magnetic dipol in its z-axes
 % with a certain tilt.
 %
 %
 %% rotate3DVector
-% Rotate a vector with x-, y- and z-components in a 3D-coordinate system. Rotate
+% Rotates a vector with x-, y- and z-components in a 3D-coordinate system. Rotate
 % one step of certain angles.
 %
 %
