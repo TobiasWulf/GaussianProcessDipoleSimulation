@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-06"><meta name="DC.source" content="publishFilesFromDir.m"><style type="text/css">
+      --><title>publishFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="publishFilesFromDir.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -87,14 +87,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   </style></head><body><div class="content"><h1>publishFilesFromDir</h1><!--introduction--><p>Publish m-files from given directory with passed publishing options.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">publishFilesFromDir(directory, PublishOptions)
 publishFilesFromDir(directory, PublishOptions, recursivly)
 publishFilesFromDir(directory, PublishOptions, recursivly, verbose)
-</pre><h2 id="2">Description</h2><p><b>publishFilesFromDir(directory, PublishOptions)</b> publish m-files wich are located in the passed directory with options from passed publishing options struct which is must be strict formatted after given example from Matlab documentation.</p><p><b>publishFilesFromDir(directory, PublishOptions, recursive)</b> publishing like described before but scan the directory recursively for m-files. Default is false for do not recursively.</p><p><b>publishFilesFromDir(directory, PublishOptions, recursive, verbose)</b> with optional verbose set to true the published html files will be displayed in the prompt. Default is false.</p><h2 id="3">Examples</h2><pre class="language-matlab">directory = <span class="string">'src'</span>;
+</pre><h2 id="2">Description</h2><p><b>publishFilesFromDir(directory, PublishOptions)</b> publish m-files wich are located in the passed directory with options from passed publishing options struct which is must be strictly formatted after given example from Matlab documentation.</p><p><b>publishFilesFromDir(directory, PublishOptions, recursive)</b> publishing like described before but scan the directory recursively for m-files. Default is false for do not recursively.</p><p><b>publishFilesFromDir(directory, PublishOptions, recursive, verbose)</b> with optional verbose set to true the published html files will be displayed in the prompt. Default is false.</p><h2 id="3">Examples</h2><pre class="language-matlab">directory = <span class="string">'src'</span>;
 PublishOptions = struct;
 PublishOptions.outputDir = <span class="string">'src/html'</span>;
 PublishOptions.evalCode = false;
 publishFilesFromDir(directory, PublishOptions, true)
 </pre><pre class="language-matlab">load(<span class="string">'config.mat'</span>, <span class="string">'srcPath'</span>, <span class="string">'PublishOptions'</span>)
 publishFilesFromDir(srcPath, PublishOptions, true, true)
-</pre><h2 id="4">Input Arguments</h2><p><b>directory</b> char vector, path to directory where m-files are located to publish.</p><p><b>PublishOptions</b> struct which contains publishing options for the Matlab publish function.</p><p><b>recursive</b> logical scalar which directs the function to scan recursively for m-files in passed directory if true. Default is false.</p><p><b>verbose</b> logical scalar which determines to display the filenames and path to published file if true. Defaults is false.</p><h2 id="5">Output Arguments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/dir.html'))">dir</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/fullfile.html'))">fullfile</a></li><li><a href="matlabl:web(fullfile(docroot,'matlab/ref/publish.html'))">publish</a></li></ul></div><p>Created on October 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</pre><h2 id="4">Input Arguments</h2><p><b>directory</b> char vector, path to directory where m-files are located to publish.</p><p><b>PublishOptions</b> struct which contains publishing options for the Matlab publish function.</p><p><b>recursive</b> logical scalar which directs the function to scan recursively for m-files in passed directory if true. Default is false.</p><p><b>verbose</b> logical scalar which determines to display the filenames and path to published file if true. Default is false.</p><h2 id="5">Output Arguments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/dir.html'))">dir</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/fullfile.html'))">fullfile</a></li><li><a href="matlabl:web(fullfile(docroot,'matlab/ref/publish.html'))">publish</a></li></ul></div><p>Created on October 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -149,7 +149,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %% Description
 % *publishFilesFromDir(directory, PublishOptions)* publish m-files wich are
 % located in the passed directory with options from passed publishing options
-% struct which is must be strict formatted after given example from Matlab
+% struct which is must be strictly formatted after given example from Matlab
 % documentation.
 %
 % *publishFilesFromDir(directory, PublishOptions, recursive)* publishing like
@@ -183,7 +183,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % m-files in passed directory if true. Default is false.
 %
 % *verbose* logical scalar which determines to display the filenames and path to
-% published file if true. Defaults is false.
+% published file if true. Default is false.
 %
 %
 %% Output Arguments

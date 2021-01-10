@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-06"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
+      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>exportPublishedToPdf</h1><!--introduction--><p>Export Matlab generated HTML documentation (publish) to pdf-files and combine them into a latex index file ready compile to pdf manual. This script works on unix sytems only or needs to be adjusted for windows systems for library path and wkhtmltopdf binary path.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Exporting Script, Clean Up and Load Config</a></li><li><a href="#4">Define Manual TOC</a></li><li><a href="#5">Write TOC to LaTeX File</a></li><li><a href="#6">Scan for HTML Files</a></li><li><a href="#7">Export HTML to Pdf</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: wkhtmltopdf (shell), pdflatex (shell)</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/system.html'))">system</a></li><li><a href="https://wkhtmltopdf.org/">wkhtmltopdf</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on December 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>exportPublishedToPdf</h1><!--introduction--><p>Export Matlab generated HTML documentation (publish) to pdf-files and combine them into a LaTeX index file ready compile to pdf manual. This script works on unix sytems only or needs to be adjusted for windows systems for library path and wkhtmltopdf binary path.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Exporting Script, Clean Up and Load Config</a></li><li><a href="#4">Define Manual TOC</a></li><li><a href="#5">Write TOC to LaTeX File</a></li><li><a href="#6">Scan for HTML Files</a></li><li><a href="#7">Export HTML to Pdf</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: wkhtmltopdf (shell), pdflatex (shell)</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/system.html'))">system</a></li><li><a href="https://wkhtmltopdf.org/">wkhtmltopdf</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on December 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -153,9 +153,9 @@ disp(<span class="string">'Load configuration ...'</span>);
 
 nToc = length(toc);
 fprintf(<span class="string">"%d toc entries remarked ...\n"</span>, nToc);
-</pre><h2 id="5">Write TOC to LaTeX File</h2><p>Wirete TOC to latex file and generate for each pdf to include a toc content line with marked toc depth.</p><pre class="codeinput">disp(<span class="string">'Write TOC to Manual.tex ...'</span>);
-<span class="comment">%addPdfStr = "\\includepdf[page=-, pagecommand={\\phantomsection" + ...</span>
-<span class="comment">%    "\\addcontentsline{toc}{%s}{%s}}]{%s}\n";</span>
+</pre><h2 id="5">Write TOC to LaTeX File</h2><p>Wirete TOC to LaTeX file and generate for each pdf to include a toc content line with marked toc depth.</p><pre class="codeinput">disp(<span class="string">'Write TOC to Manual.tex ...'</span>);
+addPdfStr = <span class="string">"\\includepdf[page=-, pagecommand={\\phantomsection"</span> + <span class="keyword">...</span>
+    <span class="string">"\\addcontentsline{toc}{%s}{%s}}]{%s}\n"</span>;
 fileID = fopen(fullfile(<span class="keyword">...</span>
     PathVariables.exportPublishPath, <span class="string">'Manual.tex'</span>), <span class="string">'w'</span>);
 <span class="comment">% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");</span>
@@ -181,7 +181,7 @@ HTML = dir(fullfile(PathVariables.publishHtmlPath, <span class="string">'*.html'
         <span class="string">'TOC (%d) length and found HTML (%d) files are diverging.'</span>, <span class="keyword">...</span>
         nToc, length(HTML));
 <span class="keyword">end</span>
-</pre><h2 id="7">Export HTML to Pdf</h2><p>Export found HTML files to Pdf files. Each file gets its own Pdf represenstation. Filename is kept with pdf extension. Write files into Manual folder under latex subdirectory in docs path. Using wkhtmltopdf shell application. Get filename, add pdf extension new path to file. Create shell string to execute with system command. Get current library path (Matlab) and change it to system library path to execute wkhtmltopdf after that restor library back to Matlab.</p><pre class="codeinput">disp(<span class="string">'Change local library path to system path ...'</span>);
+</pre><h2 id="7">Export HTML to Pdf</h2><p>Export found HTML files to Pdf files. Each file gets its own Pdf represenstation. Filename is kept with pdf extension. Write files into Manual folder under LaTeX subdirectory in docs path. Using wkhtmltopdf shell application. Get filename, add pdf extension new path to file. Create shell string to execute with system command. Get current library path (Matlab) and change it to system library path to execute wkhtmltopdf after that restor library back to Matlab.</p><pre class="codeinput">disp(<span class="string">'Change local library path to system path ...'</span>);
 matlabLibPath = getenv(<span class="string">'LD_LIBRARY_PATH'</span>);
 systemLibPath = <span class="string">'/usr/lib/x86_64-linux-gnu'</span>;
 setenv(<span class="string">'LD_LIBRARY_PATH'</span>, systemLibPath);
@@ -197,10 +197,10 @@ fprintf(<span class="string">'Destination: %s\n'</span>, PathVariables.exportPub
         PathVariables.exportPublishPath, [fName <span class="string">'.pdf'</span>]);
 
     cmdStr = join([<span class="string">"wkhtmltopdf"</span>, <span class="keyword">...</span>
-        <span class="keyword">...</span><span class="comment">"-B 57mm", ...</span>
-        <span class="keyword">...</span><span class="comment">"-L 30mm", ...</span>
-        <span class="keyword">...</span><span class="comment">"-R 30mm", ...</span>
-        <span class="keyword">...</span><span class="comment">"-T 37mm", ...</span>
+        <span class="string">"-B 57mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-L 30mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-R 30mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-T 37mm"</span>, <span class="keyword">...</span>
         <span class="string">"--minimum-font-size 11"</span>, <span class="keyword">...</span>
         <span class="string">"--enable-local-file-access"</span>, <span class="keyword">...</span>
         <span class="string">"--disable-external-links"</span>, <span class="keyword">...</span>
@@ -231,7 +231,7 @@ setenv(<span class="string">'LD_LIBRARY_PATH'</span>, matlabLibPath);
 ##### SOURCE BEGIN #####
 %% exportPublishedToPdf
 % Export Matlab generated HTML documentation (publish) to pdf-files and combine
-% them into a latex index file ready compile to pdf manual. This script works on
+% them into a LaTeX index file ready compile to pdf manual. This script works on
 % unix sytems only or needs to be adjusted for windows systems for library path
 % and wkhtmltopdf binary path.
 %
@@ -334,11 +334,11 @@ nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);
 
 %% Write TOC to LaTeX File
-% Wirete TOC to latex file and generate for each pdf to include a toc content
+% Wirete TOC to LaTeX file and generate for each pdf to include a toc content
 % line with marked toc depth.
 disp('Write TOC to Manual.tex ...');
-%addPdfStr = "\\includepdf[page=-, pagecommand={\\phantomsection" + ...
-%    "\\addcontentsline{toc}{%s}{%s}}]{%s}\n";
+addPdfStr = "\\includepdf[page=-, pagecommand={\\phantomsection" + ...
+    "\\addcontentsline{toc}{%s}{%s}}]{%s}\n";
 fileID = fopen(fullfile(...
     PathVariables.exportPublishPath, 'Manual.tex'), 'w');
 % fprintf(fileID, "%% !TEX root = ../thesis.tex\n");
@@ -372,7 +372,7 @@ end
 %% Export HTML to Pdf
 % Export found HTML files to Pdf files. Each file gets its own Pdf
 % represenstation. Filename is kept with pdf extension. Write files into Manual
-% folder under latex subdirectory in docs path. Using wkhtmltopdf shell
+% folder under LaTeX subdirectory in docs path. Using wkhtmltopdf shell
 % application. Get filename, add pdf extension new path to file. Create shell
 % string to execute with system command. Get current library path (Matlab) and
 % change it to system library path to execute wkhtmltopdf after that restor
@@ -393,10 +393,10 @@ for fhtml = HTML'
         PathVariables.exportPublishPath, [fName '.pdf']);
     
     cmdStr = join(["wkhtmltopdf", ...
-        ..."-B 57mm", ...
-        ..."-L 30mm", ...
-        ..."-R 30mm", ...
-        ..."-T 37mm", ...
+        "-B 57mm", ...
+        "-L 30mm", ...
+        "-R 30mm", ...
+        "-T 37mm", ...
         "REPLACE_WITH_DASH_DASHminimum-font-size 11", ...
         "REPLACE_WITH_DASH_DASHenable-local-file-access", ...
         "REPLACE_WITH_DASH_DASHdisable-external-links", ...

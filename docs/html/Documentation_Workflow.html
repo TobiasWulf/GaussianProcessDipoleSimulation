@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Documentation Workflow</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-06"><meta name="DC.source" content="Documentation_Workflow.m"><style type="text/css">
+      --><title>Documentation Workflow</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="Documentation_Workflow.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Documentation Workflow</h1><!--introduction--><p>The documentation workflow describes how to document new m-file scripts or functions and where they must be registrated into the publishing process of the documentation. So the published m-file is available in the Matlab help browser of this project.</p><div><ol><li>Create a new m-file in the project structure</li><li>Use the script or function template for initial edit and fill the template   with new content.</li><li>Make introducing documentation entries. If it is a new module, so introduce   the module with its own doc where all scripts, functions and classes are   listed. If this document already exist, make a new entry.</li><li>Make help entry in the helptoc.xml via tocitem tag. List all sections of the   doc comment as sub tocitems.</li><li>Introduce the new file to the publish script and make an entry under a   fitting section or make a new one if it is a new module or folder.</li><li>Introduce the new file to export published files script and do toc entries   into script file generate pdf-manual</li><li>Commit the done work.</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li><li><a href="#2">Script Template</a></li><li><a href="#3">Function Template</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="Project_Structure.html">Project Structure</a>.</li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/display-custom-documentation.html'))">Display Costum Documentation</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="exportPublishedToPdf.html">exportPublishedToPdf</a></li></ul></div><h2 id="2">Script Template</h2><pre class="language-matlab"><span class="comment">%% scriptName</span>
+  </style></head><body><div class="content"><h1>Documentation Workflow</h1><!--introduction--><p>The documentation workflow describes how to document new m-file scripts or functions and where they must be registrated into the publishing process of the documentation. So the published m-file is available in the Matlab help browser of this project.</p><div><ol><li>Create a new m-file in the project structure</li><li>Use the script or function template for initial edit and fill the template   with new content.</li><li>Make introducing documentation entries. If it is a new module, so introduce   the module with its own doc where all scripts, functions and classes are   listed. If this document already exist, make a new entry.</li><li>Make help entry in the helptoc.xml via tocitem tag. List all sections of the   doc comment as sub tocitems.</li><li>Introduce the new file to the publish script and make an entry under a   fitting section or make a new one if it is a new module or folder.</li><li>Introduce the new file to export published files script and do toc entries   into script file generate pdf-manual.</li><li>Commit the done work.</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">See Also</a></li><li><a href="#2">Script Template</a></li><li><a href="#3">Function Template</a></li></ul></div><h2 id="1">See Also</h2><div><ul><li><a href="Project_Structure.html">Project Structure</a>.</li><li><a href="matlab:web(fullfile(docroot,'matlab/matlab_prog/display-custom-documentation.html'))">Display Custom Documentation</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="exportPublishedToPdf.html">exportPublishedToPdf</a></li></ul></div><h2 id="2">Script Template</h2><pre class="language-matlab"><span class="comment">%% scriptName</span>
 <span class="comment">% Detailed description of the script task and summary description of</span>
 <span class="comment">% underlaying script sections.</span>
 <span class="comment">%</span>
@@ -212,13 +212,13 @@ Edited on October 11. 2020 by Tobias Wulf: Add function template.
 % # Introduce the new file to the publish script and make an entry under a
 %   fitting section or make a new one if it is a new module or folder.
 % # Introduce the new file to export published files script and do toc entries
-%   into script file generate pdf-manual
+%   into script file generate pdf-manual.
 % # Commit the done work.
 % 
 %
 %% See Also
 % * <Project_Structure.html Project Structure>.
-% * <matlab:web(fullfile(docroot,'matlab/matlab_prog/display-custom-documentation.html')) Display Costum Documentation>
+% * <matlab:web(fullfile(docroot,'matlab/matlab_prog/display-custom-documentation.html')) Display Custom Documentation>
 % * <publishProjectFilesToHTML.html publishProjectFilesToHTML>
 % * <exportPublishedToPdf.html exportPublishedToPdf>
 %

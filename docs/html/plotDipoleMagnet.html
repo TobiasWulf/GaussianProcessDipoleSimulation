@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-06"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
+      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -199,7 +199,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     cb = colorbar;
     cb.Label.String = <span class="string">'$log_{10}(|H|)$ in kA/m'</span>;
     cb.Label.Interpreter = <span class="string">'latex'</span>;
-    <span class="comment">%cb.Label.FontSize = 16;</span>
+    cb.Label.FontSize = 16;
 
     hold <span class="string">on</span>;
     grid <span class="string">on</span>;
@@ -224,7 +224,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     text(-(xz-1), -(xz-1), <span class="keyword">...</span>
         sprintf(<span class="string">'$\\mathbf{Y = %.1f}$ \\textbf{mm}'</span>, y), <span class="keyword">...</span>
         <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 20, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
@@ -239,7 +239,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
             <span class="string">'\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}'</span>, <span class="keyword">...</span>
             abs(zd(i))-rsp, Hd(i)), <span class="keyword">...</span>
             <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="keyword">...</span>
-            <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
+            <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
             <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
             <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
     <span class="keyword">end</span>
@@ -263,7 +263,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">% title and figure labels</span>
     title(<span class="string">'Approximated Spherical Magnet with Dipole Far Field'</span>, <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="keyword">...</span><span class="comment">'FontSize', 18, ...</span>
+        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
@@ -273,24 +273,21 @@ Edited on Month DD. YYYY by Editor: Single line description.
         sprintf(<span class="string">"at distance $d = %.1f$ mm with $d_z = |z| - r_{sp}$"</span>, z0) + <span class="keyword">...</span>
         sprintf(<span class="string">" and sphere radius $r_{sp} = %.1f$ mm"</span>, rsp)], <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="keyword">...</span><span class="comment">'FontSize', 14, ...</span>
+        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
     xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="keyword">...</span><span class="comment">'FontSize', 16, ...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
 
     ylabel(<span class="string">'$Z$ in mm'</span>, <span class="keyword">...</span>
         <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="keyword">...</span><span class="comment">'FontSize', 16, ...</span>
+        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
         <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
         <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    set(0, <span class="string">'defaultaxesfontsize'</span>, 20);
-    set(0, <span class="string">'defaulttextinterpreter'</span>,<span class="string">'latex'</span>);
 
     <span class="comment">% save results of figure</span>
     yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
@@ -458,7 +455,7 @@ function plotDipoleMagnet()
     cb = colorbar;
     cb.Label.String = '$log_{10}(|H|)$ in kA/m';
     cb.Label.Interpreter = 'latex';
-    %cb.Label.FontSize = 16;
+    cb.Label.FontSize = 16;
     
     hold on;
     grid on;
@@ -483,7 +480,7 @@ function plotDipoleMagnet()
     text(-(xz-1), -(xz-1), ...
         sprintf('$\\mathbf{Y = %.1f}$ \\textbf{mm}', y), ...
         'Color', 'w', ...
-        'FontSize', 20, ...
+        'FontSize', 16, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
@@ -498,7 +495,7 @@ function plotDipoleMagnet()
             '\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}', ...
             abs(zd(i))-rsp, Hd(i)), ...
             'Color', 'w', ...
-            'FontSize', 18, ...
+            'FontSize', 14, ...
             'FontName', 'Times', ...
             'Interpreter', 'latex');
     end
@@ -522,7 +519,7 @@ function plotDipoleMagnet()
     % title and figure labels
     title('Approximated Spherical Magnet with Dipole Far Field', ...
         'FontWeight', 'normal', ...
-        ...'FontSize', 18, ...
+        'FontSize', 18, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
@@ -532,24 +529,21 @@ function plotDipoleMagnet()
         sprintf("at distance $d = %.1f$ mm with $d_z = |z| - r_{sp}$", z0) + ...
         sprintf(" and sphere radius $r_{sp} = %.1f$ mm", rsp)], ...
         'FontWeight', 'normal', ...
-        ...'FontSize', 14, ...
+        'FontSize', 14, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
     xlabel('$X$ in mm', ...
         'FontWeight', 'normal', ...
-        ...'FontSize', 16, ...
+        'FontSize', 16, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
     
     ylabel('$Z$ in mm', ...
         'FontWeight', 'normal', ...
-        ...'FontSize', 16, ...
+        'FontSize', 16, ...
         'FontName', 'Times', ...
         'Interpreter', 'latex');
-    
-    set(0, 'defaultaxesfontsize', 20);
-    set(0, 'defaulttextinterpreter','latex');
     
     % save results of figure
     yesno = input('Save? [y/n]: ', 's');

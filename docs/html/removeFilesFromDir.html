@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>removeFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-06"><meta name="DC.source" content="removeFilesFromDir.m"><style type="text/css">
+      --><title>removeFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="removeFilesFromDir.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -90,7 +90,7 @@ removeStatus = removeFilesFromDir(directory, filePattern)
 rs = removeFileFromDir(d)
 </pre><pre class="language-matlab">d = fullfile(<span class="string">'rootPath'</span>, <span class="string">'subfolder'</span>)
 rs = removeFileFromDir(d, <span class="string">'*.mat'</span>)
-</pre><h2 id="4">Input Arguments</h2><p><b>directory</b> char vector, path directory in which to scan for files with file pattern and to delete found files.</p><p><b>filePattern</b> char vector of file pattern with extension. Default is <b>.</b> to delete all files. Possible patterns can be e.g. <b>.m or *part_name_</b>.* or <b><i>part_name</i></b>.png.</p><h2 id="5">Output Arguments</h2><p><b>removeStatus</b> locgical scalar which is true if all files wich matches the file pattern are deleted successfully from passed directory path.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/fullfile.html'))">fullfile</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/dir.html'))">dir</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/delete.html'))">delete</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/isfile.html'))">isfile</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/isempty.html'))">isempty</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/double.ismember.html'))">ismember</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/mustbefolder.html'))">mustBeFolder</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/mustbetext.html'))">mustBeText</a></li></ul></div><p>Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</pre><h2 id="4">Input Arguments</h2><p><b>directory</b> char vector, path directory in which to scan for files with file pattern and to delete found files.</p><p><b>filePattern</b> char vector of file pattern with extension. Default is to delete all files. Possible patterns can be passed with filename parts with start operator as place holder.</p><h2 id="5">Output Arguments</h2><p><b>removeStatus</b> locgical scalar which is true if all files wich matches the file pattern are deleted successfully from passed directory path.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'matlab/ref/fullfile.html'))">fullfile</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/dir.html'))">dir</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/delete.html'))">delete</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/isfile.html'))">isfile</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/isempty.html'))">isempty</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/double.ismember.html'))">ismember</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/mustbefolder.html'))">mustBeFolder</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/mustbetext.html'))">mustBeText</a></li></ul></div><p>Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -155,9 +155,9 @@ Edited on October 11. 2020 by Tobias Wulf: Tested with R2020b.
 % *directory* char vector, path directory in which to scan for files with
 % file pattern and to delete found files.
 %
-% *filePattern* char vector of file pattern with extension. Default is *.* to
-% delete all files. Possible patterns can be e.g. *.m or *part_name_*.* or
-% *_part_name_*.png.
+% *filePattern* char vector of file pattern with extension. Default is to
+% delete all files. Possible patterns can be passed with filename parts with
+% start operator as place holder.
 %
 %
 %% Output Arguments

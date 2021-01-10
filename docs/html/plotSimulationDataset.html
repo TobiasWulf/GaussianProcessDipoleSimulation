@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-06"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
+      --><title>plotSimulationDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="plotSimulationDataset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -85,7 +85,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
   </style></head><body><div class="content"><h1>plotSimulationDataset</h1><!--introduction--><p>Search for available trainings or test dataset and plot dataset. Follow user input dialog to choose which dataset and decide how many angles to plot. Save dataset content redered to an avi-file. Filename same as dataset.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Argurments</a></li><li><a href="#5">Output Argurments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">plotSimulationDataset()
-</pre><h2 id="2">Description</h2><p><b>plotSimulationDataset()</b> plot training or test dataset which are loacated in data/test or data/training. The function list all datasets and the user must decide during user input dialog which dataset to plot and how many angles to to visualize. It loads path from config.mat and scans for file automatically.</p><h2 id="3">Examples</h2><pre class="language-matlab">plotSimulationDataset()
+</pre><h2 id="2">Description</h2><p><b>plotSimulationDataset()</b> plot training or test dataset which are loacated in data/test or data/training. The function lists all datasets and the user must decide during user input dialog which dataset to plot and how many angles to visualize. It loads path from config.mat and scans for file automatically.</p><h2 id="3">Examples</h2><pre class="language-matlab">plotSimulationDataset()
 </pre><h2 id="4">Input Argurments</h2><p><b>None</b></p><h2 id="5">Output Argurments</h2><p><b>None</b></p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: config.mat</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="generateSimulationDatasets.html">generateSimulationDatasets</a></li><li><a href="sensorArraySimulation.html">sensorArraySimulation</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
@@ -556,9 +556,9 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %% Description
 % *plotSimulationDataset()* plot training or test dataset which are
-% loacated in data/test or data/training. The function list all datasets and the
-% user must decide during user input dialog which dataset to plot and how many
-% angles to to visualize. It loads path from config.mat and scans for file
+% loacated in data/test or data/training. The function lists all datasets and
+% the user must decide during user input dialog which dataset to plot and how
+% many angles to visualize. It loads path from config.mat and scans for file
 % automatically.
 %
 %
