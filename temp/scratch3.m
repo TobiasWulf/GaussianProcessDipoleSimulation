@@ -53,7 +53,7 @@ XATrain = unwrap(atan2(XSTrain,XCTrain), [], 1);
 % build GP with best fit kernel for atan2
 %kernelS = char(BOS.XAtMinObjective.KernelFunction);
 %sigmaS = BOS.XAtMinObjective.Sigma;
-gpA = fitrgp(XATrain, refTrainRad, ...'KernelFunction', kernelC, 'Sigma', sigmaC, ...
+gpA = fitrgp(XATrain, refTrainRad, ...
     'DistanceMethod', 'accurate', 'Verbose', 1);
 
 % predict test inputs for cosinus and sinus
