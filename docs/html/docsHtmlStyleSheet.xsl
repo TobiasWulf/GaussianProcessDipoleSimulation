@@ -100,12 +100,14 @@ To make changes, update the MATLAB code and republish this document.
     <xsl:variable name="body-cells" select="cell[not(@style = 'overview')]"/>
 
     <!-- Include contents if there are titles for any subsections. -->
+    <!-- Comment out TOCs for each published document
     <xsl:if test="count(cell/steptitle[not(@style = 'document')])">
       <xsl:call-template name="contents">
         <xsl:with-param name="body-cells" select="$body-cells"/>
       </xsl:call-template>
     </xsl:if>
-
+    -->
+    
     <!-- Loop over each cell -->
     <xsl:for-each select="$body-cells">
         <!-- Title of cell -->
