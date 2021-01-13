@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>runTests</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="runTests.m"><style type="text/css">
+      --><title>runTests</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="runTests.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% clean workspace</span>
+  </style></head><body><div class="content"><h1>runTests</h1><pre class="codeinput"><span class="comment">% clean workspace</span>
 clearvars;
 
 <span class="comment">% build suite from test files</span>
@@ -102,82 +102,11 @@ results = run(suite);
 disp(results)
 disp(table(results))
 cd <span class="string">..</span>
-</pre><pre class="codeoutput">Running removeFilesFromDirTest
-..
-Done removeFilesFromDirTest
-__________
-
-Running rotate3DVectorTest
-....
-Done rotate3DVectorTest
-__________
-
-Running generateDipoleRotationMomentsTest
-...
-Done generateDipoleRotationMomentsTest
-__________
-
-Running generateSensorArraySquareGridTest
-....
-Done generateSensorArraySquareGridTest
-__________
-
-Running computeDipoleH0NormTest
-.
-Done computeDipoleH0NormTest
-__________
-
-Running computeDipoleHFieldTest
-......
-Done computeDipoleHFieldTest
-__________
-
-Running tiltRotationTest
-..
-Done tiltRotationTest
-__________
-
-  1&times;22 TestResult array with properties:
-
-    Name
-    Passed
-    Failed
-    Incomplete
-    Duration
-    Details
-
-Totals:
-   22 Passed, 0 Failed, 0 Incomplete.
-   1.4946 seconds testing time.
-
-                                      Name                                      Passed    Failed    Incomplete    Duration      Details   
-    ________________________________________________________________________    ______    ______    __________    ________    ____________
-
-    {'removeFilesFromDirTest/Test1_DeleteAllFiles'                         }    true      false       false        0.24929    {1&times;1 struct}
-    {'removeFilesFromDirTest/Test2_DeleteWithPattern'                      }    true      false       false       0.054715    {1&times;1 struct}
-    {'rotate3DVectorTest/Test1_OutputDimensions'                           }    true      false       false        0.11259    {1&times;1 struct}
-    {'rotate3DVectorTest/Test2_RotateVectorsInX_axes'                      }    true      false       false       0.007226    {1&times;1 struct}
-    {'rotate3DVectorTest/Test3_RotateVectorsInY_axes'                      }    true      false       false       0.012408    {1&times;1 struct}
-    {'rotate3DVectorTest/Test4_RotateVectorsInZ_axes'                      }    true      false       false       0.011816    {1&times;1 struct}
-    {'generateDipoleRotationMomentsTest/Test1_OutputDimensions'            }    true      false       false        0.21221    {1&times;1 struct}
-    {'generateDipoleRotationMomentsTest/Test2_DownSampling'                }    true      false       false       0.006899    {1&times;1 struct}
-    {'generateDipoleRotationMomentsTest/Test3_PhaseShift'                  }    true      false       false       0.008723    {1&times;1 struct}
-    {'generateSensorArraySquareGridTest/Test1_OutputDimensions'            }    true      false       false          0.119    {1&times;1 struct}
-    {'generateSensorArraySquareGridTest/Test2_EqualXAndYDistances'         }    true      false       false       0.006755    {1&times;1 struct}
-    {'generateSensorArraySquareGridTest/Test3_ConstantZDistances'          }    true      false       false       0.005921    {1&times;1 struct}
-    {'generateSensorArraySquareGridTest/Test3_PositionShifInXAndYDirection'}    true      false       false       0.007339    {1&times;1 struct}
-    {'computeDipoleH0NormTest/Test1_PositiveScalarFactor'                  }    true      false       false         0.1162    {1&times;1 struct}
-    {'computeDipoleHFieldTest/Test1_OutputDimensions'                      }    true      false       false        0.34086    {1&times;1 struct}
-    {'computeDipoleHFieldTest/Test2_CenterOfField'                         }    true      false       false       0.010579    {1&times;1 struct}
-    {'computeDipoleHFieldTest/Test3_Magnetization'                         }    true      false       false       0.011599    {1&times;1 struct}
-    {'computeDipoleHFieldTest/Test4_Imprinting'                            }    true      false       false       0.006454    {1&times;1 struct}
-    {'computeDipoleHFieldTest/Test5_Symmetry'                              }    true      false       false       0.010988    {1&times;1 struct}
-    {'computeDipoleHFieldTest/Test6_UnitsMilliKilo'                        }    true      false       false       0.019277    {1&times;1 struct}
-    {'tiltRotationTest/Test1_RotationWithoutTilt'                          }    true      false       false        0.15644    {1&times;1 struct}
-    {'tiltRotationTest/Test2_RotationWithTilt'                             }    true      false       false       0.007282    {1&times;1 struct}
-
-</pre><img vspace="5" hspace="5" src="runTests_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
+%% runTests
+%
+
 % clean workspace
 clearvars;
 

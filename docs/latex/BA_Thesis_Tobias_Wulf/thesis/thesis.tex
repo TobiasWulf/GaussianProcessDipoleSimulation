@@ -89,23 +89,31 @@
 %\bibliography{literature/literature}
 
 % Appendix
-% \appendix
-\renewcommand{\appendixtocname}{Anhang}
-\renewcommand{\appendixpagename}{Anhang}
-\begin{appendices}
-	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-	\makeatletter
-	\addtocontents{toc}{%
-		\begingroup
-		\let\protect\l@chapter\protect\l@section
-		\let\protect\l@section\protect\l@subsection
-	}
-	\makeatother
+\appendix
+\addcontentsline{toc}{part}{\appendixname}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
+\setcounter{secnumdepth}{5}
+\input{appendix/1_appendix}
+\input{appendix/2_appendix}
+
+%\renewcommand{\appendixtocname}{Anhang}
+%\renewcommand{\appendixpagename}{Anhang}
+%\begin{appendices}
+%	\addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
+%	\setcounter{secnumdepth}{5}
+%	\makeatletter
+%	\addtocontents{toc}{%
+%		\begingroup
+%		\let\protect\l@chapter\protect\l@section
+%		\let\protect\l@section\protect\l@subsection
+%		\let\protect\l@subsection\protect\l@subsubsection
+%	}
+%	\makeatother
 	
 	% appendix pages
-	\input{appendix/1_appendix}
-	\input{appendix/2_appendix}
-\end{appendices}
+%	\input{appendix/1_appendix}
+%	\input{appendix/2_appendix}
+%\end{appendices}
 
 \Istatement
 

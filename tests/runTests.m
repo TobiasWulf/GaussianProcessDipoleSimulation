@@ -1,3 +1,6 @@
+%% runTests
+%
+
 % clean workspace
 clearvars;
 

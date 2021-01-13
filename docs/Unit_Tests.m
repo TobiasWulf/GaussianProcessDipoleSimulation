@@ -1,8 +1,8 @@
 %% Unit Tests
-% Unit Tests are provideing way to test core functionallity of the written
+% Unit Tests are provideing a way to test core functionallity of the written
 % software components. Matlab supports various methods to apply Unit Tests.
-% The designed tests are using script-based testing. So for each function
-% or functionallity needs to be tested a own test script is written and
+% The designed tests are using script-based testing. So far each function
+% or functionallity needs to be tested in a own test script and further on
 % gathered into a main test script where all standalone test scripts are
 % combined to a test suite and executed at once.
 %

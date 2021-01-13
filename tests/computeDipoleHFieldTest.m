@@ -1,3 +1,7 @@
+%%% 
+% <html><h1>computeDipoleHFieldTest</h1></html>
+%
+
 % compute a single point without norming
 Hsingle = computeDipoleHField(1, 2, 3, [1; 0; 0], 1);
 

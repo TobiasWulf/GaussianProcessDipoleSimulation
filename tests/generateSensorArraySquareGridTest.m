@@ -1,3 +1,7 @@
+%%% 
+% <html><h1>generateSensorArraySquareGridTest</h1></html>
+%
+
 % create sensor array infos for size and position
 % number of sensors at one edge
 N = 8;

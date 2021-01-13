@@ -11,7 +11,7 @@
 %% See Also
 % * <removeFilesFromDir.html removeFilesFromDir>
 % * <generateConfigMat.html gernerateConfigMat>
-% * <Project_Structure.html Project_Structure>
+% * <Project_Structure.html Project Structure>
 %
 %
 % Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.

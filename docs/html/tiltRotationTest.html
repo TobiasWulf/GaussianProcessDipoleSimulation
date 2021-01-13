@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>tiltRotationTest</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="tiltRotationTest.m"><style type="text/css">
+      --><title>tiltRotationTest</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="tiltRotationTest.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Test 1: rotation without tilt</a></li><li><a href="#3">Test 2: rotation with tilt</a></li></ul></div><pre class="codeinput"><span class="comment">% clean</span>
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><p><h1>tiltRotationTest</h1></p><pre class="codeinput"><span class="comment">% clean</span>
 clearvars;
 
 <span class="comment">% relevant tilt in y axes</span>
@@ -152,6 +152,10 @@ HabsTilt = sqrt(sum(HTilt.^2, 1));
 </pre><h2 id="3">Test 2: rotation with tilt</h2><pre class="codeinput">assert(all(round(HabsTilt, 6) == round(HabsMust, 6), <span class="string">'all'</span>))
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
+%%% 
+% <html><h1>tiltRotationTest</h1></html>
+%
+
 % clean
 clearvars;
 

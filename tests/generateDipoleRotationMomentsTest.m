@@ -1,3 +1,7 @@
+%%% 
+% <html><h1>generateDipoleRotationMomentsTest</h1></html>
+%
+
 % create full scale rotation with 0.5° resolution and no tilt,
 % return moments
 % and corressponding angles theta

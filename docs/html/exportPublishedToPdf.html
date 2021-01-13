@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
+      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>exportPublishedToPdf</h1><!--introduction--><p>Export Matlab generated HTML documentation (publish) to pdf-files and combine them into a LaTeX index file ready compile to pdf manual. This script works on unix sytems only or needs to be adjusted for windows systems for library path and wkhtmltopdf binary path.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Exporting Script, Clean Up and Load Config</a></li><li><a href="#4">Define Manual TOC</a></li><li><a href="#5">Write TOC to LaTeX File</a></li><li><a href="#6">Scan for HTML Files</a></li><li><a href="#7">Export HTML to Pdf</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: wkhtmltopdf (shell), pdflatex (shell)</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/system.html'))">system</a></li><li><a href="https://wkhtmltopdf.org/">wkhtmltopdf</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on December 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>exportPublishedToPdf</h1><!--introduction--><p>Export Matlab generated HTML documentation (publish) to pdf-files and combine them into a LaTeX index file ready compile to pdf manual. This script works on unix sytems only or needs to be adjusted for windows systems for library path and wkhtmltopdf binary path.</p><p><b>Runs on Unix systems only!</b></p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: wkhtmltopdf (shell), pdflatex (shell)</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/system.html'))">system</a></li><li><a href="https://wkhtmltopdf.org/">wkhtmltopdf</a></li><li><a href="publishProjectFilesToHTML.html">publishProjectFilesToHTML</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on December 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -99,89 +99,68 @@ disp(<span class="string">'Load configuration ...'</span>);
     rethrow(ME);
 <span class="keyword">end</span>
 </pre><h2 id="4">Define Manual TOC</h2><p>The maual toc must be in the same order as in helptoc.xml in the publish html folder. The toc is used to generate a latex file to include for appendices.</p><pre class="codeinput">toc = [<span class="string">"section"</span>,       <span class="string">"GaussianProcessDipoleSimulation.pdf"</span>;
-       <span class="string">"subsection"</span>     <span class="string">"Workflows.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Project_Preparation.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Project_Structure.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Git_Feature_Branch_Workflow.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Documentation_Workflow.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Simulation_Workflow.pdf"</span>;
-       <span class="string">"subsection"</span>,    <span class="string">"Executable_Scripts.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"publishProjectFilesToHTML.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"generateConfigMat.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"generateSimulationDatasets.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"deleteSimulationDatasets.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"deleteSimulationPlots.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"exportPublishedToPdf"</span>;
-       <span class="string">"subsection"</span>,    <span class="string">"Source_Code.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"sensorArraySimulation.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"rotate3DVector.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"generateDipoleRotationMoments.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"generateSensorArraySquareGrid.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"computeDipoleH0Norm.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"computeDipoleHField.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"simulateDipoleSquareSensorArray.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"util.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"removeFilesFromDir.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"publishFilesFromDir.pdf"</span>;
-       <span class="string">"paragraph"</span>,     <span class="string">"plotFunctions.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotTDKCharDataset.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotTDKCharField.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotTDKTransferCurves.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotKMZ60CharDataset.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotKMZ60CharField.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotKMZ60TransferCurves.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotDipoleMagnet.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotSimulationDataset.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotSingleSimulationAngle.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotSimulationSubset.pdf"</span>;
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotSimulationCosSinStats.pdf"</span>
-       <span class="string">"subparagraph"</span>,  <span class="string">"plotSimulationDatasetCircle.pdf"</span>;
-       <span class="string">"subsection"</span>,    <span class="string">"Datasets.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"TDK_TAS2141_Characterization.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"NXP_KMZ60_Characterization.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Config_Mat.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"Training_and_Test_Datasets.pdf"</span>;
-       <span class="string">"subsection"</span>,    <span class="string">"Unit_Tests.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"runTests.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"removeFilesFromDirTest.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"rotate3DVectorTest.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"generateDipoleRotationMomentsTest.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"generateSensorArraySquareGridTest.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"computeDipoleH0NormTest.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"computeDipoleHFieldTest.pdf"</span>;
-       <span class="string">"subsubsection"</span>, <span class="string">"tiltRotationTest.pdf"</span>;];
+       <span class="string">"section"</span>        <span class="string">"Workflows.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"Project_Preparation.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"Project_Structure.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"Git_Feature_Branch_Workflow.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"Documentation_Workflow.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"Simulation_Workflow.pdf"</span>;
+       <span class="string">"section"</span>,    <span class="string">"Executable_Scripts.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"publishProjectFilesToHTML.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"generateConfigMat.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"generateSimulationDatasets.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"deleteSimulationDatasets.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"deleteSimulationPlots.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"exportPublishedToPdf"</span>;
+       <span class="string">"section"</span>,    <span class="string">"Source_Code.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"sensorArraySimulation.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"rotate3DVector.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"generateDipoleRotationMoments.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"generateSensorArraySquareGrid.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"computeDipoleH0Norm.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"computeDipoleHField.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"simulateDipoleSquareSensorArray.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"util.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"removeFilesFromDir.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"publishFilesFromDir.pdf"</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"plotFunctions.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotTDKCharDataset.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotTDKCharField.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotTDKTransferCurves.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotKMZ60CharDataset.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotKMZ60CharField.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotKMZ60TransferCurves.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotDipoleMagnet.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationDataset.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotSingleSimulationAngle.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationSubset.pdf"</span>;
+       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationCosSinStats.pdf"</span>
+       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationDatasetCircle.pdf"</span>;
+       <span class="string">"section"</span>,    <span class="string">"Datasets.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"TDK_TAS2141_Characterization.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"NXP_KMZ60_Characterization.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"Config_Mat.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"Training_and_Test_Datasets.pdf"</span>;
+       <span class="string">"section"</span>,    <span class="string">"Unit_Tests.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"runTests.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"removeFilesFromDirTest.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"rotate3DVectorTest.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"generateDipoleRotationMomentsTest.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"generateSensorArraySquareGridTest.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"computeDipoleH0NormTest.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"computeDipoleHFieldTest.pdf"</span>;
+       <span class="string">"subsection"</span>, <span class="string">"tiltRotationTest.pdf"</span>;];
 
 nToc = length(toc);
 fprintf(<span class="string">"%d toc entries remarked ...\n"</span>, nToc);
-</pre><h2 id="5">Write TOC to LaTeX File</h2><p>Wirete TOC to LaTeX file and generate for each pdf to include a toc content line with marked toc depth.</p><pre class="codeinput">disp(<span class="string">'Write TOC to Manual.tex ...'</span>);
-addPdfStr = <span class="string">"\\includepdf[page=-, pagecommand={\\phantomsection"</span> + <span class="keyword">...</span>
-    <span class="string">"\\addcontentsline{toc}{%s}{%s}}]{%s}\n"</span>;
-fileID = fopen(fullfile(<span class="keyword">...</span>
-    PathVariables.exportPublishPath, <span class="string">'Manual.tex'</span>), <span class="string">'w'</span>);
-<span class="comment">% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");</span>
-fprintf(fileID, <span class="string">"%% appendix software documentation\n"</span>);
-fprintf(fileID, <span class="string">"%% @author Tobias Wulf\n"</span>);
-fprintf(fileID, <span class="keyword">...</span>
-    <span class="string">"%% Autogenerated LaTeX file. Generated by exportPublishedToPdf.\n"</span>);
-fprintf(fileID, <span class="keyword">...</span>
-    <span class="string">"%% Software manual with TOC generated in the same script.\n"</span>);
-fprintf(fileID, <span class="string">"%% Generated on %s.\n\n"</span>, datestr(datetime(<span class="string">'now'</span>)));
-<span class="keyword">for</span> i = 1:nToc
-    level = toc(i);
-    fName = toc(i,2);
-    [~, titleStr, ~] = fileparts(fName);
-    titleStr = strrep(titleStr, <span class="string">'_'</span>, <span class="string">' '</span>);
-    fprintf(fileID, addPdfStr, level, titleStr, fName);
-<span class="keyword">end</span>
-fclose(fileID);
-</pre><h2 id="6">Scan for HTML Files</h2><p>Scan for all published HTML files in the project publish directory.</p><pre class="codeinput">disp(<span class="string">'Scan for published files ...'</span>);
+</pre><h2 id="5">Scan for HTML Files</h2><p>Scan for all published HTML files in the project publish directory.</p><pre class="codeinput">disp(<span class="string">'Scan for published files ...'</span>);
 HTML = dir(fullfile(PathVariables.publishHtmlPath, <span class="string">'*.html'</span>));
 <span class="keyword">if</span> nToc ~= length(HTML)
     warning(<span class="keyword">...</span>
         <span class="string">'TOC (%d) length and found HTML (%d) files are diverging.'</span>, <span class="keyword">...</span>
         nToc, length(HTML));
 <span class="keyword">end</span>
-</pre><h2 id="7">Export HTML to Pdf</h2><p>Export found HTML files to Pdf files. Each file gets its own Pdf represenstation. Filename is kept with pdf extension. Write files into Manual folder under LaTeX subdirectory in docs path. Using wkhtmltopdf shell application. Get filename, add pdf extension new path to file. Create shell string to execute with system command. Get current library path (Matlab) and change it to system library path to execute wkhtmltopdf after that restor library back to Matlab.</p><pre class="codeinput">disp(<span class="string">'Change local library path to system path ...'</span>);
+</pre><h2 id="6">Export HTML to Pdf</h2><p>Export found HTML files to Pdf files. Each file gets its own Pdf represenstation. Filename is kept with pdf extension. Write files into Manual folder under LaTeX subdirectory in docs path. Using wkhtmltopdf shell application. Get filename, add pdf extension new path to file. Create shell string to execute with system command. Get current library path (Matlab) and change it to system library path to execute wkhtmltopdf after that restor library back to Matlab.</p><pre class="codeinput">disp(<span class="string">'Change local library path to system path ...'</span>);
 matlabLibPath = getenv(<span class="string">'LD_LIBRARY_PATH'</span>);
 systemLibPath = <span class="string">'/usr/lib/x86_64-linux-gnu'</span>;
 setenv(<span class="string">'LD_LIBRARY_PATH'</span>, systemLibPath);
@@ -197,15 +176,15 @@ fprintf(<span class="string">'Destination: %s\n'</span>, PathVariables.exportPub
         PathVariables.exportPublishPath, [fName <span class="string">'.pdf'</span>]);
 
     cmdStr = join([<span class="string">"wkhtmltopdf"</span>, <span class="keyword">...</span>
-        <span class="string">"-B 57mm"</span>, <span class="keyword">...</span>
-        <span class="string">"-L 30mm"</span>, <span class="keyword">...</span>
-        <span class="string">"-R 30mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-B 47mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-L 27mm"</span>, <span class="keyword">...</span>
+        <span class="string">"-R 27mm"</span>, <span class="keyword">...</span>
         <span class="string">"-T 37mm"</span>, <span class="keyword">...</span>
-        <span class="string">"--minimum-font-size 11"</span>, <span class="keyword">...</span>
+        <span class="string">"--minimum-font-size 12"</span>, <span class="keyword">...</span>
         <span class="string">"--enable-local-file-access"</span>, <span class="keyword">...</span>
         <span class="string">"--disable-external-links"</span>, <span class="keyword">...</span>
         <span class="string">"--disable-internal-links"</span>, <span class="keyword">...</span>
-        <span class="keyword">...</span><span class="comment">"--disable-smart-shrinking", ...</span>
+        <span class="keyword">...</span><span class="comment"> "--disable-smart-shrinking", ...</span>
         <span class="string">"--window-status finished"</span>, <span class="keyword">...</span>
         <span class="string">"--no-stop-slow-scripts"</span>, <span class="keyword">...</span>
         <span class="string">"--javascript-delay 2000"</span>, <span class="keyword">...</span>
@@ -219,7 +198,7 @@ fprintf(<span class="string">'Destination: %s\n'</span>, PathVariables.exportPub
             error(<span class="string">'Export failure.'</span>);
         <span class="keyword">end</span>
     <span class="keyword">catch</span> ME
-        <span class="comment">%setenv('LD_LIBRARY_PATH', matlabLibPath);</span>
+        setenv(<span class="string">'LD_LIBRARY_PATH'</span>, matlabLibPath);
         disp(cmdout);
         rethrow(ME)
     <span class="keyword">end</span>
@@ -227,6 +206,50 @@ fprintf(<span class="string">'Destination: %s\n'</span>, PathVariables.exportPub
 
 disp(<span class="string">'Restore local library path ...'</span>);
 setenv(<span class="string">'LD_LIBRARY_PATH'</span>, matlabLibPath);
+</pre><h2 id="7">Write TOC to LaTeX File</h2><p>Wirete TOC to LaTeX file and generate for each pdf to include a toc content line with marked toc depth. Get the number of pages and add only page title first pdf page.</p><pre class="codeinput">disp(<span class="string">'Write TOC to Manual.tex ...'</span>);
+addFirstPage = <span class="string">"\\addtocounter{%s}{1}\n"</span> + <span class="keyword">...</span>
+    <span class="string">"\\includepdf[page=1,"</span> + <span class="keyword">...</span>
+    <span class="string">"pagecommand={\\phantomsection\\"</span> + <span class="keyword">...</span>
+    <span class="string">"addcontentsline{toc}{%s}"</span> + <span class="keyword">...</span>
+    <span class="string">"{\\protect\\numberline{\\the%s}%s}\\label{%s}}]{%s}\n"</span>;
+addRestPages = <span class="string">"\\includepdf[page=2-, pagecommand={\\phantomsection}]{%s}\n"</span>;
+
+fileID = fopen(fullfile(<span class="keyword">...</span>
+    PathVariables.exportPublishPath, <span class="string">'Manual.tex'</span>), <span class="string">'w'</span>);
+<span class="comment">% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");</span>
+fprintf(fileID, <span class="string">"%% appendix software documentation\n"</span>);
+fprintf(fileID, <span class="string">"%% @author Tobias Wulf\n"</span>);
+fprintf(fileID, <span class="keyword">...</span>
+    <span class="string">"%% Autogenerated LaTeX file. Generated by exportPublishedToPdf.\n"</span>);
+fprintf(fileID, <span class="keyword">...</span>
+    <span class="string">"%% Software manual with TOC generated in the same script.\n"</span>);
+fprintf(fileID, <span class="string">"%% Generated on %s.\n\n"</span>, datestr(datetime(<span class="string">'now'</span>)));
+
+pat = regexpPattern(<span class="string">"\d+"</span>);
+shellStr = <span class="string">"pdfinfo %s | grep Pages"</span>;
+
+<span class="keyword">for</span> i = 1:nToc
+    level = toc(i);
+    fName = toc(i,2);
+    [~, titleStr, ~] = fileparts(fName);
+    titleStr = strrep(titleStr, <span class="string">'_'</span>, <span class="string">' '</span>);
+    <span class="keyword">try</span>
+        [status, cmdout] = system(sprintf(shellStr, <span class="keyword">...</span>
+            fullfile(PathVariables.exportPublishPath, fName)));
+        pages = double(extract(string(cmdout), pat));
+
+        fprintf(fileID, addFirstPage, level, level, level, <span class="keyword">...</span>
+            titleStr, titleStr, fName);
+        <span class="keyword">if</span> pages &gt; 1, fprintf(fileID, addRestPages, fName); <span class="keyword">end</span>
+
+    <span class="keyword">catch</span> ME
+        setenv(<span class="string">'LD_LIBRARY_PATH'</span>, matlabLibPath);
+        fclose(fileID);
+        disp(cmdout);
+        rethrow(ME)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+fclose(fileID);
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% exportPublishedToPdf
@@ -234,6 +257,8 @@ setenv(<span class="string">'LD_LIBRARY_PATH'</span>, matlabLibPath);
 % them into a LaTeX index file ready compile to pdf manual. This script works on
 % unix sytems only or needs to be adjusted for windows systems for library path
 % and wkhtmltopdf binary path.
+%
+% *Runs on Unix systems only!*
 %
 %
 %% Requirements
@@ -278,85 +303,60 @@ end
 % The maual toc must be in the same order as in helptoc.xml in the publish html
 % folder. The toc is used to generate a latex file to include for appendices.
 toc = ["section",       "GaussianProcessDipoleSimulation.pdf";
-       "subsection"     "Workflows.pdf";
-       "subsubsection", "Project_Preparation.pdf";
-       "subsubsection", "Project_Structure.pdf";
-       "subsubsection", "Git_Feature_Branch_Workflow.pdf";
-       "subsubsection", "Documentation_Workflow.pdf";
-       "subsubsection", "Simulation_Workflow.pdf";
-       "subsection",    "Executable_Scripts.pdf";
-       "subsubsection", "publishProjectFilesToHTML.pdf";
-       "subsubsection", "generateConfigMat.pdf";
-       "subsubsection", "generateSimulationDatasets.pdf";
-       "subsubsection", "deleteSimulationDatasets.pdf";
-       "subsubsection", "deleteSimulationPlots.pdf";
-       "subsubsection", "exportPublishedToPdf";
-       "subsection",    "Source_Code.pdf";
-       "subsubsection", "sensorArraySimulation.pdf";
-       "paragraph",     "rotate3DVector.pdf";
-       "paragraph",     "generateDipoleRotationMoments.pdf";
-       "paragraph",     "generateSensorArraySquareGrid.pdf";
-       "paragraph",     "computeDipoleH0Norm.pdf";
-       "paragraph",     "computeDipoleHField.pdf";
-       "paragraph",     "simulateDipoleSquareSensorArray.pdf";
-       "subsubsection", "util.pdf";
-       "paragraph",     "removeFilesFromDir.pdf";
-       "paragraph",     "publishFilesFromDir.pdf";
-       "paragraph",     "plotFunctions.pdf";
-       "subparagraph",  "plotTDKCharDataset.pdf";
-       "subparagraph",  "plotTDKCharField.pdf";
-       "subparagraph",  "plotTDKTransferCurves.pdf";
-       "subparagraph",  "plotKMZ60CharDataset.pdf";
-       "subparagraph",  "plotKMZ60CharField.pdf";
-       "subparagraph",  "plotKMZ60TransferCurves.pdf";
-       "subparagraph",  "plotDipoleMagnet.pdf";
-       "subparagraph",  "plotSimulationDataset.pdf";
-       "subparagraph",  "plotSingleSimulationAngle.pdf";
-       "subparagraph",  "plotSimulationSubset.pdf";
-       "subparagraph",  "plotSimulationCosSinStats.pdf"
-       "subparagraph",  "plotSimulationDatasetCircle.pdf";
-       "subsection",    "Datasets.pdf";
-       "subsubsection", "TDK_TAS2141_Characterization.pdf";
-       "subsubsection", "NXP_KMZ60_Characterization.pdf";
-       "subsubsection", "Config_Mat.pdf";
-       "subsubsection", "Training_and_Test_Datasets.pdf";
-       "subsection",    "Unit_Tests.pdf";
-       "subsubsection", "runTests.pdf";
-       "subsubsection", "removeFilesFromDirTest.pdf";
-       "subsubsection", "rotate3DVectorTest.pdf";
-       "subsubsection", "generateDipoleRotationMomentsTest.pdf";
-       "subsubsection", "generateSensorArraySquareGridTest.pdf";
-       "subsubsection", "computeDipoleH0NormTest.pdf";
-       "subsubsection", "computeDipoleHFieldTest.pdf";
-       "subsubsection", "tiltRotationTest.pdf";];
+       "section"        "Workflows.pdf";
+       "subsection", "Project_Preparation.pdf";
+       "subsection", "Project_Structure.pdf";
+       "subsection", "Git_Feature_Branch_Workflow.pdf";
+       "subsection", "Documentation_Workflow.pdf";
+       "subsection", "Simulation_Workflow.pdf";
+       "section",    "Executable_Scripts.pdf";
+       "subsection", "publishProjectFilesToHTML.pdf";
+       "subsection", "generateConfigMat.pdf";
+       "subsection", "generateSimulationDatasets.pdf";
+       "subsection", "deleteSimulationDatasets.pdf";
+       "subsection", "deleteSimulationPlots.pdf";
+       "subsection", "exportPublishedToPdf";
+       "section",    "Source_Code.pdf";
+       "subsection", "sensorArraySimulation.pdf";
+       "subsubsection",     "rotate3DVector.pdf";
+       "subsubsection",     "generateDipoleRotationMoments.pdf";
+       "subsubsection",     "generateSensorArraySquareGrid.pdf";
+       "subsubsection",     "computeDipoleH0Norm.pdf";
+       "subsubsection",     "computeDipoleHField.pdf";
+       "subsubsection",     "simulateDipoleSquareSensorArray.pdf";
+       "subsection", "util.pdf";
+       "subsubsection",     "removeFilesFromDir.pdf";
+       "subsubsection",     "publishFilesFromDir.pdf";
+       "subsubsection",     "plotFunctions.pdf";
+       "paragraph",  "plotTDKCharDataset.pdf";
+       "paragraph",  "plotTDKCharField.pdf";
+       "paragraph",  "plotTDKTransferCurves.pdf";
+       "paragraph",  "plotKMZ60CharDataset.pdf";
+       "paragraph",  "plotKMZ60CharField.pdf";
+       "paragraph",  "plotKMZ60TransferCurves.pdf";
+       "paragraph",  "plotDipoleMagnet.pdf";
+       "paragraph",  "plotSimulationDataset.pdf";
+       "paragraph",  "plotSingleSimulationAngle.pdf";
+       "paragraph",  "plotSimulationSubset.pdf";
+       "paragraph",  "plotSimulationCosSinStats.pdf"
+       "paragraph",  "plotSimulationDatasetCircle.pdf";
+       "section",    "Datasets.pdf";
+       "subsection", "TDK_TAS2141_Characterization.pdf";
+       "subsection", "NXP_KMZ60_Characterization.pdf";
+       "subsection", "Config_Mat.pdf";
+       "subsection", "Training_and_Test_Datasets.pdf";
+       "section",    "Unit_Tests.pdf";
+       "subsection", "runTests.pdf";
+       "subsection", "removeFilesFromDirTest.pdf";
+       "subsection", "rotate3DVectorTest.pdf";
+       "subsection", "generateDipoleRotationMomentsTest.pdf";
+       "subsection", "generateSensorArraySquareGridTest.pdf";
+       "subsection", "computeDipoleH0NormTest.pdf";
+       "subsection", "computeDipoleHFieldTest.pdf";
+       "subsection", "tiltRotationTest.pdf";];
 
 nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);
-
-%% Write TOC to LaTeX File
-% Wirete TOC to LaTeX file and generate for each pdf to include a toc content
-% line with marked toc depth.
-disp('Write TOC to Manual.tex ...');
-addPdfStr = "\\includepdf[page=-, pagecommand={\\phantomsection" + ...
-    "\\addcontentsline{toc}{%s}{%s}}]{%s}\n";
-fileID = fopen(fullfile(...
-    PathVariables.exportPublishPath, 'Manual.tex'), 'w');
-% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");
-fprintf(fileID, "%% appendix software documentation\n");
-fprintf(fileID, "%% @author Tobias Wulf\n");
-fprintf(fileID, ...
-    "%% Autogenerated LaTeX file. Generated by exportPublishedToPdf.\n");
-fprintf(fileID, ...
-    "%% Software manual with TOC generated in the same script.\n");
-fprintf(fileID, "%% Generated on %s.\n\n", datestr(datetime('now')));
-for i = 1:nToc
-    level = toc(i);
-    fName = toc(i,2);
-    [~, titleStr, ~] = fileparts(fName);
-    titleStr = strrep(titleStr, '_', ' ');
-    fprintf(fileID, addPdfStr, level, titleStr, fName);
-end
-fclose(fileID);
 
 
 %% Scan for HTML Files
@@ -393,15 +393,15 @@ for fhtml = HTML'
         PathVariables.exportPublishPath, [fName '.pdf']);
     
     cmdStr = join(["wkhtmltopdf", ...
-        "-B 57mm", ...
-        "-L 30mm", ...
-        "-R 30mm", ...
+        "-B 47mm", ...
+        "-L 27mm", ...
+        "-R 27mm", ...
         "-T 37mm", ...
-        "REPLACE_WITH_DASH_DASHminimum-font-size 11", ...
+        "REPLACE_WITH_DASH_DASHminimum-font-size 12", ...
         "REPLACE_WITH_DASH_DASHenable-local-file-access", ...
         "REPLACE_WITH_DASH_DASHdisable-external-links", ...
         "REPLACE_WITH_DASH_DASHdisable-internal-links", ...
-        ..."REPLACE_WITH_DASH_DASHdisable-smart-shrinking", ...
+        ... "REPLACE_WITH_DASH_DASHdisable-smart-shrinking", ...
         "REPLACE_WITH_DASH_DASHwindow-status finished", ...
         "REPLACE_WITH_DASH_DASHno-stop-slow-scripts", ...
         "REPLACE_WITH_DASH_DASHjavascript-delay 2000", ...
@@ -415,7 +415,7 @@ for fhtml = HTML'
             error('Export failure.');
         end
     catch ME
-        %setenv('LD_LIBRARY_PATH', matlabLibPath);
+        setenv('LD_LIBRARY_PATH', matlabLibPath);
         disp(cmdout);
         rethrow(ME)
     end
@@ -423,6 +423,56 @@ end
 
 disp('Restore local library path ...');
 setenv('LD_LIBRARY_PATH', matlabLibPath);
+
+
+%% Write TOC to LaTeX File
+% Wirete TOC to LaTeX file and generate for each pdf to include a toc content
+% line with marked toc depth. Get the number of pages and add only page title
+% first pdf page.
+disp('Write TOC to Manual.tex ...');
+addFirstPage = "\\addtocounter{%s}{1}\n" + ...
+    "\\includepdf[page=1," + ...
+    "pagecommand={\\phantomsection\\" + ...
+    "addcontentsline{toc}{%s}" + ...
+    "{\\protect\\numberline{\\the%s}%s}\\label{%s}}]{%s}\n";
+addRestPages = "\\includepdf[page=2-, pagecommand={\\phantomsection}]{%s}\n";
+
+fileID = fopen(fullfile(...
+    PathVariables.exportPublishPath, 'Manual.tex'), 'w');
+% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");
+fprintf(fileID, "%% appendix software documentation\n");
+fprintf(fileID, "%% @author Tobias Wulf\n");
+fprintf(fileID, ...
+    "%% Autogenerated LaTeX file. Generated by exportPublishedToPdf.\n");
+fprintf(fileID, ...
+    "%% Software manual with TOC generated in the same script.\n");
+fprintf(fileID, "%% Generated on %s.\n\n", datestr(datetime('now')));
+
+pat = regexpPattern("\d+");
+shellStr = "pdfinfo %s | grep Pages";
+
+for i = 1:nToc
+    level = toc(i);
+    fName = toc(i,2);
+    [~, titleStr, ~] = fileparts(fName);
+    titleStr = strrep(titleStr, '_', ' ');
+    try
+        [status, cmdout] = system(sprintf(shellStr, ...
+            fullfile(PathVariables.exportPublishPath, fName)));
+        pages = double(extract(string(cmdout), pat));
+        
+        fprintf(fileID, addFirstPage, level, level, level, ...
+            titleStr, titleStr, fName);
+        if pages > 1, fprintf(fileID, addRestPages, fName); end
+        
+    catch ME
+        setenv('LD_LIBRARY_PATH', matlabLibPath);
+        fclose(fileID);
+        disp(cmdout);
+        rethrow(ME)
+    end   
+end
+fclose(fileID);
 
 ##### SOURCE END #####
 --></body></html>

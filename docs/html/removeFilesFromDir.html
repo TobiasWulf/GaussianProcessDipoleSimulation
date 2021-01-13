@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>removeFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="removeFilesFromDir.m"><style type="text/css">
+      --><title>removeFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="removeFilesFromDir.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>removeFilesFromDir</h1><!--introduction--><p>Remove files from passed direcotory.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">removeStatus = removeFilesFromDir(directory)
+  </style></head><body><div class="content"><h1>removeFilesFromDir</h1><!--introduction--><p>Remove files from passed direcotory.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">removeStatus = removeFilesFromDir(directory)
 removeStatus = removeFilesFromDir(directory, filePattern)
 </pre><h2 id="2">Description</h2><p><b>removeStatus = removeFilesFromDir(directory)</b> removes all files that are located in the passed directory and returns a logical 1 if the operation was successful or 0 if not. The directory argument must be char vector of 1xN and valid path to a existing directory.</p><p><b>removeStatus = removeFilesFromDir(directory, filePattern)</b> removes all files in the located directory which matches the passed file pattern. The filePattern argument must be be char vector of 1xN. It is an optional argument with a default value of '*.*', valid file patterns can be filenames which part replace names by * character before the dot and exisiting file extensions e.g. myfile_*.m or *.txt and so on.</p><h2 id="3">Examples</h2><pre class="language-matlab">d = fullfile(<span class="string">'rootPath'</span>, <span class="string">'subfolder'</span>)
 rs = removeFileFromDir(d)

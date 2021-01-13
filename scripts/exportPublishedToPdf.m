@@ -4,6 +4,8 @@
 % unix sytems only or needs to be adjusted for windows systems for library path
 % and wkhtmltopdf binary path.
 %
+% *Runs on Unix systems only!*
+%
 %
 %% Requirements
 % * Other m-files required: src/util/removeFilesFromDir.m
@@ -47,85 +49,60 @@ end
 % The maual toc must be in the same order as in helptoc.xml in the publish html
 % folder. The toc is used to generate a latex file to include for appendices.
 toc = ["section",       "GaussianProcessDipoleSimulation.pdf";
-       "subsection"     "Workflows.pdf";
-       "subsubsection", "Project_Preparation.pdf";
-       "subsubsection", "Project_Structure.pdf";
-       "subsubsection", "Git_Feature_Branch_Workflow.pdf";
-       "subsubsection", "Documentation_Workflow.pdf";
-       "subsubsection", "Simulation_Workflow.pdf";
-       "subsection",    "Executable_Scripts.pdf";
-       "subsubsection", "publishProjectFilesToHTML.pdf";
-       "subsubsection", "generateConfigMat.pdf";
-       "subsubsection", "generateSimulationDatasets.pdf";
-       "subsubsection", "deleteSimulationDatasets.pdf";
-       "subsubsection", "deleteSimulationPlots.pdf";
-       "subsubsection", "exportPublishedToPdf";
-       "subsection",    "Source_Code.pdf";
-       "subsubsection", "sensorArraySimulation.pdf";
-       "paragraph",     "rotate3DVector.pdf";
-       "paragraph",     "generateDipoleRotationMoments.pdf";
-       "paragraph",     "generateSensorArraySquareGrid.pdf";
-       "paragraph",     "computeDipoleH0Norm.pdf";
-       "paragraph",     "computeDipoleHField.pdf";
-       "paragraph",     "simulateDipoleSquareSensorArray.pdf";
-       "subsubsection", "util.pdf";
-       "paragraph",     "removeFilesFromDir.pdf";
-       "paragraph",     "publishFilesFromDir.pdf";
-       "paragraph",     "plotFunctions.pdf";
-       "subparagraph",  "plotTDKCharDataset.pdf";
-       "subparagraph",  "plotTDKCharField.pdf";
-       "subparagraph",  "plotTDKTransferCurves.pdf";
-       "subparagraph",  "plotKMZ60CharDataset.pdf";
-       "subparagraph",  "plotKMZ60CharField.pdf";
-       "subparagraph",  "plotKMZ60TransferCurves.pdf";
-       "subparagraph",  "plotDipoleMagnet.pdf";
-       "subparagraph",  "plotSimulationDataset.pdf";
-       "subparagraph",  "plotSingleSimulationAngle.pdf";
-       "subparagraph",  "plotSimulationSubset.pdf";
-       "subparagraph",  "plotSimulationCosSinStats.pdf"
-       "subparagraph",  "plotSimulationDatasetCircle.pdf";
-       "subsection",    "Datasets.pdf";
-       "subsubsection", "TDK_TAS2141_Characterization.pdf";
-       "subsubsection", "NXP_KMZ60_Characterization.pdf";
-       "subsubsection", "Config_Mat.pdf";
-       "subsubsection", "Training_and_Test_Datasets.pdf";
-       "subsection",    "Unit_Tests.pdf";
-       "subsubsection", "runTests.pdf";
-       "subsubsection", "removeFilesFromDirTest.pdf";
-       "subsubsection", "rotate3DVectorTest.pdf";
-       "subsubsection", "generateDipoleRotationMomentsTest.pdf";
-       "subsubsection", "generateSensorArraySquareGridTest.pdf";
-       "subsubsection", "computeDipoleH0NormTest.pdf";
-       "subsubsection", "computeDipoleHFieldTest.pdf";
-       "subsubsection", "tiltRotationTest.pdf";];
+       "section"        "Workflows.pdf";
+       "subsection", "Project_Preparation.pdf";
+       "subsection", "Project_Structure.pdf";
+       "subsection", "Git_Feature_Branch_Workflow.pdf";
+       "subsection", "Documentation_Workflow.pdf";
+       "subsection", "Simulation_Workflow.pdf";
+       "section",    "Executable_Scripts.pdf";
+       "subsection", "publishProjectFilesToHTML.pdf";
+       "subsection", "generateConfigMat.pdf";
+       "subsection", "generateSimulationDatasets.pdf";
+       "subsection", "deleteSimulationDatasets.pdf";
+       "subsection", "deleteSimulationPlots.pdf";
+       "subsection", "exportPublishedToPdf";
+       "section",    "Source_Code.pdf";
+       "subsection", "sensorArraySimulation.pdf";
+       "subsubsection",     "rotate3DVector.pdf";
+       "subsubsection",     "generateDipoleRotationMoments.pdf";
+       "subsubsection",     "generateSensorArraySquareGrid.pdf";
+       "subsubsection",     "computeDipoleH0Norm.pdf";
+       "subsubsection",     "computeDipoleHField.pdf";
+       "subsubsection",     "simulateDipoleSquareSensorArray.pdf";
+       "subsection", "util.pdf";
+       "subsubsection",     "removeFilesFromDir.pdf";
+       "subsubsection",     "publishFilesFromDir.pdf";
+       "subsubsection",     "plotFunctions.pdf";
+       "paragraph",  "plotTDKCharDataset.pdf";
+       "paragraph",  "plotTDKCharField.pdf";
+       "paragraph",  "plotTDKTransferCurves.pdf";
+       "paragraph",  "plotKMZ60CharDataset.pdf";
+       "paragraph",  "plotKMZ60CharField.pdf";
+       "paragraph",  "plotKMZ60TransferCurves.pdf";
+       "paragraph",  "plotDipoleMagnet.pdf";
+       "paragraph",  "plotSimulationDataset.pdf";
+       "paragraph",  "plotSingleSimulationAngle.pdf";
+       "paragraph",  "plotSimulationSubset.pdf";
+       "paragraph",  "plotSimulationCosSinStats.pdf"
+       "paragraph",  "plotSimulationDatasetCircle.pdf";
+       "section",    "Datasets.pdf";
+       "subsection", "TDK_TAS2141_Characterization.pdf";
+       "subsection", "NXP_KMZ60_Characterization.pdf";
+       "subsection", "Config_Mat.pdf";
+       "subsection", "Training_and_Test_Datasets.pdf";
+       "section",    "Unit_Tests.pdf";
+       "subsection", "runTests.pdf";
+       "subsection", "removeFilesFromDirTest.pdf";
+       "subsection", "rotate3DVectorTest.pdf";
+       "subsection", "generateDipoleRotationMomentsTest.pdf";
+       "subsection", "generateSensorArraySquareGridTest.pdf";
+       "subsection", "computeDipoleH0NormTest.pdf";
+       "subsection", "computeDipoleHFieldTest.pdf";
+       "subsection", "tiltRotationTest.pdf";];
 
 nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);
-
-%% Write TOC to LaTeX File
-% Wirete TOC to LaTeX file and generate for each pdf to include a toc content
-% line with marked toc depth.
-disp('Write TOC to Manual.tex ...');
-addPdfStr = "\\includepdf[page=-, pagecommand={\\phantomsection" + ...
-    "\\addcontentsline{toc}{%s}{%s}}]{%s}\n";
-fileID = fopen(fullfile(...
-    PathVariables.exportPublishPath, 'Manual.tex'), 'w');
-% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");
-fprintf(fileID, "%% appendix software documentation\n");
-fprintf(fileID, "%% @author Tobias Wulf\n");
-fprintf(fileID, ...
-    "%% Autogenerated LaTeX file. Generated by exportPublishedToPdf.\n");
-fprintf(fileID, ...
-    "%% Software manual with TOC generated in the same script.\n");
-fprintf(fileID, "%% Generated on %s.\n\n", datestr(datetime('now')));
-for i = 1:nToc
-    level = toc(i);
-    fName = toc(i,2);
-    [~, titleStr, ~] = fileparts(fName);
-    titleStr = strrep(titleStr, '_', ' ');
-    fprintf(fileID, addPdfStr, level, titleStr, fName);
-end
-fclose(fileID);
 
 
 %% Scan for HTML Files
@@ -162,15 +139,15 @@ for fhtml = HTML'
         PathVariables.exportPublishPath, [fName '.pdf']);
     
     cmdStr = join(["wkhtmltopdf", ...
-        "-B 57mm", ...
-        "-L 30mm", ...
-        "-R 30mm", ...
+        "-B 47mm", ...
+        "-L 27mm", ...
+        "-R 27mm", ...
         "-T 37mm", ...
-        "--minimum-font-size 11", ...
+        "--minimum-font-size 12", ...
         "--enable-local-file-access", ...
         "--disable-external-links", ...
         "--disable-internal-links", ...
-        ..."--disable-smart-shrinking", ...
+        ... "--disable-smart-shrinking", ...
         "--window-status finished", ...
         "--no-stop-slow-scripts", ...
         "--javascript-delay 2000", ...
@@ -184,7 +161,7 @@ for fhtml = HTML'
             error('Export failure.');
         end
     catch ME
-        %setenv('LD_LIBRARY_PATH', matlabLibPath);
+        setenv('LD_LIBRARY_PATH', matlabLibPath);
         disp(cmdout);
         rethrow(ME)
     end
@@ -192,3 +169,53 @@ end
 
 disp('Restore local library path ...');
 setenv('LD_LIBRARY_PATH', matlabLibPath);
+
+
+%% Write TOC to LaTeX File
+% Wirete TOC to LaTeX file and generate for each pdf to include a toc content
+% line with marked toc depth. Get the number of pages and add only page title
+% first pdf page.
+disp('Write TOC to Manual.tex ...');
+addFirstPage = "\\addtocounter{%s}{1}\n" + ...
+    "\\includepdf[page=1," + ...
+    "pagecommand={\\phantomsection\\" + ...
+    "addcontentsline{toc}{%s}" + ...
+    "{\\protect\\numberline{\\the%s}%s}\\label{%s}}]{%s}\n";
+addRestPages = "\\includepdf[page=2-, pagecommand={\\phantomsection}]{%s}\n";
+
+fileID = fopen(fullfile(...
+    PathVariables.exportPublishPath, 'Manual.tex'), 'w');
+% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");
+fprintf(fileID, "%% appendix software documentation\n");
+fprintf(fileID, "%% @author Tobias Wulf\n");
+fprintf(fileID, ...
+    "%% Autogenerated LaTeX file. Generated by exportPublishedToPdf.\n");
+fprintf(fileID, ...
+    "%% Software manual with TOC generated in the same script.\n");
+fprintf(fileID, "%% Generated on %s.\n\n", datestr(datetime('now')));
+
+pat = regexpPattern("\d+");
+shellStr = "pdfinfo %s | grep Pages";
+
+for i = 1:nToc
+    level = toc(i);
+    fName = toc(i,2);
+    [~, titleStr, ~] = fileparts(fName);
+    titleStr = strrep(titleStr, '_', ' ');
+    try
+        [status, cmdout] = system(sprintf(shellStr, ...
+            fullfile(PathVariables.exportPublishPath, fName)));
+        pages = double(extract(string(cmdout), pat));
+        
+        fprintf(fileID, addFirstPage, level, level, level, ...
+            titleStr, titleStr, fName);
+        if pages > 1, fprintf(fileID, addRestPages, fName); end
+        
+    catch ME
+        setenv('LD_LIBRARY_PATH', matlabLibPath);
+        fclose(fileID);
+        disp(cmdout);
+        rethrow(ME)
+    end   
+end
+fclose(fileID);

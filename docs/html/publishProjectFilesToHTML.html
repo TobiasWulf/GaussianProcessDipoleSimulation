@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>publishProjectFilesToHTML</h1><!--introduction--><p>The script is used to publish all toolbox included files to HTML documentation folder docs/html. The script runs a section with certain options for each project part and uses the built-in function to generate the documentation files. For a complete documentation support each generated html document needs to get listed in the project helptoc file with toc entry.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Requirements</a></li><li><a href="#2">See Also</a></li><li><a href="#3">Start Publishing Script, Clean Up and Load Config</a></li><li><a href="#4">Remove Equation PNG Files</a></li><li><a href="#5">Project Documentation Files</a></li><li><a href="#6">Executable Script Files</a></li><li><a href="#7">Source Code Functions and Classes</a></li><li><a href="#8">Unit Test Scripts</a></li><li><a href="#9">Build Documentation Database for Matlab Help Browser</a></li><li><a href="#10">Open Generated Documentation.</a></li></ul></div><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: None</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="publishFilesFromDir.html">publishFilesFromDir</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html'))">builddocsearchdb</a></li><li><a href="removeFilesFromDir.html">removeFilesFromDir</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+  </style></head><body><div class="content"><h1>publishProjectFilesToHTML</h1><!--introduction--><p>The script is used to publish all toolbox included files to HTML documentation folder docs/html. The script runs a section with certain options for each project part and uses the built-in function to generate the documentation files. For a complete documentation support each generated html document needs to get listed in the project helptoc file with toc entry.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: src/util/removeFilesFromDir.m</li><li>Subfunctions: None</li><li>MAT-files required: data/config.mat</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="publishFilesFromDir.html">publishFilesFromDir</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/builddocsearchdb.html'))">builddocsearchdb</a></li><li><a href="removeFilesFromDir.html">removeFilesFromDir</a></li><li><a href="Documentation_Workflow.html">Documentation Workflow</a></li></ul></div><p>Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -134,10 +134,9 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 </pre><h2 id="7">Source Code Functions and Classes</h2><p>That part of the publish script collects function and class m-files from the util section of the source code located in src/. Introcude every new m-file to the source code related documentation m-file and add a description. In general functions and class files are not executed on publishing execution so set evalCode option to false in PublishOptions struct. In addition to that the source code itself should not be in the published document, so the showCode option is switched to false. Publish recursively from underlaying directory tree, verbose.</p><pre class="codeinput">disp(<span class="string">'Publish source code functions and classes ...'</span>);
 PublishOptions.evalCode = false;
 publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
-</pre><h2 id="8">Unit Test Scripts</h2><p>Publish unit tests scripts and run test suite to include unit test results. It is the only section of whole publish process which executes script code. The test files are closed loop and do not harm other sections of source code.</p><pre class="codeinput">disp(<span class="string">'Publish unit tests scripts ...'</span>);
-PublishOptions.evalCode = true;
-publishFilesFromDir(PathVariables.unittestPath, <span class="keyword">...</span>
-    PublishOptions, true, true);
+</pre><h2 id="8">Unit Test Scripts</h2><p>Publish unit tests scripts for each made test script and overall test runner.</p><pre class="codeinput">disp(<span class="string">'Publish unit tests scripts ...'</span>);
+PublishOptions.evalCode = false;
+publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
 </pre><h2 id="9">Build Documentation Database for Matlab Help Browser</h2><p>To support Matlabs help browser it is needed build searchable help browser entries including a searchable database backend. Matlabs built-in function builddocsearchdb does the trick. The function just needs the output directory of built HTML documentation and it creates a subfolder which includes the database. About the info.xml from the project root and the helptoc.xml file the html documentation folder all listet documentation is accessable. At first remove old database before build the new reference database. Remove autogenerated directory helpsearch-v3. At first get folder content and remove first two relative directory entries from struct. Then delete files and check if files do not exist any more. At least build up new search database entries to Matlab help.</p><pre class="codeinput">disp(<span class="string">'Remove old search entries ...'</span>);
 clearvars;
 close <span class="string">all</span>;
@@ -280,15 +279,10 @@ publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 
 
 %% Unit Test Scripts
-% Publish unit tests scripts and run test suite to include unit test
-% results. It is the only section of whole publish process which executes
-% script code. The test files are closed loop and do not harm other
-% sections of source code.
+% Publish unit tests scripts for each made test script and overall test runner.
 disp('Publish unit tests scripts ...');
-PublishOptions.evalCode = true;
-publishFilesFromDir(PathVariables.unittestPath, ...
-    PublishOptions, true, true);
-
+PublishOptions.evalCode = false;
+publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
 
 
 %% Build Documentation Database for Matlab Help Browser

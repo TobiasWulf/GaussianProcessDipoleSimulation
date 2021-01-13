@@ -120,15 +120,10 @@ publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 
 
 %% Unit Test Scripts
-% Publish unit tests scripts and run test suite to include unit test
-% results. It is the only section of whole publish process which executes
-% script code. The test files are closed loop and do not harm other
-% sections of source code.
+% Publish unit tests scripts for each made test script and overall test runner.
 disp('Publish unit tests scripts ...');
-PublishOptions.evalCode = true;
-publishFilesFromDir(PathVariables.unittestPath, ...
-    PublishOptions, true, true);
-
+PublishOptions.evalCode = false;
+publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
 
 
 %% Build Documentation Database for Matlab Help Browser

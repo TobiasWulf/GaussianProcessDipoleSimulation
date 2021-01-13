@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-10"><meta name="DC.source" content="publishFilesFromDir.m"><style type="text/css">
+      --><title>publishFilesFromDir</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="publishFilesFromDir.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>publishFilesFromDir</h1><!--introduction--><p>Publish m-files from given directory with passed publishing options.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Examples</a></li><li><a href="#4">Input Arguments</a></li><li><a href="#5">Output Arguments</a></li><li><a href="#6">Requirements</a></li><li><a href="#7">See Also</a></li></ul></div><h2 id="1">Syntax</h2><pre class="language-matlab">publishFilesFromDir(directory, PublishOptions)
+  </style></head><body><div class="content"><h1>publishFilesFromDir</h1><!--introduction--><p>Publish m-files from given directory with passed publishing options.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">publishFilesFromDir(directory, PublishOptions)
 publishFilesFromDir(directory, PublishOptions, recursivly)
 publishFilesFromDir(directory, PublishOptions, recursivly, verbose)
 </pre><h2 id="2">Description</h2><p><b>publishFilesFromDir(directory, PublishOptions)</b> publish m-files wich are located in the passed directory with options from passed publishing options struct which is must be strictly formatted after given example from Matlab documentation.</p><p><b>publishFilesFromDir(directory, PublishOptions, recursive)</b> publishing like described before but scan the directory recursively for m-files. Default is false for do not recursively.</p><p><b>publishFilesFromDir(directory, PublishOptions, recursive, verbose)</b> with optional verbose set to true the published html files will be displayed in the prompt. Default is false.</p><h2 id="3">Examples</h2><pre class="language-matlab">directory = <span class="string">'src'</span>;

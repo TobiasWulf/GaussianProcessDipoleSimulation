@@ -1,3 +1,7 @@
+%%% 
+% <html><h1>removeFilesFromDirTest</h1></html>
+%
+
 % create test directory with files
 cd(fileparts(which('removeFilesFromDirTest')));
 mkdir('testDir');

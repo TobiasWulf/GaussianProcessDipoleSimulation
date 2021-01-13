@@ -1,3 +1,7 @@
+%%% 
+% <html><h1>computeDipoleH0NormTest</h1></html>
+%
+
 % create a dipole with constant sphere radius in rest position and relative
 % to sensor array with position x=0, y=0, z=0
 % sphere radius 2mm
