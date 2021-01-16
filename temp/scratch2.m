@@ -53,12 +53,12 @@ kernel = optimizableVariable('KernelFunction', ...
 sigma = optimizableVariable('Sigma',[1e-4,10],'Transform','log');
 
 % Call bayesopt, capturing XCTrain and refTrainCos in the objective function
-BOC = bayesopt(@(T)objFcn(T,XCTrain,refTrainCos), [sigma, kernel], ...
+BOC = bayesopt(@(T)objFcn(T,XCTrain,refTrainCos,VcosTest,refTestCos,Voff), [sigma, kernel], ...
     ... 'AcquisitionFunctionName', 'expected-improvement-per-second', ...
     'MaxObjectiveEvaluations', 100);
 
 % Call bayesopt, capturing XCTrain and refTrainCos in the objective function
-BOS = bayesopt(@(T)objFcn(T,XSTrain,refTrainSin), [sigma, kernel], ...
+BOS = bayesopt(@(T)objFcn(T,XSTrain,refTrainSin,VsinTest,refTestSin,Voff), [sigma, kernel], ...
     ... 'AcquisitionFunctionName', 'expected-improvement-per-second', ...
     'MaxObjectiveEvaluations', 100);
 
@@ -67,13 +67,13 @@ BOS = bayesopt(@(T)objFcn(T,XSTrain,refTrainSin), [sigma, kernel], ...
 kernelC = char(BOC.XAtMinObjective.KernelFunction);
 sigmaC = BOC.XAtMinObjective.Sigma;
 gpC = fitrgp(XCTrain, refTrainCos, 'KernelFunction', kernelC, 'Sigma', sigmaC, ...
-    'DistanceMethod', 'accurate', 'Verbose', 1);
+    'Verbose', 1);
 
 % build GP with best fit kernel for cosinus
 kernelS = char(BOS.XAtMinObjective.KernelFunction);
 sigmaS = BOS.XAtMinObjective.Sigma;
 gpS = fitrgp(XSTrain, refTrainSin, 'KernelFunction', kernelS, 'Sigma', sigmaS, ...
-    'DistanceMethod', 'accurate', 'Verbose', 1);
+    'Verbose', 1);
 
 % predict test inputs for cosinus and sinus
 predC = zeros(length(refTestCos), 1);
@@ -118,10 +118,17 @@ title(sprintf('Atan2 Error \\mu = %.3f^\\circ, max = %.3f^\\circ', MEATAN2, XEAT
 % save('temp/WS-scratch2.mat');
 
 % function object to perform bayes optimazation on kernel and simga
-function Loss = objFcn(Vars, x, y)
+function Loss = objFcn(Vars, x, y, xs, ys, off)
 m = fitrgp(x, y, 'KernelFunction', char(Vars.KernelFunction), ...
-                 'Sigma', Vars.Sigma, 'ConstantSigma', true,...
-                 'DistanceMethod', 'accurate', ...
-                 'KFold', 5);
-Loss = kfoldLoss(m);
+                 'Sigma', Vars.Sigma, 'ConstantSigma', true);
+
+[M, ~, N] = size(xs);
+Loss = zeros(N, 1);
+for n = 1:N
+    xsr = reshape(xs(:,:,n),1,M^2) - off;
+    % Loss(n) = loss(m, xsr, ys(n));
+    yp = predict(m, xsr);
+    Loss(n) = abs(yp-ys(n));
+end
+Loss = max(Loss);
 end

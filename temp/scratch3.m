@@ -1,4 +1,4 @@
-% Created on January 06. 2021 by Tobias Wulf. Tobias Wulf 2021.
+% Created on January 13. 2021 by Tobias Wulf. Tobias Wulf 2021.
 % start script
 clearvars
 clc
@@ -37,34 +37,100 @@ refTestSin = sin(refTestRad);
 % reshape training and test data to fit gp model N rows and M columns
 XCTrain = zeros(N,M);
 XSTrain = zeros(N,M);
-%XATrain = zeros(N,M);
 for n = 1:N
     XCTrain(n,:) = reshape(VcosTrain(:,:,n),1,M) - Voff;
     XSTrain(n,:) = reshape(VsinTrain(:,:,n),1,M) - Voff;
 end
-%for m=1:M
-%    XATrain(:,m) = refTrainRad;
-%end    
-
-% apply atan2 on training data and unwrap
-XATrain = unwrap(atan2(XSTrain,XCTrain), [], 1);
 
 
-% build GP with best fit kernel for atan2
-%kernelS = char(BOS.XAtMinObjective.KernelFunction);
-%sigmaS = BOS.XAtMinObjective.Sigma;
-gpA = fitrgp(XATrain, refTrainRad, ...
-    'DistanceMethod', 'accurate', 'Verbose', 1);
+% define optimization variables for kernel and sigma (noise adjust)
+kernel = optimizableVariable('KernelFunction', ...
+    {'exponential','squaredexponential','matern32','matern52', ...
+     'rationalquadratic','ardexponential','ardsquaredexponential', ...
+     'ardmatern32','ardmatern52','ardrationalquadratic'},...
+    'Type','categorical');
+
+sigma = optimizableVariable('Sigma',[1e-4,10],'Transform','log');
+
+% Call bayesopt, capturing the objective function
+BO = bayesopt(@(T)objFcn(T, ...
+    XCTrain,refTrainCos, ...
+    XSTrain,refTrainSin, ...
+    VcosTest,refTestCos, ...
+    VsinTest,refTestSin, ...
+    Voff), ...
+    [sigma, kernel], ...
+    ... 'AcquisitionFunctionName', 'expected-improvement-per-second', ...
+    'MaxObjectiveEvaluations', 100);
+
+% build GP with best fit kernel for cosinus and sinus
+kernel = char(BO.XAtMinObjective.KernelFunction);
+sigma = BO.XAtMinObjective.Sigma;
+gpC = fitrgp(XCTrain, refTrainCos, 'KernelFunction', kernel, 'Sigma', sigma, ...
+    'Verbose', 1);
+
+gpS = fitrgp(XSTrain, refTrainSin, 'KernelFunction', kernel, 'Sigma', sigma, ...
+    'Verbose', 1);
 
 % predict test inputs for cosinus and sinus
-predA = zeros(length(refTestRad), 1);
+predC = zeros(length(refTestCos), 1);
+predS = zeros(length(refTestSin), 1);
 for n = 1:length(refTestCos)
     XCTest = reshape(VcosTest(:,:,n),1,M) - Voff;
+    predC(n) = predict(gpC, XCTest);
     XSTest = reshape(VsinTest(:,:,n),1,M) - Voff;
-    XATest = atan2(XSTest,XCTest);
-    i = XATest < 0;
-    XATest(i) = XATest(i) + 2*pi;
-    %if n > 360, XATest = XATest + 2*pi;end
-    predA(n) = predict(gpA, XATest);
+    predS(n) = predict(gpS, XSTest);
 end
 
+% calculate mean and max erros
+ECOS = abs(predC - refTestCos);
+ESIN = abs(predS - refTestSin);
+EATAN2 = abs(unwrap(atan2(predS, predC) - refTestRad)) * 180 / pi;
+MECOS = mean(ECOS);
+XECOS = max(ECOS);
+MESIN = mean(ESIN);
+XESIN = max(ESIN);
+MEATAN2 = mean(EATAN2);
+XEATAN2 = max(EATAN2);
+
+% plot errors
+figure();
+plot(ECOS);
+xlabel('n');
+ylabel('abs');
+title(sprintf('Cos Error \\mu = %.3f, max = %.3f', MECOS, XECOS));
+
+figure();
+plot(ESIN);
+xlabel('n');
+ylabel('abs');
+title(sprintf('Sin Error \\mu = %.3f, max = %.3f', MESIN, XESIN));
+
+figure();
+plot(EATAN2);
+xlabel('n');
+ylabel('abs [\circ]');
+title(sprintf('Atan2 Error \\mu = %.3f^\\circ, max = %.3f^\\circ', MEATAN2, XEATAN2));
+
+% save('temp/WS-scratch2.mat');
+
+% function object to perform bayes optimazation on kernel and simga
+function Loss = objFcn(Vars, xc, yc, xs, ys, xcc, ycc, xss, yss, off)
+mc = fitrgp(xc, yc, 'KernelFunction', char(Vars.KernelFunction), ...
+                 'Sigma', Vars.Sigma, 'ConstantSigma', true);
+
+ms = fitrgp(xs, ys, 'KernelFunction', char(Vars.KernelFunction), ...
+                 'Sigma', Vars.Sigma, 'ConstantSigma', true);
+             
+[M, ~, N] = size(xss);
+ysp = zeros(N, 1);
+ycp = zeros(N, 1);
+
+for n = 1:N
+    xsr = reshape(xss(:,:,n),1,M^2) - off;
+    xcr = reshape(xcc(:,:,n),1,M^2) - off;
+    ycp(n) = predict(mc, xcr);
+    ysp(n) = predict(ms, xsr); 
+end
+Loss = max(abs(unwrap(atan2(yss,ycc)) - unwrap(atan2(ysp,ycp))));
+end

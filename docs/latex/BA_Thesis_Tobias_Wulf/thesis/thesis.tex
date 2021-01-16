@@ -56,12 +56,12 @@
 \clearpage
 \pagenumbering{arabic}
 % Add additional chapters here
-\input{chapters/1_chapter}
-\input{chapters/2_chapter}
-\input{chapters/3_chapter}
-\input{chapters/4_chapter}
-\input{chapters/5_chapter}
-\input{chapters/6_chapter}
+\input{chapters/1-Motivation}
+\input{chapters/2-Grundlagen}
+\input{chapters/3-Entwicklung-von-Software-fuer-die-Optimierungs-Experimente}
+\input{chapters/4-Erprobungs-und-Optimierungs-Experimente}
+\input{chapters/5-Auswertung}
+\input{chapters/6-Zusammenfassung-und-Bewertung}
 
 % List of figures here
 \IListOfFigures
@@ -93,27 +93,9 @@
 \addcontentsline{toc}{part}{\appendixname}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
 \setcounter{secnumdepth}{5}
-\input{appendix/1_appendix}
-\input{appendix/2_appendix}
+\input{appendix/1-Genutzte-Software}
+\input{appendix/2-Software-Dokumentation}
 
-%\renewcommand{\appendixtocname}{Anhang}
-%\renewcommand{\appendixpagename}{Anhang}
-%\begin{appendices}
-%	\addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
-%	\setcounter{secnumdepth}{5}
-%	\makeatletter
-%	\addtocontents{toc}{%
-%		\begingroup
-%		\let\protect\l@chapter\protect\l@section
-%		\let\protect\l@section\protect\l@subsection
-%		\let\protect\l@subsection\protect\l@subsubsection
-%	}
-%	\makeatother
-	
-	% appendix pages
-%	\input{appendix/1_appendix}
-%	\input{appendix/2_appendix}
-%\end{appendices}
 
 \Istatement
 
