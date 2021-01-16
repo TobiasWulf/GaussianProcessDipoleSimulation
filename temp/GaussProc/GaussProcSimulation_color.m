@@ -4,20 +4,20 @@ clear all
 % clc 
 %addpath('../linAlg/');
 % Daten für die Lernphase 
-load('../../data/test/Test_2021-01-05_13-57-09-083.mat', 'Data');
+load('../../data/test/Test_2021-01-15_14-43-52-763.mat', 'Data');
 D = struct();
 D.Vc = Data.Vcos;
 D.Vs = Data.Vsin;
 D.alpha = Data.angles * pi /180;
 
 % Datan für die Arbeitsphase
-load('../../data/test/Test_2021-01-05_13-57-09-083.mat', 'Data');
+load('../../data/test/Test_2021-01-15_14-43-52-763.mat', 'Data');
 Dpred = struct();
 Dpred.Vc = Data.Vcos;
 Dpred.Vs = Data.Vsin;
 Dpred.alpha = Data.angles * pi /180;
 
-nRef        = 16;                    % Number of ref angles 
+nRef        = 7;                    % Number of ref angles 
 labelSize   = 10; 
 tickSize    = 9; 
 legendSize  = 8; 
