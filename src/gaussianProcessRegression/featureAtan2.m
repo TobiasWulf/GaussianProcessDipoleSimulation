@@ -4,11 +4,9 @@
 %
 function H = featureAtan2(Xcos, Xsin)
     assert(all(size(Xcos) == size(Xsin)));
-    [D1, D2, N] = size(Xcos);
-    H = zeros(D1 * D2, N);
+    [~, ~, N] = size(Xcos);
+    H = ones(2, N);
     for n = 1:N
-        h = atan2(Xsin(:,:,n), Xcos(:,:,n));
-        H(:, n) = h(:);
+        H(2, n) = atan2(mean2(Xsin(:,:,n)), mean2(Xcos(:,:,n)));
     end
-    H = [ones(1,N); H];
 end

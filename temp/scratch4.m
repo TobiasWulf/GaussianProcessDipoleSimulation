@@ -90,6 +90,7 @@ opts2.UT = true;
 alphaCos = linsolve(L', linsolve(L, ycos - squeeze(mean(Xcos, 2) - off)' * ones(D,1) * beta1, opts1), opts2);
 alphaSin = linsolve(L', linsolve(L, ysin - squeeze(mean(Xsin, 2) - off)' * ones(D,1) * beta2, opts1), opts2);
 alphaTan = linsolve(L', linsolve(L, atan2(ysin, ycos) - atan2(squeeze(mean(Xsin, 2) - off)' * ones(D,1) * beta2, squeeze(mean(Xcos, 2) - off)' * ones(D,1) * beta1), opts1), opts2);
+alphaTan2 = linsolve(L', linsolve(L, atan2(ysin, ycos) - atan2(squeeze(mean(mean(Xsin-off, 2),1)), squeeze(mean(mean(Xcos-off, 2),1))), opts1), opts2);
 
 % alphaCos = R \ (R' \ ycos);
 % alphaSin = R \ (R' \ ysin);
@@ -120,6 +121,7 @@ Ntest = testDS.Info.UseOptions.nAngles;
 fMeanCos = zeros(Ntest, 1);
 fMeanSin = zeros(Ntest, 1);
 fMeanTan = zeros(Ntest, 1);
+fMeanTan2 = zeros(Ntest, 1);
 Vf = zeros(Ntest, 1);
 
 % predict angle by angle
@@ -137,6 +139,7 @@ for n = 1:Ntest
     fMeanSin(n) = (mean(XtestSin, 1) - off) * ones(D,1) * beta2 + kx' * alphaSin;
     hTbeta = atan2((mean(XtestSin, 1) - off) * ones(D,1) * beta2, (mean(XtestCos, 1) - off) * ones(D,1) * beta1);
     fMeanTan(n) =  hTbeta+ kx' * alphaTan;
+    fMeanTan2(n) =  atan2(mean2(XtestSin-off), mean2(XtestCos-off)) + kx' * alphaTan2;
 
     % compute predictive variance
     opts.LT = true;
@@ -150,7 +153,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-H = featureAtan2(Xcos, Xsin);
+H = featureAtan2(Xcos - off, Xsin - off);
 
 L1 = cholDecomposeA2L(Ky);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

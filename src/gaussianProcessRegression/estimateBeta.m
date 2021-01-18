@@ -7,11 +7,26 @@
 % triangle matrix L of Ky.
 %
 function beta = estimateBeta(H, L, y)
+    % Ky^-1 * y
     alpha0 = computeInverseMatrixProduct(L, y);
-    Alpha1 = zeros(size(H'));
-    for n=1:length(H')
-        Alpha1(:,n) = computeInverseMatrixProduct(L, H(n,:)');
+    
+    % Ky^-1 * HT
+    [P, N] = size(H);
+    alpha1 = zeros(N, P);
+    for p=1:P
+        alpha1(:,p) = computeInverseMatrixProduct(L, H(p,:)');
     end
-    Alpha2 = H * Alpha1;
-    beta = Alpha2;
+    
+    % H * Ky^-1 * HT
+    alpha2 = H * alpha1;
+    
+    % (H * Ky^-1 * HT)^-1 * H
+    L2 = chol(alpha2, 'lower');
+    alpha3 = zeros(P, N);
+    for n = 1:N
+        alpha3(:,n) = computeInverseMatrixProduct(L2, H(:,n));
+    end
+    
+    % ((H * (Ky^-1 * HT))^-1 * H) * (Ky^-1 * y)
+    beta = alpha3 * alpha0;
 end
