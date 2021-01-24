@@ -9,26 +9,26 @@
 % varargout 2: sinus diff
 % varargout 3: cosinus diff
 %
-function [sinus, cosinus, varargout] = angles2sinoids(angles, rad, amp, pf, namedargs)
+function [sine, cosine, varargout] = angles2sinoids(angles, rad, pf, amp, namedargs)
     arguments
-        % validate angles and origins as row vectors of same length
-        angles (1,:) double {mustBeVector, mustBeReal}
+        % validate angles and origins as column vectors of same length
+        angles (:,1) double {mustBeVector, mustBeReal}
         % validate rad option flag as boolean with default true
         rad (1,1) logical {mustBeNumericOrLogical} = true
-        % validate amplitude vector as real scalar factor with default 1
-        amp (1,1) double {mustBeReal} = 1
         % validate period factor as real, positive scalar with default 1
         pf (1,1) double {mustBePositive} = 1
-        namedargs.sinus (1,:) double {mustBeReal, mustBeEqualSize(angles, namedargs.sinus)}
-        namedargs.cosinus (1,:) double {mustBeReal, mustBeEqualSize(angles, namedargs.cosinus)}
+        % validate amplitude vector as real scalar factor with default 1
+        amp (1,1) double {mustBeReal} = 1
+        namedargs.sine (:,1) double {mustBeReal, mustBeEqualSize(angles, namedargs.sine)}
+        namedargs.cosine (:,1) double {mustBeReal, mustBeEqualSize(angles, namedargs.cosine)}
     end
     
     % if rad flag is false and angles in degree convert to rad
     if ~rad, angles = angles * pi / 180; end
     
     % calculate sinoids
-    sinus = amp * sin(pf * angles);
-    cosinus = amp * cos(pf * angles);
+    sine = amp * sin(pf * angles);
+    cosine = amp * cos(pf * angles);
     
     % angles in rad
     if nargout > 2
@@ -36,18 +36,18 @@ function [sinus, cosinus, varargout] = angles2sinoids(angles, rad, amp, pf, name
     end
     % sinus difference
     if nargout > 3
-        if isfield(namedargs, 'sinus')
-            varargout{2} = diff([sinus; namedargs.sinus], 1, 1);
+        if isfield(namedargs, 'sine')
+            varargout{2} = diff([sine, namedargs.sine], 1, 2);
         else
-            varargout{2} = NaN(1, length(angles));
+            varargout{2} = NaN(length(angles), 1);
         end
     end
     % cosinus difference
     if nargout > 4
-        if isfield(namedargs, 'cosinus')
-            varargout{3} = diff([cosinus; namedargs.cosinus], 1, 1);
+        if isfield(namedargs, 'cosine')
+            varargout{3} = diff([cosine, namedargs.cosine], 1, 2);
         else
-            varargout{3} = NaN(1, length(angles));
+            varargout{3} = NaN(length(angles), 1);
         end
     end
 end

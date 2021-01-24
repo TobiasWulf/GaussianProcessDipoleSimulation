@@ -4,3 +4,55 @@
 %
 
 \chapter{Entwicklung von Software für die Optimierungs-Experimente 0.0.1 13.01.2021}
+
+\section{Aufgabe der Software und grundsätzliche Funktion}
+\begin{itemize}
+	\item Identifizierung der Grundfunktionen
+	\item Datengenerierung
+	\item Datenanalyse
+	\item Sonderfunktion
+	\item Darstellungs- und Plot-Funktionen
+\end{itemize}
+
+Die Software-Entwicklung erfolgt unter dem Gesichtspunkt zur Durchführung von Versuchsreihen zu 
+Parameterfindung und teilweise auf Zwischenergebnissen basieren.
+Gut strukturierte Archivierung von Ergebnisse.
+Graphische Unterstützung von Auswertung.
+ 
+\section{Aufbau und Vorgehen}
+	\begin{itemize}
+		\item Skriptbasierte Entwurfsarbeit
+		\item Überführen in modularen Aufbau von Kernfunktion
+		\item Parametrierte Steuerung der Software über Zentrale Konfigurierung
+		\item Ausführbare Skripte (Einbindung von Modulen und nutzen der Konfigurierung)
+		\item Speicherung von Ergebnissen in Datensätzen
+		\item Versionierung der Arbeitsschritte
+	\end{itemize}
+
+
+\section{Sensor-Array-Simulation}
+	\begin{itemize}
+		\item Zuordnung Datengenerierung
+		\item Nutzung von vorarbeiten
+		\item Darstellung des Modul Funktionsablaufdiagramm
+		\item Darstellung des Algorithmus für die Simulation mehrere Positionen
+		\item Nutzung des Moduls für eingestellte Konfigurierung
+	\end{itemize}
+
+\section{Gauß-Prozess-Regression}
+	\begin{itemize}
+		\item Zuordnung Datenanalyse
+		\item Nutzung von Vorarbeiten
+		\item Einordnung der Vorarbeiten in Bezug auf Regressionsverfahren (Jünemann)
+		\item Skriptbasierte Voruntersuchungen zu Findung des mathematischen Modells bzw. Kovarianzfunktion (Matlab-Standard-Modelle)
+		\item Bezugherstellung Einheitskreis und Orthogonalität des Ausgangssystems
+		\item Beschreibung des kombinierten Systems aus der Vorarbeit (Jünemann)
+		\item Optimierung des einfachen kombinierten Systems ohne Mittelwertschätzung
+		\item Optimierung des einfachen kombinierten Systems mit Mittelwertschätzung
+		\item Optimierung des kombinierten System mit individueller Mittelwertschätzung
+		\item Einbringen des Atan2-Feature-Funktion über die Mittelwertschätzung und vereinfachte Optimierung
+		\item Darstellung der einzelnen Optimierungsverfahren und Aufzeigen der Unterschiede im vorgehen
+		\item Bemessung des Aufwands und Genauigkeiten
+		\item Beziffern und ermitteln von Hyperparameter für die vier Regressionsmöglichkeiten des kombinierten Systems
+ 		\item Nutzung des Moduls für eingestellte Konfigurierung
+	\end{itemize}

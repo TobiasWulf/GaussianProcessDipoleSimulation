@@ -29,16 +29,20 @@ function [predMean, predVar] = predictSingle(XtestCos, XtestSin, ...
     % compute inverse matrix product v of KxT * Ky^-1 * Kx
     kxy = computeTransposeInverseProduct(L, kx);
     
-    % compute predictive variance restriction RT * (H * Ky^-1 * HT)^-1 * R
-    % with R = h - H * Ky^-1 * Kx
-    R = h - H * computeInverseMatrixProduct(L, kx);
-    
-    % and A = H * Ky^-1 * HT
-    A = computeTransposeInverseProduct(L, H');
-    
-    % both side inverse product khxy = RT * A^-1 * R
-    L1 = chol(A, 'lower');
-    khxy = computeTransposeInverseProduct(L1 , R);
+    if ~strcmp(feature, 'none')
+        % compute predictive variance restriction RT * (H * Ky^-1 * HT)^-1 * R
+        % with R = h - H * Ky^-1 * Kx
+        R = h - H * computeInverseMatrixProduct(L, kx);
+
+        % and A = H * Ky^-1 * HT
+        A = computeTransposeInverseProduct(L, H');
+
+        % both side inverse product khxy = RT * A^-1 * R
+        L1 = chol(A, 'lower');
+        khxy = computeTransposeInverseProduct(L1 , R);
+    else
+        khxy = 0;
+    end
     
     
     % compute predictiv variance as the difference between test point covariance

@@ -8,12 +8,12 @@
 % varargout 1: anglesDiff
 % varargout 2: originRad
 %
-function [angles, varargout] = sinoids2angles(sinus, cosinus, uw, rad, pf, ...
+function [angles, varargout] = sinoids2angles(sine, cosine, uw, rad, pf, ...
     namedargs)
     arguments
-        % validate sinus, cosinus and origin as row vectors of the same length
-        sinus (1,:) double {mustBeVector, mustBeReal}
-        cosinus (1,:) double {mustBeReal, mustBeEqualSize(sinus, cosinus)}
+        % validate sinus, cosinus and origin as column vectors of the same length
+        sine (:,1) double {mustBeVector, mustBeReal}
+        cosine (:,1) double {mustBeReal, mustBeEqualSize(sine, cosine)}
         % validate unwrap option flag as boolean with default true
         uw (1,1) logical {mustBeNumericOrLogical} = true
         % validate rad option flag as boolean with default true
@@ -21,13 +21,13 @@ function [angles, varargout] = sinoids2angles(sinus, cosinus, uw, rad, pf, ...
         % validate period factor as real, positive scalar with default 1
         pf (1,1) double {mustBePositive} = 1
         % validate angles origin as vector of same length as sinoids
-        namedargs.origin (1,:) double {mustBeReal, mustBeEqualSize(cosinus, namedargs.origin)}
+        namedargs.origin (:,1) double {mustBeReal, mustBeEqualSize(cosine, namedargs.origin)}
     end
     
     % convert sinoids vector componets to rad angles, atan2 provides angles
     % btween 0° and 180° and abstracts angles between 180° and  360° to negative
     % quadrant from -180 to 0°
-    angles = atan2(sinus, cosinus);
+    angles = atan2(sine, cosine);
     
     % correct angles from 0° to 360° (0 to 2pi) with period factor if multiple
     % periods abstarcts angles between 0° and 360°
@@ -40,7 +40,7 @@ function [angles, varargout] = sinoids2angles(sinus, cosinus, uw, rad, pf, ...
             % convert to rad if rad flag is false
             if ~rad, namedargs.origin = namedargs.origin * pi / 180; end
             % claculate difference
-            anglesDiff = diff([namedargs.origin; angles], 1, 1);
+            anglesDiff = diff([namedargs.origin, angles], 1, 2);
             % ensure calculated difference matches interval
             idx = anglesDiff > pi;
             anglesDiff(idx) = anglesDiff(idx) - 2 * pi;
@@ -48,7 +48,7 @@ function [angles, varargout] = sinoids2angles(sinus, cosinus, uw, rad, pf, ...
             anglesDiff(idx) = anglesDiff(idx) + 2 * pi;
             varargout{1} = anglesDiff;
         else
-            varargout{1} = NaN(1, length(angles));
+            varargout{1} = NaN(length(angles), 1);
         end
     end
     
@@ -57,7 +57,7 @@ function [angles, varargout] = sinoids2angles(sinus, cosinus, uw, rad, pf, ...
         if isfield(namedargs, 'origin')
             varargout{2} = namedargs.origin;
         else
-            varargout{2} = NaN(1, length(angles));
+            varargout{2} = NaN(length(angles), 1);
         end
     end
 end

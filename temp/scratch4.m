@@ -42,7 +42,6 @@ switch trainDS.Info.UseOptions.BaseReference
         pf = 1;
 end
 [ysin, ycos] = angles2sinoids(yrad, true, 1, pf);
-ysin = ysin'; ycos = ycos';
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,19 +55,20 @@ Ntest = testDS.Info.UseOptions.nAngles;
 sigma2F = 1;
 sigmaL = D;
 sigma2N = 1e-5;
-theta = [sigma2F, sigmaL];
+% theta = [sigma2F, sigmaL];
+theta = [30.3711 100];
 offset = [mean2(Xcos), mean2(Xsin)];
 %offset = [off, off];
 
-yatan2 = atan2(ysin, ycos);
+% yatan2 = atan2(ysin, ycos);
 %y = [atan2(ysin, ycos); 0];
 
 %Xcos = cat(3, Xcos, Xcos(:,:,1));
 %Xsin = cat(3, Xsin, Xsin(:,:,1));
 
-HAtan2 = featureAtan2(Xcos, Xsin, offset);
-HCos = featureMean(Xcos);
-HSin = featureMean(Xsin);
+% HAtan2 = featureAtan2(Xcos, Xsin, offset);
+% HCos = featureMean(Xcos);
+% HSin = featureMean(Xsin);
 
 Kf = quadraticFrobeniusCovariance(Xcos, Xcos, Xsin, Xsin, theta);
 
@@ -76,20 +76,20 @@ Ky = addNoise2Covariance(Kf, sigma2N);
 
 [L, logDetKy] = cholDecomposeA2L(Ky);
 
-betaAtan2 = estimateBeta(HAtan2, L , yatan2);
-betaCos = estimateBeta(HCos, L , ycos);
-betaSin = estimateBeta(HSin, L , ysin);
+% betaAtan2 = estimateBeta(HAtan2, L , yatan2);
+% betaCos = estimateBeta(HCos, L , ycos);
+% betaSin = estimateBeta(HSin, L , ysin);
 
-alphaAtan2 = computeAlphaWeights(L, yatan2, HAtan2, betaAtan2);
-alphaCos = computeAlphaWeights(L, ycos, HCos, betaCos);
-alphaSin = computeAlphaWeights(L, ysin, HSin, betaSin);
+% alphaAtan2 = computeAlphaWeights(L, yatan2, HAtan2, betaAtan2);
+alphaCos = computeAlphaWeights(L, ycos, 0, 0);
+alphaSin = computeAlphaWeights(L, ysin, 0, 0);
 
-logLikelihoodAtan2 = computeLogLikelihood(yatan2, HAtan2, betaAtan2, alphaAtan2, logDetKy, N);
-logLikelihoodCos = computeLogLikelihood(ycos, HCos, betaCos, alphaCos, logDetKy, N);
-logLikelihoodSin = computeLogLikelihood(ysin, HSin, betaSin, alphaSin, logDetKy, N);
+% logLikelihoodAtan2 = computeLogLikelihood(yatan2, HAtan2, betaAtan2, alphaAtan2, logDetKy, N);
+logLikelihoodCos = computeLogLikelihood(ycos, 0, 0, alphaCos, logDetKy, N);
+logLikelihoodSin = computeLogLikelihood(ysin, 0, 0, alphaSin, logDetKy, N);
 
-fMeanAtan2 = zeros(Ntest, 1);
-VfAtan2 = zeros(Ntest, 1);
+% fMeanAtan2 = zeros(Ntest, 1);
+% VfAtan2 = zeros(Ntest, 1);
 fMeanCos = zeros(Ntest, 1);
 VfCos = zeros(Ntest, 1);
 fMeanSin = zeros(Ntest, 1);
@@ -101,14 +101,14 @@ for n = 1:Ntest
     XtestCos = testDS.Data.Vcos(:,:,n);
     XtestSin = testDS.Data.Vsin(:,:,n);
     
-    [fMeanAtan2(n), VfAtan2(n)] = predictSingle(XtestCos, XtestSin, ...
-    Xcos, Xsin, offset, HAtan2, L, alphaAtan2, betaAtan2, theta, 'atan2');
+%     [fMeanAtan2(n), VfAtan2(n)] = predictSingle(XtestCos, XtestSin, ...
+%     Xcos, Xsin, offset, HAtan2, L, alphaAtan2, betaAtan2, theta, 'atan2');
 
     [fMeanCos(n), VfCos(n)] = predictSingle(XtestCos, XtestSin, ...
-    Xcos, Xsin, 0, HSin, L, alphaCos, betaCos, theta, 'cos');
+    Xcos, Xsin, 0, 0, L, alphaCos, 0, theta, 'none');
     
     [fMeanSin(n), VfSin(n)] = predictSingle(XtestCos, XtestSin, ...
-    Xcos, Xsin, 0, HSin, L, alphaSin, betaSin, theta, 'sin');
+    Xcos, Xsin, 0, 0, L, alphaSin, 0, theta, 'none');
 end
 
 

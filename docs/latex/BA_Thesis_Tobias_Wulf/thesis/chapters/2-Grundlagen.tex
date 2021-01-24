@@ -4,3 +4,44 @@
 %
 
 \chapter{Grundlagen 0.0.1 13.01.2021}
+	\begin{itemize}
+		\item Einleitung Aufgabenfeld
+	\end{itemize}
+
+\section{Magnetische Sensorentypen und mechatronische Anwendung}
+	\begin{itemize}
+		\item Anwendungsfall Drehzahlmessung
+		\item Anwendungsfall Winkelmessung
+		\item Ausblick TMR und Strommessung
+		\item Aufbau Sensorbrücke TMR (Umriss)
+	\end{itemize}
+
+\section{Kennfeldmethode zur Modellierung der Sensoren}
+	\begin{itemize}
+		\item Messprinzip für das Erstellen der Brücken Kennfelder
+		\item Festlegung von Arbeitsbereich (Plateau TMR), Sättigung (KMZ60)
+		\item Dimensionierung des Stimulus, Dipole Anregung
+	\end{itemize}
+
+\section{Prinzip des Sensor Arrays}
+	\begin{itemize}
+		\item geometrischer Aufbau
+		\item Brückenausgangsspannungen
+		\item Resultierende Array-Datenformate und Darstellung der Sinoiden
+	\end{itemize}
+
+\section{Simulation über Dipol-Feldgleichung}
+	\begin{itemize}
+		\item Erzeugen des Meshgrids
+		\item Normieren des Magnetfeldes
+		\item Erzeugen von Rotationsmomenten (inkl. Verkippung)
+		\item Referenzierung zu Kennfeldern und Gewinnung der Brückenspannungen (interp2 nearest neighbor)
+	\end{itemize}
+
+\section{Gauß-Prozess und Regressionsverfahren}
+	\begin{itemize}
+		\item Erläuterung des Regressionsverfahren im allg.
+		\item Bedeutung der Kovarianzfunktion
+		\item Möglichkeiten zur Mittelwertschätzung und -Korrektur
+		\item Einbringen von Feature-Funktionen über die Mittelwertschätzung
+	\end{itemize}

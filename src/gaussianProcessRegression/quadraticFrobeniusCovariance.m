@@ -45,8 +45,8 @@ function K = quadraticFrobeniusCovariance(XcosM, XcosN, XsinM, XsinN, params)
     [~, ~, N] = size(XcosN);
     
     % expand covariance parameters, variance and lengthscale
-    sigma2F = params(1);
-    sigmaL = params(2);
+    s2f = params(1);
+    sl = params(2);
     
     % allocate memory for K
     K = zeros(M, N);
@@ -64,7 +64,7 @@ function K = quadraticFrobeniusCovariance(XcosM, XcosN, XsinM, XsinN, params)
             r2 = sum(distCos .^ 2 , 'all') + sum(distSin .^ 2 , 'all');
             
             % engage lengthscale and variance on distance
-            K(m,n) = sigma2F / (sigmaL + r2);
+            K(m,n) = s2f / (sl + r2);
             
         end
     end

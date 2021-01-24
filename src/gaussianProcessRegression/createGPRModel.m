@@ -2,23 +2,26 @@
 % Create and tune GPR model depend on feature and how many target vectors are
 % passed in Y. If more than one vector is passed in Y the first one corresponds
 % to Xcos and second one to Xsin. For feature atan2 only one target vector must
-% be passed. If two target vectors are passed Y for each column must have a
-% corresponding sigma as row vector otherwise pass a scalar for sigma.
+% be passed.
 %
-function Model = createGPRModel(XtrainCos, XtrainSin, Ytrain, sigma, feature)
+function Model = createGPRModel(XtrainCos, XtrainSin, YtrainCos, YtrainSin, feature)
     % create Model struct
     Model = struct();
     
     % add training observations to model
     Model.XtrainCos = XtrainCos;
     Model.XtrainSin = XtrainSin;
-    Model.Ytrain = Ytrain;
+    Model.YtrainCos = YtrainCos;
+    Model.YtrainSin = YtrainSin;
     
-    % add dimensions of observations to model
-    all(size(XtrainCos) == size(XtrainSin));
-    [Model.mX, Model.nX, Model.nY] = size(XtrainCos);
-    Model.mY = size(Ytrain, 2); 
-    assert(Model.nY == size(Ytrain, 1));
+    % add dimensions of observations to model n for N observations m for number
+    % of observation dimension X observation in 3rd dimension Y  observation as
+    % column vectors in 1st dimension
+    assert(all(size(XtrainCos) == size(XtrainSin)));
+    assert(all(size(YtrainCos) == size(YtrainSin)));
+    assert(size(XtrainCos, 3) == size(YtrainCos, 1));
+    [Model.D, ~, Model.N] = size(XtrainCos);
+    
        
     % covariance function to model
     Model.covFun = @(XcosM, XcosN, XsinM, XsinN, params) ...
@@ -33,13 +36,15 @@ function Model = createGPRModel(XtrainCos, XtrainSin, Ytrain, sigma, feature)
             Model.beta = 0;
             Model.H = 0;
             Model.featureFun = @(x) 0;
-            Model.theta = [1, Model.mX];
-            Model.sigma = sigma(1);
-            Model.Ky = zeros(Model.nY);
+            Model.theta = [1, Model.D];
+            Model.sigma2N = 1e-5;
+            Model.Ky = zeros(Model.N);
             Model.logDetKy = 0;
-            Model.L = zeros(Model.nY);
-            Model.alpha = zeros(Model.nY, Model.mY);
-            Model.logLikelihood = zeros(1, Model.mY);
+            Model.L = zeros(Model.N);
+            Model.alphaCos = 0;
+            Model.alphaSin = 0;
+            Model.logLikelihoodCos = 0;
+            Model.logLikelihoodSin = 0;
             
         otherwise
             msg = "Unknown feature: %s. Use " + ...
