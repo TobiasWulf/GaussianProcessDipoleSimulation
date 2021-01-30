@@ -1,10 +1,10 @@
-%% initZeroMeanGPR
-% Initiates zero mean GPR model from passed training datset.
+%% initIndividualGPR
+% Initiates individual mean GPR model from passed training datset.
 %
-function Mdl = initZeroMeanGPR(DS)
+function Mdl = initIndividualGPR(DS)
     
     % set model type
-    Mdl.Type = 'ZeroMeanGPR';
+    Mdl.Type = 'individualGPR';
     
     % N number of angles
     Mdl.N = DS.Info.UseOptions.nAngles;
@@ -45,26 +45,26 @@ function Mdl = initZeroMeanGPR(DS)
     
     % initial model hyperparameters as parameter row vector for covariance
     % function params argument, first s2f and as second sl
-    Mdl.theta = [Mdl.D, Mdl.P];
+    Mdl.thetaCos = [Mdl.D, Mdl.P];
+    %Mdl.thetaSin = [Mdl.D, Mdl.P];
     
     % set lower and upper bounds for tuning theta to prevent overfitting 
     Mdl.thetaLU = [1e-3 , 1e2];
     
     % initial noise variance to generalize the covariance matrix
-    Mdl.s2n = 1e-5;
+    Mdl.s2nCos = 1e-5;
+    %Mdl.s2nSin = 1e-5;
     
     % set lower and upper bounds for tuning noise s2n to prevent overfitting 
     Mdl.s2nLU = [1e-4 , 1e1];
     
-    % beta parameter and feature matrix are zero due to zero mean GPR
-    Mdl.beta = 0;
-    Mdl.H = 0;
-    Mdl.feature = @(x) 0;
-    
     % attach kernel function to model
     Mdl.kernel = @quadraticFrobeniusCovariance;
     
+    % attach feature function to model
+    Mdl.feature = @featureMean;
+    
     % init kernel with set parameters
-    Mdl = initZeroMeanKernel(Mdl);
+    Mdl = initIndividualKernel(Mdl);
 end
 

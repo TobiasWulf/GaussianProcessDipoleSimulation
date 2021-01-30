@@ -348,6 +348,47 @@ TestOptions.BridgeReference = 'Rise';
 
 
 %% GPROptions
+% Gaussian Process Regression options to generate a regression model for angular
+% prediction and analyzing the accuracy of the prediction. The GPR model uses
+% one certain covariance function to compute the prediction but it is possible
+% to initiate as zero mean GPR without mean correction and a simple mean
+% function which supports offset amplitude correction of the sinoid inputs for
+% cosine and sine. The GPR uses a quadratic frobnius norm covariance function.
+% That function has two kernel parameters s2f as variance parameter and sl as
+% length scale parameter. Additional a noise variance s2n must be passed to GPR
+% to compute noisy observations.
+disp('Set test options to generate GPR model ...');
+GPROptions = struct();
+
+% Enables mean function and offset and amplitude correction 
+% off - init GPR as zero mean GPR m(x) = 0
+% on  - init GPR with mean correction m(x) = H' * beta
+GPROptions.mean = 'on';
+
+% Initial theta values as vector of [s2f, sl] variance and length scale
+% parameter of the quadratic frobenius norm covariance function. Empirical 
+% tested start values are the sensor array dimension as length scale and a small
+% value as variance factor.
+%                  [s2f , sl]
+GPROptions.theta = [1e-2, SensorArrayOptions.dimension];
+
+% Set lower and upper bounds to optimize kernel parameters theta which is a
+% vector of covariance parameter covariance variance parameter s2f and lenght
+% scale parameter sl. These bounds must be set to prevent an overfitting in
+% tuning the kernel parameter. If the bounds are to wide the prediction losses
+% its generalization. At initialization of the GPR model s2f is set to senor
+% array dimension and sl is set to senor array count so number of predictors.
+GPROptions.thetaBounds = [1e-2, 1e2];
+
+% Set initial noise variance to add noise along the diagonal of th covariance
+% matrix to predict noisy observation. Set to small values or even 0 to get
+% noise free observations.
+GPROptions.s2n = 1e-5;
+
+% Set lower and upper bounds for noise adjustment in computing the covariance
+% matrix for noisy observations. These bounds prevent the GPR of overfitting in
+% the noise optimization procedure. The default noise at initialization is 1e-5.
+GPROptions.s2nBounds = [1e-4, 10];
 
 
 %% Save Configuration
@@ -365,4 +406,5 @@ save(PathVariables.configPath, ...
     'DipoleOptions', ...
     'TrainingOptions', ... 
     'TestOptions', ...
+    'GPROptions', ...
     '-v7.3', '-nocompression');
