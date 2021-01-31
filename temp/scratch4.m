@@ -9,7 +9,7 @@ clc
 % load data files with training observations and test data for a full
 % rotation
 
-load config.mat PathVariables
+load config.mat PathVariables GPROptions
 trainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
 testFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
 trainDS = load(fullfile(trainFiles(1).folder, trainFiles(1).name));
@@ -74,7 +74,7 @@ Kf = quadraticFrobeniusCovariance(Xcos, Xcos, Xsin, Xsin, theta);
 
 Ky = addNoise2Covariance(Kf, sigma2N);
 
-[L, logDetKy] = cholDecomposeA2L(Ky);
+[L, logDetKy] = decomposeChol(Ky);
 
 % betaAtan2 = estimateBeta(HAtan2, L , yatan2);
 % betaCos = estimateBeta(HCos, L , ycos);

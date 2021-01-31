@@ -1,9 +1,9 @@
-%% cholDecomposeA2L
+%% decomposeChol
 % Compute the Cholesky decomposition of a symmetrix positive definite matrix A
 % and calculate the log determinate as side product of the decomposition. 
 % Compute the lower triangle matrix L.
 %
-function [L, logDet] = cholDecomposeA2L(A)
+function [L, logDet] = decomposeChol(A)
     [L, flag] = chol(A, 'lower');
     assert(flag == 0);
     

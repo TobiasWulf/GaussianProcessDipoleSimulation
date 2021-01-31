@@ -6,7 +6,7 @@
 % instead passing the current Ky the function uses the infront decomposed lower
 % triangle matrix L of Ky.
 %
-function beta = estimateBeta(H, L, y)
+function [beta, alpha0]= estimateBeta(H, L, y)
     % Ky^-1 * y
     alpha0 = computeInverseMatrixProduct(L, y);
     

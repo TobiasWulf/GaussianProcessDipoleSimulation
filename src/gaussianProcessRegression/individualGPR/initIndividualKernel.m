@@ -13,7 +13,7 @@ function Mdl = initIndividualKernel(Mdl)
     %Mdl.KySin = addNoise2Covariance(KfSin, Mdl.s2nSin);
     
     % decompose Ky and get lower trinagle matrix and log determinate
-    [Mdl.Lcos, Mdl.logDetCos] = cholDecomposeA2L(Mdl.KyCos);
+    [Mdl.Lcos, Mdl.logDetCos] = decomposeChol(Mdl.KyCos);
     %[Mdl.Lsin, Mdl.logDetSin] = cholDecomposeA2L(Mdl.KySin);
     
     % compute feature matrix

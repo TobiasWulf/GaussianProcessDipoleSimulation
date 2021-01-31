@@ -360,13 +360,20 @@ TestOptions.BridgeReference = 'Rise';
 disp('Set test options to generate GPR model ...');
 GPROptions = struct();
 
-% Enables mean function and offset and amplitude correction 
-% off - init GPR as zero mean GPR m(x) = 0
-% on  - init GPR with mean correction m(x) = H' * beta
-GPROptions.mean = 'on';
+% Enables mean function and offset and amplitude correction. 
+% Set basis function to compute H matrix of training points and h vector of
+% test point. Current availible basis function are:
+% zero   - init GPR as zero mean GPR m(x) = 0
+% linear - init GPR with mean correction m(x) = H' * beta 
+GPROptions.mean = 'linear';
+
+% Set kernel function to compute covariance matrix, vectors or test point
+% covariance. Current available covariance functions are:
+% QFC - Quadratic Frobenius Covariance
+GPROptions.kernel = 'QFC';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
-% parameter of the quadratic frobenius norm covariance function. Empirical 
+% parameter of the quadratic frobenius covariance function. Empirical 
 % tested start values are the sensor array dimension as length scale and a small
 % value as variance factor.
 %                  [s2f , sl]
@@ -378,7 +385,7 @@ GPROptions.theta = [1e-2, SensorArrayOptions.dimension];
 % tuning the kernel parameter. If the bounds are to wide the prediction losses
 % its generalization. At initialization of the GPR model s2f is set to senor
 % array dimension and sl is set to senor array count so number of predictors.
-GPROptions.thetaBounds = [1e-2, 1e2];
+GPROptions.thetaBounds = [1e-3, 1e2];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get

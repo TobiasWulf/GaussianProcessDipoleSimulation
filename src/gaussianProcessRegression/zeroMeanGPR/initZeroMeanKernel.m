@@ -11,7 +11,7 @@ function Mdl = initZeroMeanKernel(Mdl)
     Mdl.Ky = addNoise2Covariance(Kf, Mdl.s2n);
     
     % decompose Ky and get lower trinagle matrix and log determinate
-    [Mdl.L, Mdl.logDet] = cholDecomposeA2L(Mdl.Ky);
+    [Mdl.L, Mdl.logDet] = decomposeChol(Mdl.Ky);
     
     % compute weights for cosine and sine
     Mdl.Acos = computeAlphaWeights(Mdl.L, Mdl.Ycos, 0, 0);

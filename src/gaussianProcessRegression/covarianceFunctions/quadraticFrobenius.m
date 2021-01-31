@@ -1,4 +1,4 @@
-%% quadraticFrobeniusCovariance
+%% quadraticFrobenius
 % Kernel, covariance function for 3 dimensional matrices DxDxN where N is
 % the dimension of observeration and DxD is a matrix of P predictors at
 % each observation. Each for cosine and sine observation. It is needed to
@@ -28,7 +28,7 @@
 % matrix the function computes the covariance vector of size 1xN of the
 % test to each training observation. Computes noise free covariances.
 %
-function K = quadraticFrobeniusCovariance(XcosM, XcosN, XsinM, XsinN, params)
+function K = quadraticFrobenius(XcosM, XcosN, XsinM, XsinN, theta)
     arguments
         % validate matrices as real numeric 3D matrices of equal sizes
         XcosM (:,:,:) double {mustBeReal}
@@ -36,7 +36,7 @@ function K = quadraticFrobeniusCovariance(XcosM, XcosN, XsinM, XsinN, params)
         XsinM (:,:,:) double {mustBeReal, mustBeEqualSize(XcosM, XsinM)}
         XsinN (:,:,:) double {mustBeReal, mustBeEqualSize(XcosN, XsinN)}
         % validate params as two element vector
-        params (1,2) double {mustBeReal, mustBeVector}
+        theta (1,2) double {mustBeReal, mustBeVector}
     end
     
     % get number of observations for each dataset, cosine and sine matrices have
@@ -45,8 +45,8 @@ function K = quadraticFrobeniusCovariance(XcosM, XcosN, XsinM, XsinN, params)
     [~, ~, N] = size(XcosN);
     
     % expand covariance parameters, variance and lengthscale
-    s2f = params(1);
-    sl = params(2);
+    s2f = theta(1);
+    sl = theta(2);
     
     % allocate memory for K
     K = zeros(M, N);

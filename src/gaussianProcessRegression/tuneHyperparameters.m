@@ -26,7 +26,7 @@ function fmin = evalNoneCase(theta, Model)
     Ky = addNoise2Covariance(Ky, Model.sigma2N);
     
     % decompose Ky and get lower trinagle matrix and log determinate
-    [L, logDetKy] = cholDecomposeA2L(Ky);
+    [L, logDetKy] = decomposeChol(Ky);
     
     % compute weights for cosine and sine
     alphaCos = computeAlphaWeights(L, Model.YtrainCos, 0, 0);
