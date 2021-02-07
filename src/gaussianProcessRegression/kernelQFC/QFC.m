@@ -1,4 +1,4 @@
-%% quadraticFrobenius
+%% QFC
 % Kernel, covariance function for 3 dimensional matrices DxDxN where N is
 % the dimension of observeration and DxD is a matrix of P predictors at
 % each observation. Each for cosine and sine observation. It is needed to
@@ -23,30 +23,22 @@
 % K in the training phase to apply cholesky decomposition on it to compute
 % the inverse of the matrix and solve the linear system to generates alpha
 % vectors for cosine and sine prediction each. In the prediction phase
-% (applicationt) it computes the MxN matrix K for test inputs of size DxDxM
+% (application) it computes the MxN matrix K for test inputs of size DxDxM
 % and training points size of DxDxN. If it is a single test point so DxDx1
 % matrix the function computes the covariance vector of size 1xN of the
 % test to each training observation. Computes noise free covariances.
 %
-function K = quadraticFrobenius(XcosM, XcosN, XsinM, XsinN, theta)
-    arguments
-        % validate matrices as real numeric 3D matrices of equal sizes
-        XcosM (:,:,:) double {mustBeReal}
-        XcosN (:,:,:) double {mustBeReal}
-        XsinM (:,:,:) double {mustBeReal, mustBeEqualSize(XcosM, XsinM)}
-        XsinN (:,:,:) double {mustBeReal, mustBeEqualSize(XcosN, XsinN)}
-        % validate params as two element vector
-        theta (1,2) double {mustBeReal, mustBeVector}
-    end
+function K = QFC(Ax, Bx, Ay, By, theta)
+    
     
     % get number of observations for each dataset, cosine and sine matrices have
     % equal sizes just extract size from one
-    [~, ~, M] = size(XcosM);
-    [~, ~, N] = size(XcosN);
+    [~, ~, M] = size(Ax);
+    [~, ~, N] = size(Bx);
     
     % expand covariance parameters, variance and lengthscale
-    s2f = theta(1);
-    sl = theta(2);
+    c = 2 * theta(2)^2; % 2*sl^2
+    a = theta(1) * c;   % s2f * c
     
     % allocate memory for K
     K = zeros(M, N);
@@ -56,26 +48,17 @@ function K = quadraticFrobenius(XcosM, XcosN, XsinM, XsinN, theta)
     for m = 1:M
         for n = 1:N
             % get distance between m-th and n-th observation
-            distCos = XcosM(:,:,m) - XcosN(:,:,n);
-            distSin = XsinM(:,:,m) - XsinN(:,:,n);
+            distCos = Ax(:,:,m) - Bx(:,:,n);
+            distSin = Ay(:,:,m) - By(:,:,n);
             
             % compute quadratic frobenius norm of tan distance as separated
             % distances of cosine and sine, norm of vector fields
             r2 = sum(distCos .^ 2 , 'all') + sum(distSin .^ 2 , 'all');
             
             % engage lengthscale and variance on distance
-            K(m,n) = s2f / (sl + r2);
+            K(m,n) = a / (c + r2);
             
         end
     end
 end
 
-% Custom validation function to match matrix dimensions
-function mustBeEqualSize(a,b)
-    % Test for equal size
-    if ~isequal(size(a),size(b))
-        eid = 'Size:notEqual';
-        msg = 'Size of sinus, cosinus and angles must be equal.';
-        throwAsCaller(MException(eid,msg))
-    end
-end

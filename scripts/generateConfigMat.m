@@ -360,16 +360,15 @@ TestOptions.BridgeReference = 'Rise';
 disp('Set test options to generate GPR model ...');
 GPROptions = struct();
 
-% Enables mean function and offset and amplitude correction. 
-% Set basis function to compute H matrix of training points and h vector of
-% test point. Current availible basis function are:
-% zero   - init GPR as zero mean GPR m(x) = 0
-% linear - init GPR with mean correction m(x) = H' * beta 
-GPROptions.mean = 'linear';
-
 % Set kernel function to compute covariance matrix, vectors or test point
 % covariance. Current available covariance functions are:
-% QFC - Quadratic Frobenius Covariance
+% QFC    - Quadratic Frobenius Covariance with excact distance.
+% QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
+%          inequation of matrix norm, minimizes training data to a vector.
+% QFCM   - Quadratic Frobinius Covariance with apporximated distance of triangle
+%          inequation of matrix norm using mean2 instead of Frobenius norm,
+%          minimizes training data to vector. Works only for square matrix
+%          inputs. Uses QFCAPX kernel but change input transformation.
 GPROptions.kernel = 'QFC';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
@@ -377,7 +376,7 @@ GPROptions.kernel = 'QFC';
 % tested start values are the sensor array dimension as length scale and a small
 % value as variance factor.
 %                  [s2f , sl]
-GPROptions.theta = [1e-2, SensorArrayOptions.dimension];
+GPROptions.theta = [1, SensorArrayOptions.dimension];
 
 % Set lower and upper bounds to optimize kernel parameters theta which is a
 % vector of covariance parameter covariance variance parameter s2f and lenght
@@ -397,6 +396,20 @@ GPROptions.s2n = 1e-5;
 % the noise optimization procedure. The default noise at initialization is 1e-5.
 GPROptions.s2nBounds = [1e-4, 10];
 
+% Enables mean function and offset and amplitude correction. 
+% Set basis function to compute H matrix of training points and h vector of
+% test point. Current availible basis function are:
+% zero - init GPR as zero mean GPR m(x) = 0
+% poly - init GPR with mean correction m(x) = H' * beta, where H is a matrix
+%        polynom mean vectors at each observation points 
+%        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
+%        For QFC kernel h(x)  = [1; mean2(x); mean2(x)^2; mean2(x)^3; ...]
+GPROptions.mean = 'zero';
+
+% Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
+% 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
+% polynom degree is 7.
+GPROptions.polyDegree = 1;
 
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in
