@@ -25,10 +25,8 @@ function Mdl = initKernelParameters(Mdl)
             % zero, as name lets expect
             Mdl.BetaCos = 0;
             Mdl.BetaSin = 0;
-            Mdl.BetaRadius = 0;
             Mdl.Mcos = Mdl.meanFun(0);
             Mdl.Msin = Mdl.meanFun(0);
-            Mdl.Mradius = Mdl.meanFun(0);
             
 %         case 'poly'
 %             % estimate beta for none zero H matrices and compute means
@@ -45,13 +43,10 @@ function Mdl = initKernelParameters(Mdl)
     % compute weights for cosine and sine, angles in rads and radius
     Mdl.AlphaCos = computeAlphaWeights(Mdl.L, Mdl.Ycos, Mdl.Mcos);
     Mdl.AlphaSin = computeAlphaWeights(Mdl.L, Mdl.Ysin, Mdl.Msin);
-    Mdl.AlphaRadius = computeAlphaWeights(Mdl.L, Mdl.Yradius, Mdl.Mradius);
     
     % compute log marginal likelihoods for each cosine and sine weights
     Mdl.LMLcos = computeLogLikelihood(Mdl.Ycos, Mdl.Mcos, ...
         Mdl.AlphaCos, Mdl.logDet, Mdl.N);
     Mdl.LMLsin = computeLogLikelihood(Mdl.Ysin, Mdl.Msin, ...
         Mdl.AlphaSin, Mdl.logDet, Mdl.N);
-    Mdl.LMLradius = computeLogLikelihood(Mdl.Yradius, Mdl.Mradius, ...
-        Mdl.AlphaRadius, Mdl.logDet, Mdl.N);
 end

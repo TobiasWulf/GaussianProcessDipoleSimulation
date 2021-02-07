@@ -24,7 +24,9 @@ function [frad, fcos, fsin, fradius, fcov] = predFrame(Mdl, Xcos, Xsin)
     % compute the predictive means
     fcos = Mcos + k' * Mdl.AlphaCos;
     fsin = Msin + k' * Mdl.AlphaSin;
-    fradius = Mradius + k' * Mdl.AlphaRadius;
+    
+    % compute radius from sinoid results
+    fradius = sqrt(fcos^2 + fsin^2);
     
     % compute angle in rad from sinoid results
     frad = sinoids2angles(fsin, fcos, false, true, Mdl.PF);
