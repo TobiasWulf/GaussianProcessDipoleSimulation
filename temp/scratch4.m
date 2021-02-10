@@ -25,7 +25,8 @@ Mdl = tuneKernel(Mdl);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[frad, fcos, fsin, fradius, fcov] = predFrame(Mdl, Mdl.Xcos(:,:,1), Mdl.Xsin(:,:,1))
+% predict angles in rads not in degrees
+[fang, frad, fcov, s, ci, fcos, fsin] = predDS(Mdl, TestDS, true);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

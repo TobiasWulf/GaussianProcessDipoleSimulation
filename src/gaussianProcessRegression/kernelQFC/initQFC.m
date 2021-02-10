@@ -26,16 +26,10 @@ function Mdl = initQFC(Mdl)
             % set basis function
             Mdl.basisFun = @(X) 0;
 
-            % sets mean to zero vecotor of n observations
-            Mdl.meanFun = @(X) 0;
-
         % mean by polynom m(x) = H' * beta
-%         case 'poly'
-%             % set basis function produces a (polyDeg+1)xN H matrix
-%             Mdl.basisFun = @(X) meanPolyQFC(X, Mdl.polyDegree);
-% 
-%             % mean function for polynom approximated mean H' * beta
-%             Mdl.meanFun = @(X, beta) Mdl.basisFun(X)' * beta;
+        case 'poly'
+            % set basis function produces a (polyDeg+1)xN H matrix
+            Mdl.basisFun = @(X) meanPolyQFC(X, Mdl.polyDegree);
 
         % end mean select QFC kernel
         otherwise

@@ -13,7 +13,7 @@ function H = meanPolyQFC(X, degree)
     % compute polynom for degrees > 0
     if degree > 0
         for n = 1:N
-            H(2,n) = mean2(X(:,:,n));
+            H(2,n) = frobeniusNorm(X(:,:,n), false);
         end
     end
     

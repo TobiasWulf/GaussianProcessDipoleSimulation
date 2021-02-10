@@ -1,5 +1,6 @@
 %% tuneKernel
-% Tunes kernel hyperparameters of GPR model.
+% Tunes kernel hyperparameters of GPR model. Tune both parameters in theta if
+% s2f = theta(1) not equal to 1.
 %
 function Mdl = tuneKernel(Mdl)
 
@@ -10,16 +11,35 @@ function Mdl = tuneKernel(Mdl)
     problem.solver = 'fmincon';
     problem.options = options;
     
-    % apply objective function and start values
-    problem.objective = @(x) objectiveFun(x, Mdl);
-    problem.x0 = Mdl.theta(2);
+    % check if s2f is equal to 1 or not an initialize the problem
+    if Mdl.theta(1) == 1
+        % apply bounds to prevent overfitting
+        problem.lb = Mdl.thetaBounds(1);
+        problem.ub = Mdl.thetaBounds(2);
+        
+        % set sl start value
+        problem.x0 = Mdl.theta(2);
+        
+        % apply objective function and start values
+        problem.objective = @(x) tuneLengthScale(x, Mdl);
+        
+        % solve problem
+        [Mdl.theta(2)] = fmincon(problem);
     
-    % apply bounds to prevent overfitting
-    problem.lb = Mdl.thetaBounds(1);
-    problem.ub = Mdl.thetaBounds(2);
-    
-    % solve problem
-    [Mdl.theta(2)] = fmincon(problem);
+    else
+        % apply bounds to prevent overfitting
+        problem.lb = [1 1] * Mdl.thetaBounds(1);
+        problem.ub = [1 1] * Mdl.thetaBounds(2);
+        
+        % set sl start value
+        problem.x0 = Mdl.theta;
+        
+        % apply objective function and start values
+        problem.objective = @(x) tuneBothScales(x, Mdl);
+        
+        % solve problem
+        [Mdl.theta] = fmincon(problem);
+    end
     
     % reinit kernel with tuned parameters
     Mdl = initKernelParameters(Mdl);
@@ -30,9 +50,18 @@ end
 % function values to search minimum function evaluation estimates the minimum of
 % the negative log liklihoods of the current model parameters.
 % No assignments on model, just recalculate function evaluation minimum.
-function feval = objectiveFun(theta, Mdl)
+function feval = tuneLengthScale(sl, Mdl)
     % reinit kernel on new theta kernel parameters
-    Mdl.theta(2) = theta;
+    Mdl.theta(2) = sl;
+    Mdl = initKernelParameters(Mdl);
+    
+    % return function evaluation as neg. likelihood of radius
+    feval = -1 * (Mdl.LMLsin + Mdl.LMLcos);
+end
+
+function feval = tuneBothScales(theta, Mdl)
+    % reinit kernel on new theta kernel parameters
+    Mdl.theta = theta;
     Mdl = initKernelParameters(Mdl);
     
     % return function evaluation as neg. likelihood of radius

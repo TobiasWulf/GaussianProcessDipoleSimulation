@@ -17,7 +17,7 @@ function Mdl = initGPROptions(Mdl, GPROptions)
     if isfield(GPROptions, 'theta')
         Mdl.theta = GPROptions.theta;
     else
-        Mdl.theta = [Mdl.D, Mdl.P];
+        Mdl.theta = [1, Mdl.D];
     end
     
     % lower and upper bound for tuning theta

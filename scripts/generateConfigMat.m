@@ -169,7 +169,7 @@ SensorArrayOptions = struct;
 SensorArrayOptions.geometry = 'square';
 
 % Sensor array square dimension. Fix parameter.
-SensorArrayOptions.dimension = 8;
+SensorArrayOptions.dimension = 7;
 
 % Sensor array edge length in mm. Fix parameter.
 SensorArrayOptions.edge = 2;
@@ -268,7 +268,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 20;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -374,7 +374,11 @@ GPROptions.kernel = 'QFC';
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical 
 % tested start values are the sensor array dimension as length scale and a small
-% value as variance factor.
+% value as variance factor. Set variance s2f to one for ones on the diagonal of
+% the covariance matrix. Only sl will be tuned in the process. Set sf2 not one
+% it will be tuned both. Tuning both the vertical scale s2f and horizontal scale
+% 2*sl^2 can lead to inbalance of cosine and sine prediction indicated by
+% diverging log likelihoods for cosine and sine prediction.
 %                  [s2f , sl]
 GPROptions.theta = [1, SensorArrayOptions.dimension];
 
@@ -403,7 +407,7 @@ GPROptions.s2nBounds = [1e-4, 10];
 % poly - init GPR with mean correction m(x) = H' * beta, where H is a matrix
 %        polynom mean vectors at each observation points 
 %        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
-%        For QFC kernel h(x)  = [1; mean2(x); mean2(x)^2; mean2(x)^3; ...]
+%        For QFC kernel x = ||X||_F
 GPROptions.mean = 'zero';
 
 % Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
