@@ -1,7 +1,8 @@
 %% predFrame
 % Predicts single test point.
 %
-function [fang, frad, fcov, s, ci, fcos, fsin] = predFrame(Mdl, Xcos, Xsin, rad)
+function [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, ...
+    Xcos, Xsin)
     
     % adjust inputs if needed
     Xcos = Mdl.inputFun(Xcos);
@@ -40,12 +41,15 @@ function [fang, frad, fcov, s, ci, fcos, fsin] = predFrame(Mdl, Xcos, Xsin, rad)
     frad = sqrt(fcos^2 + fsin^2);
     
     % compute angle in rad from sinoid results
-    fang = sinoids2angles(fsin, fcos, frad, rad);
+    fang = sinoids2angles(fsin, fcos, frad, true);
     
     % sigma of the normal distribution over fradius
     s = sqrt(fcov + Mdl.s2n);
     
     % 95% confidence interval over fradius
-    ci = [frad - 1.96 * s, frad + 1.96 * s];
+    ciang = [fang - asin(1.96 * s), fang + asin(1.96 * s)];
+    
+    % 95% confidence interval over fradius
+    cirad = [frad - 1.96 * s, frad + 1.96 * s];
 end
 

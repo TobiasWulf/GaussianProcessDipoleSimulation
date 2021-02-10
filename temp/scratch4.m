@@ -26,7 +26,7 @@ Mdl = tuneKernel(Mdl);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % predict angles in rads not in degrees
-[fang, frad, fcov, s, ci, fcos, fsin] = predDS(Mdl, TestDS, true);
+[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
