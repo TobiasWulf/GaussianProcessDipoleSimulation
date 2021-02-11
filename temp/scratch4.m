@@ -28,6 +28,15 @@ Mdl = tuneKernel(Mdl);
 % predict angles in rads not in degrees
 [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS);
 
+% compute log losses and squared erros
+% AAED = Absolute Angular Error in Degrees
+% SLLA - Squared Log Loss Angular
+% SLLR - Squared Log Loss Radius
+% SEA  - Squared Error Angular
+% SER  - Squared Error Radius
+% SEC  - Squared Error Cosine
+% SES  - Squared Error Sine
+[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
