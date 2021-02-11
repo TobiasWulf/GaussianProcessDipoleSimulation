@@ -2,10 +2,14 @@
 % Tunes kernel hyperparameters of GPR model. Tune both parameters in theta if
 % s2f = theta(1) not equal to 1.
 %
-function Mdl = tuneKernel(Mdl)
+function Mdl = tuneKernel(Mdl, verbose)
 
     % define options for minimum search
-    options = optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'sqp');
+    options = optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'sqp', ...
+        'PlotFcn', {@optimplotx, @optimplotfval});
+    
+    % display tuning
+    if verbose, options.Display = 'iter'; end
     
     % setup problem for minimum solver use problem structure to feed fmincon
     problem.solver = 'fmincon';

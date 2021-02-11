@@ -37,8 +37,8 @@ function K = QFC(Ax, Bx, Ay, By, theta)
     [~, ~, N] = size(Bx);
     
     % expand covariance parameters, variance and lengthscale
-    c = 2 * theta(2)^2; % 2*sl^2
-    a = theta(1) * c;   % s2f * c
+    c2 = 2 * theta(2)^2; % 2*sl^2
+    c1 = theta(1) * c2;   % s2f * c
     
     % allocate memory for K
     K = zeros(M, N);
@@ -51,12 +51,12 @@ function K = QFC(Ax, Bx, Ay, By, theta)
             distCos = Ax(:,:,m) - Bx(:,:,n);
             distSin = Ay(:,:,m) - By(:,:,n);
             
-            % compute quadratic frobenius norm of tan distance as separated
+            % compute quadratic frobenius norm distance as separated
             % distances of cosine and sine, norm of vector fields
             r2 = sum(distCos .^ 2 , 'all') + sum(distSin .^ 2 , 'all');
             
             % engage lengthscale and variance on distance
-            K(m,n) = a / (c + r2);
+            K(m,n) = c1 / (c2 + r2);
             
         end
     end

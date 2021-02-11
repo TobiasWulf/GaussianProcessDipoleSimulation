@@ -1,6 +1,6 @@
 % Created on January 11. 2021 by Tobias Wulf. Tobias Wulf 2021.
 % start script
-clearvars
+%clearvars
 clc
 %close all
 
@@ -18,15 +18,17 @@ TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % init GPR model
-Mdl = initGPR(TrainDS, GPROptions);
+Mdl1 = initGPR(TrainDS, GPROptions);
 
 % tune kernel
-Mdl = tuneKernel(Mdl);
+Mdl2 = tuneKernel(Mdl1, 0);
+
+Mdl3 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % predict angles in rads not in degrees
-[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS);
+[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl3, TestDS);
 
 % compute log losses and squared erros
 % AAED = Absolute Angular Error in Degrees
@@ -36,7 +38,7 @@ Mdl = tuneKernel(Mdl);
 % SER  - Squared Error Radius
 % SEC  - Squared Error Cosine
 % SES  - Squared Error Sine
-[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS);
+[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl3, TestDS);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

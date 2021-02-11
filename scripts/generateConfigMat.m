@@ -169,7 +169,7 @@ SensorArrayOptions = struct;
 SensorArrayOptions.geometry = 'square';
 
 % Sensor array square dimension. Fix parameter.
-SensorArrayOptions.dimension = 7;
+SensorArrayOptions.dimension = 8;
 
 % Sensor array edge length in mm. Fix parameter.
 SensorArrayOptions.edge = 2;
@@ -268,7 +268,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 20;
+TrainingOptions.nAngles = 7;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -365,10 +365,6 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-% QFCM   - Quadratic Frobinius Covariance with apporximated distance of triangle
-%          inequation of matrix norm using mean2 instead of Frobenius norm,
-%          minimizes training data to vector. Works only for square matrix
-%          inputs. Uses QFCAPX kernel but change input transformation.
 GPROptions.kernel = 'QFC';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
@@ -388,7 +384,11 @@ GPROptions.theta = [1, SensorArrayOptions.dimension];
 % tuning the kernel parameter. If the bounds are to wide the prediction losses
 % its generalization. At initialization of the GPR model s2f is set to senor
 % array dimension and sl is set to senor array count so number of predictors.
-GPROptions.thetaBounds = [1e-3, 1e2];
+% If the bounds are to tight the tuning and optimization procedure cannot
+% dismiss bad set points and tries to reach them over and over, the causes
+% a limitting which would be break through if the procedure reaches the point
+% evaluated as bad set point.
+GPROptions.thetaBounds = [1e-3, 1e3];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
@@ -398,7 +398,7 @@ GPROptions.s2n = 1e-5;
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-4, 10];
+GPROptions.s2nBounds = [1e-9, 10];
 
 % Enables mean function and offset and amplitude correction. 
 % Set basis function to compute H matrix of training points and h vector of
@@ -408,12 +408,12 @@ GPROptions.s2nBounds = [1e-4, 10];
 %        polynom mean vectors at each observation points 
 %        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
 %        For QFC kernel x = ||X||_F
-GPROptions.mean = 'zero';
+GPROptions.mean = 'poly';
 
 % Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
 % polynom degree is 7.
-GPROptions.polyDegree = 1;
+GPROptions.polyDegree = 2;
 
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in

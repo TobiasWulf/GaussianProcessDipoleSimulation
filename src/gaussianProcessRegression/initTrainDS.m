@@ -33,13 +33,9 @@ function Mdl = initTrainDS(Mdl, TrainDS)
     % get reference angles in degree and transpose to column vector
     % get sinoid target vectors depending period factor,
     % transpose because angles2sinoids works with row vectors
-    [Mdl.Ysin, Mdl.Ycos, Mdl.Yrads] = angles2sinoids(TrainDS.Data.angles', ...
+    [Mdl.Ysin, Mdl.Ycos] = angles2sinoids(TrainDS.Data.angles', ...
         false, Mdl.PF);
     
-    % the angular prediction is working on unit circle so cricle niveau must be
-    % one for all angles sin^2 + cos^2 = 1
-    Mdl.Yradius = ones(Mdl.N, 1);
-
     % attach training data fro cosine and sine to model
     Mdl.Xcos = TrainDS.Data.Vcos;
     Mdl.Xsin = TrainDS.Data.Vsin;

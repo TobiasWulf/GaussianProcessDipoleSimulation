@@ -11,6 +11,10 @@ function Mdl = initKernel(Mdl)
     switch Mdl.kernel
         case 'QFC'
             Mdl = initQFC(Mdl);
+            
+        case 'QFCAPX'
+            Mdl = initQFCAPX(Mdl);
+            
         % end kernel select
         otherwise
             error('Unknown kernel function %.', Mdl.kernel);
