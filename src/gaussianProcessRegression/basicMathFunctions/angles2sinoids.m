@@ -79,5 +79,5 @@ function [fsin, fcos, fang] = angles2sinoids(fang, rad, pf)
     frad = sqrt(fcos.^2 + fsin.^2);
     
     % recalculate angles to corrected sinoids in rad
-    fang = sinoids2angles(fsin, fcos, frad);
+    if nargout > 2, fang = sinoids2angles(fsin, fcos, frad); end
 end

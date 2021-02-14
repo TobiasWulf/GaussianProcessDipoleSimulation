@@ -113,7 +113,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     frad = sqrt(fcos.^2 + fsin.^2);
 
     <span class="comment">% recalculate angles to corrected sinoids in rad</span>
-    fang = sinoids2angles(fsin, fcos, frad);
+    <span class="keyword">if</span> nargout &gt; 2, fang = sinoids2angles(fsin, fcos, frad); <span class="keyword">end</span>
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -198,7 +198,7 @@ function [fsin, fcos, fang] = angles2sinoids(fang, rad, pf)
     frad = sqrt(fcos.^2 + fsin.^2);
     
     % recalculate angles to corrected sinoids in rad
-    fang = sinoids2angles(fsin, fcos, frad);
+    if nargout > 2, fang = sinoids2angles(fsin, fcos, frad); end
 end
 
 ##### SOURCE END #####
