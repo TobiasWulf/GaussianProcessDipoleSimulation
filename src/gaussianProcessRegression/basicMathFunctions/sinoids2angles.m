@@ -1,10 +1,10 @@
 %% sinoids2angles
 % 
-function [fang, fc, fs] = sinoids2angles(fsin, fcos, fradius, rad)
+function [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
     
     % compute angles by cosine, sine and radius
-    fc = acos(fcos ./ fradius);
-    fs = asin(fsin ./ fradius);
+    fc = acos(fcos ./ frad);
+    fs = asin(fsin ./ frad);
     
     % get indices for interval > 180°
     idx = fs < 0;

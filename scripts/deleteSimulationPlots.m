@@ -48,7 +48,7 @@ pth = [fig svg eps pdf avi];
 % extension
 ext = ["fig" "svg" "eps" "pdf" "avi"];
 % file patterns
-pat = ["Test_*" "Training_*"];
+pat = ["*"];
 
 for i = 1:length(pth)
     disp(pth(i));
