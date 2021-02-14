@@ -94,7 +94,7 @@ toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
        "paragraph",         "angles2sinoids.pdf";
        "paragraph",         "decomposeChol.pdf";
        "paragraph",         "frobeniusNorm.pdf";
-       "paragraph",         "";
+       "paragraph",         "computeInverseMatrixProduct.pdf";
        "paragraph",         "";
        "paragraph",         "";
        "paragraph",         "";

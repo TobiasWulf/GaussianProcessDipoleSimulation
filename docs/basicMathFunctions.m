@@ -31,6 +31,11 @@
 % Computes the Frobenius Norm of a matrix.
 %
 %
+%% computeInverseMatrixProduct
+% Computes the product of an inverted matrix A and a vector b or a matrix B by
+% the represented lower triangle matrix L of Cholesky decomposed A.
+%
+%
 % Created on February 14. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
