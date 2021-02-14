@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>computeInverseMatrixProduct</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="computeInverseMatrixProduct.m"><style type="text/css">
+      --><title>computeTransposeInverseProduct</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="computeTransposeInverseProduct.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,24 +84,24 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>computeInverseMatrixProduct</h1><!--introduction--><p>Computes the product of an inverted matrix A represented by its Cholesky decomposed lower triangle matrix L and a vector b or even another matrix B. Solving runs column by column if a Matrix B is passed and computes the linear system to an intermediate result with the lower triangle matrix L (inner solving) and finaly in an outer solving with the transposed lower triangle matrix L and the intermediate result to the final product x of the inverted matrix and vector(s).</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">x = computeInverseMatrixProduct(L, b)
-</pre><h2 id="2">Description</h2><p><b>x = computeInverseMatrixProduct(L, b)</b> performs the inverse matrix product of matrix A and a vector b or even another matrix B. Then product is formed column by column of B. The not inverted matrix A is represented by its lower triangle matrix L (Cholesky Decomposition).</p><h2 id="3">Examples</h2><pre class="language-matlab">A = [1.0, 0.9, 0.8;
+  </style></head><body><div class="content"><h1>computeTransposeInverseProduct</h1><!--introduction--><p>Computes the both side product of an inverted Matrix A and a vector b (left product) and the transposed of b (right product). If matrix B is passed instead of a vector b the computation is done column by column of B. The matrix A is represented by its Cholesky decomposed lower triangle matrix L. The computation is optimized so it does a linear solve with lower triangle matrix to intermediate result vector. The final both side product is now the transpose of intermediate result multyplied with intermediate results itself. So a outer linear solve is not needed anymore.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">x = computeTransposeInverseProduct(L, b)
+</pre><h2 id="2">Description</h2><p><b>x = computeTransposeInverseProduct(L, b)</b> linear solve the equation system to a intermediate result and get the both side transpose inverse product of A and b by multiply the transpose intermediate result with intermediate resulst itself.</p><h2 id="3">Examples</h2><pre class="language-matlab">A = [1.0, 0.9, 0.8;
      0.9, 1.0, 0.9;
      0.8, 0.9, 1.0];
 L = decomposeChol(A);
 b = = [5; 9; 0.5];
-x = computeInverseMatrixProduct(L, b);
+x = computeTransposeInverseProduct(L, b);
 B = = [5  ,  9;
        0.5,  5;
        3  , -1];
-X = computeInverseMatrixProduct(L, B);
-</pre><h2 id="4">Input Argurments</h2><p><b>L</b> is the lower triangle matrix of a matrix A.</p><p><b>b</b> is a vector or matrix of real values.</p><h2 id="5">Output Argurments</h2><p><b>x</b> is the product of the inverted matrix A and b.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: linsolve, mustBeLowerTriangle, mustBeFitSize</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="decomposeChol.html">decomposeChol</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/linsolve.html'))">linsolve</a></li></ul></div><p>Created on November 06. 2020 by Klaus J&uuml;nemann. Copyright Klaus J&uuml;nemann 2020.</p><p>
+X = computeTransposeInverseProduct(L, B);
+</pre><h2 id="4">Input Argurments</h2><p><b>L</b> is the lower triangle matrix of a matrix A.</p><p><b>b</b> is a vector or matrix of real values.</p><h2 id="5">Output Argurments</h2><p><b>x</b> is the both side product of the inverted matrix A and b and transposed b.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: linsolve, mustBeLowerTriangle, mustBeFitSize</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="decomposeChol.html">decomposeChol</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/linsolve.html'))">linsolve</a></li></ul></div><p>Created on November 06. 2019 by Klaus J&uuml;nemann. Copyright Klaus J&uuml;nemann 2019.</p><p>
 <!--
 Hidden Clutter.
 Edited on January 05. 2021 by Tobias Wulf: Use linsolve for computation.
 Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 -->
-</p><pre class="codeinput"><span class="keyword">function</span> x = computeInverseMatrixProduct(L, b)
+</p><pre class="codeinput"><span class="keyword">function</span> x = computeTransposeInverseProduct(L, b)
     <span class="keyword">arguments</span>
         <span class="comment">% validate L as lower triangle matrix of size N x N</span>
         L <span class="typesection">(:,:) double {mustBeReal, mustBeLowerTriangle(L)}</span>
@@ -109,25 +109,23 @@ Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
         b <span class="typesection">(:,:) double {mustBeReal, mustBeFitSize(L, b)}</span>
     <span class="keyword">end</span>
 
-    <span class="comment">% set linsolve option for inner (lower triangle) and outer (upper triangle)</span>
-    <span class="comment">% solve, outer solve runs with intermediate result of inner solve</span>
-    opts1.LT = true;
-    opts2.UT = true;
+    <span class="comment">% set linsolve option to solve with lower triangle matrix</span>
+    opts.LT = true;
 
     <span class="comment">% get size of b, if b is a matrix solve column by column</span>
     [M, N] = size(b);
 
-    <span class="comment">% allocate memory for product result</span>
-    x = zeros(M, N);
+    <span class="comment">% allocate memory for intermediate result</span>
+    v = zeros(M, N);
 
     <span class="comment">% solve column by column</span>
-    <span class="keyword">for</span> n = 1:N
-        <span class="comment">% compute inner solve to intermediate result vecotor</span>
-        v = linsolve(L, b(:,n), opts1);
-
-        <span class="comment">% save final inverse product from outer solve</span>
-        x(:,n) = linsolve(L', v, opts2);
+    <span class="keyword">for</span> n=1:N
+        <span class="comment">% save to intermediate result columns</span>
+        v(:,n) = linsolve(L, b(:,n), opts);
     <span class="keyword">end</span>
+
+    <span class="comment">% get final product by multiply transposed intermediate result with itself</span>
+    x = v' * v;
 <span class="keyword">end</span>
 
 <span class="comment">% Custom validation functions</span>
@@ -156,25 +154,26 @@ Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% computeInverseMatrixProduct
-% Computes the product of an inverted matrix A represented by its Cholesky
-% decomposed lower triangle matrix L and a vector b or even another 
-% matrix B. Solving runs column by column if a Matrix B is passed and computes
-% the linear system to an intermediate result with the lower triangle matrix L 
-% (inner solving) and finaly in an outer solving with the transposed lower
-% triangle matrix L and the intermediate result to the final product x of the
-% inverted matrix and vector(s).
+%% computeTransposeInverseProduct
+% Computes the both side product of an inverted Matrix A and a vector b (left
+% product) and the transposed of b (right product). If matrix B is passed
+% instead of a vector b the computation is done column by column of B. The
+% matrix A is represented by its Cholesky decomposed lower triangle matrix L.
+% The computation is optimized so it does a linear solve with lower triangle
+% matrix to intermediate result vector. The final both side product is now the
+% transpose of intermediate result multyplied with intermediate results itself.
+% So a outer linear solve is not needed anymore.
 %
 %
 %% Syntax
-%   x = computeInverseMatrixProduct(L, b)
+%   x = computeTransposeInverseProduct(L, b)
 %
 %
 %% Description
-% *x = computeInverseMatrixProduct(L, b)* performs the inverse matrix
-% product of matrix A and a vector b or even another matrix B. Then product is 
-% formed column by column of B. The not inverted matrix A is represented by 
-% its lower triangle matrix L (Cholesky Decomposition).
+% *x = computeTransposeInverseProduct(L, b)* linear solve the equation system to
+% a intermediate result and get the both side transpose inverse product of A and
+% b by multiply the transpose intermediate result with intermediate resulst
+% itself.
 %
 %
 %% Examples
@@ -183,11 +182,12 @@ Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 %        0.8, 0.9, 1.0];
 %   L = decomposeChol(A);
 %   b = = [5; 9; 0.5]; 
-%   x = computeInverseMatrixProduct(L, b);
+%   x = computeTransposeInverseProduct(L, b);
 %   B = = [5  ,  9; 
 %          0.5,  5;
 %          3  , -1]; 
-%   X = computeInverseMatrixProduct(L, B);
+%   X = computeTransposeInverseProduct(L, B);
+%
 %
 %% Input Argurments
 % *L* is the lower triangle matrix of a matrix A.
@@ -196,7 +196,7 @@ Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 %
 %
 %% Output Argurments
-% *x* is the product of the inverted matrix A and b.
+% *x* is the both side product of the inverted matrix A and b and transposed b.
 %
 %
 %% Requirements
@@ -210,7 +210,7 @@ Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 % * <matlab:web(fullfile(docroot,'matlab/ref/linsolve.html')) linsolve>
 %
 %
-% Created on November 06. 2020 by Klaus Jünemann. Copyright Klaus Jünemann 2020.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -220,7 +220,7 @@ Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function x = computeInverseMatrixProduct(L, b)
+function x = computeTransposeInverseProduct(L, b)
     arguments
         % validate L as lower triangle matrix of size N x N
         L (:,:) double {mustBeReal, mustBeLowerTriangle(L)}
@@ -228,25 +228,23 @@ function x = computeInverseMatrixProduct(L, b)
         b (:,:) double {mustBeReal, mustBeFitSize(L, b)}
     end
     
-    % set linsolve option for inner (lower triangle) and outer (upper triangle)
-    % solve, outer solve runs with intermediate result of inner solve
-    opts1.LT = true;
-    opts2.UT = true;
+    % set linsolve option to solve with lower triangle matrix
+    opts.LT = true;
     
     % get size of b, if b is a matrix solve column by column
     [M, N] = size(b);
     
-    % allocate memory for product result
-    x = zeros(M, N);
+    % allocate memory for intermediate result
+    v = zeros(M, N);
     
     % solve column by column
-    for n = 1:N
-        % compute inner solve to intermediate result vecotor
-        v = linsolve(L, b(:,n), opts1);
-        
-        % save final inverse product from outer solve
-        x(:,n) = linsolve(L', v, opts2);
+    for n=1:N
+        % save to intermediate result columns
+        v(:,n) = linsolve(L, b(:,n), opts);
     end
+    
+    % get final product by multiply transposed intermediate result with itself
+    x = v' * v;
 end
 
 % Custom validation functions

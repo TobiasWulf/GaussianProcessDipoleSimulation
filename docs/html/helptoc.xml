@@ -65,6 +65,7 @@
                     <tocitem target="decomposeChol.html">decomposeChol</tocitem>
                     <tocitem target="frobeniusNorm.html">frobeniusNorm</tocitem>
                     <tocitem target="computeInverseMatrixProduct.html">computeInverseMatrixProduct</tocitem>
+                    <tocitem target="computeTransposeInverseProduct.html">computeTransposeInverseProduct</tocitem>
                     <tocitem target=".html"></tocitem>
                     <tocitem target=".html"></tocitem>
                     <tocitem target=".html"></tocitem>

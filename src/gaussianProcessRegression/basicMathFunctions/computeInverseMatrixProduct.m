@@ -43,7 +43,7 @@
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: linsolve
+% * Subfunctions: linsolve, mustBeLowerTriangle, mustBeFitSize
 % * MAT-files required: None
 %
 %
@@ -57,7 +57,8 @@
 % <html>
 % <!--
 % Hidden Clutter.
-% Edited on January 05. 2021 by Tobias Wulf: Use linsolve to compute the system.
+% Edited on January 05. 2021 by Tobias Wulf: Use linsolve for computation.
+% Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 % -->
 % </html>
 %
