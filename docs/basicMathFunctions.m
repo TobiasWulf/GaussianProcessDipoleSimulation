@@ -36,6 +36,12 @@
 % the represented lower triangle matrix L of Cholesky decomposed A.
 %
 %
+%% computeTransposeInverseProduct
+% Computes the both side porduct of an inverted matrix A with a vector b or
+% matrix B (left product) and the transposed vector b or matrix B (right
+% product).
+%
+%
 % Created on February 14. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
