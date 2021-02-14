@@ -27,6 +27,10 @@
 % Returns logaritmic determinate of the matrix as side product.
 %
 %
+%% frobeniusNorm
+% Computes the Frobenius Norm of a matrix.
+%
+%
 % Created on February 14. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>

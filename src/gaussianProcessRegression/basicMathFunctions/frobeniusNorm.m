@@ -1,47 +1,43 @@
 %% frobeniusNorm
-% Norms a matrix with Frobenius Norm. If approx true the Frobenius norm is
-% approximated with mean2. Works only for square matrix of size N x N.
+% Computes the Frobenius Norm of a matrix.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   nv = frobeniusNorm(A, approx)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
+% *frobeniusNorm(A, approx)* computes Frobenius Norm of M x N matrix. If approx
+% is true the Norm is approximated with mean2 function.
 %
 %
 %% Examples
-%   Enter example matlab code for each use case.
+%   A = magic(8);
+%   nv = frobeniusNorm(A, approx)
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *A* is a M x N matrix of real values.
 %
-% *optionalArg* argurment description.
+% *apporx* is boolean flag. If true the norm is approximated. Default is false.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *nv* is a scalar norm value.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: mean2, sqrt, sum
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <QFCAPX.html QFCAPX>
+% * <meanPolyQFC.html meanPolyQFC>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on January 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--
@@ -51,15 +47,20 @@
 % </html>
 %
 function nv = frobeniusNorm(A, approx)
+    arguments
+        % validate A as real matrix
+        A (:,:) double {mustBeReal}
+        % validate approx as flag with default false
+        approx (1,1) logical {mustBeNumericOrLogical} = false
+    end
     
     % norm matrix
     if approx
         % approximate frobenis with mean and multiply with radicant of RMS
         % frobenius norm is a RMS * sqrt(N x N), RMS >= mean
-        nv = mean2(A) * size(A,1);
+        nv = mean2(A) * sqrt(numel(A));
     else
         % norm with frobenius
         nv = sqrt(sum(A.^2, 'all'));
     end
 end
-

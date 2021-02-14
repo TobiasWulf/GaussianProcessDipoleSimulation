@@ -93,7 +93,7 @@ toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
        "paragraph",         "sinoids2angles.pdf";
        "paragraph",         "angles2sinoids.pdf";
        "paragraph",         "decomposeChol.pdf";
-       "paragraph",         "";
+       "paragraph",         "frobeniusNorm.pdf";
        "paragraph",         "";
        "paragraph",         "";
        "paragraph",         "";

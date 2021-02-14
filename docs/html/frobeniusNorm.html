@@ -1,0 +1,183 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>frobeniusNorm</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="frobeniusNorm.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>frobeniusNorm</h1><!--introduction--><p>Computes the Frobenius Norm of a matrix.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">nv = frobeniusNorm(A, approx)
+</pre><h2 id="2">Description</h2><p><b>frobeniusNorm(A, approx)</b> computes Frobenius Norm of M x N matrix. If approx is true the Norm is approximated with mean2 function.</p><h2 id="3">Examples</h2><pre class="language-matlab">A = magic(8);
+nv = frobeniusNorm(A, approx)
+</pre><h2 id="4">Input Argurments</h2><p><b>A</b> is a M x N matrix of real values.</p><p><b>apporx</b> is boolean flag. If true the norm is approximated. Default is false.</p><h2 id="5">Output Argurments</h2><p><b>nv</b> is a scalar norm value.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: mean2, sqrt, sum</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="QFCAPX.html">QFCAPX</a></li><li><a href="meanPolyQFC.html">meanPolyQFC</a></li></ul></div><p>Created on January 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><pre class="codeinput"><span class="keyword">function</span> nv = frobeniusNorm(A, approx)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate A as real matrix</span>
+        A <span class="typesection">(:,:) double {mustBeReal}</span>
+        <span class="comment">% validate approx as flag with default false</span>
+        approx <span class="typesection">(1,1) logical {mustBeNumericOrLogical}</span> = false
+    <span class="keyword">end</span>
+
+    <span class="comment">% norm matrix</span>
+    <span class="keyword">if</span> approx
+        <span class="comment">% approximate frobenis with mean and multiply with radicant of RMS</span>
+        <span class="comment">% frobenius norm is a RMS * sqrt(N x N), RMS &gt;= mean</span>
+        nv = mean2(A) * sqrt(numel(A));
+    <span class="keyword">else</span>
+        <span class="comment">% norm with frobenius</span>
+        nv = sqrt(sum(A.^2, <span class="string">'all'</span>));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% frobeniusNorm
+% Computes the Frobenius Norm of a matrix.
+%
+%
+%% Syntax
+%   nv = frobeniusNorm(A, approx)
+%
+%
+%% Description
+% *frobeniusNorm(A, approx)* computes Frobenius Norm of M x N matrix. If approx
+% is true the Norm is approximated with mean2 function.
+%
+%
+%% Examples
+%   A = magic(8);
+%   nv = frobeniusNorm(A, approx)
+%
+%
+%% Input Argurments
+% *A* is a M x N matrix of real values.
+%
+% *apporx* is boolean flag. If true the norm is approximated. Default is false.
+%
+%
+%% Output Argurments
+% *nv* is a scalar norm value.
+%
+%
+%% Requirements
+% * Other m-files required: None
+% * Subfunctions: mean2, sqrt, sum
+% * MAT-files required: None
+%
+%
+%% See Also
+% * <QFCAPX.html QFCAPX>
+% * <meanPolyQFC.html meanPolyQFC>
+%
+%
+% Created on January 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+function nv = frobeniusNorm(A, approx)
+    arguments
+        % validate A as real matrix
+        A (:,:) double {mustBeReal}
+        % validate approx as flag with default false
+        approx (1,1) logical {mustBeNumericOrLogical} = false
+    end
+    
+    % norm matrix
+    if approx
+        % approximate frobenis with mean and multiply with radicant of RMS
+        % frobenius norm is a RMS * sqrt(N x N), RMS >= mean
+        nv = mean2(A) * sqrt(numel(A));
+    else
+        % norm with frobenius
+        nv = sqrt(sum(A.^2, 'all'));
+    end
+end
+
+##### SOURCE END #####
+--></body></html>
