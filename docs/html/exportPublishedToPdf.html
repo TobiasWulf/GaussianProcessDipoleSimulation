@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
+      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -98,58 +98,58 @@ disp(<span class="string">'Load configuration ...'</span>);
 <span class="keyword">catch</span> ME
     rethrow(ME);
 <span class="keyword">end</span>
-</pre><h2 id="4">Define Manual TOC</h2><p>The maual toc must be in the same order as in helptoc.xml in the publish html folder. The toc is used to generate a latex file to include for appendices.</p><pre class="codeinput">toc = [<span class="string">"section"</span>,       <span class="string">"GaussianProcessDipoleSimulation.pdf"</span>;
-       <span class="string">"section"</span>        <span class="string">"Workflows.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"Project_Preparation.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"Project_Structure.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"Git_Feature_Branch_Workflow.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"Documentation_Workflow.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"Simulation_Workflow.pdf"</span>;
-       <span class="string">"section"</span>,    <span class="string">"Executable_Scripts.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"publishProjectFilesToHTML.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"generateConfigMat.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"generateSimulationDatasets.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"deleteSimulationDatasets.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"deleteSimulationPlots.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"exportPublishedToPdf"</span>;
-       <span class="string">"section"</span>,    <span class="string">"Source_Code.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"sensorArraySimulation.pdf"</span>;
+</pre><h2 id="4">Define Manual TOC</h2><p>The maual toc must be in the same order as in helptoc.xml in the publish html folder. The toc is used to generate a latex file to include for appendices.</p><pre class="codeinput">toc = [<span class="string">"section"</span>,           <span class="string">"GaussianProcessDipoleSimulation.pdf"</span>;
+       <span class="string">"section"</span>            <span class="string">"Workflows.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"Project_Preparation.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"Project_Structure.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"Git_Feature_Branch_Workflow.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"Documentation_Workflow.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"Simulation_Workflow.pdf"</span>;
+       <span class="string">"section"</span>,           <span class="string">"Executable_Scripts.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"publishProjectFilesToHTML.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"generateConfigMat.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"generateSimulationDatasets.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"deleteSimulationDatasets.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"deleteSimulationPlots.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"exportPublishedToPdf"</span>;
+       <span class="string">"section"</span>,           <span class="string">"Source_Code.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"sensorArraySimulation.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"rotate3DVector.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"generateDipoleRotationMoments.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"generateSensorArraySquareGrid.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"computeDipoleH0Norm.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"computeDipoleHField.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"simulateDipoleSquareSensorArray.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"util.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"util.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"removeFilesFromDir.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"publishFilesFromDir.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"plotFunctions.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotTDKCharDataset.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotTDKCharField.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotTDKTransferCurves.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotKMZ60CharDataset.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotKMZ60CharField.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotKMZ60TransferCurves.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotDipoleMagnet.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationDataset.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotSingleSimulationAngle.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationSubset.pdf"</span>;
-       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationCosSinStats.pdf"</span>
-       <span class="string">"paragraph"</span>,  <span class="string">"plotSimulationDatasetCircle.pdf"</span>;
-       <span class="string">"section"</span>,    <span class="string">"Datasets.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"TDK_TAS2141_Characterization.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"NXP_KMZ60_Characterization.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"Config_Mat.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"Training_and_Test_Datasets.pdf"</span>;
-       <span class="string">"section"</span>,    <span class="string">"Unit_Tests.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"runTests.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"removeFilesFromDirTest.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"rotate3DVectorTest.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"generateDipoleRotationMomentsTest.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"generateSensorArraySquareGridTest.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"computeDipoleH0NormTest.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"computeDipoleHFieldTest.pdf"</span>;
-       <span class="string">"subsection"</span>, <span class="string">"tiltRotationTest.pdf"</span>;];
+       <span class="string">"paragraph"</span>,         <span class="string">"plotTDKCharDataset.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotTDKCharField.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotTDKTransferCurves.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotKMZ60CharDataset.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotKMZ60CharField.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotKMZ60TransferCurves.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotDipoleMagnet.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotSimulationDataset.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotSingleSimulationAngle.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotSimulationSubset.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"plotSimulationCosSinStats.pdf"</span>
+       <span class="string">"paragraph"</span>,         <span class="string">"plotSimulationDatasetCircle.pdf"</span>;
+       <span class="string">"section"</span>,           <span class="string">"Datasets.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"TDK_TAS2141_Characterization.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"NXP_KMZ60_Characterization.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"Config_Mat.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"Training_and_Test_Datasets.pdf"</span>;
+       <span class="string">"section"</span>,           <span class="string">"Unit_Tests.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"runTests.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"removeFilesFromDirTest.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"rotate3DVectorTest.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"generateDipoleRotationMomentsTest.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"generateSensorArraySquareGridTest.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"computeDipoleH0NormTest.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"computeDipoleHFieldTest.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"tiltRotationTest.pdf"</span>;];
 
 nToc = length(toc);
 fprintf(<span class="string">"%d toc entries remarked ...\n"</span>, nToc);
@@ -302,58 +302,58 @@ end
 %% Define Manual TOC
 % The maual toc must be in the same order as in helptoc.xml in the publish html
 % folder. The toc is used to generate a latex file to include for appendices.
-toc = ["section",       "GaussianProcessDipoleSimulation.pdf";
-       "section"        "Workflows.pdf";
-       "subsection", "Project_Preparation.pdf";
-       "subsection", "Project_Structure.pdf";
-       "subsection", "Git_Feature_Branch_Workflow.pdf";
-       "subsection", "Documentation_Workflow.pdf";
-       "subsection", "Simulation_Workflow.pdf";
-       "section",    "Executable_Scripts.pdf";
-       "subsection", "publishProjectFilesToHTML.pdf";
-       "subsection", "generateConfigMat.pdf";
-       "subsection", "generateSimulationDatasets.pdf";
-       "subsection", "deleteSimulationDatasets.pdf";
-       "subsection", "deleteSimulationPlots.pdf";
-       "subsection", "exportPublishedToPdf";
-       "section",    "Source_Code.pdf";
-       "subsection", "sensorArraySimulation.pdf";
+toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
+       "section"            "Workflows.pdf";
+       "subsection",        "Project_Preparation.pdf";
+       "subsection",        "Project_Structure.pdf";
+       "subsection",        "Git_Feature_Branch_Workflow.pdf";
+       "subsection",        "Documentation_Workflow.pdf";
+       "subsection",        "Simulation_Workflow.pdf";
+       "section",           "Executable_Scripts.pdf";
+       "subsection",        "publishProjectFilesToHTML.pdf";
+       "subsection",        "generateConfigMat.pdf";
+       "subsection",        "generateSimulationDatasets.pdf";
+       "subsection",        "deleteSimulationDatasets.pdf";
+       "subsection",        "deleteSimulationPlots.pdf";
+       "subsection",        "exportPublishedToPdf";
+       "section",           "Source_Code.pdf";
+       "subsection",        "sensorArraySimulation.pdf";
        "subsubsection",     "rotate3DVector.pdf";
        "subsubsection",     "generateDipoleRotationMoments.pdf";
        "subsubsection",     "generateSensorArraySquareGrid.pdf";
        "subsubsection",     "computeDipoleH0Norm.pdf";
        "subsubsection",     "computeDipoleHField.pdf";
        "subsubsection",     "simulateDipoleSquareSensorArray.pdf";
-       "subsection", "util.pdf";
+       "subsection",        "util.pdf";
        "subsubsection",     "removeFilesFromDir.pdf";
        "subsubsection",     "publishFilesFromDir.pdf";
        "subsubsection",     "plotFunctions.pdf";
-       "paragraph",  "plotTDKCharDataset.pdf";
-       "paragraph",  "plotTDKCharField.pdf";
-       "paragraph",  "plotTDKTransferCurves.pdf";
-       "paragraph",  "plotKMZ60CharDataset.pdf";
-       "paragraph",  "plotKMZ60CharField.pdf";
-       "paragraph",  "plotKMZ60TransferCurves.pdf";
-       "paragraph",  "plotDipoleMagnet.pdf";
-       "paragraph",  "plotSimulationDataset.pdf";
-       "paragraph",  "plotSingleSimulationAngle.pdf";
-       "paragraph",  "plotSimulationSubset.pdf";
-       "paragraph",  "plotSimulationCosSinStats.pdf"
-       "paragraph",  "plotSimulationDatasetCircle.pdf";
-       "section",    "Datasets.pdf";
-       "subsection", "TDK_TAS2141_Characterization.pdf";
-       "subsection", "NXP_KMZ60_Characterization.pdf";
-       "subsection", "Config_Mat.pdf";
-       "subsection", "Training_and_Test_Datasets.pdf";
-       "section",    "Unit_Tests.pdf";
-       "subsection", "runTests.pdf";
-       "subsection", "removeFilesFromDirTest.pdf";
-       "subsection", "rotate3DVectorTest.pdf";
-       "subsection", "generateDipoleRotationMomentsTest.pdf";
-       "subsection", "generateSensorArraySquareGridTest.pdf";
-       "subsection", "computeDipoleH0NormTest.pdf";
-       "subsection", "computeDipoleHFieldTest.pdf";
-       "subsection", "tiltRotationTest.pdf";];
+       "paragraph",         "plotTDKCharDataset.pdf";
+       "paragraph",         "plotTDKCharField.pdf";
+       "paragraph",         "plotTDKTransferCurves.pdf";
+       "paragraph",         "plotKMZ60CharDataset.pdf";
+       "paragraph",         "plotKMZ60CharField.pdf";
+       "paragraph",         "plotKMZ60TransferCurves.pdf";
+       "paragraph",         "plotDipoleMagnet.pdf";
+       "paragraph",         "plotSimulationDataset.pdf";
+       "paragraph",         "plotSingleSimulationAngle.pdf";
+       "paragraph",         "plotSimulationSubset.pdf";
+       "paragraph",         "plotSimulationCosSinStats.pdf"
+       "paragraph",         "plotSimulationDatasetCircle.pdf";
+       "section",           "Datasets.pdf";
+       "subsection",        "TDK_TAS2141_Characterization.pdf";
+       "subsection",        "NXP_KMZ60_Characterization.pdf";
+       "subsection",        "Config_Mat.pdf";
+       "subsection",        "Training_and_Test_Datasets.pdf";
+       "section",           "Unit_Tests.pdf";
+       "subsection",        "runTests.pdf";
+       "subsection",        "removeFilesFromDirTest.pdf";
+       "subsection",        "rotate3DVectorTest.pdf";
+       "subsection",        "generateDipoleRotationMomentsTest.pdf";
+       "subsection",        "generateSensorArraySquareGridTest.pdf";
+       "subsection",        "computeDipoleH0NormTest.pdf";
+       "subsection",        "computeDipoleHFieldTest.pdf";
+       "subsection",        "tiltRotationTest.pdf";];
 
 nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);

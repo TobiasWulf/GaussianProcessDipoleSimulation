@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -284,7 +284,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 14;
 
 <span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
 <span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
@@ -355,7 +355,64 @@ TestOptions.BaseReference = <span class="string">'TDK'</span>;
 <span class="comment">% All  - Superimposed bridge outputs</span>
 <span class="comment">% Diff - Differentiated bridge outputs</span>
 TestOptions.BridgeReference = <span class="string">'Rise'</span>;
-</pre><h2 id="11">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression. create config.mat with timestamp.</p><pre class="codeinput">disp(<span class="string">'Create config.mat ...'</span>);
+</pre><h2 id="11">GPROptions</h2><p>Gaussian Process Regression options to generate a regression model for angular prediction and analyzing the accuracy of the prediction. The GPR model uses one certain covariance function to compute the prediction but it is possible to initiate as zero mean GPR without mean correction and a simple mean function which supports offset amplitude correction of the sinoid inputs for cosine and sine. The GPR uses a quadratic frobnius norm covariance function. That function has two kernel parameters s2f as variance parameter and sl as length scale parameter. Additional a noise variance s2n must be passed to GPR to compute noisy observations.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate GPR model ...'</span>);
+GPROptions = struct();
+
+<span class="comment">% Set kernel function to compute covariance matrix, vectors or test point</span>
+<span class="comment">% covariance. Current available covariance functions are:</span>
+<span class="comment">% QFC    - Quadratic Frobenius Covariance with excact distance.</span>
+<span class="comment">% QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle</span>
+<span class="comment">%          inequation of matrix norm, minimizes training data to a vector.</span>
+GPROptions.kernel = <span class="string">'QFCAPX'</span>;
+
+<span class="comment">% Initial theta values as vector of [s2f, sl] variance and length scale</span>
+<span class="comment">% parameter of the quadratic frobenius covariance function. Empirical</span>
+<span class="comment">% tested start values are the sensor array dimension as length scale and a small</span>
+<span class="comment">% value as variance factor. Set variance s2f to one for ones on the diagonal of</span>
+<span class="comment">% the covariance matrix. Only sl will be tuned in the process. Set sf2 not one</span>
+<span class="comment">% it will be tuned both. Tuning both the vertical scale s2f and horizontal scale</span>
+<span class="comment">% 2*sl^2 can lead to inbalance of cosine and sine prediction indicated by</span>
+<span class="comment">% diverging log likelihoods for cosine and sine prediction.</span>
+<span class="comment">%                  [s2f , sl]</span>
+GPROptions.theta = [1, SensorArrayOptions.dimension];
+
+<span class="comment">% Set lower and upper bounds to optimize kernel parameters theta which is a</span>
+<span class="comment">% vector of covariance parameter covariance variance parameter s2f and lenght</span>
+<span class="comment">% scale parameter sl. These bounds must be set to prevent an overfitting in</span>
+<span class="comment">% tuning the kernel parameter. If the bounds are to wide the prediction losses</span>
+<span class="comment">% its generalization. At initialization of the GPR model s2f is set to senor</span>
+<span class="comment">% array dimension and sl is set to senor array count so number of predictors.</span>
+<span class="comment">% If the bounds are to tight the tuning and optimization procedure cannot</span>
+<span class="comment">% dismiss bad set points and tries to reach them over and over, the causes</span>
+<span class="comment">% a limitting which would be break through if the procedure reaches the point</span>
+<span class="comment">% evaluated as bad set point.</span>
+GPROptions.thetaBounds = [1e-3, 1e3];
+
+<span class="comment">% Set initial noise variance to add noise along the diagonal of th covariance</span>
+<span class="comment">% matrix to predict noisy observation. Set to small values or even 0 to get</span>
+<span class="comment">% noise free observations.</span>
+GPROptions.s2n = 1e-5;
+
+<span class="comment">% Set lower and upper bounds for noise adjustment in computing the covariance</span>
+<span class="comment">% matrix for noisy observations. These bounds prevent the GPR of overfitting in</span>
+<span class="comment">% the noise optimization procedure. The default noise at initialization is 1e-5.</span>
+GPROptions.s2nBounds = [1e-9, 10];
+
+<span class="comment">% Enables mean function and offset and amplitude correction.</span>
+<span class="comment">% Set basis function to compute H matrix of training points and h vector of</span>
+<span class="comment">% test point. Current availible basis function are:</span>
+<span class="comment">% zero - init GPR as zero mean GPR m(x) = 0</span>
+<span class="comment">% poly - init GPR with mean correction m(x) = H' * beta, where H is a matrix</span>
+<span class="comment">%        polynom mean vectors at each observation points</span>
+<span class="comment">%        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.</span>
+<span class="comment">%        For QFC kernel x = ||X||_F</span>
+GPROptions.mean = <span class="string">'poly'</span>;
+
+<span class="comment">% Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,</span>
+<span class="comment">% 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum</span>
+<span class="comment">% polynom degree is 7.</span>
+GPROptions.polyDegree = 2;
+</pre><h2 id="12">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression. create config.mat with timestamp.</p><pre class="codeinput">disp(<span class="string">'Create config.mat ...'</span>);
 timestamp = datestr(now, GeneralOptions.dateFormat);
 save(PathVariables.configPath, <span class="keyword">...</span>
     <span class="string">'timestamp'</span>, <span class="keyword">...</span>
@@ -366,6 +423,7 @@ save(PathVariables.configPath, <span class="keyword">...</span>
     <span class="string">'DipoleOptions'</span>, <span class="keyword">...</span>
     <span class="string">'TrainingOptions'</span>, <span class="keyword">...</span>
     <span class="string">'TestOptions'</span>, <span class="keyword">...</span>
+    <span class="string">'GPROptions'</span>, <span class="keyword">...</span>
     <span class="string">'-v7.3'</span>, <span class="string">'-nocompression'</span>);
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -639,7 +697,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 14;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -718,6 +776,74 @@ TestOptions.BaseReference = 'TDK';
 TestOptions.BridgeReference = 'Rise';
 
 
+%% GPROptions
+% Gaussian Process Regression options to generate a regression model for angular
+% prediction and analyzing the accuracy of the prediction. The GPR model uses
+% one certain covariance function to compute the prediction but it is possible
+% to initiate as zero mean GPR without mean correction and a simple mean
+% function which supports offset amplitude correction of the sinoid inputs for
+% cosine and sine. The GPR uses a quadratic frobnius norm covariance function.
+% That function has two kernel parameters s2f as variance parameter and sl as
+% length scale parameter. Additional a noise variance s2n must be passed to GPR
+% to compute noisy observations.
+disp('Set test options to generate GPR model ...');
+GPROptions = struct();
+
+% Set kernel function to compute covariance matrix, vectors or test point
+% covariance. Current available covariance functions are:
+% QFC    - Quadratic Frobenius Covariance with excact distance.
+% QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
+%          inequation of matrix norm, minimizes training data to a vector.
+GPROptions.kernel = 'QFCAPX';
+
+% Initial theta values as vector of [s2f, sl] variance and length scale
+% parameter of the quadratic frobenius covariance function. Empirical 
+% tested start values are the sensor array dimension as length scale and a small
+% value as variance factor. Set variance s2f to one for ones on the diagonal of
+% the covariance matrix. Only sl will be tuned in the process. Set sf2 not one
+% it will be tuned both. Tuning both the vertical scale s2f and horizontal scale
+% 2*sl^2 can lead to inbalance of cosine and sine prediction indicated by
+% diverging log likelihoods for cosine and sine prediction.
+%                  [s2f , sl]
+GPROptions.theta = [1, SensorArrayOptions.dimension];
+
+% Set lower and upper bounds to optimize kernel parameters theta which is a
+% vector of covariance parameter covariance variance parameter s2f and lenght
+% scale parameter sl. These bounds must be set to prevent an overfitting in
+% tuning the kernel parameter. If the bounds are to wide the prediction losses
+% its generalization. At initialization of the GPR model s2f is set to senor
+% array dimension and sl is set to senor array count so number of predictors.
+% If the bounds are to tight the tuning and optimization procedure cannot
+% dismiss bad set points and tries to reach them over and over, the causes
+% a limitting which would be break through if the procedure reaches the point
+% evaluated as bad set point.
+GPROptions.thetaBounds = [1e-3, 1e3];
+
+% Set initial noise variance to add noise along the diagonal of th covariance
+% matrix to predict noisy observation. Set to small values or even 0 to get
+% noise free observations.
+GPROptions.s2n = 1e-5;
+
+% Set lower and upper bounds for noise adjustment in computing the covariance
+% matrix for noisy observations. These bounds prevent the GPR of overfitting in
+% the noise optimization procedure. The default noise at initialization is 1e-5.
+GPROptions.s2nBounds = [1e-9, 10];
+
+% Enables mean function and offset and amplitude correction. 
+% Set basis function to compute H matrix of training points and h vector of
+% test point. Current availible basis function are:
+% zero - init GPR as zero mean GPR m(x) = 0
+% poly - init GPR with mean correction m(x) = H' * beta, where H is a matrix
+%        polynom mean vectors at each observation points 
+%        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
+%        For QFC kernel x = ||X||_F
+GPROptions.mean = 'poly';
+
+% Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
+% 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
+% polynom degree is 7.
+GPROptions.polyDegree = 2;
+
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in
 % config.mat use newest save format with no compression.
@@ -733,6 +859,7 @@ save(PathVariables.configPath, ...
     'DipoleOptions', ...
     'TrainingOptions', ... 
     'TestOptions', ...
+    'GPROptions', ...
     '-v7.3', '-nocompression');
 
 ##### SOURCE END #####

@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>deleteSimulationPlots</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="deleteSimulationPlots.m"><style type="text/css">
+      --><title>deleteSimulationPlots</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="deleteSimulationPlots.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -106,7 +106,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 <span class="comment">% extension</span>
 ext = [<span class="string">"fig"</span> <span class="string">"svg"</span> <span class="string">"eps"</span> <span class="string">"pdf"</span> <span class="string">"avi"</span>];
 <span class="comment">% file patterns</span>
-pat = [<span class="string">"Test_*"</span> <span class="string">"Training_*"</span>];
+pat = [<span class="string">"*"</span>];
 
 <span class="keyword">for</span> i = 1:length(pth)
     disp(pth(i));
@@ -167,7 +167,7 @@ pth = [fig svg eps pdf avi];
 % extension
 ext = ["fig" "svg" "eps" "pdf" "avi"];
 % file patterns
-pat = ["Test_*" "Training_*"];
+pat = ["*"];
 
 for i = 1:length(pth)
     disp(pth(i));

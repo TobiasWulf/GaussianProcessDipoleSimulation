@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-01-13"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
+      --><title>Project Structure</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="Project_Structure.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -92,25 +92,26 @@ GaussianProcessDipoleSimulation
 &#9500;&#9472;&#9472; [4.0K]  docs
 &#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [ 12K]  html
 &#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  figures
-&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  helpsearch-v3
-&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  images
-&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp;     &#9500;&#9472;&#9472; [4.0K]  avi
-&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp;     &#9500;&#9472;&#9472; [4.0K]  eps
-&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp;     &#9500;&#9472;&#9472; [4.0K]  pdf
-&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp;     &#9492;&#9472;&#9472; [4.0K]  svg
+&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  helpsearch-v3
 &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  latex
 &#9474;&nbsp;&nbsp;     &#9500;&#9472;&#9472; [4.0K]  BA_Thesis_Tobias_Wulf
 &#9474;&nbsp;&nbsp;     &#9492;&#9472;&#9472; [4.0K]  Manual
 &#9500;&#9472;&#9472; [4.0K]  resources
 &#9500;&#9472;&#9472; [4.0K]  scripts
 &#9500;&#9472;&#9472; [4.0K]  src
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  gaussianProcessRegression
+&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  basicMathFunctions
+&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  kernelQFC
+&#9474;&nbsp;&nbsp; &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  kernelQFCAPX
 &#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  sensorArraySimulation
 &#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  util
 &#9474;&nbsp;&nbsp;     &#9492;&#9472;&#9472; [4.0K]  plotFunctions
 &#9500;&#9472;&#9472; [4.0K]  temp
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; [4.0K]  Functions
+&#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; [4.0K]  GaussProc
 &#9492;&#9472;&#9472; [4.0K]  tests
 
-23 directories
+24 directories
 </pre><p><i>Generated with linux shell command from on directory above the main project directory.</i></p><pre class="language-matlab">tree <span class="string">-dhn</span> <span class="string">GaussianProcessDipoleSimulation</span> <span class="keyword">...</span>
     <span class="string">-o</span> <span class="string">GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt</span> <span class="string">-I</span> <span class="keyword">...</span>
     <span class="string">"project|Project_*|thesis|images"</span>
@@ -248,6 +249,32 @@ GaussianProcessDipoleSimulation
     <td>Sensor Array Simulation function and class. Contains functions,
     mathematical functions and classes to simulate an N x N sensor array on
     base of the TDK TAS2141 characterization dataset.
+    </td>
+  </tr>
+  <tr>
+    <td>./src/gaussianProcessRegression</td>
+    <td>Gaussian Process Regression module which contains basic math functions
+    and submodules to implement GPR models with different kernels using same
+    regression and optimization process.
+    </td>
+  </tr>
+  <tr>
+    <td>./src/gaussianProcessRegression/basicMathFunctions</td>
+    <td>Basic math functions to perform GPR angular predictions.
+    </td>
+  </tr>
+  <tr>
+    <td>./src/gaussianProcessRegression/kernelQFC</td>
+    <td>Exact Quadratic Frobenius Covariance kernel functions which bases on
+    matrice training data.
+    </td>
+  </tr>
+  <tr>
+    <td>./src/gaussianProcessRegression/kernelQFCAPX</td>
+    <td>approximated Quadratic Frobenius Covariance kernel functions which
+    bases on vector training data and uses norm scalar presentation of input
+    matrix data. Using triangle inequation to norm matrix data before compute
+    the covariances.
     </td>
   </tr>
   <tr>
@@ -450,6 +477,32 @@ Edited on November 24. 2020 by Tobias Wulf: Add folders for training and test da
 %     <td>Sensor Array Simulation function and class. Contains functions,
 %     mathematical functions and classes to simulate an N x N sensor array on
 %     base of the TDK TAS2141 characterization dataset.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/gaussianProcessRegression</td>
+%     <td>Gaussian Process Regression module which contains basic math functions
+%     and submodules to implement GPR models with different kernels using same
+%     regression and optimization process.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/gaussianProcessRegression/basicMathFunctions</td>
+%     <td>Basic math functions to perform GPR angular predictions.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/gaussianProcessRegression/kernelQFC</td>
+%     <td>Exact Quadratic Frobenius Covariance kernel functions which bases on
+%     matrice training data.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/gaussianProcessRegression/kernelQFCAPX</td>
+%     <td>approximated Quadratic Frobenius Covariance kernel functions which
+%     bases on vector training data and uses norm scalar presentation of input
+%     matrix data. Using triangle inequation to norm matrix data before compute
+%     the covariances.
 %     </td>
 %   </tr>
 %   <tr>

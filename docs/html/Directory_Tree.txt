@@ -5,22 +5,23 @@ GaussianProcessDipoleSimulation
 ├── [4.0K]  docs
 │   ├── [ 12K]  html
 │   │   ├── [4.0K]  figures
-│   │   ├── [4.0K]  helpsearch-v3
-│   │   └── [4.0K]  images
-│   │       ├── [4.0K]  avi
-│   │       ├── [4.0K]  eps
-│   │       ├── [4.0K]  pdf
-│   │       └── [4.0K]  svg
+│   │   └── [4.0K]  helpsearch-v3
 │   └── [4.0K]  latex
 │       ├── [4.0K]  BA_Thesis_Tobias_Wulf
 │       └── [4.0K]  Manual
 ├── [4.0K]  resources
 ├── [4.0K]  scripts
 ├── [4.0K]  src
+│   ├── [4.0K]  gaussianProcessRegression
+│   │   ├── [4.0K]  basicMathFunctions
+│   │   ├── [4.0K]  kernelQFC
+│   │   └── [4.0K]  kernelQFCAPX
 │   ├── [4.0K]  sensorArraySimulation
 │   └── [4.0K]  util
 │       └── [4.0K]  plotFunctions
 ├── [4.0K]  temp
+│   ├── [4.0K]  Functions
+│   └── [4.0K]  GaussProc
 └── [4.0K]  tests
 
-23 directories
+24 directories

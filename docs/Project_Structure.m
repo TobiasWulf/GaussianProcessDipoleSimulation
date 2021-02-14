@@ -164,6 +164,32 @@
 %     </td>
 %   </tr>
 %   <tr>
+%     <td>./src/gaussianProcessRegression</td>
+%     <td>Gaussian Process Regression module which contains basic math functions
+%     and submodules to implement GPR models with different kernels using same
+%     regression and optimization process.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/gaussianProcessRegression/basicMathFunctions</td>
+%     <td>Basic math functions to perform GPR angular predictions.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/gaussianProcessRegression/kernelQFC</td>
+%     <td>Exact Quadratic Frobenius Covariance kernel functions which bases on
+%     matrice training data.
+%     </td>
+%   </tr>
+%   <tr>
+%     <td>./src/gaussianProcessRegression/kernelQFCAPX</td>
+%     <td>approximated Quadratic Frobenius Covariance kernel functions which
+%     bases on vector training data and uses norm scalar presentation of input
+%     matrix data. Using triangle inequation to norm matrix data before compute
+%     the covariances.
+%     </td>
+%   </tr>
+%   <tr>
 %     <td>./src/util</td>
 %     <td>Util function and class space. Function and class source code to solve
 %     upcoming help tasks e.g. to manage project content, to support plot

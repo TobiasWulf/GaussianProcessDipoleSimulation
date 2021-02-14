@@ -38,6 +38,22 @@
                 <tocitem target="computeDipoleHField.html">computeDipoleHField</tocitem>
                 <tocitem target="simulateDipoleSquareSensorArray.html">simulateDipoleSquareSensorArray</tocitem>
             </tocitem>
+            <tocitem target="gaussianProcessRegression.html">gaussianProcessRegression
+                <tocitem target="kernelQFCAPX.html">kernelQFCAPX</tocitem>
+                <tocitem target="kernelQFC.html">kernelQFC</tocitem>
+                <tocitem target="basicMathFunctions.html">basicMathFunctions
+                    <tocitem target="sinoids2angles.html">sinoids2angles</tocitem>
+                    <tocitem target="angles2sinoids.html">angles2sinoids</tocitem>
+                    <tocitem target=".html"></tocitem>
+                    <tocitem target=".html"></tocitem>
+                    <tocitem target=".html"></tocitem>
+                    <tocitem target=".html"></tocitem>
+                    <tocitem target=".html"></tocitem>
+                    <tocitem target=".html"></tocitem>
+                    <tocitem target=".html"></tocitem>
+                    <tocitem target=".html"></tocitem>
+                </tocitem>
+            </tocitem>
             <tocitem target="util.html">util
                 <tocitem target="removeFilesFromDir.html">removeFilesFromDir</tocitem>
                 <tocitem target="publishFilesFromDir.html">publishFilesFromDir</tocitem>

@@ -1,0 +1,240 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>sinoids2angles</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="sinoids2angles.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>sinoids2angles</h1><!--introduction--><p>Computes angles in rad or degree by passed sinoids and radius. The angle calculation is asigned in two steps. At first compute bare angles by acos and asin functions. Divide therfore the corresponding sinoid by the radius. Furhter on the result from acos is used with an interval correction given by the second results from the asin function. The amplitudes of the sinoids must be one or near to one.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
+</pre><h2 id="2">Description</h2><p><b>[fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)</b> returns angles in rad or degrees given by corresponding sinoids and radius. Set rad flag to false if angles in degrees are needed.</p><h2 id="3">Examples</h2><pre class="language-matlab">phi = linspace(0, 2*pi, 100);
+fsin = sin(phi);
+fcos = cos(phi);
+frad = sqrt(fsin.^2 + fcos.^2);
+[fang, fc, fs] = sinoids2angles(fsin, fcos, frad, true)
+</pre><h2 id="4">Input Argurments</h2><p><b>fsin</b> is a scalar or vector with sine information to corresponding angle.</p><p><b>fcos</b> is a scalar or vector with cosine information to corresponding angle.</p><p><b>frad</b> is a scalar or vector which represents the radius of each sine and cosine position.</p><p><b>rad</b> is a boolean flag. If it is false the resulting angles are converted into degrees. If it is true fang is returned in rad. Default is true.</p><h2 id="5">Output Argurments</h2><p><b>fang</b> is a scalar or vector with angles in rad or degree corresponding to the sine and cosine inputs.</p><p><b>fc</b> is a scalar or vector with angles directly computed by cosine and radius.</p><p><b>fs</b> is a scalar or vector with angles directly computed by sine and radius.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: acos, asin</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="angles2sinoids.html">angles2sinoids</a></li></ul></div><p>Created on December 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><pre class="codeinput"><span class="keyword">function</span> [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
+    <span class="keyword">arguments</span>
+        <span class="comment">% validate sinoids and radius as scalar or vector of the same size</span>
+        fsin <span class="typesection">(:,1) double {mustBeReal}</span>
+        fcos <span class="typesection">(:,1) double {mustBeReal, mustBeEqualSize(fsin, fcos)}</span>
+        frad <span class="typesection">(:,1) double {mustBeReal, mustBeEqualSize(fsin, frad)}</span>
+        <span class="comment">% validate rad as boolean flag with default true</span>
+        rad <span class="typesection">(1,1) logical {mustBeNumericOrLogical}</span> = true
+    <span class="keyword">end</span>
+
+    <span class="comment">% compute angles by cosine, sine and radius</span>
+    fc = acos(fcos ./ frad);
+    fs = asin(fsin ./ frad);
+
+    <span class="comment">% get indices for interval &gt; 180&deg;</span>
+    idx = fs &lt; 0;
+
+    <span class="comment">% angles from cosine</span>
+    fang = fc;
+
+    <span class="comment">% correct 180&deg; interval</span>
+    fang(idx) = -1 * fang(idx) + 2 * pi;
+
+    <span class="comment">% return degrees if not rad</span>
+    <span class="keyword">if</span> ~rad, fang = 180 / pi * fang; <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Custom validation function</span>
+<span class="keyword">function</span> mustBeEqualSize(a,b)
+    <span class="comment">% Test for equal size</span>
+    <span class="keyword">if</span> ~isequal(size(a),size(b))
+        eid = <span class="string">'Size:notEqual'</span>;
+        msg = <span class="string">'Size of first input must equal size of second input.'</span>;
+        throwAsCaller(MException(eid,msg))
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% sinoids2angles
+% Computes angles in rad or degree by passed sinoids and radius. The angle
+% calculation is asigned in two steps. At first compute bare angles by acos and
+% asin functions. Divide therfore the corresponding sinoid by the radius.
+% Furhter on the result from acos is used with an interval correction given by
+% the second results from the asin function. The amplitudes of the sinoids must
+% be one or near to one.
+%
+%
+%% Syntax
+%   [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
+%
+%
+%% Description
+% *[fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)* returns angles in rad
+% or degrees given by corresponding sinoids and radius. Set rad flag to false if
+% angles in degrees are needed.
+%
+%
+%% Examples
+%   phi = linspace(0, 2*pi, 100);
+%   fsin = sin(phi);
+%   fcos = cos(phi);
+%   frad = sqrt(fsin.^2 + fcos.^2);
+%   [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, true)
+%
+%
+%% Input Argurments
+% *fsin* is a scalar or vector with sine information to corresponding angle. 
+%
+% *fcos* is a scalar or vector with cosine information to corresponding angle.
+%
+% *frad* is a scalar or vector which represents the radius of each sine and
+% cosine position.
+%
+% *rad* is a boolean flag. If it is false the resulting angles are converted
+% into degrees. If it is true fang is returned in rad. Default is true.
+%
+%
+%% Output Argurments
+% *fang* is a scalar or vector with angles in rad or degree corresponding to the
+% sine and cosine inputs.
+%
+% *fc* is a scalar or vector with angles directly computed by cosine and radius. 
+%
+% *fs* is a scalar or vector with angles directly computed by sine and radius. 
+%
+%
+%% Requirements
+% * Other m-files required: None
+% * Subfunctions: acos, asin
+% * MAT-files required: None
+%
+%
+%% See Also
+% * <angles2sinoids.html angles2sinoids>
+%
+%
+% Created on December 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+function [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
+    arguments
+        % validate sinoids and radius as scalar or vector of the same size
+        fsin (:,1) double {mustBeReal}
+        fcos (:,1) double {mustBeReal, mustBeEqualSize(fsin, fcos)}
+        frad (:,1) double {mustBeReal, mustBeEqualSize(fsin, frad)}
+        % validate rad as boolean flag with default true
+        rad (1,1) logical {mustBeNumericOrLogical} = true
+    end
+    
+    % compute angles by cosine, sine and radius
+    fc = acos(fcos ./ frad);
+    fs = asin(fsin ./ frad);
+    
+    % get indices for interval > 180°
+    idx = fs < 0;
+    
+    % angles from cosine
+    fang = fc;
+    
+    % correct 180° interval
+    fang(idx) = -1 * fang(idx) + 2 * pi;
+    
+    % return degrees if not rad
+    if ~rad, fang = 180 / pi * fang; end
+end
+
+% Custom validation function
+function mustBeEqualSize(a,b)
+    % Test for equal size
+    if ~isequal(size(a),size(b))
+        eid = 'Size:notEqual';
+        msg = 'Size of first input must equal size of second input.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+##### SOURCE END #####
+--></body></html>
