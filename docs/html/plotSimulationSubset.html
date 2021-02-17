@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationSubset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="plotSimulationSubset.m"><style type="text/css">
+      --><title>plotSimulationSubset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-17"><meta name="DC.source" content="plotSimulationSubset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -155,10 +155,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 
     <span class="comment">% figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-    fPath = fullfile(PathVariables.saveFiguresPath);
-    fSvgPath = fullfile(PathVariables.saveImagesPath, <span class="string">'svg'</span>);
-    fEpsPath = fullfile(PathVariables.saveImagesPath, <span class="string">'eps'</span>);
-    fPdfPath = fullfile(PathVariables.saveImagesPath, <span class="string">'pdf'</span>);
+    fPath = PathVariables.saveImagesPath;
 
     <span class="comment">% create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -530,9 +527,9 @@ Edited on Month DD. YYYY by Editor: Single line description.
         fLabel = input(<span class="string">'Enter file label: '</span>, <span class="string">'s'</span>);
         fName = fName + <span class="string">"_SubsetPlot_"</span> + fLabel;
         savefig(fig, fullfile(fPath, fName));
-        print(fig, fullfile(fSvgPath, fName), <span class="string">'-dsvg'</span>);
-        print(fig, fullfile(fEpsPath, fName), <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
-        print(fig, fullfile(fPdfPath, fName), <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
+        print(fig, fullfile(fPath, fName), <span class="string">'-dsvg'</span>);
+        print(fig, fullfile(fPath, fName), <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
+        print(fig, fullfile(fPath, fName), <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
     <span class="keyword">end</span>
     close(fig);
 <span class="keyword">end</span>
@@ -652,10 +649,7 @@ function plotSimulationSubset()
     
     % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fPath = fullfile(PathVariables.saveFiguresPath);
-    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
-    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
-    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
+    fPath = PathVariables.saveImagesPath;
     
     % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1027,9 +1021,9 @@ function plotSimulationSubset()
         fLabel = input('Enter file label: ', 's');
         fName = fName + "_SubsetPlot_" + fLabel;
         savefig(fig, fullfile(fPath, fName));
-        print(fig, fullfile(fSvgPath, fName), '-dsvg');
-        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
-        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
+        print(fig, fullfile(fPath, fName), '-dsvg');
+        print(fig, fullfile(fPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPath, fName), '-dpdf', '-loose', '-fillpage');
     end
     close(fig);
 end

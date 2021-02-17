@@ -36,3 +36,6 @@ data/test/*.fig
 data/test/*.eps
 data/test/*.svg
 data/test/*.pdf
+
+# exclude literature
+docs/latex/BA_Thesis_Tobias_Wulf/literature/

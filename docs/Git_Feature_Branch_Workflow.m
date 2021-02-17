@@ -25,8 +25,8 @@
 %
 %
 %% Examples
-% # The master branch is created. Project starts with commit C0.
-% # One commit C1 is added to the master branch e.g. by adding .gitattributes.
+% # The master branch is created. Project starts with a first commit.
+% # The second commit adds to the master branch files like .gitattributes.
 % # But there was an issue with that attributes declaration so a new branch is
 %   opened to solve that issue.
 % # On the same time a new feature must be established e.g. a new script or
@@ -37,7 +37,7 @@
 % # Switch between the different branches by checkout the branch and commit the
 %   ongoing work into each branch for itself.
 % # If the work is done in a branch, the branch must be merged on the master
-%   branch. Git makes automated merge commits (C6, C7, C9) where the changes
+%   branch. Git makes automated merge commits where the changes
 %   from the branches are integrated in master branch files.
 % # At this point it is possible that merging conflicts are raised. Those
 %   conflicts in the files must be solved manually.
@@ -47,10 +47,6 @@
 % *It is best practice to push all created local branches to a remote repository
 %  too! It completes the backup on the one hand and on the other it makes the
 %  ongoing work accessable to third.*
-%
-% <html>
-% <img src="images/svg/feature_branch_workflow.svg.png" height=350>
-% </html>
 %
 %
 % Created on October 07. 2020 by Tobias Wulf. Copyright Tobias 2020.

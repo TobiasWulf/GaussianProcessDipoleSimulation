@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-14"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
+      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-17"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -104,10 +104,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     figFilename = <span class="string">'dipole_magnet'</span>;
-    figPath = fullfile(PathVariables.saveFiguresPath, figFilename);
-    figSvgPath = fullfile(PathVariables.saveImagesPath, <span class="string">'svg'</span>, figFilename);
-    figEpsPath = fullfile(PathVariables.saveImagesPath, <span class="string">'eps'</span>, figFilename);
-    figPdfPath = fullfile(PathVariables.saveImagesPath, <span class="string">'pdf'</span>, figFilename);
+    figPath = fullfile(PathVariables.saveImagesPath, figFilename);
 
     <span class="comment">% load needed data from dataset in to local variables for better handling</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -293,9 +290,9 @@ Edited on Month DD. YYYY by Editor: Single line description.
     yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
     <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
         savefig(fig, figPath);
-        print(fig, figSvgPath, <span class="string">'-dsvg'</span>);
-        print(fig, figEpsPath, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
-        print(fig, figPdfPath, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
+        print(fig, figPath, <span class="string">'-dsvg'</span>);
+        print(fig, figPath, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
+        print(fig, figPath, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
     <span class="keyword">end</span>
     close(fig)
 <span class="keyword">end</span>
@@ -360,10 +357,7 @@ function plotDipoleMagnet()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     figFilename = 'dipole_magnet';
-    figPath = fullfile(PathVariables.saveFiguresPath, figFilename);
-    figSvgPath = fullfile(PathVariables.saveImagesPath, 'svg', figFilename);
-    figEpsPath = fullfile(PathVariables.saveImagesPath, 'eps', figFilename);
-    figPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', figFilename);
+    figPath = fullfile(PathVariables.saveImagesPath, figFilename);
     
     % load needed data from dataset in to local variables for better handling
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -549,9 +543,9 @@ function plotDipoleMagnet()
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
         savefig(fig, figPath);
-        print(fig, figSvgPath, '-dsvg');
-        print(fig, figEpsPath, '-depsc', '-tiff', '-loose');
-        print(fig, figPdfPath, '-dpdf', '-loose', '-fillpage');
+        print(fig, figPath, '-dsvg');
+        print(fig, figPath, '-depsc', '-tiff', '-loose');
+        print(fig, figPath, '-dpdf', '-loose', '-fillpage');
     end
     close(fig)
 end

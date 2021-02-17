@@ -23,7 +23,7 @@
 %  
 %   tree -dhn GaussianProcessDipoleSimulation ...
 %       -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I ...
-%       "project|Project_*|thesis|images"
+%       "project|Project_*|thesis|literature"
 %
 %% Directory Tasks
 %
