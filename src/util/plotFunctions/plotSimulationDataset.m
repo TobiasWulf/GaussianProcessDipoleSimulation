@@ -395,7 +395,7 @@ function plotSimulationDataset()
     fPath = PathVariables.saveImagesPath;
     
     % string allows simple cat ops
-    VW = VideoWriter(fullfile(fPath, 'avi', fName + ".avi"), ...
+    VW = VideoWriter(fullfile(fPath, fName + ".avi"), ...
         "Uncompressed AVI");
     
     % scale frame rate on 10 second movies, ensure at least 1 fps

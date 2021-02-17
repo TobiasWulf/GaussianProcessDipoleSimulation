@@ -61,22 +61,13 @@ function plotTDKCharDataset()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     fig1Filename = 'tdk_magnetic_stimulus';
-    fig1Path = fullfile(PathVariables.saveFiguresPath, fig1Filename);
-    fig1SvgPath = fullfile(PathVariables.saveImagesPath, 'svg', fig1Filename);
-    fig1EpsPath = fullfile(PathVariables.saveImagesPath, 'eps', fig1Filename);
-    fig1PdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', fig1Filename);
+    fig1Path = fullfile(PathVariables.saveImagesPath, fig1Filename);
     
     fig2Filename = 'tdk_cosinus_bridge';
-    fig2Path = fullfile(PathVariables.saveFiguresPath, fig2Filename);
-    fig2SvgPath = fullfile(PathVariables.saveImagesPath, 'svg', fig2Filename);
-    fig2EpsPath = fullfile(PathVariables.saveImagesPath, 'eps', fig2Filename);
-    fig2PdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', fig2Filename);
+    fig2Path = fullfile(PathVariables.saveImagesPath, fig2Filename);
     
     fig3Filename = 'tdk_sinus_bridge';
-    fig3Path = fullfile(PathVariables.saveFiguresPath, fig3Filename);
-    fig3SvgPath = fullfile(PathVariables.saveImagesPath, 'svg', fig3Filename);
-    fig3EpsPath = fullfile(PathVariables.saveImagesPath, 'eps', fig3Filename);
-    fig3PdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', fig3Filename);
+    fig3Path = fullfile(PathVariables.saveImagesPath, fig3Filename);
     
     % load needed data from dataset in to local variables for better handling
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -636,21 +627,21 @@ function plotTDKCharDataset()
     if strcmp(yesno, 'y')
         % save results of figure 1
         savefig(fig1, fig1Path);
-        print(fig1, fig1SvgPath, '-dsvg');
-        print(fig1, fig1EpsPath, '-depsc', '-tiff', '-loose');
-        print(fig1, fig1PdfPath, '-dpdf', '-loose', '-fillpage');
+        print(fig1, fig1Path, '-dsvg');
+        print(fig1, fig1Path, '-depsc', '-tiff', '-loose');
+        print(fig1, fig1Path, '-dpdf', '-loose', '-fillpage');
     
         % save results of figure 2
         savefig(fig2, fig2Path);
-        print(fig2, fig2SvgPath, '-dsvg');
-        print(fig2, fig2EpsPath, '-depsc', '-tiff', '-loose');
-        print(fig2, fig2PdfPath, '-dpdf', '-loose', '-fillpage');
+        print(fig2, fig2Path, '-dsvg');
+        print(fig2, fig2Path, '-depsc', '-tiff', '-loose');
+        print(fig2, fig2Path, '-dpdf', '-loose', '-fillpage');
     
         % save results of figure 3
         savefig(fig3, fig3Path);
-        print(fig3, fig3SvgPath, '-dsvg');
-        print(fig3, fig3EpsPath, '-depsc', '-tiff', '-loose');
-        print(fig3, fig3PdfPath, '-dpdf', '-loose', '-fillpage');
+        print(fig3, fig3Path, '-dsvg');
+        print(fig3, fig3Path, '-depsc', '-tiff', '-loose');
+        print(fig3, fig3Path, '-dpdf', '-loose', '-fillpage');
     end
     close(fig1)
     close(fig2)

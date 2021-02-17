@@ -103,10 +103,7 @@ function plotSingleSimulationAngle()
     
     % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fPath = fullfile(PathVariables.saveFiguresPath);
-    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg');
-    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps');
-    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf');
+    fPath = PathVariables.saveImagesPath;
     
     % create dataset figure for a subset or all angle %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -462,9 +459,9 @@ function plotSingleSimulationAngle()
         fLabel = input('Enter file label: ', 's');
         fName = fName + sprintf("_AnglePlot_%d_", idx) + fLabel;
         savefig(fig, fullfile(fPath, fName));
-        print(fig, fullfile(fSvgPath, fName), '-dsvg');
-        print(fig, fullfile(fEpsPath, fName), '-depsc', '-tiff', '-loose');
-        print(fig, fullfile(fPdfPath, fName), '-dpdf', '-loose', '-fillpage');
+        print(fig, fullfile(fPath, fName), '-dsvg');
+        print(fig, fullfile(fPath, fName), '-depsc', '-tiff', '-loose');
+        print(fig, fullfile(fPath, fName), '-dpdf', '-loose', '-fillpage');
     end
     close(fig);
 end

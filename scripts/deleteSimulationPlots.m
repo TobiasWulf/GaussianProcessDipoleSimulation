@@ -31,30 +31,19 @@ try
     close all;
     load('config.mat', 'PathVariables')
     disp('Delete from ...')
-    fig = PathVariables.saveFiguresPath;
-    svg = fullfile(PathVariables.saveImagesPath, 'svg');
-    eps = fullfile(PathVariables.saveImagesPath, 'eps');
-    pdf = fullfile(PathVariables.saveImagesPath, 'pdf');
-    avi = fullfile(PathVariables.saveImagesPath, 'avi');
+    path = PathVariables.saveImagesPath;
 catch ME
     rethrow(ME)
 end
 
 %% Delete Dataset Plots
 % Delete datasets plots from image path and figure path with certain
-% file pattern.
-% path
-pth = [fig svg eps pdf avi];
-% extension
+% file pattern and extensions.
 ext = ["fig" "svg" "eps" "pdf" "avi"];
-% file patterns
-pat = ["*"];
+pat = "*";
 
-for i = 1:length(pth)
-    disp(pth(i));
-    for p = pat
-        asw = removeFilesFromDir(pth(i), join([p, ext(i)], "."));
-        fprintf('Deleted pattern %s.%s %s\n', p, ext(i), string(asw));
-    end
+for e = ext
+    asw = removeFilesFromDir(path, join([pat, e], "."));
+    fprintf('Deleted pattern %s.%s %s\n', pat, e, string(asw));
 end
 

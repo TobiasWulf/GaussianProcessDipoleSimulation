@@ -96,10 +96,6 @@ PathVariables.publishHtmlPath = fullfile(PathVariables.docsPath, 'html');
 PathVariables.saveImagesPath = fullfile(PathVariables.publishHtmlPath, ...
     'images');
 
-% path to save matlab figures
-PathVariables.saveFiguresPath = fullfile(PathVariables.publishHtmlPath, ...
-    'figures');
-
 % path to latex docs folder
 PathVariables.latexDocsPath = fullfile(PathVariables.docsPath, ...
     'latex');

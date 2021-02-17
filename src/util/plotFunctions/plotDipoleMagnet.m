@@ -57,10 +57,7 @@ function plotDipoleMagnet()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     figFilename = 'dipole_magnet';
-    figPath = fullfile(PathVariables.saveFiguresPath, figFilename);
-    figSvgPath = fullfile(PathVariables.saveImagesPath, 'svg', figFilename);
-    figEpsPath = fullfile(PathVariables.saveImagesPath, 'eps', figFilename);
-    figPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', figFilename);
+    figPath = fullfile(PathVariables.saveImagesPath, figFilename);
     
     % load needed data from dataset in to local variables for better handling
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -246,9 +243,9 @@ function plotDipoleMagnet()
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
         savefig(fig, figPath);
-        print(fig, figSvgPath, '-dsvg');
-        print(fig, figEpsPath, '-depsc', '-tiff', '-loose');
-        print(fig, figPdfPath, '-dpdf', '-loose', '-fillpage');
+        print(fig, figPath, '-dsvg');
+        print(fig, figPath, '-depsc', '-tiff', '-loose');
+        print(fig, figPath, '-dpdf', '-loose', '-fillpage');
     end
     close(fig)
 end

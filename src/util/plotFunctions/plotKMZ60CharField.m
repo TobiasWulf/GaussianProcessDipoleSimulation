@@ -91,10 +91,7 @@ function plotKMZ60CharField()
     % figure save path for different formats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     fName = sprintf("kmz60_char_field_%s", field);
-    fPath = fullfile(PathVariables.saveFiguresPath, fName);
-    fSvgPath = fullfile(PathVariables.saveImagesPath, 'svg', fName);
-    fEpsPath = fullfile(PathVariables.saveImagesPath, 'eps', fName);
-    fPdfPath = fullfile(PathVariables.saveImagesPath, 'pdf', fName);
+    fPath = fullfile(PathVariables.saveImagesPath, fName);
     
     % define slices and limits to plot %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -333,9 +330,9 @@ function plotKMZ60CharField()
     yesno = input('Save? [y/n]: ', 's');
     if strcmp(yesno, 'y')
         savefig(fig, fPath);
-        print(fig, fSvgPath, '-dsvg');
-        print(fig, fEpsPath, '-depsc', '-tiff', '-loose');
-        print(fig, fPdfPath, '-dpdf', '-loose', '-fillpage');
+        print(fig, fPath, '-dsvg');
+        print(fig, fPath, '-depsc', '-tiff', '-loose');
+        print(fig, fPath, '-dpdf', '-loose', '-fillpage');
     end
     close(fig)
     
