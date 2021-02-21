@@ -3,35 +3,37 @@
 % @author Tobias Wulf
 %
 
-\chapter{Grundlagen 0.0.1 13.01.2021}\label{ch:grundlagen}
+\chapter{Grundlagen 0.0.2 19.02.2021}\label{ch:grundlagen}
 	\begin{itemize}
 		\item Einleitung Aufgabenfeld
+		\item Einheitskreis
+		\item Bezug zur Drehwinkelerfassung und Sensorapplikation
 	\end{itemize}
 
-\section{Magnetische Sensorentypen und mechatronische Anwendung}
-Die Technologie mit der ein Sensorkopf realisiert ist, klassifiziert in der Regel die Sensorbezeichnung. Anhänge in der Bezeichnung wie AMR oder TMR, geben somit Auskunft darüber welche Technologie für die Realisierung des Sensorkopfes die Grundlage bildet.
+\section{Magnetische Sensorentypen und mechatronische Anwendung}\label{sec:magnetische-sensorentypen}
 	\begin{itemize}
-		\item Anwendungsfall Drehzahlmessung
+		\item Die Technologie mit der ein Sensorkopf realisiert ist, klassifiziert in der Regel die Sensorbezeichnung. Anhänge in der Bezeichnung wie AMR oder TMR, geben somit Auskunft darüber welche Technologie für die Realisierung des Sensorkopfes die Grundlage bildet.
 		\item Anwendungsfall Winkelmessung
-		\item Ausblick TMR und Strommessung
-		\item Aufbau Sensorbrücke TMR (Umriss)
+		\item Aufbau Sensorbrücke TMR (Umriss aus Datenblatt)
+		\item Ausblick TMR Drehzahlmessung und Strommessung
 	\end{itemize}
 
-\section{Kennfeldmethode zur Modellierung der Sensoren}
+\section{Kennfeldmethode zur Charakterisierung von Sensoren}\label{sec:kennfeldmethode-zur-charakterisierung}
 	\begin{itemize}
-		\item Messprinzip für das Erstellen der Brücken Kennfelder
+		\item Überleitung von Sensorbrückenschaltung
+		\item Messprinzip für das Erstellen der Sensorbrücken-Kennfelder
 		\item Festlegung von Arbeitsbereich (Plateau TMR), Sättigung (KMZ60)
 		\item Dimensionierung des Stimulus, Dipole Anregung
 	\end{itemize}
 
-\section{Prinzip des Sensor Arrays}
+\section{Prinzip des Sensor-Arrays}\label{sec:prinzip-des-sensor-arrays}
 	\begin{itemize}
 		\item geometrischer Aufbau
 		\item Brückenausgangsspannungen
 		\item Resultierende Array-Datenformate und Darstellung der Sinoiden
 	\end{itemize}
 
-\section{Simulation über Dipol-Feldgleichung}
+\section{Sensor-Array-Simulation über Dipol-Feldgleichung}\label{sec:sensor-array-simulation-dipol-feldgleichung}
 	\begin{itemize}
 		\item Erzeugen des Meshgrids
 		\item Normieren des Magnetfeldes
@@ -39,10 +41,12 @@ Die Technologie mit der ein Sensorkopf realisiert ist, klassifiziert in der Rege
 		\item Referenzierung zu Kennfeldern und Gewinnung der Brückenspannungen (interp2 nearest neighbor)
 	\end{itemize}
 
-\section{Gauß-Prozess und Regressionsverfahren}
+\section{Gauß-Prozesse für Regressionsverfahren}\label{sec:gauss-prozesse-regressionsverfahren}
 	\begin{itemize}
 		\item Erläuterung des Regressionsverfahren im allg.
-		\item Bedeutung der Kovarianzfunktion
+		\item Bedeutung und Kriterien der Kovarianzfunktion, Spiegel der Applikation
+		\item Herleitung der Quadratischen Frobenius Kovarianzfunktion mit Bezug zum Einheitskreis
 		\item Möglichkeiten zur Mittelwertschätzung und -Korrektur
-		\item Einbringen von Feature-Funktionen über die Mittelwertschätzung
+		\item Optimierungskriterien in der Trainingsphase
+		\item Qualitätskriterien in der Arbeitsphase
 	\end{itemize}

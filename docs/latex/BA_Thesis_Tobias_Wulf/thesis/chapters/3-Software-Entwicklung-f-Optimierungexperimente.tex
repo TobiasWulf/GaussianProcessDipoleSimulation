@@ -3,9 +3,9 @@
 % @author Tobias Wulf
 %
 
-\chapter{Entwicklung von Software für die Optimierungs-Experimente 0.0.1 13.01.2021}
+\chapter{Software-Entwicklung für Optimierungs-Experimente 0.0.2 19.02.2021}\label{ch:sw-entwicklung-f-opt-exp}
 
-\section{Aufgabe der Software und grundsätzliche Funktion}
+\section{Aufgabe und Funktionen der Software}\label{sec:aufgabe-und-funktionen-sw}
 \begin{itemize}
 	\item Identifizierung der Grundfunktionen
 	\item Datengenerierung
@@ -19,7 +19,7 @@ Parameterfindung und teilweise auf Zwischenergebnissen basieren.
 Gut strukturierte Archivierung von Ergebnisse.
 Graphische Unterstützung von Auswertung.
  
-\section{Aufbau und Vorgehen}
+\section{Aufbau und Vorgehen}\label{sec:aufbau-und-vorgehen}
 	\begin{itemize}
 		\item Skriptbasierte Entwurfsarbeit
 		\item Überführen in modularen Aufbau von Kernfunktion
@@ -30,29 +30,21 @@ Graphische Unterstützung von Auswertung.
 	\end{itemize}
 
 
-\section{Sensor-Array-Simulation}
+\section{Sensor-Array-Simulation}\label{sec:sensor-array-simulation}
 	\begin{itemize}
 		\item Zuordnung Datengenerierung
 		\item Nutzung von vorarbeiten
-		\item Darstellung des Modul Funktionsablaufdiagramm
+		\item Darstellung des Modul-Funktionsablaufdiagramm
 		\item Darstellung des Algorithmus für die Simulation mehrere Positionen
 		\item Nutzung des Moduls für eingestellte Konfigurierung
 	\end{itemize}
 
-\section{Gauß-Prozess-Regression}
+\section{Gauß-Prozess-Regression}\label{sec:gauss-prozess-regression}
 	\begin{itemize}
 		\item Zuordnung Datenanalyse
 		\item Nutzung von Vorarbeiten
-		\item Einordnung der Vorarbeiten in Bezug auf Regressionsverfahren (Jünemann)
-		\item Skriptbasierte Voruntersuchungen zu Findung des mathematischen Modells bzw. Kovarianzfunktion (Matlab-Standard-Modelle)
-		\item Bezugherstellung Einheitskreis und Orthogonalität des Ausgangssystems
-		\item Beschreibung des kombinierten Systems aus der Vorarbeit (Jünemann)
-		\item Optimierung des einfachen kombinierten Systems ohne Mittelwertschätzung
-		\item Optimierung des einfachen kombinierten Systems mit Mittelwertschätzung
-		\item Optimierung des kombinierten System mit individueller Mittelwertschätzung
-		\item Einbringen des Atan2-Feature-Funktion über die Mittelwertschätzung und vereinfachte Optimierung
+		\item Darstellung des Modul-Funktionsablaufdiagramm
+		\item Aufbau der Modell-Engine und Schnittstellen für neue Kovarianzfunktionen
 		\item Darstellung der einzelnen Optimierungsverfahren und Aufzeigen der Unterschiede im vorgehen
-		\item Bemessung des Aufwands und Genauigkeiten
-		\item Beziffern und ermitteln von Hyperparameter für die vier Regressionsmöglichkeiten des kombinierten Systems
  		\item Nutzung des Moduls für eingestellte Konfigurierung
 	\end{itemize}

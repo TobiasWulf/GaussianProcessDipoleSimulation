@@ -3,7 +3,7 @@
 % @author Tobias Wulf
 %
 
-\section{Stand der Vorarbeiten 0.0.1 18.02.2021}\label{sec:stand-der-vorarbeiten}
+\section{Stand der Vorarbeiten 0.0.1 19.02.2021}\label{sec:stand-der-vorarbeiten}
 
 Einleitend findet, zur Erörterung der Ziele und Inhalte dieser Arbeit, eine kurze Zusammenfassung der Vorarbeiten statt.
 Für den Inhalt relevante Aspekte der Vorarbeiten werden im \autoref{ch:grundlagen} näher beleuchtet und erklärt.
@@ -21,7 +21,7 @@ Eine Steuerung des Hyperplexings und die weitere Messwertverarbeitung erfolgt mi
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=0.5\linewidth]{chapters/images/Sensor-Array-Platine-8x8}
-	\caption[Platinen-Sensor-Array Maßstab 1:25]{Platinen-Sensor-Array im Maßstab 1:25 aufgebaut als $8\times8$ Sensor-Array, dass als Aufsteckmodul für eine Mikrocontroller getriebene Signalverarbeitung bereitsteht \cite{Mehm2019}. Die einzelnen Sensoren sind zur Sensorbänken gegliedert. Die Gliederung erfolgt in eine linke und rechte Sensorbank pro Reihe auf der Platine. Eine Sensorbank besteht jeweils aus einem Multiplexer-IC und vier daneben liegenden Sensor-ICs.}
+	\caption[Platinen-Sensor-Array im Maßstab 1:25]{Platinen-Sensor-Array im Maßstab 1:25 aufgebaut als $8\times8$ Sensor-Array, dass als Aufsteckmodul für eine Mikrocontroller getriebene Signalverarbeitung bereitsteht \cite{Mehm2019}. Die einzelnen Sensoren sind in Sensorbänken angeordnet. Die Anordnung erfolgt in eine linke und rechte Sensorbank pro Reihe auf der Platine. Eine Sensorbank besteht jeweils aus einem Multiplexer-IC und vier daneben liegenden Sensor-ICs.}
 	\label{fig:sensor-array-platine-8x8}
 \end{figure}
 
@@ -30,15 +30,15 @@ Eine Steuerung des Hyperplexings und die weitere Messwertverarbeitung erfolgt mi
 
 
 Diese Herangehensweise lässt eine Untersuchung der technischen Machbarkeit auf der Basis von heute zur Verfügung stehenden Technologien und Winkelsensoren zu.
-So ist das Platinen-Sensor-Array in verschieden Versionen, mit \gls{ac:amr} Sensoren der Firma NXP Semiconductors (KMZ60) \cite{NXPSemiconductors2014} und TMR Sensoren der Firma TDK (TAS2141-AAAB) \cite{TDK2016} verwirklicht worden. Das Maßstabsmodell des magnetischen Sensor-Arrays kann zu Vergleichs- und weiteren Erprobungsarbeiten genutzt werden, die z.B. Erkenntnisse aus Simulationen und Hardware-Optimierungsarbeiten einbinden.
+So ist das Platinen-Sensor-Array in verschieden Versionen, mit \gls{ac:amr}-Sensoren der Firma NXP Semiconductors (KMZ60) \cite{NXPSemiconductors2014} und TMR-Sensoren der Firma TDK (TAS2141-AAAB) \cite{TDK2016} verwirklicht worden. Das Maßstabsmodell des magnetischen Sensor-Arrays kann zu Vergleichs- und weiteren Erprobungsarbeiten genutzt werden, die z.B. Erkenntnisse aus Simulationen und Hardware-Optimierungsarbeiten einbinden.
 
 
 \paragraph{Simulationsmodell des Sensor-Arrays}\label{par:simulationsmodell-des-sensor-arrays}$~$\\
 
 
-Einen weiteren Ansatz, der durch die \gls{gl:ags} verfolgt wird, ist die Entwicklung eines Simulationsmodells auf Grundlage von Charakterisierungsdatensätzen. Hierfür wird ein einzelnes Sensor-IC, z.B. der TMR Sensor TAS2141-AAAB der Firma TDK, nach einer bestimmten Kennfeldmethode \cite{Schuethe2019} charakterisiert. Der so gewonnene Datensatz kann dann, durch geeignete Interpolationsverfahren, in einer Simulation zur Generierung eines magnetischen Sensor-Arrays genutzt werden. In \autoref{fig:ansatz-simulationsmodell} ist das Kernprinzip des Simulationsansatzes vereinfacht dargestellt. Es wird ein Simulationsmodell aufgebaut, dass Charakterisierungsdatensätze verarbeiten kann und entsprechende Charakteristiken eines einzelnen Sensor-ICs zu einem Sensor-Array interpoliert. Abhängig von weiteren gewählten Eigenschaften des Sensor-Arrays, wie geometrische Anordnung und Größe, produziert das interpolierte Modell Simulationsdatensätze, die das Verhalten des einzelner Sensor-ICs ortsabhängig im Sensor-Array widerspiegelt.
+Einen weiteren Ansatz, der durch die \gls{gl:ags} verfolgt wird, ist die Entwicklung eines Simulationsmodells auf Grundlage von Charakterisierungsdatensätzen. Hierfür wird ein einzelnes Sensor-IC, z.B. der TMR-Sensor TAS2141-AAAB der Firma TDK, nach einer bestimmten Kennfeldmethode \cite{Schuethe2019} charakterisiert. Der so gewonnene Datensatz kann dann, durch geeignete Interpolationsverfahren, in einer Simulation zur Generierung eines magnetischen Sensor-Arrays genutzt werden. In \autoref{fig:ansatz-simulationsmodell} ist das Kernprinzip des Simulationsansatzes vereinfacht dargestellt. Es wird ein Simulationsmodell aufgebaut, dass Charakterisierungsdatensätze verarbeiten kann und entsprechende Charakteristiken eines einzelnen Sensor-ICs zu einem Sensor-Array interpoliert. Abhängig von weiteren gewählten Eigenschaften des Sensor-Arrays, wie geometrische Anordnung und Größe, produziert das interpolierte Modell Simulationsdatensätze, die das Verhalten des einzelner Sensor-ICs ortsabhängig im Sensor-Array abbilden.
 \newline
-Der Simulationsansatz besitzt ebenfalls den Vorteil Modelle aufzubauen, die sich auf heute zur Verfügung stehenden Technologien beziehen. Weitere Vorteile sind die Manipulationsfähigkeit der Sensor-Array-Geometrie und -Größe. So bieten sich Möglichkeiten magnetische Sensor-Arrays in verschieden Maßstäben und geometrischen Formen zu simulieren. Des weiteren können verschiedene Anwendungsszenarien simuliert werden. Eine Problemstellung die sich dabei ergibt, ist die physikalisch sinnvolle Stimulanz des Simulationsmodell. Für das Platinen-Sensor-Array ist im trivialen Anwendungsfall die Stimulanz ein simpler Permanentmagnet. In der Simulation muss eine entsprechende Stimulierung des Sensor-Arrays über magnetische Feldgleichung gelöst werden \cite{Pape2017}\cite{Schuethe2019}, wobei weitere Problemstellungen zur richtigen Dimensionierung oder Approximation des zu simulierenden Magnetfeldes auftreten.
+Der Simulationsansatz besitzt ebenfalls den Vorteil Modelle aufzubauen, die sich auf heute zur Verfügung stehenden Technologien beziehen. Weitere Vorteile sind die Manipulationsfähigkeit der Sensor-Array-Geometrie und -Größe. So bieten sich Möglichkeiten magnetische Sensor-Arrays in verschieden Maßstäben und geometrischen Formen zu simulieren. Des weiteren können verschiedene Anwendungsszenarien simuliert werden. Eine Problemstellung die sich dabei ergibt, ist die physikalisch sinnvolle Stimulanz des Simulationsmodell. Für das Platinen-Sensor-Array ist im trivialen Anwendungsfall die Stimulanz ein simpler Permanentmagnet. In der Simulation muss eine entsprechende Stimulierung des Sensor-Arrays über magnetische Feldgleichungen gelöst werden \cite{Pape2017}\cite{Schuethe2019}, wobei weitere Problemstellungen zur richtigen Dimensionierung oder Approximation des zu simulierenden Magnetfeldes auftreten.
 
 
 \clearpage
@@ -52,7 +52,7 @@ Der Simulationsansatz besitzt ebenfalls den Vorteil Modelle aufzubauen, die sich
 \end{figure}
 
 
-Das Sensor-Array-Modell, ob als Platinen-Modell oder Simulationsmodell, repräsentiert im Kontext nur die erste Hälfte eines modernen, vollwertigen Sensor-ICs. Seine Aufgabe besteht darin eine physikalische Anregung (Magnetfeld) in elektrische, analoge Signale umzuwandeln. Dieser Teil eines Sensor-ICs wird zumeist als Sensorkopf bezeichnet, da eine sinnbildliche darunter liegende Einheit die weitere Signalverarbeitung und -Auswertung übernimmt. Es handelt sich dabei um eine anwendungsspezifische integrierte Schaltung, engl. \gls{ac:asic}. Beide Teile zusammen, der Sensorkopf und das Signalverarbeitungs-ASIC, bilden ein vollständiges Sensor-ICs mit der Fähigkeit zur modernen Signalverarbeitung.
+Das Sensor-Array-Modell, ob als Platinen-Modell oder Simulationsmodell, repräsentiert im Kontext nur die erste Hälfte eines modernen, vollwertigen Sensor-ICs. Seine Aufgabe besteht darin eine physikalische Anregung (Magnetfeld) in elektrische, analoge Signale umzuwandeln. Dieser Teil eines Sensor-ICs wird zumeist als Sensorkopf bezeichnet, da eine sinnbildliche darunter liegende Einheit die weitere Signalverarbeitung und -Auswertung übernimmt. Es handelt sich dabei um eine anwendungsspezifische integrierte Schaltung, engl. \gls{ac:asic}. Beide Teile zusammen, der Sensorkopf und das Signalverarbeitungs-ASIC, bilden ein vollständiges Sensor-IC mit der Fähigkeit zur modernen Signalverarbeitung.
 Unterstützend zeigt \autoref{fig:veranschaulichung-sensor-ic} die allgemeine Aufbaubeschreibung eines Sensor-IC und Unterteilung in Sensorkopf und ASIC, respektive Signalerzeugung und Signalverarbeitung.
 
 
@@ -67,7 +67,14 @@ Unterstützend zeigt \autoref{fig:veranschaulichung-sensor-ic} die allgemeine Au
 \end{figure}
 
 
-\paragraph{ASIC-Konzeptionierung}\label{par:asic-konzeptionierung}$~$\\
+\paragraph{ASIC - Konzeptionierung der Kernfunktionalität}\label{par:asic-konzeptionierung-der-kernfuntionalitaet}$~$\\
 
 
-Derzeitig befinden sich die Forschungsprojektarbeiten der \gls{gl:ags} für einen tauglichen ASIC noch in der Konzeptionsphase. \cite{Rasmussen2006}\cite{Schuethe2019}\cite{Schuethe2020}
+Derzeitig befinden sich die Forschungsprojektarbeiten für einen tauglichen ASIC in der Konzeptionsphase. Die Kernfunktionalität eines ASIC-Designs wird durch ein mathematisches Modell oder Verfahren abgebildet, dass in der Lage ist vom Sensorkopf erzeugte Messwerte adäquat und ausreichend schnell zu verarbeiten. Dabei muss ein solches Modell oder Verfahren grundlegende Eigenschaften des physikalischen Gesamtsystems in sich vereinigen und diese repräsentativ in den Gesamtkontext der Applikation setzen können. Im Kontext dieser Arbeit ist die Sensorapplikation, durch die Drehwinkelerfassung einer kreisförmigen Sensoranregung dargestellt, wie es in \autoref{fig:veranschaulichung-sensor-ic} angedeutet ist.
+
+
+\clearpage
+
+
+Erfolgte Vorarbeiten der \gls{gl:ags} für ein ASIC-Design, umfassen die Entwicklung eines mathematischen Modells und erste theoretische Simulationen \cite{Schuethe2019}\cite{Schuethe2020}. Die Simulation bindet dabei Datensätze ein, die durch das Sensor-Array-Simulationsmodell erzeugt werden. Das mathematische Modell der ASIC-Kernfunktionalität ist auf Grundlage von Gauß-Prozessen für Regressionsverfahren entwickelt \cite{Rasmussen2006} worden. Die bisherigen Simulationsarbeiten beschränken sich auf mathematische Simulationen, die auf eine Gültigkeitsprüfung des mathematischen ASIC-Modells abzielen und Ansätze zur Modellqualifizierung und Qualitätskriterien für die Signalverarbeitung mit beinhalten.
+
