@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>angles2sinoids</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-17"><meta name="DC.source" content="angles2sinoids.m"><style type="text/css">
+      --><title>angles2sinoids</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="angles2sinoids.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>angles2sinoids</h1><!--introduction--><p>Converts angles (rad or degree) to sine and cosine waves with respect to a period factor which gives the abillity to apstract higher periodicity. Additionally the angles are recalculated according to passed period factor.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[fsin, fcos, fang] = angles2sinoids(fang, rad, pf)
+  </style></head><body><div class="content"><h1>angles2sinoids</h1><!--introduction--><p>Converts angles (rad or degree) to sine and cosine waves with respect to a period factor which gives the abillity to apstract higher periodicity. Additionally the angles are recalculated according to passed period factor.</p><p>Computes sine and cosine by product of angle in rad multiplied by period factor.</p><p><span class="MathJax_Preview"><img src="angles2sinoids_eq16548100076875237869.png" alt="$$f_{sin} = \sin(p_f \cdot f_{ang})$$"></span><script type="math/tex">f_{sin} = \sin(p_f \cdot f_{ang})</script></p><p><span class="MathJax_Preview"><img src="angles2sinoids_eq13265568338676597799.png" alt="$$f_{cos} = \cos(p_f \cdot f_{ang})$$"></span><script type="math/tex">f_{cos} = \cos(p_f \cdot f_{ang})</script></p><p>If needed a recomputation of the given angels takes place by computed sinoids.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[fsin, fcos, fang] = angles2sinoids(fang, rad, pf)
 </pre><h2 id="2">Description</h2><p><b>[fsin, fcos, fang] = angles2sinoids(fang, rad, pf)</b> computes sinoids from passed angles in rad or degree with respect to periodicity of angles. The flag rad converts input angles from degree to rad if set to false.</p><h2 id="3">Examples</h2><pre class="language-matlab">fang = linspace(0, 360, 100);
 [fsin, fcos, fang] = angles2sinoids(fang, true, 1)
 </pre><h2 id="4">Input Argurments</h2><p><b>fang</b> is a scalar of vector of angles in rad or degree.</p><p><b>rad</b> is a boolean flag. Input angles are converted to rad if set to false.</p><p><b>pf</b> is a positive integer factor. The period factor describes the periodicity of angles in data.</p><h2 id="5">Output Argurments</h2><p><b>fsin</b> is a scalar or vector of sine values corresponding to passed angles with respect of the periodicity of angles.</p><p><b>fcos</b> is a scalar or vector of cosine values corresponding to passed angles with respect of the periodicity of angles.</p><p><b>fang</b> is a scalar or vector of recalculated angles with respect of periodicity.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: sinoids2angles</li><li>Subfunctions: sin, cos</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="sinoids2angles.html">sinoids2angles</a></li></ul></div><p>Created on December 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
@@ -121,6 +121,15 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % Converts angles (rad or degree) to sine and cosine waves with respect to a
 % period factor which gives the abillity to apstract higher periodicity.
 % Additionally the angles are recalculated according to passed period factor.
+%
+% Computes sine and cosine by product of angle in rad multiplied by period
+% factor.
+%
+% $$f_{sin} = \sin(p_f \cdot f_{ang})$$
+%
+% $$f_{cos} = \cos(p_f \cdot f_{ang})$$
+%
+% If needed a recomputation of the given angels takes place by computed sinoids.
 %
 %
 %% Syntax

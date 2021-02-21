@@ -73,7 +73,7 @@ end
 % Remove equation png file from HTML output folder before create or recreate
 % publishing files. To prevent the directory expanse of old or edited equation
 % files.
-yesno = input('Renew eqautions in docs [y/n]: ', 's');
+yesno = 'y';%input('Renew eqautions in docs [y/n]: ', 's');
 if strcmp(yesno, 'y')
     removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 end
@@ -117,6 +117,7 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
 publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
+%publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression/basicMathFunctions'), PublishOptions, true, true);
 
 
 %% Unit Test Scripts
@@ -160,5 +161,5 @@ end
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
 open(fullfile(PublishOptions.outputDir, ...
-    'GaussianProcessDipoleSimulation.html'));
+    'sinoids2angles.html'));
 disp('Done ...');

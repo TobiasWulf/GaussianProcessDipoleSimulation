@@ -1,5 +1,5 @@
 %% frobeniusNorm
-% Computes the Frobenius Norm of a matrix.
+% Computes the Frobenius Norm of a matrix A.
 %
 %
 %% Syntax

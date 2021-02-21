@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>frobeniusNorm</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-17"><meta name="DC.source" content="frobeniusNorm.m"><style type="text/css">
+      --><title>frobeniusNorm</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="frobeniusNorm.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>frobeniusNorm</h1><!--introduction--><p>Computes the Frobenius Norm of a matrix.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">nv = frobeniusNorm(A, approx)
+  </style></head><body><div class="content"><h1>frobeniusNorm</h1><!--introduction--><p>Computes the Frobenius Norm of a matrix A.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">nv = frobeniusNorm(A, approx)
 </pre><h2 id="2">Description</h2><p><b>frobeniusNorm(A, approx)</b> computes Frobenius Norm of M x N matrix. If approx is true the Norm is approximated with mean2 function.</p><h2 id="3">Examples</h2><pre class="language-matlab">A = magic(8);
 nv = frobeniusNorm(A, approx)
 </pre><h2 id="4">Input Argurments</h2><p><b>A</b> is a M x N matrix of real values.</p><p><b>apporx</b> is boolean flag. If true the norm is approximated. Default is false.</p><h2 id="5">Output Argurments</h2><p><b>nv</b> is a scalar norm value.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: mean2, sqrt, sum</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="QFCAPX.html">QFCAPX</a></li><li><a href="meanPolyQFC.html">meanPolyQFC</a></li></ul></div><p>Created on January 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
@@ -113,7 +113,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% frobeniusNorm
-% Computes the Frobenius Norm of a matrix.
+% Computes the Frobenius Norm of a matrix A.
 %
 %
 %% Syntax

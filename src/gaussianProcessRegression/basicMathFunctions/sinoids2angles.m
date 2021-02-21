@@ -6,15 +6,33 @@
 % the second results from the asin function. The amplitudes of the sinoids must
 % be one or near to one.
 %
+% So angle computation relates to the unit circle with depencies of
+%
+% $$f_{rad} = \sqrt{f_{sin}^2 + f_{cos}^2}$$
+%
+% and computes intermediate angle results in rad of
+%
+% $$f_c = \arccos\left(\frac{f_{cos}}{f_{rad}}\right)$$
+%
+% $$f_s = \arcsin\left(\frac{f_{sin}}{f_{rad}}\right)$$
+%
+% $$f_a = \arctan\left(\frac{f_{sin}}{f_{cos}}\right)$$
+%
+% The final angle result is computed by cosine intermediate result which uses
+% the sine intermediate result als threshold to decide when angles must be enter
+% the third quadrant of the unit circle.
+%
+% $$f_{ang} = \Bigg\lbrace\matrix{ f_c & f_s \ge 0 \cr -f_c +2\pi & f_s < 0}$$
+%
 %
 %% Syntax
 %   [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
 %
 %
 %% Description
-% *[fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)* returns angles in rad
-% or degrees given by corresponding sinoids and radius. Set rad flag to false if
-% angles in degrees are needed.
+% *[fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)* returns angles in
+% rad or degrees given by corresponding sinoids and radius. Set rad flag to 
+% false if angles in degrees are needed.
 %
 %
 %% Examples
@@ -22,7 +40,7 @@
 %   fsin = sin(phi);
 %   fcos = cos(phi);
 %   frad = sqrt(fsin.^2 + fcos.^2);
-%   [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, true)
+%   [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, true)
 %
 %
 %% Input Argurments
@@ -45,6 +63,8 @@
 %
 % *fs* is a scalar or vector with angles directly computed by sine and radius. 
 %
+% *fa* is a scalar or vector with angles directly computed by sine and cosine. 
+%
 %
 %% Requirements
 % * Other m-files required: None
@@ -65,7 +85,7 @@
 % -->
 % </html>
 %
-function [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
+function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
     arguments
         % validate sinoids and radius as scalar or vector of the same size
         fsin (:,1) double {mustBeReal}
@@ -78,6 +98,7 @@ function [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
     % compute angles by cosine, sine and radius
     fc = acos(fcos ./ frad);
     fs = asin(fsin ./ frad);
+    fa = atan2(fsin, fcos);
     
     % get indices for interval > 180°
     idx = fs < 0;

@@ -3,6 +3,15 @@
 % period factor which gives the abillity to apstract higher periodicity.
 % Additionally the angles are recalculated according to passed period factor.
 %
+% Computes sine and cosine by product of angle in rad multiplied by period
+% factor.
+%
+% $$f_{sin} = \sin(p_f \cdot f_{ang})$$
+%
+% $$f_{cos} = \cos(p_f \cdot f_{ang})$$
+%
+% If needed a recomputation of the given angels takes place by computed sinoids.
+%
 %
 %% Syntax
 %   [fsin, fcos, fang] = angles2sinoids(fang, rad, pf)

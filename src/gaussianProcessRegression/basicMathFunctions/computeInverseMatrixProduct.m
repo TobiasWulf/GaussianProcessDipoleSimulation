@@ -52,7 +52,7 @@
 % * <matlab:web(fullfile(docroot,'matlab/ref/linsolve.html')) linsolve>
 %
 %
-% Created on November 06. 2020 by Klaus Jünemann. Copyright Klaus Jünemann 2020.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!--
