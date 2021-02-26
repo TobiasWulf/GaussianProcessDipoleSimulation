@@ -6,6 +6,10 @@
 % by functions to control and execute task in a unified project structure.
 %
 %
+%% demoGPRModule
+% Demonstrates the use of the gaussianProcessRegression module.
+%
+%
 %% exportPublishedToPdf
 % Export published HTML files to a pdf manual.
 %
@@ -41,6 +45,7 @@
 % Edited on November 04. 2020 by Tobias Wulf: Add forgotten generateConigMAt.
 % Edited on December 02. 2020 by Tobias Wulf: Add scripts for delete and generate.
 % Edited on December 10. 2020 by Tobias Wulf: Add export script build pdf manual.
+% Edited on February 25. 2021 by Tobias Wulf: Add demoGRPModul.
 % -->
 % </html>
 %

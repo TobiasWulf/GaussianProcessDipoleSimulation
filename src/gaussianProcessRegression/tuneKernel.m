@@ -66,8 +66,8 @@ function Mdl = tuneKernel(Mdl, verbose)
     % check if s2f is equal to 1 or not an initialize the problem
     if Mdl.theta(1) == 1
         % apply bounds to prevent overfitting
-        problem.lb = Mdl.thetaBounds(1);
-        problem.ub = Mdl.thetaBounds(2);
+        problem.lb = Mdl.slBounds(1);
+        problem.ub = Mdl.slBounds(2);
         
         % set sl start value
         problem.x0 = Mdl.theta(2);
@@ -80,8 +80,8 @@ function Mdl = tuneKernel(Mdl, verbose)
     
     else
         % apply bounds to prevent overfitting
-        problem.lb = [1 1] * Mdl.thetaBounds(1);
-        problem.ub = [1 1] * Mdl.thetaBounds(2);
+        problem.lb = [Mdl.s2fBounds(1) Mdl.slBounds(1)];
+        problem.ub = [Mdl.s2fBounds(2) Mdl.slBounds(2)];
         
         % set sl start value
         problem.x0 = Mdl.theta;

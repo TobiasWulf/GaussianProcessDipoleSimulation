@@ -31,7 +31,7 @@ Mdl3 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl3, TestDS);
 
 % compute log losses and squared erros
-% AAED = Absolute Angular Error in Degrees
+% AAED - Absolute Angular Error in Degrees
 % SLLA - Squared Log Loss Angular
 % SLLR - Squared Log Loss Radius
 % SEA  - Squared Error Angular

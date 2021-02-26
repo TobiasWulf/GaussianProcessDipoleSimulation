@@ -69,10 +69,15 @@ function Mdl = initGPROptions(Mdl, GPROptions)
     end
     
     % lower and upper bound for tuning theta
-    if isfield(GPROptions, 'thetaBounds')
-        Mdl.thetaBounds = GPROptions.thetaBounds;
+    if isfield(GPROptions, 's2fBounds')
+        Mdl.s2fBounds = GPROptions.s2fBounds;
     else
-        Mdl.thetaBounds = [1e-2, 1e2];
+        Mdl.s2fBounds = [1e-2, 1e2];
+    end
+    if isfield(GPROptions, 'slBounds')
+        Mdl.slBounds = GPROptions.slBounds;
+    else
+        Mdl.slBounds = [1e-2, 1e2];
     end
     
     % noise variance s2n to predict noisy observations
