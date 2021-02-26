@@ -264,7 +264,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 720;
+TrainingOptions.nAngles = 16;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -361,7 +361,7 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-GPROptions.kernel = 'QFC';
+GPROptions.kernel = 'QFCAPX';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical 
@@ -372,7 +372,7 @@ GPROptions.kernel = 'QFC';
 % 2*sl^2 can lead to inbalance of cosine and sine prediction indicated by
 % diverging log likelihoods for cosine and sine prediction.
 %                  [s2f , sl]
-GPROptions.theta = [1, 1];
+GPROptions.theta = [1, 8];
 
 % Set lower and upper bounds to optimize kernel parameters theta which is a
 % vector of covariance parameter covariance variance parameter s2f and lenght
@@ -406,7 +406,7 @@ GPROptions.s2nBounds = [1e-9, 10];
 %        polynom mean vectors at each observation points 
 %        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
 %        For QFC kernel x = ||X||_F
-GPROptions.mean = 'zero';
+GPROptions.mean = 'poly';
 
 % Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
