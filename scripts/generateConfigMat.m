@@ -25,6 +25,8 @@
 % Edited on November 09. 2020 by Tobias Wulf: Save PathVariables as struct.
 % Edited on November 09. 2020 by Tobias Wulf: Add Options for dipole simulation with square sensor array.
 % Edited on December 03. 2020 by Tobias Wulf: Add path and option for KMZ60.
+% Edited on February 27. 2020 by Tobias Wulf: Add default plot settings.
+% Edited on February 27. 2020 by Tobias Wulf: Add script as startup task.
 % -->
 % </html>
 %
@@ -33,9 +35,47 @@
 % Clear variables from workspace to build up a fresh new configuration
 % workspace.
 disp('Clean up workspace ...');
+close all;
 clearvars;
 clc;
 
+
+%% Default Plot Settings
+% Set default settings for plots and graphics like text interpreter and font
+% size and so on. If script runs on start up, defaults are working for all
+% plots.
+disp('Set plot defaults ...');
+set(groot, 'DefaultTextInterpreter', 'latex');
+set(groot, 'DefaultLegendInterpreter', 'latex');
+set(groot, 'DefaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'DefaultAxesFontSize', 20);
+set(groot, 'DefaultLineLineWidth',2.5);
+set(groot, 'DefaultAxesLineWidth', 1.5);
+set(groot, 'DefaultAxesFontSize', 20);
+%set(groot, 'DefaultAxesFontWeight', 'bold');
+set(groot, 'DefaultTextFontSize', 20);
+set(groot, 'DefaultaxesFontName', 'Times new Roman') 
+set(groot, 'DefaultlegendFontName', 'Times new Roman');
+set(groot, 'DefaultAxesXGrid','on');
+set(groot, 'DefaultAxesYGrid','on'); 
+set(groot, 'DefaultFigureNumberTitle' , 'off');
+set(groot, 'DefaultFigureWindowStyle', 'normal');
+set(groot, 'DefaultFigureMenuBar', 'none');
+set(groot, 'DefaultFigureToolBar', 'none');
+set(groot, 'DefaultFigureUnits', 'centimeters');
+set(groot, 'DefaultFigurePosition', [0 0 30 30]);
+set(groot, 'DefaultFigurePaperType', 'a4');
+set(groot, 'DefaultFigurePaperUnits', 'centimeters');
+set(groot, 'DefaultFigurePaperOrientation', 'landscape');
+set(groot, 'DefaultFigurePaperPositionMode', 'auto');
+set(groot, 'DefaultFigureDoubleBuffer', 'on');
+set(groot, 'DefaultFigureRendererMode', 'manual');
+set(groot, 'DefaultFigureRenderer', 'painters');
+set(groot, 'DefaultTiledlayoutPadding', 'compact');
+set(groot, 'DefaultTiledlayoutTileSpacing', 'compact');
+set(groot, 'DefaultPolarAxesTickLabelInterpreter', 'latex');
+set(groot, 'DefaultPolarAxesFontSize', 20);
+% set(groot,);
 
 %% GeneralOptions
 % General options like formats for strings or date or anything else what

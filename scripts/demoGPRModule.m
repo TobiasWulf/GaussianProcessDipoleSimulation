@@ -80,8 +80,8 @@ for n = 1:TestDS.Info.UseOptions.nAngles
     fcos0(n) = mean2(TestDS.Data.Vcos(:,:,n));
     fsin0(n) = mean2(TestDS.Data.Vsin(:,:,n));
 end
-fcos0 = (fcos0 - offcos0) / TestDS.Info.SensorArrayOptions.Vcc;
-fsin0 = (fsin0 - offsin0) / TestDS.Info.SensorArrayOptions.Vcc;
+fcos0 = fcos0 - offcos0;
+fsin0 = fsin0 - offsin0;
 frad0 = sqrt(fcos0.^2 + fsin0.^2);
 fang0 = sinoids2angles(fsin0, fcos0, frad0);
 AAED0 = abs(TestDS.Data.angles' - fang0 * 180 / pi);
@@ -129,7 +129,8 @@ Mdl2 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 [AAED2, SLLA2, SLLR2, SEA2, SER2, SEC2, SES2] = lossDS(Mdl2, TestDS);
 
 
-%%
+%% Plot Area and Expand Modle Results
+
 figure();
 tiledlayout(3,2);
 
