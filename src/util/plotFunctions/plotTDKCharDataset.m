@@ -52,7 +52,7 @@ function plotTDKCharDataset()
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables');
         load(PathVariables.tdkDatasetPath, 'Data', 'Info');
-        close all;
+%         close all;
     catch ME
         rethrow(ME)
     end
@@ -285,20 +285,20 @@ function plotTDKCharDataset()
     cb.TickLabelInterpreter = 'latex';
     cb.Label.FontSize = 24;
     
-    yesno = input('Save? [y/n]: ', 's');
-    if strcmp(yesno, 'y')
-        % save results of figure 1
-        savefig(fig1, fig1Path);
-        print(fig1, fig1Path, '-dsvg');
-        print(fig1, fig1Path, '-depsc', '-tiff', '-loose');
-        print(fig1, fig1Path, '-dpdf', '-loose', '-fillpage');
-    
-        % save results of figure 2
-        savefig(fig2, fig2Path);
-        print(fig2, fig2Path, '-dsvg');
-        print(fig2, fig2Path, '-depsc', '-tiff', '-loose');
-        print(fig2, fig2Path, '-dpdf', '-loose', '-fillpage');
-    end
-    close(fig1)
-    close(fig2)
+%     yesno = input('Save? [y/n]: ', 's');
+%     if strcmp(yesno, 'y')
+%         % save results of figure 1
+%         savefig(fig1, fig1Path);
+%         print(fig1, fig1Path, '-dsvg');
+%         print(fig1, fig1Path, '-depsc', '-tiff', '-loose');
+%         print(fig1, fig1Path, '-dpdf', '-loose', '-fillpage');
+%     
+%         % save results of figure 2
+%         savefig(fig2, fig2Path);
+%         print(fig2, fig2Path, '-dsvg');
+%         print(fig2, fig2Path, '-depsc', '-tiff', '-loose');
+%         print(fig2, fig2Path, '-dpdf', '-loose', '-fillpage');
+%     end
+%     close(fig1)
+%     close(fig2)
 end

@@ -53,8 +53,9 @@
 function Mdl = initTrainDS(Mdl, TrainDS)
     
     % set model parameters from training dataset and training data dependencies
-    % N number of angles
+    % N number of angles and refernces in degree
     Mdl.N = TrainDS.Info.UseOptions.nAngles;
+    Mdl.Angles = TrainDS.Data.angles';
     
     % D sensor array square dimension of DxD sensor array
     Mdl.D = TrainDS.Info.SensorArrayOptions.dimension;
@@ -81,7 +82,7 @@ function Mdl = initTrainDS(Mdl, TrainDS)
     % get reference angles in degree and transpose to column vector
     % get sinoid target vectors depending period factor,
     % transpose because angles2sinoids works with row vectors
-    [Mdl.Ysin, Mdl.Ycos] = angles2sinoids(TrainDS.Data.angles', ...
+    [Mdl.Ysin, Mdl.Ycos] = angles2sinoids(Mdl.Angles, ...
         false, Mdl.PF);
     
     % attach training data fro cosine and sine to model

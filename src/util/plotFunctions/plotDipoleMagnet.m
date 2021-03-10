@@ -48,7 +48,7 @@ function plotDipoleMagnet()
     try
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables', 'DipoleOptions');
-        close all;
+%         close all;
     catch ME
         rethrow(ME)
     end
@@ -196,12 +196,12 @@ function plotDipoleMagnet()
     fprintf("and sphere radius r = %.1f mm\n", rsp);
 
     % save results of figure
-    yesno = input('Save? [y/n]: ', 's');
-    if strcmp(yesno, 'y')
-        savefig(fig, figPath);
-        print(fig, figPath, '-dsvg');
-        print(fig, figPath, '-depsc', '-tiff', '-loose');
-        print(fig, figPath, '-dpdf', '-loose', '-fillpage');
-    end
-    close(fig)
+%     yesno = input('Save? [y/n]: ', 's');
+%     if strcmp(yesno, 'y')
+%         savefig(fig, figPath);
+%         print(fig, figPath, '-dsvg');
+%         print(fig, figPath, '-depsc', '-tiff', '-loose');
+%         print(fig, figPath, '-dpdf', '-loose', '-fillpage');
+%     end
+%     close(fig)
 end

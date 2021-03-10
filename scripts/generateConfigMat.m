@@ -59,11 +59,12 @@ set(groot, 'DefaultlegendFontName', 'Times new Roman');
 set(groot, 'DefaultAxesXGrid','on');
 set(groot, 'DefaultAxesYGrid','on'); 
 set(groot, 'DefaultFigureNumberTitle' , 'off');
-set(groot, 'DefaultFigureWindowStyle', 'normal');
-set(groot, 'DefaultFigureMenuBar', 'none');
-set(groot, 'DefaultFigureToolBar', 'none');
-set(groot, 'DefaultFigureUnits', 'centimeters');
-set(groot, 'DefaultFigurePosition', [0 0 30 30]);
+set(groot, 'DefaultFigureWindowStyle', 'docked');
+set(groot, 'DefaultFigureMenuBar', 'figure');
+set(groot, 'DefaultFigureToolBar', 'figure');
+set(groot, 'DefaultFigureUnits', 'normalized');
+set(groot, 'DefaultFigurePosition', [0 0 1 1]);
+set(groot, 'DefaultFigureWindowState', 'normal')
 set(groot, 'DefaultFigurePaperType', 'a4');
 set(groot, 'DefaultFigurePaperUnits', 'centimeters');
 set(groot, 'DefaultFigurePaperOrientation', 'landscape');
@@ -304,7 +305,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 16;
+TrainingOptions.nAngles = 48;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -412,7 +413,7 @@ GPROptions.kernel = 'QFCAPX';
 % 2*sl^2 can lead to inbalance of cosine and sine prediction indicated by
 % diverging log likelihoods for cosine and sine prediction.
 %                  [s2f , sl]
-GPROptions.theta = [1, 8];
+GPROptions.theta = [1, 0.2446];
 
 % Set lower and upper bounds to optimize kernel parameters theta which is a
 % vector of covariance parameter covariance variance parameter s2f and lenght
@@ -425,18 +426,26 @@ GPROptions.theta = [1, 8];
 % the point evaluated as bad set point. If the bound are to wide in relation of
 % number in dataset variousity the mean error raises. The model is to complex
 % then. Try to keep up simple modles.
-GPROptions.s2fBounds = [1, 1];
-GPROptions.slBounds = [1e-5, 100];
+GPROptions.s2fBounds = [1e-2, 1];
+GPROptions.slBounds = [1e-2, 2.446];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
 % noise free observations.
-GPROptions.s2n = 1e-9;
+GPROptions.s2n = 1e-08;
 
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-9, 10];
+GPROptions.s2nBounds = [1e-09, 1e-04];
+
+
+% Set number of outer optimization runs. For wide parameter bounds it is
+% recommended to set the number of runs to min 30 otherwise the bayes
+% optimization runs to short in finding error bounds and left with not good
+% optimized parameters.
+GPROptions.OptimRuns = 20;
+
 
 % Enables mean function and offset and amplitude correction. 
 % Set basis function to compute H matrix of training points and h vector of
@@ -446,7 +455,7 @@ GPROptions.s2nBounds = [1e-9, 10];
 %        polynom mean vectors at each observation points 
 %        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
 %        For QFC kernel x = ||X||_F
-GPROptions.mean = 'poly';
+GPROptions.mean = 'zero';
 
 % Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum

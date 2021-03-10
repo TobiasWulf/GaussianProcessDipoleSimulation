@@ -1,0 +1,239 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>initQFC</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="initQFCAPX.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>initQFC</h1><!--introduction--><p>Attaches QFC kernel to model struct. Depending on mean options attach zero mean functions and sets all related kernel parameters and dependencies to zero. If mean is polynom fitting, attaches meanPolyQFC as basis function to build polynom matrix H and sets a none zero mean function. Bypasses dataset inputs as they are. Kernel works on matrix data.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
+outputArg = functionName(positionalArg, optionalArg)
+</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
+</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><pre class="codeinput"><span class="keyword">function</span> Mdl = initQFCAPX(Mdl)
+
+    <span class="comment">% set QFC kernel function</span>
+    Mdl.kernelFun = @QFCAPX;
+
+    <span class="comment">% set input transformation function to apply adjustments to</span>
+    <span class="comment">% covariance function, norm input matrice with frobenius norm to scalar or</span>
+    <span class="comment">% vectors.</span>
+    Mdl.inputFun = @(X) frobeniusNorm(X, false);
+
+    <span class="comment">% transform traning data to vectors</span>
+    Ncos = zeros(Mdl.N, 1);
+    Nsin = zeros(Mdl.N, 1);
+    <span class="keyword">for</span> n = 1:Mdl.N
+        Ncos(n) = Mdl.inputFun(Mdl.Xcos(:,:,n));
+        Nsin(n) = Mdl.inputFun(Mdl.Xsin(:,:,n));
+    <span class="keyword">end</span>
+
+    <span class="comment">% update training data with norm vectors</span>
+    Mdl.Xcos = Ncos;
+    Mdl.Xsin = Nsin;
+
+    <span class="comment">% set mean function to compute cosine and sine H matrix</span>
+    <span class="keyword">switch</span> Mdl.mean
+        <span class="comment">% zero mean m(x) = 0</span>
+        <span class="keyword">case</span> <span class="string">'zero'</span>
+            <span class="comment">% set polyDegree to -1 for no polynom indication</span>
+            Mdl.polyDegree = -1;
+
+            <span class="comment">% set basis function</span>
+            Mdl.basisFun = @(X) 0;
+
+        <span class="comment">% mean by polynom m(x) = H' * beta</span>
+        <span class="keyword">case</span> <span class="string">'poly'</span>
+            <span class="comment">% set basis function produces a (polyDeg+1)xN H matrix</span>
+            Mdl.basisFun = @(X) meanPolyQFCAPX(X, Mdl.polyDegree);
+
+        <span class="comment">% end mean select QFC kernel</span>
+        <span class="keyword">otherwise</span>
+            error(<span class="string">'Unknown mean function %.'</span>, Mdl.mean);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% initQFC
+% Attaches QFC kernel to model struct. Depending on mean options attach zero
+% mean functions and sets all related kernel parameters and dependencies to
+% zero. If mean is polynom fitting, attaches meanPolyQFC as basis function to
+% build polynom matrix H and sets a none zero mean function. Bypasses dataset
+% inputs as they are. Kernel works on matrix data.
+%
+%
+%% Syntax
+%   outputArg = functionName(positionalArg)
+%   outputArg = functionName(positionalArg, optionalArg)
+%
+%
+%% Description
+% *outputArg = functionName(positionalArg)* detailed use case description.
+%
+% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
+% description.
+%
+%
+%% Examples
+%   Enter example matlab code for each use case.
+%
+%
+%% Input Argurments
+% *positionalArg* argurment description.
+%
+% *optionalArg* argurment description.
+%
+%
+%% Output Argurments
+% *outputArg* argurment description.
+%
+%
+%% Requirements
+% * Other m-files required: None
+% * Subfunctions: None
+% * MAT-files required: None
+%
+%
+%% See Also
+% * Reference1
+% * Reference2
+% * Reference3
+%
+%
+% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+function Mdl = initQFCAPX(Mdl)
+    
+    % set QFC kernel function
+    Mdl.kernelFun = @QFCAPX;
+
+    % set input transformation function to apply adjustments to
+    % covariance function, norm input matrice with frobenius norm to scalar or
+    % vectors.
+    Mdl.inputFun = @(X) frobeniusNorm(X, false);
+    
+    % transform traning data to vectors
+    Ncos = zeros(Mdl.N, 1);
+    Nsin = zeros(Mdl.N, 1);
+    for n = 1:Mdl.N
+        Ncos(n) = Mdl.inputFun(Mdl.Xcos(:,:,n));
+        Nsin(n) = Mdl.inputFun(Mdl.Xsin(:,:,n));
+    end
+    
+    % update training data with norm vectors
+    Mdl.Xcos = Ncos;
+    Mdl.Xsin = Nsin;
+    
+    % set mean function to compute cosine and sine H matrix
+    switch Mdl.mean
+        % zero mean m(x) = 0
+        case 'zero'
+            % set polyDegree to -1 for no polynom indication
+            Mdl.polyDegree = -1;
+
+            % set basis function
+            Mdl.basisFun = @(X) 0;
+
+        % mean by polynom m(x) = H' * beta
+        case 'poly'
+            % set basis function produces a (polyDeg+1)xN H matrix
+            Mdl.basisFun = @(X) meanPolyQFCAPX(X, Mdl.polyDegree);
+
+        % end mean select QFC kernel
+        otherwise
+            error('Unknown mean function %.', Mdl.mean);
+    end
+end
+
+
+##### SOURCE END #####
+--></body></html>

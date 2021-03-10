@@ -47,7 +47,7 @@ function plotTDKCharField()
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables');
         load(PathVariables.tdkDatasetPath, 'Data', 'Info');
-        close all;
+%         close all;
     catch ME
         rethrow(ME)
     end
@@ -62,9 +62,9 @@ function plotTDKCharField()
         fprintf('%s\t:\t(%d)\n', fields{i}, i);
     end
     
-    iField = input('Choice: ');
+    iField = 1; % input('Choice: ');
     field = fields{iField};
-    pl = input('Plateu limit in kA/m: ');
+    pl = 5; % input('Plateu limit in kA/m: ');
     
     Vcos = Data.SensorOutput.CosinusBridge.(field);
     Vsin = Data.SensorOutput.SinusBridge.(field);
@@ -222,12 +222,12 @@ function plotTDKCharField()
       
     % save results of figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    yesno = input('Save? [y/n]: ', 's');
-    if strcmp(yesno, 'y')
-        savefig(fig, fPath);
-        print(fig, fPath, '-dsvg');
-        print(fig, fPath, '-depsc', '-tiff', '-loose');
-        print(fig, fPath, '-dpdf', '-loose', '-fillpage');
-    end
-    close(fig)  
+%     yesno = input('Save? [y/n]: ', 's');
+%     if strcmp(yesno, 'y')
+%         savefig(fig, fPath);
+%         print(fig, fPath, '-dsvg');
+%         print(fig, fPath, '-depsc', '-tiff', '-loose');
+%         print(fig, fPath, '-dpdf', '-loose', '-fillpage');
+%     end
+%     close(fig)  
 end
