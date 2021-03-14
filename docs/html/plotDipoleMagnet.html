@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
+      --><title>plotDipoleMagnet</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-14"><meta name="DC.source" content="plotDipoleMagnet.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -95,7 +95,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="keyword">try</span>
         <span class="comment">% load dataset path and dataset content into function workspace</span>
         load(<span class="string">'config.mat'</span>, <span class="string">'PathVariables'</span>, <span class="string">'DipoleOptions'</span>);
-        close <span class="string">all</span>;
+<span class="comment">%         close all;</span>
     <span class="keyword">catch</span> ME
         rethrow(ME)
     <span class="keyword">end</span>
@@ -171,20 +171,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">% figure dipole magnet</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-    fig = figure(<span class="string">'Name'</span>, <span class="string">'Dipole Magnet'</span>, <span class="keyword">...</span>
-        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
-        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'OuterPosition'</span>, [0 0 30 30], <span class="keyword">...</span>
-        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
-        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
-        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
-        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+    fig = figure(<span class="string">'Name'</span>, <span class="string">'Dipole Magnet'</span>);
 
     <span class="comment">% plot magnitude as colormap</span>
     imagesc(x, z, log10(Habs), <span class="string">'AlphaData'</span>, 1);
@@ -195,106 +182,75 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">% set colorbar to log10 scaling of map</span>
     cb = colorbar;
     cb.Label.String = <span class="string">'$log_{10}(|H|)$ in kA/m'</span>;
+    cb.TickLabelInterpreter = <span class="string">'latex'</span>;
     cb.Label.Interpreter = <span class="string">'latex'</span>;
-    cb.Label.FontSize = 16;
+    cb.Label.FontSize = 24;
 
     hold <span class="string">on</span>;
     grid <span class="string">on</span>;
 
     <span class="comment">% plot field lines</span>
-    st = streamslice(X, Z, Hx, Hz, <span class="string">'noarrows'</span>, <span class="string">'cubic'</span>);
+    st = streamslice(X, Z, Hx, Hz, <span class="string">'arrows'</span>, <span class="string">'cubic'</span>);
     set(st, <span class="string">'Color'</span>, <span class="string">'k'</span>);
 
-    <span class="comment">% plot field vectors</span>
-    quiver(X(slice, slice), Z(slice, slice), Hx(slice, slice), <span class="keyword">...</span>
-        Hz(slice, slice), 0.5, <span class="string">'k'</span>);
 
     <span class="comment">% plot magnet with north and south pole</span>
-    rectangle(<span class="string">'Position'</span>, [-rsp -rsp 2*rsp 2*rsp], <span class="string">'Curvature'</span>, [1 1]);
+    rectangle(<span class="string">'Position'</span>, [-rsp -rsp 2*rsp 2*rsp], <span class="keyword">...</span>
+        <span class="string">'Curvature'</span>, [1 1], <span class="string">'LineWidth'</span>, 3.5);
     semicrc = rsp.*[cos(pz); sin(pz)];
     patch(semicrc(1,:), semicrc(2,:),<span class="string">'r'</span>);
     patch(-semicrc(1,:), -semicrc(2,:),<span class="string">'g'</span>);
-    text(-1.25, 0, <span class="string">'N'</span>, <span class="string">'FontSize'</span>, 18);
-    text(0.5, 0, <span class="string">'S'</span>, <span class="string">'FontSize'</span>, 18);
+    text(-1.25, 0, <span class="string">'\textbf{N}'</span>);
+    text(0.5, 0, <span class="string">'\textbf{S}'</span>);
 
     <span class="comment">% additional figure text and lines</span>
     text(-(xz-1), -(xz-1), <span class="keyword">...</span>
-        sprintf(<span class="string">'$\\mathbf{Y = %.1f}$ \\textbf{mm}'</span>, y), <span class="keyword">...</span>
-        <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+        sprintf(<span class="string">'$\\mathbf{Y = %.1f}$ \\textbf{mm}'</span>, y), <span class="string">'Color'</span>, <span class="string">'w'</span>);
 
     <span class="comment">% distance scale in -z direction for x =0, distance from magnet surface</span>
-    line(xd, zd, <span class="string">'Marker'</span>, <span class="string">'_'</span>, <span class="string">'LineStyle'</span>, <span class="string">'-'</span>,<span class="keyword">...</span>
-        <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="string">'LineWidth'</span>, 2.0);
+    line(xd, zd, <span class="string">'Marker'</span>, <span class="string">'_'</span>, <span class="string">'LineStyle'</span>, <span class="string">'-'</span>, <span class="string">'LineWidth'</span>, 3.5, <span class="keyword">...</span>
+        <span class="string">'Color'</span>, <span class="string">'w'</span>);
 
     <span class="comment">% place text along marker</span>
     <span class="keyword">for</span> i = 2:length(zd)-1
-        text(0.5, zd(i), <span class="keyword">...</span>
-            sprintf(<span class="keyword">...</span>
-            <span class="string">'\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}'</span>, <span class="keyword">...</span>
-            abs(zd(i))-rsp, Hd(i)), <span class="keyword">...</span>
-            <span class="string">'Color'</span>, <span class="string">'w'</span>, <span class="keyword">...</span>
-            <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
-            <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-            <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+        markstr = <span class="string">"\\textbf{$\\mathbf{%d}$ mm, $\\mathbf{%.1f}$ kA/m}"</span>;
+        mark = sprintf(markstr, abs(zd(i))-rsp, Hd(i));
+        text(0.5, zd(i), mark, <span class="string">'Color'</span>, <span class="string">'w'</span>);
     <span class="keyword">end</span>
 
     <span class="comment">% limits ticks and labels</span>
     xlim([-xz xz]);
     ylim([-xz xz]);
-
     xticks(-xz:xz);
     yticks(-xz:xz);
-
     labels = string(xticks);
     labels(1:2:end) = <span class="string">""</span>;
     xticklabels(labels)
     yticklabels(labels)
+    xlabel(<span class="string">'$X$ in mm'</span>);
+    ylabel(<span class="string">'$Z$ in mm'</span>);
 
     <span class="comment">% axis shape set</span>
     axis <span class="string">equal</span>;
     axis <span class="string">tight</span>;
+    grid <span class="string">off</span>;
 
-    <span class="comment">% title and figure labels</span>
-    title(<span class="string">'Approximated Spherical Magnet with Dipole Far Field'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    subtitle(<span class="keyword">...</span>
-        [sprintf(<span class="keyword">...</span>
-        <span class="string">"Sphere whith imprinted H-field magnitude of $%.1f$ kA/m"</span>, Hmag); <span class="keyword">...</span>
-        sprintf(<span class="string">"at distance $d = %.1f$ mm with $d_z = |z| - r_{sp}$"</span>, z0) + <span class="keyword">...</span>
-        sprintf(<span class="string">" and sphere radius $r_{sp} = %.1f$ mm"</span>, rsp)], <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$Z$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    <span class="comment">% title and description</span>
+    disp(<span class="string">'Title: Approximated Spherical Magnet with Dipole Far Field'</span>);
+    disp(<span class="string">"Description:"</span>);
+    fprintf(<span class="string">"Sphere whith imprinted H-field magnitude of %.1f kA/m\n"</span>, Hmag); <span class="keyword">...</span>
+    fprintf(<span class="string">"at distance d = %.1f mm with d_z = |z| - r\n"</span>, z0);
+    fprintf(<span class="string">"and sphere radius r = %.1f mm\n"</span>, rsp);
 
     <span class="comment">% save results of figure</span>
-    yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
-    <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
-        savefig(fig, figPath);
-        print(fig, figPath, <span class="string">'-dsvg'</span>);
-        print(fig, figPath, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
-        print(fig, figPath, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
-    <span class="keyword">end</span>
-    close(fig)
+<span class="comment">%     yesno = input('Save? [y/n]: ', 's');</span>
+<span class="comment">%     if strcmp(yesno, 'y')</span>
+<span class="comment">%         savefig(fig, figPath);</span>
+<span class="comment">%         print(fig, figPath, '-dsvg');</span>
+<span class="comment">%         print(fig, figPath, '-depsc', '-tiff', '-loose');</span>
+<span class="comment">%         print(fig, figPath, '-dpdf', '-loose', '-fillpage');</span>
+<span class="comment">%     end</span>
+<span class="comment">%     close(fig)</span>
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -348,7 +304,7 @@ function plotDipoleMagnet()
     try
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables', 'DipoleOptions');
-        close all;
+%         close all;
     catch ME
         rethrow(ME)
     end
@@ -424,20 +380,7 @@ function plotDipoleMagnet()
     % figure dipole magnet
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fig = figure('Name', 'Dipole Magnet', ...
-        'NumberTitle' , 'off', ...
-        'WindowStyle', 'normal', ...
-        'MenuBar', 'none', ...
-        'ToolBar', 'none', ...
-        'Units', 'centimeters', ...
-        'OuterPosition', [0 0 30 30], ...
-        'PaperType', 'a4', ...
-        'PaperUnits', 'centimeters', ...
-        'PaperOrientation', 'landscape', ...
-        'PaperPositionMode', 'auto', ...
-        'DoubleBuffer', 'on', ...
-        'RendererMode', 'manual', ...
-        'Renderer', 'painters');
+    fig = figure('Name', 'Dipole Magnet');
     
     % plot magnitude as colormap
     imagesc(x, z, log10(Habs), 'AlphaData', 1);
@@ -448,106 +391,75 @@ function plotDipoleMagnet()
     % set colorbar to log10 scaling of map
     cb = colorbar;
     cb.Label.String = '$log_{10}(|H|)$ in kA/m';
+    cb.TickLabelInterpreter = 'latex';
     cb.Label.Interpreter = 'latex';
-    cb.Label.FontSize = 16;
+    cb.Label.FontSize = 24;
     
     hold on;
     grid on;
     
     % plot field lines
-    st = streamslice(X, Z, Hx, Hz, 'noarrows', 'cubic');
+    st = streamslice(X, Z, Hx, Hz, 'arrows', 'cubic');
     set(st, 'Color', 'k');
     
-    % plot field vectors
-    quiver(X(slice, slice), Z(slice, slice), Hx(slice, slice), ...
-        Hz(slice, slice), 0.5, 'k');
-    
+        
     % plot magnet with north and south pole
-    rectangle('Position', [-rsp -rsp 2*rsp 2*rsp], 'Curvature', [1 1]);
+    rectangle('Position', [-rsp -rsp 2*rsp 2*rsp], ...
+        'Curvature', [1 1], 'LineWidth', 3.5);
     semicrc = rsp.*[cos(pz); sin(pz)];
     patch(semicrc(1,:), semicrc(2,:),'r');
     patch(-semicrc(1,:), -semicrc(2,:),'g');
-    text(-1.25, 0, 'N', 'FontSize', 18);
-    text(0.5, 0, 'S', 'FontSize', 18);
+    text(-1.25, 0, '\textbf{N}');
+    text(0.5, 0, '\textbf{S}');
     
     % additional figure text and lines
     text(-(xz-1), -(xz-1), ...
-        sprintf('$\\mathbf{Y = %.1f}$ \\textbf{mm}', y), ...
-        'Color', 'w', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+        sprintf('$\\mathbf{Y = %.1f}$ \\textbf{mm}', y), 'Color', 'w');
     
     % distance scale in -z direction for x =0, distance from magnet surface
-    line(xd, zd, 'Marker', '_', 'LineStyle', '-',...
-        'Color', 'w', 'LineWidth', 2.0);
+    line(xd, zd, 'Marker', '_', 'LineStyle', '-', 'LineWidth', 3.5, ...
+        'Color', 'w');
     
     % place text along marker
     for i = 2:length(zd)-1
-        text(0.5, zd(i), ...
-            sprintf(...
-            '\\textbf{$\\mathbf{d_z = %d}$ mm, $\\mathbf{|H| = %.1f}$ kA/m}', ...
-            abs(zd(i))-rsp, Hd(i)), ...
-            'Color', 'w', ...
-            'FontSize', 14, ...
-            'FontName', 'Times', ...
-            'Interpreter', 'latex');
+        markstr = "\\textbf{$\\mathbf{%d}$ mm, $\\mathbf{%.1f}$ kA/m}";
+        mark = sprintf(markstr, abs(zd(i))-rsp, Hd(i));
+        text(0.5, zd(i), mark, 'Color', 'w');
     end
 
     % limits ticks and labels
     xlim([-xz xz]);
     ylim([-xz xz]);
-
     xticks(-xz:xz);
     yticks(-xz:xz);
-    
     labels = string(xticks);
     labels(1:2:end) = "";
     xticklabels(labels)
     yticklabels(labels)
+    xlabel('$X$ in mm');
+    ylabel('$Z$ in mm');
     
     % axis shape set
     axis equal;
     axis tight;
+    grid off;
     
-    % title and figure labels
-    title('Approximated Spherical Magnet with Dipole Far Field', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 18, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    subtitle(...
-        [sprintf(...
-        "Sphere whith imprinted H-field magnitude of $%.1f$ kA/m", Hmag); ...
-        sprintf("at distance $d = %.1f$ mm with $d_z = |z| - r_{sp}$", z0) + ...
-        sprintf(" and sphere radius $r_{sp} = %.1f$ mm", rsp)], ...
-        'FontWeight', 'normal', ...
-        'FontSize', 14, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$Z$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
+    % title and description
+    disp('Title: Approximated Spherical Magnet with Dipole Far Field');
+    disp("Description:");
+    fprintf("Sphere whith imprinted H-field magnitude of %.1f kA/m\n", Hmag); ...
+    fprintf("at distance d = %.1f mm with d_z = |z| - r\n", z0);
+    fprintf("and sphere radius r = %.1f mm\n", rsp);
+
     % save results of figure
-    yesno = input('Save? [y/n]: ', 's');
-    if strcmp(yesno, 'y')
-        savefig(fig, figPath);
-        print(fig, figPath, '-dsvg');
-        print(fig, figPath, '-depsc', '-tiff', '-loose');
-        print(fig, figPath, '-dpdf', '-loose', '-fillpage');
-    end
-    close(fig)
+%     yesno = input('Save? [y/n]: ', 's');
+%     if strcmp(yesno, 'y')
+%         savefig(fig, figPath);
+%         print(fig, figPath, '-dsvg');
+%         print(fig, figPath, '-depsc', '-tiff', '-loose');
+%         print(fig, figPath, '-dpdf', '-loose', '-fillpage');
+%     end
+%     close(fig)
 end
 
 ##### SOURCE END #####

@@ -122,9 +122,13 @@ Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 % SES1  - Squared Error Sine
 [AAED1, SLLA1, SLLR1, SEA1, SER1, SEC1, SES1] = lossDS(Mdl1, TestDS);
 
-return
 
 %% Plot Area and Expand Modle Results
+% Plot demo results in modle parameter view to show characteristics of
+% covariance functions and modle generalization. Show full rotation on test
+% dataset with angle error, predicted sinoids and confidence intervals.
+
+% create general plot scalses and title
 angles = TestDS.Data.angles';
 ticks = Mdl1.Angles;
 titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
@@ -139,14 +143,12 @@ titleStr = sprintf(titleStr, ...
     TestDS.Info.UseOptions.zPos, ...
     TestDS.Info.UseOptions.tilt);
 
-
-%%
-
-%close all;
+% create figure for model view
 figure('Name', Mdl1.kernel);
 t=tiledlayout(2,2);
 title(t, titleStr, 'Interpreter', 'latex', 'FontSize', 24);
 
+% plot covariance slice for first covariance sample
 nexttile;
 p1 = plot(Mdl1.Ky, 'Color', [0.8 0.8 0.8]);
 hold on;
@@ -159,6 +161,7 @@ xlabel('$n$ Samples');
 ylabel('Autocorrelation Coeff.');
 title('a) $K$-Matrix $i$-th Row');
 
+% plot covariance matrix
 nexttile([2, 1]);
 colormap('jet');
 imagesc(Mdl1.Ky);
@@ -168,6 +171,7 @@ xlabel('$j$');
 ylabel('i');
 title(sprintf('b) $K$-Matrix $%d \\times %d$ Samples', Mdl1.N, Mdl1.N))
 
+% plot modle adjust as squared logarithmic loss for angles and radius
 nexttile;
 plot(angles, SLLA1, 'x-.');
 hold on;
@@ -178,12 +182,12 @@ xlabel('$\alpha$ in $^\circ$');
 ylabel('$SLL$');
 title(sprintf('c) $MSLLA = %1.2f$, $MSLLR = %1.2f$', mean(SLLA1), mean(SLLR1)));
 
-%%
-%close all
+% create figure for rotation results of test dataset
 figure('Name', 'Rotation and Errors');
 t = tiledlayout(2,2);
 title(t, titleStr, 'Interpreter', 'latex', 'FontSize', 24);
 
+% plot circle with gpr reuslts and pure mean results
 nexttile;
 polarplot(fang0, frad0, 'LineWidth', 3.5);
 hold on;
@@ -194,26 +198,43 @@ legend({'Mean', 'GPR', 'Ref. $\alpha$'});
 rticklabels(["", "0.5", "1"]);
 title('a) Rotation along $Z$-Axis in $^\circ$')
 
+% plot predicted, ideal and none treated sinoids
 nexttile;
-plot(angles, cosd(angles), 'k-.', 'LineWidth', 4.5);
-hold on
-plot(angles, sind(angles), 'k-.', 'LineWidth', 4.5);
-plot(angles, fcos0, '-.', 'Color', '#D95319');
-plot(angles, fsin0, '-.', 'Color', '#0072BD');
-plot(angles, fcos1, 'Color', '#D95319');
-plot(angles, fsin1, 'Color', '#0072BD');
+p1 = plot(angles, cosd(angles), 'k-.', 'LineWidth', 6.5);
+hold on;
+plot(angles, sind(angles), 'k-.', 'LineWidth', 6.5);
+p2 = plot(angles, fcos0, 'Color', '#0072BD');
+plot(angles, fsin0, 'Color', '#0072BD');
+p3 = plot(angles, fcos1, 'Color', '#D95319');
+plot(angles, fsin1, 'Color', '#D95319');
+xlim([0 360]);
+ylim([-1.1 1.1]);
+xlabel('$\alpha$ in $^\circ$');
+legend([p1 p2 p3], {'Ideal', 'Mean', 'GPR'})
+title('b) Sine and Cosine')
 
+% plot absolut angle errors of gpr and mean results
 nexttile;
 plot(angles, AAED0);
 hold on;
 plot(angles, AAED1);
 ylim([0 4]);
 xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$\epsilon_{abs}$ in $^\circ$');
 legend({'Mean', 'GPR'});
+tstr = 'c) $\\mu(\\epsilon_{abs}) = %1.3f$, $max(\\epsilon_{abs}) = %1.3f$';
+tstr = sprintf(tstr, mean(AAED1), max(AAED1));
+title(tstr);
 
+% plot 95 percent confidence intervals for angles and radius
 nexttile;
 yyaxis left;
-plot(angles, (ciang1-fang1) * 180/pi, 'Color', '#0072BD', 'LineStyle', '-');
+plot(angles, (ciang1-fang1) * 180/pi, '-', 'Color', '#0072BD');
+ylabel('$CIA_{95\%} - \alpha$ in $^\circ$');
 yyaxis right;
-plot(angles, cirad1-frad1, 'Color', '#D95319', 'LineStyle', '-');
+plot(angles, (cirad1-frad1), '-', 'Color', '#D95319');
+ylabel('$CIR_{95\%} - r$');
 xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+title('d) Centerd $95\%$ GPR Confidence Intervalls')

@@ -16,7 +16,7 @@
 %
 % $$f_s = \arcsin\left(\frac{f_{sin}}{f_{rad}}\right)$$
 %
-% $$f_a = \arctan\left(\frac{f_{sin}}{f_{cos}}\right)$$
+% $$f_a = \arctan2\left(\frac{f_{sin}}{f_{cos}}\right)$$
 %
 % The final angle result is computed by cosine intermediate result which uses
 % the sine intermediate result als threshold to decide when angles must be enter
@@ -24,9 +24,15 @@
 %
 % $$f_{ang} = \Bigg\lbrace\matrix{ f_c & f_s \ge 0 \cr -f_c +2\pi & f_s < 0}$$
 %
+% A the second angle reconstruction can be achieved by the atan2 function which
+% has although an interval shift at 180 degree. It implies to use the sine
+% results as threshold too.
+%
+% $$f_{ang} = \Bigg\lbrace\matrix{ f_a & f_s \ge 0 \cr f_a +2\pi & f_s < 0}$$
+%
 %
 %% Syntax
-%   [fang, fc, fs] = sinoids2angles(fsin, fcos, frad, rad)
+%   [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
 %
 %
 %% Description
@@ -53,6 +59,10 @@
 %
 % *rad* is a boolean flag. If it is false the resulting angles are converted
 % into degrees. If it is true fang is returned in rad. Default is true.
+%
+% *how* is char vector which gives option how to reconstruct angles via acos or
+% atan2 function. Default is atan2. Both methods use asin function as threshold
+% to switch 180° intervall.
 %
 %
 %% Output Argurments
@@ -85,7 +95,7 @@
 % -->
 % </html>
 %
-function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
+function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad, how)
     arguments
         % validate sinoids and radius as scalar or vector of the same size
         fsin (:,1) double {mustBeReal}
@@ -93,6 +103,8 @@ function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
         frad (:,1) double {mustBeReal, mustBeEqualSize(fsin, frad)}
         % validate rad as boolean flag with default true
         rad (1,1) logical {mustBeNumericOrLogical} = true
+        % validate how as char option flag with default atan2
+        how (1,:) char {mustBeText} = 'atan2'
     end
     
     % compute angles by cosine, sine and radius
@@ -102,13 +114,25 @@ function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
     
     % get indices for interval > 180°
     idx = fs < 0;
-    
-    % angles from cosine
-    fang = fc;
-    
-    % correct 180° interval
-    fang(idx) = -1 * fang(idx) + 2 * pi;
-    
+
+    switch how
+        case 'acos'
+            % angles from cosine
+            fang = fc;
+
+            % correct 180° interval
+            fang(idx) = -1 * fang(idx) + 2 * pi;
+        
+        case 'atan2'
+            fang = fa;
+            
+            % correct 180° interval
+            fang(idx) = fang(idx) + 2 * pi;
+            
+        otherwise
+            error('Unknow arc function for reconstruction: %s.', how)
+    end
+
     % return degrees if not rad
     if ~rad, fang = 180 / pi * fang; end
 end

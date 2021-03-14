@@ -44,7 +44,7 @@ clc;
 % Set default settings for plots and graphics like text interpreter and font
 % size and so on. If script runs on start up, defaults are working for all
 % plots.
-disp('Set plot defaults ...');
+% disp('Set plot defaults ...');
 set(groot, 'DefaultTextInterpreter', 'latex');
 set(groot, 'DefaultLegendInterpreter', 'latex');
 set(groot, 'DefaultAxesTickLabelInterpreter', 'latex');
@@ -52,28 +52,28 @@ set(groot, 'DefaultAxesFontSize', 20);
 set(groot, 'DefaultLineLineWidth',2.5);
 set(groot, 'DefaultAxesLineWidth', 1.5);
 set(groot, 'DefaultAxesFontSize', 20);
-%set(groot, 'DefaultAxesFontWeight', 'bold');
+% set(groot, 'DefaultAxesFontWeight', 'bold');
 set(groot, 'DefaultTextFontSize', 20);
-set(groot, 'DefaultaxesFontName', 'Times new Roman') 
-set(groot, 'DefaultlegendFontName', 'Times new Roman');
+% set(groot, 'DefaultaxesFontName', 'Times new Roman') 
+% set(groot, 'DefaultlegendFontName', 'Times new Roman');
 set(groot, 'DefaultAxesXGrid','on');
 set(groot, 'DefaultAxesYGrid','on'); 
 set(groot, 'DefaultFigureNumberTitle' , 'off');
-set(groot, 'DefaultFigureWindowStyle', 'docked');
-set(groot, 'DefaultFigureMenuBar', 'figure');
-set(groot, 'DefaultFigureToolBar', 'figure');
-set(groot, 'DefaultFigureUnits', 'normalized');
-set(groot, 'DefaultFigurePosition', [0 0 1 1]);
-set(groot, 'DefaultFigureWindowState', 'normal')
-set(groot, 'DefaultFigurePaperType', 'a4');
-set(groot, 'DefaultFigurePaperUnits', 'centimeters');
-set(groot, 'DefaultFigurePaperOrientation', 'landscape');
-set(groot, 'DefaultFigurePaperPositionMode', 'auto');
-set(groot, 'DefaultFigureDoubleBuffer', 'on');
-set(groot, 'DefaultFigureRendererMode', 'manual');
-set(groot, 'DefaultFigureRenderer', 'painters');
-set(groot, 'DefaultTiledlayoutPadding', 'compact');
-set(groot, 'DefaultTiledlayoutTileSpacing', 'compact');
+% set(groot, 'DefaultFigureWindowStyle', 'normal');
+% set(groot, 'DefaultFigureMenuBar', 'figure');
+% set(groot, 'DefaultFigureToolBar', 'figure');
+% set(groot, 'DefaultFigureUnits', 'normalized');
+% set(groot, 'DefaultFigurePosition', [0 0 1 1]);
+% set(groot, 'DefaultFigureWindowState', 'normal')
+% set(groot, 'DefaultFigurePaperType', 'a4');
+% set(groot, 'DefaultFigurePaperUnits', 'centimeters');
+% set(groot, 'DefaultFigurePaperOrientation', 'landscape');
+% set(groot, 'DefaultFigurePaperPositionMode', 'auto');
+% set(groot, 'DefaultFigureDoubleBuffer', 'on');
+% set(groot, 'DefaultFigureRendererMode', 'manual');
+% set(groot, 'DefaultFigureRenderer', 'painters');
+% set(groot, 'DefaultTiledlayoutPadding', 'compact');
+% set(groot, 'DefaultTiledlayoutTileSpacing', 'compact');
 set(groot, 'DefaultPolarAxesTickLabelInterpreter', 'latex');
 set(groot, 'DefaultPolarAxesFontSize', 20);
 % set(groot,);
@@ -181,8 +181,8 @@ PublishOptions.stylesheet = PathVariables.publishStyleSheetPath;
 PublishOptions.createThumbnail = false;
 PublishOptions.figureSnapMethod = 'entireFigureWindow';
 PublishOptions.imageFormat = 'png';
-PublishOptions.maxHeight = [];
-PublishOptions.maxWidth = [];
+PublishOptions.maxHeight = 600;
+PublishOptions.maxWidth = 600;
 PublishOptions.useNewFigure = false;
 PublishOptions.evalCode = false;
 PublishOptions.catchError = true;
@@ -426,13 +426,13 @@ GPROptions.theta = [1, 0.2446];
 % the point evaluated as bad set point. If the bound are to wide in relation of
 % number in dataset variousity the mean error raises. The model is to complex
 % then. Try to keep up simple modles.
-GPROptions.s2fBounds = [1e-2, 1];
-GPROptions.slBounds = [1e-2, 2.446];
+GPROptions.s2fBounds = [1e-1, 1];
+GPROptions.slBounds = [1, 20];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
 % noise free observations.
-GPROptions.s2n = 1e-08;
+GPROptions.s2n = 1e-09;
 
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in

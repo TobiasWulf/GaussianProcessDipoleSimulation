@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotTDKCharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="plotTDKCharDataset.m"><style type="text/css">
+      --><title>plotTDKCharDataset</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-14"><meta name="DC.source" content="plotTDKCharDataset.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -98,7 +98,7 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
         <span class="comment">% load dataset path and dataset content into function workspace</span>
         load(<span class="string">'config.mat'</span>, <span class="string">'PathVariables'</span>);
         load(PathVariables.tdkDatasetPath, <span class="string">'Data'</span>, <span class="string">'Info'</span>);
-        close <span class="string">all</span>;
+<span class="comment">%         close all;</span>
     <span class="keyword">catch</span> ME
         rethrow(ME)
     <span class="keyword">end</span>
@@ -109,11 +109,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     fig1Filename = <span class="string">'tdk_magnetic_stimulus'</span>;
     fig1Path = fullfile(PathVariables.saveImagesPath, fig1Filename);
 
-    fig2Filename = <span class="string">'tdk_cosinus_bridge'</span>;
+    fig2Filename = <span class="string">'tdk_bridge_charistic'</span>;
     fig2Path = fullfile(PathVariables.saveImagesPath, fig2Filename);
-
-    fig3Filename = <span class="string">'tdk_sinus_bridge'</span>;
-    fig3Path = fullfile(PathVariables.saveImagesPath, fig3Filename);
 
     <span class="comment">% load needed data from dataset in to local variables for better handling</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -158,6 +155,8 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
 
     <span class="comment">% clear dataset all loaded</span>
     clear <span class="string">Data</span> <span class="string">Info</span>;
+    disp(<span class="string">'Info:'</span>);
+    disp([infoStr; dateStr]);
 
     <span class="comment">% reconstruct magnetic stimulus and reduce the view for example plot by 10</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -189,183 +188,77 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     <span class="comment">% figure 1 magnetic stimulus</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-    fig1 = figure(<span class="string">'Name'</span>, <span class="string">'Magnetic Stimulus'</span>, <span class="keyword">...</span>
-        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
-        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'OuterPosition'</span>, [0 0 30 30], <span class="keyword">...</span>
-        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
-        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
-        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
-        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+    fig1 = figure(<span class="string">'Name'</span>, <span class="string">'Magnetic Stimulus'</span>);
+    tiledlayout(fig1, 2, 2);
 
-    tdl = tiledlayout(fig1, 2, 2, <span class="keyword">...</span>
-        <span class="string">'Padding'</span>, <span class="string">'compact'</span>, <span class="keyword">...</span>
-        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
-
-    title(tdl, <span class="string">'Reconstructed $H_x$-/ $H_y$-Stimulus in Reduced View'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    subtitle(tdl, [infoStr; dateStr], <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    xlabel(tdl, sprintf(<span class="string">'$\\phi$ in rad, %d periods, reduced by factor %d'</span>, <span class="keyword">...</span>
-        nPeriods*reduced, reduced), <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$, $|H|$ in %s'</span>, kApm), <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    <span class="comment">% title and description</span>
+    disp(<span class="string">"Title: Magnetic Stimulus Reconstructed H_x-/ H_y-Stimulus"</span> + <span class="keyword">...</span>
+         <span class="string">"in Reduced View"</span>);
+    disp(<span class="string">"Description: Stimulus for characterization in H_x and H_y in "</span> + <span class="keyword">...</span>
+         <span class="string">"reduced period view by factor 10"</span>);
+    disp([<span class="string">"a) Triangle modulated cosine carrier for H_x stimulus."</span>; <span class="keyword">...</span>
+          <span class="string">"b) Triangle modulated sine carrier for H_x stimulus."</span>; <span class="keyword">...</span>
+          <span class="string">"c) Modulation trajectory for rising stimulus"</span>; <span class="keyword">...</span>
+          <span class="string">"d) Modulation trajectory for falling stimulus"</span>]);
 
     <span class="comment">% Hx stimulus</span>
     nexttile;
     p = plot(phi, Hmag, phi, -Hmag, phi(idxR), Hx(idxR), phi(idxF), Hx(idxF));
     set(p, {<span class="string">'Color'</span>}, {<span class="string">'k'</span>, <span class="string">'k'</span>, <span class="string">'b'</span>, <span class="string">'r'</span>}');
-    legend([p(1) p(3) p(4)], {<span class="string">'mod'</span>, <span class="string">'rise'</span>, <span class="string">'fall'</span>},<span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="keyword">...</span>
-        <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
-
+    legend([p(1) p(3) p(4)], {<span class="string">'mod'</span>, <span class="string">'rise'</span>, <span class="string">'fall'</span>}, <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>, <span class="keyword">...</span>
-        <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
+    xticklabels({<span class="string">'$0$'</span>, <span class="string">'$8\pi$'</span>, <span class="string">'$16\pi$'</span>, <span class="string">'$24\pi$'</span>, <span class="string">'$32\pi$'</span>, <span class="keyword">...</span>
+        <span class="string">'$40\pi$'</span>, <span class="string">'$48\pi$'</span>, <span class="string">'$56\pi$'</span>, <span class="string">'$64\pi$'</span>});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
-
-    xlabel(<span class="string">'$\phi$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_x(\phi)$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(sprintf(<span class="keyword">...</span>
-        <span class="string">'Modulation $f_m = %1.2f$ %s, Cos-Carrier $f_c = %1.2f$ %s'</span>, <span class="keyword">...</span>
-        fm, Hz, fc, Hz), <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    xlabel(<span class="string">'$\phi$ in rad, Periode $\times 10$'</span>);
+    ylabel(sprintf(<span class="string">'$H_x(\\phi)$ in %s'</span>, kApm));
+    title(sprintf(<span class="string">'a) $f_m = %1.2f$ %s, $f_c = %1.2f$ %s'</span>, fm, Hz, fc, Hz));
 
     <span class="comment">% Hy stimulus</span>
     nexttile;
     p = plot(phi, Hmag, phi, -Hmag, phi(idxR), Hy(idxR), phi(idxF), Hy(idxF));
     set(p, {<span class="string">'Color'</span>}, {<span class="string">'k'</span>, <span class="string">'k'</span>, <span class="string">'b'</span>, <span class="string">'r'</span>}');
-    legend([p(1) p(3) p(4)], {<span class="string">'mod'</span>, <span class="string">'rise'</span>, <span class="string">'fall'</span>},<span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 9, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="keyword">...</span>
-        <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
-
+    legend([p(1) p(3) p(4)], {<span class="string">'mod'</span>, <span class="string">'rise'</span>, <span class="string">'fall'</span>}, <span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({<span class="string">'0'</span>, <span class="string">'8\pi'</span>, <span class="string">'16\pi'</span>, <span class="string">'24\pi'</span>, <span class="string">'32\pi'</span>, <span class="string">'40\pi'</span>, <span class="string">'48\pi'</span>,<span class="keyword">...</span>
-        <span class="string">'56\pi'</span>, <span class="string">'64\pi'</span>});
+    xticklabels({<span class="string">'$0$'</span>, <span class="string">'$8\pi$'</span>, <span class="string">'$16\pi$'</span>, <span class="string">'$24\pi$'</span>, <span class="string">'$32\pi$'</span>, <span class="keyword">...</span>
+        <span class="string">'$40\pi$'</span>, <span class="string">'$48\pi$'</span>, <span class="string">'$56\pi$'</span>, <span class="string">'$64\pi$'</span>});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
-
-    xlabel(<span class="string">'$\phi$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y(\phi)$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(sprintf(<span class="keyword">...</span>
-        <span class="string">'Modulation $f_m = %1.2f$ %s, Sin-Carrier $f_c = %1.2f$ %s'</span>, <span class="keyword">...</span>
-        fm, Hz, fc, Hz), <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    xlabel(<span class="string">'$\phi$ in rad, Periode $\times 10$'</span>);
+    ylabel(sprintf(<span class="string">'$H_y(\\phi)$ in %s'</span>, kApm));
+    title(sprintf(<span class="string">'b) $f_m = %1.2f$ %s, $f_c = %1.2f$ %s'</span>, fm, Hz, fc, Hz));
 
     <span class="comment">% polar for rising modulation</span>
     nexttile;
     polarplot(phi(idxR), Hmag(idxR), <span class="string">'b'</span>);
-    title(<span class="string">'$|H(\phi)| \cdot e^{-j\phi}$ f. $0 \le \phi \le 32\pi$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    p = gca;
+    p.ThetaAxisUnits = <span class="string">'radians'</span>;
+    title(<span class="string">'c) $|\vec{H}(\phi)| \cdot e^{j\phi}$,  $0&lt;\phi&lt;320\pi$'</span>);
 
     <span class="comment">% polar for rising modulation</span>
     nexttile;
     polarplot(phi(idxF), Hmag(idxF), <span class="string">'r'</span>);
-    title(<span class="string">'$|H(\phi)| \cdot e^{-j\phi}$ f. $32\pi \le \phi \le 64\pi$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    p = gca;
+    p.ThetaAxisUnits = <span class="string">'radians'</span>;
+    title(<span class="string">'d) $|\vec{H}(\phi)| \cdot e^{j\phi}$,  $320&lt;\phi&lt;640\pi$'</span>);
 
     <span class="comment">% figure 2 cosinus bridge outputs</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-    fig2 = figure(<span class="string">'Name'</span>, <span class="string">'Cosinus Bridge'</span>, <span class="keyword">...</span>
-        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
-        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'OuterPosition'</span>, [0.0 0.0 30.0 30.0], <span class="keyword">...</span>
-        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
-        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
-        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
-        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+    fig2 = figure(<span class="string">'Name'</span>, <span class="string">'Cosine and Sine Bridge'</span>, <span class="string">'Position'</span>, [0 0 33 30]);
 
-    tdl = tiledlayout(fig2, 2, 2, <span class="keyword">...</span>
-        <span class="string">'Padding'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+    tiledlayout(fig2, 2, 2);
 
-    title(tdl, <span class="keyword">...</span>
-        <span class="string">'Measured Cosinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    subtitle(tdl, [infoStr; dateStr], <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, <span class="keyword">...</span>
-        kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    <span class="comment">% title and description</span>
+    disp(<span class="string">"Title: Cosine and Sine Bridge. Measured Bridge Outputs"</span> + <span class="keyword">...</span>
+         <span class="string">" of Corresponding H_x-/ H_y-Amplitudes"</span>);
+    disp(<span class="string">"Description: "</span> + sprintf(<span class="string">"H_x, H_y in %s, %d Steps in %.4f %s"</span>, <span class="keyword">...</span>
+        kApm, Hsteps, Hres, kApm));
+    disp([<span class="string">"a) Cosine Bridge Rising H-Amplitudes"</span>; <span class="keyword">...</span>
+          <span class="string">"b) Cosine Bridge Falling H-Amplitudes"</span>; <span class="keyword">...</span>
+          <span class="string">"c) Sine Bridge Rising H-Amplitudes"</span>; <span class="keyword">...</span>
+          <span class="string">"d) Sine Bridge Falling H-Amplitudes"</span>]);
 
     colormap(<span class="string">'jet'</span>);
 
@@ -377,27 +270,12 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Rising $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    xlabel(<span class="string">'$H_x$ in kA/m'</span>);
+    ylabel(<span class="string">'$H_y$ in kA/m'</span>);
+    title(<span class="string">'a) $V_{cos}(H_x, H_y)$'</span>);
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
 
     <span class="comment">% cosinus bridge recorded during falling stimulus</span>
     nexttile;
@@ -407,139 +285,12 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Falling $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    <span class="comment">% cosinus bridge recorded during superimposed stimulus</span>
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.All);
-    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
-    set(im, <span class="string">'AlphaData'</span>, ~(~Vcos.All));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Superimposed $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    <span class="comment">% cosinus bridge recorded during differentiated stimulus</span>
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.Diff);
-    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
-    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vcos.Diff));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Differentiated $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    <span class="comment">% add colorbar and place it overall plots</span>
-    cb = colorbar;
-    cb.Layout.Tile = <span class="string">'east'</span>;
-    cb.Label.String = sprintf(<span class="keyword">...</span>
-        <span class="string">'$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
-    cb.Label.Interpreter = <span class="string">'latex'</span>;
-    cb.Label.FontSize = 16;
-
-    <span class="comment">% figure 3 sinus bridge outputs</span>
-    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-    <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-    fig3 = figure(<span class="string">'Name'</span>, <span class="string">'Sinus Bridge'</span>, <span class="keyword">...</span>
-        <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
-        <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'OuterPosition'</span>, [0.0 0.0 30.0 30.0], <span class="keyword">...</span>
-        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
-        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
-        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
-        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
-
-    tdl = tiledlayout(fig3, 2, 2, <span class="keyword">...</span>
-        <span class="string">'Padding'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
-
-    title(tdl,<span class="keyword">...</span>
-        <span class="string">'Measured Sinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    subtitle(tdl, [infoStr; dateStr], <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    xlabel(tdl, sprintf(<span class="string">'$H_x$, $H_y$ in %s, %d Steps in %.4f %s'</span>, <span class="keyword">...</span>
-        kApm, Hsteps, Hres, kApm), <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 16, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    colormap(<span class="string">'jet'</span>);
+    xlabel(<span class="string">'$H_x$ in kA/m'</span>);
+    ylabel(<span class="string">'$H_y$ in kA/m'</span>);
+    title(<span class="string">'b) $V_{cos}(H_x, H_y)$'</span>);
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
 
     <span class="comment">% sinus bridge recorded during rising stimulus</span>
     nexttile;
@@ -549,27 +300,12 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Rising $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    xlabel(<span class="string">'$H_x$ in kA/m'</span>);
+    ylabel(<span class="string">'$H_y$ in kA/m'</span>);
+    title(<span class="string">'c) $V_{sin}(H_x, H_y)$'</span>);
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
 
     <span class="comment">% sinus bridge recorded during falling stimulus</span>
     nexttile;
@@ -579,119 +315,38 @@ Edited on November 09. 2020 by Tobias Wulf: Load PathVariables as struct.
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Falling $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    <span class="comment">% sinus bridge recorded during superimposed stimulus</span>
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.All);
-    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
-    set(im, <span class="string">'AlphaData'</span>, ~(~Vsin.All));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Superimposed $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    <span class="comment">% sinus bridge recorded during differentiated stimulus</span>
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.Diff);
-    set(gca, <span class="string">'YDir'</span>, <span class="string">'normal'</span>);
-    set(im, <span class="string">'AlphaData'</span>, ~isnan(Vsin.Diff));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis <span class="string">square</span> <span class="string">xy</span>;
-    grid <span class="string">on</span>;
-
-    xlabel(<span class="string">'$H_x$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$H_y$'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'Differentiated $H$-Amplitudes'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    xlabel(<span class="string">'$H_x$ in kA/m'</span>);
+    ylabel(<span class="string">'$H_y$ in kA/m'</span>);
+    title(<span class="string">'d) $V_{sin}(H_x, H_y)$'</span>);
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
 
     <span class="comment">% add colorbar and place it overall plots</span>
     cb = colorbar;
     cb.Layout.Tile = <span class="string">'east'</span>;
     cb.Label.String = sprintf(<span class="keyword">...</span>
-        <span class="string">'$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
+        <span class="string">'$V(H_x, H_y)$ in %s, Gain $ = %.1f$'</span>, mV, gain);
     cb.Label.Interpreter = <span class="string">'latex'</span>;
-    cb.Label.FontSize = 16;
+    cb.TickLabelInterpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 24;
 
-    yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
-    <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
-        <span class="comment">% save results of figure 1</span>
-        savefig(fig1, fig1Path);
-        print(fig1, fig1Path, <span class="string">'-dsvg'</span>);
-        print(fig1, fig1Path, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
-        print(fig1, fig1Path, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
-
-        <span class="comment">% save results of figure 2</span>
-        savefig(fig2, fig2Path);
-        print(fig2, fig2Path, <span class="string">'-dsvg'</span>);
-        print(fig2, fig2Path, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
-        print(fig2, fig2Path, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
-
-        <span class="comment">% save results of figure 3</span>
-        savefig(fig3, fig3Path);
-        print(fig3, fig3Path, <span class="string">'-dsvg'</span>);
-        print(fig3, fig3Path, <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
-        print(fig3, fig3Path, <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
-    <span class="keyword">end</span>
-    close(fig1)
-    close(fig2)
-    close(fig3)
+<span class="comment">%     yesno = input('Save? [y/n]: ', 's');</span>
+<span class="comment">%     if strcmp(yesno, 'y')</span>
+<span class="comment">%         % save results of figure 1</span>
+<span class="comment">%         savefig(fig1, fig1Path);</span>
+<span class="comment">%         print(fig1, fig1Path, '-dsvg');</span>
+<span class="comment">%         print(fig1, fig1Path, '-depsc', '-tiff', '-loose');</span>
+<span class="comment">%         print(fig1, fig1Path, '-dpdf', '-loose', '-fillpage');</span>
+<span class="comment">%</span>
+<span class="comment">%         % save results of figure 2</span>
+<span class="comment">%         savefig(fig2, fig2Path);</span>
+<span class="comment">%         print(fig2, fig2Path, '-dsvg');</span>
+<span class="comment">%         print(fig2, fig2Path, '-depsc', '-tiff', '-loose');</span>
+<span class="comment">%         print(fig2, fig2Path, '-dpdf', '-loose', '-fillpage');</span>
+<span class="comment">%     end</span>
+<span class="comment">%     close(fig1)</span>
+<span class="comment">%     close(fig2)</span>
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -749,7 +404,7 @@ function plotTDKCharDataset()
         % load dataset path and dataset content into function workspace
         load('config.mat', 'PathVariables');
         load(PathVariables.tdkDatasetPath, 'Data', 'Info');
-        close all;
+%         close all;
     catch ME
         rethrow(ME)
     end
@@ -760,12 +415,9 @@ function plotTDKCharDataset()
     fig1Filename = 'tdk_magnetic_stimulus';
     fig1Path = fullfile(PathVariables.saveImagesPath, fig1Filename);
     
-    fig2Filename = 'tdk_cosinus_bridge';
+    fig2Filename = 'tdk_bridge_charistic';
     fig2Path = fullfile(PathVariables.saveImagesPath, fig2Filename);
-    
-    fig3Filename = 'tdk_sinus_bridge';
-    fig3Path = fullfile(PathVariables.saveImagesPath, fig3Filename);
-    
+        
     % load needed data from dataset in to local variables for better handling
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -809,6 +461,8 @@ function plotTDKCharDataset()
     
     % clear dataset all loaded
     clear Data Info;
+    disp('Info:');
+    disp([infoStr; dateStr]);
     
     % reconstruct magnetic stimulus and reduce the view for example plot by 10
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -840,183 +494,77 @@ function plotTDKCharDataset()
     % figure 1 magnetic stimulus
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fig1 = figure('Name', 'Magnetic Stimulus', ...
-        'NumberTitle' , 'off', ...
-        'WindowStyle', 'normal', ...
-        'MenuBar', 'none', ...
-        'ToolBar', 'none', ...
-        'Units', 'centimeters', ...
-        'OuterPosition', [0 0 30 30], ...
-        'PaperType', 'a4', ...
-        'PaperUnits', 'centimeters', ...
-        'PaperOrientation', 'landscape', ...
-        'PaperPositionMode', 'auto', ...
-        'DoubleBuffer', 'on', ...
-        'RendererMode', 'manual', ...
-        'Renderer', 'painters');
+    fig1 = figure('Name', 'Magnetic Stimulus');
+    tiledlayout(fig1, 2, 2);
     
-    tdl = tiledlayout(fig1, 2, 2, ...
-        'Padding', 'compact', ...
-        'TileSpacing' , 'compact');
-    
-    title(tdl, 'Reconstructed $H_x$-/ $H_y$-Stimulus in Reduced View', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 18, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    subtitle(tdl, [infoStr; dateStr], ...
-        'FontWeight', 'normal', ...
-        'FontSize', 14, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    xlabel(tdl, sprintf('$\\phi$ in rad, %d periods, reduced by factor %d', ...
-        nPeriods*reduced, reduced), ...
-        'FontWeight', 'normal', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel(tdl, sprintf('$H_x$, $H_y$, $|H|$ in %s', kApm), ...
-        'FontWeight', 'normal', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    % title and description
+    disp("Title: Magnetic Stimulus Reconstructed H_x-/ H_y-Stimulus" + ...
+         "in Reduced View");
+    disp("Description: Stimulus for characterization in H_x and H_y in " + ...
+         "reduced period view by factor 10");
+    disp(["a) Triangle modulated cosine carrier for H_x stimulus."; ...
+          "b) Triangle modulated sine carrier for H_x stimulus."; ...
+          "c) Modulation trajectory for rising stimulus"; ...
+          "d) Modulation trajectory for falling stimulus"]);
     
     % Hx stimulus
     nexttile;
     p = plot(phi, Hmag, phi, -Hmag, phi(idxR), Hx(idxR), phi(idxF), Hx(idxF));
     set(p, {'Color'}, {'k', 'k', 'b', 'r'}');
-    legend([p(1) p(3) p(4)], {'mod', 'rise', 'fall'},...
-        'FontWeight', 'normal', ...
-        'FontSize', 9, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex', ...
-        'Location', 'NorthEast');
-        
+    legend([p(1) p(3) p(4)], {'mod', 'rise', 'fall'}, 'Location', 'NorthEast');
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi', ...
-        '56\pi', '64\pi'});
+    xticklabels({'$0$', '$8\pi$', '$16\pi$', '$24\pi$', '$32\pi$', ...
+        '$40\pi$', '$48\pi$', '$56\pi$', '$64\pi$'});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
-    
-    xlabel('$\phi$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_x(\phi)$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title(sprintf(...
-        'Modulation $f_m = %1.2f$ %s, Cos-Carrier $f_c = %1.2f$ %s', ...
-        fm, Hz, fc, Hz), ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xlabel('$\phi$ in rad, Periode $\times 10$');
+    ylabel(sprintf('$H_x(\\phi)$ in %s', kApm));
+    title(sprintf('a) $f_m = %1.2f$ %s, $f_c = %1.2f$ %s', fm, Hz, fc, Hz));
     
     % Hy stimulus
     nexttile;
     p = plot(phi, Hmag, phi, -Hmag, phi(idxR), Hy(idxR), phi(idxF), Hy(idxF));
     set(p, {'Color'}, {'k', 'k', 'b', 'r'}');
-    legend([p(1) p(3) p(4)], {'mod', 'rise', 'fall'},...
-        'FontWeight', 'normal', ...
-        'FontSize', 9, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex', ...
-        'Location', 'NorthEast');
-        
+    legend([p(1) p(3) p(4)], {'mod', 'rise', 'fall'}, 'Location', 'NorthEast');
     xticks((0:0.25*pi:2*pi) * nPeriods);
-    xticklabels({'0', '8\pi', '16\pi', '24\pi', '32\pi', '40\pi', '48\pi',...
-        '56\pi', '64\pi'});
+    xticklabels({'$0$', '$8\pi$', '$16\pi$', '$24\pi$', '$32\pi$', ...
+        '$40\pi$', '$48\pi$', '$56\pi$', '$64\pi$'});
     xlim([0 phi(end)]);
     ylim([Hmin Hmax]);
-    
-    xlabel('$\phi$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y(\phi)$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title(sprintf(...
-        'Modulation $f_m = %1.2f$ %s, Sin-Carrier $f_c = %1.2f$ %s', ...
-        fm, Hz, fc, Hz), ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xlabel('$\phi$ in rad, Periode $\times 10$');
+    ylabel(sprintf('$H_y(\\phi)$ in %s', kApm));
+    title(sprintf('b) $f_m = %1.2f$ %s, $f_c = %1.2f$ %s', fm, Hz, fc, Hz));
     
     % polar for rising modulation
     nexttile;
     polarplot(phi(idxR), Hmag(idxR), 'b');
-    title('$|H(\phi)| \cdot e^{-j\phi}$ f. $0 \le \phi \le 32\pi$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    p = gca;
+    p.ThetaAxisUnits = 'radians';
+    title('c) $|\vec{H}(\phi)| \cdot e^{j\phi}$,  $0<\phi<320\pi$');
     
     % polar for rising modulation
     nexttile;
     polarplot(phi(idxF), Hmag(idxF), 'r');
-    title('$|H(\phi)| \cdot e^{-j\phi}$ f. $32\pi \le \phi \le 64\pi$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    p = gca;
+    p.ThetaAxisUnits = 'radians';
+    title('d) $|\vec{H}(\phi)| \cdot e^{j\phi}$,  $320<\phi<640\pi$');
     
     % figure 2 cosinus bridge outputs
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fig2 = figure('Name', 'Cosinus Bridge', ...
-        'NumberTitle' , 'off', ...
-        'WindowStyle', 'normal', ...
-        'MenuBar', 'none', ...
-        'ToolBar', 'none', ...
-        'Units', 'centimeters', ...
-        'OuterPosition', [0.0 0.0 30.0 30.0], ...
-        'PaperType', 'a4', ...
-        'PaperUnits', 'centimeters', ...
-        'PaperOrientation', 'landscape', ...
-        'PaperPositionMode', 'auto', ...
-        'DoubleBuffer', 'on', ...
-        'RendererMode', 'manual', ...
-        'Renderer', 'painters');
+    fig2 = figure('Name', 'Cosine and Sine Bridge', 'Position', [0 0 33 30]);
     
-    tdl = tiledlayout(fig2, 2, 2, ...
-        'Padding', 'normal', ...
-        'TileSpacing' , 'compact');
+    tiledlayout(fig2, 2, 2);
     
-    title(tdl, ...
-        'Measured Cosinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 18, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    subtitle(tdl, [infoStr; dateStr], ...
-        'FontWeight', 'normal', ...
-        'FontSize', 14, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    xlabel(tdl, sprintf('$H_x$, $H_y$ in %s, %d Steps in %.4f %s', ...
-        kApm, Hsteps, Hres, kApm), ...
-        'FontWeight', 'normal', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    % title and description
+    disp("Title: Cosine and Sine Bridge. Measured Bridge Outputs" + ...
+         " of Corresponding H_x-/ H_y-Amplitudes");
+    disp("Description: " + sprintf("H_x, H_y in %s, %d Steps in %.4f %s", ...
+        kApm, Hsteps, Hres, kApm));
+    disp(["a) Cosine Bridge Rising H-Amplitudes"; ...
+          "b) Cosine Bridge Falling H-Amplitudes"; ...
+          "c) Sine Bridge Rising H-Amplitudes"; ...
+          "d) Sine Bridge Falling H-Amplitudes"]);
         
     colormap('jet');
     
@@ -1028,27 +576,12 @@ function plotTDKCharDataset()
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Rising $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xlabel('$H_x$ in kA/m');
+    ylabel('$H_y$ in kA/m');
+    title('a) $V_{cos}(H_x, H_y)$');
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
     
     % cosinus bridge recorded during falling stimulus 
     nexttile;
@@ -1058,140 +591,13 @@ function plotTDKCharDataset()
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Falling $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xlabel('$H_x$ in kA/m');
+    ylabel('$H_y$ in kA/m');
+    title('b) $V_{cos}(H_x, H_y)$');
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
 
-    % cosinus bridge recorded during superimposed stimulus 
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.All);
-    set(gca, 'YDir', 'normal');
-    set(im, 'AlphaData', ~(~Vcos.All));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Superimposed $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    % cosinus bridge recorded during differentiated stimulus 
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vcos.Diff);
-    set(gca, 'YDir', 'normal');
-    set(im, 'AlphaData', ~isnan(Vcos.Diff));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Differentiated $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-      
-    % add colorbar and place it overall plots
-    cb = colorbar;
-    cb.Layout.Tile = 'east';
-    cb.Label.String = sprintf(...
-        '$V_{cos}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
-    cb.Label.Interpreter = 'latex';
-    cb.Label.FontSize = 16;
-    
-    % figure 3 sinus bridge outputs
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    fig3 = figure('Name', 'Sinus Bridge', ...
-        'NumberTitle' , 'off', ...
-        'WindowStyle', 'normal', ...
-        'MenuBar', 'none', ...
-        'ToolBar', 'none', ...
-        'Units', 'centimeters', ...
-        'OuterPosition', [0.0 0.0 30.0 30.0], ...
-        'PaperType', 'a4', ...
-        'PaperUnits', 'centimeters', ...
-        'PaperOrientation', 'landscape', ...
-        'PaperPositionMode', 'auto', ...
-        'DoubleBuffer', 'on', ...
-        'RendererMode', 'manual', ...
-        'Renderer', 'painters');
-    
-    tdl = tiledlayout(fig3, 2, 2, ...
-        'Padding', 'normal', ...
-        'TileSpacing' , 'compact');
-    
-    title(tdl,...
-        'Measured Sinus Bridge Outputs of Corresponding $H_x$-/ $H_y$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 18, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    subtitle(tdl, [infoStr; dateStr], ...
-        'FontWeight', 'normal', ...
-        'FontSize', 14, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    xlabel(tdl, sprintf('$H_x$, $H_y$ in %s, %d Steps in %.4f %s', ...
-        kApm, Hsteps, Hres, kApm), ...
-        'FontWeight', 'normal', ...
-        'FontSize', 16, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-        
-    colormap('jet');
-    
     % sinus bridge recorded during rising stimulus 
     nexttile;
     im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.Rise);
@@ -1200,27 +606,12 @@ function plotTDKCharDataset()
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Rising $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xlabel('$H_x$ in kA/m');
+    ylabel('$H_y$ in kA/m');
+    title('c) $V_{sin}(H_x, H_y)$');
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
     
     % sinus bridge recorded during falling stimulus 
     nexttile;
@@ -1230,119 +621,38 @@ function plotTDKCharDataset()
     caxis([Vmin, Vmax]);
     xlim([Hmin Hmax]);
     ylim([Hmin Hmax]);
-    yticks(xticks);
     axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Falling $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-
-    % sinus bridge recorded during superimposed stimulus 
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.All);
-    set(gca, 'YDir', 'normal');
-    set(im, 'AlphaData', ~(~Vsin.All));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Superimposed $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    % sinus bridge recorded during differentiated stimulus 
-    nexttile;
-    im = imagesc([Hmin Hmax], [Hmin Hmax], Vsin.Diff);
-    set(gca, 'YDir', 'normal');
-    set(im, 'AlphaData', ~isnan(Vsin.Diff));
-    caxis([Vmin, Vmax]);
-    xlim([Hmin Hmax]);
-    ylim([Hmin Hmax]);
-    yticks(xticks);
-    axis square xy;
-    grid on;
-    
-    xlabel('$H_x$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$H_y$', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('Differentiated $H$-Amplitudes', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xlabel('$H_x$ in kA/m');
+    ylabel('$H_y$ in kA/m');
+    title('d) $V_{sin}(H_x, H_y)$');
+    yticks([-20 -10 0 10 20]);
+    xticks([-20 -10 0 10 20]);
       
     % add colorbar and place it overall plots
     cb = colorbar;
     cb.Layout.Tile = 'east';
     cb.Label.String = sprintf(...
-        '$V_{sin}(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
+        '$V(H_x, H_y)$ in %s, Gain $ = %.1f$', mV, gain);
     cb.Label.Interpreter = 'latex';
-    cb.Label.FontSize = 16;
+    cb.TickLabelInterpreter = 'latex';
+    cb.Label.FontSize = 24;
     
-    yesno = input('Save? [y/n]: ', 's');
-    if strcmp(yesno, 'y')
-        % save results of figure 1
-        savefig(fig1, fig1Path);
-        print(fig1, fig1Path, '-dsvg');
-        print(fig1, fig1Path, '-depsc', '-tiff', '-loose');
-        print(fig1, fig1Path, '-dpdf', '-loose', '-fillpage');
-    
-        % save results of figure 2
-        savefig(fig2, fig2Path);
-        print(fig2, fig2Path, '-dsvg');
-        print(fig2, fig2Path, '-depsc', '-tiff', '-loose');
-        print(fig2, fig2Path, '-dpdf', '-loose', '-fillpage');
-    
-        % save results of figure 3
-        savefig(fig3, fig3Path);
-        print(fig3, fig3Path, '-dsvg');
-        print(fig3, fig3Path, '-depsc', '-tiff', '-loose');
-        print(fig3, fig3Path, '-dpdf', '-loose', '-fillpage');
-    end
-    close(fig1)
-    close(fig2)
-    close(fig3)
+%     yesno = input('Save? [y/n]: ', 's');
+%     if strcmp(yesno, 'y')
+%         % save results of figure 1
+%         savefig(fig1, fig1Path);
+%         print(fig1, fig1Path, '-dsvg');
+%         print(fig1, fig1Path, '-depsc', '-tiff', '-loose');
+%         print(fig1, fig1Path, '-dpdf', '-loose', '-fillpage');
+%     
+%         % save results of figure 2
+%         savefig(fig2, fig2Path);
+%         print(fig2, fig2Path, '-dsvg');
+%         print(fig2, fig2Path, '-depsc', '-tiff', '-loose');
+%         print(fig2, fig2Path, '-dpdf', '-loose', '-fillpage');
+%     end
+%     close(fig1)
+%     close(fig2)
 end
 
 ##### SOURCE END #####

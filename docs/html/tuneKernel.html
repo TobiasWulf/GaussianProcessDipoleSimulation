@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>tuneKernel</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="tuneKernel.m"><style type="text/css">
+      --><title>tuneKernel</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-14"><meta name="DC.source" content="tuneKernel.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -108,8 +108,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">% check if s2f is equal to 1 or not an initialize the problem</span>
     <span class="keyword">if</span> Mdl.theta(1) == 1
         <span class="comment">% apply bounds to prevent overfitting</span>
-        problem.lb = Mdl.thetaBounds(1);
-        problem.ub = Mdl.thetaBounds(2);
+        problem.lb = Mdl.slBounds(1);
+        problem.ub = Mdl.slBounds(2);
 
         <span class="comment">% set sl start value</span>
         problem.x0 = Mdl.theta(2);
@@ -122,8 +122,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
 
     <span class="keyword">else</span>
         <span class="comment">% apply bounds to prevent overfitting</span>
-        problem.lb = [1 1] * Mdl.thetaBounds(1);
-        problem.ub = [1 1] * Mdl.thetaBounds(2);
+        problem.lb = [Mdl.s2fBounds(1) Mdl.slBounds(1)];
+        problem.ub = [Mdl.s2fBounds(2) Mdl.slBounds(2)];
 
         <span class="comment">% set sl start value</span>
         problem.x0 = Mdl.theta;
@@ -231,8 +231,8 @@ function Mdl = tuneKernel(Mdl, verbose)
     % check if s2f is equal to 1 or not an initialize the problem
     if Mdl.theta(1) == 1
         % apply bounds to prevent overfitting
-        problem.lb = Mdl.thetaBounds(1);
-        problem.ub = Mdl.thetaBounds(2);
+        problem.lb = Mdl.slBounds(1);
+        problem.ub = Mdl.slBounds(2);
         
         % set sl start value
         problem.x0 = Mdl.theta(2);
@@ -245,8 +245,8 @@ function Mdl = tuneKernel(Mdl, verbose)
     
     else
         % apply bounds to prevent overfitting
-        problem.lb = [1 1] * Mdl.thetaBounds(1);
-        problem.ub = [1 1] * Mdl.thetaBounds(2);
+        problem.lb = [Mdl.s2fBounds(1) Mdl.slBounds(1)];
+        problem.ub = [Mdl.s2fBounds(2) Mdl.slBounds(2)];
         
         % set sl start value
         problem.x0 = Mdl.theta;

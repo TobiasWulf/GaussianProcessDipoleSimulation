@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-14"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -91,14 +91,17 @@ Edited on Month DD. YYYY by Editor: Single line description.
 Edited on November 09. 2020 by Tobias Wulf: Save PathVariables as struct.
 Edited on November 09. 2020 by Tobias Wulf: Add Options for dipole simulation with square sensor array.
 Edited on December 03. 2020 by Tobias Wulf: Add path and option for KMZ60.
+Edited on February 27. 2020 by Tobias Wulf: Add default plot settings.
+Edited on February 27. 2020 by Tobias Wulf: Add script as startup task.
 -->
 </p><h2 id="3">Clean Up</h2><p>Clear variables from workspace to build up a fresh new configuration workspace.</p><pre class="codeinput">disp(<span class="string">'Clean up workspace ...'</span>);
+close <span class="string">all</span>;
 clearvars;
 clc;
-</pre><h2 id="4">GeneralOptions</h2><p>General options like formats for strings or date or anything else what has no special relation to a theme complex. Fix parameters.</p><pre class="codeinput">disp(<span class="string">'Set general options ...'</span>);
+</pre><h2 id="4">Default Plot Settings</h2><p>Set default settings for plots and graphics like text interpreter and font size and so on. If script runs on start up, defaults are working for all plots. disp('Set plot defaults ...'); set(groot, 'DefaultTextInterpreter', 'latex'); set(groot, 'DefaultLegendInterpreter', 'latex'); set(groot, 'DefaultAxesTickLabelInterpreter', 'latex'); set(groot, 'DefaultAxesFontSize', 20); set(groot, 'DefaultLineLineWidth',2.5); set(groot, 'DefaultAxesLineWidth', 1.5); set(groot, 'DefaultAxesFontSize', 20); %set(groot, 'DefaultAxesFontWeight', 'bold'); set(groot, 'DefaultTextFontSize', 20); set(groot, 'DefaultaxesFontName', 'Times new Roman') set(groot, 'DefaultlegendFontName', 'Times new Roman'); set(groot, 'DefaultAxesXGrid','on'); set(groot, 'DefaultAxesYGrid','on'); set(groot, 'DefaultFigureNumberTitle' , 'off'); set(groot, 'DefaultFigureWindowStyle', 'normal'); set(groot, 'DefaultFigureMenuBar', 'figure'); set(groot, 'DefaultFigureToolBar', 'figure'); set(groot, 'DefaultFigureUnits', 'normalized'); set(groot, 'DefaultFigurePosition', [0 0 1 1]); set(groot, 'DefaultFigureWindowState', 'normal') set(groot, 'DefaultFigurePaperType', 'a4'); set(groot, 'DefaultFigurePaperUnits', 'centimeters'); set(groot, 'DefaultFigurePaperOrientation', 'landscape'); set(groot, 'DefaultFigurePaperPositionMode', 'auto'); set(groot, 'DefaultFigureDoubleBuffer', 'on'); set(groot, 'DefaultFigureRendererMode', 'manual'); set(groot, 'DefaultFigureRenderer', 'painters'); set(groot, 'DefaultTiledlayoutPadding', 'compact'); set(groot, 'DefaultTiledlayoutTileSpacing', 'compact'); set(groot, 'DefaultPolarAxesTickLabelInterpreter', 'latex'); set(groot, 'DefaultPolarAxesFontSize', 20); set(groot,);</p><h2 id="5">GeneralOptions</h2><p>General options like formats for strings or date or anything else what has no special relation to a theme complex. Fix parameters.</p><pre class="codeinput">disp(<span class="string">'Set general options ...'</span>);
 GeneralOptions = struct;
 GeneralOptions.dateFormat = <span class="string">'yyyy-mm-dd_HH-MM-SS-FFF'</span>;
-</pre><h2 id="5">Path Variables</h2><p>Key path variables and directories, often used in functions or scripts. Collet the path in a struct for easier save the struct fields as variables to config.mat via -struct flag. Fix parameters.</p><pre class="codeinput">disp(<span class="string">'Create current project instance to gather information ...'</span>);
+</pre><h2 id="6">Path Variables</h2><p>Key path variables and directories, often used in functions or scripts. Collet the path in a struct for easier save the struct fields as variables to config.mat via -struct flag. Fix parameters.</p><pre class="codeinput">disp(<span class="string">'Create current project instance to gather information ...'</span>);
 
 <span class="comment">% create current project instance to retrieve root information</span>
 projectInstance = matlab.project.currentProject;
@@ -172,22 +175,22 @@ PathVariables.srcPath = fullfile(PathVariables.rootPath, <span class="string">'s
 
 <span class="comment">% path to unittest files, scripts and script suite</span>
 PathVariables.unittestPath = fullfile(PathVariables.rootPath, <span class="string">'tests'</span>);
-</pre><h2 id="6">Publish Options</h2><p>These are general options for documents to publish. They are passed to the matlab publish function via a struct where each option gets its own field. The option struct can be copied and adjusted for differing publish conditions in example for scripts, functions, and bare document m-files. Initialize the option struct with output format field name and field value and add further fields (options) with point value. Fix parameters.</p><pre class="codeinput">disp(<span class="string">'Set publish options struct for publish function ...'</span>);
+</pre><h2 id="7">Publish Options</h2><p>These are general options for documents to publish. They are passed to the matlab publish function via a struct where each option gets its own field. The option struct can be copied and adjusted for differing publish conditions in example for scripts, functions, and bare document m-files. Initialize the option struct with output format field name and field value and add further fields (options) with point value. Fix parameters.</p><pre class="codeinput">disp(<span class="string">'Set publish options struct for publish function ...'</span>);
 PublishOptions = struct(<span class="string">'format'</span>, <span class="string">'html'</span>);
 PublishOptions.outputDir = PathVariables.publishHtmlPath;
 PublishOptions.stylesheet = PathVariables.publishStyleSheetPath;
 PublishOptions.createThumbnail = false;
 PublishOptions.figureSnapMethod = <span class="string">'entireFigureWindow'</span>;
 PublishOptions.imageFormat = <span class="string">'png'</span>;
-PublishOptions.maxHeight = [];
-PublishOptions.maxWidth = [];
+PublishOptions.maxHeight = 600;
+PublishOptions.maxWidth = 600;
 PublishOptions.useNewFigure = false;
 PublishOptions.evalCode = false;
 PublishOptions.catchError = true;
 PublishOptions.codeToEvaluate = [];
 PublishOptions.maxOutputLines = Inf;
 PublishOptions.showCode = true;
-</pre><h2 id="7">Sensor Array Options</h2><p>The options control the built-up of the sensor array in geometry and techincal behavior. This means number of sensors in the array and its size in mm. The supply and offset voltage of each sensor which is needed for using the characterization which is normed in mV/V. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.</p><pre class="codeinput">disp(<span class="string">'Set sensor array option for geometry and behavior ...'</span>);
+</pre><h2 id="8">Sensor Array Options</h2><p>The options control the built-up of the sensor array in geometry and techincal behavior. This means number of sensors in the array and its size in mm. The supply and offset voltage of each sensor which is needed for using the characterization which is normed in mV/V. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.</p><pre class="codeinput">disp(<span class="string">'Set sensor array option for geometry and behavior ...'</span>);
 SensorArrayOptions = struct;
 
 <span class="comment">% Geometry of the sensor array current sensor array can be. Fix parameter.</span>
@@ -211,7 +214,7 @@ SensorArrayOptions.Voff = 2.5;
 <span class="comment">% given supply voltage and offset voltage, current normin is mV/V which</span>
 <span class="comment">% implements factor of 1e3. Fix paramter.</span>
 SensorArrayOptions.Vnorm = 1e3;
-</pre><h2 id="8">Dipole Options</h2><p>Dipole options to calculate the magnetic field which stimulate the sensor array. The dipole is gained to sphere with additional z distance to the array by sphere radius. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.</p><pre class="codeinput">disp(<span class="string">'Set dipole options to calculate magnetic stimulus ...'</span>);
+</pre><h2 id="9">Dipole Options</h2><p>Dipole options to calculate the magnetic field which stimulate the sensor array. The dipole is gained to sphere with additional z distance to the array by sphere radius. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.</p><pre class="codeinput">disp(<span class="string">'Set dipole options to calculate magnetic stimulus ...'</span>);
 DipoleOptions = struct;
 
 <span class="comment">% Radius in mm of magnetic sphere in which the magnetic dipole is centered.</span>
@@ -241,7 +244,7 @@ DipoleOptions.z0 = 1;
 <span class="comment">% prevent numeric failures, by norming the factor is eleminated later. Fix</span>
 <span class="comment">% parameter.</span>
 DipoleOptions.M0mag = 1e6;
-</pre><h2 id="9">Traning Options</h2><p>Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set training options to generate dataset ...'</span>);
+</pre><h2 id="10">Traning Options</h2><p>Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set training options to generate dataset ...'</span>);
 TrainingOptions = struct;
 
 <span class="comment">% Use case of options define what dataset it is and where to save resulting</span>
@@ -280,7 +283,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 14;
+TrainingOptions.nAngles = 48;
 
 <span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
 <span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
@@ -296,7 +299,7 @@ TrainingOptions.BaseReference = <span class="string">'TDK'</span>;
 <span class="comment">% All  - Superimposed bridge outputs</span>
 <span class="comment">% Diff - Differentiated bridge outputs</span>
 TrainingOptions.BridgeReference = <span class="string">'Rise'</span>;
-</pre><h2 id="10">Test Options</h2><p>Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate dataset ...'</span>);
+</pre><h2 id="11">Test Options</h2><p>Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate dataset ...'</span>);
 TestOptions = struct;
 
 <span class="comment">% Use case of options define what dataset it is and where to save resulting</span>
@@ -351,7 +354,7 @@ TestOptions.BaseReference = <span class="string">'TDK'</span>;
 <span class="comment">% All  - Superimposed bridge outputs</span>
 <span class="comment">% Diff - Differentiated bridge outputs</span>
 TestOptions.BridgeReference = <span class="string">'Rise'</span>;
-</pre><h2 id="11">GPROptions</h2><p>Gaussian Process Regression options to generate a regression model for angular prediction and analyzing the accuracy of the prediction. The GPR model uses one certain covariance function to compute the prediction but it is possible to initiate as zero mean GPR without mean correction and a simple mean function which supports offset amplitude correction of the sinoid inputs for cosine and sine. The GPR uses a quadratic frobnius norm covariance function. That function has two kernel parameters s2f as variance parameter and sl as length scale parameter. Additional a noise variance s2n must be passed to GPR to compute noisy observations.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate GPR model ...'</span>);
+</pre><h2 id="12">GPROptions</h2><p>Gaussian Process Regression options to generate a regression model for angular prediction and analyzing the accuracy of the prediction. The GPR model uses one certain covariance function to compute the prediction but it is possible to initiate as zero mean GPR without mean correction and a simple mean function which supports offset amplitude correction of the sinoid inputs for cosine and sine. The GPR uses a quadratic frobnius norm covariance function. That function has two kernel parameters s2f as variance parameter and sl as length scale parameter. Additional a noise variance s2n must be passed to GPR to compute noisy observations.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate GPR model ...'</span>);
 GPROptions = struct();
 
 <span class="comment">% Set kernel function to compute covariance matrix, vectors or test point</span>
@@ -370,29 +373,39 @@ GPROptions.kernel = <span class="string">'QFCAPX'</span>;
 <span class="comment">% 2*sl^2 can lead to inbalance of cosine and sine prediction indicated by</span>
 <span class="comment">% diverging log likelihoods for cosine and sine prediction.</span>
 <span class="comment">%                  [s2f , sl]</span>
-GPROptions.theta = [1, SensorArrayOptions.dimension];
+GPROptions.theta = [1, 0.2446];
 
 <span class="comment">% Set lower and upper bounds to optimize kernel parameters theta which is a</span>
 <span class="comment">% vector of covariance parameter covariance variance parameter s2f and lenght</span>
 <span class="comment">% scale parameter sl. These bounds must be set to prevent an overfitting in</span>
-<span class="comment">% tuning the kernel parameter. If the bounds are to wide the prediction losses</span>
-<span class="comment">% its generalization. At initialization of the GPR model s2f is set to senor</span>
-<span class="comment">% array dimension and sl is set to senor array count so number of predictors.</span>
-<span class="comment">% If the bounds are to tight the tuning and optimization procedure cannot</span>
-<span class="comment">% dismiss bad set points and tries to reach them over and over, the causes</span>
-<span class="comment">% a limitting which would be break through if the procedure reaches the point</span>
-<span class="comment">% evaluated as bad set point.</span>
-GPROptions.thetaBounds = [1e-3, 1e3];
+<span class="comment">% tuning the kernel parameter. If the bounds are to tight in relation of datset</span>
+<span class="comment">% number in variation the prediction losses its generalization.</span>
+<span class="comment">% If the bounds are to tight in generel the tuning and optimization procedure</span>
+<span class="comment">% cannot dismiss bad set points and tries to reach them over and over,</span>
+<span class="comment">% the causes a limitting which would be break through if the procedure reaches</span>
+<span class="comment">% the point evaluated as bad set point. If the bound are to wide in relation of</span>
+<span class="comment">% number in dataset variousity the mean error raises. The model is to complex</span>
+<span class="comment">% then. Try to keep up simple modles.</span>
+GPROptions.s2fBounds = [1e-2, 1];
+GPROptions.slBounds = [1e-2, 24.46];
 
 <span class="comment">% Set initial noise variance to add noise along the diagonal of th covariance</span>
 <span class="comment">% matrix to predict noisy observation. Set to small values or even 0 to get</span>
 <span class="comment">% noise free observations.</span>
-GPROptions.s2n = 1e-5;
+GPROptions.s2n = 1e-08;
 
 <span class="comment">% Set lower and upper bounds for noise adjustment in computing the covariance</span>
 <span class="comment">% matrix for noisy observations. These bounds prevent the GPR of overfitting in</span>
 <span class="comment">% the noise optimization procedure. The default noise at initialization is 1e-5.</span>
-GPROptions.s2nBounds = [1e-9, 10];
+GPROptions.s2nBounds = [1e-09, 1e-04];
+
+
+<span class="comment">% Set number of outer optimization runs. For wide parameter bounds it is</span>
+<span class="comment">% recommended to set the number of runs to min 30 otherwise the bayes</span>
+<span class="comment">% optimization runs to short in finding error bounds and left with not good</span>
+<span class="comment">% optimized parameters.</span>
+GPROptions.OptimRuns = 20;
+
 
 <span class="comment">% Enables mean function and offset and amplitude correction.</span>
 <span class="comment">% Set basis function to compute H matrix of training points and h vector of</span>
@@ -402,13 +415,13 @@ GPROptions.s2nBounds = [1e-9, 10];
 <span class="comment">%        polynom mean vectors at each observation points</span>
 <span class="comment">%        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.</span>
 <span class="comment">%        For QFC kernel x = ||X||_F</span>
-GPROptions.mean = <span class="string">'poly'</span>;
+GPROptions.mean = <span class="string">'zero'</span>;
 
 <span class="comment">% Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,</span>
 <span class="comment">% 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum</span>
 <span class="comment">% polynom degree is 7.</span>
-GPROptions.polyDegree = 2;
-</pre><h2 id="12">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression. create config.mat with timestamp.</p><pre class="codeinput">disp(<span class="string">'Create config.mat ...'</span>);
+GPROptions.polyDegree = 1;
+</pre><h2 id="13">Save Configuration</h2><p>Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression. create config.mat with timestamp.</p><pre class="codeinput">disp(<span class="string">'Create config.mat ...'</span>);
 timestamp = datestr(now, GeneralOptions.dateFormat);
 save(PathVariables.configPath, <span class="keyword">...</span>
     <span class="string">'timestamp'</span>, <span class="keyword">...</span>
@@ -450,6 +463,8 @@ save(PathVariables.configPath, <span class="keyword">...</span>
 % Edited on November 09. 2020 by Tobias Wulf: Save PathVariables as struct.
 % Edited on November 09. 2020 by Tobias Wulf: Add Options for dipole simulation with square sensor array.
 % Edited on December 03. 2020 by Tobias Wulf: Add path and option for KMZ60.
+% Edited on February 27. 2020 by Tobias Wulf: Add default plot settings.
+% Edited on February 27. 2020 by Tobias Wulf: Add script as startup task.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
@@ -458,9 +473,48 @@ save(PathVariables.configPath, <span class="keyword">...</span>
 % Clear variables from workspace to build up a fresh new configuration
 % workspace.
 disp('Clean up workspace ...');
+close all;
 clearvars;
 clc;
 
+
+%% Default Plot Settings
+% Set default settings for plots and graphics like text interpreter and font
+% size and so on. If script runs on start up, defaults are working for all
+% plots.
+% disp('Set plot defaults ...');
+% set(groot, 'DefaultTextInterpreter', 'latex');
+% set(groot, 'DefaultLegendInterpreter', 'latex');
+% set(groot, 'DefaultAxesTickLabelInterpreter', 'latex');
+% set(groot, 'DefaultAxesFontSize', 20);
+% set(groot, 'DefaultLineLineWidth',2.5);
+% set(groot, 'DefaultAxesLineWidth', 1.5);
+% set(groot, 'DefaultAxesFontSize', 20);
+% %set(groot, 'DefaultAxesFontWeight', 'bold');
+% set(groot, 'DefaultTextFontSize', 20);
+% set(groot, 'DefaultaxesFontName', 'Times new Roman') 
+% set(groot, 'DefaultlegendFontName', 'Times new Roman');
+% set(groot, 'DefaultAxesXGrid','on');
+% set(groot, 'DefaultAxesYGrid','on'); 
+% set(groot, 'DefaultFigureNumberTitle' , 'off');
+% set(groot, 'DefaultFigureWindowStyle', 'normal');
+% set(groot, 'DefaultFigureMenuBar', 'figure');
+% set(groot, 'DefaultFigureToolBar', 'figure');
+% set(groot, 'DefaultFigureUnits', 'normalized');
+% set(groot, 'DefaultFigurePosition', [0 0 1 1]);
+% set(groot, 'DefaultFigureWindowState', 'normal')
+% set(groot, 'DefaultFigurePaperType', 'a4');
+% set(groot, 'DefaultFigurePaperUnits', 'centimeters');
+% set(groot, 'DefaultFigurePaperOrientation', 'landscape');
+% set(groot, 'DefaultFigurePaperPositionMode', 'auto');
+% set(groot, 'DefaultFigureDoubleBuffer', 'on');
+% set(groot, 'DefaultFigureRendererMode', 'manual');
+% set(groot, 'DefaultFigureRenderer', 'painters');
+% set(groot, 'DefaultTiledlayoutPadding', 'compact');
+% set(groot, 'DefaultTiledlayoutTileSpacing', 'compact');
+% set(groot, 'DefaultPolarAxesTickLabelInterpreter', 'latex');
+% set(groot, 'DefaultPolarAxesFontSize', 20);
+% set(groot,);
 
 %% GeneralOptions
 % General options like formats for strings or date or anything else what
@@ -565,8 +619,8 @@ PublishOptions.stylesheet = PathVariables.publishStyleSheetPath;
 PublishOptions.createThumbnail = false;
 PublishOptions.figureSnapMethod = 'entireFigureWindow';
 PublishOptions.imageFormat = 'png';
-PublishOptions.maxHeight = [];
-PublishOptions.maxWidth = [];
+PublishOptions.maxHeight = 600;
+PublishOptions.maxWidth = 600;
 PublishOptions.useNewFigure = false;
 PublishOptions.evalCode = false;
 PublishOptions.catchError = true;
@@ -689,7 +743,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 14;
+TrainingOptions.nAngles = 48;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -797,29 +851,39 @@ GPROptions.kernel = 'QFCAPX';
 % 2*sl^2 can lead to inbalance of cosine and sine prediction indicated by
 % diverging log likelihoods for cosine and sine prediction.
 %                  [s2f , sl]
-GPROptions.theta = [1, SensorArrayOptions.dimension];
+GPROptions.theta = [1, 0.2446];
 
 % Set lower and upper bounds to optimize kernel parameters theta which is a
 % vector of covariance parameter covariance variance parameter s2f and lenght
 % scale parameter sl. These bounds must be set to prevent an overfitting in
-% tuning the kernel parameter. If the bounds are to wide the prediction losses
-% its generalization. At initialization of the GPR model s2f is set to senor
-% array dimension and sl is set to senor array count so number of predictors.
-% If the bounds are to tight the tuning and optimization procedure cannot
-% dismiss bad set points and tries to reach them over and over, the causes
-% a limitting which would be break through if the procedure reaches the point
-% evaluated as bad set point.
-GPROptions.thetaBounds = [1e-3, 1e3];
+% tuning the kernel parameter. If the bounds are to tight in relation of datset
+% number in variation the prediction losses its generalization. 
+% If the bounds are to tight in generel the tuning and optimization procedure
+% cannot dismiss bad set points and tries to reach them over and over, 
+% the causes a limitting which would be break through if the procedure reaches 
+% the point evaluated as bad set point. If the bound are to wide in relation of
+% number in dataset variousity the mean error raises. The model is to complex
+% then. Try to keep up simple modles.
+GPROptions.s2fBounds = [1e-2, 1];
+GPROptions.slBounds = [1e-2, 24.46];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
 % noise free observations.
-GPROptions.s2n = 1e-5;
+GPROptions.s2n = 1e-08;
 
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-9, 10];
+GPROptions.s2nBounds = [1e-09, 1e-04];
+
+
+% Set number of outer optimization runs. For wide parameter bounds it is
+% recommended to set the number of runs to min 30 otherwise the bayes
+% optimization runs to short in finding error bounds and left with not good
+% optimized parameters.
+GPROptions.OptimRuns = 20;
+
 
 % Enables mean function and offset and amplitude correction. 
 % Set basis function to compute H matrix of training points and h vector of
@@ -829,12 +893,12 @@ GPROptions.s2nBounds = [1e-9, 10];
 %        polynom mean vectors at each observation points 
 %        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
 %        For QFC kernel x = ||X||_F
-GPROptions.mean = 'poly';
+GPROptions.mean = 'zero';
 
 % Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
 % polynom degree is 7.
-GPROptions.polyDegree = 2;
+GPROptions.polyDegree = 1;
 
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in

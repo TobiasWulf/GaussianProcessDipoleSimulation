@@ -63,6 +63,7 @@ toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
        "subsection",        "deleteSimulationPlots.pdf";
        "subsection",        "exportPublishedToPdf.pdf";
        "subsection",        "demoGPRModule.pdf";
+       "subsection",        "investigateKernelParameters.pdf";
        "section",           "Source_Code.pdf";
        "subsection",        "sensorArraySimulation.pdf";
        "subsubsection",     "rotate3DVector.pdf";

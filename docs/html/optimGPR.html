@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>optimGPR</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-21"><meta name="DC.source" content="optimGPR.m"><style type="text/css">
+      --><title>optimGPR</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-14"><meta name="DC.source" content="optimGPR.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -103,7 +103,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="comment">% perform bayes noise optimization</span>
     results = bayesopt(fun, s2n, <span class="keyword">...</span>
         <span class="string">'Verbose'</span>, verbose, <span class="keyword">...</span>
-        <span class="string">'MaxObjectiveEvaluations'</span>, 100, <span class="keyword">...</span>
+        <span class="string">'MaxObjectiveEvaluations'</span>, GPROptions.OptimRuns, <span class="keyword">...</span>
         <span class="string">'AcquisitionFunctionName'</span>, <span class="string">'expected-improvement-per-second'</span>);
 
     <span class="comment">% update options with results and reinit model and tune to final model</span>
@@ -200,7 +200,7 @@ function Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)
     % perform bayes noise optimization
     results = bayesopt(fun, s2n, ...
         'Verbose', verbose, ...
-        'MaxObjectiveEvaluations', 100, ...
+        'MaxObjectiveEvaluations', GPROptions.OptimRuns, ...
         'AcquisitionFunctionName', 'expected-improvement-per-second');
     
     % update options with results and reinit model and tune to final model
