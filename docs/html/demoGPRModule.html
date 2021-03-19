@@ -1,0 +1,490 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>demoGPRModule</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="demoGPRModule.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>demoGPRModule</h1><!--introduction--><p>This script demonstrates the use of gaussianProcessRegression module. The demonstartions shows single steps of use from initialization to optimization. For use generate a training and testdataset with corresponding position. So the sensor model is built on none diverging coordinates.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneGPR.html">tuneGPR</a></li><li><a href="optimGPR.html">optimGPR.html</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on February 25. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><h2 id="3">Start Script, Load Config and Read in Datasets</h2><p>At first clear all variables from workspace, close all open figures and clean prompt. Then loads configuration from config.mat and try to load training and test datasets. Finally check datasets for corresponding coordinates. Loading the first available datasets in training and test dataset path.</p><pre class="codeinput">clc;
+disp(<span class="string">'Start GPR module demonstration ...'</span>);
+clearvars;
+<span class="comment">%close all;</span>
+
+disp(<span class="string">'Load config ...'</span>);
+load <span class="string">config.mat</span> <span class="string">PathVariables</span> <span class="string">GPROptions</span>;
+
+disp(<span class="string">'Search for datasets ...'</span>);
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, <span class="string">'Training*.mat'</span>));
+TestFiles = dir(fullfile(PathVariables.testDataPath, <span class="string">'Test*.mat'</span>));
+assert(~isempty(TrainFiles), <span class="string">'No training datasets found.'</span>);
+assert(~isempty(TestFiles), <span class="string">'No test datasets found.'</span>);
+
+disp(<span class="string">'Load first found datasets ...'</span>);
+<span class="keyword">try</span>
+    TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+    TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+
+<span class="keyword">catch</span> ME
+    rethrow(ME)
+<span class="keyword">end</span>
+
+disp(<span class="string">'Check dataset coordinates corresponds ...'</span>);
+assert(all(TrainDS.Data.X == TestDS.Data.X, <span class="string">'all'</span>), <span class="string">'Wrong X grid.'</span>);
+assert(all(TrainDS.Data.Y == TestDS.Data.Y, <span class="string">'all'</span>), <span class="string">'Wrong Y grid.'</span>);
+assert(all(TrainDS.Data.Z == TestDS.Data.Z, <span class="string">'all'</span>), <span class="string">'Wrong Z grid.'</span>);
+</pre><h2 id="4">Compute Means of Test Dataset as Comparing Root</h2><p>Compute mean sinoids and angular error by raw dataset values. offcos0 - cosine offset offsin0 - sine offset fcos0   - offset free and normed mean cosine from raw test values fsin0   - offset free and normed mean sine from raw test values frad0   - radius by mean sinoids fang0   - angles by mean sinoids compute with angle function in predDS AAED0   - Absolute Angular Error in Degrees by mean sinoids</p><pre class="codeinput">offcos0 = mean2(TestDS.Data.Vcos);
+offsin0 = mean2(TestDS.Data.Vsin);
+fcos0 = zeros(TestDS.Info.UseOptions.nAngles, 1);
+fsin0 = zeros(TestDS.Info.UseOptions.nAngles, 1);
+<span class="keyword">for</span> n = 1:TestDS.Info.UseOptions.nAngles
+    fcos0(n) = mean2(TestDS.Data.Vcos(:,:,n));
+    fsin0(n) = mean2(TestDS.Data.Vsin(:,:,n));
+<span class="keyword">end</span>
+fcos0 = fcos0 - offcos0;
+fsin0 = fsin0 - offsin0;
+frad0 = sqrt(fcos0.^2 + fsin0.^2);
+fang0 = sinoids2angles(fsin0, fcos0, frad0);
+AAED0 = abs(TestDS.Data.angles' - fang0 * 180 / pi);
+</pre><h2 id="5">Create GPR Modles for Demonstartion</h2><p>Create three GPR Modles by the same base configuration to compare bare initilized modle with and optimized generated modle with same root of configuration. Mdl1 - optimized modle generated by configuration settings enable free free        tuning of variance and length scale by changing the theta(1) to        not equal 1 and widining the parameter bounds.</p><pre class="codeinput">disp(<span class="string">'Create GPR modles ...'</span>);
+Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+</pre><h2 id="6">Prediction on Test Dataset</h2><p>Predict sinoids and angles on test dataset for each created GPR modle. fang1  - computed angle by predicted sinoids frad1  - computed radius by predicted sinoids fcos1  - predicted cosine fsin1  - predicted sine fcov1  - predictive variance s1     - standard deviation of prediction ciang1 - 95% confidence interval for angles cirad1 - 95% confidence interval for radius</p><pre class="codeinput">[fang1, frad1, fcos1, fsin1, fcov1, s1, ciang1, cirad1] = predDS(Mdl1, TestDS);
+</pre><h2 id="7">Compute Losses and Errors on Test Dataset</h2><p>Compute the loss and error on test dataset for each created GPR modle. AAED1 - Absolute Angular Error in Degrees SLLA1 - Squared Log Loss Angular SLLR1 - Squared Log Loss Radius SEA1  - Squared Error Angular SER1  - Squared Error Radius SEC1  - Squared Error Cosine SES1  - Squared Error Sine</p><pre class="codeinput">[AAED1, SLLA1, SLLR1, SEA1, SER1, SEC1, SES1] = lossDS(Mdl1, TestDS);
+</pre><h2 id="8">Plot Area and Expand Modle Results</h2><p>Plot demo results in modle parameter view to show characteristics of covariance functions and modle generalization. Show full rotation on test dataset with angle error, predicted sinoids and confidence intervals.</p><pre class="codeinput"><span class="comment">% create general plot scalses and title</span>
+angles = TestDS.Data.angles';
+ticks = Mdl1.Angles;
+titleStr = <span class="string">"Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$,"</span> + <span class="keyword">...</span>
+    <span class="string">" $\\sigma_n^2 = %1.3e$, $N = %d$\n"</span> +<span class="keyword">...</span>
+    <span class="string">"$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm,"</span> + <span class="keyword">...</span>
+    <span class="string">" Magnet Tilt: $%2.1f^\\circ$"</span>;
+titleStr = sprintf(titleStr, <span class="keyword">...</span>
+    Mdl1.kernel, Mdl1.theta(1), Mdl1.theta(2), Mdl1.s2n, <span class="keyword">...</span>
+    Mdl1.N, Mdl1.D, Mdl1.D, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.xPos, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.yPos, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.zPos, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.tilt);
+
+<span class="comment">% create figure for model view</span>
+figure(<span class="string">'Name'</span>, Mdl1.kernel);
+t=tiledlayout(2,2);
+title(t, titleStr, <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="string">'FontSize'</span>, 24);
+
+<span class="comment">% plot covariance slice for first covariance sample</span>
+nexttile;
+p1 = plot(Mdl1.Ky, <span class="string">'Color'</span>, [0.8 0.8 0.8]);
+hold <span class="string">on</span>;
+p2 = yline(mean2(Mdl1.Ky), <span class="string">'Color'</span>, <span class="string">'#0072BD'</span>, <span class="string">'LineWidth'</span>, 2.5);
+p3 = plot(1:Mdl1.N, Mdl1.Ky(1,:), <span class="string">'kx-.'</span>);
+xlim([1, Mdl1.N]);
+ylim([min(Mdl1.Ky, [], <span class="string">'all'</span>), max(Mdl1.Ky, [], <span class="string">'all'</span>)]);
+legend([p1(1), p2, p3], {<span class="string">'$i \ne 0$'</span>,<span class="string">'$\mu(K)$'</span>,<span class="string">'$i = 0$'</span>});
+xlabel(<span class="string">'$n$ Samples'</span>);
+ylabel(<span class="string">'Autocorrelation Coeff.'</span>);
+title(<span class="string">'a) $K$-Matrix $i$-th Row'</span>);
+
+<span class="comment">% plot covariance matrix</span>
+nexttile([2, 1]);
+colormap(<span class="string">'jet'</span>);
+imagesc(Mdl1.Ky);
+axis <span class="string">square</span>;
+colorbar;
+xlabel(<span class="string">'$j$'</span>);
+ylabel(<span class="string">'i'</span>);
+title(sprintf(<span class="string">'b) $K$-Matrix $%d \\times %d$ Samples'</span>, Mdl1.N, Mdl1.N))
+
+<span class="comment">% plot modle adjust as squared logarithmic loss for angles and radius</span>
+nexttile;
+plot(angles, SLLA1, <span class="string">'x-.'</span>);
+hold <span class="string">on</span>;
+plot(angles, SLLR1, <span class="string">'x-.'</span>);
+xlim([0 360]);
+legend({<span class="string">'$SLLA$'</span> , <span class="string">'$SLLR$'</span>});
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(sprintf(<span class="string">'c) $MSLLA = %1.2f$, $MSLLR = %1.2f$'</span>, mean(SLLA1), mean(SLLR1)));
+
+<span class="comment">% create figure for rotation results of test dataset</span>
+figure(<span class="string">'Name'</span>, <span class="string">'Rotation and Errors'</span>);
+t = tiledlayout(2,2);
+title(t, titleStr, <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>, <span class="string">'FontSize'</span>, 24);
+
+<span class="comment">% plot circle with gpr reuslts and pure mean results</span>
+nexttile;
+polarplot(fang0, frad0, <span class="string">'LineWidth'</span>, 3.5);
+hold <span class="string">on</span>;
+polarplot(fang1, frad1, <span class="string">'LineWidth'</span>, 3.5);
+polarscatter(Mdl1.Angles * pi / 180, 1.2 *ones(Mdl1.N, 1), 52, [0.8 0.8 0.8], <span class="keyword">...</span>
+    <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1.5);
+legend({<span class="string">'Mean'</span>, <span class="string">'GPR'</span>, <span class="string">'Ref. $\alpha$'</span>});
+rticklabels([<span class="string">""</span>, <span class="string">"0.5"</span>, <span class="string">"1"</span>]);
+title(<span class="string">'a) Rotation along $Z$-Axis in $^\circ$'</span>)
+
+<span class="comment">% plot predicted, ideal and none treated sinoids</span>
+nexttile;
+p1 = plot(angles, cosd(angles), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 6.5);
+hold <span class="string">on</span>;
+plot(angles, sind(angles), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 6.5);
+p2 = plot(angles, fcos0, <span class="string">'Color'</span>, <span class="string">'#0072BD'</span>);
+plot(angles, fsin0, <span class="string">'Color'</span>, <span class="string">'#0072BD'</span>);
+p3 = plot(angles, fcos1, <span class="string">'Color'</span>, <span class="string">'#D95319'</span>);
+plot(angles, fsin1, <span class="string">'Color'</span>, <span class="string">'#D95319'</span>);
+xlim([0 360]);
+ylim([-1.1 1.1]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+legend([p1 p2 p3], {<span class="string">'Ideal'</span>, <span class="string">'Mean'</span>, <span class="string">'GPR'</span>})
+title(<span class="string">'b) Sine and Cosine'</span>)
+
+<span class="comment">% plot absolut angle errors of gpr and mean results</span>
+nexttile;
+plot(angles, AAED0);
+hold <span class="string">on</span>;
+plot(angles, AAED1);
+ylim([0 4]);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$\epsilon_{abs}$ in $^\circ$'</span>);
+legend({<span class="string">'Mean'</span>, <span class="string">'GPR'</span>});
+tstr = <span class="string">'c) $\\mu(\\epsilon_{abs}) = %1.3f$, $max(\\epsilon_{abs}) = %1.3f$'</span>;
+tstr = sprintf(tstr, mean(AAED1), max(AAED1));
+title(tstr);
+
+<span class="comment">% plot 95 percent confidence intervals for angles and radius</span>
+nexttile;
+yyaxis <span class="string">left</span>;
+plot(angles, (ciang1-fang1) * 180/pi, <span class="string">'-'</span>, <span class="string">'Color'</span>, <span class="string">'#0072BD'</span>);
+ylabel(<span class="string">'$CIA_{95\%} - \alpha$ in $^\circ$'</span>);
+yyaxis <span class="string">right</span>;
+plot(angles, (cirad1-frad1), <span class="string">'-'</span>, <span class="string">'Color'</span>, <span class="string">'#D95319'</span>);
+ylabel(<span class="string">'$CIR_{95\%} - r$'</span>);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+title(<span class="string">'d) Centerd $95\%$ GPR Confidence Intervalls'</span>)
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% demoGPRModule
+% This script demonstrates the use of gaussianProcessRegression module. The
+% demonstartions shows single steps of use from initialization to optimization.
+% For use generate a training and testdataset with corresponding position. So
+% the sensor model is built on none diverging coordinates.
+%
+%
+%% Requirements
+% * Other m-files required: gaussianProcessRegression module files
+% * Subfunctions: none
+% * MAT-files required: data/config.mat, corresponding Training and Test dataset
+%
+%
+%% See Also
+% * <gaussianProcessRegression.html gaussianProcessRegression>
+% * <initGPR.html initGPR>
+% * <tuneGPR.html tuneGPR>
+% * <optimGPR.html>
+% * <generateConfigMat.html generateConfigMat>
+%
+%
+% Created on February 25. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+%
+%% Start Script, Load Config and Read in Datasets
+% At first clear all variables from workspace, close all open figures and clean
+% prompt. Then loads configuration from config.mat and try to load training and
+% test datasets. Finally check datasets for corresponding coordinates. Loading
+% the first available datasets in training and test dataset path.
+clc;
+disp('Start GPR module demonstration ...');
+clearvars;
+%close all;
+
+disp('Load config ...');
+load config.mat PathVariables GPROptions;
+
+disp('Search for datasets ...');
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
+TestFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
+assert(~isempty(TrainFiles), 'No training datasets found.');
+assert(~isempty(TestFiles), 'No test datasets found.');
+
+disp('Load first found datasets ...');
+try
+    TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+    TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+
+catch ME
+    rethrow(ME)
+end
+
+disp('Check dataset coordinates corresponds ...');
+assert(all(TrainDS.Data.X == TestDS.Data.X, 'all'), 'Wrong X grid.');
+assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
+assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
+
+
+%% Compute Means of Test Dataset as Comparing Root
+% Compute mean sinoids and angular error by raw dataset values.
+% offcos0 - cosine offset
+% offsin0 - sine offset
+% fcos0   - offset free and normed mean cosine from raw test values
+% fsin0   - offset free and normed mean sine from raw test values
+% frad0   - radius by mean sinoids
+% fang0   - angles by mean sinoids compute with angle function in predDS
+% AAED0   - Absolute Angular Error in Degrees by mean sinoids
+offcos0 = mean2(TestDS.Data.Vcos);
+offsin0 = mean2(TestDS.Data.Vsin);
+fcos0 = zeros(TestDS.Info.UseOptions.nAngles, 1);
+fsin0 = zeros(TestDS.Info.UseOptions.nAngles, 1);
+for n = 1:TestDS.Info.UseOptions.nAngles
+    fcos0(n) = mean2(TestDS.Data.Vcos(:,:,n));
+    fsin0(n) = mean2(TestDS.Data.Vsin(:,:,n));
+end
+fcos0 = fcos0 - offcos0;
+fsin0 = fsin0 - offsin0;
+frad0 = sqrt(fcos0.^2 + fsin0.^2);
+fang0 = sinoids2angles(fsin0, fcos0, frad0);
+AAED0 = abs(TestDS.Data.angles' - fang0 * 180 / pi);
+
+
+%% Create GPR Modles for Demonstartion
+% Create three GPR Modles by the same base configuration to compare bare
+% initilized modle with and optimized generated modle with same root of 
+% configuration.
+% Mdl1 - optimized modle generated by configuration settings enable free free
+%        tuning of variance and length scale by changing the theta(1) to
+%        not equal 1 and widining the parameter bounds.
+disp('Create GPR modles ...');
+Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+
+
+%% Prediction on Test Dataset
+% Predict sinoids and angles on test dataset for each created GPR modle.
+% fang1  - computed angle by predicted sinoids
+% frad1  - computed radius by predicted sinoids
+% fcos1  - predicted cosine
+% fsin1  - predicted sine
+% fcov1  - predictive variance
+% s1     - standard deviation of prediction
+% ciang1 - 95% confidence interval for angles
+% cirad1 - 95% confidence interval for radius
+[fang1, frad1, fcos1, fsin1, fcov1, s1, ciang1, cirad1] = predDS(Mdl1, TestDS);
+
+
+%% Compute Losses and Errors on Test Dataset
+% Compute the loss and error on test dataset for each created GPR modle.
+% AAED1 - Absolute Angular Error in Degrees
+% SLLA1 - Squared Log Loss Angular
+% SLLR1 - Squared Log Loss Radius
+% SEA1  - Squared Error Angular
+% SER1  - Squared Error Radius
+% SEC1  - Squared Error Cosine
+% SES1  - Squared Error Sine
+[AAED1, SLLA1, SLLR1, SEA1, SER1, SEC1, SES1] = lossDS(Mdl1, TestDS);
+
+
+%% Plot Area and Expand Modle Results
+% Plot demo results in modle parameter view to show characteristics of
+% covariance functions and modle generalization. Show full rotation on test
+% dataset with angle error, predicted sinoids and confidence intervals.
+
+% create general plot scalses and title
+angles = TestDS.Data.angles';
+ticks = Mdl1.Angles;
+titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
+    " $\\sigma_n^2 = %1.3e$, $N = %d$\n" +...
+    "$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm," + ...
+    " Magnet Tilt: $%2.1f^\\circ$";
+titleStr = sprintf(titleStr, ...
+    Mdl1.kernel, Mdl1.theta(1), Mdl1.theta(2), Mdl1.s2n, ...
+    Mdl1.N, Mdl1.D, Mdl1.D, ...
+    TestDS.Info.UseOptions.xPos, ...
+    TestDS.Info.UseOptions.yPos, ...
+    TestDS.Info.UseOptions.zPos, ...
+    TestDS.Info.UseOptions.tilt);
+
+% create figure for model view
+figure('Name', Mdl1.kernel);
+t=tiledlayout(2,2);
+title(t, titleStr, 'Interpreter', 'latex', 'FontSize', 24);
+
+% plot covariance slice for first covariance sample
+nexttile;
+p1 = plot(Mdl1.Ky, 'Color', [0.8 0.8 0.8]);
+hold on;
+p2 = yline(mean2(Mdl1.Ky), 'Color', '#0072BD', 'LineWidth', 2.5);
+p3 = plot(1:Mdl1.N, Mdl1.Ky(1,:), 'kx-.');
+xlim([1, Mdl1.N]);
+ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);
+legend([p1(1), p2, p3], {'$i \ne 0$','$\mu(K)$','$i = 0$'});
+xlabel('$n$ Samples');
+ylabel('Autocorrelation Coeff.');
+title('a) $K$-Matrix $i$-th Row');
+
+% plot covariance matrix
+nexttile([2, 1]);
+colormap('jet');
+imagesc(Mdl1.Ky);
+axis square;
+colorbar;
+xlabel('$j$');
+ylabel('i');
+title(sprintf('b) $K$-Matrix $%d \\times %d$ Samples', Mdl1.N, Mdl1.N))
+
+% plot modle adjust as squared logarithmic loss for angles and radius
+nexttile;
+plot(angles, SLLA1, 'x-.');
+hold on;
+plot(angles, SLLR1, 'x-.');
+xlim([0 360]);
+legend({'$SLLA$' , '$SLLR$'});
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title(sprintf('c) $MSLLA = %1.2f$, $MSLLR = %1.2f$', mean(SLLA1), mean(SLLR1)));
+
+% create figure for rotation results of test dataset
+figure('Name', 'Rotation and Errors');
+t = tiledlayout(2,2);
+title(t, titleStr, 'Interpreter', 'latex', 'FontSize', 24);
+
+% plot circle with gpr reuslts and pure mean results
+nexttile;
+polarplot(fang0, frad0, 'LineWidth', 3.5);
+hold on;
+polarplot(fang1, frad1, 'LineWidth', 3.5);
+polarscatter(Mdl1.Angles * pi / 180, 1.2 *ones(Mdl1.N, 1), 52, [0.8 0.8 0.8], ...
+    'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1.5);
+legend({'Mean', 'GPR', 'Ref. $\alpha$'});
+rticklabels(["", "0.5", "1"]);
+title('a) Rotation along $Z$-Axis in $^\circ$')
+
+% plot predicted, ideal and none treated sinoids
+nexttile;
+p1 = plot(angles, cosd(angles), 'k-.', 'LineWidth', 6.5);
+hold on;
+plot(angles, sind(angles), 'k-.', 'LineWidth', 6.5);
+p2 = plot(angles, fcos0, 'Color', '#0072BD');
+plot(angles, fsin0, 'Color', '#0072BD');
+p3 = plot(angles, fcos1, 'Color', '#D95319');
+plot(angles, fsin1, 'Color', '#D95319');
+xlim([0 360]);
+ylim([-1.1 1.1]);
+xlabel('$\alpha$ in $^\circ$');
+legend([p1 p2 p3], {'Ideal', 'Mean', 'GPR'})
+title('b) Sine and Cosine')
+
+% plot absolut angle errors of gpr and mean results
+nexttile;
+plot(angles, AAED0);
+hold on;
+plot(angles, AAED1);
+ylim([0 4]);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$\epsilon_{abs}$ in $^\circ$');
+legend({'Mean', 'GPR'});
+tstr = 'c) $\\mu(\\epsilon_{abs}) = %1.3f$, $max(\\epsilon_{abs}) = %1.3f$';
+tstr = sprintf(tstr, mean(AAED1), max(AAED1));
+title(tstr);
+
+% plot 95 percent confidence intervals for angles and radius
+nexttile;
+yyaxis left;
+plot(angles, (ciang1-fang1) * 180/pi, '-', 'Color', '#0072BD');
+ylabel('$CIA_{95\%} - \alpha$ in $^\circ$');
+yyaxis right;
+plot(angles, (cirad1-frad1), '-', 'Color', '#D95319');
+ylabel('$CIR_{95\%} - r$');
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+title('d) Centerd $95\%$ GPR Confidence Intervalls')
+
+##### SOURCE END #####
+--></body></html>

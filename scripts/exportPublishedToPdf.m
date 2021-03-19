@@ -84,6 +84,8 @@ toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
        "subsubsection",     "";
        "subsubsection",     "";
        "subsubsection",     "";
+       "subsubsection",     "";
+       "subsubsection",     "";
        "paragraph",         "";
        "paragraph",         "";
        "paragraph",         "";

@@ -1,0 +1,306 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>investigateKernelParameters</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="investigateKernelParameters.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>investigateKernelParameters</h1><!--introduction--><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneGPR.html">tuneGPR</a></li><li><a href="optimGPR.html">optimGPR.html</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on March 13. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><h2 id="3">Start Script, Load Config and Read in Datasets</h2><p>At first clear all variables from workspace, close all open figures and clean prompt. Then loads configuration from config.mat and try to load training and test datasets. Finally check datasets for corresponding coordinates. Loading the first available datasets in training and test dataset path.</p><pre class="codeinput">clc;
+disp(<span class="string">'Start GPR module demonstration ...'</span>);
+clearvars;
+close <span class="string">all</span>;
+
+disp(<span class="string">'Load config ...'</span>);
+load <span class="string">config.mat</span> <span class="string">PathVariables</span> <span class="string">GPROptions</span>;
+
+disp(<span class="string">'Search for datasets ...'</span>);
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, <span class="string">'Training*.mat'</span>));
+TestFiles = dir(fullfile(PathVariables.testDataPath, <span class="string">'Test*.mat'</span>));
+assert(~isempty(TrainFiles), <span class="string">'No training datasets found.'</span>);
+assert(~isempty(TestFiles), <span class="string">'No test datasets found.'</span>);
+
+disp(<span class="string">'Load first found datasets ...'</span>);
+<span class="keyword">try</span>
+    TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+    TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+
+<span class="keyword">catch</span> ME
+    rethrow(ME)
+<span class="keyword">end</span>
+
+disp(<span class="string">'Check dataset coordinates corresponds ...'</span>);
+assert(all(TrainDS.Data.X == TestDS.Data.X, <span class="string">'all'</span>), <span class="string">'Wrong X grid.'</span>);
+assert(all(TrainDS.Data.Y == TestDS.Data.Y, <span class="string">'all'</span>), <span class="string">'Wrong Y grid.'</span>);
+assert(all(TrainDS.Data.Z == TestDS.Data.Z, <span class="string">'all'</span>), <span class="string">'Wrong Z grid.'</span>);
+</pre><h2 id="4">Create GPR Modles for Investigation</h2><pre class="codeinput">disp(<span class="string">'Create GPR modles ...'</span>);
+Mdl1 = initGPR(TrainDS, GPROptions);
+</pre><h2 id="5">Screen Kernel Parameters on Likelihoods with Constant Noise</h2><pre class="codeinput">nEval = 300;
+s2f = linspace(Mdl1.theta(1) * 0.1 , Mdl1.theta(1) * 10, nEval);
+sl = linspace(Mdl1.theta(2) * 0.1 , Mdl1.theta(2) * 10, nEval);
+[sl, s2f] = meshgrid(sl, s2f);
+LML = zeros(nEval, nEval);
+
+<span class="keyword">parfor</span> i = 1:nEval
+    <span class="keyword">for</span> j = 1:nEval
+        LML(i,j) = lmlFun([s2f(i,j) sl(i,j)], Mdl1);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeinput">figure;
+RL = min(LML,[],<span class="string">'all'</span>);
+[M, c] = contourf(sl, s2f, LML, linspace(RL+1,1,10), <span class="string">'LineWidth'</span>, 1.5);
+set(gca, <span class="string">'YScale'</span>, <span class="string">'log'</span>)
+set(gca, <span class="string">'XScale'</span>, <span class="string">'log'</span>)
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+yline(Mdl1.theta(1), <span class="string">'LineWidth'</span>, 2.5)
+xline(Mdl1.theta(2), <span class="string">'LineWidth'</span>, 2.5)
+xlabel(<span class="string">'$\sigma_l$'</span>)
+ylabel(<span class="string">'$\sigma_f^2$'</span>)
+tstr = sprintf(<span class="string">'$\\tilde{R}_\\mathcal{L}=%1.2f$ f. $\\sigma_f^2=%1.2f$, $\\sigma_l=%1.2f$, $\\sigma_n^2=%1.2e$'</span>, RL, Mdl1.theta, Mdl1.s2n);
+title(tstr);
+
+cb = colorbar;
+cb.Label.String = <span class="string">"$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l,\sigma_n^2$)"</span>;
+cb.TickLabelInterpreter = <span class="string">'latex'</span>;
+cb.Label.Interpreter = <span class="string">'latex'</span>;
+cb.Label.FontSize = 24;
+</pre><h2 id="7">Evaluation Function by Logarithmic Marginal Likelihood</h2><pre class="codeinput"><span class="keyword">function</span> lml = lmlFun(theta, Mdl)
+    <span class="comment">% reinit kernel on new theta kernel parameters</span>
+    Mdl.theta = theta;
+    Mdl = initKernelParameters(Mdl);
+
+    <span class="comment">% return function evaluation as neg. likelihood of radius</span>
+    lml = -1 * (Mdl.LMLsin + Mdl.LMLcos);
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> msll = msllFun(OptVar, TrainDS, TestDS, GPROptions, verbose)
+
+    <span class="comment">% push current variance value into GPR</span>
+    GPROptions.s2n = OptVar.s2n;
+    Mdl = initGPR(TrainDS, GPROptions);
+
+    <span class="comment">% tune kernel with new noise variance</span>
+    Mdl = tuneKernel(Mdl, verbose);
+
+    <span class="comment">% get loss on dataset for angular prediction</span>
+    [~, SLLA] = lossDS(Mdl, TestDS);
+
+    <span class="comment">% return mean loss to evaluate optimization run</span>
+    msll = mean(SLLA);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% investigateKernelParameters
+% 
+%
+%
+%% Requirements
+% * Other m-files required: gaussianProcessRegression module files
+% * Subfunctions: none
+% * MAT-files required: data/config.mat, corresponding Training and Test dataset
+%
+%
+%% See Also
+% * <gaussianProcessRegression.html gaussianProcessRegression>
+% * <initGPR.html initGPR>
+% * <tuneGPR.html tuneGPR>
+% * <optimGPR.html>
+% * <generateConfigMat.html generateConfigMat>
+%
+%
+% Created on March 13. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+%
+%% Start Script, Load Config and Read in Datasets
+% At first clear all variables from workspace, close all open figures and clean
+% prompt. Then loads configuration from config.mat and try to load training and
+% test datasets. Finally check datasets for corresponding coordinates. Loading
+% the first available datasets in training and test dataset path.
+clc;
+disp('Start GPR module demonstration ...');
+clearvars;
+close all;
+
+disp('Load config ...');
+load config.mat PathVariables GPROptions;
+
+disp('Search for datasets ...');
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
+TestFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
+assert(~isempty(TrainFiles), 'No training datasets found.');
+assert(~isempty(TestFiles), 'No test datasets found.');
+
+disp('Load first found datasets ...');
+try
+    TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+    TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+
+catch ME
+    rethrow(ME)
+end
+
+disp('Check dataset coordinates corresponds ...');
+assert(all(TrainDS.Data.X == TestDS.Data.X, 'all'), 'Wrong X grid.');
+assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
+assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
+
+
+
+%% Create GPR Modles for Investigation
+disp('Create GPR modles ...');
+Mdl1 = initGPR(TrainDS, GPROptions);
+
+%% Screen Kernel Parameters on Likelihoods with Constant Noise
+nEval = 300;
+s2f = linspace(Mdl1.theta(1) * 0.1 , Mdl1.theta(1) * 10, nEval);
+sl = linspace(Mdl1.theta(2) * 0.1 , Mdl1.theta(2) * 10, nEval);
+[sl, s2f] = meshgrid(sl, s2f);
+LML = zeros(nEval, nEval);
+
+parfor i = 1:nEval
+    for j = 1:nEval
+        LML(i,j) = lmlFun([s2f(i,j) sl(i,j)], Mdl1);
+    end 
+end
+
+%%
+figure;
+RL = min(LML,[],'all');
+[M, c] = contourf(sl, s2f, LML, linspace(RL+1,1,10), 'LineWidth', 1.5);
+set(gca, 'YScale', 'log')
+set(gca, 'XScale', 'log')
+hold on;
+grid on;
+yline(Mdl1.theta(1), 'LineWidth', 2.5)
+xline(Mdl1.theta(2), 'LineWidth', 2.5)
+xlabel('$\sigma_l$')
+ylabel('$\sigma_f^2$')
+tstr = sprintf('$\\tilde{R}_\\mathcal{L}=%1.2f$ f. $\\sigma_f^2=%1.2f$, $\\sigma_l=%1.2f$, $\\sigma_n^2=%1.2e$', RL, Mdl1.theta, Mdl1.s2n);
+title(tstr);
+
+cb = colorbar;
+cb.Label.String = "$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l,\sigma_n^2$)";
+cb.TickLabelInterpreter = 'latex';
+cb.Label.Interpreter = 'latex';
+cb.Label.FontSize = 24;
+
+
+%% Evaluation Function by Logarithmic Marginal Likelihood
+function lml = lmlFun(theta, Mdl)
+    % reinit kernel on new theta kernel parameters
+    Mdl.theta = theta;
+    Mdl = initKernelParameters(Mdl);
+    
+    % return function evaluation as neg. likelihood of radius
+    lml = -1 * (Mdl.LMLsin + Mdl.LMLcos);
+end
+
+function msll = msllFun(OptVar, TrainDS, TestDS, GPROptions, verbose)
+    
+    % push current variance value into GPR
+    GPROptions.s2n = OptVar.s2n;
+    Mdl = initGPR(TrainDS, GPROptions);
+    
+    % tune kernel with new noise variance
+    Mdl = tuneKernel(Mdl, verbose);
+    
+    % get loss on dataset for angular prediction
+    [~, SLLA] = lossDS(Mdl, TestDS);
+    
+    % return mean loss to evaluate optimization run
+    msll = mean(SLLA);
+end
+
+##### SOURCE END #####
+--></body></html>

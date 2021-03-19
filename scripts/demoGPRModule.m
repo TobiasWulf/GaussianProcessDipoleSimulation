@@ -30,10 +30,6 @@
 %
 %
 %% Start Script, Load Config and Read in Datasets
-% At first clear all variables from workspace, close all open figures and clean
-% prompt. Then loads configuration from config.mat and try to load training and
-% test datasets. Finally check datasets for corresponding coordinates. Loading
-% the first available datasets in training and test dataset path.
 clc;
 disp('Start GPR module demonstration ...');
 clearvars;
@@ -87,7 +83,7 @@ fang0 = sinoids2angles(fsin0, fcos0, frad0);
 AAED0 = abs(TestDS.Data.angles' - fang0 * 180 / pi);
 
 
-%% Create GPR Modles for Demonstartion
+%% Create GPR Model for Demonstartion
 % Create three GPR Modles by the same base configuration to compare bare
 % initilized modle with and optimized generated modle with same root of 
 % configuration.
@@ -123,7 +119,7 @@ Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 [AAED1, SLLA1, SLLR1, SEA1, SER1, SEC1, SES1] = lossDS(Mdl1, TestDS);
 
 
-%% Plot Area and Expand Modle Results
+%% Plot Area and Expand Model Results
 % Plot demo results in modle parameter view to show characteristics of
 % covariance functions and modle generalization. Show full rotation on test
 % dataset with angle error, predicted sinoids and confidence intervals.
@@ -132,7 +128,7 @@ Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 angles = TestDS.Data.angles';
 ticks = Mdl1.Angles;
 titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
-    " $\\sigma_n^2 = %1.3e$, $N = %d$\n" +...
+    " $\\sigma_n^2 = %1.2e$, $N = %d$\n" +...
     "$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm," + ...
     " Magnet Tilt: $%2.1f^\\circ$";
 titleStr = sprintf(titleStr, ...
@@ -144,7 +140,7 @@ titleStr = sprintf(titleStr, ...
     TestDS.Info.UseOptions.tilt);
 
 % create figure for model view
-figure('Name', Mdl1.kernel);
+figure('Name', Mdl1.kernel, 'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
 t=tiledlayout(2,2);
 title(t, titleStr, 'Interpreter', 'latex', 'FontSize', 24);
 
@@ -183,7 +179,8 @@ ylabel('$SLL$');
 title(sprintf('c) $MSLLA = %1.2f$, $MSLLR = %1.2f$', mean(SLLA1), mean(SLLR1)));
 
 % create figure for rotation results of test dataset
-figure('Name', 'Rotation and Errors');
+figure('Name', 'Rotation and Errors', 'Units', 'normalize', ... 
+    'OuterPosition', [0 0 1 1]);
 t = tiledlayout(2,2);
 title(t, titleStr, 'Interpreter', 'latex', 'FontSize', 24);
 
@@ -218,12 +215,16 @@ nexttile;
 plot(angles, AAED0);
 hold on;
 plot(angles, AAED1);
+yline(mean(AAED1), 'k-.', 'LineWidth', 3.5)
+[~, idx] = max(AAED1);
+scatter(angles(idx), max(AAED1), 52, [0.8 0.8 0.8], ...
+    'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1.5)
 ylim([0 4]);
 xlim([0 360]);
 xlabel('$\alpha$ in $^\circ$');
 ylabel('$\epsilon_{abs}$ in $^\circ$');
-legend({'Mean', 'GPR'});
-tstr = 'c) $\\mu(\\epsilon_{abs}) = %1.3f$, $max(\\epsilon_{abs}) = %1.3f$';
+legend({'Mean', 'GPR', '$\mu(\epsilon_{abs})$', '$\max\epsilon_{abs}$'});
+tstr = 'c) $\\mu(\\epsilon_{abs}) = %1.2f$, $\\max\\epsilon_{abs} = %1.2f$';
 tstr = sprintf(tstr, mean(AAED1), max(AAED1));
 title(tstr);
 
