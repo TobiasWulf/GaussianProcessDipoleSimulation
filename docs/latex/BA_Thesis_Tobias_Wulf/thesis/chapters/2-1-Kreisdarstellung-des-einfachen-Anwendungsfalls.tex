@@ -3,10 +3,10 @@
 % @author Tobias Wulf
 %
 
-\section{Kreisdarstellung des einfachen Anwendungsfalls}\label{sec:kreisdarstellung-anwendug}
+\section{Kreisdarstellung des klassischen Anwendungsfalls}\label{sec:kreisdarstellung-anwendug}
 
 
-Im klassischen Anwendungsfall, zu sehen in \autoref{fig:klassischeranwendugsfall}, ist ein Gebermagnet räumlich 
+Im klassischen Anwendungsfall, zu sehen in \autoref{fig:klassischeranwendungsfall}, ist ein Gebermagnet räumlich 
 zentriert über einen magnetischen Sensor platziert. Bei Drehung des Gebermagneten rotiert sein Magnetfeld entsprechend 
 mit. Die Rotation findet um die $Z$-Achse des Gebermagneten statt. Die Nord-Süd-Ausrichtung des Magneten liegt in der 
 $X$- bzw. $Y$-Achse des Koordinatensystems \cite{NXPSemiconductors2014}\cite{TDK2016}.
@@ -27,14 +27,14 @@ sind dabei vorerst in Darstellung vernachlässigt.
 
 \begin{figure}[tph]
 	\centering
-	\includegraphics[width=0.35\linewidth]{chapters/images/2-Grundlagen/Klassischer_Anwendugsfall}
+	\includegraphics[width=0.35\linewidth]{chapters/images/2-Grundlagen/Klassischer_Anwendungsfall}
 	\caption[Klassischer Anwendungsfall für die Drehwinkelerfassung]{Klassischer Anwendungsfall für die 
 		Drehwinkelerfassung. Zeigt einen, um seine $Z$-Achse rotierenden, Gebermagneten und einen Winkelsensor in 
 		zentrierter und orthogonaler Ausrichtung zur $Z$-Achse des Magneten. Idealerweise befinden sich Magnet und 
 		Sensor, 
 		ohne Verkippungen in $X$- oder $Y$-Richtung, parallel zueinander. Grafik entnommen und bearbeitet aus 
 		\cite{Schuethe2020a}.}
-	\label{fig:klassischeranwendugsfall}
+	\label{fig:klassischeranwendungsfall}
 \end{figure}
 
 
@@ -82,4 +82,18 @@ r = |\mathbf{A}| = \sqrt{\big(V_{cos}(H_x,H_y)\big)^2 + \big(V_{sin}(H_x,H_y)\bi
 	\label{fig:kreisdarstellungwinkelmessung}
 \end{figure}
 
+Der entsprechende Winkel des Gebermagneten lässt sich, mittels Überführung in Polarkoordinaten, nach \autoref{eq:atan2} 
+zurückrechnen. Die \autoref{fig:kreisdarstellungwinkelmessung} veranschaulicht den Zusammenhang zwischen Messwerten und 
+Abbildung der Gebermagnetwinkelstellung. Die Sinoiden Messergebnisse sind der $\text{arctan2}$ Funktion zuzuführen. 
+Diese bildet einen Winkel von null bis $\pi$ ab und besitzt eine Sprungstelle bei $\pi$. Der $Y$-Anteil kann dabei 
+als Entscheider genutzt werden, um eine Abbildung des Winkels auf eine volle Kreisumdrehung $(2\pi)$ umzusetzen. 
 
+
+\begin{equation}\label{eq:atan2}
+\alpha = 
+	\begin{cases}
+	\text{arctan2}(a_y,a_x)        &\quad \textrm{f. } a_y > 0 \\
+	\pi							   &\quad \textrm{f. } a_y = 0 \\
+	\text{arctan2}(a_y,a_x) + 2\pi &\quad \textrm{f. } a_y < 0
+	\end{cases}
+\end{equation}
