@@ -50,7 +50,14 @@
 %\lstlistoflistings  % requires package listings, needs to uncommenting of usepackage
 
 % path to the chapters folder is set to find the images used there
-\graphicspath{ {./chapters/} {./chapters/images} {./chapters/images/1-Motivation}}
+\graphicspath{%
+	 {./chapters/images}%
+	 {./chapters/images/1-Motivation}%
+	 {./chapters/images/2-Grundlagen}%
+	 {./appendix/images}%
+	 {./appendix/images/3-TDK}%
+	 {./appendix/images/4-KMZ60}%
+}
 
 % Chapters
 \clearpage
@@ -94,6 +101,8 @@
 \addcontentsline{toc}{part}{\appendixname}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
 \setcounter{secnumdepth}{5}
+\input{appendix/3-TDK-TAS2141-AAAB-Kennfelddatensatz}
+%\input{appendix/4-NXP-KMZ60-Kennfelddatensatz}
 \input{appendix/1-Genutzte-Software}
 \input{appendix/2-Software-Dokumentation}
 
