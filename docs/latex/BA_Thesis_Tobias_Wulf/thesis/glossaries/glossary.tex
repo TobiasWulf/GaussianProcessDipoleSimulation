@@ -39,6 +39,30 @@
 \newglossaryentry{gl:sensorkopf}{
 	name={Sensorkopf},
 	description={Signal erzeugender Teil eines Sensor-ICs, dem eine Einheit zur weiteren Signalverarbeitung 
-	nachgeschaltet 
-	ist}
+	nachgeschaltet ist. Für die Drehwinkelerfassung besteht steht die Signalerzeugung zumeist aus zwei verdrehten Wheatstone-Brücken, deren einzel Widerstände mittels magnetoresistiven Materialien aufgebaut sind}
+}
+
+\newglossaryentry{gl:kennfeld}{
+	name={Kennfeld},
+	description={Zweidimensionales Charakterisierungsabbild einer Wheatstone'schen Sensorbrücke eines magnetoresistiven Winkelsensors. Erstellt durch die Kennfeldmethode zur Charakterisierung von magnetischen Winkelsensoren}
+}
+
+\newglossaryentry{gl:kennfeldpaar}{
+	name={Kennfeldpaar},
+	description={Charakterisierungsergbnis der Kennfeldmethode für die Charakterisierung magnetoresistiver Winkelsensoren. Bestehend aus zwei Kennfeldern, jeweils als Repräsentanten der Wheatstone-Brücken eines Winkelsensors}
+}
+
+\newglossaryentry{gl:kennfeldmethode}{
+	name={Kennfeldmethode},
+	description={Charakterisierungsverfahren zur Ausmessung magnetoresitiver Winkelsensoren, bestehend aus zwei zueinander verdrehten Wheatstone-Brücken. Die resultierenden Charakterisierungergebnisse können als Kennfelddatensätze zur Simulation von magnetischen Sensoren genutzt werden}
+}
+
+\newglossaryentry{gl:kreuzspulensystem}{
+	name={Kreuzspulen-System},
+	description={Spulensystem in Kreuzanordnung in dessen Mitte ein zu messendes Senor-IC platziert wird. Die Spulen sind Maßanfertigungen mit ganz bestimmten Messeigenschaften. Spulenfaktoren sind speziell ausgerechnet und nachgemessen. Kernelement des Kreuzspulen-Messstandes. Eingespeiste Spulenströme erzeugen entsprechende magnetische Felder in $X$- und $Y$-Richtung. Die Spulenströme erzeugen, entsprechend der Spulenfaktoren, $H_x$- und $H_y$-Feldstärken. Die Feldstärken sind direkt proportional zu den Einspeiseströmen. Die Ströme werden über niederohmige Shunt-Widerstände mit gemessen. Die Feldstärken können so über die Spulenfaktoren zurückgerechnet und zur Auswertung genutzt werden.}
+}
+
+\newglossaryentry{gl:kreuzspulenmessstand}{
+	name={Kreuzspulen-Messstand},
+	description={Automatisierter Messtand zur Charakterisierung von Winkelsenoren. Der Messtand nutzt ein Kreuzspulen-System, in dessen Mitte der Winkelsensor platziert ist. Das Spulensystem erzeugt ein moduliertes, langsam rotierendes Anregungsmagnetfeld. Parallel zeichnet der Messtand, die zur Charaktisierung nötigen, Spannungsausgaben des Sensors und Anregungsströme der Spulen auf. Beides erfolgt programmatisch. Die aufgezeichneten Messdaten können im Anschluss zu Kennfeldern evaluiert werden}
 }
