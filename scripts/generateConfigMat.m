@@ -345,7 +345,7 @@ TestOptions.yPos = [0,];
 TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TestOptions.tilt = 0;
+TestOptions.tilt = 10;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
@@ -384,7 +384,7 @@ TestOptions.BaseReference = 'TDK';
 TestOptions.BridgeReference = 'Rise';
 
 
-%% GPROptions
+%% GPR Options
 % Gaussian Process Regression options to generate a regression model for angular
 % prediction and analyzing the accuracy of the prediction. The GPR model uses
 % one certain covariance function to compute the prediction but it is possible
@@ -461,6 +461,7 @@ GPROptions.mean = 'zero';
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
 % polynom degree is 7.
 GPROptions.polyDegree = 1;
+
 
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in

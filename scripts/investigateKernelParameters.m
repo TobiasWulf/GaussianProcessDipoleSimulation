@@ -57,10 +57,10 @@ assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
 assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
 
 
-
 %% Create GPR Model for Investigation
 disp('Create GPR modles ...');
 Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+
 
 %% Sweep Title with Model Parameters
 titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
@@ -74,6 +74,7 @@ titleStr = sprintf(titleStr, ...
     TestDS.Info.UseOptions.yPos, ...
     TestDS.Info.UseOptions.zPos, ...
     TestDS.Info.UseOptions.tilt);
+
 
 %% Execute Parameter Sweep with Constant Noise
 nEval = 300;
