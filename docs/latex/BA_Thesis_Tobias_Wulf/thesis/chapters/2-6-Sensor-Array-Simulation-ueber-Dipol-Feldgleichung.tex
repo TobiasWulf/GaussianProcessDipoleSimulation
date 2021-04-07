@@ -1,0 +1,77 @@
+% !TEX root = ../thesis.tex
+% sensor array simulation with dipole field equation
+% @author Tobias Wulf
+%
+
+\section{Sensor-Array-Simulation über Dipol-Feldgleichung}\label{sec:sensor-array-simulation-dipol-feldgleichung}
+
+
+\begin{itemize}
+	\item Erzeugen des Meshgrids
+	\item Normieren des Magnetfeldes
+	\item Erzeugen von Rotationsmomenten (inkl. Verkippung)
+	\item Referenzierung zu Kennfeldern und Gewinnung der Brückenspannungen (interp2 nearest neighbor)
+\end{itemize}
+
+
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=0.7\linewidth]{chapters/images/2-Grundlagen/Dipol-Feldgleichung}
+	\caption[Dipol-Feldgleichung]{Dipol-Feldgleichung}
+	\label{fig:dipol-feldgleichung}
+\end{figure}
+
+
+
+\begin{equation}
+\vec{r} = \hat{r} \cdot |\vec{r}| = \begin{pmatrix} x \\ y \\ z \end{pmatrix} \qquad \vec{m} = \begin{pmatrix} m_x \\ m_y \\ m_z \end{pmatrix}
+\end{equation}
+
+
+\begin{align}
+	\vec{H}(\vec{r},\vec{m}) &= \frac{1}{4\pi} \cdot \Bigg(\frac{3\vec{r} \cdot \big(\vec{m}^T \cdot \vec{r}\big)}{|\vec{r}|^5} - \frac{\vec{m}}{|\vec{r}|^3}\Bigg) \nonumber\\
+							 \nonumber \\
+							 &= \frac{1}{4\pi|\vec{r}|^3} \cdot \Big(3\hat{r} \cdot \big(\vec{m}^T \cdot \hat{r}\big) - \vec{m}\Big) = \begin{pmatrix} H_x \\ H_y \\ H_z \end{pmatrix} \\
+						     \nonumber \\
+				   |\vec{H}| &= \sqrt{ H_x^2 + H_y^2 + H_z^2 }
+\end{align}
+
+
+
+
+\begin{equation}
+	\vec{r_0} = -\begin{pmatrix} 0 \\ 0 \\ r_{mag} + d_z \end{pmatrix} \qquad \vec{m_0} = -\begin{pmatrix} m_0\\0\\0 \end{pmatrix} \quad \textrm{f. } m_0 > \SI{1000}{\ampere\square\metre}
+\end{equation}
+
+
+
+\begin{equation}
+	\vec{H}_{Normiert} = \vec{H}(\vec{r},\vec{m}) \cdot \frac{H_{mag}}{|\vec{H_0}|} \quad \textrm{f. } H_{mag} = konst.
+\end{equation}
+
+
+$\alpha_i\in\{\SI{0}{\degree},\ldots,\SI{360}{\degree}\}$, $\phi = konst.$
+
+
+\begin{equation}
+	\vec{m_i}  = \underbrace{\begin{pmatrix}
+								\cos\alpha_i & -\sin\alpha_i & 0 \\
+								\sin\alpha_i &  \cos\alpha_i & 0 \\
+								0			 & 0			 & 1
+				 			\end{pmatrix}}_{R_z(\alpha_i)}
+				 \underbrace{\begin{pmatrix}
+				    			\cos\phi & 0 & \sin\phi \\
+				    			0 		 & 1 & 0 \\
+				   				-\sin\phi & 0 & \cos\phi
+				 			\end{pmatrix}}_{R_y(\phi)}
+				 \underbrace{\begin{pmatrix}
+				 				1  & 0 & 0 \\
+				 				0  & 1 & 0 \\
+				    			0 &  0 & 1
+				 			\end{pmatrix}}_{R_x(\SI{0}{\degree})}
+				 \underbrace{\begin{pmatrix} -m_0\\0\\0 \end{pmatrix}}_{\vec{m_0}}
+\end{equation}
+
+
+
+\clearpage

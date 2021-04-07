@@ -57,6 +57,7 @@
 	 {./appendix/images}%
 	 {./appendix/images/3-TDK}%
 	 {./appendix/images/4-KMZ60}%
+	 {./appendix/images/5-Sensor-Array-Simulation}%
 }
 
 % Chapters
@@ -75,6 +76,10 @@
 
 % List of tables here
 \IListOfTables
+
+% List of algorithms here
+\renewcommand{\listalgorithmcfname}{Algorithmenverzeichnis}
+\listofalgorithms
 
 % List glossary entries
 \IGlossary
@@ -102,6 +107,7 @@
 \addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
 \setcounter{secnumdepth}{5}
 \input{appendix/3-TDK-TAS2141-AAAB-Kennfelddatensatz}
+\input{appendix/5-Sensor-Array-Simulation}
 %\input{appendix/4-NXP-KMZ60-Kennfelddatensatz}
 \input{appendix/1-Genutzte-Software}
 \input{appendix/2-Software-Dokumentation}
