@@ -73,13 +73,13 @@ function [AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)
     [fang, frad, fcos, fsin, ~, s, ~, ~] = predDS(Mdl, TestDS);
     
     % compute log loss and squared error for angles in rad
-    [SLLA, SEA] = computeSquareLogLoss(yang, fang, asin(s));
+    [SLLA, SEA] = computeStdLogLoss(yang, fang, asin(s));
     
     % compute abslute angular error in degrees
     AAED = sqrt(SEA) * 180/pi;
     
     % compute log loss and squared error for radius
-    [SLLR, SER] = computeSquareLogLoss(yrad, frad, s);
+    [SLLR, SER] = computeStdLogLoss(yrad, frad, s);
     
     % compute squared error of sinoids
     SEC = (ycos - fcos).^2;

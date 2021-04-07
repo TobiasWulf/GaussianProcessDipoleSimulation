@@ -73,7 +73,7 @@ end
 % Remove equation png file from HTML output folder before create or recreate
 % publishing files. To prevent the directory expanse of old or edited equation
 % files.
-yesno = 'y';%input('Renew eqautions in docs [y/n]: ', 's');
+yesno = 'n';%input('Renew eqautions in docs [y/n]: ', 's');
 if strcmp(yesno, 'y')
     removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 end
@@ -86,7 +86,7 @@ end
 % output. Get all m-files from docs path. Not recursively but verbose. No
 % expected directory tree search for m-files.
 disp('Publish project documentation files ...');
-publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
+% publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 
 
 %% Executable Script Files
@@ -102,7 +102,7 @@ publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 % recursively but verbose.
 disp('Publish executable scripts ...');
 PublishOptions.evalCode = false;
-publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
+% publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 
 
 %% Source Code Functions and Classes
@@ -116,15 +116,15 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 % directory tree, verbose.
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
-publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
-%publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression/basicMathFunctions'), PublishOptions, true, true);
+%publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
+publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression/kernelQFC'), PublishOptions, true, true);
 
 
 %% Unit Test Scripts
 % Publish unit tests scripts for each made test script and overall test runner.
 disp('Publish unit tests scripts ...');
 PublishOptions.evalCode = false;
-publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
+% publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
 
 
 %% Build Documentation Database for Matlab Help Browser

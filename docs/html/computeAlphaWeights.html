@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>computeAlphaWeights</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="computeAlphaWeights.m"><style type="text/css">
+      --><title>computeAlphaWeights</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="computeAlphaWeights.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,16 +84,17 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>computeAlphaWeights</h1><!--introduction--><p>Computes alpha weights from feature space product HT*beta and target vector y as porduct with inverse covariance matrix with additve noise Ky^-1 represented by its cholesky decomposed lower triangle matrix L. Ky^-1 * (y - m(x)).</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>computeAlphaWeights</h1><!--introduction--><p>Computes alpha weights from feature space product HT*beta and target vector y as porduct with inverse covariance matrix with additve noise Ky^-1 represented by its cholesky decomposed lower triangle matrix L. Ky^-1 * (y - m(x)).</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">alpha = computeAlphaWeights(L, y, m)
+</pre><h2 id="2">Description</h2><p><b>alpha = computeAlphaWeights(L, y, m)</b> prepare data and forward it to matrix computation.</p><h2 id="3">Input Argurments</h2><p><b>L</b> lower triangle matrix of cholesky decomposed K matrix.</p><p><b>y</b> regression target vector.</p><p><b>m</b> regression mean vector.</p><h2 id="4">Output Argurments</h2><p><b>alpha</b> regression weights.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: computeInverseMatrixProduct</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="decomposeChol.html">decomposeChol</a></li><li><a href="computeInverseMatrixProduct.html">computeInverseMatrixProduct</a></li><li><a href="initKernelParameters.html">initKernelParameters</a></li></ul></div><p>Created on November 06. 2019 by Klaus J&uuml;nemann. Copyright Klaus J&uuml;nemann 2019.</p><p>
 <!--
 Hidden Clutter.
-Edited on Month DD. YYYY by Editor: Single line description.
+Edited on January 05. 2021 by Tobias Wulf: Own function and add residual.
+Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 -->
 </p><pre class="codeinput"><span class="keyword">function</span> alpha = computeAlphaWeights(L, y, m)
+    <span class="comment">% get residual</span>
     residual = y - m;
+    <span class="comment">% L and residual is validated in computation below, get weights</span>
     alpha = computeInverseMatrixProduct(L, residual);
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
@@ -105,54 +106,52 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   alpha = computeAlphaWeights(L, y, m)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *alpha = computeAlphaWeights(L, y, m)* prepare data and forward it to
+% matrix computation.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *L* lower triangle matrix of cholesky decomposed K matrix.
 %
-% *optionalArg* argurment description.
+% *y* regression target vector.
+%
+% *m* regression mean vector.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *alpha* regression weights.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: computeInverseMatrixProduct
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <decomposeChol.html decomposeChol>
+% * <computeInverseMatrixProduct.html computeInverseMatrixProduct>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on January 05. 2021 by Tobias Wulf: Own function and add residual.
+% Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
 function alpha = computeAlphaWeights(L, y, m)
+    % get residual
     residual = y - m;
+    % L and residual is validated in computation below, get weights
     alpha = computeInverseMatrixProduct(L, residual);
 end
 

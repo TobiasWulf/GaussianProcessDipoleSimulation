@@ -4,52 +4,66 @@
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Ky = addNoise2Covariance(K, s2n)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
+% *Ky = addNoise2Covariance(K, s2n)* witch on additive noise on covariance
+% matrix diagonal. Uses eye matrix as mask.
 %
 %
 %% Examples
-%   Enter example matlab code for each use case.
+%   addNoise2Covariance(zeros(4), 2)
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *K* N x N covariance matrix. Noise free.
 %
-% *optionalArg* argurment description.
+% *s2n* real scalar value.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Ky* covariance matrix for noisy observations.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: eye, mustBeSquareMatrix
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!--
 % Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on January 05. 2021 by Tobias Wulf: Own function.
+% Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 % -->
 % </html>
 %
 function Ky = addNoise2Covariance(K, s2n)
+    arguments
+        % validate K as square matrix
+        K (:,:) double {mustBeReal, mustBeSquareMatrix(K)}
+        % validate s2n as scalar value
+        s2n (1,1) double {mustBeReal}
+    end
+    
+    % add noise with eye matrix
     Ky = K + s2n * eye(size(K));
+end
+
+% Custom validation functions
+function mustBeSquareMatrix(K)
+    % Test for N x N
+    if ~isequal(size(K,1), size(K, 2))
+        eid = 'Size:notEqual';
+        msg = 'K is not size of N x N.';
+        throwAsCaller(MException(eid,msg))
+    end
 end

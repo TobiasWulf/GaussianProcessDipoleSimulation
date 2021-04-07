@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>investigateKernelParameters</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="investigateKernelParameters.m"><style type="text/css">
+      --><title>investigateKernelParameters</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="investigateKernelParameters.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,15 +84,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>investigateKernelParameters</h1><!--introduction--><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneGPR.html">tuneGPR</a></li><li><a href="optimGPR.html">optimGPR.html</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on March 13. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+  </style></head><body><div class="content"><h1>investigateKernelParameters</h1><!--introduction--><p>Sweep kernel parameters against inner tuning criteria which is built by the logarithmic likelihoods for cosine and sine fit on training datasets.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneGPR.html">tuneGPR</a></li><li><a href="optimGPR.html">optimGPR.html</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on March 13. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><h2 id="3">Start Script, Load Config and Read in Datasets</h2><p>At first clear all variables from workspace, close all open figures and clean prompt. Then loads configuration from config.mat and try to load training and test datasets. Finally check datasets for corresponding coordinates. Loading the first available datasets in training and test dataset path.</p><pre class="codeinput">clc;
+</p><h2 id="3">Start Script, Load Config and Read in Datasets</h2><pre class="codeinput">clc;
 disp(<span class="string">'Start GPR module demonstration ...'</span>);
 clearvars;
-close <span class="string">all</span>;
+<span class="comment">%close all;</span>
 
 disp(<span class="string">'Load config ...'</span>);
 load <span class="string">config.mat</span> <span class="string">PathVariables</span> <span class="string">GPROptions</span>;
@@ -116,66 +116,285 @@ disp(<span class="string">'Check dataset coordinates corresponds ...'</span>);
 assert(all(TrainDS.Data.X == TestDS.Data.X, <span class="string">'all'</span>), <span class="string">'Wrong X grid.'</span>);
 assert(all(TrainDS.Data.Y == TestDS.Data.Y, <span class="string">'all'</span>), <span class="string">'Wrong Y grid.'</span>);
 assert(all(TrainDS.Data.Z == TestDS.Data.Z, <span class="string">'all'</span>), <span class="string">'Wrong Z grid.'</span>);
-</pre><h2 id="4">Create GPR Modles for Investigation</h2><pre class="codeinput">disp(<span class="string">'Create GPR modles ...'</span>);
-Mdl1 = initGPR(TrainDS, GPROptions);
-</pre><h2 id="5">Screen Kernel Parameters on Likelihoods with Constant Noise</h2><pre class="codeinput">nEval = 300;
-s2f = linspace(Mdl1.theta(1) * 0.1 , Mdl1.theta(1) * 10, nEval);
-sl = linspace(Mdl1.theta(2) * 0.1 , Mdl1.theta(2) * 10, nEval);
-[sl, s2f] = meshgrid(sl, s2f);
-LML = zeros(nEval, nEval);
+</pre><h2 id="4">Create GPR Model for Investigation</h2><pre class="codeinput">disp(<span class="string">'Create GPR modles ...'</span>);
+Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+</pre><h2 id="5">Sweep Title with Model Parameters</h2><pre class="codeinput">titleStr = <span class="string">"Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$,"</span> + <span class="keyword">...</span>
+    <span class="string">" $\\sigma_n^2 = %1.2e$, $N = %d$\n"</span> +<span class="keyword">...</span>
+    <span class="string">"$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm,"</span> + <span class="keyword">...</span>
+    <span class="string">" Magnet Tilt: $%2.1f^\\circ$"</span>;
+titleStr = sprintf(titleStr, <span class="keyword">...</span>
+    Mdl1.kernel, Mdl1.theta(1), Mdl1.theta(2), Mdl1.s2n, <span class="keyword">...</span>
+    Mdl1.N, Mdl1.D, Mdl1.D, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.xPos, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.yPos, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.zPos, <span class="keyword">...</span>
+    TestDS.Info.UseOptions.tilt);
+</pre><h2 id="6">Execute Parameter Sweep with Constant Noise</h2><pre class="codeinput">nEval = 300;
+disp(<span class="string">'Sweep kernel parameters with constant noise ...'</span>);
+sweepKernelWithConstNoise(Mdl1, nEval, titleStr, PathVariables)
+</pre><h2 id="7">Execute Parameter Sweep with Constant Variance</h2><pre class="codeinput">nEval = 300;
+disp(<span class="string">'Sweep kernel parameters with constant variance ...'</span>);
+sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
+</pre><h2 id="8">Execute Parameter Sweep with Constant Lengthscale</h2><pre class="codeinput">nEval = 300;
+disp(<span class="string">'Sweep kernel parameters with constant lengthscale ...'</span>);
+sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
+</pre><h2 id="9">Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise</h2><pre class="codeinput"><span class="keyword">function</span> sweepKernelWithConstNoise(Mdl, nEval, titleStr, PathVariables)
 
-<span class="keyword">parfor</span> i = 1:nEval
-    <span class="keyword">for</span> j = 1:nEval
-        LML(i,j) = lmlFun([s2f(i,j) sl(i,j)], Mdl1);
+    <span class="comment">% create sweep parameters for sweeping theta to given modle</span>
+    s2f = linspace(Mdl.s2fBounds(1) * 0.1, Mdl.s2fBounds(2) * 10, nEval);
+    sl = linspace(Mdl.slBounds(1) * 0.1, Mdl.slBounds(2) * 10, nEval);
+    [sl, s2f] = meshgrid(sl, s2f);
+
+    <span class="comment">% allocate memory for inner tuning criteria, combined likelihoods for cosine</span>
+    <span class="comment">% and sine fit on trainings data</span>
+    RLI = zeros(nEval, nEval);
+
+    <span class="comment">% run sweep in multiprocess pool to gain speed</span>
+    <span class="keyword">parfor</span> i = 1:nEval
+        <span class="keyword">for</span> j = 1:nEval
+            <span class="comment">% compute sweep with tuning criteria of inner GPR optimization of</span>
+            <span class="comment">% tuning GPR kernel parameters</span>
+            RLI(i,j) = computeTuneCriteria([s2f(i,j) sl(i,j)], Mdl);
+        <span class="keyword">end</span>
     <span class="keyword">end</span>
+
+    <span class="comment">% plot results in countour plot</span>
+    fig = figure(<span class="string">'Name'</span>, <span class="string">'Sweep Kernel Parameters with Constant Noise'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'normalize'</span>, <span class="string">'OuterPosition'</span>, [0 0 1 1]);
+
+    <span class="comment">% plot sweep with log axis</span>
+    contourf(sl, s2f, RLI, linspace(min(RLI, [], <span class="string">'all'</span>) + 1, 1, 10), <span class="keyword">...</span>
+        <span class="string">'LineWidth'</span>, 1.5);
+    set(gca, <span class="string">'YScale'</span>, <span class="string">'log'</span>)
+    set(gca, <span class="string">'XScale'</span>, <span class="string">'log'</span>)
+    hold <span class="string">on</span>;
+    grid <span class="string">on</span>;
+
+    <span class="comment">% plot bounds origin model parameters</span>
+    p1 = yline(Mdl.s2fBounds(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    yline(Mdl.s2fBounds(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    yline(Mdl.theta(1), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.slBounds(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.slBounds(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.theta(2), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2.5);
+
+    <span class="comment">% plot fmincon search area</span>
+    p2 = patch( <span class="keyword">...</span>
+        [Mdl.slBounds(1), Mdl.slBounds(2), <span class="keyword">...</span>
+         Mdl.slBounds(2), Mdl.slBounds(1)], <span class="keyword">...</span>
+        [Mdl.s2fBounds(1) Mdl.s2fBounds(1), <span class="keyword">...</span>
+         Mdl.s2fBounds(2) Mdl.s2fBounds(2)],<span class="keyword">...</span>
+        [0.8 0.8 0.8], <span class="string">'FaceAlpha'</span>, 0.7);
+
+    <span class="comment">% plot argmin fmincon result</span>
+    p3 = scatter(Mdl.theta(2), Mdl.theta(1), 60, [0.8 0.8 0.8], <span class="keyword">...</span>
+        <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1.5);
+
+    <span class="comment">% labels, titles, legends</span>
+    xlabel(<span class="string">'$\sigma_l$'</span>)
+    ylabel(<span class="string">'$\sigma_f^2$'</span>)
+    title(titleStr);
+    stStr = <span class="string">"$\sigma_f^2,\sigma_l|\sigma_n^2 = "</span> + <span class="keyword">...</span>
+        <span class="string">"\arg\min\tilde{R}_\mathcal{LI}"</span> + <span class="keyword">...</span>
+        <span class="string">"(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_n^2 = const.$"</span>;
+    subtitle(stStr);
+    legend([p1, p2, p3], <span class="keyword">...</span>
+        {<span class="string">"Parameter Bounds"</span>, <span class="string">"Search Area"</span>, <span class="keyword">...</span>
+         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
+            Mdl.theta, Mdl.s2n, -(Mdl.LMLcos + Mdl.LMLsin))}, <span class="keyword">...</span>
+        <span class="string">'Location'</span>, <span class="string">'South'</span>)
+
+    cb = colorbar;
+    cb.TickLabelInterpreter = <span class="string">'latex'</span>;
+    cb.Label.Interpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 24;
+    cbStr = <span class="string">"$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
+    cb.Label.String = cbStr;
+
+    <span class="comment">% save and close</span>
+<span class="comment">%     fPath = fullfile(PathVariables.saveImagesPath, 'Sweep_Kernel_Const_Noise');</span>
+<span class="comment">%     print(fig, fPath, '-dsvg');</span>
+<span class="comment">%     close(fig);</span>
 <span class="keyword">end</span>
-</pre><pre class="codeinput">figure;
-RL = min(LML,[],<span class="string">'all'</span>);
-[M, c] = contourf(sl, s2f, LML, linspace(RL+1,1,10), <span class="string">'LineWidth'</span>, 1.5);
-set(gca, <span class="string">'YScale'</span>, <span class="string">'log'</span>)
-set(gca, <span class="string">'XScale'</span>, <span class="string">'log'</span>)
-hold <span class="string">on</span>;
-grid <span class="string">on</span>;
-yline(Mdl1.theta(1), <span class="string">'LineWidth'</span>, 2.5)
-xline(Mdl1.theta(2), <span class="string">'LineWidth'</span>, 2.5)
-xlabel(<span class="string">'$\sigma_l$'</span>)
-ylabel(<span class="string">'$\sigma_f^2$'</span>)
-tstr = sprintf(<span class="string">'$\\tilde{R}_\\mathcal{L}=%1.2f$ f. $\\sigma_f^2=%1.2f$, $\\sigma_l=%1.2f$, $\\sigma_n^2=%1.2e$'</span>, RL, Mdl1.theta, Mdl1.s2n);
-title(tstr);
+</pre><h2 id="10">Sweep Kernel Parameters vs. Likelihood Criteria with Constant Variance</h2><pre class="codeinput"><span class="keyword">function</span> sweepKernelWithConstVariance(Mdl, nEval, titleStr, PathVariables)
 
-cb = colorbar;
-cb.Label.String = <span class="string">"$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l,\sigma_n^2$)"</span>;
-cb.TickLabelInterpreter = <span class="string">'latex'</span>;
-cb.Label.Interpreter = <span class="string">'latex'</span>;
-cb.Label.FontSize = 24;
-</pre><h2 id="7">Evaluation Function by Logarithmic Marginal Likelihood</h2><pre class="codeinput"><span class="keyword">function</span> lml = lmlFun(theta, Mdl)
-    <span class="comment">% reinit kernel on new theta kernel parameters</span>
-    Mdl.theta = theta;
-    Mdl = initKernelParameters(Mdl);
+    <span class="comment">% kepp s2n origin to plot later</span>
+    s2nOrigin = Mdl.s2n;
 
-    <span class="comment">% return function evaluation as neg. likelihood of radius</span>
-    lml = -1 * (Mdl.LMLsin + Mdl.LMLcos);
+    <span class="comment">% create sweep parameters for sweeping lengthscale and noise to given modle</span>
+    s2n = linspace(Mdl.s2nBounds(1) * 0.1, Mdl.s2nBounds(2) * 10, nEval);
+    sl = linspace(Mdl.slBounds(1) * 0.1, Mdl.slBounds(2) * 10, nEval);
+    s2f = Mdl.theta(1);
+
+    <span class="comment">% allocate memory for inner tuning criteria, combined likelihoods for cosine</span>
+    <span class="comment">% and sine fit on trainings data</span>
+    RLI = zeros(nEval, nEval);
+
+    <span class="comment">% run sweep in multiprocess pool to gain speed</span>
+    <span class="keyword">for</span> i = 1:nEval
+        <span class="comment">% assign struct values to compute corresponding lenght scale row wise</span>
+        <span class="comment">% due to parfor struct issue</span>
+        Mdl.s2n = s2n(i);
+        <span class="keyword">parfor</span> j = 1:nEval
+            <span class="comment">% compute sweep with tuning criteria of inner GPR optimization of</span>
+            <span class="comment">% tuning GPR kernel parameters, variance is set to 1</span>
+            RLI(i,j) = computeTuneCriteria([s2f sl(j)], Mdl);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% generate grid on vectors to plot results</span>
+    [sl, s2n] = meshgrid(sl, s2n);
+
+    <span class="comment">% plot results in countour plot</span>
+    fig = figure(<span class="string">'Name'</span>, <span class="string">'Sweep Kernel Parameters with Constant Variance'</span>, <span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'normalize'</span>, <span class="string">'OuterPosition'</span>, [0 0 1 1]);
+
+    <span class="comment">% plot sweep with log axis</span>
+    contourf(sl, s2n, RLI, linspace(min(RLI, [], <span class="string">'all'</span>) + 1, 1, 10), <span class="keyword">...</span>
+        <span class="string">'LineWidth'</span>, 1.5);
+    set(gca, <span class="string">'YScale'</span>, <span class="string">'log'</span>)
+    set(gca, <span class="string">'XScale'</span>, <span class="string">'log'</span>)
+    hold <span class="string">on</span>;
+    grid <span class="string">on</span>;
+
+    <span class="comment">% plot bounds origin model parameters</span>
+    p1 = yline(Mdl.s2nBounds(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    yline(Mdl.s2nBounds(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    yline(s2nOrigin, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.slBounds(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.slBounds(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.theta(2), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2.5);
+
+    <span class="comment">% plot fmincon search area</span>
+    p2 = patch( <span class="keyword">...</span>
+        [Mdl.slBounds(1), Mdl.slBounds(2), <span class="keyword">...</span>
+         Mdl.slBounds(2), Mdl.slBounds(1)], <span class="keyword">...</span>
+        [Mdl.s2nBounds(1) Mdl.s2nBounds(1), <span class="keyword">...</span>
+         Mdl.s2nBounds(2) Mdl.s2nBounds(2)],<span class="keyword">...</span>
+        [0.8 0.8 0.8], <span class="string">'FaceAlpha'</span>, 0.7);
+
+    <span class="comment">% plot argmin fmincon result</span>
+    p3 = scatter(Mdl.theta(2), s2nOrigin, 60, [0.8 0.8 0.8], <span class="keyword">...</span>
+        <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1.5);
+
+    <span class="comment">% labels, titles, legends</span>
+    xlabel(<span class="string">'$\sigma_l$'</span>)
+    ylabel(<span class="string">'$\sigma_n^2$'</span>)
+    title(titleStr);
+    stStr = <span class="string">"$\sigma_f^2,\sigma_l|\sigma_n^2 = "</span> + <span class="keyword">...</span>
+        <span class="string">"\arg\min\tilde{R}_\mathcal{LI}"</span> + <span class="keyword">...</span>
+        <span class="string">"(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_f^2 = const.$"</span>;
+    subtitle(stStr);
+    legend([p1, p2, p3], <span class="keyword">...</span>
+        {<span class="string">"Parameter Bounds"</span>, <span class="string">"Search Area"</span>, <span class="keyword">...</span>
+         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
+            Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, <span class="keyword">...</span>
+        <span class="string">'Location'</span>, <span class="string">'South'</span>)
+
+    cb = colorbar;
+    cb.TickLabelInterpreter = <span class="string">'latex'</span>;
+    cb.Label.Interpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 24;
+    cbStr = <span class="string">"$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
+    cb.Label.String = cbStr;
+
+    <span class="comment">% save and close</span>
+<span class="comment">%     fPath = fullfile(PathVariables.saveImagesPath, 'Sweep_Kernel_Const_Var');</span>
+<span class="comment">%     print(fig, fPath, '-dsvg');</span>
+<span class="comment">%     close(fig);</span>
 <span class="keyword">end</span>
+</pre><h2 id="11">Sweep Kernel Parameters vs. Likelihood Criteria with Constant Lengthscale</h2><pre class="codeinput"><span class="keyword">function</span> sweepKernelWithConstLengthscale(Mdl, nEval, titleStr, PathVariables)
 
-<span class="keyword">function</span> msll = msllFun(OptVar, TrainDS, TestDS, GPROptions, verbose)
+    <span class="comment">% kepp s2n origin to plot later</span>
+    s2nOrigin = Mdl.s2n;
 
-    <span class="comment">% push current variance value into GPR</span>
-    GPROptions.s2n = OptVar.s2n;
-    Mdl = initGPR(TrainDS, GPROptions);
+    <span class="comment">% create sweep parameters for sweeping lengthscale and noise to given modle</span>
+    s2n = linspace(Mdl.s2nBounds(1) * 0.1, Mdl.s2nBounds(2) * 10, nEval);
+    s2f = linspace(Mdl.s2fBounds(1) * 0.1, Mdl.s2fBounds(2) * 10, nEval);
+    sl = Mdl.theta(2);
 
-    <span class="comment">% tune kernel with new noise variance</span>
-    Mdl = tuneKernel(Mdl, verbose);
+    <span class="comment">% allocate memory for inner tuning criteria, combined likelihoods for cosine</span>
+    <span class="comment">% and sine fit on trainings data</span>
+    RLI = zeros(nEval, nEval);
 
-    <span class="comment">% get loss on dataset for angular prediction</span>
-    [~, SLLA] = lossDS(Mdl, TestDS);
+    <span class="comment">% run sweep in multiprocess pool to gain speed</span>
+    <span class="keyword">for</span> i = 1:nEval
+        <span class="comment">% assign struct values to compute corresponding lenght scale row wise</span>
+        <span class="comment">% due to parfor struct issue</span>
+        Mdl.s2n = s2n(i);
+        <span class="keyword">parfor</span> j = 1:nEval
+            <span class="comment">% compute sweep with tuning criteria of inner GPR optimization of</span>
+            <span class="comment">% tuning GPR kernel parameters, variance is set to 1</span>
+            RLI(i,j) = computeTuneCriteria([s2f(j) sl], Mdl);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
 
-    <span class="comment">% return mean loss to evaluate optimization run</span>
-    msll = mean(SLLA);
+    <span class="comment">% generate grid on vectors to plot results</span>
+    [s2f, s2n] = meshgrid(s2f, s2n);
+
+    <span class="comment">% plot results in countour plot</span>
+    fig = figure(<span class="string">'Name'</span>, <span class="string">'Sweep Kernel Parameters with Constant Lenghtscale'</span>,<span class="keyword">...</span>
+        <span class="string">'Units'</span>, <span class="string">'normalize'</span>, <span class="string">'OuterPosition'</span>, [0 0 1 1]);
+
+    <span class="comment">% plot sweep with log axis</span>
+    contourf(s2f, s2n, RLI, linspace(min(RLI, [], <span class="string">'all'</span>) + 1, 1, 10), <span class="keyword">...</span>
+        <span class="string">'LineWidth'</span>, 1.5);
+    set(gca, <span class="string">'YScale'</span>, <span class="string">'log'</span>)
+    set(gca, <span class="string">'XScale'</span>, <span class="string">'log'</span>)
+    hold <span class="string">on</span>;
+    grid <span class="string">on</span>;
+
+    <span class="comment">% plot bounds origin model parameters</span>
+    p1 = yline(Mdl.s2nBounds(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    yline(Mdl.s2nBounds(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    yline(s2nOrigin, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.s2fBounds(1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.s2fBounds(2), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 2.5);
+    xline(Mdl.theta(1), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 2.5);
+
+    <span class="comment">% plot fmincon search area</span>
+    p2 = patch( <span class="keyword">...</span>
+        [Mdl.s2fBounds(1), Mdl.s2fBounds(2), <span class="keyword">...</span>
+         Mdl.s2fBounds(2), Mdl.s2fBounds(1)], <span class="keyword">...</span>
+        [Mdl.s2nBounds(1) Mdl.s2nBounds(1), <span class="keyword">...</span>
+         Mdl.s2nBounds(2) Mdl.s2nBounds(2)],<span class="keyword">...</span>
+        [0.8 0.8 0.8], <span class="string">'FaceAlpha'</span>, 0.7);
+
+    <span class="comment">% plot argmin fmincon result</span>
+    p3 = scatter(Mdl.theta(1), s2nOrigin, 60, [0.8 0.8 0.8], <span class="keyword">...</span>
+        <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1.5);
+
+    <span class="comment">% labels, titles, legends</span>
+    xlabel(<span class="string">'$\sigma_f^2$'</span>)
+    ylabel(<span class="string">'$\sigma_n^2$'</span>)
+    title(titleStr);
+    stStr = <span class="string">"$\sigma_f^2,\sigma_l|\sigma_n^2 = "</span> + <span class="keyword">...</span>
+        <span class="string">"\arg\min\tilde{R}_\mathcal{LI}"</span> + <span class="keyword">...</span>
+        <span class="string">"(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_l = const.$"</span>;
+    subtitle(stStr);
+    legend([p1, p2, p3], <span class="keyword">...</span>
+        {<span class="string">"Parameter Bounds"</span>, <span class="string">"Search Area"</span>, <span class="keyword">...</span>
+         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
+            Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, <span class="keyword">...</span>
+        <span class="string">'Location'</span>, <span class="string">'South'</span>)
+
+    cb = colorbar;
+    cb.TickLabelInterpreter = <span class="string">'latex'</span>;
+    cb.Label.Interpreter = <span class="string">'latex'</span>;
+    cb.Label.FontSize = 24;
+    cbStr = <span class="string">"$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
+    cb.Label.String = cbStr;
+
+    <span class="comment">% save and close</span>
+<span class="comment">%     fPath = fullfile(PathVariables.saveImagesPath, 'Sweep_Kernel_Const_Len');</span>
+<span class="comment">%     print(fig, fPath, '-dsvg');</span>
+<span class="comment">%     close(fig);</span>
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% investigateKernelParameters
-% 
+% Sweep kernel parameters against inner tuning criteria which is built by the
+% logarithmic likelihoods for cosine and sine fit on training datasets.
 %
 %
 %% Requirements
@@ -203,14 +422,10 @@ cb.Label.FontSize = 24;
 %
 %
 %% Start Script, Load Config and Read in Datasets
-% At first clear all variables from workspace, close all open figures and clean
-% prompt. Then loads configuration from config.mat and try to load training and
-% test datasets. Finally check datasets for corresponding coordinates. Loading
-% the first available datasets in training and test dataset path.
 clc;
 disp('Start GPR module demonstration ...');
 clearvars;
-close all;
+%close all;
 
 disp('Load config ...');
 load config.mat PathVariables GPROptions;
@@ -236,70 +451,301 @@ assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
 assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
 
 
-
-%% Create GPR Modles for Investigation
+%% Create GPR Model for Investigation
 disp('Create GPR modles ...');
-Mdl1 = initGPR(TrainDS, GPROptions);
+Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 
-%% Screen Kernel Parameters on Likelihoods with Constant Noise
+
+%% Sweep Title with Model Parameters
+titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
+    " $\\sigma_n^2 = %1.2e$, $N = %d$\n" +...
+    "$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm," + ...
+    " Magnet Tilt: $%2.1f^\\circ$";
+titleStr = sprintf(titleStr, ...
+    Mdl1.kernel, Mdl1.theta(1), Mdl1.theta(2), Mdl1.s2n, ...
+    Mdl1.N, Mdl1.D, Mdl1.D, ...
+    TestDS.Info.UseOptions.xPos, ...
+    TestDS.Info.UseOptions.yPos, ...
+    TestDS.Info.UseOptions.zPos, ...
+    TestDS.Info.UseOptions.tilt);
+
+
+%% Execute Parameter Sweep with Constant Noise
 nEval = 300;
-s2f = linspace(Mdl1.theta(1) * 0.1 , Mdl1.theta(1) * 10, nEval);
-sl = linspace(Mdl1.theta(2) * 0.1 , Mdl1.theta(2) * 10, nEval);
-[sl, s2f] = meshgrid(sl, s2f);
-LML = zeros(nEval, nEval);
+disp('Sweep kernel parameters with constant noise ...');
+sweepKernelWithConstNoise(Mdl1, nEval, titleStr, PathVariables)
 
-parfor i = 1:nEval
-    for j = 1:nEval
-        LML(i,j) = lmlFun([s2f(i,j) sl(i,j)], Mdl1);
-    end 
+
+%% Execute Parameter Sweep with Constant Variance
+nEval = 300;
+disp('Sweep kernel parameters with constant variance ...');
+sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
+
+
+%% Execute Parameter Sweep with Constant Lengthscale
+nEval = 300;
+disp('Sweep kernel parameters with constant lengthscale ...');
+sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
+
+
+%% Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise
+function sweepKernelWithConstNoise(Mdl, nEval, titleStr, PathVariables)
+    
+    % create sweep parameters for sweeping theta to given modle
+    s2f = linspace(Mdl.s2fBounds(1) * 0.1, Mdl.s2fBounds(2) * 10, nEval);
+    sl = linspace(Mdl.slBounds(1) * 0.1, Mdl.slBounds(2) * 10, nEval);
+    [sl, s2f] = meshgrid(sl, s2f);
+    
+    % allocate memory for inner tuning criteria, combined likelihoods for cosine
+    % and sine fit on trainings data
+    RLI = zeros(nEval, nEval);
+    
+    % run sweep in multiprocess pool to gain speed
+    parfor i = 1:nEval
+        for j = 1:nEval
+            % compute sweep with tuning criteria of inner GPR optimization of
+            % tuning GPR kernel parameters
+            RLI(i,j) = computeTuneCriteria([s2f(i,j) sl(i,j)], Mdl);
+        end 
+    end
+    
+    % plot results in countour plot
+    fig = figure('Name', 'Sweep Kernel Parameters with Constant Noise', ...
+        'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
+    
+    % plot sweep with log axis
+    contourf(sl, s2f, RLI, linspace(min(RLI, [], 'all') + 1, 1, 10), ...
+        'LineWidth', 1.5);
+    set(gca, 'YScale', 'log')
+    set(gca, 'XScale', 'log')
+    hold on;
+    grid on;
+    
+    % plot bounds origin model parameters
+    p1 = yline(Mdl.s2fBounds(1), 'k-.', 'LineWidth', 2.5);
+    yline(Mdl.s2fBounds(2), 'k-.', 'LineWidth', 2.5);
+    yline(Mdl.theta(1), 'k', 'LineWidth', 2.5);
+    xline(Mdl.slBounds(1), 'k-.', 'LineWidth', 2.5);
+    xline(Mdl.slBounds(2), 'k-.', 'LineWidth', 2.5);
+    xline(Mdl.theta(2), 'k', 'LineWidth', 2.5);
+    
+    % plot fmincon search area
+    p2 = patch( ...
+        [Mdl.slBounds(1), Mdl.slBounds(2), ...
+         Mdl.slBounds(2), Mdl.slBounds(1)], ...
+        [Mdl.s2fBounds(1) Mdl.s2fBounds(1), ...
+         Mdl.s2fBounds(2) Mdl.s2fBounds(2)],...
+        [0.8 0.8 0.8], 'FaceAlpha', 0.7);
+    
+    % plot argmin fmincon result
+    p3 = scatter(Mdl.theta(2), Mdl.theta(1), 60, [0.8 0.8 0.8], ...
+        'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1.5);
+    
+    % labels, titles, legends
+    xlabel('$\sigma_l$')
+    ylabel('$\sigma_f^2$')
+    title(titleStr);
+    stStr = "$\sigma_f^2,\sigma_l|\sigma_n^2 = " + ...
+        "\arg\min\tilde{R}_\mathcal{LI}" + ...
+        "(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_n^2 = const.$";
+    subtitle(stStr);
+    legend([p1, p2, p3], ...
+        {"Parameter Bounds", "Search Area", ...
+         sprintf("fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
+            Mdl.theta, Mdl.s2n, -(Mdl.LMLcos + Mdl.LMLsin))}, ...
+        'Location', 'South')
+
+    cb = colorbar;
+    cb.TickLabelInterpreter = 'latex';
+    cb.Label.Interpreter = 'latex';
+    cb.Label.FontSize = 24;
+    cbStr = "$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
+    cb.Label.String = cbStr;
+    
+    % save and close
+%     fPath = fullfile(PathVariables.saveImagesPath, 'Sweep_Kernel_Const_Noise');
+%     print(fig, fPath, '-dsvg');
+%     close(fig);
 end
 
-%%
-figure;
-RL = min(LML,[],'all');
-[M, c] = contourf(sl, s2f, LML, linspace(RL+1,1,10), 'LineWidth', 1.5);
-set(gca, 'YScale', 'log')
-set(gca, 'XScale', 'log')
-hold on;
-grid on;
-yline(Mdl1.theta(1), 'LineWidth', 2.5)
-xline(Mdl1.theta(2), 'LineWidth', 2.5)
-xlabel('$\sigma_l$')
-ylabel('$\sigma_f^2$')
-tstr = sprintf('$\\tilde{R}_\\mathcal{L}=%1.2f$ f. $\\sigma_f^2=%1.2f$, $\\sigma_l=%1.2f$, $\\sigma_n^2=%1.2e$', RL, Mdl1.theta, Mdl1.s2n);
-title(tstr);
 
-cb = colorbar;
-cb.Label.String = "$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l,\sigma_n^2$)";
-cb.TickLabelInterpreter = 'latex';
-cb.Label.Interpreter = 'latex';
-cb.Label.FontSize = 24;
-
-
-%% Evaluation Function by Logarithmic Marginal Likelihood
-function lml = lmlFun(theta, Mdl)
-    % reinit kernel on new theta kernel parameters
-    Mdl.theta = theta;
-    Mdl = initKernelParameters(Mdl);
+%% Sweep Kernel Parameters vs. Likelihood Criteria with Constant Variance
+function sweepKernelWithConstVariance(Mdl, nEval, titleStr, PathVariables)
     
-    % return function evaluation as neg. likelihood of radius
-    lml = -1 * (Mdl.LMLsin + Mdl.LMLcos);
+    % kepp s2n origin to plot later
+    s2nOrigin = Mdl.s2n;
+    
+    % create sweep parameters for sweeping lengthscale and noise to given modle
+    s2n = linspace(Mdl.s2nBounds(1) * 0.1, Mdl.s2nBounds(2) * 10, nEval);
+    sl = linspace(Mdl.slBounds(1) * 0.1, Mdl.slBounds(2) * 10, nEval);
+    s2f = Mdl.theta(1);
+    
+    % allocate memory for inner tuning criteria, combined likelihoods for cosine
+    % and sine fit on trainings data
+    RLI = zeros(nEval, nEval);
+    
+    % run sweep in multiprocess pool to gain speed
+    for i = 1:nEval
+        % assign struct values to compute corresponding lenght scale row wise
+        % due to parfor struct issue
+        Mdl.s2n = s2n(i);
+        parfor j = 1:nEval
+            % compute sweep with tuning criteria of inner GPR optimization of
+            % tuning GPR kernel parameters, variance is set to 1
+            RLI(i,j) = computeTuneCriteria([s2f sl(j)], Mdl);
+        end 
+    end
+    
+    % generate grid on vectors to plot results
+    [sl, s2n] = meshgrid(sl, s2n);
+    
+    % plot results in countour plot
+    fig = figure('Name', 'Sweep Kernel Parameters with Constant Variance', ...
+        'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
+    
+    % plot sweep with log axis
+    contourf(sl, s2n, RLI, linspace(min(RLI, [], 'all') + 1, 1, 10), ...
+        'LineWidth', 1.5);
+    set(gca, 'YScale', 'log')
+    set(gca, 'XScale', 'log')
+    hold on;
+    grid on;
+    
+    % plot bounds origin model parameters
+    p1 = yline(Mdl.s2nBounds(1), 'k-.', 'LineWidth', 2.5);
+    yline(Mdl.s2nBounds(2), 'k-.', 'LineWidth', 2.5);
+    yline(s2nOrigin, 'k', 'LineWidth', 2.5);
+    xline(Mdl.slBounds(1), 'k-.', 'LineWidth', 2.5);
+    xline(Mdl.slBounds(2), 'k-.', 'LineWidth', 2.5);
+    xline(Mdl.theta(2), 'k', 'LineWidth', 2.5);
+    
+    % plot fmincon search area
+    p2 = patch( ...
+        [Mdl.slBounds(1), Mdl.slBounds(2), ...
+         Mdl.slBounds(2), Mdl.slBounds(1)], ...
+        [Mdl.s2nBounds(1) Mdl.s2nBounds(1), ...
+         Mdl.s2nBounds(2) Mdl.s2nBounds(2)],...
+        [0.8 0.8 0.8], 'FaceAlpha', 0.7);
+    
+    % plot argmin fmincon result
+    p3 = scatter(Mdl.theta(2), s2nOrigin, 60, [0.8 0.8 0.8], ...
+        'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1.5);
+    
+    % labels, titles, legends
+    xlabel('$\sigma_l$')
+    ylabel('$\sigma_n^2$')
+    title(titleStr);
+    stStr = "$\sigma_f^2,\sigma_l|\sigma_n^2 = " + ...
+        "\arg\min\tilde{R}_\mathcal{LI}" + ...
+        "(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_f^2 = const.$";
+    subtitle(stStr);
+    legend([p1, p2, p3], ...
+        {"Parameter Bounds", "Search Area", ...
+         sprintf("fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
+            Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, ...
+        'Location', 'South')
+
+    cb = colorbar;
+    cb.TickLabelInterpreter = 'latex';
+    cb.Label.Interpreter = 'latex';
+    cb.Label.FontSize = 24;
+    cbStr = "$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
+    cb.Label.String = cbStr;
+    
+    % save and close
+%     fPath = fullfile(PathVariables.saveImagesPath, 'Sweep_Kernel_Const_Var');
+%     print(fig, fPath, '-dsvg');
+%     close(fig);
 end
 
-function msll = msllFun(OptVar, TrainDS, TestDS, GPROptions, verbose)
+
+%% Sweep Kernel Parameters vs. Likelihood Criteria with Constant Lengthscale
+function sweepKernelWithConstLengthscale(Mdl, nEval, titleStr, PathVariables)
     
-    % push current variance value into GPR
-    GPROptions.s2n = OptVar.s2n;
-    Mdl = initGPR(TrainDS, GPROptions);
+    % kepp s2n origin to plot later
+    s2nOrigin = Mdl.s2n;
     
-    % tune kernel with new noise variance
-    Mdl = tuneKernel(Mdl, verbose);
+    % create sweep parameters for sweeping lengthscale and noise to given modle
+    s2n = linspace(Mdl.s2nBounds(1) * 0.1, Mdl.s2nBounds(2) * 10, nEval);
+    s2f = linspace(Mdl.s2fBounds(1) * 0.1, Mdl.s2fBounds(2) * 10, nEval);
+    sl = Mdl.theta(2);
     
-    % get loss on dataset for angular prediction
-    [~, SLLA] = lossDS(Mdl, TestDS);
+    % allocate memory for inner tuning criteria, combined likelihoods for cosine
+    % and sine fit on trainings data
+    RLI = zeros(nEval, nEval);
     
-    % return mean loss to evaluate optimization run
-    msll = mean(SLLA);
+    % run sweep in multiprocess pool to gain speed
+    for i = 1:nEval
+        % assign struct values to compute corresponding lenght scale row wise
+        % due to parfor struct issue
+        Mdl.s2n = s2n(i);
+        parfor j = 1:nEval
+            % compute sweep with tuning criteria of inner GPR optimization of
+            % tuning GPR kernel parameters, variance is set to 1
+            RLI(i,j) = computeTuneCriteria([s2f(j) sl], Mdl);
+        end 
+    end
+    
+    % generate grid on vectors to plot results
+    [s2f, s2n] = meshgrid(s2f, s2n);
+    
+    % plot results in countour plot
+    fig = figure('Name', 'Sweep Kernel Parameters with Constant Lenghtscale',...
+        'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
+    
+    % plot sweep with log axis
+    contourf(s2f, s2n, RLI, linspace(min(RLI, [], 'all') + 1, 1, 10), ...
+        'LineWidth', 1.5);
+    set(gca, 'YScale', 'log')
+    set(gca, 'XScale', 'log')
+    hold on;
+    grid on;
+    
+    % plot bounds origin model parameters
+    p1 = yline(Mdl.s2nBounds(1), 'k-.', 'LineWidth', 2.5);
+    yline(Mdl.s2nBounds(2), 'k-.', 'LineWidth', 2.5);
+    yline(s2nOrigin, 'k', 'LineWidth', 2.5);
+    xline(Mdl.s2fBounds(1), 'k-.', 'LineWidth', 2.5);
+    xline(Mdl.s2fBounds(2), 'k-.', 'LineWidth', 2.5);
+    xline(Mdl.theta(1), 'k', 'LineWidth', 2.5);
+    
+    % plot fmincon search area
+    p2 = patch( ...
+        [Mdl.s2fBounds(1), Mdl.s2fBounds(2), ...
+         Mdl.s2fBounds(2), Mdl.s2fBounds(1)], ...
+        [Mdl.s2nBounds(1) Mdl.s2nBounds(1), ...
+         Mdl.s2nBounds(2) Mdl.s2nBounds(2)],...
+        [0.8 0.8 0.8], 'FaceAlpha', 0.7);
+    
+    % plot argmin fmincon result
+    p3 = scatter(Mdl.theta(1), s2nOrigin, 60, [0.8 0.8 0.8], ...
+        'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1.5);
+    
+    % labels, titles, legends
+    xlabel('$\sigma_f^2$')
+    ylabel('$\sigma_n^2$')
+    title(titleStr);
+    stStr = "$\sigma_f^2,\sigma_l|\sigma_n^2 = " + ...
+        "\arg\min\tilde{R}_\mathcal{LI}" + ...
+        "(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_l = const.$";
+    subtitle(stStr);
+    legend([p1, p2, p3], ...
+        {"Parameter Bounds", "Search Area", ...
+         sprintf("fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
+            Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, ...
+        'Location', 'South')
+
+    cb = colorbar;
+    cb.TickLabelInterpreter = 'latex';
+    cb.Label.Interpreter = 'latex';
+    cb.Label.FontSize = 24;
+    cbStr = "$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
+    cb.Label.String = cbStr;
+    
+    % save and close
+%     fPath = fullfile(PathVariables.saveImagesPath, 'Sweep_Kernel_Const_Len');
+%     print(fig, fPath, '-dsvg');
+%     close(fig);
 end
 
 ##### SOURCE END #####

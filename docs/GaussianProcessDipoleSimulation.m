@@ -70,6 +70,17 @@
 % datasets now. Additional plots for transfer curves are included for both and
 % same plots for characterization view of KMZ60 as for TAS2141 too.
 %
+% *April 01. 2021*
+%
+% Tobias Wulf integrated GPR algorithms made by Klaus Jünemann as
+% gaussianProcessRegression modul. Additionaly a second kernel was implemented
+% based on the first one by Jünemann. The implementation was transfered from a
+% functional and script based draft version of GPR mechanism into fully
+% initialized model based version which loads needed functionality and
+% parameters into a struct. So prediction and optimization algorithms are
+% working on a structured model frame. Missing model optimization is added to
+% fit model on training data and generalize it to test data. Interface to Sensor
+% Array simulations are done by work on datasets.
 %
 % Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 %
@@ -77,7 +88,7 @@
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
-% Edited on December 03. 2020 by Tobias Wulf: Add roadmap description up simulation.
+% Edited on April 07. 2021 by Tobias Wulf: Last edit description.
 % -->
 % </html>
 %

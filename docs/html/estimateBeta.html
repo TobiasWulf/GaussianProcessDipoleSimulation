@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>estimateBeta</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="estimateBeta.m"><style type="text/css">
+      --><title>estimateBeta</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="estimateBeta.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,10 +84,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>estimateBeta</h1><!--introduction--><p>Find beta coefficients to feature matrix H and the current set of hyperparameters theta as vector of sigma2F and sigmaL, sigma2N represented by the current inverse of noisy covariance matrix Ky^-1 and the feature target vector y of the observations. It calculates several inverse Matrix products so instead passing the current Ky the function uses the infront decomposed lower triangle matrix L of Ky.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>estimateBeta</h1><!--introduction--><p>Find beta coefficients to basis matrix H and the current set of hyperparameters theta as vector of s2f and sl, s2n represented by the current inverse of noisy covariance matrix Ky^-1 and the feature target vector y of the observations. It calculates several inverse Matrix products so instead passing the current Ky the function uses the infront decomposed lower triangle matrix L of Ky.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[beta, alpha0]= estimateBeta(H, L, y)
+</pre><h2 id="2">Description</h2><p><b>[beta, alpha0]= estimateBeta(H, L, y)</b> compute polynom coefficients to solve mean approximation.</p><h2 id="3">Input Argurments</h2><p><b>H</b> basis matrix of training data. Polynomial represents of training data.</p><p><b>L</b> lower triangle matrix of decomposed K matrix.</p><p><b>y</b> regression targets.</p><h2 id="4">Output Argurments</h2><p><b>beta</b> beta coefficients for polynomial approximation with basis matrix <b>H</b>.</p><p><b>alpha0</b> regression weights based on regression targets <b>y</b>.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: chol, computeInverseMatrixProduct,   computeTransposeInverseProduct</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="computeInverseMatrixProduct.html">computeInverseMatrixProduct</a></li><li><a href="computeTransposeInverseProduct.html">computeTransposeInverseProduct</a></li><li><a href="initKernelParameters.html">initKernelParameters</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -109,8 +107,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% estimateBeta
-% Find beta coefficients to feature matrix H and the current set of
-% hyperparameters theta as vector of sigma2F and sigmaL, sigma2N represented by
+% Find beta coefficients to basis matrix H and the current set of
+% hyperparameters theta as vector of s2f and sl, s2n represented by
 % the current inverse of noisy covariance matrix Ky^-1 and the feature target
 % vector y of the observations. It calculates several inverse Matrix products so
 % instead passing the current Ky the function uses the infront decomposed lower
@@ -118,44 +116,42 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   [beta, alpha0]= estimateBeta(H, L, y)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *[beta, alpha0]= estimateBeta(H, L, y)* compute polynom coefficients to solve
+% mean approximation.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *H* basis matrix of training data. Polynomial represents of training data.
 %
-% *optionalArg* argurment description.
+% *L* lower triangle matrix of decomposed K matrix.
+%
+% *y* regression targets.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *beta* beta coefficients for polynomial approximation with basis matrix *H*.
+%
+% *alpha0* regression weights based on regression targets *y*.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: chol, computeInverseMatrixProduct,
+%   computeTransposeInverseProduct
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <computeInverseMatrixProduct.html computeInverseMatrixProduct>
+% * <computeTransposeInverseProduct.html computeTransposeInverseProduct>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH

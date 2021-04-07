@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -125,7 +125,7 @@ set(groot, <span class="string">'DefaultFigurePaperPositionMode'</span>, <span c
 set(groot, <span class="string">'DefaultFigureDoubleBuffer'</span>, <span class="string">'on'</span>);
 set(groot, <span class="string">'DefaultFigureRendererMode'</span>, <span class="string">'manual'</span>);
 set(groot, <span class="string">'DefaultFigureRenderer'</span>, <span class="string">'painters'</span>);
-set(groot, <span class="string">'DefaultTiledlayoutPadding'</span>, <span class="string">'compact'</span>);
+set(groot, <span class="string">'DefaultTiledlayoutPadding'</span>, <span class="string">'normal'</span>);
 set(groot, <span class="string">'DefaultTiledlayoutTileSpacing'</span>, <span class="string">'compact'</span>);
 set(groot, <span class="string">'DefaultPolarAxesTickLabelInterpreter'</span>, <span class="string">'latex'</span>);
 set(groot, <span class="string">'DefaultPolarAxesFontSize'</span>, 20);
@@ -315,7 +315,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 48;
+TrainingOptions.nAngles = 20;
 
 <span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
 <span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
@@ -349,7 +349,7 @@ TestOptions.yPos = [0,];
 TestOptions.zPos = [7,];
 
 <span class="comment">% Dipole tilt in z-axes in degree. Fix parameter.</span>
-TestOptions.tilt = 0;
+TestOptions.tilt = 10;
 
 <span class="comment">% Resolution of rotaion in degree, use same resoultion in training and test</span>
 <span class="comment">% datasets to have the ability to back reference the index to fullscale</span>
@@ -386,7 +386,7 @@ TestOptions.BaseReference = <span class="string">'TDK'</span>;
 <span class="comment">% All  - Superimposed bridge outputs</span>
 <span class="comment">% Diff - Differentiated bridge outputs</span>
 TestOptions.BridgeReference = <span class="string">'Rise'</span>;
-</pre><h2 id="12">GPROptions</h2><p>Gaussian Process Regression options to generate a regression model for angular prediction and analyzing the accuracy of the prediction. The GPR model uses one certain covariance function to compute the prediction but it is possible to initiate as zero mean GPR without mean correction and a simple mean function which supports offset amplitude correction of the sinoid inputs for cosine and sine. The GPR uses a quadratic frobnius norm covariance function. That function has two kernel parameters s2f as variance parameter and sl as length scale parameter. Additional a noise variance s2n must be passed to GPR to compute noisy observations.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate GPR model ...'</span>);
+</pre><h2 id="12">GPR Options</h2><p>Gaussian Process Regression options to generate a regression model for angular prediction and analyzing the accuracy of the prediction. The GPR model uses one certain covariance function to compute the prediction but it is possible to initiate as zero mean GPR without mean correction and a simple mean function which supports offset amplitude correction of the sinoid inputs for cosine and sine. The GPR uses a quadratic frobnius norm covariance function. That function has two kernel parameters s2f as variance parameter and sl as length scale parameter. Additional a noise variance s2n must be passed to GPR to compute noisy observations.</p><pre class="codeinput">disp(<span class="string">'Set test options to generate GPR model ...'</span>);
 GPROptions = struct();
 
 <span class="comment">% Set kernel function to compute covariance matrix, vectors or test point</span>
@@ -418,25 +418,25 @@ GPROptions.theta = [1, 1];
 <span class="comment">% the point evaluated as bad set point. If the bound are to wide in relation of</span>
 <span class="comment">% number in dataset variousity the mean error raises. The model is to complex</span>
 <span class="comment">% then. Try to keep up simple modles.</span>
-GPROptions.s2fBounds = [1e-1, 100];
-GPROptions.slBounds = [2, 100];
+GPROptions.s2fBounds = [2, 20];
+GPROptions.slBounds = [4, 40];
 
 <span class="comment">% Set initial noise variance to add noise along the diagonal of th covariance</span>
 <span class="comment">% matrix to predict noisy observation. Set to small values or even 0 to get</span>
 <span class="comment">% noise free observations.</span>
-GPROptions.s2n = 1e-09;
+GPROptions.s2n = 1e-06;
 
 <span class="comment">% Set lower and upper bounds for noise adjustment in computing the covariance</span>
 <span class="comment">% matrix for noisy observations. These bounds prevent the GPR of overfitting in</span>
 <span class="comment">% the noise optimization procedure. The default noise at initialization is 1e-5.</span>
-GPROptions.s2nBounds = [1e-09, 1e-04];
+GPROptions.s2nBounds = [1e-6, 1e-04];
 
 
 <span class="comment">% Set number of outer optimization runs. For wide parameter bounds it is</span>
 <span class="comment">% recommended to set the number of runs to min 30 otherwise the bayes</span>
 <span class="comment">% optimization runs to short in finding error bounds and left with not good</span>
 <span class="comment">% optimized parameters.</span>
-GPROptions.OptimRuns = 20;
+GPROptions.OptimRuns = 50;
 
 
 <span class="comment">% Enables mean function and offset and amplitude correction.</span>
@@ -542,7 +542,7 @@ set(groot, 'DefaultFigurePaperPositionMode', 'auto');
 set(groot, 'DefaultFigureDoubleBuffer', 'on');
 set(groot, 'DefaultFigureRendererMode', 'manual');
 set(groot, 'DefaultFigureRenderer', 'painters');
-set(groot, 'DefaultTiledlayoutPadding', 'compact');
+set(groot, 'DefaultTiledlayoutPadding', 'normal');
 set(groot, 'DefaultTiledlayoutTileSpacing', 'compact');
 set(groot, 'DefaultPolarAxesTickLabelInterpreter', 'latex');
 set(groot, 'DefaultPolarAxesFontSize', 20);
@@ -775,7 +775,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 48;
+TrainingOptions.nAngles = 20;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -815,7 +815,7 @@ TestOptions.yPos = [0,];
 TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TestOptions.tilt = 0;
+TestOptions.tilt = 10;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
@@ -854,7 +854,7 @@ TestOptions.BaseReference = 'TDK';
 TestOptions.BridgeReference = 'Rise';
 
 
-%% GPROptions
+%% GPR Options
 % Gaussian Process Regression options to generate a regression model for angular
 % prediction and analyzing the accuracy of the prediction. The GPR model uses
 % one certain covariance function to compute the prediction but it is possible
@@ -896,25 +896,25 @@ GPROptions.theta = [1, 1];
 % the point evaluated as bad set point. If the bound are to wide in relation of
 % number in dataset variousity the mean error raises. The model is to complex
 % then. Try to keep up simple modles.
-GPROptions.s2fBounds = [1e-1, 100];
-GPROptions.slBounds = [2, 100];
+GPROptions.s2fBounds = [2, 20];
+GPROptions.slBounds = [4, 40];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
 % noise free observations.
-GPROptions.s2n = 1e-09;
+GPROptions.s2n = 1e-06;
 
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-09, 1e-04];
+GPROptions.s2nBounds = [1e-6, 1e-04];
 
 
 % Set number of outer optimization runs. For wide parameter bounds it is
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 20;
+GPROptions.OptimRuns = 50;
 
 
 % Enables mean function and offset and amplitude correction. 
@@ -931,6 +931,7 @@ GPROptions.mean = 'zero';
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
 % polynom degree is 7.
 GPROptions.polyDegree = 1;
+
 
 %% Save Configuration
 % Save section wise each config part as struct to standalone variables in

@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
+      --><title>publishProjectFilesToHTML</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="publishProjectFilesToHTML.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -122,7 +122,7 @@ disp(<span class="string">'Load configuration ...'</span>);
 <span class="keyword">catch</span> ME
     rethrow(ME);
 <span class="keyword">end</span>
-</pre><h2 id="4">Remove Equation PNG Files</h2><p>Remove equation png file from HTML output folder before create or recreate publishing files. To prevent the directory expanse of old or edited equation files.</p><pre class="codeinput">yesno = <span class="string">'y'</span>;<span class="comment">%input('Renew eqautions in docs [y/n]: ', 's');</span>
+</pre><h2 id="4">Remove Equation PNG Files</h2><p>Remove equation png file from HTML output folder before create or recreate publishing files. To prevent the directory expanse of old or edited equation files.</p><pre class="codeinput">yesno = <span class="string">'n'</span>;<span class="comment">%input('Renew eqautions in docs [y/n]: ', 's');</span>
 <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
     removeFilesFromDir(PublishOptions.outputDir, <span class="string">'*_eq*.png'</span>);
 <span class="keyword">end</span>
@@ -133,8 +133,8 @@ PublishOptions.evalCode = false;
 publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 </pre><h2 id="7">Source Code Functions and Classes</h2><p>That part of the publish script collects function and class m-files from the util section of the source code located in src/. Introcude every new m-file to the source code related documentation m-file and add a description. In general functions and class files are not executed on publishing execution so set evalCode option to false in PublishOptions struct. In addition to that the source code itself should not be in the published document, so the showCode option is switched to false. Publish recursively from underlaying directory tree, verbose.</p><pre class="codeinput">disp(<span class="string">'Publish source code functions and classes ...'</span>);
 PublishOptions.evalCode = false;
-publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
-<span class="comment">%publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression/basicMathFunctions'), PublishOptions, true, true);</span>
+<span class="comment">%publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);</span>
+publishFilesFromDir(fullfile(PathVariables.srcPath,<span class="string">'gaussianProcessRegression/basicMathFunctions'</span>), PublishOptions, true, true);
 </pre><h2 id="8">Unit Test Scripts</h2><p>Publish unit tests scripts for each made test script and overall test runner.</p><pre class="codeinput">disp(<span class="string">'Publish unit tests scripts ...'</span>);
 PublishOptions.evalCode = false;
 publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
@@ -233,7 +233,7 @@ end
 % Remove equation png file from HTML output folder before create or recreate
 % publishing files. To prevent the directory expanse of old or edited equation
 % files.
-yesno = 'y';%input('Renew eqautions in docs [y/n]: ', 's');
+yesno = 'n';%input('Renew eqautions in docs [y/n]: ', 's');
 if strcmp(yesno, 'y')
     removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 end
@@ -276,8 +276,8 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 % directory tree, verbose.
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
-publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
-%publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression/basicMathFunctions'), PublishOptions, true, true);
+%publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
+publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression/basicMathFunctions'), PublishOptions, true, true);
 
 
 %% Unit Test Scripts

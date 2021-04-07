@@ -1,18 +1,5 @@
 %% basicMathFunctions
-% Detailed description of the script task and summary description of
-% underlaying script sections.
-%
-%
-%% Requirements
-% * Other m-files required: None
-% * Subfunctions: None
-% * MAT-files required: None
-%
-%
-%% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% Set of basic algebraic, analytic and trigonometric functions.
 %
 %
 %% sinoids2angles
@@ -40,6 +27,28 @@
 % Computes the both side porduct of an inverted matrix A with a vector b or
 % matrix B (left product) and the transposed vector b or matrix B (right
 % product).
+%
+%
+%% addNoise2Covariance
+% Additive noise for noisy GPR observations. Add noise along covariance matrix
+% diagonal.
+%
+%
+%% computeAlphaWeights
+% Computes regression weights by residual of regression targets and regression
+% mean values.
+%
+%
+%% computeStdLogLoss
+% Computes standardized logarithmic loss of test data and predicted data.
+%
+%
+%% computeLogLikelihood
+% Computes regression evidence as log marginal likelihood.
+%
+%
+%% estimateBeta
+% Compute polynom coefficients for mean approximation on training data.
 %
 %
 % Created on February 14. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.

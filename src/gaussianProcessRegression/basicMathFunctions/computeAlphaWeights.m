@@ -5,54 +5,52 @@
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   alpha = computeAlphaWeights(L, y, m)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *alpha = computeAlphaWeights(L, y, m)* prepare data and forward it to
+% matrix computation.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *L* lower triangle matrix of cholesky decomposed K matrix.
 %
-% *optionalArg* argurment description.
+% *y* regression target vector.
+%
+% *m* regression mean vector.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *alpha* regression weights.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: computeInverseMatrixProduct
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <decomposeChol.html decomposeChol>
+% * <computeInverseMatrixProduct.html computeInverseMatrixProduct>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!--
 % Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on January 05. 2021 by Tobias Wulf: Own function and add residual.
+% Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 % -->
 % </html>
 %
 function alpha = computeAlphaWeights(L, y, m)
+    % get residual
     residual = y - m;
+    % L and residual is validated in computation below, get weights
     alpha = computeInverseMatrixProduct(L, residual);
 end
 

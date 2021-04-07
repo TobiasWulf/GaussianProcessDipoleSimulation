@@ -1,83 +1,65 @@
 %% QFC
-% Kernel, covariance function for 3 dimensional matrices DxDxN where N is
-% the dimension of observeration and DxD is a matrix of P predictors at
-% each observation. Each for cosine and sine observation. It is needed to
-% establish a combined kernel function because cosine and sine function are
-% not independent from each and another. They are a separated
-% representation of same tangent angle one the unit circle so each
-% predictor variance should be additive correalate in each cosine and sine
-% representation. Cosine and sine are orthogonal vectors of the same
-% system. Therfore the Matrix norm aims the distance of the tangence function
-% decomposed as vector field norm of its orthoganl components as sum of two
-% matrix norm represented by a norm of cosine and sine.
-% The sensor array implements the predictors in a square array shape so it
-% is needed to norm the distances between observations with matrix norm and
-% with eucledian norms which distances between points. So it is possible to
-% the quadratic Frobeniusnorm to norm matrices distance.
-% Quadratic to ommit complex values in results.
-% In fact the kernel or covariance function is a sum of 2 quadratic
-% frobenius norm distances each for cosine and sine for n-th observation
-% with same length scale sigmaL and variance sigmaF2 to engage the
-% dependency of cosine and sine orthogonality.
-% The function must be producing a NxN positive symmetric covariance matrix
-% K in the training phase to apply cholesky decomposition on it to compute
-% the inverse of the matrix and solve the linear system to generates alpha
-% vectors for cosine and sine prediction each. In the prediction phase
-% (application) it computes the MxN matrix K for test inputs of size DxDxM
-% and training points size of DxDxN. If it is a single test point so DxDx1
-% matrix the function computes the covariance vector of size 1xN of the
-% test to each training observation. Computes noise free covariances.
+% Quadratic Fractional Covariance function. Computes covariance matrix K. Works
+% with raw matrix data. Precise solution.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   K = QFC(Ax, Bx, Ay, By, theta)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *K = QFC(Ax, Bx, Ay, By, theta)* computes quadratic distances bewtween data
+% points and parametrize it with height and length scales. Computes distance
+% with quadratic Frobenius Norm.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Ax* matrix of cosine simulation components. 
 %
-% *optionalArg* argurment description.
+% *Bx* matrix of cosine simulation components.
+%
+% *Ay* matrix of sine simulation components.
+%
+% *By* matrix of sine simulation components.
+%
+% *theta* vector of kernel parameters.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *K* noise free covarianc matrix.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: sum
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initQFC.html initQFC>
+% * <meanPolyQFC.html meanPolyQFC>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!--
 % Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on January 05. 2021 by Tobias Wulf: Own function, compute whole matrix.
+% Edited on January 05. 2021 by Tobias Wulf: Add argument validation.
 % -->
 % </html>
 %
 function K = QFC(Ax, Bx, Ay, By, theta)
-    
+    arguments
+        % validate data as real matrices of same size in 1st and 2nd dimension
+        Ax (:,:,:) double {mustBeReal}
+        Bx (:,:,:) double {mustBeReal, mustBeFitSize(Ax,Bx)}
+        Ay (:,:,:) double {mustBeReal, mustBeFitSize(Ax,Ay)}
+        By (:,:,:) double {mustBeReal, mustBeFitSize(Ax,By)}
+        % validate kernel parameters as 1x2 vector
+        theta (1,2) double {mustBeReal}
+    end
     
     % get number of observations for each dataset, cosine and sine matrices have
     % equal sizes just extract size from one
@@ -104,9 +86,16 @@ function K = QFC(Ax, Bx, Ay, By, theta)
             r2 = sum(distCos .^ 2 , 'all') + sum(distSin .^ 2 , 'all');
             
             % engage lengthscale and variance on distance
-            K(m,n) = c1 / (c2 + r2);
-            
+            K(m,n) = c1 / (c2 + r2); 
         end
     end
 end
 
+function mustBeFitSize(A, B)
+    % Test for equal size
+    if ~isequal(size(A,1,2), size(B,1,2))
+        eid = 'Size:notEqual';
+        msg = 'Sizes of  are not fitting.';
+        throwAsCaller(MException(eid,msg))
+    end
+end

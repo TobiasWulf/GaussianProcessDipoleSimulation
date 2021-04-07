@@ -1,6 +1,6 @@
 %% estimateBeta
-% Find beta coefficients to feature matrix H and the current set of
-% hyperparameters theta as vector of sigma2F and sigmaL, sigma2N represented by
+% Find beta coefficients to basis matrix H and the current set of
+% hyperparameters theta as vector of s2f and sl, s2n represented by
 % the current inverse of noisy covariance matrix Ky^-1 and the feature target
 % vector y of the observations. It calculates several inverse Matrix products so
 % instead passing the current Ky the function uses the infront decomposed lower
@@ -8,44 +8,42 @@
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   [beta, alpha0]= estimateBeta(H, L, y)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *[beta, alpha0]= estimateBeta(H, L, y)* compute polynom coefficients to solve
+% mean approximation.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *H* basis matrix of training data. Polynomial represents of training data.
 %
-% *optionalArg* argurment description.
+% *L* lower triangle matrix of decomposed K matrix.
+%
+% *y* regression targets.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *beta* beta coefficients for polynomial approximation with basis matrix *H*.
+%
+% *alpha0* regression weights based on regression targets *y*.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: chol, computeInverseMatrixProduct,
+%   computeTransposeInverseProduct
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <computeInverseMatrixProduct.html computeInverseMatrixProduct>
+% * <computeTransposeInverseProduct.html computeTransposeInverseProduct>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

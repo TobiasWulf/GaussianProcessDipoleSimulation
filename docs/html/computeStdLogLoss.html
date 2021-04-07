@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>computeLogLikelihood</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="computeLogLikelihood.m"><style type="text/css">
+      --><title>computeStdLogLoss</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="computeStdLogLoss.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,29 +84,28 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>computeLogLikelihood</h1><!--introduction--><p>Comuputes the marginal log likelihood as evidence of the current trained model parameter by solving the equation log p(y|X, alpha, log|Ky|) = -1/2 * (y - m)T * alpha - 1/2 log|Ky| - N/2 log(2pi) where alpha is the inverse matrix product of alpha = Ky^-1 * (y - m).</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">computeLogLikelihood(y, m, alpha, logDet, N)
-</pre><h2 id="2">Description</h2><p><b>computeLogLikelihood(y, m, alpha, logDet, N)</b></p><h2 id="3">Input Argurments</h2><p><b>y</b> column vector of regression targets.</p><p><b>m</b> column vector of regression means.</p><p><b>y</b> column vector of regression weights.</p><p><b>logDet</b> real scalar of K matrix log determinate.</p><p><b>N</b> number of observations. Number of reference angles.</p><h2 id="4">Output Argurments</h2><p><b>lml</b> real scalar of log marginal likelihood.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="decomposeChol.html">decomposeChol</a></li><li><a href="computeAlphaWeights.html">computeAlphaWeights</a></li><li><a href="initKernelParameters.html">initKernelParameters</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+  </style></head><body><div class="content"><h1>computeStdLogLoss</h1><!--introduction--><p>Compute SLL loss between test targets and predictive mean dependend on predictive variance plus used variance for noisy covariance matrix as variance of normal distriubtion over predictive means s2 = fcov + s2n. The pred functions returns the standard deviation s so sqrt of the variance.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
+</pre><h2 id="2">Description</h2><p><b>[SLL, SE, s2] = computeStdLogLoss(y, fmean, s)</b> compute standardized logaritmic loss by squared error of ideal test data predicted data and standard deviation of predicted data.</p><h2 id="3">Input Argurments</h2><p><b>y</b> column vector of ideal data to compare with.</p><p><b>fmean</b> column vector of predictive mean.</p><p><b>s</b> column vector of standard deviation related to predictive mean.</p><h2 id="4">Output Argurments</h2><p><b>SLL</b> column vector of standardized logarithmic loss.</p><p><b>SE</b> squared error between <b>y</b> and <b>fmean</b>.</p><p><b>s2</b> variance column vector.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: log</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="predFrame.html">predFrame</a></li><li><a href="predDS.html">predDS</a></li><li><a href="lossDS.html">lossDS</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><pre class="codeinput"><span class="keyword">function</span> lml = computeLogLikelihood(y, m, alpha, logDet, N)
+</p><pre class="codeinput"><span class="keyword">function</span> [SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
     <span class="keyword">arguments</span>
-        <span class="comment">% validate inputs as real column vectors</span>
+        <span class="comment">% validate inputs as real column vectors of same length</span>
         y <span class="typesection">(:,1) double {mustBeReal, mustBeVector}</span>
-        <span class="comment">% m can be zero if zero gpr runs</span>
-        m <span class="typesection">(:,1) double {mustBeReal, mustBeVector}</span>
-        alpha <span class="typesection">(:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, alpha)}</span>
-        <span class="comment">% validate inputs as real scalar</span>
-        logDet <span class="typesection">(1,1) double {mustBeReal}</span>
-        N <span class="typesection">(1,1) double {mustBeReal}</span>
+        fmean <span class="typesection">(:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, fmean)}</span>
+        s <span class="typesection">(:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, s)}</span>
     <span class="keyword">end</span>
+    <span class="comment">% squared error</span>
+    SE = (y - fmean).^2;
 
-    <span class="comment">% get residual of targets and mean</span>
-    residual = y - m;
+    <span class="comment">% s as standard deviation of nomal destributed fmean so square it for</span>
+    <span class="comment">% variance.</span>
+    s2 = s.^2;
 
-    <span class="comment">% compute log marginal likelihood</span>
-    lml = -0.5 * (residual' * alpha + logDet + N * log(2 * pi));
+    <span class="comment">% logaritmic error</span>
+    SLL = 0.5 * (log(2 * pi * s2) + SE ./ s2);
 <span class="keyword">end</span>
 
 <span class="comment">% Custom validation functions</span>
@@ -119,47 +118,49 @@ Edited on Month DD. YYYY by Editor: Single line description.
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% computeLogLikelihood
-% Comuputes the marginal log likelihood as evidence of the current trained model
-% parameter by solving the equation
-% log p(y|X, alpha, log|Ky|) = -1/2 * (y - m)T * alpha - 1/2 log|Ky| - N/2 log(2pi)
-% where alpha is the inverse matrix product of alpha = Ky^-1 * (y - m).
+%% computeStdLogLoss
+% Compute SLL loss between test targets and predictive mean dependend on
+% predictive variance plus used variance for noisy covariance matrix as variance
+% of normal distriubtion over predictive means s2 = fcov + s2n. The pred
+% functions returns the standard deviation s so sqrt of the variance. 
 %
 %
 %% Syntax
-%   computeLogLikelihood(y, m, alpha, logDet, N)
+%   [SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
 %
 %
 %% Description
-% *computeLogLikelihood(y, m, alpha, logDet, N)* 
+% *[SLL, SE, s2] = computeStdLogLoss(y, fmean, s)* compute standardized
+% logaritmic loss by squared error of ideal test data predicted data and
+% standard deviation of predicted data.
 %
 %
 %% Input Argurments
-% *y* column vector of regression targets.
+% *y* column vector of ideal data to compare with.
 %
-% *m* column vector of regression means.
+% *fmean* column vector of predictive mean.
 %
-% *y* column vector of regression weights.
-%
-% *logDet* real scalar of K matrix log determinate.
-%
-% *N* number of observations. Number of reference angles.
+% *s* column vector of standard deviation related to predictive mean.
 %
 %
 %% Output Argurments
-% *lml* real scalar of log marginal likelihood.
+% *SLL* column vector of standardized logarithmic loss.
+%
+% *SE* squared error between *y* and *fmean*.
+%
+% *s2* variance column vector.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: log
 % * MAT-files required: None
 %
 %
 %% See Also
-% * <decomposeChol.html decomposeChol>
-% * <computeAlphaWeights.html computeAlphaWeights>
-% * <initKernelParameters.html initKernelParameters>
+% * <predFrame.html predFrame>
+% * <predDS.html predDS>
+% * <lossDS.html lossDS>
 %
 %
 % Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
@@ -171,23 +172,22 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function lml = computeLogLikelihood(y, m, alpha, logDet, N)
+function [SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
     arguments
-        % validate inputs as real column vectors
+        % validate inputs as real column vectors of same length
         y (:,1) double {mustBeReal, mustBeVector}
-        % m can be zero if zero gpr runs
-        m (:,1) double {mustBeReal, mustBeVector}
-        alpha (:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, alpha)}
-        % validate inputs as real scalar
-        logDet (1,1) double {mustBeReal}
-        N (1,1) double {mustBeReal}
+        fmean (:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, fmean)}
+        s (:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, s)}
     end
+    % squared error
+    SE = (y - fmean).^2;
     
-    % get residual of targets and mean
-    residual = y - m;
+    % s as standard deviation of nomal destributed fmean so square it for
+    % variance.
+    s2 = s.^2;
     
-    % compute log marginal likelihood
-    lml = -0.5 * (residual' * alpha + logDet + N * log(2 * pi));
+    % logaritmic error
+    SLL = 0.5 * (log(2 * pi * s2) + SE ./ s2);
 end
 
 % Custom validation functions

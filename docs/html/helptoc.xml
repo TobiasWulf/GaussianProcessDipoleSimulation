@@ -59,7 +59,7 @@
                     <tocitem target=".html"></tocitem>
                 </tocitem>
                 <tocitem target="kernelQFC.html">kernelQFC
-                    <tocitem target=".html"></tocitem>
+                    <tocitem target="QFC.html">QFC</tocitem>
                     <tocitem target=".html"></tocitem>
                     <tocitem target=".html"></tocitem>
                 </tocitem>
@@ -70,11 +70,11 @@
                     <tocitem target="frobeniusNorm.html">frobeniusNorm</tocitem>
                     <tocitem target="computeInverseMatrixProduct.html">computeInverseMatrixProduct</tocitem>
                     <tocitem target="computeTransposeInverseProduct.html">computeTransposeInverseProduct</tocitem>
-                    <tocitem target=".html"></tocitem>
-                    <tocitem target=".html"></tocitem>
-                    <tocitem target=".html"></tocitem>
-                    <tocitem target=".html"></tocitem>
-                    <tocitem target=".html"></tocitem>
+                    <tocitem target="addNoise2Covariance.html">addNoise2Covariance</tocitem>
+                    <tocitem target="computeAlphaWeights.html">computeAlphaWeights</tocitem>
+                    <tocitem target="computeStdLogLoss.html">computeStdLogLoss</tocitem>
+                    <tocitem target="computeLogLikelihood.html">computeLogLikelihood</tocitem>
+                    <tocitem target="estimateBeta.html">estimateBeta</tocitem>
                 </tocitem>
             </tocitem>
             <tocitem target="util.html">util
