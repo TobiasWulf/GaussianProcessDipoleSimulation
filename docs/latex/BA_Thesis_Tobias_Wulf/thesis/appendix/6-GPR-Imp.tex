@@ -1,0 +1,277 @@
+% !TEX root = ../thesis.tex
+% mathematical basic for GPR
+% @author Tobias Wulf
+%
+
+\chapter{Gauß-Prozess-Regression Implementierung 0.0.1 09.04.2021}\label{ch:gpr-imp}
+
+
+\paragraph*{Trainingsdaten}
+
+
+\begin{align}\label{eq:trainds}
+	X   &= \big[ X_i, \ldots X_{N_{Ref}} \big] \qquad\qquad\qquad\quad\!  \text{f. } i = 1,2,3,\ldots,N_{Ref} \nonumber \\
+	\\
+	X_i &= 
+		\begin{cases}
+			\big[ X_{cos,i}, X_{sin,i} \big]             &\qquad \text{f. } d_F^2 \text{ \autoref{eq:df2}} \\
+			\big[ \|X_{cos,i}\|_F, \|X_{sin,i}\|_F \big] &\qquad \text{f. } d_E^2 \text{ \autoref{eq:de2innorm}}
+		\end{cases} \nonumber
+\end{align}
+
+
+\paragraph*{Testdaten}
+
+
+\begin{equation}\label{eq:testds}
+	X^* = 
+	\begin{cases}
+		\big[ X_{cos}^*, X_{sin}^* \big]             &\qquad \text{f. } d_F^2 \text{ \autoref{eq:df2}} \\
+		\big[ \|X_{cos}^*\|_F, \|X_{sin}^*\|_F \big] &\qquad \text{f. } d_E^2 \text{ \autoref{eq:de2innorm}}
+	\end{cases}
+\end{equation}
+
+
+
+\paragraph*{Regressionsziele}
+
+
+\begin{align}\label{eq:gprtarget}
+y_{cos} &= (\cos \alpha_i, \ldots, \cos \alpha_{N_{Ref}})^T \qquad \text{f. } i = 1,2,3,\ldots,N_{Ref} \nonumber \\
+\\
+y_{sin} &= (\sin \alpha_i, \ldots, \sin \alpha_{N_{Ref}})^T \nonumber
+\end{align}
+
+
+\paragraph*{Basis-Funktion}
+
+Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
+
+\begin{align}\label{eq:hfun}
+	h_{cos}(X_{cos}^*) &=
+		\begin{cases}
+			0								 &\qquad \text{f. } m_{cos}(X_{cos}^*) = 0 \\
+			\big( 1, \|X_{cos}^*\|_F \big)^T &\qquad \text{f. } d_F^2 \text{ \autoref{eq:df2}, }       m_{cos}(X_{cos}^*) \ne 0 \\
+			\big( 1, X_{cos}^* \big)^T       &\qquad \text{f. } d_E^2 \text{ \autoref{eq:de2innorm}, } m_{cos}(X_{cos}^*) \ne 0
+		\end{cases} \nonumber \\
+	\\
+	h_{sin}(X_{sin}^*) &=
+		\begin{cases}
+			0								 &\qquad \text{f. } m_{sin}(X_{sin}^*) = 0 \\
+			\big( 1, \|X_{sin}^*\|_F \big)^T &\qquad \text{f. } d_F^2 \text{ \autoref{eq:df2}, }       m_{sin}(X_{sin}^*) \ne 0 \\
+			\big( 1, X_{sin}^* \big)^T       &\qquad \text{f. } d_E^2 \text{ \autoref{eq:de2innorm}, } m_{sin}(X_{sin}^*) \ne 0
+		\end{cases} \nonumber
+\end{align}
+
+
+
+\paragraph*{Kernel-Funktion}
+
+
+\begin{align}\label{eq:kfun}
+	k(X_i, X_j) &= 
+		\begin{cases}
+			\resizebox{.17\linewidth}{!}{$\frac{a}{b + d_F^2\langle X_i, X_j \rangle}$} &\qquad \text{f. } d_F^2 \text{ \autoref{eq:df2}} \\\\
+			\resizebox{.17\linewidth}{!}{$\frac{a}{b + d_E^2\langle X_i, X_j \rangle}$} &\qquad \text{f. } d_E^2 \text{ \autoref{eq:de2innorm}}
+		\end{cases} \\
+\text{mit } i,j &= 1,2,3,\ldots,N_{Ref} \nonumber
+\end{align}
+
+
+\paragraph*{Kernel-Parameter}
+
+
+\begin{equation}\label{eq:kparam}
+	a = \sigma_f^2 \cdot 2 \sigma_l^2 \qquad b = 2 \sigma_l^2 \qquad \theta = \left[\sigma_f^2, \sigma_l\right]
+\end{equation}
+
+
+\paragraph*{Kovarianzmatrix}
+K
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{Kernel-Funktion $k(X_i, X_j)$, Trainingsdaten $X$, Kernel-Parameter $\theta$}
+	\KwResult{$K$-Matrix $N_{Ref} \times N_{Ref}$ }
+	\textbf{1.} Initialisierung Parameter $\theta \rightarrow a,b$\;
+	\textbf{2.} \For{$i=1,2,3,\ldots,N_{Ref}$}{
+		\For{$j=1,2,3,\ldots,N_{Ref}$}{
+			$K_{i,j} = k(X_i, X_j)$\;
+		}
+	}
+	\caption{Berechnung der Kovarianzmatrix $K(X, X|\theta)$}
+	\label{alg:k-matrix}
+\end{algorithm}
+
+
+\paragraph*{Rauschaufschaltung}
+
+
+\begin{equation}\label{eq:addnoise}
+	K_y = K(X, X|\theta) + \sigma_n^2 I
+\end{equation}
+
+
+\paragraph*{Cholesky-Zerlegung $K_y$}
+
+
+\begin{align}\label{eq:chol}
+		 LL^T &= K_y \\ \nonumber \\
+	log |K_y| &= 2 \sum_{i=1}^{N_{Ref}} \log L_{i,i}
+\end{align}
+
+
+\paragraph*{Polynommatrizen für Trainingsdaten}
+
+
+\begin{align}\label{eq:hmatrix}
+	H_{cos}(X_{cos}) &=
+		\begin{cases}
+			0 															   &\qquad \text{f. } m_{cos}(X_{cos}) = 0 \\
+			\big[ h_{cos}(X_{cos,i}),\ldots,h_{cos}(X_{cos,N_{Ref}}) \big] &\qquad \text{f. } m_{cos}(X_{cos}) \ne 0
+		\end{cases} \nonumber \\
+	\\
+	H_{sin}(X_{cos}) &=
+		\begin{cases}
+			0															   &\qquad \text{f. } m_{sin}(X_{sin}) = 0 \\
+			\big[ h_{sin}(X_{sin,i}),\ldots,h_{sin}(X_{sin,N_{Ref}}) \big] &\qquad \text{f. } m_{sin}(X_{sin}) \ne 0
+		\end{cases} \nonumber \\
+	\nonumber \\
+	& \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
+	& \text{alle } X_{sin} = \big[ X_{sin,i},\dots, X_{sin,N_{Ref}} \big] \nonumber \\
+	& \text{mit } i = 1,2,3,\ldots,N_{Ref} \nonumber
+\end{align}
+
+
+\paragraph*{Polynomkoeffizienten}
+
+
+\begin{align}\label{eq:betacoeffs}
+	\beta_{cos} &= 
+		\begin{cases}
+			0 																	 &\qquad \text{f. } m_{cos}(X_{cos}) = 0\\
+			\big( H_{cos} K_y^{-1} H_{cos}^T \big)^{-1} H_{cos} K_y^{-1} y_{cos} &\qquad \text{f. } m_{cos}(X_{cos}) \ne 0
+		\end{cases} \nonumber \\
+	\\
+	\beta_{sin} &= 
+		\begin{cases}
+			0 																	 &\qquad \text{f. } m_{sin}(X_{sin}) = 0\\
+			\big( H_{sin} K_y^{-1} H_{sin}^T \big)^{-1} H_{sin} K_y^{-1} y_{sin} &\qquad \text{f. } m_{sin}(X_{sin}) \ne 0
+		\end{cases} \nonumber \\
+	\nonumber \\
+	& \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
+	& \text{alle } X_{sin} = \big[ X_{sin,i},\dots, X_{sin,N_{Ref}} \big] \nonumber \\
+	& \text{mit } i = 1,2,3,\ldots,N_{Ref} \nonumber
+\end{align}
+
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{Polynommatrix $H$, Untere Dreiecksmatrix $L(K_y)$, Regressionsziel $y$}
+	\KwResult{$\beta$-Koeffizienten}
+	\textbf{1.} $a_0 = L^T \backslash (L \backslash y)$\;
+	\textbf{2.} $A_1 \leftarrow$ Lösen von $H K_y^{-1} H^T$\;
+	\Indp
+		\For{j-te Spalte in $H^T$}{
+			$V_j = L \backslash H_j^T$\;
+		}
+		$A_1 = V^T V$\;
+		\Indm
+	\textbf{3.} $A_2 \leftarrow$ Lösen von $A_1^{-1} H$\;
+	\Indp
+		$L_1 \leftarrow$ $\text{cholesky}(A_1)$\;
+		\For{$j-te$ Spalte in $H$}{
+			$V_j = L_1^T \backslash (L_1 \backslash H_j)$\;
+		}
+		$A_2 = V$\;
+	\Indm
+	\textbf{4.} $\beta = A_2 \cdot a_0$
+	\caption{Berechnung der $\beta$ Polynomkoeffizienten}
+	\label{alg:beta-koeffs}
+\end{algorithm}
+
+
+\paragraph*{Mittelwertfunktion}
+
+
+\begin{align}\label{eq:gprmean}
+	m_{cos}(X_{cos}^{(*)}) &=
+		\begin{cases}
+			0                                    &\qquad \text{f. mittelwertfreie Regression} \\
+			H_{cos}(X_{cos}) \cdot \beta_{cos} 	 &\qquad \text{f. Trainingsdaten } X_{cos} \\
+			h_{cos}(X_{cos}^*) \cdot \beta_{cos} &\qquad \text{f. Testdaten } X_{cos}^*
+		\end{cases} \nonumber \\
+	\\
+	m_{sin}(X_{sin}^{(*)}) &=
+		\begin{cases}
+			0                                    &\qquad \text{f. mittelwertfreie Regression} \\
+			H_{sin}(X_{sin}) \cdot \beta_{sin} 	 &\qquad \text{f. Trainingsdaten } X_{sin} \\
+			h_{cos}(X_{sin}^*) \cdot \beta_{sin} &\qquad \text{f. Testdaten } X_{sin}^*
+		\end{cases} \nonumber \\
+	\nonumber \\
+& \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
+& \text{alle } X_{sin} = \big[ X_{sin,i},\dots, X_{sin,N_{Ref}} \big] \nonumber \\
+& \text{mit } i = 1,2,3,\ldots,N_{Ref} \nonumber
+\end{align}
+
+
+\paragraph*{Regressionsgewichte}
+
+
+\begin{align}\label{eq:gprweights}
+	\alpha_{cos} &= K_y^{-1} \cdot \big( y_{cos} - m_{cos}(X_{cos}) \big) \nonumber \\
+				 &= L^T \backslash \Big(L \backslash \big( y_{cos} - m_{cos}(X_{cos}) \big) \Big) \nonumber \\
+	\\
+	\alpha_{sin} &= K_y^{-1} \cdot \big( y_{sin} - m_{sin}(X_{sin}) \big) \nonumber \\
+				 &= L^T \backslash \Big(L \backslash \big( y_{sin} - m_{sin}(X_{cos}) \big) \Big) \nonumber \\
+	\nonumber \\
+& \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
+& \text{alle } X_{sin} = \big[ X_{sin,i},\dots, X_{sin,N_{Ref}} \big] \nonumber \\
+& \text{mit } i = 1,2,3,\ldots,N_{Ref} \nonumber
+\end{align}
+
+
+\paragraph*{Modellplausibilität}
+
+
+\begin{align}\label{eq:likelihoods}
+	\log p(y_{cos}|X_{cos}) &= -0,5 \Big( \big( y_{cos} - m_{cos}(X_{cos}) \big)^T \alpha_{cos} + \log|K_y| + N_{Ref} \log 2\pi  \Big) \nonumber \\
+	\\
+	\log p(y_{sin}|X_{sin}) &= -0,5 \Big( \big( y_{sin} - m_{sin}(X_{sin}) \big)^T \alpha_{sin} + \log|K_y| + N_{Ref} \log 2\pi  \Big) \nonumber \\
+	\nonumber \\
+& \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
+& \text{alle } X_{sin} = \big[ X_{sin,i},\dots, X_{sin,N_{Ref}} \big] \nonumber \\
+& \text{mit } i = 1,2,3,\ldots,N_{Ref} \nonumber	
+\end{align}
+
+
+\paragraph*{Modellinitialisierung}
+
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{Referenzwikel $\alpha$, Trainingsdaten $X \mapsto \alpha$, Kernel-Parameter $\theta$}
+	\KwResult{Regressionsmodell}
+	\caption{Modellinitialisierung mit konstanten Parametern}
+	\label{alg:gprinit}
+\end{algorithm}
+
+
+\paragraph*{Modelloptimierung über Fmincon-Funktion}
+
+
+\begin{align}\label{eq:fmincon}
+    \theta|\sigma_n^2 &= \underset{\theta}{\arg\min} \tilde{R}_{\mathcal{L}}(\theta|\sigma_n^2) \qquad \text{f. } \sigma_n^2 = konst. \nonumber \\
+	\\
+	\tilde{R}_{\mathcal{L}}(\theta|\sigma_n^2) &= -\big( \log p(y_{cos}|X_{cos}, \theta, \sigma_n^2) + \log p(y_{sin}|X_{sin}, \theta, \sigma_n^2) \big) \nonumber
+\end{align}
+
+
+\begin{algorithm}
+	\SetAlgoLined
+	\KwIn{}
+	\KwResult{Optimierte Kernel-Parameter $\theta$}
+	\caption{Modelloptimierung über Fmincon-Funktion f. $\sigma_n^2 = konst.$}
+	\label{alg:fminconopt}
+\end{algorithm}
+
