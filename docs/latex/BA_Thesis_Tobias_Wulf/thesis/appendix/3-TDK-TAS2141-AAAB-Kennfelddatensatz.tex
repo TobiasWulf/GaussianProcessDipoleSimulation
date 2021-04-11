@@ -14,23 +14,17 @@ Der Anhang beinhaltet die \gls{gl:kennfeld}darstellung eines TAS2141-AAAB TMR-Wi
 	%\resizebox{\textwidth}{!}{
 	\begin{tabular}{l l l}
 		\toprule
-		\textbf{Eigenschaft}      & \textbf{Wert}    & \textbf{Einheit} \\
-		\midrule
+		\textbf{Eigenschaft}      & \textbf{Wert}    & \textbf{Einheit}                \\ \midrule
 		$H_x$-Skala               & $-25 \ldots 25$  & $\SI{}{\kilo\ampere\per\metre}$ \\
-		$H_y$-Skala               & $-25 \ldots 25$  & $\SI{}{\kilo\ampere\per\metre}$ \\
-		\hline
+		$H_y$-Skala               & $-25 \ldots 25$  & $\SI{}{\kilo\ampere\per\metre}$ \\ \hline
 		$H_x$-Schrittweite        & $0,1961$         & $\SI{}{\kilo\ampere\per\metre}$ \\
-		$H_y$-Schrittweite        & $0,1961$         & $\SI{}{\kilo\ampere\per\metre}$ \\
-		\hline
-		Auflösung                 & $256 \times 256$ & Pixel \\
-		Wertebereich $V(H_x,H_y)$ & Normiert         & $\SI{}{\milli\volt\per\volt}$ \\
-		\hline
-		Normfaktor                & $1\cdot 10^{-3}$ & $\SI{}{\per\milli\volt}$ \\
-		Gain                      & 1                & - \\
-		\hline
-		Brückenverdrehung         & 90               & $\SI{}{\degree}$ \\
-		Periodizität              & 360              & $\SI{}{\degree}$ \\
-		\bottomrule		
+		$H_y$-Schrittweite        & $0,1961$         & $\SI{}{\kilo\ampere\per\metre}$ \\ \hline
+		Auflösung                 & $256 \times 256$ & Pixel                           \\
+		Wertebereich $V(H_x,H_y)$ & Normiert         & $\SI{}{\milli\volt\per\volt}$   \\ \hline
+		Normfaktor                & $1\cdot 10^3$    & $\SI{}{\milli\volt}$            \\
+		Gain                      & 1                & -                               \\ \hline
+		Brückenverdrehung         & 90               & $\SI{}{\degree}$                \\
+		Periodizität              & 360              & $\SI{}{\degree}$                \\ \bottomrule
 	\end{tabular}%}
 	\caption[Eckdaten TDK TAS2141-AAAB Kennfelder]{Eckdaten TDK TAS2141-AAAB Kennfelder}
 \label{tab:tdk-char-data}
@@ -47,13 +41,13 @@ Simulationseinsatz mit variablen Betriebsspannungen. So können für beliebige F
 
 
 \begin{equation}\label{eq:vout-tdk}
-	\mathbf{V_{cos,sin}(H_x,H_y) = Gain \cdot Normfaktor \cdot V(H_x,H_y) \cdot V_{CC} + V_{Offset}}
+	V_{out}(H_x,H_y) = Gain \cdot \frac{V_{cos,sin}(H_x,H_y)}{Normfaktor} \cdot V_{CC} + V_{Offset}
 \end{equation}
 
 
 \begin{figure}[bph]
 	\centering
-	\includegraphics[width=.95\linewidth]{appendix/images/3-TDK/TDK_Kennfelder}
+	\includegraphics[width=.93\linewidth]{appendix/images/3-TDK/TDK_Kennfelder}
 	\caption[TDK TAS2141-AAAB Brückenkennfelder]{TDK TAS2141-AAAB Brückenkennfelder. Kennfelder der Cosinus-Brücke a) 
 		und b). Kennfelder der Sinus-Brücke c) und d). a) und c) gewonnen aus steigenden Amplitudenmodulation. b) und 
 		d) gewonnen fallenden Modulation. Die Kennfelder sind normiert in $\SI{}{\milli\volt\per\volt}$. Grafik 

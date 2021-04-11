@@ -15,31 +15,27 @@ Der Anhang veranschaulicht die Handhabung und Standardparametrierung für die Se
 	\resizebox{\textwidth}{!}{
 	\begin{tabular}{l l c c l}
 		\toprule
-		\textbf{Parametergruppe} 				 & \textbf{Parameter} & \textbf{Wert} 	   & \textbf{Einheit} 				 & \textbf{Kurzbeschreibung} \\
-		\midrule
-		\multirow{6}{*}{SensorArrayOptions} 	 & geometry 		  & 'square' 		   & - 								 & Array-Geometrie-Indikator \\
-										 		 & dimension 		  & $8$ 			   & - 								 & Sensor-Array-Pixel $N_{Pixel} \times N_{Pixel}$ \\
-												 & edge 			  & $2$				   & $\SI{}{\milli\metre}$ 			 & Sensor-Array-Kantenlänge\\
-												 & $V_{cc}$ 		  & $5$ 			   & $\SI{}{\volt}$ 				 & Sensor-Array-Betriebsspannung\\
-												 & $V_{off}$ 		  & $2,5$ 			   & $\SI{}{\volt}$					 & Sensor-Brücken-Offset-Spannung\\
-												 & $V_{norm}$		  & $1 \cdot 10^3$ 	   & $\SI{}{\milli\volt}$ 			 & Kennfeldnormierung \\
-		\hline
-		\multirow{4}{*}{DipoleOptions}			 & sphereRadius 	  & $2$ 			   &$\SI{}{\milli\metre}$ 			 & Kugelmagnetradius \\
-												 & $H_{0mag}$ 		  & $200$ 			   & $\SI{}{\kilo\ampere\per\metre}$ & Betragsfeldstärke Magnetfeldnormierung\\
-												 & $z_0$ 	  	 	  & $1$ 			   & $\SI{}{\milli\metre}$ 			 & $Z$-Abstand Magnetfeldnormierung\\
-												 & $m_{0mag}$ 		  & $1 \cdot 10^6$ 	   &$\SI{}{\ampere\square\metre}$	 & Magnitude d. mag. Moments \\
-		\hline
-		\multirow{10}{*}{Training-/ TestOptions} & useCase 			  & 'Training'/ 'Test' & 'char' 						 & Datensatzindikator f. Anwendungszweck \\
-												 & xPos 			  & $\left[0,\right]$  & $\SI{}{mm}$ 				  	 & Sensor-Array $X$-Positionsvektor \\
-												 & yPos 			  & $\left[0,\right]$  & $\SI{}{mm}$ 					 & Sensor-Array $Y$-Positionsvektor \\
-												 & zPos 			  & $\left[7,\right]$  & $\SI{}{mm}$ 					 & Sensor-Array $Z$-Positionsvektor \\
-												 & tilt 			  & $0$ 			   & $\SI{}{\degree}$ 				 & Magnetverkippung in $Y$-Achse \\
-												 & angleRes 		  & $0,5$ 			   & $\SI{}{\degree}$ 				 & Winkelauflösung f. Magnetrotation \\
-												 & phaseIndex 		  & 0 				   & - 								 & Phasenverschiebung-Index f. Startwinkel\\
-												 & nAngles 			  & $20$/ $720$ 	   & -  							 & Anzahl gleich verteilter Simulationswinkel \\
-												 & BaseReference 	  & 'TDK' 			   & char 							 & Kennfelddatensatzindikator \\
-												 & BridgeReference 	  & 'Rise' 			   & char 							 & Kennfeldindikator \\
-		\bottomrule		
+		\textbf{Parametergruppe}                 & \textbf{Parameter} & \textbf{Wert}      & \textbf{Einheit}                & \textbf{Kurzbeschreibung}                       \\ \midrule
+		\multirow{6}{*}{SensorArrayOptions}      & geometry           & 'square'           & -                               & Array-Geometrie-Indikator                       \\
+		                                         & dimension          & $8$                & -                               & Sensor-Array-Pixel $N_{Pixel} \times N_{Pixel}$ \\
+		                                         & edge               & $2$                & $\SI{}{\milli\metre}$           & Sensor-Array-Kantenlänge                        \\
+		                                         & $V_{cc}$           & $5$                & $\SI{}{\volt}$                  & Sensor-Array-Betriebsspannung                   \\
+		                                         & $V_{off}$          & $2,5$              & $\SI{}{\volt}$                  & Sensor-Brücken-Offset-Spannung                  \\
+		                                         & $V_{norm}$         & $1 \cdot 10^3$     & $\SI{}{\milli\volt}$            & Kennfeldnormierung                              \\ \hline
+		\multirow{4}{*}{DipoleOptions}           & sphereRadius       & $2$                & $\SI{}{\milli\metre}$           & Kugelmagnetradius                               \\
+		                                         & $H_{0mag}$         & $200$              & $\SI{}{\kilo\ampere\per\metre}$ & Betragsfeldstärke Magnetfeldnormierung          \\
+		                                         & $z_0$              & $1$                & $\SI{}{\milli\metre}$           & $Z$-Abstand Magnetfeldnormierung                \\
+		                                         & $m_{0mag}$         & $1 \cdot 10^6$     & $\SI{}{\ampere\square\metre}$   & Magnitude d. mag. Moments                       \\ \hline
+		\multirow{10}{*}{Training-/ TestOptions} & useCase            & 'Training'/ 'Test' & 'char'                          & Datensatzindikator f. Anwendungszweck           \\
+		                                         & xPos               & $\left[0,\right]$  & $\SI{}{mm}$                     & Sensor-Array $X$-Positionsvektor                \\
+		                                         & yPos               & $\left[0,\right]$  & $\SI{}{mm}$                     & Sensor-Array $Y$-Positionsvektor                \\
+		                                         & zPos               & $\left[7,\right]$  & $\SI{}{mm}$                     & Sensor-Array $Z$-Positionsvektor                \\
+		                                         & tilt               & $0$                & $\SI{}{\degree}$                & Magnetverkippung in $Y$-Achse                   \\
+		                                         & angleRes           & $0,5$              & $\SI{}{\degree}$                & Winkelauflösung f. Magnetrotation               \\
+		                                         & phaseIndex         & 0                  & -                               & Phasenverschiebung-Index f. Startwinkel         \\
+		                                         & nAngles            & $20$/ $720$        & -                               & Anzahl gleich verteilter Simulationswinkel      \\
+		                                         & BaseReference      & 'TDK'              & char                            & Kennfelddatensatzindikator                      \\
+		                                         & BridgeReference    & 'Rise'             & char                            & Kennfeldindikator                               \\ \bottomrule
 	\end{tabular}}
 	\caption[Sensor-Array-Simulationsparameter]{Sensor-Array-Simulationsparameter. Default-Parameter für die Simulation mit ideal ausgerichteten Gesamtsystem, bestehend aus mag. Dipol und Sensor-Array.}
 	\label{tab:sensor-array-sim-params}
@@ -52,29 +48,29 @@ Der Anhang veranschaulicht die Handhabung und Standardparametrierung für die Se
 Die Sensor-Array-Simulation folgt der Aufführung in \autoref{alg:sensor-array-sim}. Zur Generierung von Trainings-/ Testdatensätze dient die Konfigurationsdatei als Eingabe. Entsprechend der Parametrierung in \autoref{tab:sensor-array-sim-params}, sind notwendige Kennfelddatensätze initialisiert und Funktionsmodule eingebunden. Für die eingestellte Anzahl von Simulationswinkeln und angegebenen Winkelauflösung, wird ein Rotationsvektor aufgestellt, indem alle Simulationswinkel gleich verteilt sind. Die Simulation fährt alle $X,Y,Z$ Sensor-Array-Positionen im Koordinatenraum ab. Für jede angefahrene Position wird ein Meshgrid und entsprechender Datensatz mit voller Rotation erzeugt. Für verschiedene Magnetverkippung ist die Konfigurationsdatei anzupassen und die Simulation zu wiederholen.
 
 
-\begin{algorithm}
+\begin{algorithm}[hbp]
 	\SetAlgoLined
 	\KwIn{Konfigurationsdatensatz}
 	\KwOut{MAT-Dateipfad}
 	\KwResult{Sensor-Array-Datensätze (Training/ Test)}
-	\textbf{1.} Laden der Konfigurierung\;
-	\textbf{2.} Laden der Kennfelder\;
-	\textbf{3.} Initialisierung Simulationsparameter\;
-	\textbf{4.} Initialisierung Rotation\;
-	\textbf{5.} Initialisierung Kennfelder\;
-	\textbf{6.} Initialisierung Dipol-Rotationsmomente $\vec{m}_i$\;
-	\textbf{7.} Initialisierung Sensor-Array-Positionen\;
-	\textbf{8.} Initialisierung Dipol-Feldnormierung\;
+	\textbf{1.} Laden der Konfigurierung $\leftarrow$ \autoref{tab:sensor-array-sim-params}\;
+	\textbf{2.} Laden der Kennfelder $\leftarrow$ \autoref{ch:tdk-datensatz}\;
+	\textbf{3.} Initialisierung Simulationsparameter $\leftarrow$ \autoref{tab:sensor-array-sim-params}\;
+	\textbf{4.} Initialisierung Rotation $\leftarrow$ \autoref{eq:ruhepos}, \autoref{eq:ruhemom}\;
+	\textbf{5.} Initialisierung Kennfelder $\leftarrow$ \autoref{eq:vout-tdk}\;
+	\textbf{6.} Initialisierung Dipol-Rotationsmomente $\leftarrow$ \autoref{eq:allgrot}\;
+	\textbf{7.} Initialisierung Sensor-Array-Positionen $\leftarrow$ \autoref{tab:sensor-array-sim-params}\;
+	\textbf{8.} Initialisierung Dipol-Feldnormierung $\leftarrow$ Betragskonstante in \autoref{eq:dipnorm}\;
 	\textbf{10.} Speicherallokation f. Ergebnisse\;
 	\textbf{11.} Anlegen Metadaten (Info) und Simulationsdaten (Data) Structs\;
 	\textbf{12.} \For{$z$ in $Z$-Positionsvektor}{
 		\For{$x$ in $X$-Positionsvektor}{
 			\For{$y$ in $Y$-Positionsvektor}{
 				Update Info-Struct (Positionsdaten)\;
-				Initialisierung Sensor-Array-Meshgrid\;
+				Initialisierung Sensor-Array-Meshgrid $\leftarrow$ \autoref{eq:arraymeshgrid}\;
 				\For{$\vec{m}_i$ in Momentenmatrix}{
-					Normierte Dipol-Feldberechnung auf Meshgrid\;
-					Kennfeld-Mapping (Nearest-Neighbor-2D-Interpolation)\;
+					Normierte Dipol-Feldberechnung auf Meshgrid $\leftarrow$ \autoref{eq:dipnorm}\;
+					Kennfeld-Mapping interp2(Nearest-Neighbor) $\leftarrow$ \autoref{fig:kennfeld-mapping}\;
 				}
 				Update Data-Struct (Ergebnisse)\;
 				Speichern Info- und Data-Struct in Ziel-MAT-Datei\;
@@ -104,7 +100,7 @@ Die Sensor-Array-Simulation folgt der Aufführung in \autoref{alg:sensor-array-s
 \autoref{fig:kennfeld-mapping} zeigt das Mapping, auf TMR-Sensor-Kennfeldern (\autoref{ch:tdk-datensatz}), für prozessierte $H_x$- und $H_y$-Feldstärken. Die Simulation ist mit der Standardparametrierung aus \autoref{tab:sensor-array-sim-params} ausgeführt worden. Hier am Beispiel für $20$ Simulationswinkel. Gezeigt ist der vierte Winkel bei $\SI{54}{\degree}$. Die errechneten Feldstärken sind auf die Kennfelder projiziert und Spannungswerte mittels Matlab-2D-Interpolation für Nearest-Neighbor entnommen. \autoref{fig:senor-array-teilansicht} zeigt, das nochmals für $720$ Winkel und vier Sensor-Pixel. Es sind die Eck-Pixel angezeigt. Da sich der mag. Dipol ohne Verkippung, zentriert über dem Sensor-Array befindet, überlagern sich die Signalverläufe für diagonal gegenüberliegende Sensor-Pixel. Die leicht ellipsenförmige Verlauf der projizierten Feldstärken, der äußeren Pixel, ergibt sich durch den Versatz zur Magnetfeldmitte. Ein Pixel direkt lotrecht zur Magnet-$Z$-Achse platziert, erzeugt einen optimale Kreisbahn. Eine detaillierte Beschreibung der Skripte und zugehöriger Funktionsmodule ist in \autoref{ch:sw-doku} einzusehen.
 
 
-\vspace{5mm}
+\vspace{4mm}
 \begin{figure}[bph]
 	\centering
 	\includegraphics[width=\linewidth]{appendix/images/5-Sensor-Array-Sim-Imp/Senor-Array-Teilansicht}
