@@ -95,9 +95,9 @@ function [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, ...
     s = sqrt(fcov + Mdl.s2n);
     
     % 95% confidence interval over fradius
-    ciang = [fang - asin(1.96 * s), fang + asin(1.96 * s)];
+    ciang = [fang - asin(1.96 * s * sqrt(2)), fang + asin(1.96 * s * sqrt(2))];
     
     % 95% confidence interval over fradius
-    cirad = [frad - 1.96 * s, frad + 1.96 * s];
+    cirad = [frad - 1.96 * s * sqrt(2), frad + 1.96 * s * sqrt(2)];
 end
 
