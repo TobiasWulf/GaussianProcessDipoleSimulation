@@ -239,3 +239,4 @@ ylabel('$CIR_{95\%} - r$');
 xlim([0 360]);
 xlabel('$\alpha$ in $^\circ$');
 title('d) Centerd $95\%$ GPR Confidence Intervalls')
+
