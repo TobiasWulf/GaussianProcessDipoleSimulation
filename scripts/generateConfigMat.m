@@ -305,7 +305,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 20;
+TrainingOptions.nAngles = 56;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -345,7 +345,7 @@ TestOptions.yPos = [0,];
 TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TestOptions.tilt = 10;
+TestOptions.tilt = 0;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale

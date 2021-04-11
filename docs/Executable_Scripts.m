@@ -6,8 +6,12 @@
 % by functions to control and execute task in a unified project structure.
 %
 %
+%% compareGPRKernels
+% Compares GPR kernel functions with each and another.
+%
+%
 %% investigateKernelParameters
-% Analyze covariance kernel parameters with contour plots.
+% Analyzes covariance kernel parameters with contour plots.
 %
 %
 %% demoGPRModule
@@ -51,6 +55,7 @@
 % Edited on December 10. 2020 by Tobias Wulf: Add export script build pdf manual.
 % Edited on February 25. 2021 by Tobias Wulf: Add demoGRPModul.
 % Edited on March 13. 2021 by Tobias Wulf: Add investigateKernelParameters.
+% Edited on April 11. 2021 by Tobias Wulf: Add compareGPRKernels.
 % -->
 % </html>
 %

@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
+      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-11"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -114,6 +114,7 @@ disp(<span class="string">'Load configuration ...'</span>);
        <span class="string">"subsection"</span>,        <span class="string">"exportPublishedToPdf.pdf"</span>;
        <span class="string">"subsection"</span>,        <span class="string">"demoGPRModule.pdf"</span>;
        <span class="string">"subsection"</span>,        <span class="string">"investigateKernelParameters.pdf"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"compareGPRKernels.pdf"</span>;
        <span class="string">"section"</span>,           <span class="string">"Source_Code.pdf"</span>;
        <span class="string">"subsection"</span>,        <span class="string">"sensorArraySimulation.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"rotate3DVector.pdf"</span>;
@@ -135,12 +136,12 @@ disp(<span class="string">'Load configuration ...'</span>);
        <span class="string">"subsubsection"</span>,     <span class="string">""</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">""</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">""</span>;
-       <span class="string">"subsubsection"</span>,     <span class="string">""</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"kernelQFCAPX.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"QFCAPX.pdf"</span>;
        <span class="string">"paragraph"</span>,         <span class="string">""</span>;
        <span class="string">"paragraph"</span>,         <span class="string">""</span>;
-       <span class="string">"paragraph"</span>,         <span class="string">""</span>;
-       <span class="string">"subsubsection"</span>,     <span class="string">""</span>;
-       <span class="string">"paragraph"</span>,         <span class="string">""</span>;
+       <span class="string">"subsubsection"</span>,     <span class="string">"kernelQFC.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"QFC.pdf"</span>;
        <span class="string">"paragraph"</span>,         <span class="string">""</span>;
        <span class="string">"paragraph"</span>,         <span class="string">""</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"basicMathFunctions.pdf"</span>;
@@ -151,10 +152,10 @@ disp(<span class="string">'Load configuration ...'</span>);
        <span class="string">"paragraph"</span>,         <span class="string">"computeInverseMatrixProduct.pdf"</span>;
        <span class="string">"paragraph"</span>,         <span class="string">"computeTransposeInverseProduct.pdf"</span>;
        <span class="string">"paragraph"</span>,         <span class="string">"addNoise2Covariance.pdf"</span>;
-       <span class="string">"paragraph"</span>,         <span class="string">""</span>;
-       <span class="string">"paragraph"</span>,         <span class="string">""</span>;
-       <span class="string">"paragraph"</span>,         <span class="string">""</span>;
-       <span class="string">"paragraph"</span>,         <span class="string">""</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"computeAlphaWeights.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"computeStdLogLoss.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"computeLogLikelihood.pdf"</span>;
+       <span class="string">"paragraph"</span>,         <span class="string">"estimateBeta.pdf"</span>;
        <span class="string">"subsection"</span>,        <span class="string">"util.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"removeFilesFromDir.pdf"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"publishFilesFromDir.pdf"</span>;
@@ -353,6 +354,7 @@ toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
        "subsection",        "exportPublishedToPdf.pdf";
        "subsection",        "demoGPRModule.pdf";
        "subsection",        "investigateKernelParameters.pdf";
+       "subsection",        "compareGPRKernels.pdf";
        "section",           "Source_Code.pdf";
        "subsection",        "sensorArraySimulation.pdf";
        "subsubsection",     "rotate3DVector.pdf";
@@ -374,12 +376,12 @@ toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
        "subsubsection",     "";
        "subsubsection",     "";
        "subsubsection",     "";
-       "subsubsection",     "";
+       "subsubsection",     "kernelQFCAPX.pdf";
+       "paragraph",         "QFCAPX.pdf";
        "paragraph",         "";
        "paragraph",         "";
-       "paragraph",         "";
-       "subsubsection",     "";
-       "paragraph",         "";
+       "subsubsection",     "kernelQFC.pdf";
+       "paragraph",         "QFC.pdf";
        "paragraph",         "";
        "paragraph",         "";
        "subsubsection",     "basicMathFunctions.pdf";
@@ -390,10 +392,10 @@ toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
        "paragraph",         "computeInverseMatrixProduct.pdf";
        "paragraph",         "computeTransposeInverseProduct.pdf";
        "paragraph",         "addNoise2Covariance.pdf";
-       "paragraph",         "";
-       "paragraph",         "";
-       "paragraph",         "";
-       "paragraph",         "";
+       "paragraph",         "computeAlphaWeights.pdf";
+       "paragraph",         "computeStdLogLoss.pdf";
+       "paragraph",         "computeLogLikelihood.pdf";
+       "paragraph",         "estimateBeta.pdf";
        "subsection",        "util.pdf";
        "subsubsection",     "removeFilesFromDir.pdf";
        "subsubsection",     "publishFilesFromDir.pdf";

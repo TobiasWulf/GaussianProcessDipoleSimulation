@@ -1,0 +1,434 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>compareGPRKernels</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-11"><meta name="DC.source" content="compareGPRKernels.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>compareGPRKernels</h1><!--introduction--><p>This script compares the implemented kernel function with each and another. It initiates each kernel with different kernel parameters and in a row and compares them in two plots for kernel functions and covariance matrix.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on April 11. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><h2 id="3">Load Datasets</h2><pre class="codeinput">clear <span class="string">all</span>;
+close <span class="string">all</span>;
+disp(<span class="string">'Load config ...'</span>);
+load <span class="string">config.mat</span> <span class="string">PathVariables</span> <span class="string">GPROptions</span>;
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, <span class="string">'Training*.mat'</span>));
+TestFiles = dir(fullfile(PathVariables.testDataPath, <span class="string">'Test*.mat'</span>));
+assert(~isempty(TrainFiles), <span class="string">'No training datasets found.'</span>);
+assert(~isempty(TestFiles), <span class="string">'No test datasets found.'</span>);
+
+disp(<span class="string">'Load first found datasets ...'</span>);
+<span class="keyword">try</span>
+    TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+    TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+
+<span class="keyword">catch</span> ME
+    rethrow(ME)
+<span class="keyword">end</span>
+</pre><h2 id="4">Initiate Kernels with different Kernelparameters</h2><pre class="codeinput">ma11 = initGPR(TrainDS, GPROptions);
+
+GPROptions.theta = [1 2];
+ma12 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 0.5];
+ma105 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 4];
+ma14 = initGPR(TrainDS, GPROptions);
+
+
+GPROptions.theta = [2 1];
+mc21 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [0.5 1];
+mc051 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [4 1];
+mc41 = initGPR(TrainDS, GPROptions);
+
+GPROptions.kernel = <span class="string">'QFCAPX'</span>;
+GPROptions.theta = [1 1];
+mb11 = initGPR(TrainDS, GPROptions);
+
+GPROptions.theta = [1 2];
+mb12 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 0.5];
+mb105 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 4];
+mb14 = initGPR(TrainDS, GPROptions);
+
+GPROptions.theta = [2 1];
+md21 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [0.5 1];
+md051 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [4 1];
+md41 = initGPR(TrainDS, GPROptions);
+</pre><h2 id="5">Plot Area</h2><pre class="codeinput"><span class="comment">% plot covariance slice for first covariance sample</span>
+figure;
+tiledlayout(2,2);
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+p1 = plot(1:ma11.N, ma11.Ky(1,:), <span class="string">'k'</span>);
+p2 = plot(1:ma12.N, ma12.Ky(1,:), <span class="string">'b-.'</span>);
+p3 = plot(1:ma105.N, ma105.Ky(1,:), <span class="string">'r-.'</span>);
+p4 = plot(1:ma14.N, ma14.Ky(1,:), <span class="string">'g-.'</span>);
+xlim([1, ma11.N]);
+<span class="comment">%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);</span>
+legend([p1, p2, p3, p4], <span class="keyword">...</span>
+    {<span class="string">'$\theta = (1,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (1,2)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (1,0.5)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (1,4)$'</span>}, <span class="string">'Location'</span>, <span class="string">'north'</span>);
+xlabel(<span class="string">'$j-tes$ Sample'</span>);
+title(<span class="string">'a) $k(X_1, X_j|\theta)$ f. $d_F^2$, $\theta_1 = konst.$'</span>);
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+p1 = plot(1:mb11.N, mb11.Ky(1,:), <span class="string">'k'</span>);
+p2 = plot(1:mb12.N, mb12.Ky(1,:), <span class="string">'b-.'</span>);
+p3 = plot(1:mb105.N, mb105.Ky(1,:), <span class="string">'r-.'</span>);
+p4 = plot(1:mb14.N, mb14.Ky(1,:), <span class="string">'g-.'</span>);
+xlim([1, mb11.N]);
+<span class="comment">%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);</span>
+legend([p1, p2, p3, p4], <span class="keyword">...</span>
+    {<span class="string">'$\theta = (1,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (1,2)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (1,0.5)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (1,4)$'</span>}, <span class="string">'Location'</span>, <span class="string">'north'</span>);
+xlabel(<span class="string">'$j-tes$ Sample'</span>);
+title(<span class="string">'b) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_1 = konst.$'</span>);
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+p1 = plot(1:ma11.N, ma11.Ky(1,:), <span class="string">'k'</span>);
+p2 = plot(1:mc21.N, mc21.Ky(1,:), <span class="string">'b-.'</span>);
+p3 = plot(1:mc051.N, mc051.Ky(1,:), <span class="string">'r-.'</span>);
+p4 = plot(1:mc41.N, mc41.Ky(1,:), <span class="string">'g-.'</span>);
+xlim([1, ma11.N]);
+<span class="comment">%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);</span>
+legend([p1, p2, p3, p4], <span class="keyword">...</span>
+    {<span class="string">'$\theta = (1,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (2,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (0.5,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (4,1)$'</span>}, <span class="string">'Location'</span>, <span class="string">'north'</span>);
+xlabel(<span class="string">'$j-tes$ Sample'</span>);
+title(<span class="string">'c) $k(X_1, X_j|\theta)$ f. $d_F^2$, $\theta_2 = konst.$'</span>);
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+p1 = plot(1:mb11.N, mb11.Ky(1,:), <span class="string">'k'</span>);
+p2 = plot(1:md21.N, md21.Ky(1,:), <span class="string">'b-.'</span>);
+p3 = plot(1:md051.N, md051.Ky(1,:), <span class="string">'r-.'</span>);
+p4 = plot(1:md41.N, md41.Ky(1,:), <span class="string">'g-.'</span>);
+xlim([1, mb11.N]);
+<span class="comment">%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);</span>
+legend([p1, p2, p3, p4], <span class="keyword">...</span>
+    {<span class="string">'$\theta = (1,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (2,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (0.5,1)$'</span>, <span class="keyword">...</span>
+    <span class="string">'$\theta = (4,1)$'</span>}, <span class="string">'Location'</span>, <span class="string">'north'</span>);
+xlabel(<span class="string">'$j-tes$ Sample'</span>);
+title(<span class="string">'c) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$'</span>);
+
+<span class="comment">% plot covariance matrix</span>
+figure;
+tiledlayout(1,2);
+colormap(<span class="string">'jet'</span>);
+
+nexttile;
+
+
+imagesc(ma11.Ky);
+axis <span class="string">square</span>;
+xlabel(<span class="string">'$j$'</span>);
+ylabel(<span class="string">'$i$'</span>);
+title(<span class="string">'a) $K(X, X|\theta)$ f. $d_F^2$, $\theta = (1,1)$'</span>)
+
+nexttile;
+
+<span class="comment">% colormap('jet');</span>
+imagesc(mb11.Ky);
+axis <span class="string">square</span>;
+xlabel(<span class="string">'$j$'</span>);
+ylabel(<span class="string">'$i$'</span>);
+title(<span class="string">'a) $K(X, X|\theta)$ f. $d_E^2$, $\theta = (1,1)$'</span>)
+
+c = colorbar;
+c.TickLabelInterpreter = <span class="string">'latex'</span>;
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% compareGPRKernels
+% This script compares the implemented kernel function with each and another. It
+% initiates each kernel with different kernel parameters and in a row and
+% compares them in two plots for kernel functions and covariance matrix.
+%
+%% Requirements
+% * Other m-files required: gaussianProcessRegression module files
+% * Subfunctions: none
+% * MAT-files required: data/config.mat, corresponding Training and Test dataset
+%
+%
+%% See Also
+% * <gaussianProcessRegression.html gaussianProcessRegression>
+% * <initGPR.html initGPR>
+% * <generateConfigMat.html generateConfigMat>
+%
+%
+% Created on April 11. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+%
+
+%% Load Datasets
+clear all;
+close all;
+disp('Load config ...');
+load config.mat PathVariables GPROptions;
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
+TestFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
+assert(~isempty(TrainFiles), 'No training datasets found.');
+assert(~isempty(TestFiles), 'No test datasets found.');
+
+disp('Load first found datasets ...');
+try
+    TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+    TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+
+catch ME
+    rethrow(ME)
+end
+
+%% Initiate Kernels with different Kernelparameters
+ma11 = initGPR(TrainDS, GPROptions);
+
+GPROptions.theta = [1 2];
+ma12 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 0.5];
+ma105 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 4];
+ma14 = initGPR(TrainDS, GPROptions);
+
+
+GPROptions.theta = [2 1];
+mc21 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [0.5 1];
+mc051 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [4 1];
+mc41 = initGPR(TrainDS, GPROptions);
+
+GPROptions.kernel = 'QFCAPX';
+GPROptions.theta = [1 1];
+mb11 = initGPR(TrainDS, GPROptions);
+
+GPROptions.theta = [1 2];
+mb12 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 0.5];
+mb105 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [1 4];
+mb14 = initGPR(TrainDS, GPROptions);
+
+GPROptions.theta = [2 1];
+md21 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [0.5 1];
+md051 = initGPR(TrainDS, GPROptions);
+GPROptions.theta = [4 1];
+md41 = initGPR(TrainDS, GPROptions);
+
+%% Plot Area
+
+% plot covariance slice for first covariance sample
+figure;
+tiledlayout(2,2);
+
+nexttile;
+
+hold on;
+
+p1 = plot(1:ma11.N, ma11.Ky(1,:), 'k');
+p2 = plot(1:ma12.N, ma12.Ky(1,:), 'b-.');
+p3 = plot(1:ma105.N, ma105.Ky(1,:), 'r-.');
+p4 = plot(1:ma14.N, ma14.Ky(1,:), 'g-.');
+xlim([1, ma11.N]);
+%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);
+legend([p1, p2, p3, p4], ...
+    {'$\theta = (1,1)$', ...
+    '$\theta = (1,2)$', ...
+    '$\theta = (1,0.5)$', ...
+    '$\theta = (1,4)$'}, 'Location', 'north');
+xlabel('$j-tes$ Sample');
+title('a) $k(X_1, X_j|\theta)$ f. $d_F^2$, $\theta_1 = konst.$');
+
+nexttile;
+
+hold on;
+
+p1 = plot(1:mb11.N, mb11.Ky(1,:), 'k');
+p2 = plot(1:mb12.N, mb12.Ky(1,:), 'b-.');
+p3 = plot(1:mb105.N, mb105.Ky(1,:), 'r-.');
+p4 = plot(1:mb14.N, mb14.Ky(1,:), 'g-.');
+xlim([1, mb11.N]);
+%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);
+legend([p1, p2, p3, p4], ...
+    {'$\theta = (1,1)$', ...
+    '$\theta = (1,2)$', ...
+    '$\theta = (1,0.5)$', ...
+    '$\theta = (1,4)$'}, 'Location', 'north');
+xlabel('$j-tes$ Sample');
+title('b) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_1 = konst.$');
+
+nexttile;
+
+hold on;
+
+p1 = plot(1:ma11.N, ma11.Ky(1,:), 'k');
+p2 = plot(1:mc21.N, mc21.Ky(1,:), 'b-.');
+p3 = plot(1:mc051.N, mc051.Ky(1,:), 'r-.');
+p4 = plot(1:mc41.N, mc41.Ky(1,:), 'g-.');
+xlim([1, ma11.N]);
+%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);
+legend([p1, p2, p3, p4], ...
+    {'$\theta = (1,1)$', ...
+    '$\theta = (2,1)$', ...
+    '$\theta = (0.5,1)$', ...
+    '$\theta = (4,1)$'}, 'Location', 'north');
+xlabel('$j-tes$ Sample');
+title('c) $k(X_1, X_j|\theta)$ f. $d_F^2$, $\theta_2 = konst.$');
+
+nexttile;
+
+hold on;
+
+p1 = plot(1:mb11.N, mb11.Ky(1,:), 'k');
+p2 = plot(1:md21.N, md21.Ky(1,:), 'b-.');
+p3 = plot(1:md051.N, md051.Ky(1,:), 'r-.');
+p4 = plot(1:md41.N, md41.Ky(1,:), 'g-.');
+xlim([1, mb11.N]);
+%ylim([min(Mdl1.Ky, [], 'all'), max(Mdl1.Ky, [], 'all')]);
+legend([p1, p2, p3, p4], ...
+    {'$\theta = (1,1)$', ...
+    '$\theta = (2,1)$', ...
+    '$\theta = (0.5,1)$', ...
+    '$\theta = (4,1)$'}, 'Location', 'north');
+xlabel('$j-tes$ Sample');
+title('c) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$');
+
+% plot covariance matrix
+figure;
+tiledlayout(1,2);
+colormap('jet');
+
+nexttile;
+
+
+imagesc(ma11.Ky);
+axis square;
+xlabel('$j$');
+ylabel('$i$');
+title('a) $K(X, X|\theta)$ f. $d_F^2$, $\theta = (1,1)$')
+
+nexttile;
+
+% colormap('jet');
+imagesc(mb11.Ky);
+axis square;
+xlabel('$j$');
+ylabel('$i$');
+title('a) $K(X, X|\theta)$ f. $d_E^2$, $\theta = (1,1)$')
+
+c = colorbar;
+c.TickLabelInterpreter = 'latex';
+
+##### SOURCE END #####
+--></body></html>

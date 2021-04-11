@@ -60,7 +60,7 @@
 \clearpage
 
 
-\paragraph*{Trainingsdatensatz}
+\paragraph*{Trainingsdatensatz} definiert nach der kompakten Notation aus \cite{Rasmussen2006}. Ein Trainingsdatensatz $X$ beinhaltet alle Referenzwinkelstellungen $\alpha_i$ mit $X_i \mapsto \alpha_i$, nach der Beschreibung in \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos,i} = A_x$ und $X_{sin,i} = A_y$. Für die Implementierung mit \autoref{eq:de2innorm} müssen alle Trainingsdatenmatrizen normiert sein, sodass sich Vektoren als Trainingsdaten abbilden, siehe \autoref{eq:trainds}.
 
 
 \begin{align}\label{eq:trainds}
@@ -75,7 +75,7 @@
 \end{align}
 
 
-\paragraph*{Testdatensatz}
+\paragraph*{Testdatensatz} definiert in kompakter Schreibweise nach \cite{Rasmussen2006}. Ein Testdatensatz $X_*$ repräsentiert einen Testwinkel mit $X_* \mapsto \alpha_*$. Auch hier gilt, wie für Trainingsdatensätze $X_i \mapsto \alpha_i$, die Umschreibung nach \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos*} = A_x$ und $X_{sin*}$. Jeweils für die gewählte Implementierung ist auch hier eine Eingangsverarbeitung der Datensätze notwendig \autoref{eq:testds}, sodass die Implementierung nach \autoref{eq:de2innorm} mit Skalaren statt Matrizen arbeitet. 
 
 
 \begin{align}\label{eq:testds}
@@ -88,8 +88,10 @@
 \end{align}
 
 
+\clearpage
 
-\paragraph*{Regressionsziele}
+
+\paragraph*{Regressionsziele} sind als Spaltenvektoren nach \cite{Rasmussen2006} wie in \autoref{eq:gprtarget} definiert. Die Besonderheit hier sind zwei Zielvektoren statt, wie in der Fachliteratur \cite{Rasmussen2006} angegeben, ein Zielvektor. Abstrahiertes Regressionsziel ist der Einheitskreis, daher ergeben einfache Sinoide aus den Referenzwinkeln in \autoref{eq:gprtarget}.
 
 
 \begin{align}\label{eq:gprtarget}

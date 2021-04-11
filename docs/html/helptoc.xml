@@ -29,7 +29,8 @@
             <tocitem target="deleteSimulationPlots.html">deleteSimulationPlots</tocitem>
             <tocitem target="exportPublishedToPdf.html">exportPublishedToPdf</tocitem>
             <tocitem target="demoGPRModule.html">demoGPRModule</tocitem>
-            <tocitem target="investigateKernelParameters.html">investigateKernelParameters</tocitem>
+            <tocitem target="investigateKernelParameters.html">investigateKernelParameters</tocitem>compareGPRKernels
+            <tocitem target="compareGPRKernels.html">compareGPRKernels</tocitem>
         </tocitem>
         <tocitem target="Source_Code.html">Source Code
             <tocitem target="sensorArraySimulation.html">sensorArraySimulation

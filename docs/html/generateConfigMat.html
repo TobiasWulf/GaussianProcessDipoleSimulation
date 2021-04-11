@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-07"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-11"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -315,7 +315,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 20;
+TrainingOptions.nAngles = 56;
 
 <span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
 <span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
@@ -349,7 +349,7 @@ TestOptions.yPos = [0,];
 TestOptions.zPos = [7,];
 
 <span class="comment">% Dipole tilt in z-axes in degree. Fix parameter.</span>
-TestOptions.tilt = 10;
+TestOptions.tilt = 0;
 
 <span class="comment">% Resolution of rotaion in degree, use same resoultion in training and test</span>
 <span class="comment">% datasets to have the ability to back reference the index to fullscale</span>
@@ -394,7 +394,7 @@ GPROptions = struct();
 <span class="comment">% QFC    - Quadratic Frobenius Covariance with excact distance.</span>
 <span class="comment">% QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle</span>
 <span class="comment">%          inequation of matrix norm, minimizes training data to a vector.</span>
-GPROptions.kernel = <span class="string">'QFCAPX'</span>;
+GPROptions.kernel = <span class="string">'QFC'</span>;
 
 <span class="comment">% Initial theta values as vector of [s2f, sl] variance and length scale</span>
 <span class="comment">% parameter of the quadratic frobenius covariance function. Empirical</span>
@@ -436,7 +436,7 @@ GPROptions.s2nBounds = [1e-6, 1e-04];
 <span class="comment">% recommended to set the number of runs to min 30 otherwise the bayes</span>
 <span class="comment">% optimization runs to short in finding error bounds and left with not good</span>
 <span class="comment">% optimized parameters.</span>
-GPROptions.OptimRuns = 50;
+GPROptions.OptimRuns = 5;
 
 
 <span class="comment">% Enables mean function and offset and amplitude correction.</span>
@@ -775,7 +775,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 20;
+TrainingOptions.nAngles = 56;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -815,7 +815,7 @@ TestOptions.yPos = [0,];
 TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TestOptions.tilt = 10;
+TestOptions.tilt = 0;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
@@ -872,7 +872,7 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-GPROptions.kernel = 'QFCAPX';
+GPROptions.kernel = 'QFC';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical 
@@ -914,7 +914,7 @@ GPROptions.s2nBounds = [1e-6, 1e-04];
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 50;
+GPROptions.OptimRuns = 5;
 
 
 % Enables mean function and offset and amplitude correction. 
