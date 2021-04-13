@@ -6,6 +6,9 @@
 \chapter{Gauß-Prozess-Regression Implementierung 0.0.1 09.04.2021}\label{ch:gpr-imp}
 
 
+Im Anhang befindet sich die Beschreibung, der Regression mittels Gauß'scher Prozesse. Die implementierten Mechanismen sind auf die Sensor-Array-Simulation \autoref{ch:sensor-array-sim-imp} angepasst. Es wird sich  an der Anforderungsbeschreibung für ein TMR-Sensor-Array \autoref{sec:prinzip-des-sensor-arrays} orientiert. Eine Standardparametrierung für die Simulationsdurchführung ist in \autoref{tab:gpr-sim-params} einzusehen. Die Notation ist der kompakten Schreibweise für Gauß'sche Prozesse \cite{Rasmussen2006} angepasst. Implementiert ist ein Kernel aus den Vorarbeiten \cite{Schuethe2020b}\cite{Schuethe2020}. Darauf aufbauend ist ein zweiter mit angepasster Eingangswertverarbeitung entworfen worden. Beide Kernel besitzen die Fähigkeit zur Mittelwert freien und Polynom gestützten Regression bzw. Vorhersage \cite{Rasmussen2006}. Das Regressionsmodell kann ganze Sensor-Array-Datensätze verarbeiten. Es sind verschieden Qualitätskriterien implementiert, die Aussagen zur Modellgenauigkeit, Vorhersagesicherheit und Generalisierung treffen. Die Trainingsphase für das Regressionsmodell wird durch \autoref{alg:bayesopt} durchgeführt. Eine anschließende Arbeitsphase ist durch \autoref{alg:gprvorhersage} umgesetzt. Einen Überblick über die Gesamtsoftware, in der dieser Teil ein Modul einnimmt, ist im \autoref{ch:sw-doku} einzusehen. Der Anhang besitzt einen Glossar ähnlichen Charakter und soll als Schnellnachschlagewerk unterstützen.
+
+
 \vspace{5mm}
 \begin{table}[!htbp]
 	\centering
@@ -33,6 +36,9 @@
 
 
 \section{Modellinitialisierung}\label{sec:gprinit}
+
+
+Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg:gprinit}. Dabei sind Modellparametrierung über einen Konfigurationsdatensatz \autoref{tab:gpr-sim-params} zu laden. Ebenfalls sind alle gewählten Trainingsdaten, mit dazugehörigen Simulationswinkel $X \mapsto \alpha_{Ref}$, in die Initialisierung einzuspeisen. Das Modell wird Schritt für Schritt in einem Struct aufgebaut. Dabei sind bestimmte Funktionalitäten, entsprechend der gewählten Konfigurierung, in Funktions-Handles zugewiesen. So sind die Schritte $2, 4, 5$ und $7$ als Funktions-Handles umgesetzt. Das verringert den Speicheraufwand und benötigte Rechenergebnis können dynamisch bei Bedarf erzeugt werden. Nach der Initialisierung müssen, Modellkonfiguration aus Schritt $1$, die Regressionsziele aus Schritt $3$, die $L$-Matrix aus Schritt $8$ und die Regressionsgewichte aus Schritt $12$ als gespeicherte Werte, für die Vorhersage nach \autoref{alg:gprvorhersage} vorliegen. Die Modellkonfiguration aus Schritt $1$ und die berechneten Modellplausibilitäten aus Schritt $13$ sind für die Modelloptimierung nach \autoref{alg:fminconopt} entscheidend. Das Modell wird in der Optimierung z.T. reinitialisiert. Die einzelnen Initialisierungsschritte sind nachfolgend zusammengefasst aufgeführt. Es ist ein mathematisch Bezug zur Implementierung in \autoref{ch:sw-doku} und Notation nach Fachliteratur \cite{Rasmussen2006} vorgenommen worden.
 
 
 \begin{algorithm}[bhp]
@@ -75,7 +81,7 @@
 \end{align}
 
 
-\paragraph*{Testdatensatz} definiert in kompakter Schreibweise nach \cite{Rasmussen2006}. Ein Testdatensatz $X_*$ repräsentiert einen Testwinkel mit $X_* \mapsto \alpha_*$. Auch hier gilt, wie für Trainingsdatensätze $X_i \mapsto \alpha_i$, die Umschreibung nach \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos*} = A_x$ und $X_{sin*}$. Jeweils für die gewählte Implementierung ist auch hier eine Eingangsverarbeitung der Datensätze notwendig \autoref{eq:testds}, sodass die Implementierung nach \autoref{eq:de2innorm} mit Skalaren statt Matrizen arbeitet. 
+\paragraph*{Testdatensatz} definiert in kompakter Schreibweise nach \cite{Rasmussen2006}. Ein Testdatensatz $X_*$ repräsentiert einen Testwinkel mit $X_* \mapsto \alpha_*$. Auch hier gilt, wie für Trainingsdatensätze $X_i \mapsto \alpha_i$, die Umschreibung nach \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos*} = A_x$ und $X_{sin*} = A_y$. Jeweils für die gewählte Implementierung ist auch hier eine Eingangsverarbeitung der Datensätze notwendig \autoref{eq:testds}, sodass die Implementierung nach \autoref{eq:de2innorm} mit Skalaren statt Matrizen arbeitet. 
 
 
 \begin{align}\label{eq:testds}
@@ -91,7 +97,7 @@
 \clearpage
 
 
-\paragraph*{Regressionsziele} sind als Spaltenvektoren nach \cite{Rasmussen2006} wie in \autoref{eq:gprtarget} definiert. Die Besonderheit hier sind zwei Zielvektoren statt, wie in der Fachliteratur \cite{Rasmussen2006} angegeben, ein Zielvektor. Abstrahiertes Regressionsziel ist der Einheitskreis, daher ergeben einfache Sinoide aus den Referenzwinkeln in \autoref{eq:gprtarget}.
+\paragraph*{Regressionsziele} sind als Spaltenvektoren nach \cite{Rasmussen2006} wie in \autoref{eq:gprtarget} definiert. Die Besonderheit hier sind zwei Zielvektoren statt einer, wie in der Fachliteratur \cite{Rasmussen2006} angegeben. Abstrahiertes Regressionsziel ist der Einheitskreis, daher ergeben sich einfache Sinoide aus den Referenzwinkeln in \autoref{eq:gprtarget}.
 
 
 \begin{align}\label{eq:gprtarget}
@@ -101,7 +107,7 @@
 \end{align}
 
 
-\paragraph*{Kernel-Funktion}
+\paragraph*{Kernel-Funktion} als Kernelement des Regressionsverfahren für Gauß'sche Prozesse \cite{Rasmussen2006}. Es sind zwei Versionen nach gleichen Vorbild der fraktalen Kovarianz \cite{Schuethe2020b}\cite{Schuethe2020}  implementiert. Die Implementierung mittels \autoref{eq:df2} resultiert aus den Vorarbeiten der \gls{gl:ags} und stellt die genaue Lösung dar und arbeitet direkt mit Matrizen als Trainingsdaten. Die Implementierung nach mit \autoref{eq:de2innorm} ist innerhalb dieser Arbeit entstanden und bedingt ein vorab Prozessieren der Trainingsdaten zu Vektoren. Ebenfalls müssen weitere Testdaten eingangs zu skalaren verarbeitet werden. Dazu wird die Frobenius-Norm aus \autoref{eq:fnorm} verwendet. Die Implementierung nach \autoref{eq:de2innorm} folgt dem Beispiel, aus einer Veröffentlichung der TU-München \cite{Lang2014}, für die Anwendung der Gauß-Prozess-Regression auf Themenfeld der Robotik.
 
 
 \begin{align}\label{eq:kfun}
@@ -114,7 +120,10 @@
 \end{align}
 
 
-\paragraph*{Kernel-Parameter}
+\clearpage
+
+
+\paragraph*{Kernel-Parameter} für die Kovarianz- oder Kernel-Funktion bilden sich die Funktionsparameter, wie in \autoref{eq:kparam} beschrieben. Bei der Parameteridentifizierung ist das Auslöschungskriterium für gültige Kovarianzfunktionen elementar \cite{Rasmussen2006}. Dabei ist der Fall abzudecken, dass die Abstandsfunktion der Kovarianz zu null wird, wenn Datensätze mit sich selbst prozessiert werden. In diesem Fall muss die Kovarianzfunktion $\sigma_f^2$ ergeben.
 
 
 \begin{equation}\label{eq:kparam}
@@ -122,8 +131,8 @@
 \end{equation}
 
 
-\paragraph*{Kovarianzmatrix}
-K
+\paragraph*{Kovarianzmatrix} als Autokorrelationsergebnis, ist für alle bereitgestellten Trainingsdaten untereinander mit \autoref{alg:kmatrix} zu berechnen \cite{Rasmussen2006}. Das Ergebnis, in quadratischer Matrixform, definiert das Verhalten des Gesamtsystems über gemessene Einzelabstände der Trainingsdaten zueinander. Es bedeutet, dass für ein Sensor-Array auf Basis des TMR-Sensors \cite{TDK2016} in Drehwinkelapplikation \autoref{fig:sensor-array-prinzip}, die $\SI{360}{\degree}$ Periodizität ersichtlich sein muss. Was eine Maxima-Diagonale von links nach rechts und annähernde Max-Werte in den beiden übrigen Ecken der Matrix impliziert.
+
 
 \begin{algorithm}[h]
 	\SetAlgoLined
@@ -140,7 +149,7 @@ K
 \end{algorithm}
 
 
-\paragraph*{Rauschaufschaltung}
+\paragraph*{Rauschaufschaltung} durch konstantes Rauschniveau $\sigma_n^2$ und minimaler Anhebung der Kovarianzmatrix-Diagonalen, für verrauschte bzw. fehlerbehaftete Regression \cite{Rasmussen2006}. Entsprechend der Fachliteratur ist die Kovarianzmatrix inklusive additives Rauschen als $K_y$ bezeichnet \cite{Rasmussen2006}.
 
 
 \begin{equation}\label{eq:addnoise}
@@ -148,7 +157,7 @@ K
 \end{equation}
 
 
-\paragraph*{Cholesky-Zerlegung $K_y$}
+\paragraph*{Cholesky-Zerlegung $K_y$} als Ansatz zum Lösen der Regressionsmechanismen. Dem Regressionsverfahren zugrundeliegenden Lösungen der Wahrscheinlichkeitsdichte-Integrale sind über Matrix- und Vektormultiplikation mit Inversen Matrizen in linearen Gleichungssystemen gelöst \cite{Rasmussen2006}. Für das Lösen der Gleichungssysteme mit inversen Matrizen, ist die Zerlegung der nicht inversen Matrix in eine untere Dreiecksmatrix möglich. Die Cholesky-Zerlegung schafft entsprechenden Repräsentant $L$ für die Matrix $K_y$. Die logarithmierte Determinante ist mit \autoref{eq:chol} zu berechnen. Matrizen müssen symmetrisch und positiv definit sein, um die Cholesky-Zerlegung anwenden zu können \cite{Rasmussen2006}.
 
 
 \begin{align}\label{eq:chol}
@@ -158,9 +167,11 @@ K
 \end{align}
 
 
-\paragraph*{Basis-Funktion}
+Es sollen damit Gleichungssysteme wie $Ax = b \Leftrightarrow x = A^{-1}b$ über zerlegten Repräsentanten gelöst sein $Ly = b \Leftrightarrow L^Tx = y$. Als Notation für die notwendige Lösung der linearen Gleichungssystem ist der Backslash-Operator genutzt $x = L^T \backslash (L \backslash b)$ \cite{Rasmussen2006}. Der Backslash-Operator steht ebenfalls in Matlab zur Verfügung.
 
-Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
+
+\paragraph*{Basis-Funktion} als Aufbaufunktion für Polynome aus Trainings- und Testdaten. Das Regressionsverfahren mittels Gauß'scher Prozesse kann in zwei Ausführungen betrieben werden. Die erste ist eine Regression ohne weitere Mittelwerte als Regressionshilfe. In zweiter Ausführung können Mittelwerte der Daten z.B. über Polynomfindung gebildet sein. Dafür bedingt es eine Basis-Funktion nach \autoref{eq:hfun}, die entsprechend der Kernel-Funktion und resultierende Datenformate Polynome bildet \cite{Rasmussen2006}. In der Implementierung sind Polynome ersten Grades verwendet. Was einer Offset- und Amplitudenkorrektur der Trainings- und Testdaten entspricht. Die in \autoref{eq:hfun} gezeigten Funktionen müssen, jeweils für beide Cosinus und Sinus Datentypen gebildet werden und beziehen sich hier in der Darstellung für einen einzigen Simulationswinkel $X_* \mapsto \alpha_*$.
+
 
 \begin{align}\label{eq:hfun}
 	h_{cos}(X_{cos*}) &=
@@ -179,7 +190,7 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{align}
 
 
-\paragraph*{Mittelwertpolynom}
+\paragraph*{Mittelwertpolynome} bauen sich über die Basis-Funktionen aus \autoref{eq:hfun} für Trainingsdaten auf. Es resultieren Matrizen \cite{Rasmussen2006}, deren erste Reihe gleich eins ist und jede weitere Reihe mit entsprechenden Exponent für die Polynomgenerierung versehen ist. Die Polynombildung ist jeweils für beide Cosinus- und Sinus-Datensätze durchzuführen, wenn die Mittelwertbildung aktiv ist.
 
 
 \begin{align}\label{eq:hmatrix}
@@ -189,7 +200,7 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 			\big[ h_{cos}(X_{cos,i}),\ldots,h_{cos}(X_{cos,N_{Ref}}) \big] &\qquad \text{f. } m_{cos}(X_{cos}) \ne 0
 		\end{cases} \nonumber \\
 	\\
-	H_{sin}(X_{cos}) &=
+	H_{sin}(X_{sin}) &=
 		\begin{cases}
 			0															   &\qquad \text{f. } m_{sin}(X_{sin}) = 0 \\
 			\big[ h_{sin}(X_{sin,i}),\ldots,h_{sin}(X_{sin,N_{Ref}}) \big] &\qquad \text{f. } m_{sin}(X_{sin}) \ne 0
@@ -201,7 +212,11 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{align}
 
 
-\paragraph*{Polynomkoeffizienten}
+
+\paragraph*{Polynomkoeffizienten} zur Mittelwertbildung über gebildet Polynome nach \autoref{eq:hfun} und \autoref{eq:hmatrix}, sind benötigte Polynomkoeffizienten nach \autoref{eq:betacoeffs} zu berechnen \cite{Rasmussen2006}. Zur Berechnung der Koeffizienten sind mehrere inverse Matrix-Produkte verschachtelt zu lösen. 
+
+
+\clearpage
 
 
 \begin{align}\label{eq:betacoeffs}
@@ -223,7 +238,10 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{align}
 
 
-\begin{algorithm}
+Zur Bewältigung des Problems ist \autoref{alg:beta-koeffs} implementiert worden und jeweils für beide Cosinus- und Sinus-Polynome aus \autoref{eq:hmatrix} durchzuführen. Die Polynom- und Koeffizientenbestimmung entfällt, wenn die Mittelwertbildung ausgeschaltet ist.
+
+
+\begin{algorithm}[hp]
 	\SetAlgoLined
 	\KwIn{Polynommatrix $H$, Untere Dreiecksmatrix $L(K_y)$, Regressionsziel $y$}
 	\KwResult{$\beta$-Koeffizienten}
@@ -246,13 +264,16 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 		}
 		$A_2 = V$\;
 	\Indm
-	\textbf{5.} $\beta = A_2 \cdot a_0$
+	\textbf{5.} $\beta = A_2 \cdot a_0$\;
 	\caption{Berechnung der $\beta$ Polynomkoeffizienten aus \autoref{eq:betacoeffs}}
 	\label{alg:beta-koeffs}
 \end{algorithm}
 
 
-\paragraph*{Mittelwertfunktion}
+\clearpage
+
+
+\paragraph*{Mittelwertfunktionen} für die Regression setzen sich aus gebildeten Polynomen und den bestimmten Polynomkoeffizienten nach \autoref{eq:gprmean} zusammen \cite{Rasmussen2006}. Für alle Trainingsdaten mittels Polynommatrizen und für einzelne Testdaten über die Basis-Funktion. Bei eingeschalteter Mittelwertbildung, bildet sich das Regressionsergebnis über die Summe aus Mittelwertberechnung und Stützwertsumme \cite{Rasmussen2006}. Die Mittelwertrechnung ist für beide Cosinus- und Sinus-Datensätze umzusetzen. 
 
 
 \begin{align}\label{eq:gprmean}
@@ -276,7 +297,10 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{align}
 
 
-\paragraph*{Regressionsgewichte}
+\clearpage
+
+
+\paragraph*{Regressionsgewichte} oder Stützwerte für die Vorhersage beider Sinoide sind jeweils, in Abhängigkeit der dazugehörigen Regressionsziele und Mittelwerte, über inverse Matrix-Produkt aus $K_y^{-1}$ und das Residual aus Ziel und Mittelwert zu bilden. \autoref{eq:gprweights} beschreibt die Lösung des resultierenden Gleichungssystem über die untere Dreiecksmatrix $L$ der Kovarianzmatrix $K_y$ \cite{Rasmussen2006}. Die Gewichtsbildung veranschaulicht am besten den Gesamtablauf des Verfahrens. Es sind zwei unterschiedliche Regressionen, jeweils für Cosinus- und Sinus-Funktionen durchzuführen. Dabei stützen sich beide Regressionen auf eine gemeinsame Kovarianzbewertung, der zugrundeliegenden Trainingsdatensätze \cite{Schuethe2020}. Die Kovarianzmatrix stellt somit die vektorielle und orthogonale Kopplung der Daten her und impliziert ihre gegenseitige Abhängigkeit.
 
 
 \begin{align}\label{eq:gprweights}
@@ -292,7 +316,10 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{align}
 
 
-\paragraph*{Modellplausibilität}
+\clearpage
+
+
+\paragraph*{Modellplausibilitäten} oder Regressionsevidenzen, sind entsprechend der Regressionsausrichtung, über Residuale und Regressionsgewichte in \autoref{eq:likelihoods} zu bilden \cite{Rasmussen2006}. Jeweils wieder für beide Cosinus- und Sinus-Datensätze. Die so aufgestellten Plausibilitäten bewerten den Regressions-Fit in Bezug auf die Trainingsdaten. In der Fachliteratur \cite{Rasmussen2006} sind diese auch als Logarithmic-Marginal-Likelihoods bezeichnet. Sie bieten einen Indikator für den Daten-Fit, der $< 0$ wird für eine schlechte Anpassung, $\approx 0$ ist bei mäßiger Anpassung und $> 0$ ist für eine gute Modellanpassung. Dabei sind Werte $> 30$ als sehr gute Anpassung Modellanpassung für jeweilige Sinoide zu interpretieren. Bei Plausibilitäten größer $> 60$ stellt sich ein zu Starker Fit auf die Trainingsdaten ein. Das wird als Overfitting bezeichnet. Ein so über parametriertes Modell, verliert dabei seine Fähigkeit zur Generalisierung und liefert nur für die Trainingsdaten selber valide Ergebnisse. Testdaten, die von den Trainingsdaten abweichen, können somit nicht mehr korrekt prozessiert werden. Die Interpretation der Likelihoods ist aus der Fachliteratur \cite{Rasmussen2006} entnommen und für empfohlene Werte empirisch bestimmt worden. Die einzelnen Plausibilitäten müssen ungefähr gleich groß sein, andernfalls besteht ein Ungleichgewicht in der Vorhersage. Resultierende Ergebnisse sind dann im Winkel und Radius verfälscht. Hergestellt wird das Gleichgewicht durch die Kovarianzkopplung, mittels gemeinsamer Kovarianzmatrix.
 
 
 \begin{align}\label{eq:likelihoods}
@@ -310,6 +337,9 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 
 
 \section{Modelloptimierung}\label{sec:gpropt}
+
+
+Die Optimierung bezieht sich auf ein fertig initialisiertes Modell nach \autoref{alg:gprinit}. Dieses muss dafür einen vollständigen Parametersatz \autoref{tab:gpr-sim-params} inklusive Bounds beinhalten. Ebenfalls müssen alle Trainingsdaten entsprechend der gewählten Implementierung im Modell enthalten sein. Die Optimierung in \autoref{alg:fminconopt} ist mittels Fmincon-Funktion (Matlab) implementiert und nutzt einen Sequential-Quadratic-Programming-Algorithmus um das Minimum-Kriterium aus \autoref{eq:fmincon} zu steuern. Das Modell wird im Prozess so lange reinitialisiert, bis keine graduelle Änderung des Kriteriums mehr festgestellt werden können. Kritisch im Optimierungsverfahren sind dabei, die zu setzenden Parameter-Bounds für $\theta$. Sind die Grenzen des Suchfeldes zu eng gesetzt, kann das Minimum nicht erreicht werden. Der Algorithmus wird dann die Bounds selbst als Ergebnis liefern. Sind die Bounds zu weit abgesteckt ist es theoretisch möglich, dass das Minimum nicht vor Abbruch gefunden werden kann. In der Regel findet sich das Minimum, mit der getroffenen Implementierung, nach $6-24$ Durchläufe. Das ist empirisch durch ausgegebene Grafiken beobachtet worden.
 
 
 \begin{algorithm}[htp]
@@ -332,7 +362,10 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{algorithm}
 
 
-\paragraph*{Min-Kriterium}
+\clearpage
+
+
+\paragraph*{Min-Kriterium} als zusammengesetztes Kriterium aus den einzelnen Modellplausibilitäten für die Cosinus- und Sinus-Vorhersage. Der Bildungsansatz ist aus einem Regressionsproblem der Computer-Vision \cite{Guerrero2014} adaptiert und nach dem Leitwerk zur Verfahrensentwicklung \cite{Rasmussen2006} angepasst worden. Die Findung optimaler Kovarianz- bzw. Kernel-Parameter, kann nach Gleichung \autoref{eq:fmincon} vorgenommen werden. Dafür sind Modellplausibilitäten, für die einzelnen Sinoiden, als Funktion von Kernel-Parametern zu betrachten. Das Kriterium ergibt sich, als negative Summe der einzelnen Plausibilitäten \autoref{eq:likelihoods}. Das aufgestellte Minimierungsproblem ist bei einem konstanten Rauschniveau $\sigma_n^2$ und verschieden Kernel-Parameter $\theta$ zu untersuchen.
 
 
 \begin{align}\label{eq:fmincon}
@@ -345,14 +378,17 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \clearpage
 
 
-\section{Modellvorhersagen}
+\section{Modellvorhersagen}\label{sec:gprpred}
+
+
+Die Implementierung für Winkelvorhersagen, auf Grundlage von Datensätzen der Sensor-Array-Simulation \autoref{ch:sensor-array-sim-imp}, läuft nach \autoref{alg:gprvorhersage} ab. Der Algorithmus zeigt, die Vorhersage für eine Winkelstellung und ist für mehrere Winkel zu wiederholen. Die geschriebene Software in \autoref{ch:sw-doku}, kann einen Winkelsatz oder komplette Datensätze, bestehend aus mehreren Winkelsätzen prozessieren. Für letzteres stehen Ergebnisse als Vektoren zur weiteren Analyse oder Optimierung bereit.
 
 
 \begin{algorithm}[htp]
 	\SetAlgoLined
 	\KwIn{Modell inkl. $X$, $\theta,\sigma_n^2$, Testdatensatz (inkl. Testwinkel $\alpha_*$) $X_* \mapsto \alpha_*$}
 	\KwResult{Sinoide $\bar{f}_{cos*}, \bar{f}_{sin*}$, Radius $\bar{r}_*$, Winkel $\bar{\alpha}$, Sinoide Varianz $\mathbb{V}\left[ \bar{f}_* \right]$,
-		Sinoide Std.-Abweichung $s_*$, Konfidenzintervalle $CIA_{95\%}, CIR_{95\%}$, std. log. Verluste $SLLA, SLLR$
+		Sinoide Std.-Abweichung $s_*$, Konfidenzintervalle $CIA_{95\%}, CIR_{95\%}$, std. log. Verluste $(SLLA), SLLR$
 	}
 	\textbf{1.} Berechnung Kovarianzvektor $\mathbf{k}_* \leftarrow$ \autoref{eq:kvektor}\;
 	\textbf{2.} Berechnung Varianzvorhersage $\mathbb{V}\left[ \bar{f}_* \right] \leftarrow$ \autoref{eq:predvar}\;
@@ -360,13 +396,13 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 	\textbf{4.} Berechnung Radius $\bar{r}_*$, Winkel $\bar{\alpha}$ $\leftarrow$ \autoref{eq:predangrad}\;
 	\textbf{4.} Berechnung Std.-Abweichung $s_* \leftarrow$ \autoref{eq:predstd}\;
 	\textbf{6.} Berechnung Konfidenzintervalle $CIA_{95\%}$, $CIR_{95\%}$ $\leftarrow$ \autoref{eq:predci}\;
-	\textbf{7.} Berechnung std. log. Verluste ($SLLA$), $SLLR$ $\leftarrow$ \autoref{eq:predsll}
+	\textbf{7.} Berechnung std. log. Verluste ($SLLA$), $SLLR$ $\leftarrow$ \autoref{eq:predsll}\;
 	\caption{Modellvorhersage f. Sinoide eines Testwinkel mit $X_* \mapsto \alpha_*$}
 	\label{alg:gprvorhersage}
 \end{algorithm}
 
 
-\paragraph*{Kovarianzvektor}
+\paragraph*{Kovarianzvektor} als Regressionsmaß für einen einzigen Testdatensatz mit zugehörigen Simulationswinkel $X_* \mapsto \alpha_*$. Ist der Vektor $\mathbf{k}_*$ nach \autoref{alg:kmatrix} zu bilden. Er stellt den Vergleichsbezug von Testdaten $X_*$ zu allen Trainingsdaten $X$ her und löst die neue Winkelstellung in Relation zu den Trainingsdaten auf \cite{Rasmussen2006}. Der Kovarianzvektor $\mathbf{k}_*$ ist mit aktuellen Modellparametern zu berechnen \autoref{eq:kvektor}.
 
 \begin{align}\label{eq:kvektor}
 	& \mathbf{k}_* =  K(X, X_* | \theta) \qquad\qquad\qquad \text{mit } \text{\autoref{alg:kmatrix}} \\
@@ -374,14 +410,20 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{align}
 
 
-\paragraph*{Mittelwertvorhersage}
+\clearpage
+
+
+\paragraph*{Mittelwertvorhersage} als Mittelwertergebnis für eine Standardnormalverteilung, sind über die Summe aus Mittelwertschätzung \autoref{eq:gprmean} und Produkt aus Kovarianzvektor \autoref{eq:kvektor} mit Regressionsgewichte \autoref{eq:gprweights} zu bilden \cite{Rasmussen2006}. Jeweils für beide Funktionen Cosinus und Sinus. Die Systematische Kopplung erfolgt über den gemeinsamen Kovarianzvektor.
 
 
 \begin{align}\label{eq:predmean}
-	\bar{f}_{cos*} = m_{cos}(X_{cos*}) + \mathbf{k}_{cos*}^T \cdot \alpha_{cos} \nonumber \\
+	\bar{f}_{cos*} = m_{cos}(X_{cos*}) + \mathbf{k}_*^T \cdot \alpha_{cos} \nonumber \\
 	\\
-	\bar{f}_{sin*} = m_{sin}(X_{sin*}) + \mathbf{k}_{sin*}^T \cdot \alpha_{sin} \nonumber
+	\bar{f}_{sin*} = m_{sin}(X_{sin*}) + \mathbf{k}_*^T \cdot \alpha_{sin} \nonumber
 \end{align}
+
+
+Regressierter Winkel und Radius aus der Cosinus- und Sinus-Vorhersage, ergeben sich aus der Anwendungsbeschreibung im \autoref{sec:kreisdarstellung-anwendung} durch \autoref{eq:predangrad}.
 
 
 \begin{align}\label{eq:predangrad}
@@ -391,19 +433,22 @@ Erstmal bis Polynom 1. Grades für Amplituden und Offset Korrektur
 \end{align}
 
 
-
-\paragraph*{Varianzvorhersage}
+\paragraph*{Varianzvorhersage} als Korrelation eines Testdatensatz $X_*$ mit sich selbst. Dafür ist der Datensatz $X_*$ \autoref{alg:kmatrix} zuzuführen und zur Varianz der Vorhersage
+$\mathbb{V}\left[ \bar{f}_* \right]$ im Vergleich zur Kovarianzmatrix und Kovarianzvektor mit \autoref{eq:predvar} aufzulösen. Die Varianz $\mathbb{V}\left[ \bar{f}_* \right]$ gilt jeweils für beide Sinoide Regressionsprozesse \cite{Rasmussen2006}. Dieser Fall deckt sich mit dem Auslöschungskriterium für gültige Kovarianzfunktion und kann in diesem Fall durch einen numerischen Fehler $\Delta\epsilon$ leicht vom theoretischen Rechenergebnis abweichen.
 
 
 \begin{align}\label{eq:predvar}
-	\mathbb{V}\left[ \bar{f}_* \right] &= k(X_*, X_*) - \mathbf{k}_*^T K_y^{-1} \mathbf{k}_* \nonumber \\
-									   &= k(X_*, X_*) - v^T v \\
+	\mathbb{V}\left[ \bar{f}_* \right] &= K(X_*, X_*|\theta) - \mathbf{k}_*^T K_y^{-1} \mathbf{k}_* \nonumber \\
+									   &= K(X_*, X_*|\theta) - v^T v \\
 									   &= (\sigma_f^2 + \Delta\epsilon) - v^T v \nonumber \\
 						 \text{mit } v &= L \backslash \mathbf{k}_* \text{ und } \Delta\epsilon \text{ numerischer Fehler} \nonumber
 \end{align}
 
 
-\paragraph*{Standardabweichung}
+\clearpage
+
+
+\paragraph*{Standardabweichung} als zugehörige Abweichung der Mittelwertvorhersage für eine Standardnormalverteilung, ergibt sich aus der Varianzvorhersage und dem verwendeten Rauschniveau nach \autoref{eq:predstd} \cite{Rasmussen2006}. Die Standardabweichung gilt, jeweils als Abweichung für beide Sinoide als eigenständige und statistische Prozesse. Fehler der einzelnen Prozesse, müssen sich in einer kombinierten Auswertung, durch Addition ihrer Einzelvarianzen $s_*^2$, für eine gemeinsame Abschätzung fortpflanzen.
 
 
 \begin{equation}\label{eq:predstd}
@@ -411,7 +456,7 @@ s_* = \sqrt{\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2}
 \end{equation}
 
 
-\paragraph*{Qualitätskriterien}
+\paragraph*{Qualitätskriterien} können über die ermittelte Standardabweichung $s_*$ der Einzelregressionen gebildet werden. Dafür muss diese gemäß der Fehlerfortpflanzung für die einzelnen statistischen Prozesse mit dem Faktor $\sqrt{2}$ versehen werden, da sich die Varianz für Cosinus und Sinus zusammensetzt und verdoppelt mit $s_* \sqrt{2} = \sqrt{2(\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2)}$. Konfidenzintervalle für ermittelten Winkel $\bar{\alpha}_*$ und Radius $\bar{r}_*$, können daher direkt mit $95\% \leftarrow z_{CDF}$-Faktor für normalverteilte Wahrscheinlichkeiten und kumulativer Dichtefunktion berechnet werden. Der Radikant für die Stichprobenanzahl entfällt, da immer nur ein Testwert prozessiert wird. Es ergeben sich das Konfidenzintervall für Winkel $CIA_{95\%}$ und für Radius $CIR_{95\%}$ nach der \autoref{eq:predci}. Für das Winkelintervall ist die statistische Aussage mit $arcsin \big( z_{CDF} \cdot s_* \sqrt{2} \big)$ ins Winkelmaß überführt.
 
 
 \begin{align}\label{eq:predci}
@@ -422,6 +467,17 @@ s_* = \sqrt{\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2}
 
 
 
+
+
+Zwei weitere Qualitätskriterien, zur Interpretation der Modellgeneralisierung, können über standardisierte logarithmische Verluste (engl. std. log. loss) berechnet werden \cite{Rasmussen2006}. Die Berechnung erfolgt, als Vergleich zwischen Soll- und errechneten Istwerten, unter Berücksichtigung der Fehlerfortpflanzung und Winkelmaß nach \autoref{eq:predsll}. Es ergibt sich der Verlust $SLLA$ für Winkel und $SLLR$ für Radius.
+
+
+\clearpage
+
+
+Verluste $SLLA$ stehen nur zur Verfügung, wenn Simulations- oder Encoder-Winkel in der Vorhersage mit einbezogen sind. Verluste $SLLR$ für Radius stehen immer zur Verfügung, da mit Einheitskreis als Regressionsziel, der Sollradius gleich eins ist. Ein schlecht generalisiertes Modell liefert positive Verlustwerte $>0$. Eine mäßige Generalisierung liefert Verluste $\approx 0$. Eine gute bis sehr gute Generalisierung liefert strikt Verlustwerte $<0$ \cite{Rasmussen2006}.
+
+
 \begin{align}\label{eq:predsll}
 	SLLA &= 0,5 \cdot \bigg( \log \big( 2\pi \arcsin^2 \big( s_* \sqrt{2}) \big) + \frac{(\alpha_* - \bar{\alpha}_*)^2}{\arcsin^2 \big( s_* \sqrt{2} \big)}\bigg) \nonumber \\
 	\\
@@ -429,10 +485,27 @@ s_* = \sqrt{\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2}
 \end{align}
 
 
+\section{Modellgeneralisierung}\label{sec:gprgen}
+
+
+\autoref{alg:bayesopt} zur Modellgeneralisierung vereinigt die Algorithmen \ref{alg:gprinit} und \ref{alg:fminconopt} in sich und nutzt diese in Verbindung mit einem Bayes-Optimierungsverfahren zur Ermittlung des passenden Rauschniveau $\sigma_n^2$. Das Bayes-Optimierungsverfahren ist in Matlab über die BayesOpt-Funktion implementiert und wird mit dem Probier-Algorithmus Improve-Per-$2^{nd+}$ betrieben. Entscheidend bei der Ausführung ist die Durchlaufzahl der Bayes-Optimierung, da sich das Verfahren durch Ausprobieren von $\sigma_n^2$ und Vergleich des resultierenden Min-Kriterium \autoref{eq:bayesopt}, Schritt für Schritt der optimalen Lösung annähert. 
+
+
+\begin{align}\label{eq:bayesopt}
+\sigma_n^2|X_*,\alpha_* &= \underset{\sigma_n^2}{\arg\min} \text{ } MSLLA(\sigma_n^2|X_*,\alpha_*) \nonumber \\
+\\
+MSLLA &= \frac{0,5}{N_*} \cdot \bigg( \log \big( 2\pi \arcsin^2 \big( s_* \sqrt{2} \big) \big) + \frac{(\alpha_* - \bar{\alpha}_*(X_*))^2}{\arcsin^2 \big( s_* \sqrt{2} \big)}\bigg) \nonumber
+\nonumber \\
+\nonumber \\
+& \text{mit } s_*^2 = \sigma_n^2 + \mathbb{V}\left[ \bar{f}_* \right] \text{f. alle } N_* \text{ Testdaten } X_* \nonumber \\
+& \text{und Testwinkel } X_* \mapsto \alpha_* \nonumber
+\end{align}
+
+
 \clearpage
 
 
-\section{Modellgeneralisierung}
+Je nach dem wie die Grenzen der einzelnen Modellparameter gewählt sind, kann das unterschiedlich schnell passieren. Wird der Algorithmus zu früh abgebrochen, ist die optimale Lösung wahrscheinlich nicht gefunden. Daher empfiehlt sich für Anfangsuntersuchungen mit weiten Parameter-Bounds eine Durchlaufzahl $\ge 50$ zu wählen.
 
 
 \begin{algorithm}[htp]
@@ -445,29 +518,25 @@ s_* = \sqrt{\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2}
 	\textbf{4.} Initialisierung BayesOpt-Funktion mit Durchlaufzahl $\leftarrow$ \autoref{tab:gpr-sim-params}\;
 	\textbf{5.} \While{Durlaufzahl nicht erreicht}{
 		Zuweisung innerhalb Rauschniveau-Bounds $\sigma_n^2 \leftarrow$ BayesOpt-Funktion\;
-		Modelloptimierung von 1. mit neuen $\sigma_n^2 \leftarrow$ \autoref{alg:fminconopt}\
+		Modelloptimierung von 1. mit neuen $\sigma_n^2 \leftarrow$ \autoref{alg:fminconopt}\;
 		Berechnung f. alle Testwinkel $MSSLA \leftarrow$ \autoref{eq:bayesopt}\;
 		Speichern und indizieren von $\sigma_n^2$ f. jedes Ergebnis $MSSLA$;
 	}
 	\textbf{6.} Entnahme von $\sigma_n^2$ bei $\min MSSLA$\;
 	\textbf{7.} Speichern von $\sigma_n^2$ in 1.\;
 	\textbf{8.} Finale Modelloptimierung von 1. $\leftarrow$ \autoref{alg:fminconopt}\;
-	\textbf{9.} Berechnung und Mittelung f. alle Testwinkel $SSLA, SLLR \leftarrow$ \autoref{eq:predsll}\;
+	\textbf{9.} Berechnung und Mittelung f. alle Testwinkel $SLLA, SLLR \leftarrow$ \autoref{eq:predsll}\;
 	\caption{Modellgeneralisierung über BayesOpt-Funktion f. alle $X_* \mapsto \alpha_*$}
 	\label{alg:bayesopt}
 \end{algorithm}
 
 
-\paragraph*{Min-Kriterium}
 
 
-\begin{align}\label{eq:bayesopt}
-	\sigma_n^2|X_*,\alpha_* &= \underset{\sigma_n^2}{\arg\min} \text{ } MSLLA(\sigma_n^2|X_*,\alpha_*) \nonumber \\
-	\\
-	MSLLA &= \frac{0,5}{N_*} \cdot \bigg( \log \big( 2\pi \arcsin^2 \big( s_* \sqrt{2} \big) \big) + \frac{(\alpha_* - \bar{\alpha}_*(X_*))^2}{\arcsin^2 \big( s_* \sqrt{2} \big)}\bigg) \nonumber
-	\nonumber \\
-	\nonumber \\
-	& \text{mit } s_*^2 = \sigma_n^2 + \mathbb{V}\left[ \bar{f}_* \right] \text{f. alle } N_* \text{ Testdaten } X_* \nonumber \\
-	& \text{und Testwinkel } X_* \mapsto \alpha_* \nonumber
-\end{align}
+
+\paragraph*{Min-Kriterium} als Mittelwertbildung aller standardisierten logarithmischen Winkelverluste aus \autoref{eq:predsll}. Es sind für jeden verfügbaren Testdatensatz und zugehörigen Simulationswinkel
+$X_* \mapsto \alpha_*$ die Verluste nach \autoref{eq:bayesopt} auszurechnen und zu $MSLLA$ zu mitteln \cite{Rasmussen2006}. Im Anschluss ist gebildeter Mittelwert einem Minimierungsverfahren zur Ermittlung des passenden Rauschniveaus $\sigma_n^2$ zuzuführen. Das Minimierungsproblem induziert dabei für jedes ausprobierte $\sigma_n^2$ ein Regressionsmodell. Die berechneten Modelle sind über ihre mittleren Verlust $MSLLA$ miteinander zu vergleichen \cite{Rasmussen2006}. Das Modell für $\min MSLLA$, besitzt die stärkste Generalisierung und somit das optimiert Rauschniveau $\sigma_n^2$ und sich nach \autoref{alg:fminconopt} ergebenen optimierten Kernel-Parameter $\theta|\sigma_n^2$. Auch hier gilt wie für \autoref{eq:predsll}, dass sich eine gute Generalisierung für $MSLLA < 0$ einstellt. Empirisch beobachtet Werte, liegen dabei im Intervall von $-2 < MSLLA < -5$.
+
+
+
 
