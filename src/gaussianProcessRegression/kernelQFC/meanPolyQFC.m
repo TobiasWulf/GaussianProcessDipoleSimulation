@@ -1,48 +1,40 @@
 %% meanPolyQFC
-% Basis or trend function to compute the H matrix as set of h(x) vectors for each
-% predictor to apply a mean feature space as polynom approximated mean with beta coefficients.
-% Compute H matrix to estimate beta.
+% Basis or trend function to compute the H matrix as set of h(x) vectors for
+% each predictor to apply a mean feature space as polynom approximated mean 
+% with beta coefficients. Compute H matrix to estimate beta.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   H = meanPolyQFC(X, degree)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *H = meanPolyQFC(X, degree)* build polynom by passed data. Fires Frobenius
+% Norm on matrix data.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *X* matrix data.
 %
-% *optionalArg* argurment description.
+% *degree* polynom degree.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *H* polynom.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: frobeniusNorm
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initQFC.html initQFC>
+% * <frobeniusNorm.html frobeniusNorm>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>QFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="QFCAPX.m"><style type="text/css">
+      --><title>QFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="QFCAPX.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,16 +84,22 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>QFCAPX</h1><!--introduction--><p>Approximates QFC with triangle inequation, norming is pulled out to input stage kernel is feeded with norm vectors or scalars instead of matrices.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>QFCAPX</h1><!--introduction--><p>Approximates QFC with triangle inequation, norming is pulled out to input stage kernel is feeded with norm vectors or scalars instead of matrices.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">K = QFCAPX(ax, bx, ay, by, theta)
+</pre><h2 id="2">Description</h2><p><b>K = QFCAPX(ax, bx, ay, by, theta)</b> computes quadratic distances bewtween data points and parametrize it with height and length scales. Computes distance with quadratic euclidian norm.</p><h2 id="3">Input Argurments</h2><p><b>ax</b> vector of cosine simulation components.</p><p><b>bx</b> vector of cosine simulation components.</p><p><b>ay</b> vector of sine simulation components.</p><p><b>by</b> vector of sine simulation components.</p><p><b>theta</b> vector of kernel parameters.</p><h2 id="4">Output Argurments</h2><p><b>K</b> noise free covarianc matrix.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="initQFCAPX.html">initQFCAPX</a></li><li><a href="meanPolyQFCAPX.html">meanPolyQFCAPX</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
 </p><pre class="codeinput"><span class="keyword">function</span> K = QFCAPX(ax, bx, ay, by, theta)
-
+     <span class="keyword">arguments</span>
+        <span class="comment">% validate data as real vector of same size</span>
+        ax <span class="typesection">(:,:,:) double {mustBeReal}</span>
+        bx <span class="typesection">(:,:,:) double {mustBeReal, mustBeFitSize(ax,bx)}</span>
+        ay <span class="typesection">(:,:,:) double {mustBeReal, mustBeFitSize(ax,ay)}</span>
+        by <span class="typesection">(:,:,:) double {mustBeReal, mustBeFitSize(ax,by)}</span>
+        <span class="comment">% validate kernel parameters as 1x2 vector</span>
+        theta <span class="typesection">(1,2) double {mustBeReal}</span>
+    <span class="keyword">end</span>
 
     <span class="comment">% get number of observations for each dataset, cosine and sine</span>
     M = length(ax);
@@ -120,6 +126,15 @@ Edited on Month DD. YYYY by Editor: Single line description.
         <span class="keyword">end</span>
     <span class="keyword">end</span>
 <span class="keyword">end</span>
+
+<span class="keyword">function</span> mustBeFitSize(a, b)
+    <span class="comment">% Test for equal size</span>
+    <span class="keyword">if</span> ~isequal(size(a,1,2), size(b,1,2))
+        eid = <span class="string">'Size:notEqual'</span>;
+        msg = <span class="string">'Sizes of  are not fitting.'</span>;
+        throwAsCaller(MException(eid,msg))
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% QFCAPX
@@ -128,29 +143,29 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   K = QFCAPX(ax, bx, ay, by, theta)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *K = QFCAPX(ax, bx, ay, by, theta)* computes quadratic distances bewtween data
+% points and parametrize it with height and length scales. Computes distance
+% with quadratic euclidian norm.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *ax* vector of cosine simulation components. 
 %
-% *optionalArg* argurment description.
+% *bx* vector of cosine simulation components.
+%
+% *ay* vector of sine simulation components.
+%
+% *by* vector of sine simulation components.
+%
+% *theta* vector of kernel parameters.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *K* noise free covarianc matrix.
 %
 %
 %% Requirements
@@ -160,12 +175,11 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initQFCAPX.html initQFCAPX>
+% * <meanPolyQFCAPX.html meanPolyQFCAPX>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -175,7 +189,15 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % </html>
 %
 function K = QFCAPX(ax, bx, ay, by, theta)
-    
+     arguments
+        % validate data as real vector of same size
+        ax (:,:,:) double {mustBeReal}
+        bx (:,:,:) double {mustBeReal, mustBeFitSize(ax,bx)}
+        ay (:,:,:) double {mustBeReal, mustBeFitSize(ax,ay)}
+        by (:,:,:) double {mustBeReal, mustBeFitSize(ax,by)}
+        % validate kernel parameters as 1x2 vector
+        theta (1,2) double {mustBeReal}
+    end   
     
     % get number of observations for each dataset, cosine and sine 
     M = length(ax);
@@ -203,6 +225,13 @@ function K = QFCAPX(ax, bx, ay, by, theta)
     end
 end
 
-
+function mustBeFitSize(a, b)
+    % Test for equal size
+    if ~isequal(size(a,1,2), size(b,1,2))
+        eid = 'Size:notEqual';
+        msg = 'Sizes of  are not fitting.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
 ##### SOURCE END #####
 --></body></html>

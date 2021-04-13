@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>initQFC</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="initQFCAPX.m"><style type="text/css">
+      --><title>initQFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="initQFCAPX.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,10 +84,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>initQFC</h1><!--introduction--><p>Attaches QFC kernel to model struct. Depending on mean options attach zero mean functions and sets all related kernel parameters and dependencies to zero. If mean is polynom fitting, attaches meanPolyQFC as basis function to build polynom matrix H and sets a none zero mean function. Bypasses dataset inputs as they are. Kernel works on matrix data.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>initQFCAPX</h1><!--introduction--><p>Attaches QFCAPX kernel to model struct. Depending on mean options attach zero mean functions and sets all related kernel parameters and dependencies to zero. If mean is polynom fitting, attaches meanPolyQFCAPX as basis function to build polynom matrix H and sets a none zero mean function. Computes dataset inputs vectors or scalars. Kernel works on vector data.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">Mdl = initQFCAPX(Mdl)
+</pre><h2 id="2">Description</h2><p><b>Mdl = initQFCAPX(Mdl)</b> loads approximated quadratic fraction covariance function and basis function depending on mean in <b>Mdl</b> struct. Sets input function to Frobenius Norm. Reprocess training matrix data to vector data.</p><h2 id="3">Input Argurments</h2><p><b>Mdl</b> struct with model parameter and training data.</p><h2 id="4">Output Argurments</h2><p><b>Mdl</b> struct with attached kernel functionality</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: QFCAPX, meanPolyQFCAPX, frobeniusNorm</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="initGPR.html">initGPR</a></li><li><a href="meanPolyQFCAPX.html">meanPolyQFCAPX</a></li><li><a href="QFCAPX.html">QFCAPX</a></li><li><a href="frobeniusNorm.html">frobeniusNorm</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -136,53 +134,46 @@ Edited on Month DD. YYYY by Editor: Single line description.
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% initQFC
-% Attaches QFC kernel to model struct. Depending on mean options attach zero
+%% initQFCAPX
+% Attaches QFCAPX kernel to model struct. Depending on mean options attach zero
 % mean functions and sets all related kernel parameters and dependencies to
-% zero. If mean is polynom fitting, attaches meanPolyQFC as basis function to
-% build polynom matrix H and sets a none zero mean function. Bypasses dataset
-% inputs as they are. Kernel works on matrix data.
+% zero. If mean is polynom fitting, attaches meanPolyQFCAPX as basis function to
+% build polynom matrix H and sets a none zero mean function. Computes dataset
+% inputs vectors or scalars. Kernel works on vector data.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initQFCAPX(Mdl) 
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initQFCAPX(Mdl)* loads approximated quadratic fraction covariance 
+% function and basis function depending on mean in *Mdl* struct. Sets input
+% function to Frobenius Norm. Reprocess training matrix data to vector data.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
-%
-% *optionalArg* argurment description.
+% *Mdl* struct with model parameter and training data.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* struct with attached kernel functionality
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: QFCAPX, meanPolyQFCAPX, frobeniusNorm
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <meanPolyQFCAPX.html meanPolyQFCAPX>
+% * <QFCAPX.html QFCAPX>
+% * <frobeniusNorm.html frobeniusNorm>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH

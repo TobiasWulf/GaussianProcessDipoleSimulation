@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>predFrame</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="predFrame.m"><style type="text/css">
+      --><title>predFrame</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="predFrame.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -138,10 +138,10 @@ Edited on Month DD. YYYY by Editor: Single line description.
     s = sqrt(fcov + Mdl.s2n);
 
     <span class="comment">% 95% confidence interval over fradius</span>
-    ciang = [fang - asin(1.96 * s), fang + asin(1.96 * s)];
+    ciang = [fang - asin(1.96 * s * sqrt(2)), fang + asin(1.96 * s * sqrt(2))];
 
     <span class="comment">% 95% confidence interval over fradius</span>
-    cirad = [frad - 1.96 * s, frad + 1.96 * s];
+    cirad = [frad - 1.96 * s * sqrt(2), frad + 1.96 * s * sqrt(2)];
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -242,10 +242,10 @@ function [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, ...
     s = sqrt(fcov + Mdl.s2n);
     
     % 95% confidence interval over fradius
-    ciang = [fang - asin(1.96 * s), fang + asin(1.96 * s)];
+    ciang = [fang - asin(1.96 * s * sqrt(2)), fang + asin(1.96 * s * sqrt(2))];
     
     % 95% confidence interval over fradius
-    cirad = [frad - 1.96 * s, frad + 1.96 * s];
+    cirad = [frad - 1.96 * s * sqrt(2), frad + 1.96 * s * sqrt(2)];
 end
 
 

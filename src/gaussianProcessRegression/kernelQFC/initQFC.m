@@ -7,44 +7,35 @@
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initQFC(Mdl) 
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initQFC(Mdl)* loads quadratic fraction covariance function and basis
+% function depending on mean in *Mdl* struct. Sets input function as bypass.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
-%
-% *optionalArg* argurment description.
+% *Mdl* struct with model parameter and training data.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* struct with attached kernel functionality
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: QFC, meanPolyQFC
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <meanPolyQFC.html meanPolyQFC>
+% * <QFC.html QFC>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

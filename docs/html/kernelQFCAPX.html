@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>kernelQFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-11"><meta name="DC.source" content="kernelQFCAPX.m"><style type="text/css">
+      --><title>kernelQFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="kernelQFCAPX.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,31 +84,39 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>kernelQFCAPX</h1><!--introduction--><p>Detailed description of the script task and summary description of underlaying script sections.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="2">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>kernelQFCAPX</h1><!--introduction--><p>Kernel implementation for approximated quadratic fractional covariance (QFCAPX) kernel. The module contains the covariance function, a mean function to build up polynoms to approximation use and a init function to module into regression model.</p><!--/introduction--><h2 id="1">QFCAPX</h2><p>Covariance function to compute K matrix and k vector on vector data.</p><h2 id="2">meanPolyQFCAPX</h2><p>Builds up mean polynom on vector data.</p><h2 id="3">initQFCAPX</h2><p>Initiates kernel into regression model.</p><h2 id="4">See Also</h2><div><ul><li><a href="initGPR.html">initGPR</a></li><li><a href="initKernel.html">initKernel</a></li><li><a href="initKernelParameters.html">initKernelParameters</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><h2 id="3">First Script Section</h2><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% kernelQFCAPX
-% Detailed description of the script task and summary description of
-% underlaying script sections.
+% Kernel implementation for approximated quadratic fractional covariance
+% (QFCAPX) kernel. The module contains the covariance function, a mean function
+% to build up polynoms to approximation use and a init function to module into
+% regression model.
 %
 %
-%% Requirements
-% * Other m-files required: None
-% * Subfunctions: None
-% * MAT-files required: None
+%% QFCAPX
+% Covariance function to compute K matrix and k vector on vector data.
+%
+%
+%% meanPolyQFCAPX
+% Builds up mean polynom on vector data.
+%
+%
+%% initQFCAPX
+% Initiates kernel into regression model.
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <initKernel.html initKernel>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -117,7 +125,6 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-%
-%% First Script Section
+
 ##### SOURCE END #####
 --></body></html>

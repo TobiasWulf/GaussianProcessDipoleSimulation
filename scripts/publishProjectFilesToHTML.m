@@ -117,7 +117,7 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
 %publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
-publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression/kernelQFC'), PublishOptions, true, true);
+publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression'), PublishOptions, true, true);
 
 
 %% Unit Test Scripts

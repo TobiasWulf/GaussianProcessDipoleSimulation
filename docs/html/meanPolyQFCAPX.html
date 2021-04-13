@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>meanPolyQFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-17"><meta name="DC.source" content="meanPolyQFCAPX.m"><style type="text/css">
+      --><title>meanPolyQFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="meanPolyQFCAPX.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,10 +84,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>meanPolyQFCAPX</h1><!--introduction--><p>Basis or trend function to compute the H matrix as set of h(x) vectors for each predictor to apply a mean feature space as polynom approximated mean with beta coefficients. Compute H matrix to estimate beta. Vectors instead of matrices norming is place at input stage.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>meanPolyQFCAPX</h1><!--introduction--><p>Basis or trend function to compute the H matrix as set of h(x) vectors for each predictor to apply a mean feature space as polynom approximated mean with beta coefficients. Compute H matrix to estimate beta. Vectors instead of matrices norming is place at input stage.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">H = meanPolyQFCAPX(X, degree)
+</pre><h2 id="2">Description</h2><p><b>H = meanPolyQFCaPX(X, degree)</b> build polynom by passed data.</p><h2 id="3">Input Argurments</h2><p><b>X</b> vector data.</p><p><b>degree</b> polynom degree.</p><h2 id="4">Output Argurments</h2><p><b>H</b> polynom.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="initQFCAPX.html">initQFCAPX</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -114,36 +112,28 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% meanPolyQFCAPX
-% Basis or trend function to compute the H matrix as set of h(x) vectors for each
-% predictor to apply a mean feature space as polynom approximated mean with beta coefficients.
-% Compute H matrix to estimate beta. Vectors instead of matrices norming is
-% place at input stage.
+% Basis or trend function to compute the H matrix as set of h(x) vectors for 
+% each predictor to apply a mean feature space as polynom approximated mean with
+% beta coefficients. Compute H matrix to estimate beta. Vectors instead of
+% matrices norming is place at input stage.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   H = meanPolyQFCAPX(X, degree)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *H = meanPolyQFCaPX(X, degree)* build polynom by passed data.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *X* vector data.
 %
-% *optionalArg* argurment description.
+% *degree* polynom degree.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *H* polynom.
 %
 %
 %% Requirements
@@ -153,12 +143,10 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initQFCAPX.html initQFCAPX>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH

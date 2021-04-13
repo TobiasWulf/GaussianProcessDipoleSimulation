@@ -1,34 +1,26 @@
 %% meanPolyQFCAPX
-% Basis or trend function to compute the H matrix as set of h(x) vectors for each
-% predictor to apply a mean feature space as polynom approximated mean with beta coefficients.
-% Compute H matrix to estimate beta. Vectors instead of matrices norming is
-% place at input stage.
+% Basis or trend function to compute the H matrix as set of h(x) vectors for 
+% each predictor to apply a mean feature space as polynom approximated mean with
+% beta coefficients. Compute H matrix to estimate beta. Vectors instead of
+% matrices norming is place at input stage.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   H = meanPolyQFCAPX(X, degree)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *H = meanPolyQFCaPX(X, degree)* build polynom by passed data.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *X* vector data.
 %
-% *optionalArg* argurment description.
+% *degree* polynom degree.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *H* polynom.
 %
 %
 %% Requirements
@@ -38,12 +30,10 @@
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initQFCAPX.html initQFCAPX>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

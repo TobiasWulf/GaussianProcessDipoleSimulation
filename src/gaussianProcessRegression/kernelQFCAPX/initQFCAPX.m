@@ -1,50 +1,43 @@
-%% initQFC
-% Attaches QFC kernel to model struct. Depending on mean options attach zero
+%% initQFCAPX
+% Attaches QFCAPX kernel to model struct. Depending on mean options attach zero
 % mean functions and sets all related kernel parameters and dependencies to
-% zero. If mean is polynom fitting, attaches meanPolyQFC as basis function to
-% build polynom matrix H and sets a none zero mean function. Bypasses dataset
-% inputs as they are. Kernel works on matrix data.
+% zero. If mean is polynom fitting, attaches meanPolyQFCAPX as basis function to
+% build polynom matrix H and sets a none zero mean function. Computes dataset
+% inputs vectors or scalars. Kernel works on vector data.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initQFCAPX(Mdl) 
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initQFCAPX(Mdl)* loads approximated quadratic fraction covariance 
+% function and basis function depending on mean in *Mdl* struct. Sets input
+% function to Frobenius Norm. Reprocess training matrix data to vector data.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
-%
-% *optionalArg* argurment description.
+% *Mdl* struct with model parameter and training data.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* struct with attached kernel functionality
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: QFCAPX, meanPolyQFCAPX, frobeniusNorm
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <meanPolyQFCAPX.html meanPolyQFCAPX>
+% * <QFCAPX.html QFCAPX>
+% * <frobeniusNorm.html frobeniusNorm>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

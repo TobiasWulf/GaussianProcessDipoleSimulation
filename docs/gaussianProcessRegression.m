@@ -3,10 +3,17 @@
 % underlaying script sections.
 %
 %
-%% Requirements
-% * Other m-files required: None
-% * Subfunctions: None
-% * MAT-files required: None
+%% basicMathFunctions
+% Submodule which contains basic math function to module functionanlity.
+%
+%
+%% kernelQFC
+% Submodule which contain quadratic fractional covariance implementation.
+%
+%
+%% kernelQFCAPX
+% Submodule which contains approximated quadratic fractional covariance
+% implementation.
 %
 %
 %% See Also
@@ -15,7 +22,7 @@
 % * Reference3
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

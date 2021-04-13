@@ -1,21 +1,29 @@
 %% kernelQFCAPX
-% Detailed description of the script task and summary description of
-% underlaying script sections.
+% Kernel implementation for approximated quadratic fractional covariance
+% (QFCAPX) kernel. The module contains the covariance function, a mean function
+% to build up polynoms to approximation use and a init function to module into
+% regression model.
 %
 %
-%% Requirements
-% * Other m-files required: None
-% * Subfunctions: None
-% * MAT-files required: None
+%% QFCAPX
+% Covariance function to compute K matrix and k vector on vector data.
+%
+%
+%% meanPolyQFCAPX
+% Builds up mean polynom on vector data.
+%
+%
+%% initQFCAPX
+% Initiates kernel into regression model.
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <initKernel.html initKernel>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--
@@ -24,5 +32,3 @@
 % -->
 % </html>
 %
-%
-%% First Script Section

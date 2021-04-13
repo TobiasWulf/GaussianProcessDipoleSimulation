@@ -4,29 +4,29 @@
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   K = QFCAPX(ax, bx, ay, by, theta)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *K = QFCAPX(ax, bx, ay, by, theta)* computes quadratic distances bewtween data
+% points and parametrize it with height and length scales. Computes distance
+% with quadratic euclidian norm.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *ax* vector of cosine simulation components. 
 %
-% *optionalArg* argurment description.
+% *bx* vector of cosine simulation components.
+%
+% *ay* vector of sine simulation components.
+%
+% *by* vector of sine simulation components.
+%
+% *theta* vector of kernel parameters.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *K* noise free covarianc matrix.
 %
 %
 %% Requirements
@@ -36,12 +36,11 @@
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initQFCAPX.html initQFCAPX>
+% * <meanPolyQFCAPX.html meanPolyQFCAPX>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--
@@ -51,7 +50,15 @@
 % </html>
 %
 function K = QFCAPX(ax, bx, ay, by, theta)
-    
+     arguments
+        % validate data as real vector of same size
+        ax (:,:,:) double {mustBeReal}
+        bx (:,:,:) double {mustBeReal, mustBeFitSize(ax,bx)}
+        ay (:,:,:) double {mustBeReal, mustBeFitSize(ax,ay)}
+        by (:,:,:) double {mustBeReal, mustBeFitSize(ax,by)}
+        % validate kernel parameters as 1x2 vector
+        theta (1,2) double {mustBeReal}
+    end   
     
     % get number of observations for each dataset, cosine and sine 
     M = length(ax);
@@ -79,3 +86,11 @@ function K = QFCAPX(ax, bx, ay, by, theta)
     end
 end
 
+function mustBeFitSize(a, b)
+    % Test for equal size
+    if ~isequal(size(a,1,2), size(b,1,2))
+        eid = 'Size:notEqual';
+        msg = 'Sizes of  are not fitting.';
+        throwAsCaller(MException(eid,msg))
+    end
+end

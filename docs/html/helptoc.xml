@@ -55,14 +55,14 @@
                 <tocitem target=".html"></tocitem>
                 <tocitem target=".html"></tocitem>
                 <tocitem target="kernelQFCAPX.html">kernelQFCAPX
-                    <tocitem target=".html"></tocitem>
-                    <tocitem target=".html"></tocitem>
-                    <tocitem target=".html"></tocitem>
+                    <tocitem target="QFCAPX.html">QFCAPX</tocitem>
+                    <tocitem target="meanPolyQFCAPX.html">meanPolyQFCAPX</tocitem>
+                    <tocitem target="initQFCAPX.html">initQFCAPX</tocitem>
                 </tocitem>
                 <tocitem target="kernelQFC.html">kernelQFC
                     <tocitem target="QFC.html">QFC</tocitem>
-                    <tocitem target=".html"></tocitem>
-                    <tocitem target=".html"></tocitem>
+                    <tocitem target="meanPolyQFC.html">meanPolyQFC</tocitem>
+                    <tocitem target="initQFC.html">initQFC</tocitem>
                 </tocitem>
                 <tocitem target="basicMathFunctions.html">basicMathFunctions
                     <tocitem target="sinoids2angles.html">sinoids2angles</tocitem>
