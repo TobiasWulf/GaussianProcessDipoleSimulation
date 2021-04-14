@@ -43,9 +43,12 @@
 % Abstract page here
 \input{./style/abstractpage}
 
+%adjust spacing in table of contents
+\setlength{\cftsubsubsecnumwidth}{4.8em}
+\setlength{\cftparanumwidth}{5.8em}
+
 % Table of contents here
 \tableofcontents
-
 
 % Uncomment if list of source code is needed (rarely).
 %\lstlistoflistings  % requires package listings, needs to uncommenting of usepackage
@@ -55,6 +58,7 @@
 	 {./chapters/images}%
 	 {./chapters/images/1-Motivation}%
 	 {./chapters/images/2-Grundlagen}%
+	 {./chapters/images/3-SW-E-OExp}%
 	 {./appendix/images}%
 	 {./appendix/images/3-TDK}%
 	 {./appendix/images/4-KMZ60}%
@@ -104,6 +108,8 @@
 %\bibliography{literature/literature}
 
 % Appendix
+\cleardoublepage
+\phantomsection
 \appendix
 \addcontentsline{toc}{part}{\appendixname}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
