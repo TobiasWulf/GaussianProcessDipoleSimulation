@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>predFrame</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="predFrame.m"><style type="text/css">
+      --><title>predFrame</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="predFrame.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,13 +84,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>predFrame</h1><!--introduction--><p>Predicts single test point.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>predFrame</h1><!--introduction--><p>Predicts single test point and computes angle and radius by predicted sinoids. Delivers several quality criteria.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)
+</pre><h2 id="2">Description</h2><p><b>[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)</b> predicts sinoids by passed regression model and test frame of raw data matrix. Comutes angle and radius by predicted results. Several quality creteria are setup based on predictive variance.</p><h2 id="3">Input Argurments</h2><p><b>Mdl</b> model struct.</p><p><b>Xcos</b> matrix frame of cosine test data.</p><p><b>Xsin</b> matrix frame of sine test data.</p><h2 id="4">Output Argurments</h2><p><b>fang</b> computed angle by predicted cosine and sine results.</p><p><b>frad</b> computed radius by predicted cosine and sine results.</p><p><b>fcos</b> predictive mean result of cosine regression.</p><p><b>fsin</b> predictive mean result of sine regression.</p><p><b>fcov</b> predictive variance for both predictive means.</p><p><b>s</b> resulting standard deviation by predictive variance and noise level.</p><p><b>ciang</b> confidence interval of computed angle.</p><p><b>cirad</b> confidence interval of computed radius.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: computeTransposeInverseProduct, sinoids2angles</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="computeTransposeInverseProduct.html">computeTransposeInverseProduct</a></li><li><a href="sinoids2angles.html">sinoids2angles</a></li><li><a href="initKernel.html">initKernel</a></li><li><a href="initKernelParameters.html">initKernelParameters</a></li></ul></div><p>Created on November 06. 2019 by Klaus J&uuml;nemann. Copyright Klaus J&uuml;nemann 2019.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
+Edited on March 01. 2021 by Tobias Wulf. Add confidence intervalls and std.
+Edited on March 01. 2021 by Tobias Wulf. Add mean driven prediction.
 -->
 </p><pre class="codeinput"><span class="keyword">function</span> [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, <span class="keyword">...</span>
     Xcos, Xsin)
@@ -146,53 +146,68 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% predFrame
-% Predicts single test point.
+% Predicts single test point and computes angle and radius by predicted sinoids.
+% Delivers several quality criteria.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
-%
+% *[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)*
+% predicts sinoids by passed regression model and test frame of raw data matrix.
+% Comutes angle and radius by predicted results. Several quality creteria are
+% setup based on predictive variance.
+% 
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *Xcos* matrix frame of cosine test data.
+%
+% *Xsin* matrix frame of sine test data.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *fang* computed angle by predicted cosine and sine results.
+%
+% *frad* computed radius by predicted cosine and sine results.
+%
+% *fcos* predictive mean result of cosine regression.
+%
+% *fsin* predictive mean result of sine regression.
+%
+% *fcov* predictive variance for both predictive means.
+%
+% *s* resulting standard deviation by predictive variance and noise level.
+%
+% *ciang* confidence interval of computed angle.
+%
+% *cirad* confidence interval of computed radius.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: computeTransposeInverseProduct, sinoids2angles
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <computeTransposeInverseProduct.html computeTransposeInverseProduct>
+% * <sinoids2angles.html sinoids2angles>
+% * <initKernel.html initKernel>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on March 01. 2021 by Tobias Wulf. Add confidence intervalls and std.
+% Edited on March 01. 2021 by Tobias Wulf. Add mean driven prediction.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %

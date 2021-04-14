@@ -1,52 +1,46 @@
 %% initKernelParameters
 % Init GPR model on current kernel parameters, computes covariance
-% matrix and depending kernel values.
+% matrix and depending kernel values means, mean coefficients, regression
+% weights and likelihoods.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initKernelParameters(Mdl)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initKernelParameters(Mdl)* initializes the regresion model in final.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
-%
-% *optionalArg* argurment description.
+% *Mdl* model struct.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* initialized regression model.
 %
 %
 %% Requirements
-% * Other m-files required: None
+% * Other m-files required: basicMathFunctions, kernelQFC, kernelQFCAPX
 % * Subfunctions: None
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <basicMathFunctions.html basicMathFunctions>
+% * <kernelQFC.html kernelQFC>
+% * <kernelQFCAPX.html kernelQFCAPX>
+% * <initGPR.html initGPR>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on February 20. 2021 by Tobias Wulf: Implement modular and struct based
+% model initialization on functional draft. Add gpr mean options.
 % -->
 % </html>
 %

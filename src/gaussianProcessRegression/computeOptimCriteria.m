@@ -1,48 +1,50 @@
 %% computeOptimCriteria
-% object function to compute the loss of a fully initialized and tuned GPR model
-% compute the mean squared log loss of angles MSLLA as function eval value
-% perform noise adjustment in cylces in bayesopt
+% Object function to compute the loss of a fully initialized and tuned
+% regression model. Computes the mean std. log. loss of angles MSLLA or radius
+% MSLLR as function evaluation value for bayesopt. Perform noise adjustment in
+% cylces in bayesopt.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)* 
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *OptVar* optimzation variable. Noise level passed by bayesopt algorithm.
 %
-% *optionalArg* argurment description.
+% *Mdl* model struct.
+%
+% *TestDS* loaded test data by infront processesed sensor array simulation.
+%
+% *SLL* indicates which loss is used for MSLL. SLLA for angle and SLLR for
+% radius.
+%
+% *verbose* activates prompt for true or 1. Vice versa for false or 0.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *MSLL* mean standardized logarithmic loss. Function evaluation value for
+% optimGPR
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: tuneKernel, lossDS, mean
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <optimGPR.html optimGPR>
+% * <tuneKernel.html tuneKernel>
+% * <lossDS.html lossDS>
+% * <matlab:web(fullfile(docroot,'matlab/ref/mean.html')) mean>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--
@@ -51,7 +53,7 @@
 % -->
 % </html>
 %
-function MSLLA = computeOptimCriteria(OptVar, Mdl, TestDS, verbose)
+function MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
     
     % push current variance value into GPR
     Mdl.s2n = OptVar.s2n;
@@ -60,8 +62,17 @@ function MSLLA = computeOptimCriteria(OptVar, Mdl, TestDS, verbose)
     Mdl = tuneKernel(Mdl, verbose);
     
     % get loss on dataset for angular prediction
-    [~, SLLA] = lossDS(Mdl, TestDS);
+    switch SLL
+        case 'SLLA'
+            [~, SLL] = lossDS(Mdl, TestDS);
+            
+        case 'SLLR'
+            [~, ~, SLL] = lossDS(Mdl, TestDS);
+            
+        otherwise
+            error('Unknown SLL %s.', SLL);
+    end
     
     % return mean loss to evaluate optimization run
-    MSLLA = mean(SLLA);
+    MSLL = mean(SLL);
 end

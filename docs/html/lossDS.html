@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>lossDS</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="lossDS.m"><style type="text/css">
+      --><title>lossDS</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="lossDS.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,10 +84,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>lossDS</h1><!--introduction--><p>Predicts all angles of passed test dataset and computes logaritmic losses for radius and squared angle error. AAED = Absolute Angular Error in Degrees SLLA - Squared Log Loss Angular SLLR - Squared Log Loss Radius SEA  - Squared Error Angular SER  - Squared Error Radius SEC  - Squared Error Cosine SES  - Squared Error Sine</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>lossDS</h1><!--introduction--><p>Predicts all angles of passed test dataset and computes logaritmic losses for radius and angles plus several squared errors.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)
+</pre><h2 id="2">Description</h2><p><b>[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)</b> computes losses and prediction erros of a whole datasets</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
+</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>AAED</b> Absolute Angular Error in Degrees <b>SLLA</b> Std. Log. Loss Angular <b>SLLR</b> Std. Log Loss Radius <b>SEA</b> Squared Error Angular <b>SER</b> Squared Error Radius <b>SEC</b> Squared Error Cosine <b>SES</b> Squared Error Sine</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: angles2sinoids, computeStdLogLoss</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="predDS.html">predDS</a></li><li><a href="Training_and_Test_Datasets.html">Training and Test Datasets</a></li><li><a href="angles2sinoids.html">angles2sinoids</a></li><li><a href="computeStdLogLoss.html">computeStdLogLoss</a></li></ul></div><p>Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -125,26 +124,16 @@ Edited on Month DD. YYYY by Editor: Single line description.
 ##### SOURCE BEGIN #####
 %% lossDS
 % Predicts all angles of passed test dataset and computes logaritmic losses for
-% radius and squared angle error. 
-% AAED = Absolute Angular Error in Degrees
-% SLLA - Squared Log Loss Angular
-% SLLR - Squared Log Loss Radius
-% SEA  - Squared Error Angular
-% SER  - Squared Error Radius
-% SEC  - Squared Error Cosine
-% SES  - Squared Error Sine
+% radius and angles plus several squared errors. 
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   [AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
+% *[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)* computes losses
+% and prediction erros of a whole datasets
 %
 %
 %% Examples
@@ -158,22 +147,29 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *AAED* Absolute Angular Error in Degrees
+% *SLLA* Std. Log. Loss Angular
+% *SLLR* Std. Log Loss Radius
+% *SEA* Squared Error Angular
+% *SER* Squared Error Radius
+% *SEC* Squared Error Cosine
+% *SES* Squared Error Sine
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: angles2sinoids, computeStdLogLoss
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <predDS.html predDS>
+% * <Training_and_Test_Datasets.html Training and Test Datasets>
+% * <angles2sinoids.html angles2sinoids>
+% * <computeStdLogLoss.html computeStdLogLoss>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH

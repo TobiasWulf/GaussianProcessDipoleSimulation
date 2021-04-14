@@ -9,22 +9,23 @@
 Im Anhang befindet sich die Beschreibung, der Regression mittels Gauß'scher Prozesse. Die implementierten Mechanismen sind auf die Sensor-Array-Simulation \autoref{ch:sensor-array-sim-imp} angepasst. Es wird sich  an der Anforderungsbeschreibung für ein TMR-Sensor-Array \autoref{sec:prinzip-des-sensor-arrays} orientiert. Eine Standardparametrierung für die Simulationsdurchführung ist in \autoref{tab:gpr-sim-params} einzusehen. Die Notation ist der kompakten Schreibweise für Gauß'sche Prozesse \cite{Rasmussen2006} angepasst. Implementiert ist ein Kernel aus den Vorarbeiten \cite{Schuethe2020b}\cite{Schuethe2020}. Darauf aufbauend ist ein zweiter mit angepasster Eingangswertverarbeitung entworfen worden. Beide Kernel besitzen die Fähigkeit zur Mittelwert freien und Polynom gestützten Regression bzw. Vorhersage \cite{Rasmussen2006}. Das Regressionsmodell kann ganze Sensor-Array-Datensätze verarbeiten. Es sind verschieden Qualitätskriterien implementiert, die Aussagen zur Modellgenauigkeit, Vorhersagesicherheit und Generalisierung treffen. Die Trainingsphase für das Regressionsmodell wird durch \autoref{alg:bayesopt} durchgeführt. Eine anschließende Arbeitsphase ist durch \autoref{alg:gprvorhersage} umgesetzt. Einen Überblick über die Gesamtsoftware, in der dieser Teil ein Modul einnimmt, ist im \autoref{ch:sw-doku} einzusehen. Der Anhang besitzt einen Glossar ähnlichen Charakter und soll als Schnellnachschlagewerk unterstützen.
 
 
-\vspace{5mm}
-\begin{table}[!htbp]
+\vspace{4mm}
+\begin{table}[!hbp]
 	\centering
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{l l c c l}
 			\toprule
-			\textbf{Parametergruppe}    & \textbf{Parameter}  & \textbf{Wert}                        & \textbf{Einheit} & \textbf{Kurzbeschreibung}                                           \\ \midrule
-			\multirow{9}{*}{GPROptions} & kernel              & 'QFCAPX'                             & char             & Kernel-Funktion-Indikator \eqref{eq:kfun}, 'QFC' $\leftarrow d_F^2$ \\
-			                            & $\theta$            & $(1,1)$                              & -                & Kernel-Parametervektor $\theta$ \eqref{eq:kparam}                   \\
-			                            & $\sigma_f^2$-Bounds & $(0.1, 100)$                         & -                & Parameter-Bounds $\theta_1$ f. \autoref{alg:fminconopt}             \\
-			                            & $\sigma_l$-Bounds   & $(0.1, 100)$                         & -                & Parameter-Bounds $\theta_2$ f. \autoref{alg:fminconopt}             \\
-			                            & $\sigma_n^2$        & $1 \cdot 10^{-6}$                    & -                & Rauschniveau, Rauschaufschaltung \eqref{eq:addnoise}                \\
-			                            & $\sigma_n^2$-Bounds & $(1 \cdot 10^{-8}, 1 \cdot 10^{-4})$ & -                & Parameter-Bounds $\sigma_n^2$ f. \autoref{alg:bayesopt}             \\
-			                            & OptimRuns           & $30$                                 & -                & Durchlaufanzahl f. \autoref{alg:bayesopt}                           \\
-			                            & mean                & 'zero'                               & char             & Indikator Mittelwertpolynom Ein ('poly')/ Aus ('zero')              \\
-			                            & polyDegree          & $1$                                  & -                & Grad des Mittelwertpolynoms wenn mean = 'poly'                      \\ \bottomrule
+			\textbf{Parametergruppe}     & \textbf{Parameter}  & \textbf{Wert}                        & \textbf{Einheit} & \textbf{Kurzbeschreibung}                                           \\ \midrule
+			\multirow{10}{*}{GPROptions} & kernel              & 'QFCAPX'                             & char             & Kernel-Funktion-Indikator \eqref{eq:kfun}, 'QFC' $\leftarrow d_F^2$ \\
+			                             & $\theta$            & $(1,1)$                              & -                & Kernel-Parametervektor $\theta$ \eqref{eq:kparam}                   \\
+			                             & $\sigma_f^2$-Bounds & $(0.1, 100)$                         & -                & Parameter-Bounds $\theta_1$ f. \autoref{alg:fminconopt}             \\
+			                             & $\sigma_l$-Bounds   & $(0.1, 100)$                         & -                & Parameter-Bounds $\theta_2$ f. \autoref{alg:fminconopt}             \\
+			                             & $\sigma_n^2$        & $1 \cdot 10^{-6}$                    & -                & Rauschniveau, Rauschaufschaltung \eqref{eq:addnoise}                \\
+			                             & $\sigma_n^2$-Bounds & $(1 \cdot 10^{-8}, 1 \cdot 10^{-4})$ & -                & Parameter-Bounds $\sigma_n^2$ f. \autoref{alg:bayesopt}             \\
+			                             & OptimRuns           & $30$                                 & -                & Durchlaufanzahl f. \autoref{alg:bayesopt}                           \\
+			                             & SLL                 & 'SLLA'                               & char             & Verlust-Indikator f. Winkel (A)/ R (Radius) \autoref{alg:bayesopt}  \\
+			                             & mean                & 'zero'                               & char             & Indikator Mittelwertpolynom Ein ('poly')/ Aus ('zero')              \\
+			                             & polyDegree          & $1$                                  & -                & Grad des Mittelwertpolynoms wenn mean = 'poly'                      \\ \bottomrule
 		\end{tabular}}
 	\caption[Gauß-Prozess-Regression-Simulationsparameter]{Gauß-Prozess-Regression-Simulationsparameter. Default-Parameter für die Prozessierung von Simulationsergebnissen aus der Sensor-Array-Simulation \autoref{ch:sensor-array-sim-imp}.}
 	\label{tab:gpr-sim-params}
@@ -492,13 +493,17 @@ Verluste $SLLA$ stehen nur zur Verfügung, wenn Simulations- oder Encoder-Winkel
 
 
 \begin{align}\label{eq:bayesopt}
-\sigma_n^2|X_*,\alpha_* &= \underset{\sigma_n^2}{\arg\min} \text{ } MSLLA(\sigma_n^2|X_*,\alpha_*) \nonumber \\
-\\
-MSLLA &= \frac{0,5}{N_*} \cdot \bigg( \log \big( 2\pi \arcsin^2 \big( s_* \sqrt{2} \big) \big) + \frac{(\alpha_* - \bar{\alpha}_*(X_*))^2}{\arcsin^2 \big( s_* \sqrt{2} \big)}\bigg) \nonumber
+	\sigma_n^2|X_* &= \underset{\sigma_n^2}{\arg\min} \text{ } MSLL(\sigma_n^2|X_*) \nonumber \\
+	\\
+	MSLL &= 
+		\begin{cases}
+			\frac{SLLA(X_*)}{N_*} &\quad \text{f. Verluste üb. Winkel} \\
+			\frac{SLLR(X_*)}{N_*} &\quad \text{f. Verluste üb. Radius}
+		\end{cases}
 \nonumber \\
 \nonumber \\
-& \text{mit } s_*^2 = \sigma_n^2 + \mathbb{V}\left[ \bar{f}_* \right] \text{f. alle } N_* \text{ Testdaten } X_* \nonumber \\
-& \text{und Testwinkel } X_* \mapsto \alpha_* \nonumber
+& \text{f. alle } N_* \text{ Testdaten } X_* \text{ und} \nonumber \\
+& \text{Testwinkel } X_* \mapsto \alpha_* \text{  nach \autoref{eq:predsll}}\nonumber
 \end{align}
 
 
@@ -514,15 +519,15 @@ Je nach dem wie die Grenzen der einzelnen Modellparameter gewählt sind, kann da
 	\KwResult{Generalisiertes Modell mit optimierten Rauschniveau $\sigma_n^2$}
 	\textbf{1.} Initialisierung Modell $\leftarrow$ \autoref{alg:gprinit}\;
 	\textbf{2.} Initialisierung Rauschniveau-Bounds $\leftarrow$ \autoref{tab:gpr-sim-params}\;
-	\textbf{3.} Initialisierung Min-Kriterium $MSLLA \leftarrow$ \autoref{eq:bayesopt}\;
+	\textbf{3.} Initialisierung Min-Kriterium $MSLL \leftarrow$ \autoref{eq:bayesopt}\;
 	\textbf{4.} Initialisierung BayesOpt-Funktion mit Durchlaufzahl $\leftarrow$ \autoref{tab:gpr-sim-params}\;
 	\textbf{5.} \While{Durlaufzahl nicht erreicht}{
 		Zuweisung innerhalb Rauschniveau-Bounds $\sigma_n^2 \leftarrow$ BayesOpt-Funktion\;
 		Modelloptimierung von 1. mit neuen $\sigma_n^2 \leftarrow$ \autoref{alg:fminconopt}\;
-		Berechnung f. alle Testwinkel $MSSLA \leftarrow$ \autoref{eq:bayesopt}\;
-		Speichern und indizieren von $\sigma_n^2$ f. jedes Ergebnis $MSSLA$;
+		Berechnung f. alle Testwinkel $MSLL \leftarrow$ \autoref{eq:bayesopt}\;
+		Speichern und indizieren von $\sigma_n^2$ f. jedes Ergebnis $MSLL$;
 	}
-	\textbf{6.} Entnahme von $\sigma_n^2$ bei $\min MSSLA$\;
+	\textbf{6.} Entnahme von $\sigma_n^2$ bei $\min MSLL$\;
 	\textbf{7.} Speichern von $\sigma_n^2$ in 1.\;
 	\textbf{8.} Finale Modelloptimierung von 1. $\leftarrow$ \autoref{alg:fminconopt}\;
 	\textbf{9.} Berechnung und Mittelung f. alle Testwinkel $SLLA, SLLR \leftarrow$ \autoref{eq:predsll}\;
@@ -535,7 +540,7 @@ Je nach dem wie die Grenzen der einzelnen Modellparameter gewählt sind, kann da
 
 
 \paragraph*{Min-Kriterium} als Mittelwertbildung aller standardisierten logarithmischen Winkelverluste aus \autoref{eq:predsll}. Es sind für jeden verfügbaren Testdatensatz und zugehörigen Simulationswinkel
-$X_* \mapsto \alpha_*$ die Verluste nach \autoref{eq:bayesopt} auszurechnen und zu $MSLLA$ zu mitteln \cite{Rasmussen2006}. Im Anschluss ist gebildeter Mittelwert einem Minimierungsverfahren zur Ermittlung des passenden Rauschniveaus $\sigma_n^2$ zuzuführen. Das Minimierungsproblem induziert dabei für jedes ausprobierte $\sigma_n^2$ ein Regressionsmodell. Die berechneten Modelle sind über ihre mittleren Verlust $MSLLA$ miteinander zu vergleichen \cite{Rasmussen2006}. Das Modell für $\min MSLLA$, besitzt die stärkste Generalisierung und somit das optimiert Rauschniveau $\sigma_n^2$ und sich nach \autoref{alg:fminconopt} ergebenen optimierten Kernel-Parameter $\theta|\sigma_n^2$. Auch hier gilt wie für \autoref{eq:predsll}, dass sich eine gute Generalisierung für $MSLLA < 0$ einstellt. Empirisch beobachtet Werte, liegen dabei im Intervall von $-2 < MSLLA < -5$.
+$X_* \mapsto \alpha_*$ die Verluste nach \autoref{eq:bayesopt} auszurechnen und zu $MSLL$ zu mitteln \cite{Rasmussen2006}. Im Anschluss ist gebildeter Mittelwert einem Minimierungsverfahren zur Ermittlung des passenden Rauschniveaus $\sigma_n^2$ zuzuführen. Das Minimierungsproblem induziert dabei für jedes ausprobierte $\sigma_n^2$ ein Regressionsmodell. Die berechneten Modelle sind über ihre mittleren Verlust $MSLL$ miteinander zu vergleichen \cite{Rasmussen2006}. Das Modell für $\min MSLL$, besitzt die stärkste Generalisierung und somit das optimiert Rauschniveau $\sigma_n^2$ und sich nach \autoref{alg:fminconopt} ergebenen optimierten Kernel-Parameter $\theta|\sigma_n^2$. Auch hier gilt wie für \autoref{eq:predsll}, dass sich eine gute Generalisierung für $MSLL < 0$ einstellt. Empirisch beobachtet Werte, liegen dabei im Intervall von $-2 < MSLL < -5$.
 
 
 

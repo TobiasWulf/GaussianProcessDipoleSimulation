@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>initGPROptions</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="initGPROptions.m"><style type="text/css">
+      --><title>initGPROptions</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="initGPROptions.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,10 +84,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>initGPROptions</h1><!--introduction--><p>Initiates GPR options struct from config on GPR model and defaults if expected options are not available.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>initGPROptions</h1><!--introduction--><p>Initiates GPR options struct from config on GPR model and sets defaults if expected options are not available.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">Mdl = initGPROptions(Mdl, GPROptions)
+</pre><h2 id="2">Description</h2><p><b>Mdl = initGPROptions(Mdl, GPROptions)</b> initiates default configuration on model struct.</p><h2 id="3">Input Argurments</h2><p><b>Mdl</b> model struct.</p><p><b>GPROptions</b> options struct.</p><h2 id="4">Output Argurments</h2><p><b>Mdl</b> model struct with attached configuration.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="initGPR.html">initGPR</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -107,7 +105,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="keyword">if</span> isfield(GPROptions, <span class="string">'theta'</span>)
         Mdl.theta = GPROptions.theta;
     <span class="keyword">else</span>
-        Mdl.theta = [1, Mdl.D];
+        Mdl.theta = [1, 1];
     <span class="keyword">end</span>
 
     <span class="comment">% lower and upper bound for tuning theta</span>
@@ -149,8 +147,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
 
         <span class="comment">% limit poly degree, because higher polynoms as degree 7 causes</span>
         <span class="comment">% an error in cholesky decomposition</span>
-        <span class="keyword">if</span> Mdl.polyDegree &gt; 7
-            Mdl.polyDegree = 7;
+        <span class="keyword">if</span> Mdl.polyDegree &gt; 5
+            Mdl.polyDegree = 5;
         <span class="keyword">end</span>
     <span class="keyword">else</span>
         Mdl.polyDegree = 1;
@@ -160,34 +158,27 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% initGPROptions
-% Initiates GPR options struct from config on GPR model and defaults if expected
-% options are not available.
+% Initiates GPR options struct from config on GPR model and sets 
+% defaults if expected options are not available.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initGPROptions(Mdl, GPROptions)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initGPROptions(Mdl, GPROptions)* initiates default configuration on
+% model struct.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *GPROptions* options struct.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* model struct with attached configuration.
 %
 %
 %% Requirements
@@ -197,12 +188,11 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <generateConfigMat.html generateConfigMat>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -226,7 +216,7 @@ function Mdl = initGPROptions(Mdl, GPROptions)
     if isfield(GPROptions, 'theta')
         Mdl.theta = GPROptions.theta;
     else
-        Mdl.theta = [1, Mdl.D];
+        Mdl.theta = [1, 1];
     end
     
     % lower and upper bound for tuning theta
@@ -268,8 +258,8 @@ function Mdl = initGPROptions(Mdl, GPROptions)
 
         % limit poly degree, because higher polynoms as degree 7 causes
         % an error in cholesky decomposition
-        if Mdl.polyDegree > 7
-            Mdl.polyDegree = 7;
+        if Mdl.polyDegree > 5
+            Mdl.polyDegree = 5;
         end
     else
         Mdl.polyDegree = 1;

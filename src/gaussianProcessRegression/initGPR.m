@@ -3,44 +3,53 @@
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initGPR(TrainDS, GPROptions)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
+% *Mdl = initGPR(TrainDS, GPROptions)* sequential initializing.
 %
 %
 %% Examples
-%   Enter example matlab code for each use case.
+%   load config.mat PathVariables GPROptions;
+%   TrainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
+%   TestFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
+%   assert(~isempty(TrainFiles), 'No training datasets found.');
+%   assert(~isempty(TestFiles), 'No test datasets found.');
+%   try
+%       TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+%       TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+%   catch ME
+%       rethrow(ME)
+%   end
+%   Mdl = initGPR(TrainDS, GPROptions);
+%   [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS)
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *TrainDS* loaded training data by infront processesed sensor array simulation.
 %
-% *optionalArg* argurment description.
+% *GPROptions* loaded parameter group from config.mat. Struct with options.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* bare initialized model struct with no further optimization.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
-% * MAT-files required: None
+% * Subfunctions: initGPROptions, initTrainDS, initKernel, initKernelParameters
+% * MAT-files required: config.mat, Train_*.mat
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPROptions.html initGPROptions>
+% * <initTrainDS.html initTrainDS>
+% * <initKernel.html initKernel>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

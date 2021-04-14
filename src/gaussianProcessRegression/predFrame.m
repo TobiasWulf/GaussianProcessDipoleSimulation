@@ -1,51 +1,66 @@
 %% predFrame
-% Predicts single test point.
+% Predicts single test point and computes angle and radius by predicted sinoids.
+% Delivers several quality criteria.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
-%
+% *[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)*
+% predicts sinoids by passed regression model and test frame of raw data matrix.
+% Comutes angle and radius by predicted results. Several quality creteria are
+% setup based on predictive variance.
+% 
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *Xcos* matrix frame of cosine test data.
+%
+% *Xsin* matrix frame of sine test data.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *fang* computed angle by predicted cosine and sine results.
+%
+% *frad* computed radius by predicted cosine and sine results.
+%
+% *fcos* predictive mean result of cosine regression.
+%
+% *fsin* predictive mean result of sine regression.
+%
+% *fcov* predictive variance for both predictive means.
+%
+% *s* resulting standard deviation by predictive variance and noise level.
+%
+% *ciang* confidence interval of computed angle.
+%
+% *cirad* confidence interval of computed radius.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: computeTransposeInverseProduct, sinoids2angles
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <computeTransposeInverseProduct.html computeTransposeInverseProduct>
+% * <sinoids2angles.html sinoids2angles>
+% * <initKernel.html initKernel>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 %
 % <html>
 % <!--
 % Hidden Clutter.
 % Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on March 01. 2021 by Tobias Wulf. Add confidence intervalls and std.
+% Edited on March 01. 2021 by Tobias Wulf. Add mean driven prediction.
 % -->
 % </html>
 %

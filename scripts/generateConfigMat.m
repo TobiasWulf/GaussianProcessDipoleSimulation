@@ -305,7 +305,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 56;
+TrainingOptions.nAngles = 20;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -426,8 +426,8 @@ GPROptions.theta = [1, 1];
 % the point evaluated as bad set point. If the bound are to wide in relation of
 % number in dataset variousity the mean error raises. The model is to complex
 % then. Try to keep up simple modles.
-GPROptions.s2fBounds = [2, 20];
-GPROptions.slBounds = [4, 40];
+GPROptions.s2fBounds = [0.1, 100];
+GPROptions.slBounds = [0.1, 100];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
@@ -437,15 +437,21 @@ GPROptions.s2n = 1e-06;
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-6, 1e-04];
+GPROptions.s2nBounds = [1e-8, 1e-04];
 
 
 % Set number of outer optimization runs. For wide parameter bounds it is
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 5;
+GPROptions.OptimRuns = 50;
 
+
+% Set standardized logarithmic loss for bayes optimization of s2n with MSLL.
+% MSLL resutls as mean of chosen SLL.
+% SLLA - loss by simulation angles
+% SLLR - loss by radius = 1 (unit circle)
+GPROptions.SLL = 'SLLA';
 
 % Enables mean function and offset and amplitude correction. 
 % Set basis function to compute H matrix of training points and h vector of

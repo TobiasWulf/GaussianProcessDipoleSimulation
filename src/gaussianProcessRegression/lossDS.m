@@ -1,25 +1,15 @@
 %% lossDS
 % Predicts all angles of passed test dataset and computes logaritmic losses for
-% radius and squared angle error. 
-% AAED = Absolute Angular Error in Degrees
-% SLLA - Squared Log Loss Angular
-% SLLR - Squared Log Loss Radius
-% SEA  - Squared Error Angular
-% SER  - Squared Error Radius
-% SEC  - Squared Error Cosine
-% SES  - Squared Error Sine
+% radius and angles plus several squared errors. 
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   [AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
+% *[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)* computes losses
+% and prediction erros of a whole datasets
 %
 %
 %% Examples
@@ -33,22 +23,29 @@
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *AAED* Absolute Angular Error in Degrees
+% *SLLA* Std. Log. Loss Angular
+% *SLLR* Std. Log Loss Radius
+% *SEA* Squared Error Angular
+% *SER* Squared Error Radius
+% *SEC* Squared Error Cosine
+% *SES* Squared Error Sine
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: angles2sinoids, computeStdLogLoss
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <predDS.html predDS>
+% * <Training_and_Test_Datasets.html Training and Test Datasets>
+% * <angles2sinoids.html angles2sinoids>
+% * <computeStdLogLoss.html computeStdLogLoss>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

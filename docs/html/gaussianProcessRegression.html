@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>gaussianProcessRegression</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="gaussianProcessRegression.m"><style type="text/css">
+      --><title>gaussianProcessRegression</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="gaussianProcessRegression.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,31 +84,95 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>gaussianProcessRegression</h1><!--introduction--><p>Detailed description of the script task and summary description of underlaying script sections.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="2">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>gaussianProcessRegression</h1><!--introduction--><p>Function module which implements regression models with Gaussian Process. Implemented regression models posses the abillity to process training and test datasets bt sensor array simulation. The model creation can be bind into scripts by use of initGPR and tuneKernel for simple optimized models. A fully generalized regression model is supported by use of optimGPR to create models which are tuned on training data and generalized on test data.</p><!--/introduction--><h2 id="1">basicMathFunctions</h2><p>Submodule which contains basic math function to module functionanlity.</p><h2 id="2">kernelQFC</h2><p>Submodule which contain quadratic fractional covariance implementation.</p><h2 id="3">kernelQFCAPX</h2><p>Submodule which contains approximated quadratic fractional covariance implementation.</p><h2 id="4">initGPR</h2><p>Initializes regression model by training dataset and config dataset. Resulting model is not optimized.</p><h2 id="5">initGPROptions</h2><p>Attaches configuration to regression model including default parameters and bounds.</p><h2 id="6">initTrainDS</h2><p>Initiates the training data, refernce angles and regression targets on regression model.</p><h2 id="7">initKernel</h2><p>Initiates kernel submodules by made configuration.</p><h2 id="8">initKernelParameters</h2><p>Initiates the regression model by its set configuration done initiating steps before.</p><h2 id="9">tuneKernel</h2><p>Tunes initated regression model hyperparameters.</p><h2 id="10">computeTuneCriteria</h2><p>Computes min criteria for tuneKernel.</p><h2 id="11">predFrame</h2><p>Predicts singel test data frame.</p><h2 id="12">predDS</h2><p>Predicts a whole test dataset at once.</p><h2 id="13">lossDS</h2><p>Computes prediction losses and errors of a test dataset at once.</p><h2 id="14">optimGPR</h2><p>Computes optimized regression model.</p><h2 id="15">computeOptimCriteria</h2><p>Computes min criteria for optimGPR.</p><h2 id="16">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="demoGPRModule.html">demoGPRModule</a></li><li><a href="investigateKernelParameters.html">investigateKernelParameters.html</a></li><li><a href="generateSimulationDatasets.html">generateSimulationDatasets.html</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><h2 id="3">First Script Section</h2><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% gaussianProcessRegression
-% Detailed description of the script task and summary description of
-% underlaying script sections.
+% Function module which implements regression models with Gaussian Process.
+% Implemented regression models posses the abillity to process training and test
+% datasets bt sensor array simulation. The model creation can be bind into
+% scripts by use of initGPR and tuneKernel for simple optimized models. A fully
+% generalized regression model is supported by use of optimGPR to create models
+% which are tuned on training data and generalized on test data.
 %
 %
-%% Requirements
-% * Other m-files required: None
-% * Subfunctions: None
-% * MAT-files required: None
+%% basicMathFunctions
+% Submodule which contains basic math function to module functionanlity.
+%
+%
+%% kernelQFC
+% Submodule which contain quadratic fractional covariance implementation.
+%
+%
+%% kernelQFCAPX
+% Submodule which contains approximated quadratic fractional covariance
+% implementation.
+%
+%
+%% initGPR
+% Initializes regression model by training dataset and config dataset. Resulting
+% model is not optimized.
+%
+%
+%% initGPROptions
+% Attaches configuration to regression model including default parameters and
+% bounds.
+%
+%
+%% initTrainDS
+% Initiates the training data, refernce angles and regression targets on
+% regression model.
+%
+%
+%% initKernel
+% Initiates kernel submodules by made configuration.
+%
+%
+%% initKernelParameters
+% Initiates the regression model by its set configuration done initiating steps
+% before.
+%
+%
+%% tuneKernel
+% Tunes initated regression model hyperparameters.
+%
+%
+%% computeTuneCriteria
+% Computes min criteria for tuneKernel.
+%
+%
+%% predFrame
+% Predicts singel test data frame.
+%
+%
+%% predDS
+% Predicts a whole test dataset at once.
+%
+%
+%% lossDS
+% Computes prediction losses and errors of a test dataset at once.
+%
+%
+%% optimGPR
+% Computes optimized regression model.
+%
+%
+%% computeOptimCriteria
+% Computes min criteria for optimGPR.
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <generateConfigMat.html generateConfigMat>
+% * <demoGPRModule.html demoGPRModule>
+% * <investigateKernelParameters.html>
+% * <generateSimulationDatasets.html>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -117,7 +181,5 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-%
-%% First Script Section
 ##### SOURCE END #####
 --></body></html>

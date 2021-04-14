@@ -1,47 +1,42 @@
 %% initTrainDS
-% Initiates needed data from training dataset to GPR model struct. Builds target
-% vectors GPR depending on sensor used sensor type in training dataset
+% Initiates needed data from training dataset to GPR model struct. Builds GPR
+% target vectors depending on which sensor type was used to process the training
+% dataset.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initTrainDS(Mdl, TrainDS)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initTrainDS(Mdl, TrainDS)* attaches regression relevant data
+% information to model struct and initiates the training data with references
+% and regression targets.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *TrainDS* training data struct which includes Info and Data struct.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* with attached dataset information, raw training data, refernce angles
+% and regression targets for cosine and sine predictions.
 %
 %
 %% Requirements
 % * Other m-files required: None
 % * Subfunctions: None
-% * MAT-files required: None
+% * MAT-files required: Train_*.mat
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <Training_and_Test_Datasets.html Training and Test Datasets>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

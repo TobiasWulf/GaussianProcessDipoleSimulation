@@ -1,32 +1,25 @@
 %% initGPROptions
-% Initiates GPR options struct from config on GPR model and defaults if expected
-% options are not available.
+% Initiates GPR options struct from config on GPR model and sets 
+% defaults if expected options are not available.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initGPROptions(Mdl, GPROptions)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initGPROptions(Mdl, GPROptions)* initiates default configuration on
+% model struct.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *GPROptions* options struct.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* model struct with attached configuration.
 %
 %
 %% Requirements
@@ -36,12 +29,11 @@
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <generateConfigMat.html generateConfigMat>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--
@@ -65,7 +57,7 @@ function Mdl = initGPROptions(Mdl, GPROptions)
     if isfield(GPROptions, 'theta')
         Mdl.theta = GPROptions.theta;
     else
-        Mdl.theta = [1, Mdl.D];
+        Mdl.theta = [1, 1];
     end
     
     % lower and upper bound for tuning theta
@@ -107,8 +99,8 @@ function Mdl = initGPROptions(Mdl, GPROptions)
 
         % limit poly degree, because higher polynoms as degree 7 causes
         % an error in cholesky decomposition
-        if Mdl.polyDegree > 7
-            Mdl.polyDegree = 7;
+        if Mdl.polyDegree > 5
+            Mdl.polyDegree = 5;
         end
     else
         Mdl.polyDegree = 1;

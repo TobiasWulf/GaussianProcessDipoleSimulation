@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>initTrainDS</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="initTrainDS.m"><style type="text/css">
+      --><title>initTrainDS</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="initTrainDS.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,10 +84,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>initTrainDS</h1><!--introduction--><p>Initiates needed data from training dataset to GPR model struct. Builds target vectors GPR depending on sensor used sensor type in training dataset</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>initTrainDS</h1><!--introduction--><p>Initiates needed data from training dataset to GPR model struct. Builds GPR target vectors depending on which sensor type was used to process the training dataset.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">Mdl = initTrainDS(Mdl, TrainDS)
+</pre><h2 id="2">Description</h2><p><b>Mdl = initTrainDS(Mdl, TrainDS)</b> attaches regression relevant data information to model struct and initiates the training data with references and regression targets.</p><h2 id="3">Input Argurments</h2><p><b>Mdl</b> model struct.</p><p><b>TrainDS</b> training data struct which includes Info and Data struct.</p><h2 id="4">Output Argurments</h2><p><b>Mdl</b> with attached dataset information, raw training data, refernce angles and regression targets for cosine and sine predictions.</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: Train_*.mat</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="initGPR.html">initGPR</a></li><li><a href="Training_and_Test_Datasets.html">Training and Test Datasets</a></li></ul></div><p>Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -134,49 +132,44 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% initTrainDS
-% Initiates needed data from training dataset to GPR model struct. Builds target
-% vectors GPR depending on sensor used sensor type in training dataset
+% Initiates needed data from training dataset to GPR model struct. Builds GPR
+% target vectors depending on which sensor type was used to process the training
+% dataset.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initTrainDS(Mdl, TrainDS)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initTrainDS(Mdl, TrainDS)* attaches regression relevant data
+% information to model struct and initiates the training data with references
+% and regression targets.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *TrainDS* training data struct which includes Info and Data struct.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* with attached dataset information, raw training data, refernce angles
+% and regression targets for cosine and sine predictions.
 %
 %
 %% Requirements
 % * Other m-files required: None
 % * Subfunctions: None
-% * MAT-files required: None
+% * MAT-files required: Train_*.mat
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <Training_and_Test_Datasets.html Training and Test Datasets>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH

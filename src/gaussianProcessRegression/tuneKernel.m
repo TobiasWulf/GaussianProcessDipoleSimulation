@@ -1,47 +1,42 @@
 %% tuneKernel
-% Tunes kernel hyperparameters of GPR model. Tune both parameters in theta if
-% s2f = theta(1) not equal to 1.
+% Tunes kernel hyperparameters of GPR model. Dismiss tuning for each kernel
+% parameter by setting corresponding bounds to equal values.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = tuneKernel(Mdl, verbose)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = tuneKernel(Mdl, verbose)* solves the negative marginal logarithmic
+% likelihood criteria with fmincon solver.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *verbose* activates prompt for true or 1. Vice versa for false or 0.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* optimized hyperparameters and resulting regression model.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: fmincon, optimoptions, computeTuneCriteria,
+%   initKernelParameters
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <matlab:web(fullfile(docroot,'optim/ug/fmincon.html')) fmincon>
+% * <matlab:web(fullfile(docroot,'optim/ug/optim.problemdef.optimizationproblem.optimoptions.html')) optimoptions>
+% * <computeTuneCriteria.html computeTuneCriteria>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

@@ -1,49 +1,41 @@
 %% computeTuneCriteria
-% objective function to solve minimum constraint problem, delivers negative
-% function values to search minimum function evaluation estimates the minimum of
-% the negative log liklihoods of the current model parameters.
+% Objective function to solve minimum constraint problem, delivers negative
+% function values to search minimum function evaluation. Estimates the minimum
+% of the negative logaritmic marginal liklihoods for current model parameters.
 % No assignments on model, just recalculate function evaluation minimum.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   feval = computeTuneCriteria(theta, Mdl)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *feval = computeTuneCriteria(theta, Mdl)* sets new kernel parameter,
+% reinitiates model and calculates min criteria by likelihoods.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *theta* kernel parameter vector.
 %
-% *optionalArg* argurment description.
+% *Mdl* model struct to reinitiate.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *feval* function evaluation value.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: initKernelParameters
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <tuneKernel.html tuneKernel>
+% * <initKernelParameters.html initKernelParameters>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

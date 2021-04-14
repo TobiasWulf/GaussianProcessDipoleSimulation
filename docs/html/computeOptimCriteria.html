@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>computeOptimCriteria</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="computeOptimCriteria.m"><style type="text/css">
+      --><title>computeOptimCriteria</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="computeOptimCriteria.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,15 +84,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>computeOptimCriteria</h1><!--introduction--><p>object function to compute the loss of a fully initialized and tuned GPR model compute the mean squared log loss of angles MSLLA as function eval value perform noise adjustment in cylces in bayesopt</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>computeOptimCriteria</h1><!--introduction--><p>Object function to compute the loss of a fully initialized and tuned regression model. Computes the mean std. log. loss of angles MSLLA or radius MSLLR as function evaluation value for bayesopt. Perform noise adjustment in cylces in bayesopt.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
+</pre><h2 id="2">Description</h2><p><b>MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)</b></p><h2 id="3">Input Argurments</h2><p><b>OptVar</b> optimzation variable. Noise level passed by bayesopt algorithm.</p><p><b>Mdl</b> model struct.</p><p><b>TestDS</b> loaded test data by infront processesed sensor array simulation.</p><p><b>SLL</b> indicates which loss is used for MSLL. SLLA for angle and SLLR for radius.</p><p><b>verbose</b> activates prompt for true or 1. Vice versa for false or 0.</p><h2 id="4">Output Argurments</h2><p><b>MSLL</b> mean standardized logarithmic loss. Function evaluation value for optimGPR</p><h2 id="5">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: tuneKernel, lossDS, mean</li><li>MAT-files required: None</li></ul></div><h2 id="6">See Also</h2><div><ul><li><a href="optimGPR.html">optimGPR</a></li><li><a href="tuneKernel.html">tuneKernel</a></li><li><a href="lossDS.html">lossDS</a></li><li><a href="matlab:web(fullfile(docroot,'matlab/ref/mean.html'))">mean</a></li></ul></div><p>Created on March 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
-</p><pre class="codeinput"><span class="keyword">function</span> MSLLA = computeOptimCriteria(OptVar, Mdl, TestDS, verbose)
+</p><pre class="codeinput"><span class="keyword">function</span> MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
 
     <span class="comment">% push current variance value into GPR</span>
     Mdl.s2n = OptVar.s2n;
@@ -101,58 +99,69 @@ Edited on Month DD. YYYY by Editor: Single line description.
     Mdl = tuneKernel(Mdl, verbose);
 
     <span class="comment">% get loss on dataset for angular prediction</span>
-    [~, SLLA] = lossDS(Mdl, TestDS);
+    <span class="keyword">switch</span> SLL
+        <span class="keyword">case</span> <span class="string">'SLLA'</span>
+            [~, SLL] = lossDS(Mdl, TestDS);
+
+        <span class="keyword">case</span> <span class="string">'SLLR'</span>
+            [~, ~, SLL] = lossDS(Mdl, TestDS);
+
+        <span class="keyword">otherwise</span>
+            error(<span class="string">'Unknown SLL %s.'</span>, SLL);
+    <span class="keyword">end</span>
 
     <span class="comment">% return mean loss to evaluate optimization run</span>
-    MSLLA = mean(SLLA);
+    MSLL = mean(SLL);
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% computeOptimCriteria
-% object function to compute the loss of a fully initialized and tuned GPR model
-% compute the mean squared log loss of angles MSLLA as function eval value
-% perform noise adjustment in cylces in bayesopt
+% Object function to compute the loss of a fully initialized and tuned
+% regression model. Computes the mean std. log. loss of angles MSLLA or radius
+% MSLLR as function evaluation value for bayesopt. Perform noise adjustment in
+% cylces in bayesopt.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)* 
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *OptVar* optimzation variable. Noise level passed by bayesopt algorithm.
 %
-% *optionalArg* argurment description.
+% *Mdl* model struct.
+%
+% *TestDS* loaded test data by infront processesed sensor array simulation.
+%
+% *SLL* indicates which loss is used for MSLL. SLLA for angle and SLLR for
+% radius.
+%
+% *verbose* activates prompt for true or 1. Vice versa for false or 0.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *MSLL* mean standardized logarithmic loss. Function evaluation value for
+% optimGPR
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: tuneKernel, lossDS, mean
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <optimGPR.html optimGPR>
+% * <tuneKernel.html tuneKernel>
+% * <lossDS.html lossDS>
+% * <matlab:web(fullfile(docroot,'matlab/ref/mean.html')) mean>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -161,7 +170,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % REPLACE_WITH_DASH_DASH>
 % </html>
 %
-function MSLLA = computeOptimCriteria(OptVar, Mdl, TestDS, verbose)
+function MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
     
     % push current variance value into GPR
     Mdl.s2n = OptVar.s2n;
@@ -170,10 +179,19 @@ function MSLLA = computeOptimCriteria(OptVar, Mdl, TestDS, verbose)
     Mdl = tuneKernel(Mdl, verbose);
     
     % get loss on dataset for angular prediction
-    [~, SLLA] = lossDS(Mdl, TestDS);
+    switch SLL
+        case 'SLLA'
+            [~, SLL] = lossDS(Mdl, TestDS);
+            
+        case 'SLLR'
+            [~, ~, SLL] = lossDS(Mdl, TestDS);
+            
+        otherwise
+            error('Unknown SLL %s.', SLL);
+    end
     
     % return mean loss to evaluate optimization run
-    MSLLA = mean(SLLA);
+    MSLL = mean(SLL);
 end
 ##### SOURCE END #####
 --></body></html>

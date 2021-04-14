@@ -73,7 +73,7 @@ end
 % Remove equation png file from HTML output folder before create or recreate
 % publishing files. To prevent the directory expanse of old or edited equation
 % files.
-yesno = 'n';%input('Renew eqautions in docs [y/n]: ', 's');
+yesno = input('Renew eqautions in docs [y/n]: ', 's');
 if strcmp(yesno, 'y')
     removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
 end
@@ -116,15 +116,14 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 % directory tree, verbose.
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
-%publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
-publishFilesFromDir(fullfile(PathVariables.srcPath,'gaussianProcessRegression'), PublishOptions, true, true);
+publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 
 
 %% Unit Test Scripts
 % Publish unit tests scripts for each made test script and overall test runner.
 disp('Publish unit tests scripts ...');
 PublishOptions.evalCode = false;
-% publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
+publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
 
 
 %% Build Documentation Database for Matlab Help Browser
@@ -161,5 +160,5 @@ end
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
 open(fullfile(PublishOptions.outputDir, ...
-    'sinoids2angles.html'));
+    'gaussianProcessRegression.html'));
 disp('Done ...');

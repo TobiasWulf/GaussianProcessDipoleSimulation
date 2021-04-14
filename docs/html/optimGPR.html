@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>optimGPR</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-13"><meta name="DC.source" content="optimGPR.m"><style type="text/css">
+      --><title>optimGPR</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="optimGPR.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,10 +84,22 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>optimGPR</h1><!--introduction--><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">outputArg = functionName(positionalArg)
-outputArg = functionName(positionalArg, optionalArg)
-</pre><h2 id="2">Description</h2><p><b>outputArg = functionName(positionalArg)</b> detailed use case description.</p><p><b>outputArg = functionName(positionalArg, optionalArg)</b> detailed use case description.</p><h2 id="3">Examples</h2><pre class="language-matlab">Enter <span class="string">example</span> <span class="string">matlab</span> <span class="string">code</span> <span class="string">for</span> <span class="string">each</span> <span class="string">use</span> <span class="string">case.</span>
-</pre><h2 id="4">Input Argurments</h2><p><b>positionalArg</b> argurment description.</p><p><b>optionalArg</b> argurment description.</p><h2 id="5">Output Argurments</h2><p><b>outputArg</b> argurment description.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: None</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li>Reference1</li><li>Reference2</li><li>Reference3</li></ul></div><p>Created on Month DD. YYYY by Creator. Copyright Creator YYYY.</p><p>
+  </style></head><body><div class="content"><h1>optimGPR</h1><!--introduction--><p>Noise level optimization that implements optimized model by embedded kernel tuning process.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)
+</pre><h2 id="2">Description</h2><p><b>Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)</b> intiates regression model by training data and passed options. Solves min search via bayesopt for optimizing noise level. At each process step buit model is reinitiated and tuned to fit best on training data. The noise optimization can be performed by SLLA ans SLLR. Depends configuration of GPROptions. The loss computation is done on all forwarded test data.</p><h2 id="3">Examples</h2><pre class="language-matlab">load <span class="string">config.mat</span> <span class="string">PathVariables</span> <span class="string">GPROptions</span>;
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, <span class="string">'Training*.mat'</span>));
+TestFiles = dir(fullfile(PathVariables.testDataPath, <span class="string">'Test*.mat'</span>));
+assert(~isempty(TrainFiles), <span class="string">'No training datasets found.'</span>);
+assert(~isempty(TestFiles), <span class="string">'No test datasets found.'</span>);
+<span class="keyword">try</span>
+    TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+    TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+<span class="keyword">catch</span> ME
+    rethrow(ME)
+<span class="keyword">end</span>
+Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose);
+[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS)
+[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS);
+</pre><h2 id="4">Input Argurments</h2><p><b>TrainDS</b> loaded training data by infront processesed sensor array simulation.</p><p><b>TestDS</b> loaded test data by infront processesed sensor array simulation.</p><p><b>GPROptions</b> loaded parameter group from config.mat. Struct with options.</p><p><b>verbose</b> activates prompt for true or 1. Vice versa for false or 0.</p><h2 id="5">Output Argurments</h2><p><b>Mdl</b> fully optimized model struct with tuned hyperparameters and optimized noise level.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: initGPR, tuneKernel, computeOptimCriteria, lossDS,   optimizableVariable, bayesopt</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="matlab:web(fullfile(docroot,'stats/bayesopt.html'))">bayesopt</a></li><li><a href="matlab:web(fullfile(docroot,'stats/optimizablevariable.html'))">optimizablevariable</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneKernel.html">tuneKernel</a></li><li><a href="computeOptimCriteria.html">computeOptimCriteria</a></li><li><a href="lossDS.html">lossDS</a></li></ul></div><p>Created on March 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -101,7 +113,8 @@ Edited on Month DD. YYYY by Editor: Single line description.
     s2n = optimizableVariable(<span class="string">'s2n'</span>, GPROptions.s2nBounds, <span class="string">'Transform'</span>, <span class="string">'log'</span>);
 
     <span class="comment">% create function handle for bayes optimization</span>
-    fun = @(OptVar) computeOptimCriteria(OptVar, Mdl, TestDS,  verbose);
+    SLL = GPROptions.SLL;
+    fun = @(OptVar) computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose);
 
     <span class="comment">% perform bayes noise optimization</span>
     results = bayesopt(fun, s2n, <span class="keyword">...</span>
@@ -123,47 +136,73 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% optimGPR
+% Noise level optimization that implements optimized model by embedded kernel
+% tuning process.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
+% *Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)* intiates regression
+% model by training data and passed options. Solves min search via bayesopt for
+% optimizing noise level. At each process step buit model is reinitiated and
+% tuned to fit best on training data. The noise optimization can be performed by
+% SLLA ans SLLR. Depends configuration of GPROptions. The loss computation is
+% done on all forwarded test data.
 %
 %
 %% Examples
-%   Enter example matlab code for each use case.
+%   load config.mat PathVariables GPROptions;
+%   TrainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
+%   TestFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
+%   assert(~isempty(TrainFiles), 'No training datasets found.');
+%   assert(~isempty(TestFiles), 'No test datasets found.');
+%   try
+%       TrainDS = load(fullfile(TrainFiles(1).folder, TrainFiles(1).name));
+%       TestDS = load(fullfile(TestFiles(1).folder, TestFiles(1).name));
+%   catch ME
+%       rethrow(ME)
+%   end
+%   Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose);
+%   [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS)
+%   [AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS);
+%
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *TrainDS* loaded training data by infront processesed sensor array simulation.
 %
-% *optionalArg* argurment description.
+% *TestDS* loaded test data by infront processesed sensor array simulation.
+%
+% *GPROptions* loaded parameter group from config.mat. Struct with options.
+%
+% *verbose* activates prompt for true or 1. Vice versa for false or 0.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* fully optimized model struct with tuned hyperparameters and optimized
+% noise level.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: initGPR, tuneKernel, computeOptimCriteria, lossDS,
+%   optimizableVariable, bayesopt
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <matlab:web(fullfile(docroot,'stats/bayesopt.html')) bayesopt>
+% * <matlab:web(fullfile(docroot,'stats/optimizablevariable.html')) optimizablevariable>
+% * <initGPR.html initGPR>
+% * <tuneKernel.html tuneKernel>
+% * <computeOptimCriteria.html computeOptimCriteria>
+% * <lossDS.html lossDS>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!REPLACE_WITH_DASH_DASH
@@ -181,7 +220,8 @@ function Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)
     s2n = optimizableVariable('s2n', GPROptions.s2nBounds, 'Transform', 'log');
     
     % create function handle for bayes optimization
-    fun = @(OptVar) computeOptimCriteria(OptVar, Mdl, TestDS,  verbose);
+    SLL = GPROptions.SLL;
+    fun = @(OptVar) computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose);
     
     % perform bayes noise optimization
     results = bayesopt(fun, s2n, ...

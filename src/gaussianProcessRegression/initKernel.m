@@ -1,33 +1,21 @@
 %% initKernel
-% Initiates kernel and choose from set options GPR model struct. Attaches the
-% rigth kernel mean functions depending on options. Adjusts training data if
-% approximation kernels are used in model.
+% Initiates kernel and chooses kernel implementation by initiated GPR options.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   Mdl = initKernel(Mdl)
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *Mdl = initKernel(Mdl)* loads kernel submodule by passed identifier.
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
-%
-% *optionalArg* argurment description.
+% *Mdl* model struct.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *Mdl* with attached kernel functionality.
 %
 %
 %% Requirements
@@ -37,12 +25,12 @@
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <initGPR.html initGPR>
+% * <kernelQFC.html kernelQFC>
+% * <kernelQFCAPX.html kernelQFCAPX>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

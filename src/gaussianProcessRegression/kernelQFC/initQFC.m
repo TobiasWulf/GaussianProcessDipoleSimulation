@@ -30,7 +30,7 @@
 %
 %
 %% See Also
-% * <initGPR.html initGPR>
+% * <initKernel.html initKernel>
 % * <meanPolyQFC.html meanPolyQFC>
 % * <QFC.html QFC>
 %

@@ -1,46 +1,52 @@
 %% predDS
-% Predict all angles in test dataset
+% Predicts all frames of a test dataset at once.
 %
 %
 %% Syntax
-%   outputArg = functionName(positionalArg)
-%   outputArg = functionName(positionalArg, optionalArg)
+%   [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS)
+%   predicts whole dataset at once using predFrame in a loop.
 %
 %
 %% Description
-% *outputArg = functionName(positionalArg)* detailed use case description.
-%
-% *outputArg = functionName(positionalArg, optionalArg)* detailed use case
-% description.
-%
-%
-%% Examples
-%   Enter example matlab code for each use case.
+% *[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predDS(Mdl, TestDS)* 
 %
 %
 %% Input Argurments
-% *positionalArg* argurment description.
+% *Mdl* model struct.
 %
-% *optionalArg* argurment description.
+% *TestDS* struct of loaded test dataset.
 %
 %
 %% Output Argurments
-% *outputArg* argurment description.
+% *fang* vector of computed angle by predicted cosine and sine results.
+%
+% *frad* vector of computed radius by predicted cosine and sine results.
+%
+% *fcos* vector of predictive mean result of cosine regression.
+%
+% *fsin* vector of predictive mean result of sine regression.
+%
+% *fcov* vector of predictive variance for both predictive means.
+%
+% *s* vector of resulting standard deviation by predictive variance and noise level.
+%
+% *ciang* vector of confidence interval of computed angle.
+%
+% *cirad* vector of confidence interval of computed radius.
 %
 %
 %% Requirements
 % * Other m-files required: None
-% * Subfunctions: None
+% * Subfunctions: predFrame
 % * MAT-files required: None
 %
 %
 %% See Also
-% * Reference1
-% * Reference2
-% * Reference3
+% * <predFrame.html predFrame>
+% * <Training_and_Test_Datasets.html Training and Test Datasets>
 %
 %
-% Created on Month DD. YYYY by Creator. Copyright Creator YYYY.
+% Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 %
 % <html>
 % <!--

@@ -31,7 +31,7 @@
 %
 %
 %% See Also
-% * <initGPR.html initGPR>
+% * <initKernel.html initKernel>
 % * <meanPolyQFCAPX.html meanPolyQFCAPX>
 % * <QFCAPX.html QFCAPX>
 % * <frobeniusNorm.html frobeniusNorm>
