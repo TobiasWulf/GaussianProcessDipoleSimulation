@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="293.43622mm"
-   height="207.41679mm"
-   viewBox="0 0 293.43622 207.41679"
+   width="300.83954mm"
+   height="203.83664mm"
+   viewBox="0 0 300.83954 203.83664"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -236,15 +236,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="327.91603"
+     inkscape:cx="345.83939"
      inkscape:cy="501.09953"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1018"
-     inkscape:window-x="1920"
-     inkscape:window-y="34"
+     inkscape:window-height="1052"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -254,8 +254,8 @@
        type="xygrid"
        id="grid4520"
        units="mm"
-       originx="1.3945783"
-       originy="-1.6040364" />
+       originx="3.1129897"
+       originy="-1.6040376" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -273,7 +273,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(1.3945784,-87.979171)">
+     transform="translate(3.1129899,-91.55932)">
     <path
        inkscape:connector-curvature="0"
        id="path6260"
@@ -375,11 +375,11 @@
        y="162.81842"
        id="text4572"><tspan
          sodipodi:role="line"
-         id="tspan4582"
+         id="tspan984"
          x="252.86607"
-         y="162.81842">Dipol</tspan><tspan
+         y="162.81842">Dipole</tspan><tspan
          sodipodi:role="line"
-         id="tspan4584"
+         id="tspan986"
          x="252.86607"
          y="176.04759">Simulation</tspan></text>
     <text
@@ -498,7 +498,7 @@
          x="252.7906"
          y="255.49825">Sim. Angle</tspan></text>
     <rect
-       style="opacity:1;fill:url(#linearGradient6244);fill-opacity:1;stroke:#686868;stroke-width:2.00000006;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:url(#linearGradient6244);fill-opacity:1;stroke:#686868;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect6202"
        width="63.500008"
        height="15.875"
@@ -549,23 +549,23 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.69999981px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="10.054165"
-       y="106.50001"
+       x="-3.1750016"
+       y="101.20834"
        id="text7678"><tspan
          sodipodi:role="line"
          id="tspan7684"
-         x="10.054165"
-         y="106.50001">ASIC Model</tspan></text>
+         x="-3.1750016"
+         y="101.20834">ASIC Model</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.69999981px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="189.44167"
-       y="106.50001"
+       x="205.31668"
+       y="101.20834"
        id="text7682"><tspan
          sodipodi:role="line"
          id="tspan7680"
-         x="189.44167"
-         y="106.50001"
+         x="205.31668"
+         y="101.20834"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.69999981px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">Sensor Array</tspan></text>
     <text
        xml:space="preserve"
@@ -631,5 +631,27 @@
        sodipodi:end="6.2594663"
        sodipodi:open="true"
        d="m 220.92708,248.05209 a 1.3229166,1.3229166 0 0 1 -1.29124,1.35383 1.3229166,1.3229166 0 0 1 -1.35385,-1.29122 1.3229166,1.3229166 0 0 1 1.2912,-1.35387 1.3229166,1.3229166 0 0 1 1.35389,1.29117" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="2.6458309"
+       y="113.90833"
+       id="text981"><tspan
+         sodipodi:role="line"
+         id="tspan979"
+         x="2.6458309"
+         y="113.90833"
+         style="stroke-width:0.26458332">Analyze Data</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="212.72498"
+       y="113.90834"
+       id="text985"><tspan
+         sodipodi:role="line"
+         id="tspan983"
+         x="212.72498"
+         y="113.90834"
+         style="stroke-width:0.26458332">Generate Data</tspan></text>
   </g>
 </svg>
