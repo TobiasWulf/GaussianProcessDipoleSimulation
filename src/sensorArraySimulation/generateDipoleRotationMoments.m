@@ -1,10 +1,10 @@
 %% generateDipoleRotationMoments
 % Generate magnetic moments to perform a full rotation of a magnetic dipole in
-% the z-axes with a certain tilt. The moments covers a rotation from 0° to 360°
-% and are equal distributed between 0° and 360°. 0° and 360° are related to the
+% the z-axes with a certain tilt. The moments covers a rotation from 0 to 360
+% and are equal distributed between 0 and 360. 0 and 360 are related to the
 % first moment which is representated by the start vector of
 %
-% $$\vec{m_0} = |m_0| \cdot \left[ \matrix{-1 \cr 0 \cr 0} \right]$$
+% $$\vec{m_0} = |m_0| \cdot \left[ -1,,0, \right]^T$$
 % 
 % Due to the start vector position the tilt of z-axes must be applied with a
 % tilt angle in y-axes. So the rotated vector of the start moment is described
@@ -41,7 +41,7 @@
 %% Description
 % *M = generateDipoleRotationMoments(m0, nTheta)* generate magnetic moments
 % for N numbers of rotation angles theta in 3 x N sized matrix. With a default
-% angle resoulution of 1° and a start angle of 0°.
+% angle resoulution of 1 and a start angle of 0.
 %
 % *[M, theta] = generateDipoleRotationMoments(m0, nTheta)* returns so
 % magnetic moments as before and related angles theta as 1 x N vector.
@@ -66,7 +66,7 @@
 %   % strength calculations
 %   m0 = 1e6;
 %
-%   % get a full scale (FS) rotation of with 0.5° resolution and no tilt
+%   % get a full scale (FS) rotation of with 0.5 resolution and no tilt
 %   [MFS, thetaFS] = generateDipolRotationMoments(m0, 0, 0, 0.5);
 %
 %   % get down sampled (DS) rotation with equal distanced angles of the same full
@@ -77,7 +77,7 @@
 %   all(MFS(iFS) == MDS)
 %   all(thetaFS(iFS) == thetaDS)
 %
-%   % now shift the sample pick by 22 samples (11° with resolution of 0.5°)
+%   % now shift the sample pick by 22 samples (11 with resolution of 0.5)
 %   [MDSS, thetaDSS] = generateDipolRotationMoments(m0, 8, 0, 0.5, 22);
 %
 %   % check with index shift by 22 in iFS index
@@ -96,10 +96,10 @@
 % zero. If zero the full scale rotation is returned.
 %
 % *phi* scalar angule in degree to tilt the z-axes of the rotation. Can be any
-% real number. Default is 0°.
+% real number. Default is 0.
 %
 % *resolution* scalar angle resolution must be real positive number and probably
-% smaller than 360°. Default is 1°.
+% smaller than 360. Default is 1.
 %
 % *phaseIndex* scalar integer number to shift the start index of down sampling
 % the full scale rotation. Therfore nTheta must be greater than 0. Default is 0.
@@ -144,7 +144,7 @@ function [M, theta, index] = generateDipoleRotationMoments(m0, nTheta, ...
         m0 (1,1) double {mustBeReal}
         % validate number of used angulars as positive integer, for 0 return all
         nTheta (1,1) double {mustBeNonnegative, mustBeInteger}
-        % validate tilt angle as real value with default 0°
+        % validate tilt angle as real value with default 0
         phi (1,1) double {mustBeReal} = 0
         % validate angle resolution as real positive value
         resolution (1,1) double {mustBePositive} = 1
@@ -152,8 +152,8 @@ function [M, theta, index] = generateDipoleRotationMoments(m0, nTheta, ...
         phaseIndex (1,1) double {mustBeNonnegative, mustBeInteger} = 0
     end
     
-    % scale full rotation angle vector with given resolution from 0° to 360°
-    % so run to 360°-resolution because 0° == 360°, its a circle
+    % scale full rotation angle vector with given resolution from 0 to 360
+    % so run to 360-resolution because 0 == 360, its a circle
     fullScale = 0:resolution:(360 - resolution);
     
     % if nThetas is greater than 0 downsample to nTheta else use full scale

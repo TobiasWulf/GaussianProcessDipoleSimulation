@@ -1,0 +1,173 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{gaussianProcessRegression}
+
+\begin{par}
+Function module which implements regression models with Gaussian Process. Implemented regression models posses the abillity to process training and test datasets bt sensor array simulation. The model creation can be bind into scripts by use of initGPR and tuneKernel for simple optimized models. A fully generalized regression model is supported by use of optimGPR to create models which are tuned on training data and generalized on test data.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item basicMathFunctions
+   \item kernelQFC
+   \item kernelQFCAPX
+   \item initGPR
+   \item initGPROptions
+   \item initTrainDS
+   \item initKernel
+   \item initKernelParameters
+   \item tuneKernel
+   \item computeTuneCriteria
+   \item predFrame
+   \item predDS
+   \item lossDS
+   \item optimGPR
+   \item computeOptimCriteria
+   \item See Also
+\end{itemize}
+
+
+\subsection*{basicMathFunctions}
+
+\begin{par}
+Submodule which contains basic math function to module functionanlity.
+\end{par} \vspace{1em}
+
+
+\subsection*{kernelQFC}
+
+\begin{par}
+Submodule which contain quadratic fractional covariance implementation.
+\end{par} \vspace{1em}
+
+
+\subsection*{kernelQFCAPX}
+
+\begin{par}
+Submodule which contains approximated quadratic fractional covariance implementation.
+\end{par} \vspace{1em}
+
+
+\subsection*{initGPR}
+
+\begin{par}
+Initializes regression model by training dataset and config dataset. Resulting model is not optimized.
+\end{par} \vspace{1em}
+
+
+\subsection*{initGPROptions}
+
+\begin{par}
+Attaches configuration to regression model including default parameters and bounds.
+\end{par} \vspace{1em}
+
+
+\subsection*{initTrainDS}
+
+\begin{par}
+Initiates the training data, refernce angles and regression targets on regression model.
+\end{par} \vspace{1em}
+
+
+\subsection*{initKernel}
+
+\begin{par}
+Initiates kernel submodules by made configuration.
+\end{par} \vspace{1em}
+
+
+\subsection*{initKernelParameters}
+
+\begin{par}
+Initiates the regression model by its set configuration done initiating steps before.
+\end{par} \vspace{1em}
+
+
+\subsection*{tuneKernel}
+
+\begin{par}
+Tunes initated regression model hyperparameters.
+\end{par} \vspace{1em}
+
+
+\subsection*{computeTuneCriteria}
+
+\begin{par}
+Computes min criteria for tuneKernel.
+\end{par} \vspace{1em}
+
+
+\subsection*{predFrame}
+
+\begin{par}
+Predicts singel test data frame.
+\end{par} \vspace{1em}
+
+
+\subsection*{predDS}
+
+\begin{par}
+Predicts a whole test dataset at once.
+\end{par} \vspace{1em}
+
+
+\subsection*{lossDS}
+
+\begin{par}
+Computes prediction losses and errors of a test dataset at once.
+\end{par} \vspace{1em}
+
+
+\subsection*{optimGPR}
+
+\begin{par}
+Computes optimized regression model.
+\end{par} \vspace{1em}
+
+
+\subsection*{computeOptimCriteria}
+
+\begin{par}
+Computes min criteria for optimGPR.
+\end{par} \vspace{1em}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}generateConfigMat\end{verbatim}
+   \item \begin{verbatim}demoGPRModule\end{verbatim}
+   \item \begin{verbatim}investigateKernelParameters.html\end{verbatim}
+   \item \begin{verbatim}generateSimulationDatasets.html\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+
+\end{document}
+

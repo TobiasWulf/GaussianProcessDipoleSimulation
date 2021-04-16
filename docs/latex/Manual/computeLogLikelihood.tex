@@ -1,0 +1,136 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{computeLogLikelihood}
+
+\begin{par}
+Comuputes the marginal log likelihood as evidence of the current trained model parameter by solving the equation log p(y\ensuremath{|}X, alpha, log\ensuremath{|}Ky\ensuremath{|}) = -1/2 * (y - m)T * alpha - 1/2 log\ensuremath{|}Ky\ensuremath{|} - N/2 log(2pi) where alpha is the inverse matrix product of alpha = Ky\^{}-1 * (y - m).
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+computeLogLikelihood(y, m, alpha, logDet, N)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{computeLogLikelihood(y, m, alpha, logDet, N)}
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{y} column vector of regression targets.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{m} column vector of regression means.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{y} column vector of regression weights.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{logDet} real scalar of K matrix log determinate.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{N} number of observations. Number of reference angles.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{lml} real scalar of log marginal likelihood.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: None
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}decomposeChol\end{verbatim}
+   \item \begin{verbatim}computeAlphaWeights\end{verbatim}
+   \item \begin{verbatim}initKernelParameters\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function lml = computeLogLikelihood(y, m, alpha, logDet, N)
+    arguments
+        % validate inputs as real column vectors
+        y (:,1) double {mustBeReal, mustBeVector}
+        % m can be zero if zero gpr runs
+        m (:,1) double {mustBeReal, mustBeVector}
+        alpha (:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, alpha)}
+        % validate inputs as real scalar
+        logDet (1,1) double {mustBeReal}
+        N (1,1) double {mustBeReal}
+    end
+
+    % get residual of targets and mean
+    residual = y - m;
+
+    % compute log marginal likelihood
+    lml = -0.5 * (residual' * alpha + logDet + N * log(2 * pi));
+end
+
+% Custom validation functions
+function mustBeEqualSize(a, b)
+    if ~isequal(length(a), length(b))
+        eid = 'Size:notEqual';
+        msg = 'Vectors must be the same length.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

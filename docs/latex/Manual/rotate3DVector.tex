@@ -1,0 +1,149 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{rotate3DVector}
+
+\begin{par}
+Rotates a 3 dimensional vector with x-, y- and z-components in a 3 dimensional coordinate system along the x-, y- and z-axes. Using rotation matrix for x-, y- and z-axes. Angle must be served in degree. Vector must be a column vector 3 x 1 or matrix related x-, y-, z-components 3 x N.
+\end{par} \vspace{1em}
+\begin{par}
+This function was originally created by Thorben Schüthe is ported into source code under improvements and including Matlab built-in functions. Function rewritten.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Arguments
+   \item Output Arguments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)} returns a rotated vector which is rotated by given angles on related axes. alphaX rotates along the x-axes, betaY along the y-axes and gammaZ along the z-axes. Therfore each rotation is described by belonging rotation matrix. The resulting rotation of the vector is computed by the matrix and vector multiplacation of the rotation matrices and the input vecotor.
+\end{par} \vspace{1em}
+\begin{par}
+$$v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$$
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+% rotate a vector along z-axes by 45
+vector = [1; 0; 0]
+rotated = rotate3DVector(vector, 0, 0, 45)
+\end{lstlisting}
+\begin{lstlisting}[style=Matlab-editor]
+% rotate a vector along z-axes by 35 with a tilt in x-axes by 1
+vector = [1; 0; 0]
+rotated = rotate3DVector(vector, 1, 0, 35)
+\end{lstlisting}
+\begin{lstlisting}[style=Matlab-editor]
+% rotate a vector along z-axes by 35 with a tilt in x-axes by 1 and a
+% tilt in y-axes by 5
+vector = [1; 0; 0]
+rotated = rotate3DVector(vector, 1, 5, 35)
+\end{lstlisting}
+
+
+\subsection*{Input Arguments}
+
+\begin{par}
+\textbf{vector} is a 3 x N column vector of real numbers which represents the a vector in a 3D coordinate system with x-, y- and z-components.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{alphaX} is a scalar angular value in degree and rotates the vector in the x-axes.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{betaY} is a scalar angular value in degree and rotates the vector in the y-axes.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{gammaZ} is a scalar angular value in degree and rotates the vector in the z-axes.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Arguments}
+
+\begin{par}
+\textbf{rotated} is rotation of vector by passed axes related angles.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: rotx, roty, rotz
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}rotx\end{verbatim}
+   \item \begin{verbatim}roty\end{verbatim}
+   \item \begin{verbatim}rotz\end{verbatim}
+   \item \begin{verbatim}Wikipedia Drehmatrix\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on August 03. 2016 by Thorben Schüthe. Copyright Thorben Schüthe 2016.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [rotated] = rotate3DVector(vector, alphaX, betaY, gammaZ)
+    arguments
+        % validate as vecotor or matrix of size 3 x N
+        vector (3,:) double {mustBeReal}
+        % validate angles as scalar
+        alphaX (1,1) double {mustBeReal}
+        betaY (1,1) double {mustBeReal}
+        gammaZ (1,1) double {mustBeReal}
+    end
+
+    % rotate vector or vector field as 3 x N matrix counterclockwise by given
+    % angles along axes, calculate rotation matrices for each axes and
+    % multiplicate with input vector
+    rotated = rotz(gammaZ) * roty(betaY) * rotx(alphaX) * vector(:, 1:end);
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

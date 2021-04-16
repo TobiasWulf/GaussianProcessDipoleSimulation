@@ -1,0 +1,200 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{sinoids2angles}
+
+\begin{par}
+Computes angles in rad or degree by passed sinoids and radius. The angle calculation is asigned in two steps. At first compute bare angles by acos and asin functions. Divide therfore the corresponding sinoid by the radius. Furhter on the result from acos is used with an interval correction given by the second results from the asin function. The amplitudes of the sinoids must be one or near to one.
+\end{par} \vspace{1em}
+\begin{par}
+So angle computation relates to the unit circle with depencies of
+\end{par} \vspace{1em}
+\begin{par}
+$$f_{rad} = \sqrt{f_{sin}^2 + f_{cos}^2}$$
+\end{par} \vspace{1em}
+\begin{par}
+and computes intermediate angle results in rad of
+\end{par} \vspace{1em}
+\begin{par}
+$$f_c = \arccos\left(\frac{f_{cos}}{f_{rad}}\right)$$
+\end{par} \vspace{1em}
+\begin{par}
+$$f_s = \arcsin\left(\frac{f_{sin}}{f_{rad}}\right)$$
+\end{par} \vspace{1em}
+\begin{par}
+$$f_a = \arctan2\left(\frac{f_{sin}}{f_{cos}}\right)$$
+\end{par} \vspace{1em}
+\begin{par}
+The final angle result is computed by cosine intermediate result which uses the sine intermediate result als threshold to decide when angles must be enter the third quadrant of the unit circle. A the second angle reconstruction can be achieved by the atan2 function which has although an interval shift at 180 degree. It implies to use the sine results as threshold too.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+[fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{[fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)} returns angles in rad or degrees given by corresponding sinoids and radius. Set rad flag to false if angles in degrees are needed.
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+phi = linspace(0, 2*pi, 100);
+fsin = sin(phi);
+fcos = cos(phi);
+frad = sqrt(fsin.\^{}2 + fcos.\^{}2);
+[fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, true)
+\end{lstlisting}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{fsin} is a scalar or vector with sine information to corresponding angle.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{fcos} is a scalar or vector with cosine information to corresponding angle.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{frad} is a scalar or vector which represents the radius of each sine and cosine position.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{rad} is a boolean flag. If it is false the resulting angles are converted into degrees. If it is true fang is returned in rad. Default is true.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{how} is char vector which gives option how to reconstruct angles via acos or atan2 function. Default is atan2. Both methods use asin function as threshold to switch 180 intervall.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{fang} is a scalar or vector with angles in rad or degree corresponding to the sine and cosine inputs.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{fc} is a scalar or vector with angles directly computed by cosine and radius.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{fs} is a scalar or vector with angles directly computed by sine and radius.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{fa} is a scalar or vector with angles directly computed by sine and cosine.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: acos, asin
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}angles2sinoids\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on December 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad, how)
+    arguments
+        % validate sinoids and radius as scalar or vector of the same size
+        fsin (:,1) double {mustBeReal}
+        fcos (:,1) double {mustBeReal, mustBeEqualSize(fsin, fcos)}
+        frad (:,1) double {mustBeReal, mustBeEqualSize(fsin, frad)}
+        % validate rad as boolean flag with default true
+        rad (1,1) logical {mustBeNumericOrLogical} = true
+        % validate how as char option flag with default atan2
+        how (1,:) char {mustBeText} = 'atan2'
+    end
+
+    % compute angles by cosine, sine and radius
+    fc = acos(fcos ./ frad);
+    fs = asin(fsin ./ frad);
+    fa = atan2(fsin, fcos);
+
+    % get indices for interval > 180
+    idx = fs < 0;
+
+    switch how
+        case 'acos'
+            % angles from cosine
+            fang = fc;
+
+            % correct 180 interval
+            fang(idx) = -1 * fang(idx) + 2 * pi;
+
+        case 'atan2'
+            fang = fa;
+
+            % correct 180 interval
+            fang(idx) = fang(idx) + 2 * pi;
+
+        otherwise
+            error('Unknow arc function for reconstruction: %s.', how)
+    end
+
+    % return degrees if not rad
+    if ~rad, fang = 180 / pi * fang; end
+end
+
+% Custom validation function
+function mustBeEqualSize(a,b)
+    % Test for equal size
+    if ~isequal(size(a),size(b))
+        eid = 'Size:notEqual';
+        msg = 'Size of first input must equal size of second input.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

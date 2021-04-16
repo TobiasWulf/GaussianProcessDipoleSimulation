@@ -1,0 +1,138 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{lossDS}
+
+\begin{par}
+Predicts all angles of passed test dataset and computes logaritmic losses for radius and angles plus several squared errors.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{[AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)} computes losses and prediction erros of a whole datasets
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+Enter example matlab code for each use case.
+\end{lstlisting}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{positionalArg} argurment description.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{optionalArg} argurment description.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{AAED} Absolute Angular Error in Degrees \textbf{SLLA} Std. Log. Loss Angular \textbf{SLLR} Std. Log Loss Radius \textbf{SEA} Squared Error Angular \textbf{SER} Squared Error Radius \textbf{SEC} Squared Error Cosine \textbf{SES} Squared Error Sine
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: angles2sinoids, computeStdLogLoss
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}predDS\end{verbatim}
+   \item \begin{verbatim}Training and Test Datasets\end{verbatim}
+   \item \begin{verbatim}angles2sinoids\end{verbatim}
+   \item \begin{verbatim}computeStdLogLoss\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [AAED, SLLA, SLLR, SEA, SER, SEC, SES] = lossDS(Mdl, TestDS)
+
+    % get number of angles in dataset
+    N = TestDS.Info.UseOptions.nAngles;
+
+    % get simulated cosin and sine references from dataset angles in degrees
+    % and transpose to column vector, get sinoids and angles in rads
+    [ysin, ycos, yang] = angles2sinoids(TestDS.Data.angles', false, Mdl.PF);
+
+    % create reference radius of unit cricle, radius must be one for all angles
+    yrad = ones(N, 1);
+
+    % predict angles in rads not in degrees
+    [fang, frad, fcos, fsin, ~, s, ~, ~] = predDS(Mdl, TestDS);
+
+    % compute log loss and squared error for angles in rad
+    [SLLA, SEA] = computeStdLogLoss(yang, fang, asin(s) * sqrt(2));
+
+    % compute abslute angular error in degrees
+    AAED = sqrt(SEA) * 180/pi;
+
+    % compute log loss and squared error for radius
+    [SLLR, SER] = computeStdLogLoss(yrad, frad, sqrt(2) * s);
+
+    % compute squared error of sinoids
+    SEC = (ycos - fcos).^2;
+    SES = (ysin - fsin).^2;
+
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

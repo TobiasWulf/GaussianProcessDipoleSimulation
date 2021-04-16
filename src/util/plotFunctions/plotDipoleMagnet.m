@@ -102,7 +102,7 @@ function plotDipoleMagnet()
     % compute dipole and fetch to far field to approximate a sperical magnet
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % generate dipole moment for 0°
+    % generate dipole moment for 0
     m = generateDipoleRotationMoments(m0, 1);
     % compute H-field norm factor imprieng H magnitude on dipole, rest position
     H0norm = computeDipoleH0Norm(Hmag, m, [0; 0 ;-(z0 + rsp)]);

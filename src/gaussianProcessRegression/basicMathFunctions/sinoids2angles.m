@@ -21,14 +21,9 @@
 % The final angle result is computed by cosine intermediate result which uses
 % the sine intermediate result als threshold to decide when angles must be enter
 % the third quadrant of the unit circle.
-%
-% $$f_{ang} = \Bigg\lbrace\matrix{ f_c & f_s \ge 0 \cr -f_c +2\pi & f_s < 0}$$
-%
 % A the second angle reconstruction can be achieved by the atan2 function which
 % has although an interval shift at 180 degree. It implies to use the sine
 % results as threshold too.
-%
-% $$f_{ang} = \Bigg\lbrace\matrix{ f_a & f_s \ge 0 \cr f_a +2\pi & f_s < 0}$$
 %
 %
 %% Syntax
@@ -62,7 +57,7 @@
 %
 % *how* is char vector which gives option how to reconstruct angles via acos or
 % atan2 function. Default is atan2. Both methods use asin function as threshold
-% to switch 180° intervall.
+% to switch 180 intervall.
 %
 %
 %% Output Argurments
@@ -112,7 +107,7 @@ function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad, how)
     fs = asin(fsin ./ frad);
     fa = atan2(fsin, fcos);
     
-    % get indices for interval > 180°
+    % get indices for interval > 180
     idx = fs < 0;
 
     switch how
@@ -120,13 +115,13 @@ function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad, how)
             % angles from cosine
             fang = fc;
 
-            % correct 180° interval
+            % correct 180 interval
             fang(idx) = -1 * fang(idx) + 2 * pi;
         
         case 'atan2'
             fang = fa;
             
-            % correct 180° interval
+            % correct 180 interval
             fang(idx) = fang(idx) + 2 * pi;
             
         otherwise

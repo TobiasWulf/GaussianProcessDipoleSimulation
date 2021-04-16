@@ -14,17 +14,6 @@
 % * <matlab:web(fullfile(docroot,'simulink/ug/add-labels-to-files.html')) Add Labels to Files>
 %
 %
-%% Directory Overview
-%
-% <include>Directory_Tree.txt</include>
-%
-% _Generated with linux shell command from on directory above the main project
-% directory._
-%  
-%   tree -dhn GaussianProcessDipoleSimulation ...
-%       -o GaussianProcessDipoleSimulation/docs/html/Directory_Tree.txt -I ...
-%       "project|Project_*|thesis|literature"
-%
 %% Directory Tasks
 %
 % <html>

@@ -7,11 +7,11 @@
 %
 % The magnetic dipole moment w must be a column vector or shape
 %
-% $$\vec{m} = \left[ \matrix{m_x \cr m_y \cr m_z} \right]$$
+% $$\vec{m} = (m_x,m_y,m_z)^T$$
 %
 % so that the magnetic moment corresponds to a position vector
 %
-% $$\vec{r} = \left[ \matrix{x \cr y \cr z} \right]$$
+% $$\vec{r} = (x,y,z)^T$$
 %
 % with coordinates for x, y and z in 3D coordinate system which can be taken
 % part of its unit vector and its magnitude.
@@ -21,7 +21,7 @@
 % It computes the field strenght at this position with the current magnetic
 % moment for field compents in the same orientation.
 %
-% $$\vec{H}(\vec{r}) = \left[ \matrix{H_x \cr H_y \cr H_z} \right]$$
+% $$\vec{H}(\vec{r}) = (H_x,H_y,H_z)^T$$
 %
 % The originally equation of the magnetic dipole is known as
 %

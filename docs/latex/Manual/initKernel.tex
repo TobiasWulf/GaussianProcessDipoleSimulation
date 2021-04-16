@@ -1,0 +1,114 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{initKernel}
+
+\begin{par}
+Initiates kernel and chooses kernel implementation by initiated GPR options.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+Mdl = initKernel(Mdl)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{Mdl = initKernel(Mdl)} loads kernel submodule by passed identifier.
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{Mdl} model struct.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{Mdl} with attached kernel functionality.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: None
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}initGPR\end{verbatim}
+   \item \begin{verbatim}kernelQFC\end{verbatim}
+   \item \begin{verbatim}kernelQFCAPX\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function Mdl = initKernel(Mdl)
+
+    % set covariance function and input function to respect covariance function
+    % serve with right format of data, sets mean function which belongs to the
+    % corresponding kernel model
+    switch Mdl.kernel
+        case 'QFC'
+            Mdl = initQFC(Mdl);
+
+        case 'QFCAPX'
+            Mdl = initQFCAPX(Mdl);
+
+        % end kernel select
+        otherwise
+            error('Unknown kernel function %.', Mdl.kernel);
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

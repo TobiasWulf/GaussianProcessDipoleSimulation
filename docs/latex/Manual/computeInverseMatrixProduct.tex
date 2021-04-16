@@ -1,0 +1,169 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{computeInverseMatrixProduct}
+
+\begin{par}
+Computes the product of an inverted matrix A represented by its Cholesky decomposed lower triangle matrix L and a vector b or even another matrix B. Solving runs column by column if a Matrix B is passed and computes the linear system to an intermediate result with the lower triangle matrix L (inner solving) and finaly in an outer solving with the transposed lower triangle matrix L and the intermediate result to the final product x of the inverted matrix and vector(s).
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+x = computeInverseMatrixProduct(L, b)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{x = computeInverseMatrixProduct(L, b)} performs the inverse matrix product of matrix A and a vector b or even another matrix B. Then product is formed column by column of B. The not inverted matrix A is represented by its lower triangle matrix L (Cholesky Decomposition).
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+A = [1.0, 0.9, 0.8;
+     0.9, 1.0, 0.9;
+     0.8, 0.9, 1.0];
+L = decomposeChol(A);
+b = = [5; 9; 0.5];
+x = computeInverseMatrixProduct(L, b);
+B = = [5  ,  9;
+       0.5,  5;
+       3  , -1];
+X = computeInverseMatrixProduct(L, B);
+\end{lstlisting}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{L} is the lower triangle matrix of a matrix A.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{b} is a vector or matrix of real values.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{x} is the product of the inverted matrix A and b.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: linsolve, mustBeLowerTriangle, mustBeFitSize
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}decomposeChol\end{verbatim}
+   \item \begin{verbatim}linsolve\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function x = computeInverseMatrixProduct(L, b)
+    arguments
+        % validate L as lower triangle matrix of size N x N
+        L (:,:) double {mustBeReal, mustBeLowerTriangle(L)}
+        % validate b as vecotr matrix with same row length as L
+        b (:,:) double {mustBeReal, mustBeFitSize(L, b)}
+    end
+
+    % set linsolve option for inner (lower triangle) and outer (upper triangle)
+    % solve, outer solve runs with intermediate result of inner solve
+    opts1.LT = true;
+    opts2.UT = true;
+
+    % get size of b, if b is a matrix solve column by column
+    [M, N] = size(b);
+
+    % allocate memory for product result
+    x = zeros(M, N);
+
+    % solve column by column
+    for n = 1:N
+        % compute inner solve to intermediate result vecotor
+        v = linsolve(L, b(:,n), opts1);
+
+        % save final inverse product from outer solve
+        x(:,n) = linsolve(L', v, opts2);
+    end
+end
+
+% Custom validation functions
+function mustBeLowerTriangle(L)
+    % Test for lower triangle matrix
+    if ~istril(L)
+        eid = 'Matrix:notLowerTriangle';
+        msg = 'Matrix is not lower triangle.';
+        throwAsCaller(MException(eid,msg))
+    end
+    % Test for N x N
+    if ~isequal(size(L,1), size(L, 2))
+        eid = 'Size:notEqual';
+        msg = 'L is not size of N x N.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+
+function mustBeFitSize(L, b)
+    % Test for equal size
+    if ~isequal(size(L,1), size(b, 1))
+        eid = 'Size:notEqual';
+        msg = 'Size of rows are not fitting.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

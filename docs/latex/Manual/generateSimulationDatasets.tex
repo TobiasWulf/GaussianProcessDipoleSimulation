@@ -1,0 +1,128 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{generateSimulationDatasets}
+
+\begin{par}
+Generate sensor array simulation datasets for training and test applications. Loads needed configurations from config.mat and characterization data from defined characterization dataset (current: PathVariables.tdkDatasetPath). Simulated datasets are saved to data/training and data/test path. Generate dataset for a predefined configuration at once. Best use is to generate simulation data, do wish application or evaluation on it and save results. Delete datasets, edit configuration and rerun for a new set of datasets.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Requirements
+   \item See Also
+   \item Load Configuration and Characterization Dataset
+   \item Generate Training Datasets
+   \item Generate Test Datasets
+\end{itemize}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: simulateDipoleSquareSensorArray.m
+   \item Subfunctions: None
+   \item MAT-files required: config.mat, TDK\_TAS2141\_Characterization\_2020-10-22\_18-12-16-827.mat
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}sensorArraySimulation\end{verbatim}
+   \item \begin{verbatim}simulateDipoleSquareSensorArray\end{verbatim}
+   \item \begin{verbatim}generateConfigMat\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Load Configuration and Characterization Dataset}
+
+\begin{par}
+Load configuration to generate dataset from config.mat and defined characterization dataset.
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+try
+    clearvars;
+    close all;
+    disp('Load configuration ...');
+    load('config.mat', 'GeneralOptions', 'PathVariables', ...
+        'SensorArrayOptions', 'DipoleOptions', ...
+        'TrainingOptions', 'TestOptions');
+    disp('Load characterization dataset ...');
+    switch TrainingOptions.BaseReference
+        case 'TDK'
+            TrainingCharDataset = load(PathVariables.tdkDatasetPath);
+        case 'KMZ60'
+            TrainingCharDataset = load(PathVariables.kmz60DatasetPath);
+        otherwise
+            error('Unknow characterization dataset in config.');
+    end
+
+    switch TestOptions.BaseReference
+        case 'TDK'
+            TestCharDataset = load(PathVariables.tdkDatasetPath);
+        case 'KMZ60'
+            TestCharDataset = load(PathVariables.kmz60DatasetPath);
+        otherwise
+            error('Unknow characterization dataset in config.');
+    end
+
+catch ME
+    rethrow(ME)
+end
+\end{lstlisting}
+
+
+\subsection*{Generate Training Datasets}
+
+\begin{par}
+Generate training dataset from configuration and characterization dataset.
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+disp('Generate training datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
+\end{lstlisting}
+
+
+\subsection*{Generate Test Datasets}
+
+\begin{par}
+Generate test dataset from configuration and characterization dataset.
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+disp('Generate test datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)
+\end{lstlisting}
+
+
+
+\end{document}
+

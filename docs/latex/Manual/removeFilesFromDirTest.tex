@@ -1,0 +1,69 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{}
+
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Test 1: delete all files
+   \item Test 2: delete with pattern
+\end{itemize}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+% create test directory with files
+cd(fileparts(which('removeFilesFromDirTest')));
+mkdir('testDir');
+fclose(fopen(fullfile('testDir', 'testFile1.txt'), 'w'));
+fclose(fopen(fullfile('testDir', 'testFile2.txt'), 'w'));
+fclose(fopen(fullfile('testDir', 'testFile3.txt'), 'w'));
+\end{lstlisting}
+
+
+\subsection*{Test 1: delete all files}
+
+\begin{lstlisting}[style=Matlab-editor]
+removeStatus = removeFilesFromDir(fullfile('testDir'));
+assert(removeStatus == true)
+
+% create more files
+fclose(fopen(fullfile('testDir', 'testFile1.txt'), 'w'));
+fclose(fopen(fullfile('testDir', 'testFile2.txt'), 'w'));
+fclose(fopen(fullfile('testDir', 'testFile3.txt'), 'w'));
+\end{lstlisting}
+
+
+\subsection*{Test 2: delete with pattern}
+
+\begin{lstlisting}[style=Matlab-editor]
+removeStatus = removeFilesFromDir(fullfile('testDir'), '*.txt');
+assert(removeStatus == true)
+
+% clean up
+rmdir('testDir');
+\end{lstlisting}
+
+
+
+\end{document}
+

@@ -87,6 +87,9 @@ end
 % expected directory tree search for m-files.
 disp('Publish project documentation files ...');
 publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
+PublishOptions.format = 'latex';
+PublishOptions.stylesheet = PathVariables.publishStyleSheetPath2;
+publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 
 
 %% Executable Script Files
@@ -102,7 +105,12 @@ publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 % recursively but verbose.
 disp('Publish executable scripts ...');
 PublishOptions.evalCode = false;
-publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
+PublishOptions.format = 'html';
+PublishOptions.stylesheet = PathVariables.publishStyleSheetPath;
+publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, true, true);
+PublishOptions.format = 'latex';
+PublishOptions.stylesheet = PathVariables.publishStyleSheetPath2;
+publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, true, true);
 
 
 %% Source Code Functions and Classes
@@ -116,6 +124,11 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, false, true);
 % directory tree, verbose.
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
+PublishOptions.format = 'html';
+PublishOptions.stylesheet = PathVariables.publishStyleSheetPath;
+publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
+PublishOptions.format = 'latex';
+PublishOptions.stylesheet = PathVariables.publishStyleSheetPath2;
 publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 
 
@@ -123,7 +136,12 @@ publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 % Publish unit tests scripts for each made test script and overall test runner.
 disp('Publish unit tests scripts ...');
 PublishOptions.evalCode = false;
-publishFilesFromDir(PathVariables.unittestPath, PublishOptions, false, true);
+PublishOptions.format = 'html';
+PublishOptions.stylesheet = PathVariables.publishStyleSheetPath;
+publishFilesFromDir(PathVariables.unittestPath, PublishOptions, true, true);
+PublishOptions.format = 'latex';
+PublishOptions.stylesheet = PathVariables.publishStyleSheetPath2;
+publishFilesFromDir(PathVariables.unittestPath, PublishOptions, true, true);
 
 
 %% Build Documentation Database for Matlab Help Browser
@@ -159,6 +177,5 @@ end
 % Open generated HTML documentation from documentation root HTML file which
 % should be a project introduction or project roadmap page. Comment out if this
 % script is added to project shutdown tasks.
-open(fullfile(PublishOptions.outputDir, ...
-    'gaussianProcessRegression.html'));
+open(fullfile(PublishOptions.outputDir, 'GaussianProcessDipoleSimulation.html'));
 disp('Done ...');

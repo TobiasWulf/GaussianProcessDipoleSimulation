@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSingleSimulationAngle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="plotSingleSimulationAngle.m"><style type="text/css">
+      --><title>plotSingleSimulationAngle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-16"><meta name="DC.source" content="plotSingleSimulationAngle.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -166,11 +166,11 @@ Edited on Month DD. YYYY by Editor: Single line description.
     subline1 = <span class="string">"Sensor Array (%s) of %dx%d sensors, "</span> + <span class="keyword">...</span>
         <span class="string">"an edge length of %.1f mm, a rel. pos. to magnet surface of"</span>;
     subline2 = <span class="string">" (%.1f, %.1f, -(%.1f)) in mm, a magnet tilt"</span> + <span class="keyword">...</span>
-        <span class="string">" of %.1f&deg;, a sphere radius of %.1f mm, a imprinted"</span>;
+        <span class="string">" of %.1f, a sphere radius of %.1f mm, a imprinted"</span>;
     subline3 = <span class="string">"field strength of %.1f kA/m at %.1f mm from"</span> + <span class="keyword">...</span>
         <span class="string">" sphere surface in z-axis, %d rotation angles with a "</span>;
-    subline4 = <span class="string">"step width of %.1f&deg; and a resolution of"</span> + <span class="keyword">...</span>
-        <span class="string">" %.1f&deg;. Visualized is rotatation angle %d (%.1f&deg;)$."</span>;
+    subline4 = <span class="string">"step width of %.1f and a resolution of"</span> + <span class="keyword">...</span>
+        <span class="string">" %.1f. Visualized is rotatation angle %d (%.1f)$."</span>;
     subline5 = <span class="string">"Based on %s characterization reference %s."</span>;
     sub = [sprintf(subline1, <span class="keyword">...</span>
                    ds.Info.SensorArrayOptions.geometry, <span class="keyword">...</span>
@@ -597,11 +597,11 @@ function plotSingleSimulationAngle()
     subline1 = "Sensor Array (%s) of %dx%d sensors, " + ...
         "an edge length of %.1f mm, a rel. pos. to magnet surface of";
     subline2 = " (%.1f, %.1f, -(%.1f)) in mm, a magnet tilt" + ...
-        " of %.1f°, a sphere radius of %.1f mm, a imprinted";
+        " of %.1f, a sphere radius of %.1f mm, a imprinted";
     subline3 = "field strength of %.1f kA/m at %.1f mm from" + ...
         " sphere surface in z-axis, %d rotation angles with a ";
-    subline4 = "step width of %.1f° and a resolution of" + ...
-        " %.1f°. Visualized is rotatation angle %d (%.1f°)$.";
+    subline4 = "step width of %.1f and a resolution of" + ...
+        " %.1f. Visualized is rotatation angle %d (%.1f)$.";
     subline5 = "Based on %s characterization reference %s.";
     sub = [sprintf(subline1, ...
                    ds.Info.SensorArrayOptions.geometry, ...

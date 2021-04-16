@@ -1,22 +1,16 @@
 %% exportPublishedToPdf
-% Export Matlab generated HTML documentation (publish) to pdf-files and combine
-% them into a LaTeX index file ready compile to pdf manual. This script works on
-% unix sytems only or needs to be adjusted for windows systems for library path
-% and wkhtmltopdf binary path.
-%
-% *Runs on Unix systems only!*
+% Export Matlab generated Tex documentation (publish) to combined LaTeX index
+% file ready compile to appendix manual. 
 %
 %
 %% Requirements
-% * Other m-files required: src/util/removeFilesFromDir.m
-% * Subfunctions: wkhtmltopdf (shell), pdflatex (shell)
+% * Other m-files None
+% * Subfunctions: removeFilesFromDir
 % * MAT-files required: data/config.mat
 %
 %
 %% See Also
 % * <generateConfigMat.html generateConfigMat>
-% * <matlab:web(fullfile(docroot,'matlab/ref/system.html')) system>
-% * <https://wkhtmltopdf.org/ wkhtmltopdf>
 % * <publishProjectFilesToHTML.html publishProjectFilesToHTML>
 % * <Documentation_Workflow.html Documentation Workflow>
 %
@@ -26,7 +20,7 @@
 % <html>
 % <!--
 % Hidden Clutter.
-% Edited on Month DD. YYYY by Editor: Single line description.
+% Edited on April 16. 2021 by Editor: Solve export via own latex style sheet.
 % -->
 % </html>
 %
@@ -48,180 +42,140 @@ end
 %% Define Manual TOC
 % The maual toc must be in the same order as in helptoc.xml in the publish html
 % folder. The toc is used to generate a latex file to include for appendices.
-toc = ["section",           "GaussianProcessDipoleSimulation.pdf";
-       "section"            "Workflows.pdf";
-       "subsection",        "Project_Preparation.pdf";
-       "subsection",        "Project_Structure.pdf";
-       "subsection",        "Git_Feature_Branch_Workflow.pdf";
-       "subsection",        "Documentation_Workflow.pdf";
-       "subsection",        "Simulation_Workflow.pdf";
-       "section",           "Executable_Scripts.pdf";
-       "subsection",        "publishProjectFilesToHTML.pdf";
-       "subsection",        "generateConfigMat.pdf";
-       "subsection",        "generateSimulationDatasets.pdf";
-       "subsection",        "deleteSimulationDatasets.pdf";
-       "subsection",        "deleteSimulationPlots.pdf";
-       "subsection",        "exportPublishedToPdf.pdf";
-       "subsection",        "demoGPRModule.pdf";
-       "subsection",        "investigateKernelParameters.pdf";
-       "subsection",        "compareGPRKernels.pdf";
-       "section",           "Source_Code.pdf";
-       "subsection",        "sensorArraySimulation.pdf";
-       "subsubsection",     "rotate3DVector.pdf";
-       "subsubsection",     "generateDipoleRotationMoments.pdf";
-       "subsubsection",     "generateSensorArraySquareGrid.pdf";
-       "subsubsection",     "computeDipoleH0Norm.pdf";
-       "subsubsection",     "computeDipoleHField.pdf";
-       "subsubsection",     "simulateDipoleSquareSensorArray.pdf";
-       "subsection",        "gaussianProcessRegression.pdf";
-       "subsubsection",     "initGPR.pdf";
-       "subsubsection",     "initGPROptions.pdf";
-       "subsubsection",     "initTrainDS.pdf";
-       "subsubsection",     "initKernel.pdf";
-       "subsubsection",     "initKernelParameters.pdf";
-       "subsubsection",     "tuneKernel.pdf";
-       "subsubsection",     "computeTuneCriteria.pdf";
-       "subsubsection",     "predFrame.pdf";
-       "subsubsection",     "predDS.pdf";
-       "subsubsection",     "lossDS.pdf";
-       "subsubsection",     "optimGPR.pdf";
-       "subsubsection",     "computeOptimCriteria.pdf";
-       "subsubsection",     "kernelQFCAPX.pdf";
-       "paragraph",         "QFCAPX.pdf";
-       "paragraph",         "meanPolyQFCAPX.pdf";
-       "paragraph",         "initQFCAPX.pdf";
-       "subsubsection",     "kernelQFC.pdf";
-       "paragraph",         "QFC.pdf";
-       "paragraph",         "meanPolyQFC.pdf";
-       "paragraph",         "initQFC.pdf";
-       "subsubsection",     "basicMathFunctions.pdf";
-       "paragraph",         "sinoids2angles.pdf";
-       "paragraph",         "angles2sinoids.pdf";
-       "paragraph",         "decomposeChol.pdf";
-       "paragraph",         "frobeniusNorm.pdf";
-       "paragraph",         "computeInverseMatrixProduct.pdf";
-       "paragraph",         "computeTransposeInverseProduct.pdf";
-       "paragraph",         "addNoise2Covariance.pdf";
-       "paragraph",         "computeAlphaWeights.pdf";
-       "paragraph",         "computeStdLogLoss.pdf";
-       "paragraph",         "computeLogLikelihood.pdf";
-       "paragraph",         "estimateBeta.pdf";
-       "subsection",        "util.pdf";
-       "subsubsection",     "removeFilesFromDir.pdf";
-       "subsubsection",     "publishFilesFromDir.pdf";
-       "subsubsection",     "plotFunctions.pdf";
-       "paragraph",         "plotTDKCharDataset.pdf";
-       "paragraph",         "plotTDKCharField.pdf";
-       "paragraph",         "plotTDKTransferCurves.pdf";
-       "paragraph",         "plotKMZ60CharDataset.pdf";
-       "paragraph",         "plotKMZ60CharField.pdf";
-       "paragraph",         "plotKMZ60TransferCurves.pdf";
-       "paragraph",         "plotDipoleMagnet.pdf";
-       "paragraph",         "plotSimulationDataset.pdf";
-       "paragraph",         "plotSingleSimulationAngle.pdf";
-       "paragraph",         "plotSimulationSubset.pdf";
-       "paragraph",         "plotSimulationCosSinStats.pdf"
-       "paragraph",         "plotSimulationDatasetCircle.pdf";
-       "section",           "Datasets.pdf";
-       "subsection",        "TDK_TAS2141_Characterization.pdf";
-       "subsection",        "NXP_KMZ60_Characterization.pdf";
-       "subsection",        "Config_Mat.pdf";
-       "subsection",        "Training_and_Test_Datasets.pdf";
-       "section",           "Unit_Tests.pdf";
-       "subsection",        "runTests.pdf";
-       "subsection",        "removeFilesFromDirTest.pdf";
-       "subsection",        "rotate3DVectorTest.pdf";
-       "subsection",        "generateDipoleRotationMomentsTest.pdf";
-       "subsection",        "generateSensorArraySquareGridTest.pdf";
-       "subsection",        "computeDipoleH0NormTest.pdf";
-       "subsection",        "computeDipoleHFieldTest.pdf";
-       "subsection",        "tiltRotationTest.pdf";];
+toc = ["section",           "GaussianProcessDipoleSimulation.tex";
+       "section"            "Workflows.tex";
+       "subsection",        "Project_Preparation.tex";
+       "subsection",        "Project_Structure.tex";
+       "subsection",        "Git_Feature_Branch_Workflow.tex";
+       "subsection",        "Documentation_Workflow.tex";
+       "subsection",        "Simulation_Workflow.tex";
+       "section",           "Executable_Scripts.tex";
+       "subsection",        "publishProjectFilesToHTML.tex";
+       "subsection",        "generateConfigMat.tex";
+       "subsection",        "generateSimulationDatasets.tex";
+       "subsection",        "deleteSimulationDatasets.tex";
+       "subsection",        "deleteSimulationPlots.tex";
+       "subsection",        "exportPublishedToPdf.tex";
+       "subsection",        "demoGPRModule.tex";
+       "subsection",        "investigateKernelParameters.tex";
+       "subsection",        "compareGPRKernels.tex";
+       "section",           "Source_Code.tex";
+       "subsection",        "sensorArraySimulation.tex";
+       "subsubsection",     "rotate3DVector.tex";
+       "subsubsection",     "generateDipoleRotationMoments.tex";
+       "subsubsection",     "generateSensorArraySquareGrid.tex";
+       "subsubsection",     "computeDipoleH0Norm.tex";
+       "subsubsection",     "computeDipoleHField.tex";
+       "subsubsection",     "simulateDipoleSquareSensorArray.tex";
+       "subsection",        "gaussianProcessRegression.tex";
+       "subsubsection",     "initGPR.tex";
+       "subsubsection",     "initGPROptions.tex";
+       "subsubsection",     "initTrainDS.tex";
+       "subsubsection",     "initKernel.tex";
+       "subsubsection",     "initKernelParameters.tex";
+       "subsubsection",     "tuneKernel.tex";
+       "subsubsection",     "computeTuneCriteria.tex";
+       "subsubsection",     "predFrame.tex";
+       "subsubsection",     "predDS.tex";
+       "subsubsection",     "lossDS.tex";
+       "subsubsection",     "optimGPR.tex";
+       "subsubsection",     "computeOptimCriteria.tex";
+       "subsubsection",     "kernelQFCAPX.tex";
+       "paragraph",         "QFCAPX.tex";
+       "paragraph",         "meanPolyQFCAPX.tex";
+       "paragraph",         "initQFCAPX.tex";
+       "subsubsection",     "kernelQFC.tex";
+       "paragraph",         "QFC.tex";
+       "paragraph",         "meanPolyQFC.tex";
+       "paragraph",         "initQFC.tex";
+       "subsubsection",     "basicMathFunctions.tex";
+       "paragraph",         "sinoids2angles.tex";
+       "paragraph",         "angles2sinoids.tex";
+       "paragraph",         "decomposeChol.tex";
+       "paragraph",         "frobeniusNorm.tex";
+       "paragraph",         "computeInverseMatrixProduct.tex";
+       "paragraph",         "computeTransposeInverseProduct.tex";
+       "paragraph",         "addNoise2Covariance.tex";
+       "paragraph",         "computeAlphaWeights.tex";
+       "paragraph",         "computeStdLogLoss.tex";
+       "paragraph",         "computeLogLikelihood.tex";
+       "paragraph",         "estimateBeta.tex";
+       "subsection",        "util.tex";
+       "subsubsection",     "removeFilesFromDir.tex";
+       "subsubsection",     "publishFilesFromDir.tex";
+       "subsubsection",     "plotFunctions.tex";
+       "paragraph",         "plotTDKCharDataset.tex";
+       "paragraph",         "plotTDKCharField.tex";
+       "paragraph",         "plotTDKTransferCurves.tex";
+       "paragraph",         "plotKMZ60CharDataset.tex";
+       "paragraph",         "plotKMZ60CharField.tex";
+       "paragraph",         "plotKMZ60TransferCurves.tex";
+       "paragraph",         "plotDipoleMagnet.tex";
+       "paragraph",         "plotSimulationDataset.tex";
+       "paragraph",         "plotSingleSimulationAngle.tex";
+       "paragraph",         "plotSimulationSubset.tex";
+       "paragraph",         "plotSimulationCosSinStats.tex"
+       "paragraph",         "plotSimulationDatasetCircle.tex";
+       "section",           "Datasets.tex";
+       "subsection",        "TDK_TAS2141_Characterization.tex";
+       "subsection",        "NXP_KMZ60_Characterization.tex";
+       "subsection",        "Config_Mat.tex";
+       "subsection",        "Training_and_Test_Datasets.tex";
+       "section",           "Unit_Tests.tex";
+       "subsection",        "runTests.tex";
+       "subsection",        "removeFilesFromDirTest.tex";
+       "subsection",        "rotate3DVectorTest.tex";
+       "subsection",        "generateDipoleRotationMomentsTest.tex";
+       "subsection",        "generateSensorArraySquareGridTest.tex";
+       "subsection",        "computeDipoleH0NormTest.tex";
+       "subsection",        "computeDipoleHFieldTest.tex";
+       "subsection",        "tiltRotationTest.tex";];
 
 nToc = length(toc);
 fprintf("%d toc entries remarked ...\n", nToc);
 
 
-%% Scan for HTML Files
-% Scan for all published HTML files in the project publish directory.
+%% Scan for Tex Files
+% Scan for all published Tex files in the project publish directory.
 disp('Scan for published files ...');
-HTML = dir(fullfile(PathVariables.publishHtmlPath, '*.html'));
-if nToc ~= length(HTML)
+TEX = dir(fullfile(PathVariables.publishHtmlPath, '*.tex'));
+if nToc ~= length(TEX)
     warning(...
-        'TOC (%d) length and found HTML (%d) files are diverging.', ...
-        nToc, length(HTML));
+        'TOC (%d) length and found Tex (%d) files are diverging.', ...
+        nToc, length(TEX));
 end
 
-%% Export HTML to Pdf
-% Export found HTML files to Pdf files. Each file gets its own Pdf
-% represenstation. Filename is kept with pdf extension. Write files into Manual
-% folder under LaTeX subdirectory in docs path. Using wkhtmltopdf shell
-% application. Get filename, add pdf extension new path to file. Create shell
-% string to execute with system command. Get current library path (Matlab) and
-% change it to system library path to execute wkhtmltopdf after that restor
-% library back to Matlab.
-disp('Change local library path to system path ...');
-matlabLibPath = getenv('LD_LIBRARY_PATH');
-systemLibPath = '/usr/lib/x86_64-linux-gnu';
-setenv('LD_LIBRARY_PATH', systemLibPath);
-
-disp('Export published HTML to Pdf ...');
-fprintf('Source: %s\n', HTML(1).folder);
+%% Export Tex
+% Export found Tex files to Manual file. Each file gets its own represenstation.
+% Filename is kept. Write files into Manual folder under LaTeX subdirectory 
+% in docs path. Get filename, move to new path. Write Manual.
+disp('Export published Tex to Manual ...');
+fprintf('Source: %s\n', TEX(1).folder);
 fprintf('Destination: %s\n', PathVariables.exportPublishPath);
-for fhtml = HTML'
-    disp(fhtml.name);
-    [~, fName, ~] = fileparts(fhtml.name);
-    sourcePath = fullfile(fhtml.folder, fhtml.name);
+for ftex = TEX'
+    disp(ftex.name);
+    sourcePath = fullfile(ftex.folder, ftex.name);
     destinationPath = fullfile(...
-        PathVariables.exportPublishPath, [fName '.pdf']);
-    
-    cmdStr = join(["wkhtmltopdf", ...
-        "-B 47mm", ...
-        "-L 27mm", ...
-        "-R 27mm", ...
-        "-T 37mm", ...
-        "--minimum-font-size 12", ...
-        "--enable-local-file-access", ...
-        "--disable-external-links", ...
-        "--disable-internal-links", ...
-        ... "--disable-smart-shrinking", ...
-        "--window-status finished", ...
-        "--no-stop-slow-scripts", ...
-        "--javascript-delay 2000", ...
-        "%s %s"]);
-    shellStr = sprintf(cmdStr, sourcePath, destinationPath);
-    
+        PathVariables.exportPublishPath, ftex.name);
     try
-        [status, cmdout] = system(shellStr);
+        [status, msg] = movefile(sourcePath, destinationPath);
         % disp(cmdout);
-        if status ~= 0
+        if status ~= 1
             error('Export failure.');
         end
     catch ME
-        setenv('LD_LIBRARY_PATH', matlabLibPath);
-        disp(cmdout);
+        disp(msg);
         rethrow(ME)
     end
 end
 
-disp('Restore local library path ...');
-setenv('LD_LIBRARY_PATH', matlabLibPath);
-
 
 %% Write TOC to LaTeX File
-% Wirete TOC to LaTeX file and generate for each pdf to include a toc content
-% line with marked toc depth. Get the number of pages and add only page title
-% first pdf page.
+% Wirete TOC to LaTeX file and generate for each file a subimport along toc
+% content line with marked toc depth.
 disp('Write TOC to Manual.tex ...');
-addFirstPage = "\\addtocounter{%s}{1}\n" + ...
-    "\\includepdf[page=1," + ...
-    "pagecommand={\\phantomsection\\" + ...
-    "addcontentsline{toc}{%s}" + ...
-    "{\\protect\\numberline{\\the%s}%s}\\label{%s}}]{%s}\n";
-addRestPages = "\\includepdf[page=2-, pagecommand={\\phantomsection}]{%s}\n";
-
 fileID = fopen(fullfile(...
     PathVariables.exportPublishPath, 'Manual.tex'), 'w');
-% fprintf(fileID, "%% !TEX root = ../thesis.tex\n");
 fprintf(fileID, "%% appendix software documentation\n");
 fprintf(fileID, "%% @author Tobias Wulf\n");
 fprintf(fileID, ...
@@ -229,29 +183,27 @@ fprintf(fileID, ...
 fprintf(fileID, ...
     "%% Software manual with TOC generated in the same script.\n");
 fprintf(fileID, "%% Generated on %s.\n\n", datestr(datetime('now')));
-
-pat = regexpPattern("\d+");
-shellStr = "pdfinfo %s | grep Pages";
+fprintf(fileID, "\\documentclass[class=article, crop=false]{standalone}\n");
+fprintf(fileID, "\\usepackage[subpreambles=true]{standalone}\n");
+fprintf(fileID, "\\usepackage{import}\n\n");
+fprintf(fileID, "\\begin{document}\n");
+fprintf(fileID, "\\clearpage\n");
+fprintf(fileID, ...
+    "\\textbf{Matlab software appendix auto generated on %s.}\n\n", ...
+    datestr(datetime('now', 'Format', 'y-MM-d')));
 
 for i = 1:nToc
     level = toc(i);
     fName = toc(i,2);
-    [~, titleStr, ~] = fileparts(fName);
-    titleStr = strrep(titleStr, '_', ' ');
-    try
-        [status, cmdout] = system(sprintf(shellStr, ...
-            fullfile(PathVariables.exportPublishPath, fName)));
-        pages = double(extract(string(cmdout), pat));
-        
-        fprintf(fileID, addFirstPage, level, level, level, ...
-            titleStr, titleStr, fName);
-        if pages > 1, fprintf(fileID, addRestPages, fName); end
-        
-    catch ME
-        setenv('LD_LIBRARY_PATH', matlabLibPath);
-        fclose(fileID);
-        disp(cmdout);
-        rethrow(ME)
-    end   
+    [~, fstr, ~] = fileparts(fName);
+    lstr = lower(strrep(fstr, '_', '-'));
+    tstr = strrep(fstr, '_', ' ');
+    
+    fprintf(fileID, "\\%s{%s}", level, tstr);
+    fprintf(fileID, "\\label{mcode:%s}\n", lstr);
+    fprintf(fileID, "\\subimport{./}{%s}\n", fName);
+    fprintf(fileID, "\\clearpage\n");
 end
+
+fprintf(fileID, "\\end{document}\n");
 fclose(fileID);

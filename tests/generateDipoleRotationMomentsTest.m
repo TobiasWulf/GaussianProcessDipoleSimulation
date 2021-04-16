@@ -2,7 +2,7 @@
 % <html><h1>generateDipoleRotationMomentsTest</h1></html>
 %
 
-% create full scale rotation with 0.5° resolution and no tilt,
+% create full scale rotation with 0.5 resolution and no tilt,
 % return moments
 % and corressponding angles theta
 amp = 1e6;
@@ -16,7 +16,7 @@ res = 0.5;
 [M, t, idx] = generateDipoleRotationMoments(amp, 7, tilt, res);
 
 % create shifted subset, shift by 22 positions in full scale theta,
-% so with 0.5° resolution it is phase shift by 11°
+% so with 0.5 resolution it is phase shift by 11
 [MSH, tSH, idxSH] = generateDipoleRotationMoments(amp, 7, tilt, res, 22);
 
 %% Test 1: output dimensions

@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
+      --><title>simulateDipoleSquareSensorArray</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-16"><meta name="DC.source" content="simulateDipoleSquareSensorArray.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -236,7 +236,7 @@ Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to reference.
     [m, angles, angleRefIndex] = generateDipoleRotationMoments(M0mag, <span class="keyword">...</span>
         nAngles, tilt, angleRes, phaseIndex);
 
-    <span class="comment">% rotation angle step width on full rotation 360&deg; with subset of angles</span>
+    <span class="comment">% rotation angle step width on full rotation 360 with subset of angles</span>
     <span class="keyword">if</span> length(angles) &gt; 1
         angleStep =  angles(2) - angles(1);
     <span class="keyword">else</span>
@@ -559,7 +559,7 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     [m, angles, angleRefIndex] = generateDipoleRotationMoments(M0mag, ...
         nAngles, tilt, angleRes, phaseIndex);
     
-    % rotation angle step width on full rotation 360° with subset of angles
+    % rotation angle step width on full rotation 360 with subset of angles
     if length(angles) > 1
         angleStep =  angles(2) - angles(1);
     else 

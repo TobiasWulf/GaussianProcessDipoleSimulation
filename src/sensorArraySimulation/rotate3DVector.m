@@ -24,16 +24,16 @@
 %
 %
 %% Examples
-%   % rotate a vector along z-axes by 45°
+%   % rotate a vector along z-axes by 45
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 0, 0, 45)
 %
-%   % rotate a vector along z-axes by 35° with a tilt in x-axes by 1°
+%   % rotate a vector along z-axes by 35 with a tilt in x-axes by 1
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 1, 0, 35)
 %
-%   % rotate a vector along z-axes by 35° with a tilt in x-axes by 1° and a
-%   % tilt in y-axes by 5°
+%   % rotate a vector along z-axes by 35 with a tilt in x-axes by 1 and a
+%   % tilt in y-axes by 5
 %   vector = [1; 0; 0]
 %   rotated = rotate3DVector(vector, 1, 5, 35)
 %

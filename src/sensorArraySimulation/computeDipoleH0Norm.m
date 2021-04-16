@@ -19,11 +19,11 @@
 % $$H_{0norm} = \frac{H_{mag}}{|H_0(r_0)|}$$
 %   
 %% Syntax
-%   H0norm = functionName(Hmag, m0, r0)
+%   H0norm = computeDipoleH0Norm(Hmag, m0, r0)
 %
 %
 %% Description
-% *H0norm = functionName(Hmag, m0, r0)* computes scalar norm factor related
+% *H0norm = computeDipoleH0Norm(Hmag, m0, r0)* computes scalar norm factor related
 % to dipole rest position. Multiply that factor to dipole generated fields which
 % are computed with the same magnetic moment magnitude to imprint a choosen
 % magnetic field strength magnitude on the dipole field rotation.

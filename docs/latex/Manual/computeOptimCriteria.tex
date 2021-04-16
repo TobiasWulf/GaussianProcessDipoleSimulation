@@ -1,0 +1,133 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{computeOptimCriteria}
+
+\begin{par}
+Object function to compute the loss of a fully initialized and tuned regression model. Computes the mean std. log. loss of angles MSLLA or radius MSLLR as function evaluation value for bayesopt. Perform noise adjustment in cylces in bayesopt.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)}
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{OptVar} optimzation variable. Noise level passed by bayesopt algorithm.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{Mdl} model struct.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{TestDS} loaded test data by infront processesed sensor array simulation.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{SLL} indicates which loss is used for MSLL. SLLA for angle and SLLR for radius.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{verbose} activates prompt for true or 1. Vice versa for false or 0.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{MSLL} mean standardized logarithmic loss. Function evaluation value for optimGPR
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: tuneKernel, lossDS, mean
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}optimGPR\end{verbatim}
+   \item \begin{verbatim}tuneKernel\end{verbatim}
+   \item \begin{verbatim}lossDS\end{verbatim}
+   \item \begin{verbatim}mean\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on March 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
+
+    % push current variance value into GPR
+    Mdl.s2n = OptVar.s2n;
+
+    % tune kernel with new noise variance
+    Mdl = tuneKernel(Mdl, verbose);
+
+    % get loss on dataset for angular prediction
+    switch SLL
+        case 'SLLA'
+            [~, SLL] = lossDS(Mdl, TestDS);
+
+        case 'SLLR'
+            [~, ~, SLL] = lossDS(Mdl, TestDS);
+
+        otherwise
+            error('Unknown SLL %s.', SLL);
+    end
+
+    % return mean loss to evaluate optimization run
+    MSLL = mean(SLL);
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

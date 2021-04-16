@@ -1,0 +1,99 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{deleteSimulationPlots}
+
+\begin{par}
+Delete plots of simulation dataset from figure and image path at once.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Requirements
+   \item See Also
+   \item Load Path to Clean Up
+   \item Delete Dataset Plots
+\end{itemize}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: removeFilesFromDir.m
+   \item Subfunctions: None
+   \item MAT-files required: config.mat
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}removeFilesFromDir\end{verbatim}
+   \item \begin{verbatim}gernerateConfigMat\end{verbatim}
+   \item \begin{verbatim}Project Structure\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on November 02. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Load Path to Clean Up}
+
+\begin{par}
+Load path from config.mat and where to find training and test datasets.
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+try
+    clearvars;
+    close all;
+    load('config.mat', 'PathVariables')
+    disp('Delete from ...')
+    path = PathVariables.saveImagesPath;
+catch ME
+    rethrow(ME)
+end
+\end{lstlisting}
+
+
+\subsection*{Delete Dataset Plots}
+
+\begin{par}
+Delete datasets plots from image path and figure path with certain file pattern and extensions.
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+ext = ["fig" "svg" "eps" "pdf" "avi"];
+pat = "*";
+
+for e = ext
+    asw = removeFilesFromDir(path, join([pat, e], "."));
+    fprintf('Deleted pattern %s.%s %s\n', pat, e, string(asw));
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

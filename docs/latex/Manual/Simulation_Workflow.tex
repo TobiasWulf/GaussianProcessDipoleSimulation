@@ -1,0 +1,64 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{Simulation Workflow}
+
+\begin{par}
+That workflow describes a best practice way to simulate a sensor array with dipole (spherical magnet).
+\end{par} \vspace{1em}
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item Clean up old simuation datasets and plots of by executing   deleteSimulationDatasets and deleteSimulationPlots.
+   \item Edit generateConfigMat to needed specifications for simulation and generate   or regenerate config.mat by executing the script.
+   \item Execute generateSimulationDatasets to generate configure training and test   datasets.
+   \item Execute the needed plots to describe the simulation as wished.
+   \item Execute other parts of the software to work with current setup of simualtion   datasets.
+   \item Rename plots or move them to a subfolder to save them.
+   \item Move or rename Datasets if it is needed to keep them after done work.
+   \item Restart workflow for a next configuration to investigate on.
+\end{enumerate}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item See Also
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}generateConfigMat\end{verbatim}
+   \item \begin{verbatim}deleteSimulationDatasets\end{verbatim}
+   \item \begin{verbatim}generateSimulationDatasets\end{verbatim}
+   \item \begin{verbatim}deleteSimulationPlots\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on December 03. 2020 by Tobias. Copyright Tobias 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+
+\end{document}
+

@@ -20,31 +20,15 @@
 %
 % The coodinates of each dimension are placed in matrices of size N x N
 % related to the number of sensors at one edge of the square Array.
-% So position pattern in x dimension are returned as
-%
-% $$X_0 = \left[ \matrix{x_{1,1} & \cdots & x_{1,N} \cr
-%                        \vdots  & \ddots & \vdots  \cr
-%                        x_{N,1} & \cdots & x_{N,N}} \right]$$
+% So position pattern in x dimension are returned as $X_0$ with
 %
 % $$x_{i,j} = x_{1,1} + j \cdot d - d$$
 %
-% same wise for y dimension but transposed
-%
-% $$Y_0 = \left[ \matrix{y_{1,1} & \cdots & y_{1,N} \cr
-%                        \vdots  & \ddots & \vdots  \cr
-%                        y_{N,1} & \cdots & y_{N,N}} \right]$$
+% same wise for y dimension but transposed $X_0 = Y_0^T$ with
 %
 % $$y_{i,j} = y_{1,1} - i \cdot d + d$$
 %
-% $$Y_0 = -X_0^T$$
-%
-% and z dimension
-%
-% $$Z_0 = \left[ \matrix{z_{1,1} & \cdots & z_{1,N} \cr
-%                        \vdots  & \ddots & \vdots  \cr
-%                        z_{N,1} & \cdots & z_{N,N}} \right]$$
-%
-% $$z_{i,j} = 0$$
+% and z dimension $Z_0 = const.$ with $z_{i,j} = 0$
 %
 % for
 %
@@ -53,7 +37,7 @@
 % A relative position shift can be performed by pass a position vector p
 % with relativ position to center
 %
-% $$\vec{p} = \left[ \matrix{ x_p \cr y_p \cr z_p} \right]$$
+% $$\vec{p} = (x_p,y_p,z_p)^T$$
 %
 % So that a left shift in x direction relative to the magnet in the center
 % of the coordinate system is done by negative values for p(1) and an up 

@@ -1,0 +1,126 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{frobeniusNorm}
+
+\begin{par}
+Computes the Frobenius Norm of a matrix A.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+nv = frobeniusNorm(A, approx)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{frobeniusNorm(A, approx)} computes Frobenius Norm of M x N matrix. If approx is true the Norm is approximated with mean2 function.
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+A = magic(8);
+nv = frobeniusNorm(A, approx)
+\end{lstlisting}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{A} is a M x N matrix of real values.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{apporx} is boolean flag. If true the norm is approximated. Default is false.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{nv} is a scalar norm value.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: mean2, sqrt, sum
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}QFCAPX\end{verbatim}
+   \item \begin{verbatim}meanPolyQFC\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on January 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function nv = frobeniusNorm(A, approx)
+    arguments
+        % validate A as real matrix
+        A (:,:) double {mustBeReal}
+        % validate approx as flag with default false
+        approx (1,1) logical {mustBeNumericOrLogical} = false
+    end
+
+    % norm matrix
+    if approx
+        % approximate frobenis with mean and multiply with radicant of RMS
+        % frobenius norm is a RMS * sqrt(N x N), RMS >= mean
+        nv = mean2(A) * sqrt(numel(A));
+    else
+        % norm with frobenius
+        nv = sqrt(sum(A.^2, 'all'));
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

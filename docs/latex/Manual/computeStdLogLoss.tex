@@ -1,0 +1,135 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{computeStdLogLoss}
+
+\begin{par}
+Compute SLL loss between test targets and predictive mean dependend on predictive variance plus used variance for noisy covariance matrix as variance of normal distriubtion over predictive means s2 = fcov + s2n. The pred functions returns the standard deviation s so sqrt of the variance.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+[SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{[SLL, SE, s2] = computeStdLogLoss(y, fmean, s)} compute standardized logaritmic loss by squared error of ideal test data predicted data and standard deviation of predicted data.
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{y} column vector of ideal data to compare with.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{fmean} column vector of predictive mean.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{s} column vector of standard deviation related to predictive mean.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{SLL} column vector of standardized logarithmic loss.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{SE} squared error between \textbf{y} and \textbf{fmean}.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{s2} variance column vector.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: log
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}predFrame\end{verbatim}
+   \item \begin{verbatim}predDS\end{verbatim}
+   \item \begin{verbatim}lossDS\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
+    arguments
+        % validate inputs as real column vectors of same length
+        y (:,1) double {mustBeReal, mustBeVector}
+        fmean (:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, fmean)}
+        s (:,1) double {mustBeReal, mustBeVector, mustBeEqualSize(y, s)}
+    end
+    % squared error
+    SE = (y - fmean).^2;
+
+    % s as standard deviation of nomal destributed fmean so square it for
+    % variance.
+    s2 = s.^2;
+
+    % logaritmic error
+    SLL = 0.5 * (log(2 * pi * s2) + SE ./ s2);
+end
+
+% Custom validation functions
+function mustBeEqualSize(a, b)
+    if ~isequal(length(a), length(b))
+        eid = 'Size:notEqual';
+        msg = 'Vectors must be the same length.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

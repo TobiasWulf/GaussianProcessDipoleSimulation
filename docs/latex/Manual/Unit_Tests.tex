@@ -1,0 +1,128 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{Unit Tests}
+
+\begin{par}
+Unit Tests are provideing a way to test core functionallity of the written software components. Matlab supports various methods to apply Unit Tests. The designed tests are using script-based testing. So far each function or functionallity needs to be tested in a own test script and further on gathered into a main test script where all standalone test scripts are combined to a test suite and executed at once.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item runTests
+   \item removeFilesFromDirTest
+   \item rotate3DVectorTest
+   \item generateDipoleRotationMomentsTest
+   \item generateSensorArraySquareGridTest
+   \item computeDipoleH0NormTest
+   \item computeDipoleHFieldTest
+   \item tiltRotationTest
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{runTests}
+
+\begin{par}
+Test suite script which executes all Unit Tests scripts at once and gathers the test results in a Matlab table.
+\end{par} \vspace{1em}
+
+
+\subsection*{removeFilesFromDirTest}
+
+\begin{par}
+Test of function removeFilesFromDir. Creates several files and directories and deletes them during testing.
+\end{par} \vspace{1em}
+
+
+\subsection*{rotate3DVectorTest}
+
+\begin{par}
+Test rotate3DVector function. Do some rotations and check results.
+\end{par} \vspace{1em}
+
+
+\subsection*{generateDipoleRotationMomentsTest}
+
+\begin{par}
+Test the generation of magnetic dipole moments for a full rotation between 0° and 360°.
+\end{par} \vspace{1em}
+
+
+\subsection*{generateSensorArraySquareGridTest}
+
+\begin{par}
+Test the meshgrid generation of the sensor array and shifting it in x and y direction.
+\end{par} \vspace{1em}
+
+
+\subsection*{computeDipoleH0NormTest}
+
+\begin{par}
+Test magnetic field norming function. Simple test of consitent data.
+\end{par} \vspace{1em}
+
+
+\subsection*{computeDipoleHFieldTest}
+
+\begin{par}
+Test the magnetic dipole equation to generate dipole fields in 3D meshgrid of data points. Test field characteristics like symmetry and so on.
+\end{par} \vspace{1em}
+
+
+\subsection*{tiltRotationTest}
+
+\begin{par}
+Test tilt rotation of a dipole magnetic. Tilt magnet and coordinate cross to fetch pole values during rotation.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: None
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}Script-Based Unit Tests\end{verbatim}
+   \item \begin{verbatim}Write Script-Based Unit Tests\end{verbatim}
+   \item \begin{verbatim}Write Script-Based Unit Tests Using Local Functions\end{verbatim}
+   \item \begin{verbatim}Analyze Test Case Result\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on December 14. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+
+\end{document}
+

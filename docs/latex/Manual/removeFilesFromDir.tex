@@ -1,0 +1,145 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{removeFilesFromDir}
+
+\begin{par}
+Remove files from passed direcotory.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Arguments
+   \item Output Arguments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+removeStatus = removeFilesFromDir(directory)
+removeStatus = removeFilesFromDir(directory, filePattern)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{removeStatus = removeFilesFromDir(directory)} removes all files that are located in the passed directory and returns a logical 1 if the operation was successful or 0 if not. The directory argument must be char vector of 1xN and valid path to a existing directory.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{removeStatus = removeFilesFromDir(directory, filePattern)} removes all files in the located directory which matches the passed file pattern. The filePattern argument must be be char vector of 1xN. It is an optional argument with a default value of '*.*', valid file patterns can be filenames which part replace names by * character before the dot and exisiting file extensions e.g. myfile\_*.m or *.txt and so on.
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+d = fullfile('rootPath', 'subfolder')
+rs = removeFileFromDir(d)
+\end{lstlisting}
+\begin{lstlisting}[style=Matlab-editor]
+d = fullfile('rootPath', 'subfolder')
+rs = removeFileFromDir(d, '*.mat')
+\end{lstlisting}
+
+
+\subsection*{Input Arguments}
+
+\begin{par}
+\textbf{directory} char vector, path directory in which to scan for files with file pattern and to delete found files.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{filePattern} char vector of file pattern with extension. Default is to delete all files. Possible patterns can be passed with filename parts with start operator as place holder.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Arguments}
+
+\begin{par}
+\textbf{removeStatus} locgical scalar which is true if all files wich matches the file pattern are deleted successfully from passed directory path.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: None
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}fullfile\end{verbatim}
+   \item \begin{verbatim}dir\end{verbatim}
+   \item \begin{verbatim}delete\end{verbatim}
+   \item \begin{verbatim}isfile\end{verbatim}
+   \item \begin{verbatim}isempty\end{verbatim}
+   \item \begin{verbatim}ismember\end{verbatim}
+   \item \begin{verbatim}mustBeFolder\end{verbatim}
+   \item \begin{verbatim}mustBeText\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on October 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [removeStatus] = removeFilesFromDir(directory, filePattern)
+    arguments
+        % validate directory
+        directory (1,:) char {mustBeFolder}
+        % validate filePattern
+        filePattern (1,:) char {mustBeText} = '*.*'
+    end
+    % parse pattern for dir
+    parsePattern = fullfile(directory, filePattern);
+    % parse directory, returns struct
+    filesToRemove = dir(parsePattern);
+    % delete files, tranpose to loop through struct
+    for file = filesToRemove'
+        % check before delete
+        filePath = fullfile(file.folder, file.name);
+        if isfile(filePath)
+            delete(filePath);
+        end
+    end
+    % check if dir returns an empty struct now
+    check = dir(parsePattern);
+    removeStatus = isempty(check(~ismember({check.name}, {'.', '..'})));
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

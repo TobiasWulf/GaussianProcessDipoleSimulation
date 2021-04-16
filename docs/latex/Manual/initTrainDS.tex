@@ -1,0 +1,138 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{initTrainDS}
+
+\begin{par}
+Initiates needed data from training dataset to GPR model struct. Builds GPR target vectors depending on which sensor type was used to process the training dataset.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+Mdl = initTrainDS(Mdl, TrainDS)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{Mdl = initTrainDS(Mdl, TrainDS)} attaches regression relevant data information to model struct and initiates the training data with references and regression targets.
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{Mdl} model struct.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{TrainDS} training data struct which includes Info and Data struct.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{Mdl} with attached dataset information, raw training data, refernce angles and regression targets for cosine and sine predictions.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: None
+   \item MAT-files required: Train\_*.mat
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}initGPR\end{verbatim}
+   \item \begin{verbatim}Training and Test Datasets\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function Mdl = initTrainDS(Mdl, TrainDS)
+
+    % set model parameters from training dataset and training data dependencies
+    % N number of angles and refernces in degree
+    Mdl.N = TrainDS.Info.UseOptions.nAngles;
+    Mdl.Angles = TrainDS.Data.angles';
+
+    % D sensor array square dimension of DxD sensor array
+    Mdl.D = TrainDS.Info.SensorArrayOptions.dimension;
+
+    % P number of predictors in sensor array
+    Mdl.P = TrainDS.Info.SensorArrayOptions.SensorCount;
+
+    % get sensor type from dataset
+    Mdl.Sensor = TrainDS.Info.UseOptions.BaseReference;
+
+    % choose period factor depending on sensor type
+    % how many sinoid periods are abstract on a full rotation by 360
+    switch Mdl.Sensor
+        case 'TDK'
+            Mdl.PF = 1;
+
+        case 'KMZ60'
+            Mdl.PF = 2;
+
+        otherwise
+            error('Unkown Sensor %s.', Mdl.Sensor);
+    end
+
+    % get reference angles in degree and transpose to column vector
+    % get sinoid target vectors depending period factor,
+    % transpose because angles2sinoids works with row vectors
+    [Mdl.Ysin, Mdl.Ycos] = angles2sinoids(Mdl.Angles, ...
+        false, Mdl.PF);
+
+    % attach training data fro cosine and sine to model
+    Mdl.Xcos = TrainDS.Data.Vcos;
+    Mdl.Xsin = TrainDS.Data.Vsin;
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

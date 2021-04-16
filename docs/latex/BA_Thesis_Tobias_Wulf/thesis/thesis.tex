@@ -24,6 +24,9 @@
 \sisetup{locale = DE}     % siunitx locale setup
 %\DeclareSIUnit \fps{fps}  % a custom unit (usage: \SI{24}{\fps})
 
+% code listings setup
+\lstset{style=Matlab-editor,basicstyle=\ttfamily}
+
 \begin{document}
 \input{configuration/configuration}    % load all settings
 
@@ -83,9 +86,9 @@
 \IListOfTables
 
 % List of algorithms here
-\renewcommand{\listalgorithmcfname}{Algorithmenverzeichnis}
-\listofalgorithms
-\addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
+%\renewcommand{\listalgorithmcfname}{Algorithmenverzeichnis}
+%\listofalgorithms
+%\addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
 
 % List glossary entries
 \IGlossary

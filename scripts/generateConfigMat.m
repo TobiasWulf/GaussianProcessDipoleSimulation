@@ -153,6 +153,10 @@ PathVariables.exportPublishPath = fullfile(PathVariables.latexDocsPath, ...
 PathVariables.publishStyleSheetPath = fullfile(PathVariables.publishHtmlPath, ...
     'docsHtmlStyleSheet.xsl');
 
+% path to style sheet for latex documentation, Matlab provided style sheet
+PathVariables.publishStyleSheetPath2 = fullfile(PathVariables.publishHtmlPath, ...
+    'docsLatexStyleSheet.xsl');
+
 % path to documentation search database entries for Matlab help browser support
 PathVariables.helpsearchPath = fullfile(PathVariables.publishHtmlPath, ...
     'helpsearch-v3');
@@ -239,7 +243,7 @@ DipoleOptions.sphereRadius = 2;
 
 % H-field magnitude to multiply of generated and relative normed dipole
 % H-fields, the norming is done in zero position of [0 0 z0 + sphere radius] for
-% 0° due to the position of the magnetic moment [-1 0 0] x and y components
+% 0 deg due to the position of the magnetic moment [-1 0 0] x and y components
 % are not relevant, norming without tilt. Magnitude in kA/m. The magnitude
 % refers that the sphere magnet has this H-field magnitude in a certain distance
 % z0 in example sphere with 2mm sphere radius has a H magnitude of 200kA/m in
@@ -294,14 +298,14 @@ TrainingOptions.angleRes = 0.5;
 % Phase index applies a phase offset in the rotation, it is used as phase index
 % to a down sampling to generate even distributed angles of a full scale
 % rotation. Offset index of full rotation. In example a full scale rotation from
-% 0° to 360° - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
-% angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11° set
+% 0 to 360 - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
+% angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11 set
 % phaseIndex to 22 a multiple of the resolution angleRes and get
 % [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer. Fix
 % parameter.
 TrainingOptions.phaseIndex = 0;
 
-% Number rotaion angles, even distribute between 0° and 360° with respect
+% Number rotaion angles, even distribute between 0 and 360 with respect
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
@@ -355,14 +359,14 @@ TestOptions.angleRes = 0.5;
 % Phase index applies a phase offset in the rotation, it is used as phase index
 % to a down sampling to generate even distributed angles of a full scale
 % rotation. Offset index of full rotation. In example a full scale rotation from
-% 0° to 360° - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
-% angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11° set
+% 0 to 360 - angleRes returns 720 angles, if nAngles is set to 7 it returns 7
+% angles [0, 51.5, 103, 154.5, 206, 257.5, 309]. To get a phase shift of 11 set
 % phaseIndex to 22 a multiple of the resolution angleRes and get
 % [11, 62.5, 114, 165.5, 217, 268.5, 320]. Must be positive integer. Fix
 % parameter.
 TestOptions.phaseIndex = 0;
 
-% Number rotaion angles, even distribute between 0° and 360° with respect
+% Number rotaion angles, even distribute between 0 and 360 with respect
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number to 0 to
 % generate full scale rotation. Fix parameter.

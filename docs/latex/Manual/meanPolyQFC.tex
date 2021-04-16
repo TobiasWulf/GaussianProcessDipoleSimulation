@@ -1,0 +1,120 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{meanPolyQFC}
+
+\begin{par}
+Basis or trend function to compute the H matrix as set of h(x) vectors for each predictor to apply a mean feature space as polynom approximated mean with beta coefficients. Compute H matrix to estimate beta.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+H = meanPolyQFC(X, degree)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{H = meanPolyQFC(X, degree)} build polynom by passed data. Fires Frobenius Norm on matrix data.
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{X} matrix data.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{degree} polynom degree.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{H} polynom.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: frobeniusNorm
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}initQFC\end{verbatim}
+   \item \begin{verbatim}frobeniusNorm\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function H = meanPolyQFC(X, degree)
+    % get number of observations
+    [~, ~, N] = size(X);
+
+    % returns only ones if p = 0
+    H = ones(degree + 1, N);
+
+    % compute polynom for degrees > 0
+    if degree > 0
+        for n = 1:N
+            H(2,n) = frobeniusNorm(X(:,:,n), false);
+        end
+    end
+
+    % compute none linear polynoms if degree > 1
+    if degree > 1
+        for p = 2:degree
+            H(p+1,:) = H(2,:).^p;
+        end
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

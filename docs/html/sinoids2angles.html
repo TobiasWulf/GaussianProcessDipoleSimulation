@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>sinoids2angles</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="sinoids2angles.m"><style type="text/css">
+      --><title>sinoids2angles</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-16"><meta name="DC.source" content="sinoids2angles.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,13 +84,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>sinoids2angles</h1><!--introduction--><p>Computes angles in rad or degree by passed sinoids and radius. The angle calculation is asigned in two steps. At first compute bare angles by acos and asin functions. Divide therfore the corresponding sinoid by the radius. Furhter on the result from acos is used with an interval correction given by the second results from the asin function. The amplitudes of the sinoids must be one or near to one.</p><p>So angle computation relates to the unit circle with depencies of</p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq10514463134963420418.png" alt="$$f_{rad} = \sqrt{f_{sin}^2 + f_{cos}^2}$$"></span><script type="math/tex">f_{rad} = \sqrt{f_{sin}^2 + f_{cos}^2}</script></p><p>and computes intermediate angle results in rad of</p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq09701201355358735247.png" alt="$$f_c = \arccos\left(\frac{f_{cos}}{f_{rad}}\right)$$"></span><script type="math/tex">f_c = \arccos\left(\frac{f_{cos}}{f_{rad}}\right)</script></p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq10382253392817918637.png" alt="$$f_s = \arcsin\left(\frac{f_{sin}}{f_{rad}}\right)$$"></span><script type="math/tex">f_s = \arcsin\left(\frac{f_{sin}}{f_{rad}}\right)</script></p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq08179385510084195676.png" alt="$$f_a = \arctan2\left(\frac{f_{sin}}{f_{cos}}\right)$$"></span><script type="math/tex">f_a = \arctan2\left(\frac{f_{sin}}{f_{cos}}\right)</script></p><p>The final angle result is computed by cosine intermediate result which uses the sine intermediate result als threshold to decide when angles must be enter the third quadrant of the unit circle.</p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq03996403941990231478.png" alt="$$f_{ang} = \Bigg\lbrace\matrix{ f_c &amp; f_s \ge 0 \cr -f_c +2\pi &amp; f_s < 0}$$"></span><script type="math/tex">f_{ang} = \Bigg\lbrace\matrix{ f_c & f_s \ge 0 \cr -f_c +2\pi & f_s < 0}</script></p><p>A the second angle reconstruction can be achieved by the atan2 function which has although an interval shift at 180 degree. It implies to use the sine results as threshold too.</p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq14659539184820142365.png" alt="$$f_{ang} = \Bigg\lbrace\matrix{ f_a &amp; f_s \ge 0 \cr f_a +2\pi &amp; f_s < 0}$$"></span><script type="math/tex">f_{ang} = \Bigg\lbrace\matrix{ f_a & f_s \ge 0 \cr f_a +2\pi & f_s < 0}</script></p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
+  </style></head><body><div class="content"><h1>sinoids2angles</h1><!--introduction--><p>Computes angles in rad or degree by passed sinoids and radius. The angle calculation is asigned in two steps. At first compute bare angles by acos and asin functions. Divide therfore the corresponding sinoid by the radius. Furhter on the result from acos is used with an interval correction given by the second results from the asin function. The amplitudes of the sinoids must be one or near to one.</p><p>So angle computation relates to the unit circle with depencies of</p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq10514463134963420418.png" alt="$$f_{rad} = \sqrt{f_{sin}^2 + f_{cos}^2}$$"></span><script type="math/tex">f_{rad} = \sqrt{f_{sin}^2 + f_{cos}^2}</script></p><p>and computes intermediate angle results in rad of</p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq09701201355358735247.png" alt="$$f_c = \arccos\left(\frac{f_{cos}}{f_{rad}}\right)$$"></span><script type="math/tex">f_c = \arccos\left(\frac{f_{cos}}{f_{rad}}\right)</script></p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq10382253392817918637.png" alt="$$f_s = \arcsin\left(\frac{f_{sin}}{f_{rad}}\right)$$"></span><script type="math/tex">f_s = \arcsin\left(\frac{f_{sin}}{f_{rad}}\right)</script></p><p><span class="MathJax_Preview"><img src="sinoids2angles_eq08179385510084195676.png" alt="$$f_a = \arctan2\left(\frac{f_{sin}}{f_{cos}}\right)$$"></span><script type="math/tex">f_a = \arctan2\left(\frac{f_{sin}}{f_{cos}}\right)</script></p><p>The final angle result is computed by cosine intermediate result which uses the sine intermediate result als threshold to decide when angles must be enter the third quadrant of the unit circle. A the second angle reconstruction can be achieved by the atan2 function which has although an interval shift at 180 degree. It implies to use the sine results as threshold too.</p><!--/introduction--><h2 id="1">Syntax</h2><pre class="language-matlab">[fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)
 </pre><h2 id="2">Description</h2><p><b>[fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad)</b> returns angles in rad or degrees given by corresponding sinoids and radius. Set rad flag to false if angles in degrees are needed.</p><h2 id="3">Examples</h2><pre class="language-matlab">phi = linspace(0, 2*pi, 100);
 fsin = sin(phi);
 fcos = cos(phi);
 frad = sqrt(fsin.^2 + fcos.^2);
 [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, true)
-</pre><h2 id="4">Input Argurments</h2><p><b>fsin</b> is a scalar or vector with sine information to corresponding angle.</p><p><b>fcos</b> is a scalar or vector with cosine information to corresponding angle.</p><p><b>frad</b> is a scalar or vector which represents the radius of each sine and cosine position.</p><p><b>rad</b> is a boolean flag. If it is false the resulting angles are converted into degrees. If it is true fang is returned in rad. Default is true.</p><p><b>how</b> is char vector which gives option how to reconstruct angles via acos or atan2 function. Default is atan2. Both methods use asin function as threshold to switch 180&deg; intervall.</p><h2 id="5">Output Argurments</h2><p><b>fang</b> is a scalar or vector with angles in rad or degree corresponding to the sine and cosine inputs.</p><p><b>fc</b> is a scalar or vector with angles directly computed by cosine and radius.</p><p><b>fs</b> is a scalar or vector with angles directly computed by sine and radius.</p><p><b>fa</b> is a scalar or vector with angles directly computed by sine and cosine.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: acos, asin</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="angles2sinoids.html">angles2sinoids</a></li></ul></div><p>Created on December 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
+</pre><h2 id="4">Input Argurments</h2><p><b>fsin</b> is a scalar or vector with sine information to corresponding angle.</p><p><b>fcos</b> is a scalar or vector with cosine information to corresponding angle.</p><p><b>frad</b> is a scalar or vector which represents the radius of each sine and cosine position.</p><p><b>rad</b> is a boolean flag. If it is false the resulting angles are converted into degrees. If it is true fang is returned in rad. Default is true.</p><p><b>how</b> is char vector which gives option how to reconstruct angles via acos or atan2 function. Default is atan2. Both methods use asin function as threshold to switch 180 intervall.</p><h2 id="5">Output Argurments</h2><p><b>fang</b> is a scalar or vector with angles in rad or degree corresponding to the sine and cosine inputs.</p><p><b>fc</b> is a scalar or vector with angles directly computed by cosine and radius.</p><p><b>fs</b> is a scalar or vector with angles directly computed by sine and radius.</p><p><b>fa</b> is a scalar or vector with angles directly computed by sine and cosine.</p><h2 id="6">Requirements</h2><div><ul><li>Other m-files required: None</li><li>Subfunctions: acos, asin</li><li>MAT-files required: None</li></ul></div><h2 id="7">See Also</h2><div><ul><li><a href="angles2sinoids.html">angles2sinoids</a></li></ul></div><p>Created on December 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -112,7 +112,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     fs = asin(fsin ./ frad);
     fa = atan2(fsin, fcos);
 
-    <span class="comment">% get indices for interval &gt; 180&deg;</span>
+    <span class="comment">% get indices for interval &gt; 180</span>
     idx = fs &lt; 0;
 
     <span class="keyword">switch</span> how
@@ -120,13 +120,13 @@ Edited on Month DD. YYYY by Editor: Single line description.
             <span class="comment">% angles from cosine</span>
             fang = fc;
 
-            <span class="comment">% correct 180&deg; interval</span>
+            <span class="comment">% correct 180 interval</span>
             fang(idx) = -1 * fang(idx) + 2 * pi;
 
         <span class="keyword">case</span> <span class="string">'atan2'</span>
             fang = fa;
 
-            <span class="comment">% correct 180&deg; interval</span>
+            <span class="comment">% correct 180 interval</span>
             fang(idx) = fang(idx) + 2 * pi;
 
         <span class="keyword">otherwise</span>
@@ -171,14 +171,9 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % The final angle result is computed by cosine intermediate result which uses
 % the sine intermediate result als threshold to decide when angles must be enter
 % the third quadrant of the unit circle.
-%
-% $$f_{ang} = \Bigg\lbrace\matrix{ f_c & f_s \ge 0 \cr -f_c +2\pi & f_s < 0}$$
-%
 % A the second angle reconstruction can be achieved by the atan2 function which
 % has although an interval shift at 180 degree. It implies to use the sine
 % results as threshold too.
-%
-% $$f_{ang} = \Bigg\lbrace\matrix{ f_a & f_s \ge 0 \cr f_a +2\pi & f_s < 0}$$
 %
 %
 %% Syntax
@@ -212,7 +207,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 %
 % *how* is char vector which gives option how to reconstruct angles via acos or
 % atan2 function. Default is atan2. Both methods use asin function as threshold
-% to switch 180° intervall.
+% to switch 180 intervall.
 %
 %
 %% Output Argurments
@@ -262,7 +257,7 @@ function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad, how)
     fs = asin(fsin ./ frad);
     fa = atan2(fsin, fcos);
     
-    % get indices for interval > 180°
+    % get indices for interval > 180
     idx = fs < 0;
 
     switch how
@@ -270,13 +265,13 @@ function [fang, fc, fs, fa] = sinoids2angles(fsin, fcos, frad, rad, how)
             % angles from cosine
             fang = fc;
 
-            % correct 180° interval
+            % correct 180 interval
             fang(idx) = -1 * fang(idx) + 2 * pi;
         
         case 'atan2'
             fang = fa;
             
-            % correct 180° interval
+            % correct 180 interval
             fang(idx) = fang(idx) + 2 * pi;
             
         otherwise

@@ -1,0 +1,155 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{decomposeChol}
+
+\begin{par}
+Computes the Cholesky Decomposition of a symmetric positive definite matrix A and calculate the log determinate as side product of the decomposition. Computes the lower triangle matrix L.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+[L, logDet] = decomposeChol(A)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{[L, logDet] = decomposeChol(A)} computes lower triangle matrix of input matrix A using the Cholesky Decomposition. As side product of the decomposition the logarithmic determinante of A is returned too.
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+A = [1.0, 0.9, 0.8;
+     0.9, 1.0, 0.9;
+     0.8, 0.9, 1.0];
+[L, logDet] = decomposeChol(A)
+assert(all(L*L'==A,'all'))
+assert(log(det(A)) == logDet)
+\end{lstlisting}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{A} symmetric, pos. finite double matrix of size N x N.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{L} is a lower trinagle matrix of size N x N. Multiply L with its transposed to get matrix A.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{logDet} is a scalar and the logaritmic determinante of A. Computed along the diagonal of L.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: chol, mustBeValidMatrix
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}chol\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on January 04. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [L, logDet] = decomposeChol(A)
+    arguments
+        A (:,:) double {mustBeReal, mustBeValidMatrix(A)}
+    end
+
+    % decompose A to lower triangle matrix
+    [L, flag]= chol(A, 'lower');
+    if flag ~= 0
+        eid = 'chol:Fails';
+        msg = 'Cholesky Decomposition fails.';
+        throwAsCaller(MException(eid,msg))
+    end
+
+    % compute log determinate of A
+    if nargout > 1, logDet = 2 * sum(log(diag(L))); end
+end
+
+% Custom validation function
+function mustBeValidMatrix(A)
+    % test if is matrix
+    if ~ismatrix(A)
+        eid = 'Matrix:notMatrix';
+        msg = 'A is not a matrix.';
+        throwAsCaller(MException(eid,msg))
+    end
+    % Test for N x N
+    if ~isequal(size(A,1),size(A,2))
+        eid = 'Matrix:notNxN';
+        msg = 'Size of matrix is not N x N.';
+        throwAsCaller(MException(eid,msg))
+    end
+    % test if symmetric
+    if ~issymmetric(A)
+        eid = 'Matrix:notSymmetric';
+        msg = 'Matrix is not symmetric.';
+        throwAsCaller(MException(eid,msg))
+    end
+    % test if positive definite
+    if ~all(eig(A) >= 0)
+        eid = 'Matrix:notPosDefinte';
+        msg = 'Matrix is not pos. definte.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

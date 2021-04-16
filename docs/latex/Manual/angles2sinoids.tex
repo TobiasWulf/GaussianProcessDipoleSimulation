@@ -1,0 +1,151 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{angles2sinoids}
+
+\begin{par}
+Converts angles (rad or degree) to sine and cosine waves with respect to a period factor which gives the abillity to apstract higher periodicity. Additionally the angles are recalculated according to passed period factor.
+\end{par} \vspace{1em}
+\begin{par}
+Computes sine and cosine by product of angle in rad multiplied by period factor.
+\end{par} \vspace{1em}
+\begin{par}
+$$f_{sin} = \sin(p_f \cdot f_{ang})$$
+\end{par} \vspace{1em}
+\begin{par}
+$$f_{cos} = \cos(p_f \cdot f_{ang})$$
+\end{par} \vspace{1em}
+\begin{par}
+If needed a recomputation of the given angels takes place by computed sinoids.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+[fsin, fcos, fang] = angles2sinoids(fang, rad, pf)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{[fsin, fcos, fang] = angles2sinoids(fang, rad, pf)} computes sinoids from passed angles in rad or degree with respect to periodicity of angles. The flag rad converts input angles from degree to rad if set to false.
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+fang = linspace(0, 360, 100);
+[fsin, fcos, fang] = angles2sinoids(fang, true, 1)
+\end{lstlisting}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{fang} is a scalar of vector of angles in rad or degree.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{rad} is a boolean flag. Input angles are converted to rad if set to false.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{pf} is a positive integer factor. The period factor describes the periodicity of angles in data.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{fsin} is a scalar or vector of sine values corresponding to passed angles with respect of the periodicity of angles.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{fcos} is a scalar or vector of cosine values corresponding to passed angles with respect of the periodicity of angles.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{fang} is a scalar or vector of recalculated angles with respect of periodicity.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: sinoids2angles
+   \item Subfunctions: sin, cos
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}sinoids2angles\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on December 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [fsin, fcos, fang] = angles2sinoids(fang, rad, pf)
+    arguments
+        % validate angles as scalar or vector
+        fang (:,1) double {mustBeReal}
+        % validate rad as boolean flag with default true
+        rad (1,1) logical {mustBeNumericOrLogical} = true
+        % validate period factor as positive scalar with default 1
+        pf (1,1) double {mustBeInteger, mustBePositive} = 1
+    end
+
+    % if rad flag is false and angles in degree convert to rad
+    if ~rad, fang = fang * pi / 180; end
+
+    % calculate sinoids
+    fsin = sin(pf * fang);
+    fcos = cos(pf * fang);
+
+    % compute radius
+    frad = sqrt(fcos.^2 + fsin.^2);
+
+    % recalculate angles to corrected sinoids in rad
+    if nargout > 2, fang = sinoids2angles(fsin, fcos, frad); end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

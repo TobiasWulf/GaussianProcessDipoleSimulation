@@ -1,0 +1,259 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{Project Preparation}
+
+\begin{par}
+The first steps to setup a scalable software project are none trival and need a good strcuture for later project expands. Either to setup further new projects a well known scalable project structure helps to combine different software parts to bigger environment packages. Therefore a project preparation flow needs to be documented. It unifies the outcome of software projects and partly guarantees certain quality aspects.
+\end{par} \vspace{1em}
+\begin{par}
+The following steps can be used as guidance to establish a propper Matlab project structure in general. Each step is documented with screenshots to give a comprehensible explanation.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item See Also
+   \item Create Main Project Directory
+   \item Create Matlab Project with Git Support
+   \item Registrate Binaries to Git and Prepare Git Ignore Cases
+   \item Checkout Project State and Do an Initial Commit
+   \item Push to Remote and Backup
+   \item Port Remote Repository to GitHub
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}Create a New Project From a Folder\end{verbatim}
+   \item \begin{verbatim}Add a Project to Source Control\end{verbatim}
+   \item \begin{verbatim}Setup Git Source Control\end{verbatim}
+   \item \begin{verbatim}Use Source Control with Projects\end{verbatim}
+   \item \begin{verbatim}Git Attributes\end{verbatim}
+   \item \begin{verbatim}Git Ignores\end{verbatim}
+   \item \begin{verbatim}Add Files to the Project\end{verbatim}
+   \item \begin{verbatim}Commit Modified Files to Source Control\end{verbatim}
+   \item \begin{verbatim}Clone Git Repository\end{verbatim}
+\end{itemize}
+
+
+\subsection*{Create Main Project Directory}
+
+\begin{par}
+The main project directory contains only two subfolders. The first one is the Toolbox folder where the project, m-files and other project files like documentation are placed. The folder is also called sandbox folder in Matlab project creation flows which is just another description for a project folder where the coding takes place. The second folder is a hidden Git repository folder which keeps the versionation in final. It is respectively seen a remote repository that establish basics to setup backup plans via Git clone or can be laterly replaced by remote repository on a server or a GitHub repository to work in common on the project.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{First step:}
+\end{par} \vspace{1em}
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item Create an empty project folder, open Matlab navigate to folder path.
+   \item Right click in the Current Folder pane and create New \textbf{\ensuremath{>}} Folder "Toolbox".
+   \item Open a Git terminal and in the project directory and initialize an empty   Git repository.
+\end{enumerate}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Create Matlab Project with Git Support}
+
+\begin{par}
+In second it is needed to create the Matlab project files in a certain way to get full Git support and support for the Matlab help browser environment. In this use case the before created local Git repository is used as remote origin. So several settings are automatacally made during the creation process by Matlab and as mentioned before the "local remote" repository can be replaced later by a remote origin located on a server or GitHub. The Toolbox folder must be empty to process the following steps.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{It is recommend to do no further Git actions on the created Git repository via Git terminal!}
+\end{par} \vspace{1em}
+\begin{par}
+These steps only proceed the project setup, further Matlab framework functionality is added later.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{Second step:}
+\end{par} \vspace{1em}
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item In the created main project directory create a New \textbf{\ensuremath{>}} Project \textbf{\ensuremath{>}} From Git.
+   \item Change the repository path to the hidden Git repository path in the main   project directory.
+   \item Change the sandbox path to the Toolbox path in the main project directory.
+   \item Click Retrieve.
+   \item Enter the project name given by the main project directory name and click   OK.
+   \item Click on Set Up Project and skip the two follwing steps via Next and Finish.
+   \item Switch to Toolbox directory by double click on the folder in the Current   Folder pane, open the created Matlab project file with a double click and   check source control information under PROJECT tab by clicking Git Details.
+   \item Add a short project summary by click on Details under the ENVIRONMENT   section of the PROJECT tab.
+   \item Click Apply.
+   \item Click OK.
+\end{enumerate}
+\begin{par}
+\textbf{The project itself is under source control now.}
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Registrate Binaries to Git and Prepare Git Ignore Cases}
+
+\begin{par}
+The root of Git is to work as text file versioner. Source code files are just text files. So Git versionates, tags and merges them in various ways in a work flow process. That means Git edits files. This point can be critical if Git does edit a binary file and corrupts it, so that is not executable any more. Therefore binary files must be registrated to Git. Another good reason is to registrate binary or other none text files because Git performs no automatic merges on file if they are not known text files. To keep the versionating Git makes a taged copy of that file every time the file changed. That can be a very junk of memory and lets repository expands to wide.
+\end{par} \vspace{1em}
+\begin{par}
+To prevent Git for mishandling binaries it is able to register them in a certain file and mark the file types how to handle them in progress. The file is called .gitattributes must be placed in the Git working directory which is the sandbox folder for Matlab projects. The .gitattributes file itself is hidden.
+\end{par} \vspace{1em}
+\begin{par}
+Three options are needed to mark a file type as binary. The -crlf option disables end of line conversion and the -diff option in combination with the -merge option to mark the file as binary.
+\end{par} \vspace{1em}
+\begin{par}
+In addition to that it is possible to delclare several ignore cases to Git. So certain directories or file types are not touched or are left out from source control. This is done in .gitignore file. The must be placed in the sandbox folder too.
+\end{par} \vspace{1em}
+\begin{par}
+From the sandbox directory enter in the Matlab command prompt edit .gittatributes and edit .gitignore and save both files. The files are not shown in Current Folder pane (hidden files). Edit both files in the Matlab editor and save the files.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{Third step:}
+\end{par} \vspace{1em}
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item Add common Matlab file types to .gitattributes.
+   \item Add Matlab compiler file types to .gitattributes.
+   \item Add other file types which can be appear during the work to .gitattributes.
+   \item Add ignore cases to .gitignore if needed.
+\end{enumerate}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Checkout Project State and Do an Initial Commit}
+
+\begin{par}
+The main part is done. It just needs a few further step to save the work and add the created files to the project.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{Fourth step:}
+\end{par} \vspace{1em}
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item Add created files to the project. In the PROJECT tab under TOOLS section   click Run Checks \textbf{\ensuremath{>}} Add Files.
+   \item Check the files to add to the project.
+   \item Click OK.
+   \item Right click in the white space of Current Folder pane and click Source Control \textbf{\ensuremath{>}} View and Commit Changes... and add comment to the commit.
+   \item Click Commit.
+\end{enumerate}
+\begin{par}
+\textbf{The project is now initialized.}
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Push to Remote and Backup}
+
+\begin{par}
+The project is ready to work with. Finally it needs a backup meachnism to save the done work after closing the Matlab session. Git and how the project is built up to provide an easy way to make backups.
+\end{par} \vspace{1em}
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item Push the committed changes to remote repository.
+   \item Insert a backup medium e.g. USB stick and open a git terminal there.
+   \item Clone the project remote repository from project directory.
+   \item Change the directory to cloned project.
+   \item Check if everything was cloned.
+   \item Check if the remote url fits to origin.
+   \item Pull from remote to check if everything is up to date.
+\end{enumerate}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{par}
+If further changes are committed to the project push again to the remote from Matlab environment and update the backup from time to time by inserting your medium and make a fresh pull. Change the directory to the folder and just pull again. See below as an example how does it look like.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Port Remote Repository to GitHub}
+
+\begin{par}
+The remote repository is ported to GitHub laterly. Therfore some minimal changes are made manually to the local repository.
+\end{par} \vspace{1em}
+\begin{enumerate}
+\setlength{\itemsep}{-1ex}
+   \item According to new rules on GitHub the master branch is renamed to main.
+   \item Due to that a new upstream is set to origin/main from origin/master
+   \item To fetch all casualties a merge was needed from origin/main on local   main. The origin/master reference was included.
+   \item Change remote repository to GitHub URL   \begin{verbatim}https://github.com/TobiasWulf/GuassianProcessDipolSimulation.git\end{verbatim}
+   \item At the moment the GitHub repository is private and not visible in the   web. After finishing the general work the repository will be set to   publish in consultation with HAW TMR research project and team.
+   \item After publish on GitHub, clone or fork to work with.
+   \item The source code is hosted under MIT license.
+   \item Use GitHub flows to clone or fork and push changes to backup done work.
+   \item Toolbox folder is not needed anymore because remote is elswhere now
+   \item Re clone from remote to get new structurew without Toolbox folder
+\end{enumerate}
+\begin{par}
+Created on September 30. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+
+\end{document}
+

@@ -218,7 +218,7 @@ function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     [m, angles, angleRefIndex] = generateDipoleRotationMoments(M0mag, ...
         nAngles, tilt, angleRes, phaseIndex);
     
-    % rotation angle step width on full rotation 360° with subset of angles
+    % rotation angle step width on full rotation 360 with subset of angles
     if length(angles) > 1
         angleStep =  angles(2) - angles(1);
     else 

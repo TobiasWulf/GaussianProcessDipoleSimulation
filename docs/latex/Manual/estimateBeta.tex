@@ -1,0 +1,120 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{estimateBeta}
+
+\begin{par}
+Find beta coefficients to basis matrix H and the current set of hyperparameters theta as vector of s2f and sl, s2n represented by the current inverse of noisy covariance matrix Ky\^{}-1 and the feature target vector y of the observations. It calculates several inverse Matrix products so instead passing the current Ky the function uses the infront decomposed lower triangle matrix L of Ky.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+[beta, alpha0]= estimateBeta(H, L, y)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{[beta, alpha0]= estimateBeta(H, L, y)} compute polynom coefficients to solve mean approximation.
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{H} basis matrix of training data. Polynomial represents of training data.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{L} lower triangle matrix of decomposed K matrix.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{y} regression targets.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{beta} beta coefficients for polynomial approximation with basis matrix \textbf{H}.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{alpha0} regression weights based on regression targets \textbf{y}.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: chol, computeInverseMatrixProduct,   computeTransposeInverseProduct
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}computeInverseMatrixProduct\end{verbatim}
+   \item \begin{verbatim}computeTransposeInverseProduct\end{verbatim}
+   \item \begin{verbatim}initKernelParameters\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function [beta, alpha0]= estimateBeta(H, L, y)
+    % Ky^-1 * y
+    alpha0 = computeInverseMatrixProduct(L, y);
+
+    % H * Ky^-1 * HT
+    alpha1 = computeTransposeInverseProduct(L, H');
+
+    % (H * Ky^-1 * HT)^-1 * H
+    L1 = chol(alpha1, 'lower');
+    alpha2 = computeInverseMatrixProduct(L1, H);
+
+    % ((H * (Ky^-1 * HT))^-1 * H) * (Ky^-1 * y)
+    beta = alpha2 * alpha0;
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

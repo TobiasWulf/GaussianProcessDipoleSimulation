@@ -33,7 +33,7 @@
 % * <initGPR.html initGPR>
 %
 %
-% Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
+% Created on November 06. 2019 by Klaus Juenemann. Copyright Klaus Juenemann 2019.
 %
 % <html>
 % <!--

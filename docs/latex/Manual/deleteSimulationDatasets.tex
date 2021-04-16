@@ -1,0 +1,97 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{deleteSimulationDatasets}
+
+\begin{par}
+Delete simulation dataset from data/training and data/test path at once.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Requirements
+   \item See Also
+   \item Load Path to Clean Up
+   \item Delete Datasets
+\end{itemize}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: removeFilesFromDir.m
+   \item Subfunctions: None
+   \item MAT-files required: config.mat
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}removeFilesFromDir\end{verbatim}
+   \item \begin{verbatim}gernerateConfigMat\end{verbatim}
+   \item \begin{verbatim}Project Structure\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+
+
+\subsection*{Load Path to Clean Up}
+
+\begin{par}
+Load path from config.mat and where to find training and test datasets.
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+try
+    clearvars;
+    close all;
+    load('config.mat', 'PathVariables')
+    disp('Delete from ...')
+    disp(PathVariables.trainingDataPath);
+    disp(PathVariables.testDataPath);
+catch ME
+    rethrow(ME)
+end
+\end{lstlisting}
+
+
+\subsection*{Delete Datasets}
+
+\begin{par}
+Delete datasets from training dataset path and test dataset path with certain file pattern.
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+answer = removeFilesFromDir(PathVariables.trainingDataPath, '*.mat');
+fprintf('Delete training datasets: %s\n', string(answer));
+answer = removeFilesFromDir(PathVariables.testDataPath, '*.mat');
+fprintf('Delete test datasets: %s\n', string(answer));
+\end{lstlisting}
+
+
+
+\end{document}
+

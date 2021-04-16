@@ -1,0 +1,166 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{publishFilesFromDir}
+
+\begin{par}
+Publish m-files from given directory with passed publishing options.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Arguments
+   \item Output Arguments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+publishFilesFromDir(directory, PublishOptions)
+publishFilesFromDir(directory, PublishOptions, recursivly)
+publishFilesFromDir(directory, PublishOptions, recursivly, verbose)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{publishFilesFromDir(directory, PublishOptions)} publish m-files wich are located in the passed directory with options from passed publishing options struct which is must be strictly formatted after given example from Matlab documentation.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{publishFilesFromDir(directory, PublishOptions, recursive)} publishing like described before but scan the directory recursively for m-files. Default is false for do not recursively.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{publishFilesFromDir(directory, PublishOptions, recursive, verbose)} with optional verbose set to true the published html files will be displayed in the prompt. Default is false.
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+directory = 'src';
+PublishOptions = struct;
+PublishOptions.outputDir = 'src/html';
+PublishOptions.evalCode = false;
+publishFilesFromDir(directory, PublishOptions, true)
+\end{lstlisting}
+\begin{lstlisting}[style=Matlab-editor]
+load('config.mat', 'srcPath', 'PublishOptions')
+publishFilesFromDir(srcPath, PublishOptions, true, true)
+\end{lstlisting}
+
+
+\subsection*{Input Arguments}
+
+\begin{par}
+\textbf{directory} char vector, path to directory where m-files are located to publish.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{PublishOptions} struct which contains publishing options for the Matlab publish function.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{recursive} logical scalar which directs the function to scan recursively for m-files in passed directory if true. Default is false.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{verbose} logical scalar which determines to display the filenames and path to published file if true. Default is false.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Arguments}
+
+\begin{par}
+\textbf{None}
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: None
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}dir\end{verbatim}
+   \item \begin{verbatim}fullfile\end{verbatim}
+   \item \begin{verbatim}publish\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on October 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function publishFilesFromDir(directory, PublishOptions, recursive, verbose)
+    arguments
+        % validate directory if exist
+        directory (1,:) char {mustBeFolder}
+        % validate Publish options if it is a struct
+        PublishOptions (1,1) struct {mustBeA(PublishOptions, ["struct"])}
+        % validate recursive if logical
+        recursive (1,1) logical {mustBeNumericOrLogical} = false
+        verbose (1,1) logical {mustBeNumericOrLogical} = false
+    end
+
+    % file extension is alway m-file
+    ext = '*.m';
+
+    % reursive parsing for files with dir function needs a certain regex
+    if recursive
+        pathPattern = fullfile(directory, '**', ext);
+    else
+        pathPattern = fullfile(directory, ext);
+    end
+
+    % scan directory for files returns a column struct with path fields
+    files = dir(pathPattern);
+
+    % transpose files struct and loop through for publish
+    for file = files'
+        %  if not dir must be file
+        if ~file.isdir
+            % build path by struct field for recursive tree
+            written = publish(fullfile(file.folder, file.name), PublishOptions);
+            if verbose
+                disp(written);
+            end
+        end
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

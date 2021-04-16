@@ -1,0 +1,47 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+
+\section*{runTests}
+
+\begin{lstlisting}[style=Matlab-editor]
+% clean workspace
+clearvars;
+
+% build suite from test files
+suite = testsuite({'removeFilesFromDirTest', 'rotate3DVectorTest', ...
+    'generateDipoleRotationMomentsTest', ...
+    'generateSensorArraySquareGridTest', ...
+    'computeDipoleH0NormTest', ...
+    'computeDipoleHFieldTest', ...
+    'tiltRotationTest'});
+
+% run tests
+results = run(suite);
+
+% show results
+disp(results)
+disp(table(results))
+cd ..
+\end{lstlisting}
+
+
+
+\end{document}
+

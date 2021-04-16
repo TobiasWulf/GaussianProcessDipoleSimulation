@@ -1,0 +1,109 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{computeAlphaWeights}
+
+\begin{par}
+Computes alpha weights from feature space product HT*beta and target vector y as porduct with inverse covariance matrix with additve noise Ky\^{}-1 represented by its cholesky decomposed lower triangle matrix L. Ky\^{}-1 * (y - m(x)).
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+alpha = computeAlphaWeights(L, y, m)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{alpha = computeAlphaWeights(L, y, m)} prepare data and forward it to matrix computation.
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{L} lower triangle matrix of cholesky decomposed K matrix.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{y} regression target vector.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{m} regression mean vector.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{alpha} regression weights.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: computeInverseMatrixProduct
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}decomposeChol\end{verbatim}
+   \item \begin{verbatim}computeInverseMatrixProduct\end{verbatim}
+   \item \begin{verbatim}initKernelParameters\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on November 06. 2019 by Klaus Juenemann. Copyright Klaus Juenemann 2019.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function alpha = computeAlphaWeights(L, y, m)
+    % get residual
+    residual = y - m;
+    % L and residual is validated in computation below, get weights
+    alpha = computeInverseMatrixProduct(L, residual);
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

@@ -1,0 +1,127 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{addNoise2Covariance}
+
+\begin{par}
+Add noise to covarianc matrix for noisy observations. Add noise along matrix diagonal.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Examples
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+Ky = addNoise2Covariance(K, s2n)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{Ky = addNoise2Covariance(K, s2n)} witch on additive noise on covariance matrix diagonal. Uses eye matrix as mask.
+\end{par} \vspace{1em}
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[style=Matlab-editor]
+addNoise2Covariance(zeros(4), 2)
+\end{lstlisting}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{K} N x N covariance matrix. Noise free.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{s2n} real scalar value.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{Ky} covariance matrix for noisy observations.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: eye, mustBeSquareMatrix
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}initKernelParameters\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function Ky = addNoise2Covariance(K, s2n)
+    arguments
+        % validate K as square matrix
+        K (:,:) double {mustBeReal, mustBeSquareMatrix(K)}
+        % validate s2n as scalar value
+        s2n (1,1) double {mustBeReal}
+    end
+
+    % add noise with eye matrix
+    Ky = K + s2n * eye(size(K));
+end
+
+% Custom validation functions
+function mustBeSquareMatrix(K)
+    % Test for N x N
+    if ~isequal(size(K,1), size(K, 2))
+        eid = 'Size:notEqual';
+        msg = 'K is not size of N x N.';
+        throwAsCaller(MException(eid,msg))
+    end
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

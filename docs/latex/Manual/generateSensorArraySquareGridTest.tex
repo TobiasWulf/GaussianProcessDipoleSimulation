@@ -1,0 +1,94 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{}
+
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Test 1: output dimensions
+   \item Test 2: equal x and y distances
+   \item Test 3: constant z distances
+   \item Test 3: position shif in x and y direction
+\end{itemize}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+% create sensor array infos for size and position
+% number of sensors at one edge
+N = 8;
+
+% sensor array edge length in mm
+a = 2;
+
+% relative postion of the sensor array to the center of a 3D cordinate
+% system (z inverse)
+p = [0; 0; 2];
+
+% z offset, later used as sphere radius of a dipole which is placed in the
+% center of the coordinate system
+r = 2;
+
+% generate coordinates grid
+[X, Y, Z] = generateSensorArraySquareGrid(N, a, p, r);
+
+% create a shift in same layer
+p2 = [-2; 3; 2];
+[X2, Y2, Z2] = generateSensorArraySquareGrid(N, a, p2, r);
+\end{lstlisting}
+
+
+\subsection*{Test 1: output dimensions}
+
+\begin{lstlisting}[style=Matlab-editor]
+assert(isequal(size(X), [N N]))
+assert(isequal(size(Y), [N N]))
+assert(isequal(size(Z), [N N]))
+\end{lstlisting}
+
+
+\subsection*{Test 2: equal x and y distances}
+
+\begin{lstlisting}[style=Matlab-editor]
+assert(isequal(diff(Y), diff(-X, [], 2)'))
+\end{lstlisting}
+
+
+\subsection*{Test 3: constant z distances}
+
+\begin{lstlisting}[style=Matlab-editor]
+assert(all(Z == -(p(3) + r), 'all'))
+\end{lstlisting}
+
+
+\subsection*{Test 3: position shif in x and y direction}
+
+\begin{lstlisting}[style=Matlab-editor]
+assert(isequal(X + p2(1), X2))
+assert(isequal(Y + p2(2), Y2))
+assert(isequal(Z, Z2))
+\end{lstlisting}
+
+
+
+\end{document}
+

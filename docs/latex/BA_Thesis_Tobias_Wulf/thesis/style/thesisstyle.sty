@@ -85,7 +85,6 @@ toc
 \RequirePackage{booktabs}           % different rulers in table environment like toprule
 
 \RequirePackage[toc,page]{appendix} % custom appendix pages with toc support
-\RequirePackage{import}				% subimports with rel. path
 \RequirePackage[
 backend=biber,
 style=numeric,
@@ -99,6 +98,8 @@ date=year
 
 %\RequirePackage{subfiles}			% include sub latex documents with preamble from main tex file
 \RequirePackage{textcomp}			% for '\textdegree' macro
-%\RequirePackage[framed, numbered]{matlab-prettifier}	% prettier matlab listings
-%\RequirePackage{listings}			% include source code segments
+\RequirePackage[framed, numbered]{matlab-prettifier}	% prettier matlab listings
+\RequirePackage{listings}			% include source code segments
 \RequirePackage[ruled, vlined, ngerman]{algorithm2e} % describe pseudo code blocks and algorithms
+\RequirePackage[subpreambles=false]{standalone}
+\RequirePackage{import}				% subimports with rel. path

@@ -62,7 +62,7 @@ function Mdl = initTrainDS(Mdl, TrainDS)
     Mdl.Sensor = TrainDS.Info.UseOptions.BaseReference;
     
     % choose period factor depending on sensor type
-    % how many sinoid periods are abstract on a full rotation by 360°
+    % how many sinoid periods are abstract on a full rotation by 360
     switch Mdl.Sensor
         case 'TDK'
             Mdl.PF = 1;

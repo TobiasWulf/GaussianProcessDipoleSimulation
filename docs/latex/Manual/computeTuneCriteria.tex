@@ -1,0 +1,107 @@
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{standalone}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[framed, numbered]{matlab-prettifier}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\section*{computeTuneCriteria}
+
+\begin{par}
+Objective function to solve minimum constraint problem, delivers negative function values to search minimum function evaluation. Estimates the minimum of the negative logaritmic marginal liklihoods for current model parameters. No assignments on model, just recalculate function evaluation minimum.
+\end{par} \vspace{1em}
+
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Syntax
+   \item Description
+   \item Input Argurments
+   \item Output Argurments
+   \item Requirements
+   \item See Also
+\end{itemize}
+
+
+\subsection*{Syntax}
+
+\begin{lstlisting}[style=Matlab-editor]
+feval = computeTuneCriteria(theta, Mdl)
+\end{lstlisting}
+
+
+\subsection*{Description}
+
+\begin{par}
+\textbf{feval = computeTuneCriteria(theta, Mdl)} sets new kernel parameter, reinitiates model and calculates min criteria by likelihoods.
+\end{par} \vspace{1em}
+
+
+\subsection*{Input Argurments}
+
+\begin{par}
+\textbf{theta} kernel parameter vector.
+\end{par} \vspace{1em}
+\begin{par}
+\textbf{Mdl} model struct to reinitiate.
+\end{par} \vspace{1em}
+
+
+\subsection*{Output Argurments}
+
+\begin{par}
+\textbf{feval} function evaluation value.
+\end{par} \vspace{1em}
+
+
+\subsection*{Requirements}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Other m-files required: None
+   \item Subfunctions: initKernelParameters
+   \item MAT-files required: None
+\end{itemize}
+
+
+\subsection*{See Also}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \begin{verbatim}tuneKernel\end{verbatim}
+   \item \begin{verbatim}initKernelParameters\end{verbatim}
+\end{itemize}
+\begin{par}
+Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+\end{par} \vspace{1em}
+\begin{par}
+
+\end{par} \vspace{1em}
+\begin{lstlisting}[style=Matlab-editor]
+function feval = computeTuneCriteria(theta, Mdl)
+    % reinit kernel on new theta kernel parameters
+    Mdl.theta = theta;
+    Mdl = initKernelParameters(Mdl);
+
+    % return function evaluation as neg. likelihood of radius
+    feval = -1 * (Mdl.LMLsin + Mdl.LMLcos);
+end
+\end{lstlisting}
+
+
+
+\end{document}
+

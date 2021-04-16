@@ -9,7 +9,7 @@ clearvars;
 tilt = 0.5:0.5:90;
 
 % magnetic dipole moment to define magnet orientation, no tilt
-% rotate angles theta 0°, 90°, 180°, 270°
+% rotate angles theta 0, 90, 180, 270
 [mNoTilt, thetaNoTilt] = generateDipoleRotationMoments(-1e6, 4, 0);
 
 % Habs for magnetization from north to south from -x to x
@@ -43,7 +43,7 @@ HabsNoTilt = sqrt(sum(HNoTilt.^2, 1));
 HTilt = zeros(3, 6, 4, length(tilt));
 for j = 1:length(tilt)
     % magnetic dipole moment to define magnet orientation, with tilt
-    % rotate angles theta 0°, 90°, 180°, 270°
+    % rotate angles theta 0, 90, 180, 270
     [mTilt, thetaTilt] = generateDipoleRotationMoments(-1e6, 4, tilt(j));
 
     % norm factor to imprint field strength in certain distance d = 1,
