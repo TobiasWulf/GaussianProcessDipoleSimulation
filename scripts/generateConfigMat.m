@@ -284,7 +284,7 @@ TrainingOptions.useCase = 'Training';
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
 TrainingOptions.xPos = [0,];
-TrainingOptions.yPos = [3,];
+TrainingOptions.yPos = [0,];
 TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
@@ -345,7 +345,7 @@ TestOptions.useCase = 'Test';
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
 TestOptions.xPos = [0,];
-TestOptions.yPos = [3,];
+TestOptions.yPos = [0,];
 TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
@@ -406,7 +406,7 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-GPROptions.kernel = 'QFCAPX';
+GPROptions.kernel = 'QFC';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical 

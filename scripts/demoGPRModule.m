@@ -238,5 +238,5 @@ plot(angles, (cirad1-frad1), '-', 'Color', '#D95319');
 ylabel('$CIR_{95\%} - r$');
 xlim([0 360]);
 xlabel('$\alpha$ in $^\circ$');
-title('d) Centerd $95\%$ GPR Confidence Intervalls')
+title('d) Centered $95\%$ GPR Confidence Intervalls')
 

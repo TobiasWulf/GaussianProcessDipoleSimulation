@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>gaussianProcessRegression</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-17"><meta name="DC.source" content="gaussianProcessRegression.m"><style type="text/css">
+      --><title>gaussianProcessRegression</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-18"><meta name="DC.source" content="gaussianProcessRegression.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>gaussianProcessRegression</h1><!--introduction--><p>Function module which implements regression models with Gaussian Process. Implemented regression models posses the abillity to process training and test datasets bt sensor array simulation. The model creation can be bind into scripts by use of initGPR and tuneKernel for simple optimized models. A fully generalized regression model is supported by use of optimGPR to create models which are tuned on training data and generalized on test data.</p><!--/introduction--><h2 id="1">basicMathFunctions</h2><p>Submodule which contains basic math function to module functionanlity.</p><h2 id="2">kernelQFC</h2><p>Submodule which contain quadratic fractional covariance implementation.</p><h2 id="3">kernelQFCAPX</h2><p>Submodule which contains approximated quadratic fractional covariance implementation.</p><h2 id="4">initGPR</h2><p>Initializes regression model by training dataset and config dataset. Resulting model is not optimized.</p><h2 id="5">initGPROptions</h2><p>Attaches configuration to regression model including default parameters and bounds.</p><h2 id="6">initTrainDS</h2><p>Initiates the training data, refernce angles and regression targets on regression model.</p><h2 id="7">initKernel</h2><p>Initiates kernel submodules by made configuration.</p><h2 id="8">initKernelParameters</h2><p>Initiates the regression model by its set configuration done initiating steps before.</p><h2 id="9">tuneKernel</h2><p>Tunes initated regression model hyperparameters.</p><h2 id="10">computeTuneCriteria</h2><p>Computes min criteria for tuneKernel.</p><h2 id="11">predFrame</h2><p>Predicts singel test data frame.</p><h2 id="12">predDS</h2><p>Predicts a whole test dataset at once.</p><h2 id="13">lossDS</h2><p>Computes prediction losses and errors of a test dataset at once.</p><h2 id="14">optimGPR</h2><p>Computes optimized regression model.</p><h2 id="15">computeOptimCriteria</h2><p>Computes min criteria for optimGPR.</p><h2 id="16">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="demoGPRModule.html">demoGPRModule</a></li><li><a href="investigateKernelParameters.html">investigateKernelParameters.html</a></li><li><a href="generateSimulationDatasets.html">generateSimulationDatasets.html</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+  </style></head><body><div class="content"><h1>gaussianProcessRegression</h1><!--introduction--><p>Function module which implements regression models with Gaussian Process. Implemented regression models posses the abillity to process training and test datasets bt sensor array simulation. The model creation can be bind into scripts by use of initGPR and tuneKernel for simple optimized models. A fully generalized regression model is supported by use of optimGPR to create models which are tuned on training data and generalized on test data.</p><div><ul><li><b>Model struct:</b></li></ul></div><div><ul><li>kernel: Indicator which kernel implementation is used QFC or QFCAPX.</li><li>theta: Kernel parameter vector.</li><li>s2fBounds: Lower and upper bounds for theta(1).</li><li>slBounds: Lower and upper bounds for theta(2).</li><li>s2n: Noise level.</li><li>s2nBounds: Lower and upper bounds for s2n.</li><li>mean: Indicator if mean computation in GPR is active (poly) or not (zero).</li><li>polyDegree: Polynom degree if mean is set to poly. Up degree of 4 is working   valid.</li><li>N: Number of reference angles.</li><li>Angles: Column vector of reference angles.</li><li>D: Number of sensor array pixels at each array edge.</li><li>P: Number of predictors or number of sensor array pixels.</li><li>Sensor: Indicator of which characterization was used sensor array datasets.</li><li>PF: Periodicity of angular data depending on characterization dataset.</li><li>Ysin: Column vector of sine regression targets by reference angles.</li><li>Ycos: Column vector of cosine regression targets by reference angles.</li><li>Xcos: Cosine training data.</li><li>Xsin: Sine training data.</li><li>kernelFun: Function handle to loaded covariance function by kernel   indicator.</li><li>inputFun: Function handle to loaded input function by kernel indicator.   Preprocesses training and test data infront of regression computations.</li><li>basisFun: Function handle to loaded polynom function by kernel indicator.</li><li>Ky: Covariance Matrix for noisy observations.</li><li>L: Lower triangle matrix of cholesky decomposed Ky.</li><li>logDet: Logaritmic determinante of Ky.</li><li>BetaCos: Polynom coefficients for polynomial mean approximation for cosine   function as regression mean basis.</li><li>BetaSin: Polynom coefficients for polynomial mean approximation for sine   function as regression mean basis.</li><li>meanFunCos: Function handle for cosine mean approximation by basisFun and   BetaCos coefficients.</li><li>meanFunSin: Function handle for sine mean approximation by basisFun and   BetaSin coefficients.</li><li>AlphaCos: Regression weights for cosine predictions.</li><li>AlphaSin: Regression weights for sine predictions.</li><li>LMLcos: Logaritmic marginal likelihood for cosine prediction.</li><li>LMLsin: Logaritmic marginal likelihood for sine prediction.</li><li>MSLLA: Mean standardized logaritmic loss for angles.</li><li>MSLLR: Mean standardized logaritmic loss for radius.</li></ul></div><!--/introduction--><h2 id="1">basicMathFunctions</h2><p>Submodule which contains basic math function to module functionanlity.</p><h2 id="2">kernelQFC</h2><p>Submodule which contain quadratic fractional covariance implementation.</p><h2 id="3">kernelQFCAPX</h2><p>Submodule which contains approximated quadratic fractional covariance implementation.</p><h2 id="4">initGPR</h2><p>Initializes regression model by training dataset and config dataset. Resulting model is not optimized.</p><h2 id="5">initGPROptions</h2><p>Attaches configuration to regression model including default parameters and bounds.</p><h2 id="6">initTrainDS</h2><p>Initiates the training data, refernce angles and regression targets on regression model.</p><h2 id="7">initKernel</h2><p>Initiates kernel submodules by made configuration.</p><h2 id="8">initKernelParameters</h2><p>Initiates the regression model by its set configuration done initiating steps before.</p><h2 id="9">tuneKernel</h2><p>Tunes initated regression model hyperparameters.</p><h2 id="10">computeTuneCriteria</h2><p>Computes min criteria for tuneKernel.</p><h2 id="11">predFrame</h2><p>Predicts singel test data frame.</p><h2 id="12">predDS</h2><p>Predicts a whole test dataset at once.</p><h2 id="13">lossDS</h2><p>Computes prediction losses and errors of a test dataset at once.</p><h2 id="14">optimGPR</h2><p>Computes optimized regression model.</p><h2 id="15">computeOptimCriteria</h2><p>Computes min criteria for optimGPR.</p><h2 id="16">See Also</h2><div><ul><li><a href="generateConfigMat.html">generateConfigMat</a></li><li><a href="demoGPRModule.html">demoGPRModule</a></li><li><a href="investigateKernelParameters.html">investigateKernelParameters.html</a></li><li><a href="generateSimulationDatasets.html">generateSimulationDatasets.html</a></li></ul></div><p>Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -98,6 +98,50 @@ Edited on Month DD. YYYY by Editor: Single line description.
 % scripts by use of initGPR and tuneKernel for simple optimized models. A fully
 % generalized regression model is supported by use of optimGPR to create models
 % which are tuned on training data and generalized on test data.
+%
+% * *Model struct:*
+%
+% * kernel: Indicator which kernel implementation is used QFC or QFCAPX.
+% * theta: Kernel parameter vector.
+% * s2fBounds: Lower and upper bounds for theta(1).
+% * slBounds: Lower and upper bounds for theta(2).
+% * s2n: Noise level.
+% * s2nBounds: Lower and upper bounds for s2n.
+% * mean: Indicator if mean computation in GPR is active (poly) or not (zero).
+% * polyDegree: Polynom degree if mean is set to poly. Up degree of 4 is working
+%   valid.
+% * N: Number of reference angles.
+% * Angles: Column vector of reference angles.
+% * D: Number of sensor array pixels at each array edge.
+% * P: Number of predictors or number of sensor array pixels.
+% * Sensor: Indicator of which characterization was used sensor array datasets.
+% * PF: Periodicity of angular data depending on characterization dataset.
+% * Ysin: Column vector of sine regression targets by reference angles.
+% * Ycos: Column vector of cosine regression targets by reference angles.
+% * Xcos: Cosine training data.
+% * Xsin: Sine training data.
+% * kernelFun: Function handle to loaded covariance function by kernel
+%   indicator.
+% * inputFun: Function handle to loaded input function by kernel indicator.
+%   Preprocesses training and test data infront of regression computations.
+% * basisFun: Function handle to loaded polynom function by kernel indicator.
+% * Ky: Covariance Matrix for noisy observations.
+% * L: Lower triangle matrix of cholesky decomposed Ky.
+% * logDet: Logaritmic determinante of Ky.
+% * BetaCos: Polynom coefficients for polynomial mean approximation for cosine
+%   function as regression mean basis.
+% * BetaSin: Polynom coefficients for polynomial mean approximation for sine
+%   function as regression mean basis.
+% * meanFunCos: Function handle for cosine mean approximation by basisFun and
+%   BetaCos coefficients.
+% * meanFunSin: Function handle for sine mean approximation by basisFun and
+%   BetaSin coefficients.
+% * AlphaCos: Regression weights for cosine predictions.
+% * AlphaSin: Regression weights for sine predictions.
+% * LMLcos: Logaritmic marginal likelihood for cosine prediction.
+% * LMLsin: Logaritmic marginal likelihood for sine prediction.
+% * MSLLA: Mean standardized logaritmic loss for angles.
+% * MSLLR: Mean standardized logaritmic loss for radius.
 %
 %
 %% basicMathFunctions

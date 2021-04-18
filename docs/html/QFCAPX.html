@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>QFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-17"><meta name="DC.source" content="QFCAPX.m"><style type="text/css">
+      --><title>QFCAPX</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-18"><meta name="DC.source" content="QFCAPX.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -93,10 +93,10 @@ Edited on Month DD. YYYY by Editor: Single line description.
 </p><pre class="codeinput"><span class="keyword">function</span> K = QFCAPX(ax, bx, ay, by, theta)
      <span class="keyword">arguments</span>
         <span class="comment">% validate data as real vector of same size</span>
-        ax <span class="typesection">(:,:,:) double {mustBeReal}</span>
-        bx <span class="typesection">(:,:,:) double {mustBeReal, mustBeFitSize(ax,bx)}</span>
-        ay <span class="typesection">(:,:,:) double {mustBeReal, mustBeFitSize(ax,ay)}</span>
-        by <span class="typesection">(:,:,:) double {mustBeReal, mustBeFitSize(ax,by)}</span>
+        ax <span class="typesection">(:,:) double {mustBeReal}</span>
+        bx <span class="typesection">(:,:) double {mustBeReal, mustBeFitSize(ax,bx)}</span>
+        ay <span class="typesection">(:,:) double {mustBeReal, mustBeFitSize(ax,ay)}</span>
+        by <span class="typesection">(:,:) double {mustBeReal, mustBeFitSize(ax,by)}</span>
         <span class="comment">% validate kernel parameters as 1x2 vector</span>
         theta <span class="typesection">(1,2) double {mustBeReal}</span>
     <span class="keyword">end</span>
@@ -129,7 +129,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
 
 <span class="keyword">function</span> mustBeFitSize(a, b)
     <span class="comment">% Test for equal size</span>
-    <span class="keyword">if</span> ~isequal(size(a,1,2), size(b,1,2))
+    <span class="keyword">if</span> ~isequal(size(a,2), size(b,2))
         eid = <span class="string">'Size:notEqual'</span>;
         msg = <span class="string">'Sizes of  are not fitting.'</span>;
         throwAsCaller(MException(eid,msg))
@@ -191,10 +191,10 @@ Edited on Month DD. YYYY by Editor: Single line description.
 function K = QFCAPX(ax, bx, ay, by, theta)
      arguments
         % validate data as real vector of same size
-        ax (:,:,:) double {mustBeReal}
-        bx (:,:,:) double {mustBeReal, mustBeFitSize(ax,bx)}
-        ay (:,:,:) double {mustBeReal, mustBeFitSize(ax,ay)}
-        by (:,:,:) double {mustBeReal, mustBeFitSize(ax,by)}
+        ax (:,:) double {mustBeReal}
+        bx (:,:) double {mustBeReal, mustBeFitSize(ax,bx)}
+        ay (:,:) double {mustBeReal, mustBeFitSize(ax,ay)}
+        by (:,:) double {mustBeReal, mustBeFitSize(ax,by)}
         % validate kernel parameters as 1x2 vector
         theta (1,2) double {mustBeReal}
     end   
@@ -227,7 +227,7 @@ end
 
 function mustBeFitSize(a, b)
     % Test for equal size
-    if ~isequal(size(a,1,2), size(b,1,2))
+    if ~isequal(size(a,2), size(b,2))
         eid = 'Size:notEqual';
         msg = 'Sizes of  are not fitting.';
         throwAsCaller(MException(eid,msg))

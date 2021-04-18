@@ -22,6 +22,47 @@
 \begin{par}
 Function module which implements regression models with Gaussian Process. Implemented regression models posses the abillity to process training and test datasets bt sensor array simulation. The model creation can be bind into scripts by use of initGPR and tuneKernel for simple optimized models. A fully generalized regression model is supported by use of optimGPR to create models which are tuned on training data and generalized on test data.
 \end{par} \vspace{1em}
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item \textbf{Model struct:}
+\end{itemize}
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item kernel: Indicator which kernel implementation is used QFC or QFCAPX.
+   \item theta: Kernel parameter vector.
+   \item s2fBounds: Lower and upper bounds for theta(1).
+   \item slBounds: Lower and upper bounds for theta(2).
+   \item s2n: Noise level.
+   \item s2nBounds: Lower and upper bounds for s2n.
+   \item mean: Indicator if mean computation in GPR is active (poly) or not (zero).
+   \item polyDegree: Polynom degree if mean is set to poly. Up degree of 4 is working   valid.
+   \item N: Number of reference angles.
+   \item Angles: Column vector of reference angles.
+   \item D: Number of sensor array pixels at each array edge.
+   \item P: Number of predictors or number of sensor array pixels.
+   \item Sensor: Indicator of which characterization was used sensor array datasets.
+   \item PF: Periodicity of angular data depending on characterization dataset.
+   \item Ysin: Column vector of sine regression targets by reference angles.
+   \item Ycos: Column vector of cosine regression targets by reference angles.
+   \item Xcos: Cosine training data.
+   \item Xsin: Sine training data.
+   \item kernelFun: Function handle to loaded covariance function by kernel   indicator.
+   \item inputFun: Function handle to loaded input function by kernel indicator.   Preprocesses training and test data infront of regression computations.
+   \item basisFun: Function handle to loaded polynom function by kernel indicator.
+   \item Ky: Covariance Matrix for noisy observations.
+   \item L: Lower triangle matrix of cholesky decomposed Ky.
+   \item logDet: Logaritmic determinante of Ky.
+   \item BetaCos: Polynom coefficients for polynomial mean approximation for cosine   function as regression mean basis.
+   \item BetaSin: Polynom coefficients for polynomial mean approximation for sine   function as regression mean basis.
+   \item meanFunCos: Function handle for cosine mean approximation by basisFun and   BetaCos coefficients.
+   \item meanFunSin: Function handle for sine mean approximation by basisFun and   BetaSin coefficients.
+   \item AlphaCos: Regression weights for cosine predictions.
+   \item AlphaSin: Regression weights for sine predictions.
+   \item LMLcos: Logaritmic marginal likelihood for cosine prediction.
+   \item LMLsin: Logaritmic marginal likelihood for sine prediction.
+   \item MSLLA: Mean standardized logaritmic loss for angles.
+   \item MSLLR: Mean standardized logaritmic loss for radius.
+\end{itemize}
 
 \subsection*{Contents}
 
