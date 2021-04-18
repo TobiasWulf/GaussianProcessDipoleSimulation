@@ -52,10 +52,10 @@
 function K = QFCAPX(ax, bx, ay, by, theta)
      arguments
         % validate data as real vector of same size
-        ax (:,:,:) double {mustBeReal}
-        bx (:,:,:) double {mustBeReal, mustBeFitSize(ax,bx)}
-        ay (:,:,:) double {mustBeReal, mustBeFitSize(ax,ay)}
-        by (:,:,:) double {mustBeReal, mustBeFitSize(ax,by)}
+        ax (:,:) double {mustBeReal}
+        bx (:,:) double {mustBeReal, mustBeFitSize(ax,bx)}
+        ay (:,:) double {mustBeReal, mustBeFitSize(ax,ay)}
+        by (:,:) double {mustBeReal, mustBeFitSize(ax,by)}
         % validate kernel parameters as 1x2 vector
         theta (1,2) double {mustBeReal}
     end   
@@ -88,7 +88,7 @@ end
 
 function mustBeFitSize(a, b)
     % Test for equal size
-    if ~isequal(size(a,1,2), size(b,1,2))
+    if ~isequal(size(a,2), size(b,2))
         eid = 'Size:notEqual';
         msg = 'Sizes of  are not fitting.';
         throwAsCaller(MException(eid,msg))

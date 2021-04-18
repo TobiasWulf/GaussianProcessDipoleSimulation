@@ -284,7 +284,7 @@ TrainingOptions.useCase = 'Training';
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
 TrainingOptions.xPos = [0,];
-TrainingOptions.yPos = [0,];
+TrainingOptions.yPos = [3,];
 TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
@@ -345,7 +345,7 @@ TestOptions.useCase = 'Test';
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
 TestOptions.xPos = [0,];
-TestOptions.yPos = [0,];
+TestOptions.yPos = [3,];
 TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
@@ -406,7 +406,7 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-GPROptions.kernel = 'QFC';
+GPROptions.kernel = 'QFCAPX';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical 
@@ -448,7 +448,7 @@ GPROptions.s2nBounds = [1e-8, 1e-04];
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 50;
+GPROptions.OptimRuns = 20;
 
 
 % Set standardized logarithmic loss for bayes optimization of s2n with MSLL.
