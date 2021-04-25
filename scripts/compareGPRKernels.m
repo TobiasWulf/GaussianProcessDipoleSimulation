@@ -195,7 +195,7 @@ title('a) $K(X, X|\theta)$ f. $d_E^2$, $\theta = (1,1)$')
 
 c = colorbar;
 c.TickLabelInterpreter = 'latex';
-%%
+
 % plot losses and compare against each kernel and behavior between SLLA and SLLR
 figure;
 tiledlayout(2,2);
@@ -252,7 +252,7 @@ yline(mean(ma14SLLR), 'g-.', 'LineWidth', 4.5);
 xlim([0 360]);
 xlabel('$\alpha$ in $^\circ$');
 ylabel('$SLL$');
-title('d) f. $d_F^2$, $\theta = (1,1)$')
+title('d) f. $d_F^2$, $\theta = (1,4)$')
 
 legend({'SLLA', 'SLLR', 'MSLLA', 'MSLLR'}, 'Units', 'normalized', ...
     'Orientation', 'horizontal', 'Position', [.37 .48 .25 .04]);
