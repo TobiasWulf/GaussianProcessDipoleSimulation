@@ -406,7 +406,7 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-GPROptions.kernel = 'QFC';
+GPROptions.kernel = 'QFCAPX';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical 
@@ -441,7 +441,7 @@ GPROptions.s2n = 1e-06;
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-8, 1e-04];
+GPROptions.s2nBounds = [1e-10, 1e-4];
 
 
 % Set number of outer optimization runs. For wide parameter bounds it is
@@ -465,7 +465,7 @@ GPROptions.SLL = 'SLLA';
 %        polynom mean vectors at each observation points 
 %        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
 %        For QFC kernel x = ||X||_F
-GPROptions.mean = 'zero';
+GPROptions.mean = 'poly';
 
 % Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum

@@ -12,6 +12,12 @@
   listof=totoc        % Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis
 ]{scrreprt}
 \usepackage{./style/thesisstyle}
+
+% redefine reference names for autoref
+\addto\extrasngerman{%
+	\def\subsubsectionautorefname{Unterabschnitt}%
+	\def\paragraphautorefname{Unterabschnitt}%
+}
   
 \makeglossaries           % create all glossary entries (remember: run makeglossaries manually)
 \makeindex

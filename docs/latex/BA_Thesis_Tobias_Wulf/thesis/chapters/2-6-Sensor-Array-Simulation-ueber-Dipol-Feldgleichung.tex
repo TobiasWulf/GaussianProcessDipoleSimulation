@@ -3,7 +3,7 @@
 % @author Tobias Wulf
 %
 
-\section{Sensor-Array-Simulation über Dipol-Feldgleichung}\label{sec:sensor-array-simulation-dipol-feldgleichung}
+\section{Sensor-Array-Simulation über die Dipol-Feldgleichung}\label{sec:sensor-array-simulation-dipol-feldgleichung}
 
 
 Die Sensor-Array-Simulation nutzt einen Kugelmagneten als Stimulanz \cite{Schuethe2019}. Es ist die Anwendungsbeschreibung aus \autoref{fig:sensor-array-prinzip} gewählt. Der Vorteil darin liegt, dass ein Kugelmagnetfernfeld mittels der Feldgleichung für einen magnetischen Dipol approximiert werden kann \cite{Pape2017}. Das innere Magnetfeld des Kugelmagneten ist dabei zu vernachlässigen. Der Radius des Kugelmagneten $r_{mag}$ ist als Offset für den räumlichen Abstand zum Magneten zu verwenden. Weitere physikalische Effekte wie magnetische Remanenz werden vernachlässigt.
@@ -13,7 +13,7 @@ Die Sensor-Array-Simulation nutzt einen Kugelmagneten als Stimulanz \cite{Schuet
 \begin{figure}[ph]
 	\centering
 	\includegraphics[width=0.7\linewidth]{chapters/images/2-Grundlagen/Dipol-Feldgleichung}
-	\caption[Simulation der Dipol-Feldgleichung]{Simulation der Dipol-Feldgleichung. Als veranschaulichendes Beispiel ist ein Magnetfeld über die Dipol-Feldgleichung simuliert. Der Dipol bildet den Koordinatenursprung bei $\vec{r} = (0,0,0)^T$. In Relation zum Dipol ist ein Meshgrid, der einzelnen Sensor-Pixel-Positionen $\vec{r}$, unterhalb des Dipols gelegt. Abhängig vom magnetischen Moment $\vec{m}$ des Dipols wird an jeder Meshgrid-Position $\vec{r}$ die Dipol-Feldgleichung gelöst und punktuell die magnetische Feldstärke $\vec{H}$ berechnet. Das magnetische Moment $\vec{m}$ bestimmt die Nord-Süd-Ausrichtung und Winkelstellungen des Dipols.}
+	\caption[Simulation der Dipol-Feldgleichung]{Simulation der Dipol-Feldgleichung. Als veranschaulichendes Beispiel ist ein Magnetfeld über die Dipol-Feldgleichung simuliert. Der Dipol bildet den Koordinatenursprung bei $\vec{r} = (0,0,0)^T$. In Relation zum Dipol ist ein Meshgrid der einzelnen Sensor-Pixel-Positionen $\vec{r}$ unterhalb des Dipols gelegt. Abhängig vom magnetischen Moment $\vec{m}$ des Dipols, wird an jeder Meshgrid-Position $\vec{r}$ die Dipol-Feldgleichung gelöst und punktuell die magnetische Feldstärke $\vec{H}$ berechnet. Das magnetische Moment $\vec{m}$ bestimmt die Nord-Süd-Ausrichtung und Winkelstellungen des Dipols.}
 	\label{fig:dipol-feldgleichung}
 \end{figure}
 
@@ -21,7 +21,7 @@ Die Sensor-Array-Simulation nutzt einen Kugelmagneten als Stimulanz \cite{Schuet
 \clearpage
 
 
-Es wird ein Meshgrid für die einzelnen Sensor-Pixel nach \autoref{eq:arraymeshgrid} in ein dreidimensionale Koordinatensystem gelegt. Wie in \autoref{fig:dipol-feldgleichung} zu sehen, liegt der Dipol im Koordinatenursprung bei $\vec{r} = (0,0,0)^T$. Die einzelnen Pixel-Position $\vec{r}$ und das magnetische Dipol-Moment $\vec{m}$, sind durch \autoref{eq:posmom} beschrieben. Das Dipol-Moment $\vec{m}$ bestimmt die räumliche Ausrichtung des Magnetfeldes.
+Es wird ein Meshgrid für die einzelnen Sensor-Pixel nach \autoref{eq:arraymeshgrid} in ein dreidimensionales Koordinatensystem gelegt. Wie in \autoref{fig:dipol-feldgleichung} zu sehen, liegt der Dipol im Koordinatenursprung bei $\vec{r} = (0,0,0)^T$. Die einzelne Pixel-Position $\vec{r}$ und das magnetische Dipol-Moment $\vec{m}$, sind durch \autoref{eq:posmom} beschrieben. Das Dipol-Moment $\vec{m}$ bestimmt die räumliche Ausrichtung des Magnetfeldes.
 
 
 \begin{equation}\label{eq:posmom}
@@ -29,8 +29,7 @@ Es wird ein Meshgrid für die einzelnen Sensor-Pixel nach \autoref{eq:arraymeshg
 \end{equation}
 
 
-Die Feldstärken $\vec{H}$, an den jeweiligen Pixel-Positionen $\vec{r}$, sind für das aktuelle Moment $\vec{m}$ nach \autoref{eq:dipfg} zu berechnen. \autoref{eq:dipfg} ist durch einsetzen von \autoref{eq:posmom} zu \autoref{eq:dipfgopt} vereinfacht. Somit ist die Feldstärke $\vec{H}$, mit dazugehörigen Moment $\vec{m}$, nur von der Richtung des Einheitsvektors $\hat{r}$ abhängig und durch 
-$\frac{1}{4\pi|\vec{r}|^3}$ skaliert. Die entsprechende Betragsfeldstärke $|\vec{H}|$ setzt sich aus den resultierenden Feldstärkenkomponenten in \autoref{eq:hbetrag} zusammen.
+Die Feldstärken $\vec{H}$ an den jeweiligen Pixel-Positionen $\vec{r}$ sind für das aktuelle Moment $\vec{m}$ nach \autoref{eq:dipfg} zu berechnen. \autoref{eq:dipfg} ist durch Einsetzen von \autoref{eq:posmom} zu \autoref{eq:dipfgopt} vereinfacht. Somit ist die Feldstärke $\vec{H}$ mit dazugehörigem Moment $\vec{m}$ nur von der Richtung des Einheitsvektors $\hat{r}$ abhängig und durch $\frac{1}{4\pi|\vec{r}|^3}$ skaliert. Die entsprechende Betragsfeldstärke $|\vec{H}|$ setzt sich aus den resultierenden Feldstärkenkomponenten in \autoref{eq:hbetrag} zusammen.
 
 
 \begin{align}
@@ -45,7 +44,7 @@ $\frac{1}{4\pi|\vec{r}|^3}$ skaliert. Die entsprechende Betragsfeldstärke $|\ve
 \clearpage
 
 
-Um eine Rotation und etwaige Verkippungen des Dipol-Magnetfeldes im Raum zu erwirken, müssen nach \autoref{eq:allgrot} entsprechende axiale Rotationen in $X,Y$ und $Z$, durch aufschalten von Drehmatrizen hergestellt werden. Durch drehen bzw. verkippen des Dipol-Momentes $\vec{m}$ nach \autoref{eq:allgrot}, ergibt sich das neue Dipol-Moment $\vec{m}'$ und somit weiter resultierende Feldstärken $\vec{H}'$ bei gleichbleibenden Pixel-Positionen $\vec{r}$ \cite{Schuethe2019}.
+Um eine Rotation und etwaige Verkippungen des Dipol-Magnetfeldes im Raum zu erwirken, müssen nach \autoref{eq:allgrot} entsprechende axiale Rotationen in $X,Y$ und $Z$, durch Aufschalten von Drehmatrizen hergestellt werden. Durch drehen bzw. verkippen des Dipol-Momentes $\vec{m}$ nach \autoref{eq:allgrot}, ergibt sich das neue Dipol-Moment $\vec{m}'$ und somit weiter resultierende Feldstärken $\vec{H}'$ bei gleichbleibenden Pixel-Positionen $\vec{r}$ \cite{Schuethe2019}.
 
 
 \begin{equation}\label{eq:allgrot}
@@ -89,7 +88,7 @@ Um eine Rotation und etwaige Verkippungen des Dipol-Magnetfeldes im Raum zu erwi
 \end{equation}
 
 
-Für den Standardanwendungsfall aus \autoref{sec:prinzip-des-sensor-arrays}, also Rotation in Magnet-$Z$-Achse ohne Verkippung, sind die Drehmatrizen $R_x$ und $R_y$ auszuschalten. Das kann durch zu Null setzen der Verkippungswinkel $\alpha_x$ und $\alpha_y$ erreicht werden. Die Drehmatrizen sind dadurch zur Einheitsmatrix $I$ gleichgeschaltet. Es ergeben sich somit $i-te$ Dipol-Rotationsmomente $\vec{m}_i$, für $i-te$ Winkelstellungen des Magneten $\alpha_i$ mit $\alpha_i\in\{\SI{0}{\degree},\ldots,\SI{360}{\degree}\}$, nach \autoref{eq:zrotov}. Dabei ist $\vec{m}_0 = -(m_0,0,0)^T$ das Startmoment und legt die Nord-Süd-Ausrichtung des Gebermagneten zu Beginn in seine $X$-Achse. Für Rotationen mit konstanten Verkippungen sind die Verkippungswinkel $\alpha_x \ne 0$ bzw. $\alpha_y \ne 0$ zu setzen und allgemein nach \autoref{eq:allgrot} zu berechnen. 
+Für den Standardanwendungsfall aus \autoref{sec:prinzip-des-sensor-arrays}, also Rotation in Magnet-$Z$-Achse ohne Verkippung, sind die Drehmatrizen $R_x$ und $R_y$ auszuschalten. Das kann durch Nullsetzen der Verkippungswinkel $\alpha_x$ und $\alpha_y$ erreicht werden. Die Drehmatrizen sind dadurch zur Einheitsmatrix $I$ gleichgeschaltet. Es ergeben sich somit $i-te$ Dipol-Rotationsmomente $\vec{m}_i$, für $i-te$ Winkelstellungen des Magneten $\alpha_i$ mit $\alpha_i\in\{\SI{0}{\degree},\ldots,\SI{360}{\degree}\}$, nach \autoref{eq:zrotov}. Dabei ist $\vec{m}_0 = -(m_0,0,0)^T$ das Startmoment und legt die Nord-Süd-Ausrichtung des Gebermagneten zu Beginn in seine $X$-Achse. Für Rotationen mit konstanten Verkippungen sind die Verkippungswinkel $\alpha_x \ne 0$ bzw. $\alpha_y \ne 0$ zu setzen und allgemein nach \autoref{eq:allgrot} zu berechnen. 
 
 
 \begin{equation}\label{eq:zrotov}
@@ -97,13 +96,13 @@ Für den Standardanwendungsfall aus \autoref{sec:prinzip-des-sensor-arrays}, als
 \end{equation}
 
 
-Als Anfangswert für das Startmoment empfiehlt sich $m_0 > \SI{1000}{\ampere\square\metre}$ zu wählen, dass unterdrückt numerische Fehler beim Berechnen der Feldstärke $\vec{H}$. In einem weiteren Normierungsschritt zum Aufprägen einer Betragsfeldstärke $H_{mag}$, bei definierten Abstand $r_{mag} + d_z$ zur Magnetenoberfläche, löscht sich der hohe Anfangswert für $m_0$ rechnerisch aus. Sodass über das Dipol-Moment nur die Ausrichtung des Gebermagneten gesteuert ist und kein nominaler Einfluss auf errechnete Feldstärken $\vec{H}$ besteht.
+Als Anfangswert für das Startmoment empfiehlt sich $m_0 > 1000 \text{ Am}^2$ zu wählen, dass unterdrückt numerische Fehler beim Berechnen der Feldstärke $\vec{H}$. In einem weiteren Normierungsschritt zum Aufprägen einer Betragsfeldstärke $H_{mag}$, bei definierten Abstand $r_{mag} + d_z$ zur Magnetenoberfläche, löscht sich der hohe Anfangswert für $m_0$ rechnerisch aus, sodass über das Dipol-Moment nur die Ausrichtung des Gebermagneten gesteuert ist und kein nominaler Einfluss auf errechnete Feldstärken $\vec{H}$ besteht.
 
 
 \clearpage
 
 
-Damit in der Sensor-Array-Simulation magnetische Anregungen erzeugt werden können, die den empfohlenen Kennfeldarbeitsbereich aus \autoref{ch:tdk-datensatz} treffen, ist es notwendig das approximierte Kugelmagnetfeld in einem weiteren zu manipulieren. Die Manipulation des Magnetfeldes erfolgt, durch das Aufprägen einer Betragsfeldstärke $H_{mag}$, für die Ruhelage des Magneten mit dazugehöriger Feldstärke $\vec{H}_0$. Dabei ist ein definierter Abstand zur Kugelmagnetoberfläche festzulegen, bei dem sich die aufzuprägende Betragsfeldstärke $H_{mag}$ einstellt. 
+Damit in der Sensor-Array-Simulation magnetische Anregungen erzeugt werden können, die den empfohlenen Kennfeldarbeitsbereich aus \autoref{ch:tdk-datensatz} treffen, ist es notwendig, das approximierte Kugelmagnetfeld im Weiteren zu manipulieren. Die Manipulation des Magnetfeldes erfolgt durch das Aufprägen einer Betragsfeldstärke $H_{mag}$ für die Ruhelage des Magneten mit dazugehöriger Feldstärke $\vec{H}_0$. Dabei ist ein definierter Abstand zur Kugelmagnetoberfläche festzulegen, bei dem sich die aufzuprägende Betragsfeldstärke $H_{mag}$ einstellt. 
 
 
 \begin{align}\label{eq:ruhepos}
@@ -113,7 +112,7 @@ Damit in der Sensor-Array-Simulation magnetische Anregungen erzeugt werden könn
 \end{align}
 
 
-Die Ruhelage bezieht sich auf den Startwinkel $\alpha_1$ der Simulation und ist gemäß gewünschter Verkippungen axial getreu einzustellen. Die Normierungsposition ist mit \autoref{eq:ruhepos} vorgegeben und definiert den Abstand entlang der Magnet-$Z$-Achse und zur Magnetoberfläche. Der Kugelmagnet ist mit entsprechenden Ruhemoment, der Normierungsposition folgend, nach \autoref{eq:ruhemom} auszurichten. Anschließend ist die Betragsfeldstärke $|\vec{H}_0(\vec{r}_0,\vec{m}_0)|$ auszurechnen. Über den Quotient, aus gewünschter Prägung $H_{mag}$ und Betrag $|\vec{H}_0(\vec{r}_0,\vec{m}_0)|$ in Ruhelage, mündet die Berechnung für ein normiertes Kugelmagnetfeld $H_{Norm}(\vec{r},\vec{m}_i)$, für beliebige Positionen $\vec{r}$ im Koordinatenraum und $i-te$ Rotationsmomente $\vec{m}_i$ in \autoref{eq:dipnorm}.
+Die Ruhelage bezieht sich auf den Startwinkel $\alpha_1$ der Simulation und ist gemäß gewünschter Verkippungen axial getreu einzustellen. Die Normierungsposition ist mit \autoref{eq:ruhepos} vorgegeben und definiert den Abstand entlang der Magnet-$Z$-Achse und zur Magnetoberfläche. Der Kugelmagnet ist mit entsprechendem Ruhemoment, der Normierungsposition folgend, nach \autoref{eq:ruhemom} auszurichten. Anschließend ist die Betragsfeldstärke $|\vec{H}_0(\vec{r}_0,\vec{m}_0)|$ auszurechnen. Über den Quotient aus gewünschter Prägung $H_{mag}$ und Betrag $|\vec{H}_0(\vec{r}_0,\vec{m}_0)|$ in Ruhelage mündet die Berechnung für ein normiertes Kugelmagnetfeld $H_{Norm}(\vec{r},\vec{m}_i)$, für beliebige Positionen $\vec{r}$ im Koordinatenraum und $i-te$ Rotationsmomente $\vec{m}_i$ in \autoref{eq:dipnorm}.
 
 
 \begin{equation}\label{eq:dipnorm}
@@ -121,7 +120,7 @@ Die Ruhelage bezieht sich auf den Startwinkel $\alpha_1$ der Simulation und ist 
 \end{equation}
 
 
-Die Anwendungskonfigurierung für eine optimale Simulation und treffen der Arbeitsbereiche ist \autoref{ch:sensor-array-sim-imp} zu entnehmen. Simulierte Feldstärken sind gemäß der Meshgrid-Anordnung in Matrizen zu speichern, sodass sich in \autoref{sec:prinzip-des-sensor-arrays} beschriebene, Array-Datenformate ergeben. Diese können im Simulationsverlauf fortführend, direkt im Array-Format auf die Kennfelder, zur Entnahme von korrespondierenden Spannungsausgaben angewandt und gespeichert werden. In der Sensor-Array-Simulation ist die Verkippung in $X$-Achse deaktiviert mit $\alpha_x = 0$. Im weiteren Kontext bezieht sich der Begriff Verkippung (engl. ``tilt''), ausschließlich auf Verkippungen in der $Y$-Achse des Gebermagneten.
+Die Anwendungskonfigurierung für eine optimale Simulation und Treffen der Arbeitsbereiche ist \autoref{ch:sensor-array-sim-imp} zu entnehmen. Simulierte Feldstärken sind gemäß der Meshgrid-Anordnung in Matrizen zu speichern, sodass sich die in \autoref{sec:prinzip-des-sensor-arrays} beschriebenen Array-Datenformate ergeben. Diese können im Simulationsverlauf fortführend, direkt im Array-Format auf die Kennfelder, zur Entnahme von korrespondierenden Spannungsausgaben angewandt und gespeichert werden. In der Sensor-Array-Simulation ist die Verkippung in der $X$-Achse deaktiviert mit $\alpha_x = 0$. Im weiteren Kontext bezieht sich der Begriff Verkippung (engl. ``tilt''), ausschließlich auf Verkippungen in der $Y$-Achse des Gebermagneten.
 
 
 \clearpage

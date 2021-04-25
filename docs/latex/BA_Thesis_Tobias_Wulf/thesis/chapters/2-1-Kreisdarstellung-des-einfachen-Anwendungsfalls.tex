@@ -7,19 +7,19 @@
 
 
 Im klassischen Anwendungsfall, zu sehen in \autoref{fig:klassischeranwendungsfall}, ist ein Gebermagnet räumlich 
-zentriert über einen magnetischen Sensor platziert. Bei Drehung des Gebermagneten rotiert sein Magnetfeld entsprechend 
+zentriert über einem magnetischen Sensor platziert. Bei Drehung des Gebermagneten rotiert sein Magnetfeld entsprechend 
 mit. Die Rotation findet um die $Z$-Achse des Gebermagneten statt. Die Nord-Süd-Ausrichtung des Magneten liegt in der 
 $X$- bzw. $Y$-Achse des Koordinatensystems \cite{NXPSemiconductors2014}\cite{TDK2016}.
 \newline
-Der Winkelsensor misst, die zueinander und zur Rotationsachse orthogonal stehenden, $X$- und $Y$-Feldstärkenkomponenten 
+Der Winkelsensor misst die zueinander und zur Rotationsachse orthogonal stehenden $X$- und $Y$-Feldstärkenkomponenten 
 des Gebermagneten $H_x$ und $H_y$. Diese setzt der Winkelsensor in elektrische Spannungssignale um. Die Winkelstellung 
 $\alpha$ des Magnet wird somit nicht direkt gemessen. Sie kann aber, mittels der gemessenen $H_x$ und $H_y$ 
 Feldstärkenkomponenten, durch einfache Vektorrechnung berechnet werden.
 \newline
 Bei idealer und gleichbleibender Position des Gebermagneten in Relation zum Winkelsensor, liefern die aufgenommen 
-$H_x$-/ $H_y$-Messwerte eine Cosinus-Funktion $V_{cos}(H_x,H_y)$, sowie eine um $\SI{90}{\degree}$ zur Cosinus-Funktion 
+$H_x$-/ $H_y$-Messwerte eine Cosinus-Funktion $V_{cos}(H_x,H_y)$ sowie eine um $\SI{90}{\degree}$ zur Cosinus-Funktion 
 phasenverschobene Sinus-Funktion $V_{sin}(H_x,H_y)$. Genaue physikalische Größenzusammenhänge und technische Umsetzung 
-sind dabei vorerst in Darstellung vernachlässigt. 
+sind dabei vorerst in den weiteren Darstellungen vernachlässigt. 
 
 
 \clearpage
@@ -59,7 +59,7 @@ abbildet $\mathbf{A}\mapsto\alpha$, ergibt sich somit folgender vektorieller Zus
 \underbrace{\mathbf{A}(\alpha) \vphantom{\begin{pmatrix}x\\y\end{pmatrix}}}_{\textrm{Winkelmessung}}
 \end{equation}
 
-Die so erhobenen Winkelmessung $\mathbf{A}$ nach \autoref{eq:vektorfeld}, bildet ein eindimensionales Vektorfeld mit 
+Die so erhobene Winkelmessung $\mathbf{A}$ nach \autoref{eq:vektorfeld}, bildet ein eindimensionales Vektorfeld mit 
 $\{a_x,b_x\}\in\mathbb{R}$ ab. Wobei sich der Bahnradius $r$ für die Kreisdarstellung, aus dem Betrag der Messung 
 $|\mathbf{A}|$, nach \autoref{eq:bahnradius} gewinnen lässt.
 
@@ -77,14 +77,14 @@ r = |\mathbf{A}| = \sqrt{\big(V_{cos}(H_x,H_y)\big)^2 + \big(V_{sin}(H_x,H_y)\bi
 	\includegraphics[width=0.7\linewidth]{chapters/images/2-Grundlagen/Kreisdarstellung_Winkelmessung}
 	\caption[Kreisdarstellung der Winkelmessung]{Kreisdarstellung der Winkelmessung. Als Abbildung der
 		Winkelmessung $\mathbf{A}\mapsto\alpha$ aus	\autoref{eq:vektorfeld}. Die Zusammensetzung der Messung erfolgt 
-		durch, die vom Winkelsensor gemessenen, vektoriellen Anteile für die polare Darstellung der 
+		durch die vom Winkelsensor gemessenen vektoriellen Anteile für die polare Darstellung der 
 		Gebermagnetwinkelstellung.}
 	\label{fig:kreisdarstellungwinkelmessung}
 \end{figure}
 
 Der entsprechende Winkel des Gebermagneten lässt sich, mittels Überführung in Polarkoordinaten, nach \autoref{eq:atan2} 
 zurückrechnen. Die \autoref{fig:kreisdarstellungwinkelmessung} veranschaulicht den Zusammenhang zwischen Messwerten und 
-Abbildung der Gebermagnetwinkelstellung. Die Sinoiden Messergebnisse sind der $\text{arctan2}$ Funktion zuzuführen. 
+Abbildung der Gebermagnetwinkelstellung. Die sinoiden Messergebnisse sind der Funktion $\text{arctan2}$ zuzuführen. 
 Diese bildet einen Winkel von null bis $\pi$ ab und besitzt eine Sprungstelle bei $\pi$. Der $Y$-Anteil kann dabei 
 als Entscheider genutzt werden, um eine Abbildung des Winkels auf eine volle Kreisumdrehung $(2\pi)$ umzusetzen. 
 

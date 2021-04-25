@@ -961,14 +961,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="616.90885"
+     inkscape:cx="245.17272"
      inkscape:cy="770.34727"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1920"
      inkscape:window-height="1052"
-     inkscape:window-x="3840"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -6002,16 +6002,12 @@
        id="text22309"
        y="270.42062"
        x="296.57907"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1;"
        xml:space="preserve"><tspan
          sodipodi:role="line"
-         id="tspan22311"
-         x="296.57907"
-         y="270.42062">Gernerate</tspan><tspan
+         id="tspan2224">Generate</tspan><tspan
          sodipodi:role="line"
-         id="tspan22313"
-         x="296.57907"
-         y="280.12201">Grid</tspan></text>
+         id="tspan2226">Meshgrid</tspan></text>
     <rect
        ry="9.1552687e-07"
        y="259.95828"
@@ -6023,17 +6019,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
-       x="383.3624"
+       x="380.18738"
        y="270.42062"
        id="text22321"><tspan
          sodipodi:role="line"
-         id="tspan22323"
-         x="383.3624"
-         y="270.42062">Compte Dipole</tspan><tspan
+         id="tspan2220"
+         x="380.18738"
+         y="270.42062">Compute</tspan><tspan
          sodipodi:role="line"
-         id="tspan22325"
-         x="383.3624"
-         y="280.12201">Field</tspan></text>
+         id="tspan2222"
+         x="380.18738"
+         y="280.12201">Dipole Field</tspan></text>
     <rect
        style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:#8f8f8f;stroke-width:1.25356591;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect22329"
