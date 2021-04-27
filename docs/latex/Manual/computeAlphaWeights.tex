@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{computeAlphaWeights}
-
-\begin{par}
+    \begin{par}
 Computes alpha weights from feature space product HT*beta and target vector y as porduct with inverse covariance matrix with additve noise Ky\^{}-1 represented by its cholesky decomposed lower triangle matrix L. Ky\^{}-1 * (y - m(x)).
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Computes alpha weights from feature space product HT*beta and target vector y as
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 alpha = computeAlphaWeights(L, y, m)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{alpha = computeAlphaWeights(L, y, m)} prepare data and forward it to matrix computation.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{L} lower triangle matrix of cholesky decomposed K matrix.
@@ -63,14 +60,14 @@ alpha = computeAlphaWeights(L, y, m)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{alpha} regression weights.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -80,7 +77,7 @@ alpha = computeAlphaWeights(L, y, m)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -94,7 +91,7 @@ Created on November 06. 2019 by Klaus Juenemann. Copyright Klaus Juenemann 2019.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function alpha = computeAlphaWeights(L, y, m)
     % get residual
     residual = y - m;

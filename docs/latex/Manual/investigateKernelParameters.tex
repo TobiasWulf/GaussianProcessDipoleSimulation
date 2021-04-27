@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{investigateKernelParameters}
-
-\begin{par}
+    \begin{par}
 Sweep kernel parameters against inner tuning criteria which is built by the logarithmic likelihoods for cosine and sine fit on training datasets.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -41,7 +38,7 @@ Sweep kernel parameters against inner tuning criteria which is built by the loga
 \end{itemize}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -51,7 +48,7 @@ Sweep kernel parameters against inner tuning criteria which is built by the loga
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -69,9 +66,9 @@ Created on March 13. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \end{par} \vspace{1em}
 
 
-\subsection*{Start Script, Load Config and Read in Datasets}
+{\footnotesize\textbf{Start Script, Load Config and Read in Datasets}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 clc;
 disp('Start GPR module demonstration ...');
 clearvars;
@@ -102,17 +99,17 @@ assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
 \end{lstlisting}
 
 
-\subsection*{Create GPR Model for Investigation}
+{\footnotesize\textbf{Create GPR Model for Investigation}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Create GPR modles ...');
 Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 \end{lstlisting}
 
 
-\subsection*{Sweep Title with Model Parameters}
+{\footnotesize\textbf{Sweep Title with Model Parameters}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
     " $\\sigma_n^2 = %1.2e$, $N = %d$\n" +...
     "$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm," + ...
@@ -127,36 +124,36 @@ titleStr = sprintf(titleStr, ...
 \end{lstlisting}
 
 
-\subsection*{Execute Parameter Sweep with Constant Noise}
+{\footnotesize\textbf{Execute Parameter Sweep with Constant Noise}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 nEval = 300;
 disp('Sweep kernel parameters with constant noise ...');
 sweepKernelWithConstNoise(Mdl1, nEval, titleStr, PathVariables)
 \end{lstlisting}
 
 
-\subsection*{Execute Parameter Sweep with Constant Variance}
+{\footnotesize\textbf{Execute Parameter Sweep with Constant Variance}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 nEval = 300;
 disp('Sweep kernel parameters with constant variance ...');
 sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
 \end{lstlisting}
 
 
-\subsection*{Execute Parameter Sweep with Constant Lengthscale}
+{\footnotesize\textbf{Execute Parameter Sweep with Constant Lengthscale}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 nEval = 300;
 disp('Sweep kernel parameters with constant lengthscale ...');
 sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
 \end{lstlisting}
 
 
-\subsection*{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise}
+{\footnotesize\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function sweepKernelWithConstNoise(Mdl, nEval, titleStr, PathVariables)
 
     % create sweep parameters for sweeping theta to given modle
@@ -238,9 +235,9 @@ end
 \end{lstlisting}
 
 
-\subsection*{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Variance}
+{\footnotesize\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Variance}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function sweepKernelWithConstVariance(Mdl, nEval, titleStr, PathVariables)
 
     % kepp s2n origin to plot later
@@ -331,9 +328,9 @@ end
 \end{lstlisting}
 
 
-\subsection*{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Lengthscale}
+{\footnotesize\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Lengthscale}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function sweepKernelWithConstLengthscale(Mdl, nEval, titleStr, PathVariables)
 
     % kepp s2n origin to plot later

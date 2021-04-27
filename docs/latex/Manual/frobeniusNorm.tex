@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{frobeniusNorm}
-
-\begin{par}
+    \begin{par}
 Computes the Frobenius Norm of a matrix A.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -37,29 +34,29 @@ Computes the Frobenius Norm of a matrix A.
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 nv = frobeniusNorm(A, approx)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{frobeniusNorm(A, approx)} computes Frobenius Norm of M x N matrix. If approx is true the Norm is approximated with mean2 function.
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 A = magic(8);
 nv = frobeniusNorm(A, approx)
 \end{lstlisting}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{A} is a M x N matrix of real values.
@@ -69,14 +66,14 @@ nv = frobeniusNorm(A, approx)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{nv} is a scalar norm value.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -86,7 +83,7 @@ nv = frobeniusNorm(A, approx)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -99,7 +96,7 @@ Created on January 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function nv = frobeniusNorm(A, approx)
     arguments
         % validate A as real matrix

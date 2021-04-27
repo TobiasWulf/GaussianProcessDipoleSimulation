@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{publishProjectFilesToHTML}
-
-\begin{par}
+    \begin{par}
 The script is used to publish all toolbox included files to HTML documentation folder docs/html. The script runs a section with certain options for each project part and uses the built-in function to generate the documentation files. For a complete documentation support each generated html document needs to get listed in the project helptoc file with toc entry.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -40,7 +37,7 @@ The script is used to publish all toolbox included files to HTML documentation f
 \end{itemize}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -50,7 +47,7 @@ The script is used to publish all toolbox included files to HTML documentation f
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -68,12 +65,12 @@ Created on September 21. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \end{par} \vspace{1em}
 
 
-\subsection*{Start Publishing Script, Clean Up and Load Config}
+{\footnotesize\textbf{Start Publishing Script, Clean Up and Load Config}}
 
 \begin{par}
 At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Load absolute path variables and publishing options from config.mat
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Workspace cleaned up ...');
 clearvars;
 clc;
@@ -86,12 +83,12 @@ end
 \end{lstlisting}
 
 
-\subsection*{Remove Equation PNG Files}
+{\footnotesize\textbf{Remove Equation PNG Files}}
 
 \begin{par}
 Remove equation png file from HTML output folder before create or recreate publishing files. To prevent the directory expanse of old or edited equation files.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 yesno = input('Renew eqautions in docs [y/n]: ', 's');
 if strcmp(yesno, 'y')
     removeFilesFromDir(PublishOptions.outputDir, '*_eq*.png');
@@ -99,12 +96,12 @@ end
 \end{lstlisting}
 
 
-\subsection*{Project Documentation Files}
+{\footnotesize\textbf{Project Documentation Files}}
 
 \begin{par}
 In this section of the publish script every bare documentation script should be handled and executed to publish. These are m-files without any executeable code so they exist just to transport the documentation content into html output. Get all m-files from docs path. Not recursively but verbose. No expected directory tree search for m-files.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Publish project documentation files ...');
 publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 PublishOptions.format = 'latex';
@@ -113,12 +110,12 @@ publishFilesFromDir(PathVariables.docsPath, PublishOptions, false, true);
 \end{lstlisting}
 
 
-\subsection*{Executable Script Files}
+{\footnotesize\textbf{Executable Script Files}}
 
 \begin{par}
 The section collects all ready to execute scripts from project scripts folder and publish them to html documentation folder. Every script must be noticed in in Executable\_Scripts.m file with one line description. That is very important to not execute the scripts during publishing. If a script contains critical or loop gaining code. In example the publishProjectFilesToHTML.m script such loop gaining code. If eval code during publishing is enabled the script starts publishing itself over and over again because it contains the loop entry via the publish function. So routine is minmal adjusted by evalCode parameter in PublishOptions struct. No expected directory to search for m-files so no recursively but verbose.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Publish executable scripts ...');
 PublishOptions.evalCode = false;
 PublishOptions.format = 'html';
@@ -130,12 +127,12 @@ publishFilesFromDir(PathVariables.scriptsPath, PublishOptions, true, true);
 \end{lstlisting}
 
 
-\subsection*{Source Code Functions and Classes}
+{\footnotesize\textbf{Source Code Functions and Classes}}
 
 \begin{par}
 That part of the publish script collects function and class m-files from the util section of the source code located in src/. Introcude every new m-file to the source code related documentation m-file and add a description. In general functions and class files are not executed on publishing execution so set evalCode option to false in PublishOptions struct. In addition to that the source code itself should not be in the published document, so the showCode option is switched to false. Publish recursively from underlaying directory tree, verbose.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Publish source code functions and classes ...');
 PublishOptions.evalCode = false;
 PublishOptions.format = 'html';
@@ -147,12 +144,12 @@ publishFilesFromDir(PathVariables.srcPath, PublishOptions, true, true);
 \end{lstlisting}
 
 
-\subsection*{Unit Test Scripts}
+{\footnotesize\textbf{Unit Test Scripts}}
 
 \begin{par}
 Publish unit tests scripts for each made test script and overall test runner.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Publish unit tests scripts ...');
 PublishOptions.evalCode = false;
 PublishOptions.format = 'html';
@@ -164,12 +161,12 @@ publishFilesFromDir(PathVariables.unittestPath, PublishOptions, true, true);
 \end{lstlisting}
 
 
-\subsection*{Build Documentation Database for Matlab Help Browser}
+{\footnotesize\textbf{Build Documentation Database for Matlab Help Browser}}
 
 \begin{par}
 To support Matlabs help browser it is needed build searchable help browser entries including a searchable database backend. Matlabs built-in function builddocsearchdb does the trick. The function just needs the output directory of built HTML documentation and it creates a subfolder which includes the database. About the info.xml from the project root and the helptoc.xml file the html documentation folder all listet documentation is accessable. At first remove old database before build the new reference database. Remove autogenerated directory helpsearch-v3. At first get folder content and remove first two relative directory entries from struct. Then delete files and check if files do not exist any more. At least build up new search database entries to Matlab help.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Remove old search entries ...');
 clearvars;
 close all;
@@ -188,12 +185,12 @@ end
 \end{lstlisting}
 
 
-\subsection*{Open Generated Documentation.}
+{\footnotesize\textbf{Open Generated Documentation.}}
 
 \begin{par}
 Open generated HTML documentation from documentation root HTML file which should be a project introduction or project roadmap page. Comment out if this script is added to project shutdown tasks.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 open(fullfile(PublishOptions.outputDir, 'GaussianProcessDipoleSimulation.html'));
 disp('Done ...');
 \end{lstlisting}

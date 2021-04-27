@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{predFrame}
-
-\begin{par}
+    \begin{par}
 Predicts single test point and computes angle and radius by predicted sinoids. Delivers several quality criteria.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Predicts single test point and computes angle and radius by predicted sinoids. D
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{[fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, Xcos, Xsin)} predicts sinoids by passed regression model and test frame of raw data matrix. Comutes angle and radius by predicted results. Several quality creteria are setup based on predictive variance.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{Mdl} model struct.
@@ -63,7 +60,7 @@ Predicts single test point and computes angle and radius by predicted sinoids. D
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{fang} computed angle by predicted cosine and sine results.
@@ -91,7 +88,7 @@ Predicts single test point and computes angle and radius by predicted sinoids. D
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -101,7 +98,7 @@ Predicts single test point and computes angle and radius by predicted sinoids. D
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -116,7 +113,7 @@ Created on November 06. 2019 by Klaus Juenemann. Copyright Klaus Juenemann 2019.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function [fang, frad, fcos, fsin, fcov, s, ciang, cirad] = predFrame(Mdl, ...
     Xcos, Xsin)
 

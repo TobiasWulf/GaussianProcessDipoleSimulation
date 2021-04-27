@@ -17,10 +17,7 @@
 
     
     
-\section*{}
-
-
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -32,7 +29,7 @@
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % create column vectors with simple direction for rotations along the axes
 % without tilts in other achses.
 x = [-1; 0; 0];
@@ -44,9 +41,9 @@ angle = 90;
 \end{lstlisting}
 
 
-\subsection*{Test 1: output dimensions}
+{\footnotesize\textbf{Test 1: output dimensions}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector(x, 0, 0, angle);
 assert(isequal(size(rotated), [3, 1]))
 rotated = rotate3DVector([x x x x x x], 0, 0, angle);
@@ -54,9 +51,9 @@ assert(isequal(size(rotated), [3, 6]))
 \end{lstlisting}
 
 
-\subsection*{Test 2: rotate vectors in x-axes}
+{\footnotesize\textbf{Test 2: rotate vectors in x-axes}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
 assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
 
@@ -74,9 +71,9 @@ assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
 \end{lstlisting}
 
 
-\subsection*{Test 3: rotate vectors in y-axes}
+{\footnotesize\textbf{Test 3: rotate vectors in y-axes}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
 assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
 
@@ -94,9 +91,9 @@ assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
 \end{lstlisting}
 
 
-\subsection*{Test 4: rotate vectors in z-axes}
+{\footnotesize\textbf{Test 4: rotate vectors in z-axes}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
 assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
 

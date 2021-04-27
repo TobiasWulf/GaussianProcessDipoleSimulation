@@ -16,17 +16,14 @@
 \begin{document}
 
     
-    
-\section*{rotate3DVector}
-
-\begin{par}
+    \begin{par}
 Rotates a 3 dimensional vector with x-, y- and z-components in a 3 dimensional coordinate system along the x-, y- and z-axes. Using rotation matrix for x-, y- and z-axes. Angle must be served in degree. Vector must be a column vector 3 x 1 or matrix related x-, y-, z-components 3 x N.
 \end{par} \vspace{1em}
 \begin{par}
 This function was originally created by Thorben Schüthe is ported into source code under improvements and including Matlab built-in functions. Function rewritten.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -40,14 +37,14 @@ This function was originally created by Thorben Schüthe is ported into source c
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{rotated = rotate3DVector(vector, alphaX, betaY, gammaZ)} returns a rotated vector which is rotated by given angles on related axes. alphaX rotates along the x-axes, betaY along the y-axes and gammaZ along the z-axes. Therfore each rotation is described by belonging rotation matrix. The resulting rotation of the vector is computed by the matrix and vector multiplacation of the rotation matrices and the input vecotor.
@@ -57,19 +54,19 @@ $$v' = A v = R_z(\gamma) R_y(\beta) R_x(\alpha) v$$
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % rotate a vector along z-axes by 45
 vector = [1; 0; 0]
 rotated = rotate3DVector(vector, 0, 0, 45)
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % rotate a vector along z-axes by 35 with a tilt in x-axes by 1
 vector = [1; 0; 0]
 rotated = rotate3DVector(vector, 1, 0, 35)
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % rotate a vector along z-axes by 35 with a tilt in x-axes by 1 and a
 % tilt in y-axes by 5
 vector = [1; 0; 0]
@@ -77,7 +74,7 @@ rotated = rotate3DVector(vector, 1, 5, 35)
 \end{lstlisting}
 
 
-\subsection*{Input Arguments}
+{\footnotesize\textbf{Input Arguments}}
 
 \begin{par}
 \textbf{vector} is a 3 x N column vector of real numbers which represents the a vector in a 3D coordinate system with x-, y- and z-components.
@@ -93,14 +90,14 @@ rotated = rotate3DVector(vector, 1, 5, 35)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Arguments}
+{\footnotesize\textbf{Output Arguments}}
 
 \begin{par}
 \textbf{rotated} is rotation of vector by passed axes related angles.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -110,7 +107,7 @@ rotated = rotate3DVector(vector, 1, 5, 35)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -125,7 +122,7 @@ Created on August 03. 2016 by Thorben Schüthe. Copyright Thorben Schüthe 2016.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function [rotated] = rotate3DVector(vector, alphaX, betaY, gammaZ)
     arguments
         % validate as vecotor or matrix of size 3 x N

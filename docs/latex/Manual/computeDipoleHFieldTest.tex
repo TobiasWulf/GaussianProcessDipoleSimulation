@@ -17,10 +17,7 @@
 
     
     
-\section*{}
-
-
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -34,7 +31,7 @@
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % compute a single point without norming
 Hsingle = computeDipoleHField(1, 2, 3, [1; 0; 0], 1);
 
@@ -141,17 +138,17 @@ HabsApm = sqrt(HxApm.^2+HyApm.^2+HzApm.^2);
 \end{lstlisting}
 
 
-\subsection*{Test 1: output dimensions}
+{\footnotesize\textbf{Test 1: output dimensions}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(size(Hsingle), [3, 1]))
 assert(isequal(size(Hgrid), [3, 1681]))
 \end{lstlisting}
 
 
-\subsection*{Test 2: center of field}
+{\footnotesize\textbf{Test 2: center of field}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(X(p0,p0,p0) == 0)
 assert(Y(p0,p0,p0) == 0)
 assert(Z(p0,p0,p0) == 0)
@@ -166,9 +163,9 @@ assert(all(Hz(~p0,~p0,p0) == 0, 'all'))
 \end{lstlisting}
 
 
-\subsection*{Test 3: magnetization}
+{\footnotesize\textbf{Test 3: magnetization}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(Hx(~p0,p0,~p0) ~= 0, 'all'))
 assert(all(Hx(p0,~p0,~p0) ~= 0, 'all'))
 assert(all(Hx(p0,p0,~p0) ~= 0, 'all'))
@@ -181,20 +178,20 @@ assert(all(Hz(p0,p0,~p0) == 0, 'all'))
 \end{lstlisting}
 
 
-\subsection*{Test 4: imprinting}
+{\footnotesize\textbf{Test 4: imprinting}}
 
 \begin{par}
 index 6 is 3mm and 36 is -3mm from surface where 200 kA/m should be imprinted
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(round(abs(Hx(p0,p0,6)),6) == 200)
 assert(round(abs(Hx(p0,p0,36)),6) == 200)
 \end{lstlisting}
 
 
-\subsection*{Test 5: symmetry}
+{\footnotesize\textbf{Test 5: symmetry}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all((Hx(plu,:,:) - flip(Hx(prl,:,:),1))==0, 'all'))
 assert(all((Hx(:,plu,:) - flip(Hx(:,prl,:),2))==0, 'all'))
 assert(all((Hy(plu,:,:) + flip(Hy(prl,:,:),1))==0, 'all'))
@@ -203,9 +200,9 @@ assert(all((Hz(:,:,~p0) + flip(Hz(:,:,~p0),2))==0, 'all'))
 \end{lstlisting}
 
 
-\subsection*{Test 6: units milli kilo}
+{\footnotesize\textbf{Test 6: units milli kilo}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(round(HxApm(pN0) * 1e-3, 6) == round(Hx(pN0), 6), 'all'))
 assert(all(round(HyApm(pN0) * 1e-3, 6) == round(Hy(pN0), 6), 'all'))
 assert(all(round(HzApm(pN0) * 1e-3, 6) == round(Hz(pN0), 6), 'all'))

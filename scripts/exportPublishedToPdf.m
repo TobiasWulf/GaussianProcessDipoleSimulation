@@ -1,6 +1,8 @@
 %% exportPublishedToPdf
 % Export Matlab generated Tex documentation (publish) to combined LaTeX index
-% file ready compile to appendix manual. 
+% file ready compile to appendix manual. LaTeX outcome is included with
+% scriptsize fontsize. So section fonts are set to small and footnotesize in
+% style sheet to fit overall fontsizes.
 %
 %
 %% Requirements
@@ -200,7 +202,12 @@ for i = 1:nToc
     tstr = strrep(fstr, '_', ' ');
     
     fprintf(fileID, "\\%s{%s}", level, tstr);
-    fprintf(fileID, "\\label{mcode:%s}\n", lstr);
+    fprintf(fileID, "\\label{mcode:%s}", lstr);
+    if strcmp(level, "paragraph")
+        fprintf(fileID, "$~$\\\\\n");
+    else
+        fprintf(fileID, "\n");
+    end
     fprintf(fileID, "\\subimport{./}{%s}\n", fName);
     fprintf(fileID, "\\clearpage\n");
 end

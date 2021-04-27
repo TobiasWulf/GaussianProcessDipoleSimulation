@@ -16,10 +16,7 @@
 \begin{document}
 
     
-    
-\section*{generateSensorSquareArrayGrid}
-
-\begin{par}
+    \begin{par}
 Generates a position grid of sensors in x, y and z dimension. So the function returns a grid in shape of a square in which all sensors have even distances to each and another in x and y direction z is constant due to that all sensor are in the same distance to the magnet.
 \end{par} \vspace{1em}
 \begin{par}
@@ -74,7 +71,7 @@ So that a left shift in x direction relative to the magnet in the center of the 
 $$X = X_0 + x_p \quad Y = Y_0 + y_p \quad Z = Z_0 -(z_p + r_{sp})$$
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -88,23 +85,23 @@ $$X = X_0 + x_p \quad Y = Y_0 + y_p \quad Z = Z_0 -(z_p + r_{sp})$$
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 [X, Y, Z] = generateSensorArrayGrid(N, a, p, r)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{[X, Y, Z] = generateSensorArrayGrid(N, a, p, r)} returns a sensor array grid of size N x N with grid position matrices for x, y and z positions of each sensor in the array.
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % generate a grid of 8 x 8 sensors with no shift in x or y direction
 and a static position of 4mm under the center in z dimension with a
 z offset of 2mm so (2 + 2)mm
@@ -113,7 +110,7 @@ p = [0, 0, 2]
 r = 2;
 [X, Y, Z] = generateSensorArrayGrid(N, a, p, r);
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % same layer but left shift by 2mm and down shift in y by 1mm
 p = [-2, 1, 2]
 r = 2;
@@ -121,7 +118,7 @@ r = 2;
 \end{lstlisting}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{N} positive integer scalar number of sensors at one edge of the square grid. So the resulting grid has dimensions N x N.
@@ -137,7 +134,7 @@ r = 2;
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{X} x coordinates for each sensor in N x N matrix where each point has the same orientation as in y and z dimension.
@@ -150,7 +147,7 @@ r = 2;
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -160,7 +157,7 @@ r = 2;
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -172,7 +169,7 @@ Created on November 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function [X, Y, Z] = generateSensorArraySquareGrid(N, a, p, r)
     arguments
         % validate N as positive integer

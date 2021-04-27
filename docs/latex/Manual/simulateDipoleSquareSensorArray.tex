@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{simulateDipoleSquareSensorArray}
-
-\begin{par}
+    \begin{par}
 Simulate a sensor array of square shape with dipole magnet as stimulus. Needs options loaded from config file or generated from config generation script. Characterization data must be loaded befor and served as CharData struct. Loops throught positions saves a data set for every supported position of UseOptions which is called TrainingOptions or TestOptions in config.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -37,45 +34,45 @@ Simulate a sensor array of square shape with dipole magnet as stimulus. Needs op
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     SensorArrayOptions, DipoleOptions, UseOptions, CharData)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...    SensorArrayOptions, DipoleOptions, UseOptions, CharData)} saves simulation    datasets to data path specified in PathVariables and UseOptions.
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % load config from mat-file
 load('config.mat', 'GeneralOptions', 'PathVariables', 'SensorArrayOptions',
     'DipoleOptions', 'TrainingOptions', 'TestOptions');
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % load characteriazation dataset
 TDK = load(PathVariables.tdkDatasetPath);
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % generate training dataset(s)
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     SensorArrayOptions, DipoleOptions, TrainingOptions, TDK)
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % generate test dataset(s)
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     SensorArrayOptions, DipoleOptions, TestOptions, TDK)
 \end{lstlisting}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{GeneralOptions} struct of general options generate by config script, includes date format and so on.
@@ -97,14 +94,14 @@ simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{None}
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -114,7 +111,7 @@ simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -130,7 +127,7 @@ Created on June 11. 2019 by Thorben Schüthe. Copyright Thorben Schüthe 2019.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     SensorArrayOptions, DipoleOptions, UseOptions, CharData)
     arguments

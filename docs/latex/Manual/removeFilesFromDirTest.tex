@@ -17,10 +17,7 @@
 
     
     
-\section*{}
-
-
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -30,7 +27,7 @@
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % create test directory with files
 cd(fileparts(which('removeFilesFromDirTest')));
 mkdir('testDir');
@@ -40,9 +37,9 @@ fclose(fopen(fullfile('testDir', 'testFile3.txt'), 'w'));
 \end{lstlisting}
 
 
-\subsection*{Test 1: delete all files}
+{\footnotesize\textbf{Test 1: delete all files}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 removeStatus = removeFilesFromDir(fullfile('testDir'));
 assert(removeStatus == true)
 
@@ -53,9 +50,9 @@ fclose(fopen(fullfile('testDir', 'testFile3.txt'), 'w'));
 \end{lstlisting}
 
 
-\subsection*{Test 2: delete with pattern}
+{\footnotesize\textbf{Test 2: delete with pattern}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 removeStatus = removeFilesFromDir(fullfile('testDir'), '*.txt');
 assert(removeStatus == true)
 

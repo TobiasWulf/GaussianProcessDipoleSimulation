@@ -37,7 +37,7 @@ Copyright 1984-2019 The MathWorks, Inc.
     <!-- Determine if the there should be an introduction section. -->
     <xsl:variable name="hasIntro" select="count(cell[@style = 'overview'])"/>
     <xsl:if test = "$hasIntro">
-\section*{<xsl:apply-templates select="cell[1]/steptitle"/>}
+<!--{\small\textbf{<xsl:apply-templates select="cell[1]/steptitle"/>}}-->
 
 <xsl:apply-templates select="cell[1]/text"/>
 </xsl:if>
@@ -57,12 +57,12 @@ Copyright 1984-2019 The MathWorks, Inc.
         <xsl:if test="steptitle">
           <xsl:variable name="headinglevel">
             <xsl:choose>
-              <xsl:when test="steptitle[@style = 'document']">section</xsl:when>
-              <xsl:otherwise>subsection</xsl:otherwise>
+              <xsl:when test="steptitle[@style = 'document']">small\textbf</xsl:when>
+              <xsl:otherwise>footnotesize\textbf</xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
 
-\<xsl:value-of select="$headinglevel"/>*{<xsl:apply-templates select="steptitle"/>}
+{\<xsl:value-of select="$headinglevel"/>{<xsl:apply-templates select="steptitle"/>}}
 
 </xsl:if>
 
@@ -90,7 +90,7 @@ Copyright 1984-2019 The MathWorks, Inc.
 
 <xsl:template name="contents">
   <xsl:param name="body-cells"/>
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}<xsl:for-each select="$body-cells">
@@ -156,7 +156,7 @@ Copyright 1984-2019 The MathWorks, Inc.
 
 <!-- Code input and output -->
 
-<xsl:template match="mcode">\begin{lstlisting}[style=Matlab-editor]
+<xsl:template match="mcode">\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 <xsl:value-of select="."/>
 \end{lstlisting}
 </xsl:template>
@@ -182,7 +182,7 @@ Copyright 1984-2019 The MathWorks, Inc.
 
 <!-- Colors for syntax-highlighted input code -->
 
-<xsl:template match="mwsh:code">\begin{lstlisting}[style=Matlab-editor]
+<xsl:template match="mwsh:code">\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 <xsl:apply-templates/>
 \end{lstlisting}
 </xsl:template>

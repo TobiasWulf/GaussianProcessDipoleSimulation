@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{meanPolyQFCAPX}
-
-\begin{par}
+    \begin{par}
 Basis or trend function to compute the H matrix as set of h(x) vectors for each predictor to apply a mean feature space as polynom approximated mean with beta coefficients. Compute H matrix to estimate beta. Vectors instead of matrices norming is place at input stage.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Basis or trend function to compute the H matrix as set of h(x) vectors for each 
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 H = meanPolyQFCAPX(X, degree)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{H = meanPolyQFCaPX(X, degree)} build polynom by passed data.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{X} vector data.
@@ -60,14 +57,14 @@ H = meanPolyQFCAPX(X, degree)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{H} polynom.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -77,7 +74,7 @@ H = meanPolyQFCAPX(X, degree)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -89,7 +86,7 @@ Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function H = meanPolyQFCAPX(X, degree)
     % get number of observations
     N = length(X);

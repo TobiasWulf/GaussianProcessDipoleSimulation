@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{computeLogLikelihood}
-
-\begin{par}
+    \begin{par}
 Comuputes the marginal log likelihood as evidence of the current trained model parameter by solving the equation log p(y\ensuremath{|}X, alpha, log\ensuremath{|}Ky\ensuremath{|}) = -1/2 * (y - m)T * alpha - 1/2 log\ensuremath{|}Ky\ensuremath{|} - N/2 log(2pi) where alpha is the inverse matrix product of alpha = Ky\^{}-1 * (y - m).
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Comuputes the marginal log likelihood as evidence of the current trained model p
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 computeLogLikelihood(y, m, alpha, logDet, N)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{computeLogLikelihood(y, m, alpha, logDet, N)}
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{y} column vector of regression targets.
@@ -69,14 +66,14 @@ computeLogLikelihood(y, m, alpha, logDet, N)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{lml} real scalar of log marginal likelihood.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -86,7 +83,7 @@ computeLogLikelihood(y, m, alpha, logDet, N)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -100,7 +97,7 @@ Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function lml = computeLogLikelihood(y, m, alpha, logDet, N)
     arguments
         % validate inputs as real column vectors

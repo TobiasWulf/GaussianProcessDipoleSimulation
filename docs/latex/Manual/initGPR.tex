@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{initGPR}
-
-\begin{par}
+    \begin{par}
 Initializes GPR model by passed trainings dataset and GPR options struct.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -37,23 +34,23 @@ Initializes GPR model by passed trainings dataset and GPR options struct.
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 Mdl = initGPR(TrainDS, GPROptions)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{Mdl = initGPR(TrainDS, GPROptions)} sequential initializing.
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 load config.mat PathVariables GPROptions;
 TrainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
 TestFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
@@ -70,7 +67,7 @@ Mdl = initGPR(TrainDS, GPROptions);
 \end{lstlisting}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{TrainDS} loaded training data by infront processesed sensor array simulation.
@@ -80,14 +77,14 @@ Mdl = initGPR(TrainDS, GPROptions);
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{Mdl} bare initialized model struct with no further optimization.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -97,7 +94,7 @@ Mdl = initGPR(TrainDS, GPROptions);
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -112,7 +109,7 @@ Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function Mdl = initGPR(TrainDS, GPROptions)
 
     % create model struct

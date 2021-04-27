@@ -17,10 +17,7 @@
 
     
     
-\section*{}
-
-
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -29,7 +26,7 @@
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % create a dipole with constant sphere radius in rest position and relative
 % to sensor array with position x=0, y=0, z=0
 % sphere radius 2mm
@@ -46,9 +43,9 @@ H0norm = computeDipoleH0Norm(Hmag, [Mmag; 0; 0], [0; 0; -(z + r)]);
 \end{lstlisting}
 
 
-\subsection*{Test 1: positive scalar factor}
+{\footnotesize\textbf{Test 1: positive scalar factor}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isscalar(H0norm))
 assert(H0norm > 0)
 \end{lstlisting}

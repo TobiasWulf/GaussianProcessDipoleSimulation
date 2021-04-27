@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{QFCAPX}
-
-\begin{par}
+    \begin{par}
 Approximates QFC with triangle inequation, norming is pulled out to input stage kernel is feeded with norm vectors or scalars instead of matrices.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Approximates QFC with triangle inequation, norming is pulled out to input stage 
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 K = QFCAPX(ax, bx, ay, by, theta)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{K = QFCAPX(ax, bx, ay, by, theta)} computes quadratic distances bewtween data points and parametrize it with height and length scales. Computes distance with quadratic euclidian norm.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{ax} vector of cosine simulation components.
@@ -69,14 +66,14 @@ K = QFCAPX(ax, bx, ay, by, theta)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{K} noise free covarianc matrix.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -86,7 +83,7 @@ K = QFCAPX(ax, bx, ay, by, theta)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -99,7 +96,7 @@ Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function K = QFCAPX(ax, bx, ay, by, theta)
      arguments
         % validate data as real vector of same size

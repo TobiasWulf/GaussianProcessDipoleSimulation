@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{estimateBeta}
-
-\begin{par}
+    \begin{par}
 Find beta coefficients to basis matrix H and the current set of hyperparameters theta as vector of s2f and sl, s2n represented by the current inverse of noisy covariance matrix Ky\^{}-1 and the feature target vector y of the observations. It calculates several inverse Matrix products so instead passing the current Ky the function uses the infront decomposed lower triangle matrix L of Ky.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Find beta coefficients to basis matrix H and the current set of hyperparameters 
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 [beta, alpha0]= estimateBeta(H, L, y)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{[beta, alpha0]= estimateBeta(H, L, y)} compute polynom coefficients to solve mean approximation.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{H} basis matrix of training data. Polynomial represents of training data.
@@ -63,7 +60,7 @@ Find beta coefficients to basis matrix H and the current set of hyperparameters 
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{beta} beta coefficients for polynomial approximation with basis matrix \textbf{H}.
@@ -73,7 +70,7 @@ Find beta coefficients to basis matrix H and the current set of hyperparameters 
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -83,7 +80,7 @@ Find beta coefficients to basis matrix H and the current set of hyperparameters 
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -97,7 +94,7 @@ Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function [beta, alpha0]= estimateBeta(H, L, y)
     % Ky^-1 * y
     alpha0 = computeInverseMatrixProduct(L, y);

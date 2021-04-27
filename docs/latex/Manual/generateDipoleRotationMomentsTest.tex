@@ -17,10 +17,7 @@
 
     
     
-\section*{}
-
-
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -31,7 +28,7 @@
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % create full scale rotation with 0.5 resolution and no tilt,
 % return moments
 % and corressponding angles theta
@@ -51,9 +48,9 @@ res = 0.5;
 \end{lstlisting}
 
 
-\subsection*{Test 1: output dimensions}
+{\footnotesize\textbf{Test 1: output dimensions}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(size(MFS), [3 720]))
 assert(isequal(size(tFS), [1 720]))
 assert(isequal(size(M), [3 7]))
@@ -65,9 +62,9 @@ assert(isequal(size(idxSH), [1 7]))
 \end{lstlisting}
 
 
-\subsection*{Test 2: down sampling}
+{\footnotesize\textbf{Test 2: down sampling}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(MFS(:,idx), M))
 assert(isequal(tFS(idx), t))
 assert(isequal(MFS(:,idxSH), MSH))
@@ -75,9 +72,9 @@ assert(isequal(tFS(idxSH), tSH))
 \end{lstlisting}
 
 
-\subsection*{Test 3: phase shift}
+{\footnotesize\textbf{Test 3: phase shift}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(tSH(1), 11))
 assert(isequal(idx, idxSH - 22))
 assert(isequal(MFS(:,idx + 22), MSH))

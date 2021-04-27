@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{publishFilesFromDir}
-
-\begin{par}
+    \begin{par}
 Publish m-files from given directory with passed publishing options.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -37,16 +34,16 @@ Publish m-files from given directory with passed publishing options.
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 publishFilesFromDir(directory, PublishOptions)
 publishFilesFromDir(directory, PublishOptions, recursivly)
 publishFilesFromDir(directory, PublishOptions, recursivly, verbose)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{publishFilesFromDir(directory, PublishOptions)} publish m-files wich are located in the passed directory with options from passed publishing options struct which is must be strictly formatted after given example from Matlab documentation.
@@ -59,22 +56,22 @@ publishFilesFromDir(directory, PublishOptions, recursivly, verbose)
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 directory = 'src';
 PublishOptions = struct;
 PublishOptions.outputDir = 'src/html';
 PublishOptions.evalCode = false;
 publishFilesFromDir(directory, PublishOptions, true)
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 load('config.mat', 'srcPath', 'PublishOptions')
 publishFilesFromDir(srcPath, PublishOptions, true, true)
 \end{lstlisting}
 
 
-\subsection*{Input Arguments}
+{\footnotesize\textbf{Input Arguments}}
 
 \begin{par}
 \textbf{directory} char vector, path to directory where m-files are located to publish.
@@ -90,14 +87,14 @@ publishFilesFromDir(srcPath, PublishOptions, true, true)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Arguments}
+{\footnotesize\textbf{Output Arguments}}
 
 \begin{par}
 \textbf{None}
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -107,7 +104,7 @@ publishFilesFromDir(srcPath, PublishOptions, true, true)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -121,7 +118,7 @@ Created on October 31. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function publishFilesFromDir(directory, PublishOptions, recursive, verbose)
     arguments
         % validate directory if exist

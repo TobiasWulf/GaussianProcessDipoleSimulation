@@ -17,10 +17,7 @@
 
     
     
-\section*{}
-
-
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -30,7 +27,7 @@
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % clean
 clearvars;
 
@@ -98,16 +95,16 @@ HabsTilt = sqrt(sum(HTilt.^2, 1));
 \end{lstlisting}
 
 
-\subsection*{Test 1: rotation without tilt}
+{\footnotesize\textbf{Test 1: rotation without tilt}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(round(HabsNoTilt, 6) == round(HabsMust, 6), 'all'))
 \end{lstlisting}
 
 
-\subsection*{Test 2: rotation with tilt}
+{\footnotesize\textbf{Test 2: rotation with tilt}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(round(HabsTilt, 6) == round(HabsMust, 6), 'all'))
 \end{lstlisting}
 

@@ -119,8 +119,8 @@
 %% See Also
 % * <generateConfigMat.html generateConfigMat>
 % * <demoGPRModule.html demoGPRModule>
-% * <investigateKernelParameters.html>
-% * <generateSimulationDatasets.html>
+% * <investigateKernelParameters.html investigateKernelParameters>
+% * <generateSimulationDatasets.html generateSimulationDatasets>
 %
 %
 % Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.

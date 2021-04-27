@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{initTrainDS}
-
-\begin{par}
+    \begin{par}
 Initiates needed data from training dataset to GPR model struct. Builds GPR target vectors depending on which sensor type was used to process the training dataset.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Initiates needed data from training dataset to GPR model struct. Builds GPR targ
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 Mdl = initTrainDS(Mdl, TrainDS)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{Mdl = initTrainDS(Mdl, TrainDS)} attaches regression relevant data information to model struct and initiates the training data with references and regression targets.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{Mdl} model struct.
@@ -60,14 +57,14 @@ Mdl = initTrainDS(Mdl, TrainDS)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{Mdl} with attached dataset information, raw training data, refernce angles and regression targets for cosine and sine predictions.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -77,7 +74,7 @@ Mdl = initTrainDS(Mdl, TrainDS)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -90,7 +87,7 @@ Created on February 20. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function Mdl = initTrainDS(Mdl, TrainDS)
 
     % set model parameters from training dataset and training data dependencies

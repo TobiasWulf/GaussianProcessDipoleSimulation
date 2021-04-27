@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{generateSimulationDatasets}
-
-\begin{par}
+    \begin{par}
 Generate sensor array simulation datasets for training and test applications. Loads needed configurations from config.mat and characterization data from defined characterization dataset (current: PathVariables.tdkDatasetPath). Simulated datasets are saved to data/training and data/test path. Generate dataset for a predefined configuration at once. Best use is to generate simulation data, do wish application or evaluation on it and save results. Delete datasets, edit configuration and rerun for a new set of datasets.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -35,7 +32,7 @@ Generate sensor array simulation datasets for training and test applications. Lo
 \end{itemize}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -45,7 +42,7 @@ Generate sensor array simulation datasets for training and test applications. Lo
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -61,12 +58,12 @@ Created on November 25. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \end{par} \vspace{1em}
 
 
-\subsection*{Load Configuration and Characterization Dataset}
+{\footnotesize\textbf{Load Configuration and Characterization Dataset}}
 
 \begin{par}
 Load configuration to generate dataset from config.mat and defined characterization dataset.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 try
     clearvars;
     close all;
@@ -99,24 +96,24 @@ end
 \end{lstlisting}
 
 
-\subsection*{Generate Training Datasets}
+{\footnotesize\textbf{Generate Training Datasets}}
 
 \begin{par}
 Generate training dataset from configuration and characterization dataset.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Generate training datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
 \end{lstlisting}
 
 
-\subsection*{Generate Test Datasets}
+{\footnotesize\textbf{Generate Test Datasets}}
 
 \begin{par}
 Generate test dataset from configuration and characterization dataset.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Generate test datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
     SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)

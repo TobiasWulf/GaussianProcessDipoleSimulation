@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>compareGPRKernels</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-18"><meta name="DC.source" content="compareGPRKernels.m"><style type="text/css">
+      --><title>compareGPRKernels</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="compareGPRKernels.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -140,7 +140,16 @@ GPROptions.theta = [0.5 1];
 md051 = initGPR(TrainDS, GPROptions);
 GPROptions.theta = [4 1];
 md41 = initGPR(TrainDS, GPROptions);
-</pre><h2 id="5">Plot Area</h2><pre class="codeinput"><span class="comment">% plot covariance slice for first covariance sample</span>
+</pre><h2 id="5">Compute Losses for each Kernel with Length Variation</h2><pre class="codeinput">[~, ma11SLLA, ma11SLLR] = lossDS(ma11, TestDS);
+[~, ma105SLLA, ma105SLLR] = lossDS(ma105, TestDS);
+[~, ma12SLLA, ma12SLLR] = lossDS(ma12, TestDS);
+[~, ma14SLLA, ma14SLLR] = lossDS(ma14, TestDS);
+
+[~, mb11SLLA, mb11SLLR] = lossDS(mb11, TestDS);
+[~, mb105SLLA, mb105SLLR] = lossDS(mb105, TestDS);
+[~, mb12SLLA, mb12SLLR] = lossDS(mb12, TestDS);
+[~, mb14SLLA, mb14SLLR] = lossDS(mb14, TestDS);
+</pre><h2 id="6">Plot Area</h2><pre class="codeinput"><span class="comment">% plot covariance slice for first covariance sample</span>
 figure;
 tiledlayout(2,2);
 
@@ -214,7 +223,7 @@ legend([p1, p2, p3, p4], <span class="keyword">...</span>
     <span class="string">'$\theta = (0.5,1)$'</span>, <span class="keyword">...</span>
     <span class="string">'$\theta = (4,1)$'</span>}, <span class="string">'Location'</span>, <span class="string">'north'</span>);
 xlabel(<span class="string">'$j-tes$ Sample'</span>);
-title(<span class="string">'c) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$'</span>);
+title(<span class="string">'d) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$'</span>);
 
 <span class="comment">% plot covariance matrix</span>
 figure;
@@ -222,7 +231,6 @@ tiledlayout(1,2);
 colormap(<span class="string">'jet'</span>);
 
 nexttile;
-
 
 imagesc(ma11.Ky);
 axis <span class="string">square</span>;
@@ -241,6 +249,126 @@ title(<span class="string">'a) $K(X, X|\theta)$ f. $d_E^2$, $\theta = (1,1)$'</s
 
 c = colorbar;
 c.TickLabelInterpreter = <span class="string">'latex'</span>;
+
+<span class="comment">% plot losses and compare against each kernel and behavior between SLLA and SLLR</span>
+figure;
+tiledlayout(2,2);
+angles = TestDS.Data.angles';
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, ma11SLLA);
+plot(angles, ma11SLLR, <span class="string">'-.'</span>);
+yline(mean(ma11SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(ma11SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'a) f. $d_F^2$, $\theta = (1,1)$'</span>)
+
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, ma105SLLA);
+plot(angles, ma105SLLR, <span class="string">'-.'</span>);
+yline(mean(ma105SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(ma105SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'b) f. $d_F^2$, $\theta = (1,0.5)$'</span>)
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, ma12SLLA);
+plot(angles, ma12SLLR, <span class="string">'-.'</span>);
+yline(mean(ma12SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(ma12SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'c) f. $d_F^2$, $\theta = (1,2)$'</span>)
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, ma14SLLA);
+plot(angles, ma14SLLR, <span class="string">'-.'</span>);
+yline(mean(ma14SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(ma14SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'d) f. $d_F^2$, $\theta = (1,4)$'</span>)
+
+legend({<span class="string">'SLLA'</span>, <span class="string">'SLLR'</span>, <span class="string">'MSLLA'</span>, <span class="string">'MSLLR'</span>}, <span class="string">'Units'</span>, <span class="string">'normalized'</span>, <span class="keyword">...</span>
+    <span class="string">'Orientation'</span>, <span class="string">'horizontal'</span>, <span class="string">'Position'</span>, [.37 .48 .25 .04]);
+</pre><h2 id="7">second kernel</h2><pre class="codeinput">figure;
+tiledlayout(2,2);
+angles = TestDS.Data.angles';
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, mb11SLLA);
+plot(angles, mb11SLLR, <span class="string">'-.'</span>);
+yline(mean(mb11SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(mb11SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'a) f. $d_E^2$, $\theta = (1,1)$'</span>)
+
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, mb105SLLA);
+plot(angles, mb105SLLR, <span class="string">'-.'</span>);
+yline(mean(mb105SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(mb105SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'b) f. $d_E^2$, $\theta = (1,0.5)$'</span>)
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, mb12SLLA);
+plot(angles, mb12SLLR, <span class="string">'-.'</span>);
+yline(mean(mb12SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(mb12SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'c) f. $d_E^2$, $\theta = (1,2)$'</span>)
+
+nexttile;
+
+hold <span class="string">on</span>;
+
+plot(angles, mb14SLLA);
+plot(angles, mb14SLLR, <span class="string">'-.'</span>);
+yline(mean(mb14SLLA), <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(mean(mb14SLLR), <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xlim([0 360]);
+xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
+ylabel(<span class="string">'$SLL$'</span>);
+title(<span class="string">'d) f. $d_E^2$, $\theta = (1,4)$'</span>)
+
+legend({<span class="string">'SLLA'</span>, <span class="string">'SLLR'</span>, <span class="string">'MSLLA'</span>, <span class="string">'MSLLR'</span>}, <span class="string">'Units'</span>, <span class="string">'normalized'</span>, <span class="keyword">...</span>
+    <span class="string">'Orientation'</span>, <span class="string">'horizontal'</span>, <span class="string">'Position'</span>, [.37 .48 .25 .04]);
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% compareGPRKernels
@@ -326,6 +454,18 @@ md051 = initGPR(TrainDS, GPROptions);
 GPROptions.theta = [4 1];
 md41 = initGPR(TrainDS, GPROptions);
 
+
+%% Compute Losses for each Kernel with Length Variation
+[~, ma11SLLA, ma11SLLR] = lossDS(ma11, TestDS);
+[~, ma105SLLA, ma105SLLR] = lossDS(ma105, TestDS);
+[~, ma12SLLA, ma12SLLR] = lossDS(ma12, TestDS);
+[~, ma14SLLA, ma14SLLR] = lossDS(ma14, TestDS);
+
+[~, mb11SLLA, mb11SLLR] = lossDS(mb11, TestDS);
+[~, mb105SLLA, mb105SLLR] = lossDS(mb105, TestDS);
+[~, mb12SLLA, mb12SLLR] = lossDS(mb12, TestDS);
+[~, mb14SLLA, mb14SLLR] = lossDS(mb14, TestDS);
+
 %% Plot Area
 
 % plot covariance slice for first covariance sample
@@ -402,7 +542,7 @@ legend([p1, p2, p3, p4], ...
     '$\theta = (0.5,1)$', ...
     '$\theta = (4,1)$'}, 'Location', 'north');
 xlabel('$j-tes$ Sample');
-title('c) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$');
+title('d) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$');
 
 % plot covariance matrix
 figure;
@@ -410,7 +550,6 @@ tiledlayout(1,2);
 colormap('jet');
 
 nexttile;
-
 
 imagesc(ma11.Ky);
 axis square;
@@ -429,6 +568,128 @@ title('a) $K(X, X|\theta)$ f. $d_E^2$, $\theta = (1,1)$')
 
 c = colorbar;
 c.TickLabelInterpreter = 'latex';
+
+% plot losses and compare against each kernel and behavior between SLLA and SLLR
+figure;
+tiledlayout(2,2);
+angles = TestDS.Data.angles';
+
+nexttile;
+
+hold on;
+
+plot(angles, ma11SLLA);
+plot(angles, ma11SLLR, '-.');
+yline(mean(ma11SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(ma11SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('a) f. $d_F^2$, $\theta = (1,1)$')
+
+
+nexttile;
+
+hold on;
+
+plot(angles, ma105SLLA);
+plot(angles, ma105SLLR, '-.');
+yline(mean(ma105SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(ma105SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('b) f. $d_F^2$, $\theta = (1,0.5)$')
+
+nexttile;
+
+hold on;
+
+plot(angles, ma12SLLA);
+plot(angles, ma12SLLR, '-.');
+yline(mean(ma12SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(ma12SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('c) f. $d_F^2$, $\theta = (1,2)$')
+
+nexttile;
+
+hold on;
+
+plot(angles, ma14SLLA);
+plot(angles, ma14SLLR, '-.');
+yline(mean(ma14SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(ma14SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('d) f. $d_F^2$, $\theta = (1,4)$')
+
+legend({'SLLA', 'SLLR', 'MSLLA', 'MSLLR'}, 'Units', 'normalized', ...
+    'Orientation', 'horizontal', 'Position', [.37 .48 .25 .04]);
+
+%% second kernel
+figure;
+tiledlayout(2,2);
+angles = TestDS.Data.angles';
+
+nexttile;
+
+hold on;
+
+plot(angles, mb11SLLA);
+plot(angles, mb11SLLR, '-.');
+yline(mean(mb11SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(mb11SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('a) f. $d_E^2$, $\theta = (1,1)$')
+
+
+nexttile;
+
+hold on;
+
+plot(angles, mb105SLLA);
+plot(angles, mb105SLLR, '-.');
+yline(mean(mb105SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(mb105SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('b) f. $d_E^2$, $\theta = (1,0.5)$')
+
+nexttile;
+
+hold on;
+
+plot(angles, mb12SLLA);
+plot(angles, mb12SLLR, '-.');
+yline(mean(mb12SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(mb12SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('c) f. $d_E^2$, $\theta = (1,2)$')
+
+nexttile;
+
+hold on;
+
+plot(angles, mb14SLLA);
+plot(angles, mb14SLLR, '-.');
+yline(mean(mb14SLLA), 'k', 'LineWidth', 4.5);
+yline(mean(mb14SLLR), 'g-.', 'LineWidth', 4.5);
+xlim([0 360]);
+xlabel('$\alpha$ in $^\circ$');
+ylabel('$SLL$');
+title('d) f. $d_E^2$, $\theta = (1,4)$')
+
+legend({'SLLA', 'SLLR', 'MSLLA', 'MSLLR'}, 'Units', 'normalized', ...
+    'Orientation', 'horizontal', 'Position', [.37 .48 .25 .04]);
 
 ##### SOURCE END #####
 --></body></html>

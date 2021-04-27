@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{deleteSimulationPlots}
-
-\begin{par}
+    \begin{par}
 Delete plots of simulation dataset from figure and image path at once.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -34,7 +31,7 @@ Delete plots of simulation dataset from figure and image path at once.
 \end{itemize}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -44,7 +41,7 @@ Delete plots of simulation dataset from figure and image path at once.
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -60,12 +57,12 @@ Created on November 02. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \end{par} \vspace{1em}
 
 
-\subsection*{Load Path to Clean Up}
+{\footnotesize\textbf{Load Path to Clean Up}}
 
 \begin{par}
 Load path from config.mat and where to find training and test datasets.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 try
     clearvars;
     close all;
@@ -78,12 +75,12 @@ end
 \end{lstlisting}
 
 
-\subsection*{Delete Dataset Plots}
+{\footnotesize\textbf{Delete Dataset Plots}}
 
 \begin{par}
 Delete datasets plots from image path and figure path with certain file pattern and extensions.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 ext = ["fig" "svg" "eps" "pdf" "avi"];
 pat = "*";
 

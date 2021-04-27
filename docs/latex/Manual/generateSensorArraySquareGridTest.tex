@@ -17,10 +17,7 @@
 
     
     
-\section*{}
-
-
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -32,7 +29,7 @@
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % create sensor array infos for size and position
 % number of sensors at one edge
 N = 8;
@@ -57,32 +54,32 @@ p2 = [-2; 3; 2];
 \end{lstlisting}
 
 
-\subsection*{Test 1: output dimensions}
+{\footnotesize\textbf{Test 1: output dimensions}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(size(X), [N N]))
 assert(isequal(size(Y), [N N]))
 assert(isequal(size(Z), [N N]))
 \end{lstlisting}
 
 
-\subsection*{Test 2: equal x and y distances}
+{\footnotesize\textbf{Test 2: equal x and y distances}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(diff(Y), diff(-X, [], 2)'))
 \end{lstlisting}
 
 
-\subsection*{Test 3: constant z distances}
+{\footnotesize\textbf{Test 3: constant z distances}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(Z == -(p(3) + r), 'all'))
 \end{lstlisting}
 
 
-\subsection*{Test 3: position shif in x and y direction}
+{\footnotesize\textbf{Test 3: position shif in x and y direction}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(X + p2(1), X2))
 assert(isequal(Y + p2(2), Y2))
 assert(isequal(Z, Z2))

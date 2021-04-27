@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{computeTuneCriteria}
-
-\begin{par}
+    \begin{par}
 Objective function to solve minimum constraint problem, delivers negative function values to search minimum function evaluation. Estimates the minimum of the negative logaritmic marginal liklihoods for current model parameters. No assignments on model, just recalculate function evaluation minimum.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Objective function to solve minimum constraint problem, delivers negative functi
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 feval = computeTuneCriteria(theta, Mdl)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{feval = computeTuneCriteria(theta, Mdl)} sets new kernel parameter, reinitiates model and calculates min criteria by likelihoods.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{theta} kernel parameter vector.
@@ -60,14 +57,14 @@ feval = computeTuneCriteria(theta, Mdl)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{feval} function evaluation value.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -77,7 +74,7 @@ feval = computeTuneCriteria(theta, Mdl)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -90,7 +87,7 @@ Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function feval = computeTuneCriteria(theta, Mdl)
     % reinit kernel on new theta kernel parameters
     Mdl.theta = theta;

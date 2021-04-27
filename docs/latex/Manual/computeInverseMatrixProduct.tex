@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{computeInverseMatrixProduct}
-
-\begin{par}
+    \begin{par}
 Computes the product of an inverted matrix A represented by its Cholesky decomposed lower triangle matrix L and a vector b or even another matrix B. Solving runs column by column if a Matrix B is passed and computes the linear system to an intermediate result with the lower triangle matrix L (inner solving) and finaly in an outer solving with the transposed lower triangle matrix L and the intermediate result to the final product x of the inverted matrix and vector(s).
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -37,23 +34,23 @@ Computes the product of an inverted matrix A represented by its Cholesky decompo
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 x = computeInverseMatrixProduct(L, b)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{x = computeInverseMatrixProduct(L, b)} performs the inverse matrix product of matrix A and a vector b or even another matrix B. Then product is formed column by column of B. The not inverted matrix A is represented by its lower triangle matrix L (Cholesky Decomposition).
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 A = [1.0, 0.9, 0.8;
      0.9, 1.0, 0.9;
      0.8, 0.9, 1.0];
@@ -67,7 +64,7 @@ X = computeInverseMatrixProduct(L, B);
 \end{lstlisting}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{L} is the lower triangle matrix of a matrix A.
@@ -77,14 +74,14 @@ X = computeInverseMatrixProduct(L, B);
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{x} is the product of the inverted matrix A and b.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -94,7 +91,7 @@ X = computeInverseMatrixProduct(L, B);
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -107,7 +104,7 @@ Created on November 06. 2019 by Klaus Jünemann. Copyright Klaus Jünemann 2019.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function x = computeInverseMatrixProduct(L, b)
     arguments
         % validate L as lower triangle matrix of size N x N

@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{computeStdLogLoss}
-
-\begin{par}
+    \begin{par}
 Compute SLL loss between test targets and predictive mean dependend on predictive variance plus used variance for noisy covariance matrix as variance of normal distriubtion over predictive means s2 = fcov + s2n. The pred functions returns the standard deviation s so sqrt of the variance.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Compute SLL loss between test targets and predictive mean dependend on predictiv
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 [SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{[SLL, SE, s2] = computeStdLogLoss(y, fmean, s)} compute standardized logaritmic loss by squared error of ideal test data predicted data and standard deviation of predicted data.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{y} column vector of ideal data to compare with.
@@ -63,7 +60,7 @@ Compute SLL loss between test targets and predictive mean dependend on predictiv
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{SLL} column vector of standardized logarithmic loss.
@@ -76,7 +73,7 @@ Compute SLL loss between test targets and predictive mean dependend on predictiv
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -86,7 +83,7 @@ Compute SLL loss between test targets and predictive mean dependend on predictiv
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -100,7 +97,7 @@ Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function [SLL, SE, s2] = computeStdLogLoss(y, fmean, s)
     arguments
         % validate inputs as real column vectors of same length

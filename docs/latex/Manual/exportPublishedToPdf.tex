@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{exportPublishedToPdf}
-
-\begin{par}
-Export Matlab generated Tex documentation (publish) to combined LaTeX index file ready compile to appendix manual.
+    \begin{par}
+Export Matlab generated Tex documentation (publish) to combined LaTeX index file ready compile to appendix manual. LaTeX outcome is included with scriptsize fontsize. So section fonts are set to small and footnotesize in style sheet to fit overall fontsizes.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -37,7 +34,7 @@ Export Matlab generated Tex documentation (publish) to combined LaTeX index file
 \end{itemize}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -47,7 +44,7 @@ Export Matlab generated Tex documentation (publish) to combined LaTeX index file
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -63,12 +60,12 @@ Created on December 10. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \end{par} \vspace{1em}
 
 
-\subsection*{Start Exporting Script, Clean Up and Load Config}
+{\footnotesize\textbf{Start Exporting Script, Clean Up and Load Config}}
 
 \begin{par}
 At first clean up junk from workspace and clear prompt for new output. Set project root path to create absolute file path with fullfile function. Load absolute path variables and publishing options from config.mat
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Workspace cleaned up ...');
 clearvars;
 clc;
@@ -81,12 +78,12 @@ end
 \end{lstlisting}
 
 
-\subsection*{Define Manual TOC}
+{\footnotesize\textbf{Define Manual TOC}}
 
 \begin{par}
 The maual toc must be in the same order as in helptoc.xml in the publish html folder. The toc is used to generate a latex file to include for appendices.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 toc = ["section",           "GaussianProcessDipoleSimulation.tex";
        "section"            "Workflows.tex";
        "subsection",        "Project_Preparation.tex";
@@ -181,12 +178,12 @@ fprintf("%d toc entries remarked ...\n", nToc);
 \end{lstlisting}
 
 
-\subsection*{Scan for Tex Files}
+{\footnotesize\textbf{Scan for Tex Files}}
 
 \begin{par}
 Scan for all published Tex files in the project publish directory.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Scan for published files ...');
 TEX = dir(fullfile(PathVariables.publishHtmlPath, '*.tex'));
 if nToc ~= length(TEX)
@@ -197,12 +194,12 @@ end
 \end{lstlisting}
 
 
-\subsection*{Export Tex}
+{\footnotesize\textbf{Export Tex}}
 
 \begin{par}
 Export found Tex files to Manual file. Each file gets its own represenstation. Filename is kept. Write files into Manual folder under LaTeX subdirectory in docs path. Get filename, move to new path. Write Manual.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Export published Tex to Manual ...');
 fprintf('Source: %s\n', TEX(1).folder);
 fprintf('Destination: %s\n', PathVariables.exportPublishPath);
@@ -225,12 +222,12 @@ end
 \end{lstlisting}
 
 
-\subsection*{Write TOC to LaTeX File}
+{\footnotesize\textbf{Write TOC to LaTeX File}}
 
 \begin{par}
 Wirete TOC to LaTeX file and generate for each file a subimport along toc content line with marked toc depth.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Write TOC to Manual.tex ...');
 fileID = fopen(fullfile(...
     PathVariables.exportPublishPath, 'Manual.tex'), 'w');

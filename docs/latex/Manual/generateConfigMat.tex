@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{generateConfigMat}
-
-\begin{par}
+    \begin{par}
 Generate configuration mat-file wich contains reusable configuration to control the software or certain function parameters. Centralized collection of configuration. If it is certain configuration needed place it here.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -43,7 +40,7 @@ Generate configuration mat-file wich contains reusable configuration to control 
 \end{itemize}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -53,7 +50,7 @@ Generate configuration mat-file wich contains reusable configuration to control 
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -69,12 +66,12 @@ Created on October 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \end{par} \vspace{1em}
 
 
-\subsection*{Clean Up}
+{\footnotesize\textbf{Clean Up}}
 
 \begin{par}
 Clear variables from workspace to build up a fresh new configuration workspace.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Clean up workspace ...');
 close all;
 clearvars;
@@ -82,12 +79,12 @@ clc;
 \end{lstlisting}
 
 
-\subsection*{Default Plot Settings}
+{\footnotesize\textbf{Default Plot Settings}}
 
 \begin{par}
 Set default settings for plots and graphics like text interpreter and font size and so on. If script runs on start up, defaults are working for all plots. disp('Set plot defaults ...');
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 set(groot, 'DefaultTextInterpreter', 'latex');
 set(groot, 'DefaultLegendInterpreter', 'latex');
 set(groot, 'DefaultAxesTickLabelInterpreter', 'latex');
@@ -123,24 +120,24 @@ set(groot, 'DefaultPolarAxesFontSize', 20);
 \end{lstlisting}
 
 
-\subsection*{GeneralOptions}
+{\footnotesize\textbf{GeneralOptions}}
 
 \begin{par}
 General options like formats for strings or date or anything else what has no special relation to a theme complex. Fix parameters.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set general options ...');
 GeneralOptions = struct;
 GeneralOptions.dateFormat = 'yyyy-mm-dd_HH-MM-SS-FFF';
 \end{lstlisting}
 
 
-\subsection*{Path Variables}
+{\footnotesize\textbf{Path Variables}}
 
 \begin{par}
 Key path variables and directories, often used in functions or scripts. Collet the path in a struct for easier save the struct fields as variables to config.mat via -struct flag. Fix parameters.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Create current project instance to gather information ...');
 
 % create current project instance to retrieve root information
@@ -222,12 +219,12 @@ PathVariables.unittestPath = fullfile(PathVariables.rootPath, 'tests');
 \end{lstlisting}
 
 
-\subsection*{Publish Options}
+{\footnotesize\textbf{Publish Options}}
 
 \begin{par}
 These are general options for documents to publish. They are passed to the matlab publish function via a struct where each option gets its own field. The option struct can be copied and adjusted for differing publish conditions in example for scripts, functions, and bare document m-files. Initialize the option struct with output format field name and field value and add further fields (options) with point value. Fix parameters.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set publish options struct for publish function ...');
 PublishOptions = struct('format', 'html');
 PublishOptions.outputDir = PathVariables.publishHtmlPath;
@@ -246,12 +243,12 @@ PublishOptions.showCode = true;
 \end{lstlisting}
 
 
-\subsection*{Sensor Array Options}
+{\footnotesize\textbf{Sensor Array Options}}
 
 \begin{par}
 The options control the built-up of the sensor array in geometry and techincal behavior. This means number of sensors in the array and its size in mm. The supply and offset voltage of each sensor which is needed for using the characterization which is normed in mV/V. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set sensor array option for geometry and behavior ...');
 SensorArrayOptions = struct;
 
@@ -279,12 +276,12 @@ SensorArrayOptions.Vnorm = 1e3;
 \end{lstlisting}
 
 
-\subsection*{Dipole Options}
+{\footnotesize\textbf{Dipole Options}}
 
 \begin{par}
 Dipole options to calculate the magnetic field which stimulate the sensor array. The dipole is gained to sphere with additional z distance to the array by sphere radius. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set dipole options to calculate magnetic stimulus ...');
 DipoleOptions = struct;
 
@@ -318,12 +315,12 @@ DipoleOptions.M0mag = 1e6;
 \end{lstlisting}
 
 
-\subsection*{Traning Options}
+{\footnotesize\textbf{Traning Options}}
 
 \begin{par}
 Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set training options to generate dataset ...');
 TrainingOptions = struct;
 
@@ -382,12 +379,12 @@ TrainingOptions.BridgeReference = 'Rise';
 \end{lstlisting}
 
 
-\subsection*{Test Options}
+{\footnotesize\textbf{Test Options}}
 
 \begin{par}
 Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set test options to generate dataset ...');
 TestOptions = struct;
 
@@ -446,12 +443,12 @@ TestOptions.BridgeReference = 'Rise';
 \end{lstlisting}
 
 
-\subsection*{GPR Options}
+{\footnotesize\textbf{GPR Options}}
 
 \begin{par}
 Gaussian Process Regression options to generate a regression model for angular prediction and analyzing the accuracy of the prediction. The GPR model uses one certain covariance function to compute the prediction but it is possible to initiate as zero mean GPR without mean correction and a simple mean function which supports offset amplitude correction of the sinoid inputs for cosine and sine. The GPR uses a quadratic frobnius norm covariance function. That function has two kernel parameters s2f as variance parameter and sl as length scale parameter. Additional a noise variance s2n must be passed to GPR to compute noisy observations.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set test options to generate GPR model ...');
 GPROptions = struct();
 
@@ -460,7 +457,7 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-GPROptions.kernel = 'QFC';
+GPROptions.kernel = 'QFCAPX';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical
@@ -495,14 +492,14 @@ GPROptions.s2n = 1e-06;
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-8, 1e-04];
+GPROptions.s2nBounds = [1e-10, 1e-4];
 
 
 % Set number of outer optimization runs. For wide parameter bounds it is
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 20;
+GPROptions.OptimRuns = 10;
 
 
 % Set standardized logarithmic loss for bayes optimization of s2n with MSLL.
@@ -528,12 +525,12 @@ GPROptions.polyDegree = 1;
 \end{lstlisting}
 
 
-\subsection*{Save Configuration}
+{\footnotesize\textbf{Save Configuration}}
 
 \begin{par}
 Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression. create config.mat with timestamp.
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Create config.mat ...');
 timestamp = datestr(now, GeneralOptions.dateFormat);
 save(PathVariables.configPath, ...

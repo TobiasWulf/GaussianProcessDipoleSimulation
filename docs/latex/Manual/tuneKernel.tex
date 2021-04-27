@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{tuneKernel}
-
-\begin{par}
+    \begin{par}
 Tunes kernel hyperparameters of GPR model. Dismiss tuning for each kernel parameter by setting corresponding bounds to equal values.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Tunes kernel hyperparameters of GPR model. Dismiss tuning for each kernel parame
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 Mdl = tuneKernel(Mdl, verbose)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{Mdl = tuneKernel(Mdl, verbose)} solves the negative marginal logarithmic likelihood criteria with fmincon solver.
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{Mdl} model struct.
@@ -60,14 +57,14 @@ Mdl = tuneKernel(Mdl, verbose)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{Mdl} optimized hyperparameters and resulting regression model.
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -77,7 +74,7 @@ Mdl = tuneKernel(Mdl, verbose)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -92,7 +89,7 @@ Created on March 03. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function Mdl = tuneKernel(Mdl, verbose)
 
     % define options for minimum search

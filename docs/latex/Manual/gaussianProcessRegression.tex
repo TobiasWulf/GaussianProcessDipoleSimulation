@@ -16,10 +16,7 @@
 \begin{document}
 
     
-    
-\section*{gaussianProcessRegression}
-
-\begin{par}
+    \begin{par}
 Function module which implements regression models with Gaussian Process. Implemented regression models posses the abillity to process training and test datasets bt sensor array simulation. The model creation can be bind into scripts by use of initGPR and tuneKernel for simple optimized models. A fully generalized regression model is supported by use of optimGPR to create models which are tuned on training data and generalized on test data.
 \end{par} \vspace{1em}
 \begin{itemize}
@@ -64,7 +61,7 @@ Function module which implements regression models with Gaussian Process. Implem
    \item MSLLR: Mean standardized logaritmic loss for radius.
 \end{itemize}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -87,119 +84,119 @@ Function module which implements regression models with Gaussian Process. Implem
 \end{itemize}
 
 
-\subsection*{basicMathFunctions}
+{\footnotesize\textbf{basicMathFunctions}}
 
 \begin{par}
 Submodule which contains basic math function to module functionanlity.
 \end{par} \vspace{1em}
 
 
-\subsection*{kernelQFC}
+{\footnotesize\textbf{kernelQFC}}
 
 \begin{par}
 Submodule which contain quadratic fractional covariance implementation.
 \end{par} \vspace{1em}
 
 
-\subsection*{kernelQFCAPX}
+{\footnotesize\textbf{kernelQFCAPX}}
 
 \begin{par}
 Submodule which contains approximated quadratic fractional covariance implementation.
 \end{par} \vspace{1em}
 
 
-\subsection*{initGPR}
+{\footnotesize\textbf{initGPR}}
 
 \begin{par}
 Initializes regression model by training dataset and config dataset. Resulting model is not optimized.
 \end{par} \vspace{1em}
 
 
-\subsection*{initGPROptions}
+{\footnotesize\textbf{initGPROptions}}
 
 \begin{par}
 Attaches configuration to regression model including default parameters and bounds.
 \end{par} \vspace{1em}
 
 
-\subsection*{initTrainDS}
+{\footnotesize\textbf{initTrainDS}}
 
 \begin{par}
 Initiates the training data, refernce angles and regression targets on regression model.
 \end{par} \vspace{1em}
 
 
-\subsection*{initKernel}
+{\footnotesize\textbf{initKernel}}
 
 \begin{par}
 Initiates kernel submodules by made configuration.
 \end{par} \vspace{1em}
 
 
-\subsection*{initKernelParameters}
+{\footnotesize\textbf{initKernelParameters}}
 
 \begin{par}
 Initiates the regression model by its set configuration done initiating steps before.
 \end{par} \vspace{1em}
 
 
-\subsection*{tuneKernel}
+{\footnotesize\textbf{tuneKernel}}
 
 \begin{par}
 Tunes initated regression model hyperparameters.
 \end{par} \vspace{1em}
 
 
-\subsection*{computeTuneCriteria}
+{\footnotesize\textbf{computeTuneCriteria}}
 
 \begin{par}
 Computes min criteria for tuneKernel.
 \end{par} \vspace{1em}
 
 
-\subsection*{predFrame}
+{\footnotesize\textbf{predFrame}}
 
 \begin{par}
 Predicts singel test data frame.
 \end{par} \vspace{1em}
 
 
-\subsection*{predDS}
+{\footnotesize\textbf{predDS}}
 
 \begin{par}
 Predicts a whole test dataset at once.
 \end{par} \vspace{1em}
 
 
-\subsection*{lossDS}
+{\footnotesize\textbf{lossDS}}
 
 \begin{par}
 Computes prediction losses and errors of a test dataset at once.
 \end{par} \vspace{1em}
 
 
-\subsection*{optimGPR}
+{\footnotesize\textbf{optimGPR}}
 
 \begin{par}
 Computes optimized regression model.
 \end{par} \vspace{1em}
 
 
-\subsection*{computeOptimCriteria}
+{\footnotesize\textbf{computeOptimCriteria}}
 
 \begin{par}
 Computes min criteria for optimGPR.
 \end{par} \vspace{1em}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
    \item \begin{verbatim}generateConfigMat\end{verbatim}
    \item \begin{verbatim}demoGPRModule\end{verbatim}
-   \item \begin{verbatim}investigateKernelParameters.html\end{verbatim}
-   \item \begin{verbatim}generateSimulationDatasets.html\end{verbatim}
+   \item \begin{verbatim}investigateKernelParameters\end{verbatim}
+   \item \begin{verbatim}generateSimulationDatasets\end{verbatim}
 \end{itemize}
 \begin{par}
 Created on February 15. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.

@@ -16,10 +16,7 @@
 \begin{document}
 
     
-    
-\section*{Documentation Workflow}
-
-\begin{par}
+    \begin{par}
 The documentation workflow describes how to document new m-file scripts or functions and where they must be registrated into the publishing process of the documentation. So the published m-file is available in the Matlab help browser of this project.
 \end{par} \vspace{1em}
 \begin{enumerate}
@@ -33,7 +30,7 @@ The documentation workflow describes how to document new m-file scripts or funct
    \item Commit the done work.
 \end{enumerate}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -43,7 +40,7 @@ The documentation workflow describes how to document new m-file scripts or funct
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -54,9 +51,9 @@ The documentation workflow describes how to document new m-file scripts or funct
 \end{itemize}
 
 
-\subsection*{Script Template}
+{\footnotesize\textbf{Script Template}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 %% scriptName
 % Detailed description of the script task and summary description of
 % underlaying script sections.
@@ -89,7 +86,7 @@ The documentation workflow describes how to document new m-file scripts or funct
 disp("Prompt current step or meaningful information of variables.")
 Enter section source code
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 %% Second Script Section
 % Detailed section description of step by step executed script code.
 disp("Prompt current step or meaningful information of variables.")
@@ -97,9 +94,9 @@ Enter section source code
 \end{lstlisting}
 
 
-\subsection*{Function Template}
+{\footnotesize\textbf{Function Template}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 %% functionName
 % Single line summary.
 %
@@ -160,7 +157,7 @@ function [outputArg] = functionName(possitionalArg, optionalArg)
     outputArg = positionalArg + optionalArg;
 end
 \end{lstlisting}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % Custom validation function
 function mustBeEqualSize(a,b)
     % Test for equal size

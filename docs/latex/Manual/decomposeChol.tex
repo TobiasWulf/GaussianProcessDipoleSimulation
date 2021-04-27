@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{decomposeChol}
-
-\begin{par}
+    \begin{par}
 Computes the Cholesky Decomposition of a symmetric positive definite matrix A and calculate the log determinate as side product of the decomposition. Computes the lower triangle matrix L.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -37,23 +34,23 @@ Computes the Cholesky Decomposition of a symmetric positive definite matrix A an
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 [L, logDet] = decomposeChol(A)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{[L, logDet] = decomposeChol(A)} computes lower triangle matrix of input matrix A using the Cholesky Decomposition. As side product of the decomposition the logarithmic determinante of A is returned too.
 \end{par} \vspace{1em}
 
 
-\subsection*{Examples}
+{\footnotesize\textbf{Examples}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 A = [1.0, 0.9, 0.8;
      0.9, 1.0, 0.9;
      0.8, 0.9, 1.0];
@@ -63,14 +60,14 @@ assert(log(det(A)) == logDet)
 \end{lstlisting}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{A} symmetric, pos. finite double matrix of size N x N.
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{L} is a lower trinagle matrix of size N x N. Multiply L with its transposed to get matrix A.
@@ -80,7 +77,7 @@ assert(log(det(A)) == logDet)
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -90,7 +87,7 @@ assert(log(det(A)) == logDet)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -102,7 +99,7 @@ Created on January 04. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function [L, logDet] = decomposeChol(A)
     arguments
         A (:,:) double {mustBeReal, mustBeValidMatrix(A)}

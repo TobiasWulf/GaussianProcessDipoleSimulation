@@ -16,14 +16,11 @@
 \begin{document}
 
     
-    
-\section*{computeOptimCriteria}
-
-\begin{par}
+    \begin{par}
 Object function to compute the loss of a fully initialized and tuned regression model. Computes the mean std. log. loss of angles MSLLA or radius MSLLR as function evaluation value for bayesopt. Perform noise adjustment in cylces in bayesopt.
 \end{par} \vspace{1em}
 
-\subsection*{Contents}
+{\footnotesize\textbf{Contents}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -36,21 +33,21 @@ Object function to compute the loss of a fully initialized and tuned regression 
 \end{itemize}
 
 
-\subsection*{Syntax}
+{\footnotesize\textbf{Syntax}}
 
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
 \end{lstlisting}
 
 
-\subsection*{Description}
+{\footnotesize\textbf{Description}}
 
 \begin{par}
 \textbf{MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)}
 \end{par} \vspace{1em}
 
 
-\subsection*{Input Argurments}
+{\footnotesize\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{OptVar} optimzation variable. Noise level passed by bayesopt algorithm.
@@ -69,14 +66,14 @@ MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
 \end{par} \vspace{1em}
 
 
-\subsection*{Output Argurments}
+{\footnotesize\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{MSLL} mean standardized logarithmic loss. Function evaluation value for optimGPR
 \end{par} \vspace{1em}
 
 
-\subsection*{Requirements}
+{\footnotesize\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -86,7 +83,7 @@ MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
 \end{itemize}
 
 
-\subsection*{See Also}
+{\footnotesize\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -101,7 +98,7 @@ Created on March 05. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \begin{par}
 
 \end{par} \vspace{1em}
-\begin{lstlisting}[style=Matlab-editor]
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function MSLL = computeOptimCriteria(OptVar, Mdl, TestDS, SLL, verbose)
 
     % push current variance value into GPR
