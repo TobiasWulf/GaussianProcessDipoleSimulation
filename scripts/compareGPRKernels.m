@@ -169,7 +169,7 @@ legend([p1, p2, p3, p4], ...
     '$\theta = (0.5,1)$', ...
     '$\theta = (4,1)$'}, 'Location', 'north');
 xlabel('$j-tes$ Sample');
-title('c) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$');
+title('d) $k(X_1, X_j|\theta)$ f. $d_E^2$, $\theta_2 = konst.$');
 
 % plot covariance matrix
 figure;

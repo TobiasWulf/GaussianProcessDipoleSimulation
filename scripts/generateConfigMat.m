@@ -406,7 +406,7 @@ GPROptions = struct();
 % QFC    - Quadratic Frobenius Covariance with excact distance.
 % QFCAPX - Quadratic Frobenius Covariance with approximated distance of triangle
 %          inequation of matrix norm, minimizes training data to a vector.
-GPROptions.kernel = 'QFCAPX';
+GPROptions.kernel = 'QFC';
 
 % Initial theta values as vector of [s2f, sl] variance and length scale
 % parameter of the quadratic frobenius covariance function. Empirical 
@@ -448,7 +448,7 @@ GPROptions.s2nBounds = [1e-10, 1e-4];
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 20;
+GPROptions.OptimRuns = 30;
 
 
 % Set standardized logarithmic loss for bayes optimization of s2n with MSLL.
@@ -465,7 +465,7 @@ GPROptions.SLL = 'SLLA';
 %        polynom mean vectors at each observation points 
 %        h(x) = [1; x; x^2; x^3; ...] and beta are coefficients of the polynom.
 %        For QFC kernel x = ||X||_F
-GPROptions.mean = 'poly';
+GPROptions.mean = 'zero';
 
 % Polynom degree for mean poly degree option 0 for constanat, 1 for 1 + x,
 % 2 fo 1 + x + x^2 and so on. Takes only effects if mean = 'poly'. Maximum
