@@ -20,19 +20,6 @@
 Export Matlab generated Tex documentation (publish) to combined LaTeX index file ready compile to appendix manual. LaTeX outcome is included with scriptsize fontsize. So section fonts are set to small and footnotesize in style sheet to fit overall fontsizes.
 \end{par} \vspace{1em}
 
-{\footnotesize\textbf{Contents}}
-
-\begin{itemize}
-\setlength{\itemsep}{-1ex}
-   \item Requirements
-   \item See Also
-   \item Start Exporting Script, Clean Up and Load Config
-   \item Define Manual TOC
-   \item Scan for Tex Files
-   \item Export Tex
-   \item Write TOC to LaTeX File
-\end{itemize}
-
 
 {\footnotesize\textbf{Requirements}}
 
@@ -101,6 +88,7 @@ toc = ["section",           "GaussianProcessDipoleSimulation.tex";
        "subsection",        "demoGPRModule.tex";
        "subsection",        "investigateKernelParameters.tex";
        "subsection",        "compareGPRKernels.tex";
+       "subsection",        "compareCpuTimeVsError.tex";
        "section",           "Source_Code.tex";
        "subsection",        "sensorArraySimulation.tex";
        "subsubsection",     "rotate3DVector.tex";
@@ -255,7 +243,12 @@ for i = 1:nToc
     tstr = strrep(fstr, '_', ' ');
 
     fprintf(fileID, "\\%s{%s}", level, tstr);
-    fprintf(fileID, "\\label{mcode:%s}\n", lstr);
+    fprintf(fileID, "\\label{mcode:%s}", lstr);
+    if strcmp(level, "paragraph")
+        fprintf(fileID, "$~$\\\\\n");
+    else
+        fprintf(fileID, "\n");
+    end
     fprintf(fileID, "\\subimport{./}{%s}\n", fName);
     fprintf(fileID, "\\clearpage\n");
 end

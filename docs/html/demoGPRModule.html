@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>demoGPRModule</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="demoGPRModule.m"><style type="text/css">
+      --><title>demoGPRModule</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-01"><meta name="DC.source" content="demoGPRModule.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -84,7 +84,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>demoGPRModule</h1><!--introduction--><p>This script demonstrates the use of gaussianProcessRegression module. The demonstartions shows single steps of use from initialization to optimization. For use generate a training and testdataset with corresponding position. So the sensor model is built on none diverging coordinates.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneGPR.html">tuneGPR</a></li><li><a href="optimGPR.html">optimGPR.html</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on February 25. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+  </style></head><body><div class="content"><h1>demoGPRModule</h1><!--introduction--><p>This script demonstrates the use of gaussianProcessRegression module. The demonstartions shows single steps of use from initialization to optimization. For use generate a training and testdataset with corresponding position. So the sensor model is built on none diverging coordinates.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneGPR.html">tuneGPR</a></li><li><a href="optimGPR.html">optimGPR</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on February 25. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
 <!--
 Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
@@ -113,9 +113,10 @@ disp(<span class="string">'Load first found datasets ...'</span>);
 <span class="keyword">end</span>
 
 disp(<span class="string">'Check dataset coordinates corresponds ...'</span>);
-assert(all(TrainDS.Data.X == TestDS.Data.X, <span class="string">'all'</span>), <span class="string">'Wrong X grid.'</span>);
-assert(all(TrainDS.Data.Y == TestDS.Data.Y, <span class="string">'all'</span>), <span class="string">'Wrong Y grid.'</span>);
-assert(all(TrainDS.Data.Z == TestDS.Data.Z, <span class="string">'all'</span>), <span class="string">'Wrong Z grid.'</span>);
+assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 </pre><h2 id="4">Compute Means of Test Dataset as Comparing Root</h2><p>Compute mean sinoids and angular error by raw dataset values. offcos0 - cosine offset offsin0 - sine offset fcos0   - offset free and normed mean cosine from raw test values fsin0   - offset free and normed mean sine from raw test values frad0   - radius by mean sinoids fang0   - angles by mean sinoids compute with angle function in predDS AAED0   - Absolute Angular Error in Degrees by mean sinoids</p><pre class="codeinput">offcos0 = mean2(TestDS.Data.Vcos);
 offsin0 = mean2(TestDS.Data.Vsin);
 fcos0 = zeros(TestDS.Info.UseOptions.nAngles, 1);
@@ -131,6 +132,8 @@ fang0 = sinoids2angles(fsin0, fcos0, frad0);
 AAED0 = abs(TestDS.Data.angles' - fang0 * 180 / pi);
 </pre><h2 id="5">Create GPR Model for Demonstartion</h2><p>Create three GPR Modles by the same base configuration to compare bare initilized modle with and optimized generated modle with same root of configuration. Mdl1 - optimized modle generated by configuration settings enable free free        tuning of variance and length scale by changing the theta(1) to        not equal 1 and widining the parameter bounds.</p><pre class="codeinput">disp(<span class="string">'Create GPR modles ...'</span>);
 Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+<span class="comment">%Mdl1 = initGPR(TrainDS, GPROptions);</span>
+<span class="comment">%Mdl1 = tuneKernel(Mdl1,1);</span>
 </pre><h2 id="6">Prediction on Test Dataset</h2><p>Predict sinoids and angles on test dataset for each created GPR modle. fang1  - computed angle by predicted sinoids frad1  - computed radius by predicted sinoids fcos1  - predicted cosine fsin1  - predicted sine fcov1  - predictive variance s1     - standard deviation of prediction ciang1 - 95% confidence interval for angles cirad1 - 95% confidence interval for radius</p><pre class="codeinput">[fang1, frad1, fcos1, fsin1, fcov1, s1, ciang1, cirad1] = predDS(Mdl1, TestDS);
 </pre><h2 id="7">Compute Losses and Errors on Test Dataset</h2><p>Compute the loss and error on test dataset for each created GPR modle. AAED1 - Absolute Angular Error in Degrees SLLA1 - Squared Log Loss Angular SLLR1 - Squared Log Loss Radius SEA1  - Squared Error Angular SER1  - Squared Error Radius SEC1  - Squared Error Cosine SES1  - Squared Error Sine</p><pre class="codeinput">[AAED1, SLLA1, SLLR1, SEA1, SER1, SEC1, SES1] = lossDS(Mdl1, TestDS);
 </pre><h2 id="8">Plot Area and Expand Model Results</h2><p>Plot demo results in modle parameter view to show characteristics of covariance functions and modle generalization. Show full rotation on test dataset with angle error, predicted sinoids and confidence intervals.</p><pre class="codeinput"><span class="comment">% create general plot scalses and title</span>
@@ -267,7 +270,7 @@ title(<span class="string">'d) Centered $95\%$ GPR Confidence Intervalls'</span>
 % * <gaussianProcessRegression.html gaussianProcessRegression>
 % * <initGPR.html initGPR>
 % * <tuneGPR.html tuneGPR>
-% * <optimGPR.html>
+% * <optimGPR.html optimGPR>
 % * <generateConfigMat.html generateConfigMat>
 %
 %
@@ -306,9 +309,10 @@ catch ME
 end
 
 disp('Check dataset coordinates corresponds ...');
-assert(all(TrainDS.Data.X == TestDS.Data.X, 'all'), 'Wrong X grid.');
-assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
-assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
+assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 
 
 %% Compute Means of Test Dataset as Comparing Root
@@ -344,7 +348,8 @@ AAED0 = abs(TestDS.Data.angles' - fang0 * 180 / pi);
 %        not equal 1 and widining the parameter bounds.
 disp('Create GPR modles ...');
 Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
-
+%Mdl1 = initGPR(TrainDS, GPROptions);
+%Mdl1 = tuneKernel(Mdl1,1);
 
 %% Prediction on Test Dataset
 % Predict sinoids and angles on test dataset for each created GPR modle.

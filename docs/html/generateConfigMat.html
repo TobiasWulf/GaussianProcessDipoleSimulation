@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
+      --><title>generateConfigMat</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-01"><meta name="DC.source" content="generateConfigMat.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -319,7 +319,7 @@ TrainingOptions.phaseIndex = 0;
 <span class="comment">% to the resolution, even down sampling. To generate full scale the number</span>
 <span class="comment">% relatead to the resolution or fast generate but wrong number set it to 0 to</span>
 <span class="comment">% generate full scale rotation too. Fix Parameter.</span>
-TrainingOptions.nAngles = 20;
+TrainingOptions.nAngles = 8;
 
 <span class="comment">% Charcterization datset to use in simulation. Current available datasets are</span>
 <span class="comment">% TDK - for characterization dataset of TDK TAS2141 TMR sensor</span>
@@ -428,7 +428,7 @@ GPROptions.slBounds = [0.1, 100];
 <span class="comment">% Set initial noise variance to add noise along the diagonal of th covariance</span>
 <span class="comment">% matrix to predict noisy observation. Set to small values or even 0 to get</span>
 <span class="comment">% noise free observations.</span>
-GPROptions.s2n = 1e-06;
+GPROptions.s2n = 1e-04;
 
 <span class="comment">% Set lower and upper bounds for noise adjustment in computing the covariance</span>
 <span class="comment">% matrix for noisy observations. These bounds prevent the GPR of overfitting in</span>
@@ -789,7 +789,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 20;
+TrainingOptions.nAngles = 8;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -916,7 +916,7 @@ GPROptions.slBounds = [0.1, 100];
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
 % noise free observations.
-GPROptions.s2n = 1e-06;
+GPROptions.s2n = 1e-04;
 
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in

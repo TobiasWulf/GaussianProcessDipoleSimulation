@@ -15,7 +15,7 @@
 % * <gaussianProcessRegression.html gaussianProcessRegression>
 % * <initGPR.html initGPR>
 % * <tuneGPR.html tuneGPR>
-% * <optimGPR.html>
+% * <optimGPR.html optimGPR>
 % * <generateConfigMat.html generateConfigMat>
 %
 %
@@ -54,9 +54,10 @@ catch ME
 end
 
 disp('Check dataset coordinates corresponds ...');
-assert(all(TrainDS.Data.X == TestDS.Data.X, 'all'), 'Wrong X grid.');
-assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
-assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
+assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 
 
 %% Compute Means of Test Dataset as Comparing Root
@@ -92,7 +93,8 @@ AAED0 = abs(TestDS.Data.angles' - fang0 * 180 / pi);
 %        not equal 1 and widining the parameter bounds.
 disp('Create GPR modles ...');
 Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
-
+%Mdl1 = initGPR(TrainDS, GPROptions);
+%Mdl1 = tuneKernel(Mdl1,1);
 
 %% Prediction on Test Dataset
 % Predict sinoids and angles on test dataset for each created GPR modle.

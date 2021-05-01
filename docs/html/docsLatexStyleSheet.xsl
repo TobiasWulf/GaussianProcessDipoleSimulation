@@ -44,12 +44,12 @@ Copyright 1984-2019 The MathWorks, Inc.
 
     <xsl:variable name="body-cells" select="cell[not(@style = 'overview')]"/>
 
-    <!-- Include contents if there are titles for any subsections. -->
+    <!-- Include contents if there are titles for any subsections.
     <xsl:if test="count(cell/steptitle[not(@style = 'document')])">
       <xsl:call-template name="contents">
         <xsl:with-param name="body-cells" select="$body-cells"/>
       </xsl:call-template>
-    </xsl:if>
+    </xsl:if> -->
 
     <!-- Loop over each cell -->
     <xsl:for-each select="$body-cells">

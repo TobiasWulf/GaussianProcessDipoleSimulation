@@ -61,6 +61,7 @@ toc = ["section",           "GaussianProcessDipoleSimulation.tex";
        "subsection",        "demoGPRModule.tex";
        "subsection",        "investigateKernelParameters.tex";
        "subsection",        "compareGPRKernels.tex";
+       "subsection",        "compareCpuTimeVsError.tex";
        "section",           "Source_Code.tex";
        "subsection",        "sensorArraySimulation.tex";
        "subsubsection",     "rotate3DVector.tex";

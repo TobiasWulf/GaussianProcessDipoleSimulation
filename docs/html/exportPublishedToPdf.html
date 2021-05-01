@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
+      --><title>exportPublishedToPdf</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-01"><meta name="DC.source" content="exportPublishedToPdf.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -115,6 +115,7 @@ disp(<span class="string">'Load configuration ...'</span>);
        <span class="string">"subsection"</span>,        <span class="string">"demoGPRModule.tex"</span>;
        <span class="string">"subsection"</span>,        <span class="string">"investigateKernelParameters.tex"</span>;
        <span class="string">"subsection"</span>,        <span class="string">"compareGPRKernels.tex"</span>;
+       <span class="string">"subsection"</span>,        <span class="string">"compareCpuTimeVsError.tex"</span>;
        <span class="string">"section"</span>,           <span class="string">"Source_Code.tex"</span>;
        <span class="string">"subsection"</span>,        <span class="string">"sensorArraySimulation.tex"</span>;
        <span class="string">"subsubsection"</span>,     <span class="string">"rotate3DVector.tex"</span>;
@@ -242,7 +243,12 @@ fprintf(fileID, <span class="keyword">...</span>
     tstr = strrep(fstr, <span class="string">'_'</span>, <span class="string">' '</span>);
 
     fprintf(fileID, <span class="string">"\\%s{%s}"</span>, level, tstr);
-    fprintf(fileID, <span class="string">"\\label{mcode:%s}\n"</span>, lstr);
+    fprintf(fileID, <span class="string">"\\label{mcode:%s}"</span>, lstr);
+    <span class="keyword">if</span> strcmp(level, <span class="string">"paragraph"</span>)
+        fprintf(fileID, <span class="string">"$~$\\\\\n"</span>);
+    <span class="keyword">else</span>
+        fprintf(fileID, <span class="string">"\n"</span>);
+    <span class="keyword">end</span>
     fprintf(fileID, <span class="string">"\\subimport{./}{%s}\n"</span>, fName);
     fprintf(fileID, <span class="string">"\\clearpage\n"</span>);
 <span class="keyword">end</span>
@@ -314,6 +320,7 @@ toc = ["section",           "GaussianProcessDipoleSimulation.tex";
        "subsection",        "demoGPRModule.tex";
        "subsection",        "investigateKernelParameters.tex";
        "subsection",        "compareGPRKernels.tex";
+       "subsection",        "compareCpuTimeVsError.tex";
        "section",           "Source_Code.tex";
        "subsection",        "sensorArraySimulation.tex";
        "subsubsection",     "rotate3DVector.tex";
@@ -455,7 +462,12 @@ for i = 1:nToc
     tstr = strrep(fstr, '_', ' ');
     
     fprintf(fileID, "\\%s{%s}", level, tstr);
-    fprintf(fileID, "\\label{mcode:%s}\n", lstr);
+    fprintf(fileID, "\\label{mcode:%s}", lstr);
+    if strcmp(level, "paragraph")
+        fprintf(fileID, "$~$\\\\\n");
+    else
+        fprintf(fileID, "\n");
+    end
     fprintf(fileID, "\\subimport{./}{%s}\n", fName);
     fprintf(fileID, "\\clearpage\n");
 end

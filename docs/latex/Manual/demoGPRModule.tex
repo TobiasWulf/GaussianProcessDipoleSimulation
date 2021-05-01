@@ -20,20 +20,6 @@
 This script demonstrates the use of gaussianProcessRegression module. The demonstartions shows single steps of use from initialization to optimization. For use generate a training and testdataset with corresponding position. So the sensor model is built on none diverging coordinates.
 \end{par} \vspace{1em}
 
-{\footnotesize\textbf{Contents}}
-
-\begin{itemize}
-\setlength{\itemsep}{-1ex}
-   \item Requirements
-   \item See Also
-   \item Start Script, Load Config and Read in Datasets
-   \item Compute Means of Test Dataset as Comparing Root
-   \item Create GPR Model for Demonstartion
-   \item Prediction on Test Dataset
-   \item Compute Losses and Errors on Test Dataset
-   \item Plot Area and Expand Model Results
-\end{itemize}
-
 
 {\footnotesize\textbf{Requirements}}
 
@@ -52,7 +38,7 @@ This script demonstrates the use of gaussianProcessRegression module. The demons
    \item \begin{verbatim}gaussianProcessRegression\end{verbatim}
    \item \begin{verbatim}initGPR\end{verbatim}
    \item \begin{verbatim}tuneGPR\end{verbatim}
-   \item \begin{verbatim}optimGPR.html\end{verbatim}
+   \item \begin{verbatim}optimGPR\end{verbatim}
    \item \begin{verbatim}generateConfigMat\end{verbatim}
 \end{itemize}
 \begin{par}
@@ -90,9 +76,10 @@ catch ME
 end
 
 disp('Check dataset coordinates corresponds ...');
-assert(all(TrainDS.Data.X == TestDS.Data.X, 'all'), 'Wrong X grid.');
-assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
-assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
+assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 \end{lstlisting}
 
 
@@ -126,6 +113,8 @@ Create three GPR Modles by the same base configuration to compare bare initilize
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Create GPR modles ...');
 Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+%Mdl1 = initGPR(TrainDS, GPROptions);
+%Mdl1 = tuneKernel(Mdl1,1);
 \end{lstlisting}
 
 

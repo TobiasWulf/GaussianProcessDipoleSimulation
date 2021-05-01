@@ -6,47 +6,74 @@
 \chapter{Parametrierung der Erprobungs- und Optimierungsexperimente 0.0.1 26.04.2021}\label{ch:param-exp}
 
 
-\section{Vergleich der Kovarianzfunktionen}\label{sec:vgl-kfun-param}
-
-
-
 \begin{table}[!htbp]
-	\centering
-	\resizebox{\textwidth}{!}{
-		\begin{tabular}{l l c c l}
-			\toprule
-			\textbf{Parametergruppe}                 & \textbf{Parameter}  & \textbf{Wert}                        & \textbf{Einheit}                & \textbf{Kurzbeschreibung}                                           \\ \midrule
-			\multirow{6}{*}{SensorArrayOptions}      & geometry            & 'square'                             & -                               & Array-Geometrie-Indikator                                           \\
-			                                         & dimension           & $8$                                  & -                               & Sensor-Array-Pixel $N_{Pixel} \times N_{Pixel}$                     \\
-			                                         & edge                & $2$                                  & $\SI{}{\milli\metre}$           & Sensor-Array-Kantenlänge                                            \\
-			                                         & $V_{cc}$            & $5$                                  & $\SI{}{\volt}$                  & Sensor-Array-Betriebsspannung                                       \\
-			                                         & $V_{off}$           & $2,5$                                & $\SI{}{\volt}$                  & Sensor-Brücken-Offset-Spannung                                      \\
-			                                         & $V_{norm}$          & $1 \cdot 10^3$                       & $\SI{}{\milli\volt}$            & Kennfeldnormierung                                                  \\ \hline
-			\multirow{4}{*}{DipoleOptions}           & sphereRadius        & $2$                                  & $\SI{}{\milli\metre}$           & Kugelmagnetradius                                                   \\
-			                                         & $H_{0mag}$          & $200$                                & $\SI{}{\kilo\ampere\per\metre}$ & Betragsfeldstärke Magnetfeldnormierung                              \\
-			                                         & $z_0$               & $1$                                  & $\SI{}{\milli\metre}$           & $Z$-Abstand Magnetfeldnormierung                                    \\
-			                                         & $m_{0mag}$          & $1 \cdot 10^6$                       & $\SI{}{\ampere\square\metre}$   & Magnitude d. mag. Moments                                           \\ \hline
-			\multirow{10}{*}{Training-/ TestOptions} & useCase             & 'Training'/ 'Test'                   & 'char'                          & Datensatzindikator f. Anwendungszweck                               \\
-			                                         & xPos                & $\left[0,\right]$                    & $\SI{}{mm}$                     & Sensor-Array $X$-Positionsvektor                                    \\
-			                                         & yPos                & $\left[0,\right]$                    & $\SI{}{mm}$                     & Sensor-Array $Y$-Positionsvektor                                    \\
-			                                         & zPos                & $\left[7,\right]$                    & $\SI{}{mm}$                     & Sensor-Array $Z$-Positionsvektor                                    \\
-			                                         & tilt                & $0$                                  & $\SI{}{\degree}$                & Magnetverkippung in $Y$-Achse                                       \\
-			                                         & angleRes            & $0,5$                                & $\SI{}{\degree}$                & Winkelauflösung f. Magnetrotation                                   \\
-			                                         & phaseIndex          & 0                                    & -                               & Phasenverschiebung-Index f. Startwinkel                             \\
-			                                         & nAngles             & $56$/ $720$                          & -                               & Anzahl gleich verteilter Simulationswinkel                          \\
-			                                         & BaseReference       & 'TDK'                                & char                            & Kennfelddatensatzindikator                                          \\
-			                                         & BridgeReference     & 'Rise'                               & char                            & Kennfeldindikator                                                   \\ \hline
-			\multirow{10}{*}{GPROptions}             & kernel              & 'QFC'                                & char                            & Kernel-Funktion-Indikator \eqref{eq:kfun}, 'QFC' $\leftarrow d_F^2$ \\
-			                                         & $\theta$            & $(1,1)$                              & -                               & Kernel-Parametervektor $\theta$ \eqref{eq:kparam}                   \\
-			                                         & $\sigma_f^2$-Bounds & $(0.1, 100)$                         & -                               & Parameter-Bounds $\theta_1$ f. \autoref{alg:fminconopt}             \\
-			                                         & $\sigma_l$-Bounds   & $(0.1, 100)$                         & -                               & Parameter-Bounds $\theta_2$ f. \autoref{alg:fminconopt}             \\
-			                                         & $\sigma_n^2$        & $1 \cdot 10^{-6}$                    & -                               & Rauschniveau, Rauschaufschaltung \eqref{eq:addnoise}                \\
-			                                         & $\sigma_n^2$-Bounds & $(1 \cdot 10^{-8}, 1 \cdot 10^{-4})$ & -                               & Parameter-Bounds $\sigma_n^2$ f. \autoref{alg:bayesopt}             \\
-			                                         & OptimRuns           & $30$                                 & -                               & Durchlaufanzahl f. \autoref{alg:bayesopt}                           \\
-			                                         & SLL                 & 'SLLA'                               & char                            & Verlust-Indikator f. Winkel (A)/ R (Radius) \autoref{alg:bayesopt}  \\
-			                                         & mean                & 'zero'                               & char                            & Indikator Mittelwertpolynom Ein ('poly')/ Aus ('zero')              \\
-			                                         & polyDegree          & $1$                                  & -                               & Grad des Mittelwertpolynoms wenn mean = 'poly'                      \\ \bottomrule
-		\end{tabular}}
-	\caption[Simulationsparameter für das Vergleichsexperiment der Kovarianzfunktionen]{Simulationsparameter für das Vergleichsexperiment der Kovarianzfunktionen. Während der Durchführung des Experiments werden die Simulationsparameter $\theta$ und kernel angepasst um Funktionsverhalten zu vergleichen.}
-	\label{tab:sim-params-exp-kfun}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l l c c l}
+	\toprule
+	\textbf{Parametergruppe}                 & \textbf{Parameter}  & \textbf{Wert}        & \textbf{Einheit}  & \textbf{Kurzbeschreibung}                                           \\ \midrule
+	\multirow{6}{*}{SensorArrayOptions}      & geometry            & 'square'             & -                 & Array-Geometrie-Indikator                                           \\
+	                                         & dimension           & $8$                  & -                 & Sensor-Array-Pixel $N_{Pixel} \times N_{Pixel}$                     \\
+	                                         & edge                & $2$                  & mm                & Sensor-Array-Kantenlänge                                            \\
+	                                         & $V_{cc}$            & $5$                  & V                 & Sensor-Array-Betriebsspannung                                       \\
+	                                         & $V_{off}$           & $2,5$                & V                 & Sensor-Brücken-Offset-Spannung                                      \\
+	                                         & $V_{norm}$          & $1 \cdot 10^3$       & mV                & Kennfeldnormierung                                                  \\ \hline
+	\multirow{4}{*}{DipoleOptions}           & sphereRadius        & $2$                  & mm                & Kugelmagnetradius                                                   \\
+	                                         & $H_{0mag}$          & $200$                & $\text{kAm}^{-1}$ & Betragsfeldstärke Magnetfeldnormierung                              \\
+	                                         & $z_0$               & $1$                  & mm                & $Z$-Abstand Magnetfeldnormierung                                    \\
+	                                         & $m_{0mag}$          & $1 \cdot 10^6$       & $\text{Am}^2$     & Magnitude d. mag. Moments                                           \\ \hline
+	\multirow{10}{*}{Training-/ TestOptions} & useCase             & 'Training'/ 'Test'   & 'char'            & Datensatzindikator f. Anwendungszweck                               \\
+	                                         & xPos                & $\left[0,\right]$    & mm                & Sensor-Array $X$-Positionsvektor                                    \\
+	                                         & yPos                & $\left[0,\right]$    & mm                & Sensor-Array $Y$-Positionsvektor                                    \\
+	                                         & zPos                & $\left[7,\right]$    & mm                & Sensor-Array $Z$-Positionsvektor                                    \\
+	                                         & tilt                & $0$                  & $^\circ$          & Magnetverkippung in $Y$-Achse                                       \\
+	                                         & angleRes            & $0,5$                & $^\circ$          & Winkelauflösung f. Magnetrotation                                   \\
+	                                         & phaseIndex          & 0                    & -                 & Phasenverschiebung-Index f. Startwinkel                             \\
+	                                         & nAngles             & $20$/ $720$          & -                 & Anzahl gleich verteilter Simulationswinkel                          \\
+	                                         & BaseReference       & 'TDK'                & char              & Kennfelddatensatzindikator                                          \\
+	                                         & BridgeReference     & 'Rise'               & char              & Kennfeldindikator                                                   \\ \hline
+	\multirow{10}{*}{GPROptions}             & kernel              & 'QFC'                & char              & Kernel-Funktion-Indikator \eqref{eq:kfun}, 'QFC' $\leftarrow d_F^2$ \\
+	                                         & $\theta$            & $(1,1)$              & -                 & Kernel-Parametervektor $\theta$ \eqref{eq:kparam}                   \\
+	                                         & $\sigma_f^2$-Bounds & $(0.1, 100)$         & -                 & Parameter-Bounds $\theta_1$ f. \autoref{alg:fminconopt}             \\
+	                                         & $\sigma_l$-Bounds   & $(0.1, 100)$         & -                 & Parameter-Bounds $\theta_2$ f. \autoref{alg:fminconopt}             \\
+	                                         & $\sigma_n^2$        & $10^{-6}$            & -                 & Rauschniveau, Rauschaufschaltung \eqref{eq:addnoise}                \\
+	                                         & $\sigma_n^2$-Bounds & $(10^{-8}, 10^{-4})$ & -                 & Parameter-Bounds $\sigma_n^2$ f. \autoref{alg:bayesopt}             \\
+	                                         & OptimRuns           & $30$                 & -                 & Durchlaufanzahl f. \autoref{alg:bayesopt}                           \\
+	                                         & SLL                 & 'SLLA'               & char              & Verlust-Indikator f. Winkel (A)/ R (Radius) \autoref{alg:bayesopt}  \\
+	                                         & mean                & 'zero'               & char              & Indikator Mittelwertpolynom Ein ('poly')/ Aus ('zero')              \\
+	                                         & polyDegree          & $1$                  & -                 & Grad des Mittelwertpolynoms wenn mean = 'poly'                      \\ \bottomrule
+\end{tabular}}
+\caption[Simulationsparameter der Erprobungs- und Optimierungsexperimente]{Simulationsparameter der Erprobungs- und Optimierungsexperimente. Von der Grundparametrierung abweichende Werte werden direkt in den Experimenten definiert und gesetzt. Parametergruppen entsprechend \autoref{mcode:generateconfigmat}}
+\label{tab:sim-params-exp}
 \end{table}
+
+
+
+\section{Vergleich der Kovarianzfunktionen}\label{sec:paramexp1}
+
+
+Abweichende Parameter:
+
+\begin{itemize}
+	\item TrainingOptions: nAngles: 56
+	\item GPROptions: kernel: variiert zwischen 'QFC' und 'QFCAPX'
+	\item GPROptions: $\theta$: zuerst $\theta_1 = 1 = konst.$, $\theta_2$ variiert, danach vice versa 
+\end{itemize}
+
+
+\section{Anpassung der Referenzwinkelanzahl}\label{sec:paramexp2}
+
+
+Abweichende Parameter:
+
+\begin{itemize}
+	\item TrainingsOptions: nAngles: variieren und werden schrittweise erhöht
+	\item GRPOptions: kernel : 'QFCAPX'
+	\item GPROptions: mean: variiert zwischen 'zero' und 'poly'
+	\item GPROptions: $\sigma_n^2 = 10^{-6} = konst.$
+\end{itemize}
+
+
+\section{Anpassung der Parametergrenzen}\label{sec:paramexp4}
+
+
