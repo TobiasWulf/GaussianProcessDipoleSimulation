@@ -309,7 +309,7 @@ TrainingOptions.phaseIndex = 0;
 % to the resolution, even down sampling. To generate full scale the number
 % relatead to the resolution or fast generate but wrong number set it to 0 to
 % generate full scale rotation too. Fix Parameter.
-TrainingOptions.nAngles = 8;
+TrainingOptions.nAngles = 17;
 
 % Charcterization datset to use in simulation. Current available datasets are
 % TDK - for characterization dataset of TDK TAS2141 TMR sensor
@@ -430,8 +430,8 @@ GPROptions.theta = [1, 1];
 % the point evaluated as bad set point. If the bound are to wide in relation of
 % number in dataset variousity the mean error raises. The model is to complex
 % then. Try to keep up simple modles.
-GPROptions.s2fBounds = [0.1, 100];
-GPROptions.slBounds = [0.1, 100];
+GPROptions.s2fBounds = [3, 10];
+GPROptions.slBounds = [12, 30];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
@@ -441,7 +441,7 @@ GPROptions.s2n = 1e-04;
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-10, 1e-4];
+GPROptions.s2nBounds = [1e-7, 1e-4];
 
 
 % Set number of outer optimization runs. For wide parameter bounds it is

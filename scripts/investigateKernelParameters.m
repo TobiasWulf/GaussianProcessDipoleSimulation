@@ -52,9 +52,10 @@ catch ME
 end
 
 disp('Check dataset coordinates corresponds ...');
-assert(all(TrainDS.Data.X == TestDS.Data.X, 'all'), 'Wrong X grid.');
-assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
-assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
+assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 
 
 %% Create GPR Model for Investigation
@@ -85,13 +86,13 @@ sweepKernelWithConstNoise(Mdl1, nEval, titleStr, PathVariables)
 %% Execute Parameter Sweep with Constant Variance
 nEval = 300;
 disp('Sweep kernel parameters with constant variance ...');
-sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
+%sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
 
 
 %% Execute Parameter Sweep with Constant Lengthscale
 nEval = 300;
 disp('Sweep kernel parameters with constant lengthscale ...');
-sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
+%sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
 
 
 %% Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise

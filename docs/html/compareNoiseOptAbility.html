@@ -1,0 +1,338 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>compareNoiseOptAbility</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-02"><meta name="DC.source" content="compareNoiseOptAbility.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>compareNoiseOptAbility</h1><!--introduction--><p>This scripts compares the ability in noise level optimization of GPR models against max and mean angle errors and number of refernce angles.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="optimGPR.html">optimGPR</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on May 02. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><h2 id="3">Start Script, Load Config and Read in Datasets</h2><pre class="codeinput">clc;
+disp(<span class="string">'Start GPR module demonstration ...'</span>);
+clearvars;
+close <span class="string">all</span>;
+
+disp(<span class="string">'Load config ...'</span>);
+load <span class="string">config.mat</span> <span class="string">PathVariables</span> <span class="string">GPROptions</span>;
+
+disp(<span class="string">'Search for datasets ...'</span>);
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, <span class="string">'Training*.mat'</span>));
+TestFiles = dir(fullfile(PathVariables.testDataPath, <span class="string">'Test*.mat'</span>));
+assert(~isempty(TrainFiles), <span class="string">'No training datasets found.'</span>);
+assert(~isempty(TestFiles), <span class="string">'No test datasets found.'</span>);
+assert(length(TrainFiles) == length(TestFiles), <span class="string">'Not equal number of datasets.'</span>);
+
+nDatasets = length(TrainFiles);
+</pre><h2 id="4">Load Datasets in a Loop and Measure Model Errors and Losses</h2><pre class="codeinput">MSLL = zeros(nDatasets, 2);
+mError = zeros(nDatasets, 2);
+xError = zeros(nDatasets, 2);
+nAngles =zeros(nDatasets, 1);
+<span class="keyword">for</span> i = 1:nDatasets
+    fprintf(<span class="string">'Load datasets: %d'</span>, i);
+    <span class="keyword">try</span>
+        TrainDS = load(fullfile(TrainFiles(i).folder, TrainFiles(i).name));
+        TestDS = load(fullfile(TestFiles(i).folder, TestFiles(i).name));
+
+    <span class="keyword">catch</span> ME
+        rethrow(ME)
+    <span class="keyword">end</span>
+
+    assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+    assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+    assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+    assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
+    disp(<span class="string">' check corresponding: pass'</span>);
+
+    nAngles(i) = TrainDS.Info.UseOptions.nAngles;
+
+    disp(<span class="string">'Init and rain models ...'</span>);
+    mdl0 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+
+    GPROptions.mean = <span class="string">'poly'</span>;
+    GPROptions.polyDegree = 1;
+    mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+
+    disp(<span class="string">'Compute erros losses ...'</span>);
+    absErr0 = lossDS(mdl0, TestDS);
+    absErr1 = lossDS(mdl1, TestDS);
+    MSLL(i,:) = [mdl0.MSLLA, mdl1.MSLLA];
+    mError(i,:) = [mean(absErr0), mean(absErr1)];
+    xError(i,:) = [max(absErr0), max(absErr1)];
+
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+</pre><h2 id="5">Plot Losses and Errors</h2><pre class="codeinput">n = 1:nDatasets;
+nLabels = string(nAngles);
+nLabels(2:2:end) = nan;
+
+figure(<span class="string">'Name'</span>, <span class="string">'MSLL and Errors'</span>, <span class="keyword">...</span>
+    <span class="string">'Units'</span>, <span class="string">'normalize'</span>, <span class="string">'OuterPosition'</span>, [0 0 1 1]);
+
+tiledlayout(2, 2, <span class="string">'TileSpacing'</span>, <span class="string">'normal'</span>);
+
+<span class="comment">% plot mean std. log. loss</span>
+nexttile([1 2]);
+
+hold <span class="string">on</span>;
+plot(n, MSLL(:, 1), <span class="string">'-*'</span>);
+plot(n, MSLL(:, 2), <span class="string">'-*'</span>);
+xlim([0 nDatasets + 1]);
+xticks(n);
+xticklabels(nLabels);
+xlabel(<span class="string">'$N_{Ref}$'</span>);
+ylabel(<span class="string">'$MSLL$'</span>);
+title(<span class="string">'a) Mean Std. Log. Loss by 720 Angles'</span>);
+
+<span class="comment">% plot mean errors</span>
+nexttile;
+
+hold <span class="string">on</span>;
+plot(n, mError(:, 1), <span class="string">'-*'</span>);
+plot(n, mError(:, 2), <span class="string">'-*'</span>);
+xlim([0 nDatasets + 1]);
+xticks(n);
+xticklabels(nLabels);
+xlabel(<span class="string">'$N_{Ref}$'</span>);
+ylabel(<span class="string">'$\mu(\epsilon_{abs})$ in $^\circ$'</span>);
+title(<span class="string">'b) Mean Error by 720 Test Angles'</span>);
+
+<span class="comment">% plot max errors</span>
+nexttile
+
+hold <span class="string">on</span>;
+plot(n, xError(:, 1), <span class="string">'-*'</span>);
+plot(n, xError(:, 2), <span class="string">'-*'</span>);
+xlim([0 nDatasets + 1]);
+xticks(n);
+xticklabels(nLabels);
+xlabel(<span class="string">'$N_{Ref}$'</span>);
+ylabel(<span class="string">'$\max\epsilon_{abs}$ in $^\circ$'</span>);
+title(<span class="string">'c) Max Error by 720 Test Angles'</span>);
+
+legend({<span class="string">'Zero Mean GPR'</span>, <span class="string">'Poly Mean GPR'</span>}, <span class="string">'Units'</span>, <span class="string">'normalized'</span>, <span class="keyword">...</span>
+    <span class="string">'Position'</span>, [.85 .48 .125 .07]);
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% compareNoiseOptAbility
+% This scripts compares the ability in noise level optimization of GPR models
+% against max and mean angle errors and number of refernce angles.
+%
+%
+%% Requirements
+% * Other m-files required: gaussianProcessRegression module files
+% * Subfunctions: none
+% * MAT-files required: data/config.mat, corresponding Training and Test dataset
+%
+%
+%% See Also
+% * <gaussianProcessRegression.html gaussianProcessRegression>
+% * <optimGPR.html optimGPR>
+% * <generateConfigMat.html generateConfigMat>
+%
+%
+% Created on May 02. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+%
+%% Start Script, Load Config and Read in Datasets
+clc;
+disp('Start GPR module demonstration ...');
+clearvars;
+close all;
+
+disp('Load config ...');
+load config.mat PathVariables GPROptions;
+
+disp('Search for datasets ...');
+TrainFiles = dir(fullfile(PathVariables.trainingDataPath, 'Training*.mat'));
+TestFiles = dir(fullfile(PathVariables.testDataPath, 'Test*.mat'));
+assert(~isempty(TrainFiles), 'No training datasets found.');
+assert(~isempty(TestFiles), 'No test datasets found.');
+assert(length(TrainFiles) == length(TestFiles), 'Not equal number of datasets.');
+
+nDatasets = length(TrainFiles);
+
+
+%% Load Datasets in a Loop and Measure Model Errors and Losses
+MSLL = zeros(nDatasets, 2);
+mError = zeros(nDatasets, 2);
+xError = zeros(nDatasets, 2);
+nAngles =zeros(nDatasets, 1);
+for i = 1:nDatasets
+    fprintf('Load datasets: %d', i);
+    try
+        TrainDS = load(fullfile(TrainFiles(i).folder, TrainFiles(i).name));
+        TestDS = load(fullfile(TestFiles(i).folder, TestFiles(i).name));
+
+    catch ME
+        rethrow(ME)
+    end
+
+    assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+    assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+    assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+    assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
+    disp(' check corresponding: pass');
+    
+    nAngles(i) = TrainDS.Info.UseOptions.nAngles;
+        
+    disp('Init and rain models ...');
+    mdl0 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+        
+    GPROptions.mean = 'poly';
+    GPROptions.polyDegree = 1;
+    mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    
+    disp('Compute erros losses ...');
+    absErr0 = lossDS(mdl0, TestDS);
+    absErr1 = lossDS(mdl1, TestDS);
+    MSLL(i,:) = [mdl0.MSLLA, mdl1.MSLLA];
+    mError(i,:) = [mean(absErr0), mean(absErr1)];
+    xError(i,:) = [max(absErr0), max(absErr1)];
+    
+    close all;
+end
+
+%% Plot Losses and Errors
+n = 1:nDatasets;
+nLabels = string(nAngles);
+nLabels(2:2:end) = nan;
+
+figure('Name', 'MSLL and Errors', ...
+    'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
+
+tiledlayout(2, 2, 'TileSpacing', 'normal');
+
+% plot mean std. log. loss
+nexttile([1 2]);
+
+hold on;
+plot(n, MSLL(:, 1), '-*');
+plot(n, MSLL(:, 2), '-*');
+xlim([0 nDatasets + 1]);
+xticks(n);
+xticklabels(nLabels);
+xlabel('$N_{Ref}$');
+ylabel('$MSLL$');
+title('a) Mean Std. Log. Loss by 720 Angles');
+
+% plot mean errors
+nexttile;
+
+hold on;
+plot(n, mError(:, 1), '-*');
+plot(n, mError(:, 2), '-*');
+xlim([0 nDatasets + 1]);
+xticks(n);
+xticklabels(nLabels);
+xlabel('$N_{Ref}$');
+ylabel('$\mu(\epsilon_{abs})$ in $^\circ$');
+title('b) Mean Error by 720 Test Angles');
+
+% plot max errors
+nexttile
+
+hold on;
+plot(n, xError(:, 1), '-*');
+plot(n, xError(:, 2), '-*');
+xlim([0 nDatasets + 1]);
+xticks(n);
+xticklabels(nLabels);
+xlabel('$N_{Ref}$');
+ylabel('$\max\epsilon_{abs}$ in $^\circ$');
+title('c) Max Error by 720 Test Angles');
+
+legend({'Zero Mean GPR', 'Poly Mean GPR'}, 'Units', 'normalized', ...
+    'Position', [.85 .48 .125 .07]);
+
+
+##### SOURCE END #####
+--></body></html>
