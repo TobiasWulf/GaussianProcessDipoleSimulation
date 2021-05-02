@@ -164,7 +164,11 @@ nexttile([2, 1]);
 colormap('jet');
 imagesc(Mdl1.Ky);
 axis square;
-colorbar;
+cb = colorbar;
+cb.TickLabelInterpreter = 'latex';
+cb.Label.Interpreter = 'latex';
+cb.Label.FontSize = 22;
+cb.Label.String = 'Autocorrelation Coeff.';
 xlabel('$j$');
 ylabel('i');
 title(sprintf('b) $K$-Matrix $%d \\times %d$ Samples', Mdl1.N, Mdl1.N))
@@ -174,8 +178,10 @@ nexttile;
 plot(angles, SLLA1, 'x-.');
 hold on;
 plot(angles, SLLR1, 'x-.');
+yline(Mdl1.MSLLA, 'k', 'LineWidth', 4.5);
+yline(Mdl1.MSLLA, 'g-.', 'LineWidth', 4.5);
 xlim([0 360]);
-legend({'$SLLA$' , '$SLLR$'});
+legend({'$SLLA$' , '$SLLR$', 'MSLLA', 'MSLLR'});
 xlabel('$\alpha$ in $^\circ$');
 ylabel('$SLL$');
 title(sprintf('c) $MSLLA = %1.2f$, $MSLLR = %1.2f$', mean(SLLA1), mean(SLLR1)));
@@ -217,7 +223,7 @@ nexttile;
 plot(angles, AAED0);
 hold on;
 plot(angles, AAED1);
-yline(mean(AAED1), 'k-.', 'LineWidth', 3.5)
+yline(mean(AAED1), 'k-.', 'LineWidth', 4.5)
 [~, idx] = max(AAED1);
 scatter(angles(idx), max(AAED1), 52, [0.8 0.8 0.8], ...
     'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1.5)
