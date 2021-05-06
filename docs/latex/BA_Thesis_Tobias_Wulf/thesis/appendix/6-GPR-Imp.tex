@@ -67,7 +67,7 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \clearpage
 
 
-\paragraph*{Trainingsdatensatz} definiert nach der kompakten Notation aus \cite{Rasmussen2006}. Ein Trainingsdatensatz $X$ beinhaltet alle Referenzwinkelstellungen $\alpha_i$ mit $X_i \mapsto \alpha_i$, nach der Beschreibung in \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos,i} = A_x$ und $X_{sin,i} = A_y$. Für die Implementierung mit \autoref{eq:de2innorm} müssen alle Trainingsdatenmatrizen normiert sein, sodass sich Vektoren als Trainingsdaten abbilden, siehe \autoref{eq:trainds}.
+\paragraph*{Der Trainingsdatensatz} ist definiert nach der kompakten Notation aus \citeauthor{Rasmussen2006}\cite{Rasmussen2006}. Ein Trainingsdatensatz $X$ beinhaltet alle Referenzwinkelstellungen $\alpha_i$ mit $X_i \mapsto \alpha_i$, nach der Beschreibung in \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos,i} = A_x$ und $X_{sin,i} = A_y$. Für die Implementierung mit \autoref{eq:de2innorm} müssen alle Trainingsdatenmatrizen normiert sein, sodass sich Vektoren als Trainingsdaten abbilden, siehe \autoref{eq:trainds}.
 
 
 \begin{align}\label{eq:trainds}
@@ -82,7 +82,7 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \end{align}
 
 
-\paragraph*{Testdatensatz} definiert in kompakter Schreibweise nach \cite{Rasmussen2006}. Ein Testdatensatz $X_*$ repräsentiert einen Testwinkel mit $X_* \mapsto \alpha_*$. Auch hier gilt, wie für Trainingsdatensätze $X_i \mapsto \alpha_i$, die Umschreibung nach \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos*} = A_x$ und $X_{sin*} = A_y$. Jeweils für die gewählte Implementierung ist auch hier eine Eingangsverarbeitung der Datensätze notwendig \autoref{eq:testds}, sodass die Implementierung nach \autoref{eq:de2innorm} mit Skalaren statt Matrizen arbeitet. 
+\paragraph*{Der Testdatensatz} ist analog zum Trainingsdatensatz definiert \cite{Rasmussen2006}. Ein Testdatensatz $X_*$ repräsentiert einen Testwinkel mit $X_* \mapsto \alpha_*$. Auch hier gilt, wie für Trainingsdatensätze $X_i \mapsto \alpha_i$, die Umschreibung nach \autoref{sec:prinzip-des-sensor-arrays} mit $X_{cos*} = A_x$ und $X_{sin*} = A_y$. Jeweils für die gewählte Implementierung ist auch hier eine Eingangsverarbeitung der Datensätze notwendig \autoref{eq:testds}, sodass die Implementierung nach \autoref{eq:de2innorm} mit Skalaren statt Matrizen arbeitet. 
 
 
 \begin{align}\label{eq:testds}
@@ -108,7 +108,7 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \end{align}
 
 
-\paragraph*{Kernel-Funktion} als Kernelement des Regressionsverfahren für Gauß'sche Prozesse \cite{Rasmussen2006}. Es sind zwei Versionen nach gleichen Vorbild der fraktalen Kovarianz \cite{Schuethe2020b}\cite{Schuethe2020}  implementiert. Die Implementierung mittels \autoref{eq:df2} resultiert aus den Vorarbeiten der \gls{gl:ags} und stellt die genaue Lösung dar und arbeitet direkt mit Matrizen als Trainingsdaten. Die Implementierung nach mit \autoref{eq:de2innorm} ist innerhalb dieser Arbeit entstanden und bedingt ein vorab Prozessieren der Trainingsdaten zu Vektoren. Ebenfalls müssen weitere Testdaten eingangs zu skalaren verarbeitet werden. Dazu wird die Frobenius-Norm aus \autoref{eq:fnorm} verwendet. Die Implementierung nach \autoref{eq:de2innorm} folgt dem Beispiel, aus einer Veröffentlichung der TU-München \cite{Lang2014}, für die Anwendung der Gauß-Prozess-Regression auf Themenfeld der Robotik.
+\paragraph*{Kernel-Funktion} als Kernelement des Regressionsverfahren für Gauß'sche Prozesse \cite{Rasmussen2006}. Es sind zwei Versionen nach gleichen Vorbild der fraktalen Kovarianz \cite{Schuethe2020b}\cite{Schuethe2020}  implementiert. Die Implementierung mittels \autoref{eq:df2} resultiert aus den Vorarbeiten der \gls{gl:ags} und stellt die genaue Lösung dar und arbeitet direkt mit Matrizen als Trainingsdaten. Die Implementierung nach mit \autoref{eq:de2innorm} ist innerhalb dieser Arbeit entstanden und bedingt ein vorab Prozessieren der Trainingsdaten zu Vektoren. Ebenfalls müssen weitere Testdaten eingangs zu skalaren verarbeitet werden. Dazu wird die Frobenius-Norm aus \autoref{eq:fnorm} verwendet. Die Implementierung nach \autoref{eq:de2innorm} folgt dem Beispiel aus der Veröffentlichung von \citeauthor{Lang2014}\cite{Lang2014} für die Anwendung der Gauß-Prozess-Regression auf Themenfeld der Robotik.
 
 
 \begin{align}\label{eq:kfun}
