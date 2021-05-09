@@ -27,7 +27,7 @@
 %
 %% Start Script, Load Config and Read in Datasets
 clc;
-disp('Start GPR module demonstration ...');
+disp('Start compare noise optimization ability ...');
 clearvars;
 close all;
 

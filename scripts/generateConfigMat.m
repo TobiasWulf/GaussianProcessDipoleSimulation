@@ -285,7 +285,7 @@ TrainingOptions.useCase = 'Training';
 % Loop parameters.
 TrainingOptions.xPos = [0,];
 TrainingOptions.yPos = [0,];
-TrainingOptions.zPos = [7,];
+TrainingOptions.zPos = [7.5,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TrainingOptions.tilt = 0;
@@ -346,7 +346,7 @@ TestOptions.useCase = 'Test';
 % Loop parameter.
 TestOptions.xPos = [0,];
 TestOptions.yPos = [0,];
-TestOptions.zPos = [7,];
+TestOptions.zPos = [7.5,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
 TestOptions.tilt = 0;
@@ -430,8 +430,8 @@ GPROptions.theta = [1, 1];
 % the point evaluated as bad set point. If the bound are to wide in relation of
 % number in dataset variousity the mean error raises. The model is to complex
 % then. Try to keep up simple modles.
-GPROptions.s2fBounds = [1, 10];
-GPROptions.slBounds = [10, 30];
+GPROptions.s2fBounds = [0.1, 100];
+GPROptions.slBounds = [0.1, 100];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
@@ -448,7 +448,7 @@ GPROptions.s2nBounds = [1e-6, 1e-4];
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 10;
+GPROptions.OptimRuns = 1;
 
 
 % Set standardized logarithmic loss for bayes optimization of s2n with MSLL.

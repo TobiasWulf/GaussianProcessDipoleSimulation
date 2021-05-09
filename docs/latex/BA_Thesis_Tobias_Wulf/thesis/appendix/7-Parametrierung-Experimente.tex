@@ -94,6 +94,31 @@ Abweichende Parameter:
 \begin{itemize}
 	\item TrainingsOptions: nAngles: 17
 	\item GRPOptions: kernel : 'QFCAPX'
-	\item $\sigma$-Parameter-Bounds im Experiment angepasst
-	\item OptimRuns verringert
+	\item $\sigma_f^2$-Bounds: $(1,10)$
+	\item $\sigma_l$-Bounds: $(10,30)$
+	\item $\sigma_n^2$-Bounds: $(10^{-6},10^{-4})$
+	\item GPROptions: mean: 'zero'
+	\item OptimRuns 10
 \end{itemize}
+
+
+\section{Verhalten bei einfachen Fehllagen}\label{sec:paramexp5}
+
+
+Abweichende Parameter:
+
+Referenzposition (0,0,7.5)
+
+\begin{itemize}
+	\item TrainingsOptions: nAngles: 17
+	\item TrainingsOptions/ TestOptions: xPos/ yPos: $-3:0,25:3$
+	\item TrainingsOptions/ TestOptions: zPos: $4,5:0,25:10,5$
+	\item TrainingsOptions/ TestOptions: tilt: $0:1:25$
+	\item GRPOptions: kernel : 'QFCAPX'
+	\item $\sigma_f^2$-Bounds: $(0.1,100)$
+	\item $\sigma_l$-Bounds: $(0.1,100)$
+	\item $\sigma_n^2$-Bounds: $(10^{-6},10^{-2})$
+	\item GPROptions: mean: 'zero'
+	\item OptimRuns 20
+\end{itemize}
+

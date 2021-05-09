@@ -29,7 +29,7 @@
 %
 %% Start Script, Load Config and Read in Datasets
 clc;
-disp('Start GPR module demonstration ...');
+disp('Start kernel parameter investigation ...');
 clearvars;
 %close all;
 

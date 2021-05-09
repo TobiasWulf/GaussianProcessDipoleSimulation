@@ -69,11 +69,11 @@ end
 % Generate training dataset from configuration and characterization dataset.
 disp('Generate training datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset);
 
 
 %% Generate Test Datasets
 % Generate test dataset from configuration and characterization dataset.
 disp('Generate test datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)
+    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset);
