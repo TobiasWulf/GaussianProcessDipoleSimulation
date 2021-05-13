@@ -441,14 +441,14 @@ GPROptions.s2n = 1e-04;
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-6, 1e-4];
+GPROptions.s2nBounds = [1e-8, 1e-2];
 
 
 % Set number of outer optimization runs. For wide parameter bounds it is
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 1;
+GPROptions.OptimRuns = 30;
 
 
 % Set standardized logarithmic loss for bayes optimization of s2n with MSLL.

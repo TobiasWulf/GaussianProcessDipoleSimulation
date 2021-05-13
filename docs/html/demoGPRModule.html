@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>demoGPRModule</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-02"><meta name="DC.source" content="demoGPRModule.m"><style type="text/css">
+      --><title>demoGPRModule</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-13"><meta name="DC.source" content="demoGPRModule.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -141,7 +141,7 @@ angles = TestDS.Data.angles';
 ticks = Mdl1.Angles;
 titleStr = <span class="string">"Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$,"</span> + <span class="keyword">...</span>
     <span class="string">" $\\sigma_n^2 = %1.2e$, $N = %d$\n"</span> +<span class="keyword">...</span>
-    <span class="string">"$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm,"</span> + <span class="keyword">...</span>
+    <span class="string">"$%d \\times %d$ Sensor-Array, Position: $(%1.1f,%1.1f,-%1.1f)$ mm,"</span> + <span class="keyword">...</span>
     <span class="string">" Magnet Tilt: $%2.1f^\\circ$"</span>;
 titleStr = sprintf(titleStr, <span class="keyword">...</span>
     Mdl1.kernel, Mdl1.theta(1), Mdl1.theta(2), Mdl1.s2n, <span class="keyword">...</span>
@@ -174,7 +174,11 @@ nexttile([2, 1]);
 colormap(<span class="string">'jet'</span>);
 imagesc(Mdl1.Ky);
 axis <span class="string">square</span>;
-colorbar;
+cb = colorbar;
+cb.TickLabelInterpreter = <span class="string">'latex'</span>;
+cb.Label.Interpreter = <span class="string">'latex'</span>;
+cb.Label.FontSize = 22;
+cb.Label.String = <span class="string">'Autocorrelation Coeff.'</span>;
 xlabel(<span class="string">'$j$'</span>);
 ylabel(<span class="string">'i'</span>);
 title(sprintf(<span class="string">'b) $K$-Matrix $%d \\times %d$ Samples'</span>, Mdl1.N, Mdl1.N))
@@ -184,8 +188,10 @@ nexttile;
 plot(angles, SLLA1, <span class="string">'x-.'</span>);
 hold <span class="string">on</span>;
 plot(angles, SLLR1, <span class="string">'x-.'</span>);
+yline(Mdl1.MSLLA, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 4.5);
+yline(Mdl1.MSLLA, <span class="string">'g-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
 xlim([0 360]);
-legend({<span class="string">'$SLLA$'</span> , <span class="string">'$SLLR$'</span>});
+legend({<span class="string">'$SLLA$'</span> , <span class="string">'$SLLR$'</span>, <span class="string">'MSLLA'</span>, <span class="string">'MSLLR'</span>});
 xlabel(<span class="string">'$\alpha$ in $^\circ$'</span>);
 ylabel(<span class="string">'$SLL$'</span>);
 title(sprintf(<span class="string">'c) $MSLLA = %1.2f$, $MSLLR = %1.2f$'</span>, mean(SLLA1), mean(SLLR1)));
@@ -227,7 +233,7 @@ nexttile;
 plot(angles, AAED0);
 hold <span class="string">on</span>;
 plot(angles, AAED1);
-yline(mean(AAED1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 3.5)
+yline(mean(AAED1), <span class="string">'k-.'</span>, <span class="string">'LineWidth'</span>, 4.5)
 [~, idx] = max(AAED1);
 scatter(angles(idx), max(AAED1), 52, [0.8 0.8 0.8], <span class="keyword">...</span>
     <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1.5)
@@ -386,7 +392,7 @@ angles = TestDS.Data.angles';
 ticks = Mdl1.Angles;
 titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
     " $\\sigma_n^2 = %1.2e$, $N = %d$\n" +...
-    "$%d \\times %d$ Sensor-Array, Posistion: $(%1.1f,%1.1f,-%1.1f)$ mm," + ...
+    "$%d \\times %d$ Sensor-Array, Position: $(%1.1f,%1.1f,-%1.1f)$ mm," + ...
     " Magnet Tilt: $%2.1f^\\circ$";
 titleStr = sprintf(titleStr, ...
     Mdl1.kernel, Mdl1.theta(1), Mdl1.theta(2), Mdl1.s2n, ...
@@ -419,7 +425,11 @@ nexttile([2, 1]);
 colormap('jet');
 imagesc(Mdl1.Ky);
 axis square;
-colorbar;
+cb = colorbar;
+cb.TickLabelInterpreter = 'latex';
+cb.Label.Interpreter = 'latex';
+cb.Label.FontSize = 22;
+cb.Label.String = 'Autocorrelation Coeff.';
 xlabel('$j$');
 ylabel('i');
 title(sprintf('b) $K$-Matrix $%d \\times %d$ Samples', Mdl1.N, Mdl1.N))
@@ -429,8 +439,10 @@ nexttile;
 plot(angles, SLLA1, 'x-.');
 hold on;
 plot(angles, SLLR1, 'x-.');
+yline(Mdl1.MSLLA, 'k', 'LineWidth', 4.5);
+yline(Mdl1.MSLLA, 'g-.', 'LineWidth', 4.5);
 xlim([0 360]);
-legend({'$SLLA$' , '$SLLR$'});
+legend({'$SLLA$' , '$SLLR$', 'MSLLA', 'MSLLR'});
 xlabel('$\alpha$ in $^\circ$');
 ylabel('$SLL$');
 title(sprintf('c) $MSLLA = %1.2f$, $MSLLR = %1.2f$', mean(SLLA1), mean(SLLR1)));
@@ -472,7 +484,7 @@ nexttile;
 plot(angles, AAED0);
 hold on;
 plot(angles, AAED1);
-yline(mean(AAED1), 'k-.', 'LineWidth', 3.5)
+yline(mean(AAED1), 'k-.', 'LineWidth', 4.5)
 [~, idx] = max(AAED1);
 scatter(angles(idx), max(AAED1), 52, [0.8 0.8 0.8], ...
     'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 1.5)

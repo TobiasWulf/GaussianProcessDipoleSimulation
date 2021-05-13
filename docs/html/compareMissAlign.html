@@ -1,0 +1,1504 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: {extensions: ["mhchem.js"]},
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            CommonHTML: {minScaleAdjust: 110,},
+            "HTML-CSS": {
+                availableFonts: ["TeX"],
+                scale: 110
+            }
+        });
+        MathJax.Hub.Queue(["Rerender", MathJax.Hub], function () {window.status="finished"});
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>compareMissAlign</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-13"><meta name="DC.source" content="compareMissAlign.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>compareMissAlign</h1><!--introduction--><div><ol><li>Create reference dataset to compare against drift and retraining. Reference   Position.</li><li>Create same number of drift datasets for each drift in x,y,z and tilt drift.   Position drifts in x,y,z must have the same drift steps diverging from the   reference position to match a drift plots. Tilt drift is assigned to a   separate axis.</li><li>Execute this script and ensure dataset chaining. First dataset is reference   dataset, second bunch must be drift in x, third bunch in drift in y, fourth   bunch drift in z and fifth bunch drift in tilt. So loaded file pattern   schould have following indices for e.g. 25 drift iterations each:</li></ol></div><div><ul><li>(1) reference dataset</li><li>(2-26) drift in x</li><li>(27-51) drift in y</li><li>(52-76) drift in z</li><li>(77-101) drift in tilt</li></ul></div><p>Script forces simulation to run with TDK characterization dataset. Identifier is set manually to TDK.</p><!--/introduction--><h2 id="1">Requirements</h2><div><ul><li>Other m-files required: gaussianProcessRegression module files</li><li>Subfunctions: none</li><li>MAT-files required: data/config.mat, corresponding Training and Test dataset</li></ul></div><h2 id="2">See Also</h2><div><ul><li><a href="gaussianProcessRegression.html">gaussianProcessRegression</a></li><li><a href="initGPR.html">initGPR</a></li><li><a href="tuneGPR.html">tuneGPR</a></li><li><a href="optimGPR.html">optimGPR</a></li><li><a href="generateConfigMat.html">generateConfigMat</a></li></ul></div><p>Created on May 06. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.</p><p>
+<!--
+Hidden Clutter.
+Edited on Month DD. YYYY by Editor: Single line description.
+-->
+</p><h2 id="3">Start Script and Clear All</h2><pre class="codeinput">clc;
+disp(<span class="string">'Start compare miss align ...'</span>);
+disp(<span class="string">'Clear all ...'</span>);
+clearvars;
+close <span class="string">all</span>;
+deleteSimulationDatasets;
+</pre><h2 id="4">Declare Reference Position and Drift Vectors</h2><pre class="codeinput">disp(<span class="string">'Declare reference and drift ...'</span>);
+refX      = 0;
+refY      = 0;
+refZ      = 7.5;
+refTilt   = 0;
+driftX    = -3:0.25:3;
+driftY    = -3:0.25:3;
+driftZ    = 4.5:0.25:10.5;
+driftTilt = 0:0.5:12;
+</pre><h2 id="5">Declare Common Variables</h2><pre class="codeinput">disp(<span class="string">'Declare common vars ...'</span>);
+trainPath   = PathVariables.trainingDataPath;
+testPath    = PathVariables.testDataPath;
+maxErrorTDK = 0.6;
+errorTick   = [1e-1 1 10 1e2];
+</pre><h2 id="6">Calculated Datasets Indices on Drift Parameter</h2><pre class="codeinput">disp(<span class="string">'Numbering drift sets ...'</span>);
+driftXN    = length(driftX);
+driftYN    = length(driftY);
+driftZN    = length(driftZ);
+driftTiltN = length(driftTilt);
+driftAllN  = driftXN + driftYN + driftZN + driftTiltN;
+fprintf(<span class="string">'Overall drifts: %d ...'</span>, driftAllN);
+
+assert(driftXN == driftYN,    <span class="string">'Inbalance drift in x2y'</span>)
+assert(driftXN == driftZN,    <span class="string">'Inbalance drift in x2z'</span>)
+assert(driftXN == driftTiltN, <span class="string">'Inbalance drift in x2tilt'</span>)
+disp(<span class="string">'Number of drift iterations equals: pass ...'</span>);
+
+disp(<span class="string">'Index drift set ...'</span>);
+refIndex       = 1;
+driftXIndex    = refIndex + 1       : driftXN    + refIndex;
+driftYIndex    = driftXIndex(end) + 1 : driftYN    + driftXIndex(end);
+driftZIndex    = driftYIndex(end) + 1 : driftZN    + driftYIndex(end);
+driftTiltIndex = driftZIndex(end) + 1 : driftTiltN + driftZIndex(end);
+</pre><h2 id="7">Allocate Memory for Error and Parameter Drifts [X, Y, Z, Tilt]</h2><pre class="codeinput">disp(<span class="string">'Allocate memory ...'</span>);
+meanError2Ref       = zeros(driftXN, 4);
+maxError2Ref        = zeros(driftXN, 4);
+meanError2Retrained = zeros(driftXN, 4);
+maxError2Retrained  = zeros(driftXN, 4);
+s2nParamDrift       = zeros(driftXN, 4);
+s2fParamDrift       = zeros(driftXN, 4);
+slParamDrift        = zeros(driftXN, 4);
+</pre><h2 id="8">Load Config</h2><pre class="codeinput">disp(<span class="string">'Load config ...'</span>);
+load <span class="string">config.mat</span> <span class="string">PathVariables</span>  <span class="string">GeneralOptions</span> <span class="string">SensorArrayOptions</span> <span class="keyword">...</span>
+    <span class="string">DipoleOptions</span> <span class="string">TrainingOptions</span> <span class="string">TestOptions</span> <span class="string">GPROptions</span>;
+</pre><h2 id="9">Load TDK Characterization Dataset and Set Base Reference in Options</h2><pre class="codeinput">disp(<span class="string">'Load TDK characterization dataset ...'</span>);
+
+CharDS = load(PathVariables.tdkDatasetPath);
+
+TrainingOptions.BaseReference = <span class="string">'TDK'</span>;
+TestOptions.BaseReference     = <span class="string">'TDK'</span>;
+</pre><h2 id="10">Generate Reference Datasets</h2><pre class="codeinput">disp(<span class="string">'Set reference position ...'</span>);
+TrainingOptions.xPos = refX;
+TrainingOptions.yPos = refY;
+TrainingOptions.zPos = refZ;
+TrainingOptions.tilt = refTilt;
+
+TestOptions.xPos = TrainingOptions.xPos;
+TestOptions.yPos = TrainingOptions.yPos;
+TestOptions.zPos = TrainingOptions.zPos;
+TestOptions.tilt = TrainingOptions.tilt;
+
+disp(<span class="string">'Generate reference datasets ...'</span>);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+</pre><h2 id="11">Generate X Drift Datasets</h2><pre class="codeinput">disp(<span class="string">'Set x drift positions ...'</span>);
+TrainingOptions.xPos = driftX;
+<span class="comment">% TrainingOptions.yPos = refY;</span>
+<span class="comment">% TrainingOptions.zPos = refZ;</span>
+<span class="comment">% TrainingOptions.tilt = refTilt;</span>
+
+TestOptions.xPos = TrainingOptions.xPos;
+<span class="comment">% TestOptions.yPos = TrainingOptions.yPos;</span>
+<span class="comment">% TestOptions.zPos = TrainingOptions.zPos;</span>
+<span class="comment">% TestOptions.tilt = TrainingOptions.tilt;</span>
+
+disp(<span class="string">'Generate x drift datasets ...'</span>);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+</pre><h2 id="12">Generate Y Drift Datasets</h2><pre class="codeinput">disp(<span class="string">'Set y drift positions ...'</span>);
+TrainingOptions.xPos = refX;
+TrainingOptions.yPos = driftY;
+<span class="comment">% TrainingOptions.zPos = refZ;</span>
+<span class="comment">% TrainingOptions.tilt = refTilt;</span>
+
+TestOptions.xPos = TrainingOptions.xPos;
+TestOptions.yPos = TrainingOptions.yPos;
+<span class="comment">% TestOptions.zPos = TrainingOptions.zPos;</span>
+<span class="comment">% TestOptions.tilt = TrainingOptions.tilt;</span>
+
+disp(<span class="string">'Generate y drift datasets ...'</span>);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+</pre><h2 id="13">Generate Z Drift Datasets</h2><pre class="codeinput">disp(<span class="string">'Set z drift positions ...'</span>);
+<span class="comment">% TrainingOptions.xPos = refX;</span>
+TrainingOptions.yPos = refY;
+TrainingOptions.zPos = driftZ;
+<span class="comment">% TrainingOptions.tilt = refTilt;</span>
+
+<span class="comment">% TestOptions.xPos = TrainingOptions.xPos;</span>
+TestOptions.yPos = TrainingOptions.yPos;
+TestOptions.zPos = TrainingOptions.zPos;
+<span class="comment">% TestOptions.tilt = TrainingOptions.tilt;</span>
+
+disp(<span class="string">'Generate z drift datasets ...'</span>);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+</pre><h2 id="14">Generate Tilt Drift Datasets</h2><pre class="codeinput">disp(<span class="string">'Set tilt drift positions ...'</span>);
+<span class="comment">% TrainingOptions.xPos = refX;</span>
+<span class="comment">% TrainingOptions.yPos = refY;</span>
+TrainingOptions.zPos = refZ;
+<span class="comment">% TrainingOptions.tilt = refTilt;</span>
+
+<span class="comment">% TestOptions.xPos = TrainingOptions.xPos;</span>
+<span class="comment">% TestOptions.yPos = TrainingOptions.yPos;</span>
+TestOptions.zPos = TrainingOptions.zPos;
+<span class="comment">% TestOptions.tilt = TrainingOptions.tilt;</span>
+
+disp(<span class="string">'Generate tilt drift datasets ...'</span>);
+<span class="keyword">for</span> tilt = driftTilt
+    TrainingOptions.tilt = tilt;
+    TestOptions.tilt     = tilt;
+
+    simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+        SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+    simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
+        SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+<span class="keyword">end</span>
+</pre><h2 id="15">Reload Path of Generated Datasets</h2><pre class="codeinput">disp(<span class="string">'Scanning directories ...'</span>);
+TrainFiles = dir(fullfile(trainPath, <span class="string">'Training*.mat'</span>));
+TestFiles  = dir(fullfile(testPath, <span class="string">'Test*.mat'</span>));
+
+TrainFilesN = length(TrainFiles);
+TestFilesN  = length(TestFiles);
+
+assert(TrainFilesN == TestFilesN, <span class="string">'Inbalance in files.'</span>);
+disp(<span class="string">'Data is consistent ...'</span>);
+</pre><h2 id="16">Load Reference Datasets Train Reference Model</h2><pre class="codeinput">fprintf(<span class="string">'Load datasets (%d) ...\n'</span>, refIndex);
+TrainDS = load(fullfile(trainPath, TrainFiles(refIndex).name));
+TestDS  = load(fullfile(testPath, TestFiles(refIndex).name));
+</pre><h2 id="17">Train Reference Model on Reference Datasets</h2><pre class="codeinput">disp(<span class="string">'Train model in reference position ...'</span>)
+RefMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+close <span class="string">all</span>;
+</pre><h2 id="18">Run Drift in X</h2><pre class="codeinput">disp(<span class="string">'Run drift in x'</span>);
+iDrift = 1;
+<span class="keyword">for</span> iFile = driftXIndex
+    fprintf(<span class="string">'Load datasets (%d) ...\n'</span>, iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+
+    fprintf(<span class="string">'Measure errors x drift %.2f to ref ...\n'</span>, driftX(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 1) = mean(absError2Ref);
+    maxError2Ref(iDrift, 1)  = max(absError2Ref);
+
+    disp(<span class="string">'Retrain model on drift position ...'</span>);
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close <span class="string">all</span>;
+
+    disp(<span class="string">'Measure errors on retrained model ...'</span>)
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 1) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 1)  = max(absErrorRetrained);
+
+    disp(<span class="string">'Track model parameters'</span>);
+    s2nParamDrift(iDrift, 1) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 1) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 1)  = RetrainedMdl.theta(2);
+
+    iDrift = iDrift + 1;
+<span class="keyword">end</span>
+</pre><h2 id="19">Run Drift in Y</h2><pre class="codeinput">disp(<span class="string">'Run drift in y'</span>);
+iDrift = 1;
+<span class="keyword">for</span> iFile = driftYIndex
+    fprintf(<span class="string">'Load datasets (%d) ...\n'</span>, iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+
+    fprintf(<span class="string">'Measure errors y drift %.2f to ref ...\n'</span>, driftY(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 2) = mean(absError2Ref);
+    maxError2Ref(iDrift, 2)  = max(absError2Ref);
+
+    disp(<span class="string">'Retrain model on drift position ...'</span>);
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close <span class="string">all</span>;
+
+    disp(<span class="string">'Measure errors on retrained model ...'</span>)
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 2) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 2)  = max(absErrorRetrained);
+
+    disp(<span class="string">'Track model parameters'</span>);
+    s2nParamDrift(iDrift, 2) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 2) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 2)  = RetrainedMdl.theta(2);
+
+    iDrift = iDrift + 1;
+<span class="keyword">end</span>
+</pre><h2 id="20">Run Drift in Z</h2><pre class="codeinput">disp(<span class="string">'Run drift in z'</span>);
+iDrift = 1;
+<span class="keyword">for</span> iFile = driftZIndex
+    fprintf(<span class="string">'Load datasets (%d) ...\n'</span>, iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+
+    fprintf(<span class="string">'Measure errors z drift %.2f to ref ...\n'</span>, driftZ(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 3) = mean(absError2Ref);
+    maxError2Ref(iDrift, 3)  = max(absError2Ref);
+
+    disp(<span class="string">'Retrain model on drift position ...'</span>);
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close <span class="string">all</span>;
+
+    disp(<span class="string">'Measure errors on retrained model ...'</span>)
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 3) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 3)  = max(absErrorRetrained);
+
+    disp(<span class="string">'Track model parameters'</span>);
+    s2nParamDrift(iDrift, 3) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 3) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 3)  = RetrainedMdl.theta(2);
+
+    iDrift = iDrift + 1;
+<span class="keyword">end</span>
+</pre><h2 id="21">Run Drift in Tilt</h2><pre class="codeinput">disp(<span class="string">'Run drift in tilt'</span>);
+iDrift = 1;
+<span class="keyword">for</span> iFile = driftTiltIndex
+    fprintf(<span class="string">'Load datasets (%d) ...\n'</span>, iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+
+    fprintf(<span class="string">'Measure errors tilt drift %.2f to ref ...\n'</span>, driftTilt(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 4) = mean(absError2Ref);
+    maxError2Ref(iDrift, 4)  = max(absError2Ref);
+
+    disp(<span class="string">'Retrain model on drift position ...'</span>);
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close <span class="string">all</span>;
+
+    disp(<span class="string">'Measure errors on retrained model ...'</span>)
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 4) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 4)  = max(absErrorRetrained);
+
+    disp(<span class="string">'Track model parameters'</span>);
+    s2nParamDrift(iDrift, 4) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 4) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 4)  = RetrainedMdl.theta(2);
+
+    iDrift = iDrift + 1;
+<span class="keyword">end</span>
+</pre><h2 id="22">Plot Drift Errors</h2><pre class="codeinput"><span class="comment">% clc; close all;</span>
+
+figure(<span class="string">'Name'</span>, <span class="string">'Errors'</span>, <span class="string">'Units'</span>, <span class="string">'normalize'</span>, <span class="string">'OuterPosition'</span>, [0 0 1 1]);
+t = tiledlayout(1, 4);
+bgAx = axes(t,<span class="string">'XTick'</span>,[],<span class="string">'YTick'</span>,[],<span class="string">'Box'</span>,<span class="string">'off'</span>);
+bgAx.Layout.TileSpan = [1 4];
+
+<span class="comment">% plot drift in x</span>
+ax1 = axes(t);
+ax1.Box = <span class="string">'off'</span>;
+driftXTick = 1:driftXN;
+
+hold <span class="string">on</span>;
+yline(ax1, find(driftX == refX), <span class="string">'--'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax1, maxErrorTDK, <span class="string">'r'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax1, meanError2Ref(:,1), driftXTick', <span class="string">'mo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax1, maxError2Ref(:,1), driftXTick', <span class="string">'bo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax1, meanError2Retrained(:,1), driftXTick', <span class="string">'ms-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax1, maxError2Retrained(:,1), driftXTick', <span class="string">'bs-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+
+[minMeanErrX, iMeanErrX] = min(meanError2Retrained(:,1));
+s1 = scatter(ax1, minMeanErrX, iMeanErrX, 120, <span class="string">'ys'</span>, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="keyword">...</span>
+    <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+[minMaxErrX, iMaxErrX] = min(maxError2Retrained(:,1));
+s2 = scatter(ax1, minMaxErrX, iMaxErrX, 120, <span class="string">'gs'</span>, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="keyword">...</span>
+    <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+yticks(ax1, driftXTick);
+ylim(ax1, [0 driftXN + 1]);
+yticklabels(ax1, driftX);
+ax1.YTickLabel(2:2:end) = {<span class="string">''</span>};
+<span class="comment">% ax1.YTickLabel(3:4:end) = {''};</span>
+
+ax1.XAxis.Scale = <span class="string">'log'</span>;
+xticks(ax1, errorTick);
+xlim(ax1, [0.04 400]);
+
+xlabel(ax1, <span class="string">'$\epsilon_{abs}$ in $^\circ$'</span>);
+ylabel(ax1, sprintf(<span class="string">'Drift from Ref.: $(%.1f,%.1f,%.1f)^T$ mm, $%.1f^\\circ$'</span>, <span class="keyword">...</span>
+    refX, refY, refZ, refTilt)),
+
+subtitle(ax1, <span class="string">'Drift x in $0.25$ mm Steps'</span>);
+
+<span class="comment">% plot drift in y</span>
+ax2 = axes(t);
+ax2.Layout.Tile = 2;
+ax2.YAxis.Visible = <span class="string">'on'</span>;
+ax2.Box = <span class="string">'off'</span>;
+
+driftYTick = 1:driftYN;
+
+hold <span class="string">on</span>;
+yline(ax2, find(driftY == refY), <span class="string">'--'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax2, maxErrorTDK, <span class="string">'r'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax2, meanError2Ref(:,2), driftYTick', <span class="string">'mo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax2, maxError2Ref(:,2), driftYTick', <span class="string">'bo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax2, meanError2Retrained(:,2), driftYTick', <span class="string">'ms-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax2, maxError2Retrained(:,2), driftYTick', <span class="string">'bs-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+
+[minMeanErrY, iMeanErrY] = min(meanError2Retrained(:,2));
+s3 = scatter(ax2, minMeanErrY, iMeanErrY, 140, <span class="string">'yh'</span>, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="keyword">...</span>
+    <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+[minMaxErrY, iMaxErrY] = min(maxError2Retrained(:,2));
+s4 = scatter(ax2, minMaxErrY, iMaxErrY, 140, <span class="string">'gh'</span>, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="keyword">...</span>
+    <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+yticks(ax2, driftYTick);
+ylim(ax2, [0 driftYN + 1]);
+yticklabels(ax2, driftY);
+ax2.YTickLabel(2:2:end) = {<span class="string">''</span>};
+<span class="comment">% ax2.YTickLabel(3:4:end) = {''};</span>
+
+ax2.XAxis.Scale = <span class="string">'log'</span>;
+xticks(ax2, errorTick);
+xlim(ax2, [0.04 400]);
+
+xlabel(ax2, <span class="string">'$\epsilon_{abs}$ in $^\circ$'</span>);
+
+subtitle(ax2, <span class="string">'Drift y in $0.25$ mm Steps'</span>);
+
+<span class="comment">% Link the axes</span>
+linkaxes([ax1 ax2], <span class="string">'y'</span>)
+
+<span class="comment">% plot drift in y</span>
+ax3 = axes(t);
+ax3.Layout.Tile = 3;
+ax3.YAxis.Visible = <span class="string">'on'</span>;
+ax3.Box = <span class="string">'off'</span>;
+
+driftZTick = 1:driftZN;
+
+hold <span class="string">on</span>;
+yline(ax3, find(driftZ == refZ), <span class="string">'--'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax3, maxErrorTDK, <span class="string">'r'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax3, meanError2Ref(:,3), driftZTick', <span class="string">'mo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax3, maxError2Ref(:,3), driftZTick', <span class="string">'bo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax3, meanError2Retrained(:,3), driftZTick', <span class="string">'ms-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax3, maxError2Retrained(:,3), driftZTick', <span class="string">'bs-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+
+[minMeanErrZ, iMeanErrZ] = min(meanError2Retrained(:,3));
+s5 = scatter(ax3, minMeanErrZ, iMeanErrZ, 120, <span class="string">'yd'</span>, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="keyword">...</span>
+    <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+[minMaxErrZ, iMaxErrZ] = min(maxError2Retrained(:,3));
+s6 = scatter(ax3, minMaxErrZ, iMaxErrZ, 120, <span class="string">'gd'</span>, <span class="string">'filled'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="keyword">...</span>
+    <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+yticks(ax3, driftZTick);
+ylim(ax3, [0 driftZN + 1]);
+yticklabels(ax3, driftZ);
+ax3.YTickLabel(2:2:end) = {<span class="string">''</span>};
+<span class="comment">% ax3.YTickLabel(3:4:end) = {''};</span>
+
+ax3.XAxis.Scale = <span class="string">'log'</span>;
+xticks(ax3, errorTick);
+xlim(ax3, [0.04 400]);
+
+xlabel(ax3, <span class="string">'$\epsilon_{abs}$ in $^\circ$'</span>);
+
+subtitle(ax3, <span class="string">'Drift z in $0.25$ mm Steps'</span>);
+
+<span class="comment">% plot drift in tilt</span>
+ax4 = axes(t);
+ax4.Layout.Tile = 4;
+ax4.YAxis.Visible = <span class="string">'on'</span>;
+ax4.Box = <span class="string">'off'</span>;
+
+driftTiltTick = 1:driftTiltN;
+
+hold <span class="string">on</span>;
+l1 = yline(ax4, find(driftTilt == refTilt), <span class="string">'--'</span>, <span class="string">'LineWidth'</span>, 4.5);
+l2 = xline(ax4, maxErrorTDK, <span class="string">'r'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+p1 = plot(ax4, meanError2Ref(:,4), driftTiltTick', <span class="string">'mo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+p2 = plot(ax4, maxError2Ref(:,4), driftTiltTick', <span class="string">'bo:'</span>, <span class="string">'LineWidth'</span>, 3.5);
+p3 = plot(ax4, meanError2Retrained(:,4), driftTiltTick', <span class="string">'ms-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+p4= plot(ax4, maxError2Retrained(:,4), driftTiltTick', <span class="string">'bs-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+
+[minMeanErrTilt, iMeanErrTilt] = min(meanError2Retrained(:,4));
+s7 = scatter(ax4, minMeanErrTilt, iMeanErrTilt, 120, <span class="string">'yo'</span>, <span class="string">'filled'</span>, <span class="keyword">...</span>
+    <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+[minMaxErrTilt, iMaxErrTilt] = min(maxError2Retrained(:,4));
+s8 = scatter(ax4, minMaxErrTilt, iMaxErrTilt, 120, <span class="string">'go'</span>, <span class="string">'filled'</span>, <span class="keyword">...</span>
+    <span class="string">'MarkerEdgeColor'</span>, <span class="string">'k'</span>, <span class="string">'LineWidth'</span>, 1);
+
+yticks(ax4, driftTiltTick);
+ylim(ax4, [0 driftTiltN + 1]);
+yticklabels(ax4, driftTilt);
+ax4.YTickLabel(2:2:end) = {<span class="string">''</span>};
+<span class="comment">% ax4.YTickLabel(3:4:end) = {''};</span>
+
+ax4.XAxis.Scale = <span class="string">'log'</span>;
+xticks(ax4, errorTick);
+xlim(ax4, [0.04 400]);
+
+xlabel(ax4, <span class="string">'$\epsilon_{abs}$ in $^\circ$'</span>);
+
+subtitle(ax4, <span class="string">'Drift $\alpha_y$ in $0.5^\circ$ Steps'</span>);
+
+legend([l1, l2, p1, p2, p3, p4, s1, s2, s3, s4, s5, s6, s7, s8], <span class="keyword">...</span>
+    {<span class="string">'Start/Ref'</span>, <span class="string">'TDK Max $\rightarrow 0.6^\circ$'</span>, <span class="string">'Mean to Ref'</span>, <span class="string">'Max to Ref'</span>, <span class="keyword">...</span>
+    <span class="string">'Mean Retrained'</span>, <span class="string">'Max Retrained'</span>, <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMeanErrX), <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMaxErrX), <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMeanErrY), <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMaxErrY), <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMeanErrZ), <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMaxErrZ), <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMeanErrTilt), <span class="keyword">...</span>
+    sprintf(<span class="string">'Min $\\rightarrow %.2f^\\circ$'</span>, minMaxErrTilt)}, <span class="keyword">...</span>
+    <span class="string">'Location'</span>, <span class="string">'bestoutside'</span>)
+</pre><h2 id="23">Plot Model Parameter Drift in X and Y</h2><pre class="codeinput"><span class="comment">% clc; close all;</span>
+
+figure(<span class="string">'Name'</span>, <span class="string">'Param X Y'</span>, <span class="string">'Units'</span>, <span class="string">'normalize'</span>, <span class="string">'OuterPosition'</span>, [0 0 1 1]);
+t1 = tiledlayout(1, 3);
+bgAx1 = axes(t1,<span class="string">'XTick'</span>,[],<span class="string">'YTick'</span>,[],<span class="string">'Box'</span>,<span class="string">'off'</span>);
+bgAx1.Layout.TileSpan = [1 3];
+title(bgAx1, <span class="string">'a) Retrained Model Parameter in Horizontal Drifts'</span>)
+
+<span class="comment">% plot parameter drift in x and y</span>
+ax5 = axes(t1);
+ax5.Box = <span class="string">'off'</span>;
+
+hold <span class="string">on</span>;
+
+xline(ax5, 1e-6, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax5, 1e-4, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax5, 6e-7, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax5, 1e-5, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax5, 3e-4, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax5, 3e-7, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax5, 1e-7, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax5, 1e-3, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax5, s2nParamDrift(:,1), driftXTick', <span class="string">'bo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+plot(ax5, s2nParamDrift(:,2), driftYTick', <span class="string">'mo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+ax5.XAxis.Scale = <span class="string">'log'</span>;
+xlabel(ax5, <span class="string">'$\sigma_n^2$'</span>);
+xlim(ax5, [5e-8 1e-3]);
+xticks(ax5, [1e-7, 1e-6, 1e-5, 1e-4, 1e-3]);
+ylabel(ax5, <span class="string">'Horizontal Drift $x$ in mm'</span>)
+yticks(ax5, driftXTick);
+ylim(ax5, [0 driftXN + 1]);
+yticklabels(ax5, driftX);
+ax5.YTickLabel(2:2:end) = {<span class="string">''</span>};
+ax5.YAxis.Color = <span class="string">'b'</span>;
+ax5.GridColor = [0.1500    0.1500    0.1500];
+
+ax6 = axes(t1);
+ax6.Layout.Tile = 2;
+ax6.YAxis.Visible = <span class="string">'off'</span>;
+ax6.Box = <span class="string">'off'</span>;
+
+hold <span class="string">on</span>;
+
+xline(ax6, 1e0, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax6, 1e1, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax6, 4e-1, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax6, 2e1, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax6, 5e-1, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax6, 2e2, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax6, 1e-1, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax6, 1e2, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax6, s2fParamDrift(:,1), driftXTick', <span class="string">'bo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+plot(ax6, s2fParamDrift(:,2), driftYTick', <span class="string">'mo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+ax6.XAxis.Scale = <span class="string">'log'</span>;
+xlabel(ax6, <span class="string">'$\sigma_f^2$'</span>);
+xlim(ax6, [1e-1 2e2]);
+xticks(ax6, [1e-1, 1e0, 1e1, 1e2]);
+yticks(ax6, driftXTick);
+ylim(ax6, [0 driftXN + 1]);
+
+ax7 = axes(t1);
+ax7.Layout.Tile = 3;
+ax7.YAxis.Visible = <span class="string">'on'</span>;
+ax7.Box = <span class="string">'off'</span>;
+ax7.YAxisLocation = <span class="string">'right'</span>;
+ax7.YAxis.Color = <span class="string">'m'</span>;
+ax7.GridColor = [0.1500    0.1500    0.1500];
+
+hold <span class="string">on</span>;
+
+l3 = xline(ax7, 1e1, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax7, 3e1, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+l4 = xline(ax7, 4e0, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax7, 4e1, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+l5 = xline(ax7, 5e0, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax7, 9e1, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+l6 = xline(ax7, 1e0, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax7, 1e2, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax7, slParamDrift(:,1), driftXTick', <span class="string">'bo-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+plot(ax7, slParamDrift(:,2), driftYTick', <span class="string">'mo-'</span>, <span class="string">'LineWidth'</span>, 3.5);
+ax7.XAxis.Scale = <span class="string">'log'</span>;
+xlabel(ax7, <span class="string">'$\sigma_l$'</span>);
+xlim(ax7, [1e0 2e2]);
+xticks(ax7, [1e0, 1e1, 1e2]);
+ylabel(ax7, <span class="string">'Horizontal Drift $y$ in mm'</span>)
+yticks(ax7, driftYTick);
+ylim(ax7, [0 driftYN + 1]);
+yticklabels(ax7, driftY);
+ax7.YTickLabel(2:2:end) = {<span class="string">''</span>};
+
+linkaxes([ax5 ax6, ax7], <span class="string">'y'</span>)
+
+legend(ax6, [l3, l4, l5, l6], <span class="keyword">...</span>
+    {<span class="string">'Limits Reference'</span>, <span class="keyword">...</span>
+     <span class="string">'Limits Horizontal'</span>, <span class="keyword">...</span>
+     <span class="string">'Limits Vertical'</span>, <span class="keyword">...</span>
+     <span class="string">'Limits Experiment'</span>,}, <span class="keyword">...</span>
+    <span class="string">'Location'</span>, <span class="string">'southeast'</span>);
+</pre><h2 id="24">Plot Model Parameter Drift in Z and Tilt</h2><pre class="codeinput"><span class="comment">% clc; close all;</span>
+
+figure(<span class="string">'Name'</span>, <span class="string">'Param Z Tilt'</span>, <span class="string">'Units'</span>, <span class="string">'normalize'</span>, <span class="string">'OuterPosition'</span>, [0 0 1 1]);
+t2 = tiledlayout(1, 3);
+bgAx2 = axes(t2,<span class="string">'XTick'</span>,[],<span class="string">'YTick'</span>,[],<span class="string">'Box'</span>,<span class="string">'off'</span>);
+bgAx2.Layout.TileSpan = [1 3];
+title(bgAx2, <span class="string">'b) Retrained Model Parameter in Vertical Drifts'</span>)
+
+<span class="comment">% plot parameter drift in x and y</span>
+ax8 = axes(t2);
+ax8.Box = <span class="string">'off'</span>;
+ax8.YAxis.Visible = <span class="string">'on'</span>;
+ax8.YAxis.Color = <span class="string">'b'</span>;
+ax8.GridColor = [0.1500    0.1500    0.1500];
+
+hold <span class="string">on</span>;
+
+xline(ax8, 1e-6, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax8, 1e-4, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax8, 6e-7, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax8, 1e-5, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax8, 3e-4, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax8, 3e-7, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax8, 1e-7, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax8, 1e-3, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax8, s2nParamDrift(:,3), driftZTick', <span class="string">'bo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+plot(ax8, s2nParamDrift(:,4), driftTiltTick', <span class="string">'mo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+ax8.XAxis.Scale = <span class="string">'log'</span>;
+xlabel(ax8, <span class="string">'$\sigma_n^2$'</span>);
+xlim(ax8, [5e-8 1e-3]);
+xticks(ax8, [1e-7, 1e-6, 1e-5, 1e-4, 1e-3]);
+ylabel(ax8, <span class="string">'Vertical Drift $z$ in mm'</span>)
+yticks(ax8, driftZTick);
+ylim(ax8, [0 driftZN + 1]);
+yticklabels(ax8, driftZ);
+ax8.YTickLabel(2:2:end) = {<span class="string">''</span>};
+
+ax9 = axes(t2);
+ax9.Layout.Tile = 2;
+ax9.YAxis.Visible = <span class="string">'off'</span>;
+ax9.Box = <span class="string">'off'</span>;
+
+hold <span class="string">on</span>;
+
+l7 = xline(ax9, 1e0, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax9, 1e1, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+l8 = xline(ax9, 4e-1, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax9, 2e1, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+l9 = xline(ax9, 5e-1, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax9, 2e2, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+l10 = xline(ax9, 1e-1, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax9, 1e2, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax9, s2fParamDrift(:,3), driftZTick', <span class="string">'bo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+plot(ax9, s2fParamDrift(:,4), driftTiltTick', <span class="string">'mo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+ax9.XAxis.Scale = <span class="string">'log'</span>;
+xlabel(ax9, <span class="string">'$\sigma_f^2$'</span>);
+xlim(ax9, [1e-1 2e2]);
+xticks(ax9, [1e-1, 1e0, 1e1, 1e2]);
+yticks(ax9, driftZTick);
+ylim(ax9, [0 driftZN + 1]);
+
+ax10 = axes(t2);
+ax10.Layout.Tile = 3;
+ax10.YAxis.Visible = <span class="string">'on'</span>;
+ax10.Box = <span class="string">'off'</span>;
+ax10.YAxisLocation = <span class="string">'right'</span>;
+ax10.YAxis.Color = <span class="string">'m'</span>;
+ax10.GridColor = [0.1500    0.1500    0.1500];
+
+hold <span class="string">on</span>;
+
+xline(ax10, 1e1, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax10, 3e1, <span class="string">'k-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax10, 4e0, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax10, 4e1, <span class="string">'r-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax10, 5e0, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax10, 9e1, <span class="string">'r-.'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax10, 1e0, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+xline(ax10, 1e2, <span class="string">'g-'</span>, <span class="string">'LineWidth'</span>, 4.5);
+
+plot(ax10, slParamDrift(:,3), driftZTick', <span class="string">'bo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+plot(ax10, slParamDrift(:,4), driftTiltTick', <span class="string">'mo-'</span>, <span class="string">'LineWidth'</span>, 3.5)
+ax10.XAxis.Scale = <span class="string">'log'</span>;
+xlabel(ax10, <span class="string">'$\sigma_l$'</span>);
+xlim(ax10, [1e0 2e2]);
+xticks(ax10, [1e0, 1e1, 1e2]);
+ylabel(ax10, <span class="string">'Vertical Drift $\alpha_y$ in $^\circ$'</span>)
+yticks(ax10, driftTiltTick);
+ylim(ax10, [0 driftTiltN + 1]);
+yticklabels(ax10, driftTilt);
+ax10.YTickLabel(2:2:end) = {<span class="string">''</span>};
+
+linkaxes([ax8 ax9, ax10], <span class="string">'y'</span>)
+
+legend(ax10, [l7, l8, l9, l10], <span class="keyword">...</span>
+    {<span class="string">'Limits Reference'</span>, <span class="keyword">...</span>
+     <span class="string">'Limits Horizontal'</span>, <span class="keyword">...</span>
+     <span class="string">'Limits Vertical'</span>, <span class="keyword">...</span>
+     <span class="string">'Limits Experiment'</span>,}, <span class="keyword">...</span>
+    <span class="string">'Location'</span>, <span class="string">'southwest'</span>);
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% compareMissAlign
+% # Create reference dataset to compare against drift and retraining. Reference
+%   Position.
+% # Create same number of drift datasets for each drift in x,y,z and tilt drift.
+%   Position drifts in x,y,z must have the same drift steps diverging from the
+%   reference position to match a drift plots. Tilt drift is assigned to a
+%   separate axis.
+% # Execute this script and ensure dataset chaining. First dataset is reference
+%   dataset, second bunch must be drift in x, third bunch in drift in y, fourth
+%   bunch drift in z and fifth bunch drift in tilt. So loaded file pattern
+%   schould have following indices for e.g. 25 drift iterations each:
+%
+% * (1) reference dataset
+% * (2-26) drift in x
+% * (27-51) drift in y
+% * (52-76) drift in z
+% * (77-101) drift in tilt
+%
+% Script forces simulation to run with TDK characterization dataset. Identifier
+% is set manually to TDK.
+%
+%
+%% Requirements
+% * Other m-files required: gaussianProcessRegression module files
+% * Subfunctions: none
+% * MAT-files required: data/config.mat, corresponding Training and Test dataset
+%
+%
+%% See Also
+% * <gaussianProcessRegression.html gaussianProcessRegression>
+% * <initGPR.html initGPR>
+% * <tuneGPR.html tuneGPR>
+% * <optimGPR.html optimGPR>
+% * <generateConfigMat.html generateConfigMat>
+%
+%
+% Created on May 06. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
+%
+% <html>
+% <!REPLACE_WITH_DASH_DASH
+% Hidden Clutter.
+% Edited on Month DD. YYYY by Editor: Single line description.
+% REPLACE_WITH_DASH_DASH>
+% </html>
+%
+%
+%% Start Script and Clear All
+clc;
+disp('Start compare miss align ...');
+disp('Clear all ...');
+clearvars;
+close all;
+deleteSimulationDatasets;
+
+
+%% Declare Reference Position and Drift Vectors
+disp('Declare reference and drift ...');
+refX      = 0;
+refY      = 0;
+refZ      = 7.5;
+refTilt   = 0;
+driftX    = -3:0.25:3;
+driftY    = -3:0.25:3;
+driftZ    = 4.5:0.25:10.5;
+driftTilt = 0:0.5:12;
+
+
+%% Declare Common Variables
+disp('Declare common vars ...');
+trainPath   = PathVariables.trainingDataPath;
+testPath    = PathVariables.testDataPath;
+maxErrorTDK = 0.6;
+errorTick   = [1e-1 1 10 1e2];
+
+
+%% Calculated Datasets Indices on Drift Parameter
+disp('Numbering drift sets ...');
+driftXN    = length(driftX);
+driftYN    = length(driftY);
+driftZN    = length(driftZ);
+driftTiltN = length(driftTilt);
+driftAllN  = driftXN + driftYN + driftZN + driftTiltN; 
+fprintf('Overall drifts: %d ...', driftAllN);
+
+assert(driftXN == driftYN,    'Inbalance drift in x2y')
+assert(driftXN == driftZN,    'Inbalance drift in x2z')
+assert(driftXN == driftTiltN, 'Inbalance drift in x2tilt')
+disp('Number of drift iterations equals: pass ...');
+
+disp('Index drift set ...');
+refIndex       = 1;
+driftXIndex    = refIndex + 1       : driftXN    + refIndex;
+driftYIndex    = driftXIndex(end) + 1 : driftYN    + driftXIndex(end);
+driftZIndex    = driftYIndex(end) + 1 : driftZN    + driftYIndex(end);
+driftTiltIndex = driftZIndex(end) + 1 : driftTiltN + driftZIndex(end);
+
+
+%% Allocate Memory for Error and Parameter Drifts [X, Y, Z, Tilt]
+disp('Allocate memory ...');
+meanError2Ref       = zeros(driftXN, 4);
+maxError2Ref        = zeros(driftXN, 4);
+meanError2Retrained = zeros(driftXN, 4);
+maxError2Retrained  = zeros(driftXN, 4);
+s2nParamDrift       = zeros(driftXN, 4);
+s2fParamDrift       = zeros(driftXN, 4);
+slParamDrift        = zeros(driftXN, 4);
+
+
+%% Load Config
+disp('Load config ...');
+load config.mat PathVariables  GeneralOptions SensorArrayOptions ...
+    DipoleOptions TrainingOptions TestOptions GPROptions;
+
+
+%% Load TDK Characterization Dataset and Set Base Reference in Options
+disp('Load TDK characterization dataset ...');
+
+CharDS = load(PathVariables.tdkDatasetPath);
+
+TrainingOptions.BaseReference = 'TDK';
+TestOptions.BaseReference     = 'TDK';
+
+
+%% Generate Reference Datasets
+disp('Set reference position ...');
+TrainingOptions.xPos = refX;
+TrainingOptions.yPos = refY;
+TrainingOptions.zPos = refZ;
+TrainingOptions.tilt = refTilt;
+
+TestOptions.xPos = TrainingOptions.xPos;
+TestOptions.yPos = TrainingOptions.yPos;
+TestOptions.zPos = TrainingOptions.zPos;
+TestOptions.tilt = TrainingOptions.tilt;
+
+disp('Generate reference datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+
+
+%% Generate X Drift Datasets
+disp('Set x drift positions ...');
+TrainingOptions.xPos = driftX;
+% TrainingOptions.yPos = refY;
+% TrainingOptions.zPos = refZ;
+% TrainingOptions.tilt = refTilt;
+
+TestOptions.xPos = TrainingOptions.xPos;
+% TestOptions.yPos = TrainingOptions.yPos;
+% TestOptions.zPos = TrainingOptions.zPos;
+% TestOptions.tilt = TrainingOptions.tilt;
+
+disp('Generate x drift datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+
+
+%% Generate Y Drift Datasets
+disp('Set y drift positions ...');
+TrainingOptions.xPos = refX;
+TrainingOptions.yPos = driftY;
+% TrainingOptions.zPos = refZ;
+% TrainingOptions.tilt = refTilt;
+
+TestOptions.xPos = TrainingOptions.xPos;
+TestOptions.yPos = TrainingOptions.yPos;
+% TestOptions.zPos = TrainingOptions.zPos;
+% TestOptions.tilt = TrainingOptions.tilt;
+
+disp('Generate y drift datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+
+
+%% Generate Z Drift Datasets
+disp('Set z drift positions ...');
+% TrainingOptions.xPos = refX;
+TrainingOptions.yPos = refY;
+TrainingOptions.zPos = driftZ;
+% TrainingOptions.tilt = refTilt;
+
+% TestOptions.xPos = TrainingOptions.xPos;
+TestOptions.yPos = TrainingOptions.yPos;
+TestOptions.zPos = TrainingOptions.zPos;
+% TestOptions.tilt = TrainingOptions.tilt;
+
+disp('Generate z drift datasets ...');
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+    SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+
+
+%% Generate Tilt Drift Datasets
+disp('Set tilt drift positions ...');
+% TrainingOptions.xPos = refX;
+% TrainingOptions.yPos = refY;
+TrainingOptions.zPos = refZ;
+% TrainingOptions.tilt = refTilt;
+
+% TestOptions.xPos = TrainingOptions.xPos;
+% TestOptions.yPos = TrainingOptions.yPos;
+TestOptions.zPos = TrainingOptions.zPos;
+% TestOptions.tilt = TrainingOptions.tilt;
+
+disp('Generate tilt drift datasets ...');
+for tilt = driftTilt
+    TrainingOptions.tilt = tilt;
+    TestOptions.tilt     = tilt;
+    
+    simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+        SensorArrayOptions, DipoleOptions, TrainingOptions, CharDS);
+    simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
+        SensorArrayOptions, DipoleOptions, TestOptions, CharDS);
+end
+
+
+%% Reload Path of Generated Datasets
+disp('Scanning directories ...');
+TrainFiles = dir(fullfile(trainPath, 'Training*.mat'));
+TestFiles  = dir(fullfile(testPath, 'Test*.mat'));
+
+TrainFilesN = length(TrainFiles);
+TestFilesN  = length(TestFiles);
+
+assert(TrainFilesN == TestFilesN, 'Inbalance in files.');
+disp('Data is consistent ...');
+
+
+%% Load Reference Datasets Train Reference Model
+fprintf('Load datasets (%d) ...\n', refIndex);
+TrainDS = load(fullfile(trainPath, TrainFiles(refIndex).name));
+TestDS  = load(fullfile(testPath, TestFiles(refIndex).name));
+
+
+%% Train Reference Model on Reference Datasets
+disp('Train model in reference position ...')
+RefMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+close all;
+
+
+%% Run Drift in X
+disp('Run drift in x');
+iDrift = 1;
+for iFile = driftXIndex
+    fprintf('Load datasets (%d) ...\n', iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+    
+    fprintf('Measure errors x drift %.2f to ref ...\n', driftX(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 1) = mean(absError2Ref);
+    maxError2Ref(iDrift, 1)  = max(absError2Ref);
+    
+    disp('Retrain model on drift position ...');
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close all;
+    
+    disp('Measure errors on retrained model ...')
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 1) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 1)  = max(absErrorRetrained);
+    
+    disp('Track model parameters');
+    s2nParamDrift(iDrift, 1) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 1) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 1)  = RetrainedMdl.theta(2);
+    
+    iDrift = iDrift + 1;
+end
+
+
+%% Run Drift in Y
+disp('Run drift in y');
+iDrift = 1;
+for iFile = driftYIndex
+    fprintf('Load datasets (%d) ...\n', iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+    
+    fprintf('Measure errors y drift %.2f to ref ...\n', driftY(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 2) = mean(absError2Ref);
+    maxError2Ref(iDrift, 2)  = max(absError2Ref);
+    
+    disp('Retrain model on drift position ...');
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close all;
+    
+    disp('Measure errors on retrained model ...')
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 2) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 2)  = max(absErrorRetrained);
+    
+    disp('Track model parameters');
+    s2nParamDrift(iDrift, 2) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 2) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 2)  = RetrainedMdl.theta(2);
+    
+    iDrift = iDrift + 1;
+end
+
+
+%% Run Drift in Z
+disp('Run drift in z');
+iDrift = 1;
+for iFile = driftZIndex
+    fprintf('Load datasets (%d) ...\n', iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+    
+    fprintf('Measure errors z drift %.2f to ref ...\n', driftZ(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 3) = mean(absError2Ref);
+    maxError2Ref(iDrift, 3)  = max(absError2Ref);
+    
+    disp('Retrain model on drift position ...');
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close all;
+    
+    disp('Measure errors on retrained model ...')
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 3) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 3)  = max(absErrorRetrained);
+    
+    disp('Track model parameters');
+    s2nParamDrift(iDrift, 3) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 3) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 3)  = RetrainedMdl.theta(2);
+    
+    iDrift = iDrift + 1;
+end
+
+
+%% Run Drift in Tilt
+disp('Run drift in tilt');
+iDrift = 1;
+for iFile = driftTiltIndex
+    fprintf('Load datasets (%d) ...\n', iFile);
+    TrainDS = load(fullfile(trainPath, TrainFiles(iFile).name));
+    TestDS  = load(fullfile(testPath, TestFiles(iFile).name));
+    
+    fprintf('Measure errors tilt drift %.2f to ref ...\n', driftTilt(iDrift));
+    absError2Ref             = lossDS(RefMdl, TestDS);
+    meanError2Ref(iDrift, 4) = mean(absError2Ref);
+    maxError2Ref(iDrift, 4)  = max(absError2Ref);
+    
+    disp('Retrain model on drift position ...');
+    RetrainedMdl = optimGPR(TrainDS, TestDS, GPROptions, 0);
+    close all;
+    
+    disp('Measure errors on retrained model ...')
+    absErrorRetrained              = lossDS(RetrainedMdl, TestDS);
+    meanError2Retrained(iDrift, 4) = mean(absErrorRetrained);
+    maxError2Retrained(iDrift, 4)  = max(absErrorRetrained);
+    
+    disp('Track model parameters');
+    s2nParamDrift(iDrift, 4) = RetrainedMdl.s2n;
+    s2fParamDrift(iDrift, 4) = RetrainedMdl.theta(1);
+    slParamDrift(iDrift, 4)  = RetrainedMdl.theta(2);
+    
+    iDrift = iDrift + 1;
+end
+
+
+%% Plot Drift Errors
+
+% clc; close all;
+
+figure('Name', 'Errors', 'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
+t = tiledlayout(1, 4);
+bgAx = axes(t,'XTick',[],'YTick',[],'Box','off');
+bgAx.Layout.TileSpan = [1 4];
+
+% plot drift in x
+ax1 = axes(t);
+ax1.Box = 'off';
+driftXTick = 1:driftXN;
+
+hold on;
+yline(ax1, find(driftX == refX), 'REPLACE_WITH_DASH_DASH', 'LineWidth', 4.5);
+xline(ax1, maxErrorTDK, 'r', 'LineWidth', 4.5);
+
+plot(ax1, meanError2Ref(:,1), driftXTick', 'mo:', 'LineWidth', 3.5);
+plot(ax1, maxError2Ref(:,1), driftXTick', 'bo:', 'LineWidth', 3.5);
+plot(ax1, meanError2Retrained(:,1), driftXTick', 'ms-', 'LineWidth', 3.5);
+plot(ax1, maxError2Retrained(:,1), driftXTick', 'bs-', 'LineWidth', 3.5);
+
+[minMeanErrX, iMeanErrX] = min(meanError2Retrained(:,1));
+s1 = scatter(ax1, minMeanErrX, iMeanErrX, 120, 'ys', 'filled', 'MarkerEdgeColor', ...
+    'k', 'LineWidth', 1);
+
+[minMaxErrX, iMaxErrX] = min(maxError2Retrained(:,1));
+s2 = scatter(ax1, minMaxErrX, iMaxErrX, 120, 'gs', 'filled', 'MarkerEdgeColor', ...
+    'k', 'LineWidth', 1);
+
+yticks(ax1, driftXTick);
+ylim(ax1, [0 driftXN + 1]);
+yticklabels(ax1, driftX);
+ax1.YTickLabel(2:2:end) = {''};
+% ax1.YTickLabel(3:4:end) = {''};
+
+ax1.XAxis.Scale = 'log';
+xticks(ax1, errorTick);
+xlim(ax1, [0.04 400]);
+
+xlabel(ax1, '$\epsilon_{abs}$ in $^\circ$');
+ylabel(ax1, sprintf('Drift from Ref.: $(%.1f,%.1f,%.1f)^T$ mm, $%.1f^\\circ$', ...
+    refX, refY, refZ, refTilt)),
+
+subtitle(ax1, 'Drift x in $0.25$ mm Steps');
+
+% plot drift in y
+ax2 = axes(t);
+ax2.Layout.Tile = 2;
+ax2.YAxis.Visible = 'on';
+ax2.Box = 'off';
+
+driftYTick = 1:driftYN;
+
+hold on;
+yline(ax2, find(driftY == refY), 'REPLACE_WITH_DASH_DASH', 'LineWidth', 4.5);
+xline(ax2, maxErrorTDK, 'r', 'LineWidth', 4.5);
+
+plot(ax2, meanError2Ref(:,2), driftYTick', 'mo:', 'LineWidth', 3.5);
+plot(ax2, maxError2Ref(:,2), driftYTick', 'bo:', 'LineWidth', 3.5);
+plot(ax2, meanError2Retrained(:,2), driftYTick', 'ms-', 'LineWidth', 3.5);
+plot(ax2, maxError2Retrained(:,2), driftYTick', 'bs-', 'LineWidth', 3.5);
+
+[minMeanErrY, iMeanErrY] = min(meanError2Retrained(:,2));
+s3 = scatter(ax2, minMeanErrY, iMeanErrY, 140, 'yh', 'filled', 'MarkerEdgeColor', ...
+    'k', 'LineWidth', 1);
+
+[minMaxErrY, iMaxErrY] = min(maxError2Retrained(:,2));
+s4 = scatter(ax2, minMaxErrY, iMaxErrY, 140, 'gh', 'filled', 'MarkerEdgeColor', ...
+    'k', 'LineWidth', 1);
+
+yticks(ax2, driftYTick);
+ylim(ax2, [0 driftYN + 1]);
+yticklabels(ax2, driftY);
+ax2.YTickLabel(2:2:end) = {''};
+% ax2.YTickLabel(3:4:end) = {''};
+
+ax2.XAxis.Scale = 'log';
+xticks(ax2, errorTick);
+xlim(ax2, [0.04 400]);
+
+xlabel(ax2, '$\epsilon_{abs}$ in $^\circ$');
+
+subtitle(ax2, 'Drift y in $0.25$ mm Steps');
+
+% Link the axes
+linkaxes([ax1 ax2], 'y')
+
+% plot drift in y
+ax3 = axes(t);
+ax3.Layout.Tile = 3;
+ax3.YAxis.Visible = 'on';
+ax3.Box = 'off';
+
+driftZTick = 1:driftZN;
+
+hold on;
+yline(ax3, find(driftZ == refZ), 'REPLACE_WITH_DASH_DASH', 'LineWidth', 4.5);
+xline(ax3, maxErrorTDK, 'r', 'LineWidth', 4.5);
+
+plot(ax3, meanError2Ref(:,3), driftZTick', 'mo:', 'LineWidth', 3.5);
+plot(ax3, maxError2Ref(:,3), driftZTick', 'bo:', 'LineWidth', 3.5);
+plot(ax3, meanError2Retrained(:,3), driftZTick', 'ms-', 'LineWidth', 3.5);
+plot(ax3, maxError2Retrained(:,3), driftZTick', 'bs-', 'LineWidth', 3.5);
+
+[minMeanErrZ, iMeanErrZ] = min(meanError2Retrained(:,3));
+s5 = scatter(ax3, minMeanErrZ, iMeanErrZ, 120, 'yd', 'filled', 'MarkerEdgeColor', ...
+    'k', 'LineWidth', 1);
+
+[minMaxErrZ, iMaxErrZ] = min(maxError2Retrained(:,3));
+s6 = scatter(ax3, minMaxErrZ, iMaxErrZ, 120, 'gd', 'filled', 'MarkerEdgeColor', ...
+    'k', 'LineWidth', 1);
+
+yticks(ax3, driftZTick);
+ylim(ax3, [0 driftZN + 1]);
+yticklabels(ax3, driftZ);
+ax3.YTickLabel(2:2:end) = {''};
+% ax3.YTickLabel(3:4:end) = {''};
+
+ax3.XAxis.Scale = 'log';
+xticks(ax3, errorTick);
+xlim(ax3, [0.04 400]);
+
+xlabel(ax3, '$\epsilon_{abs}$ in $^\circ$');
+
+subtitle(ax3, 'Drift z in $0.25$ mm Steps');
+
+% plot drift in tilt
+ax4 = axes(t);
+ax4.Layout.Tile = 4;
+ax4.YAxis.Visible = 'on';
+ax4.Box = 'off';
+
+driftTiltTick = 1:driftTiltN;
+
+hold on;
+l1 = yline(ax4, find(driftTilt == refTilt), 'REPLACE_WITH_DASH_DASH', 'LineWidth', 4.5);
+l2 = xline(ax4, maxErrorTDK, 'r', 'LineWidth', 4.5);
+
+p1 = plot(ax4, meanError2Ref(:,4), driftTiltTick', 'mo:', 'LineWidth', 3.5);
+p2 = plot(ax4, maxError2Ref(:,4), driftTiltTick', 'bo:', 'LineWidth', 3.5);
+p3 = plot(ax4, meanError2Retrained(:,4), driftTiltTick', 'ms-', 'LineWidth', 3.5);
+p4= plot(ax4, maxError2Retrained(:,4), driftTiltTick', 'bs-', 'LineWidth', 3.5);
+
+[minMeanErrTilt, iMeanErrTilt] = min(meanError2Retrained(:,4));
+s7 = scatter(ax4, minMeanErrTilt, iMeanErrTilt, 120, 'yo', 'filled', ...
+    'MarkerEdgeColor', 'k', 'LineWidth', 1);
+
+[minMaxErrTilt, iMaxErrTilt] = min(maxError2Retrained(:,4));
+s8 = scatter(ax4, minMaxErrTilt, iMaxErrTilt, 120, 'go', 'filled', ...
+    'MarkerEdgeColor', 'k', 'LineWidth', 1);
+
+yticks(ax4, driftTiltTick);
+ylim(ax4, [0 driftTiltN + 1]);
+yticklabels(ax4, driftTilt);
+ax4.YTickLabel(2:2:end) = {''};
+% ax4.YTickLabel(3:4:end) = {''};
+
+ax4.XAxis.Scale = 'log';
+xticks(ax4, errorTick);
+xlim(ax4, [0.04 400]);
+
+xlabel(ax4, '$\epsilon_{abs}$ in $^\circ$');
+
+subtitle(ax4, 'Drift $\alpha_y$ in $0.5^\circ$ Steps');
+
+legend([l1, l2, p1, p2, p3, p4, s1, s2, s3, s4, s5, s6, s7, s8], ...
+    {'Start/Ref', 'TDK Max $\rightarrow 0.6^\circ$', 'Mean to Ref', 'Max to Ref', ...
+    'Mean Retrained', 'Max Retrained', ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMeanErrX), ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMaxErrX), ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMeanErrY), ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMaxErrY), ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMeanErrZ), ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMaxErrZ), ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMeanErrTilt), ...
+    sprintf('Min $\\rightarrow %.2f^\\circ$', minMaxErrTilt)}, ...
+    'Location', 'bestoutside')
+
+%% Plot Model Parameter Drift in X and Y
+
+% clc; close all;
+
+figure('Name', 'Param X Y', 'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
+t1 = tiledlayout(1, 3);
+bgAx1 = axes(t1,'XTick',[],'YTick',[],'Box','off');
+bgAx1.Layout.TileSpan = [1 3];
+title(bgAx1, 'a) Retrained Model Parameter in Horizontal Drifts')
+
+% plot parameter drift in x and y
+ax5 = axes(t1);
+ax5.Box = 'off';
+
+hold on;
+
+xline(ax5, 1e-6, 'k-', 'LineWidth', 4.5);
+xline(ax5, 1e-4, 'k-', 'LineWidth', 4.5);
+xline(ax5, 6e-7, 'r-', 'LineWidth', 4.5);
+xline(ax5, 1e-5, 'r-', 'LineWidth', 4.5);
+xline(ax5, 3e-4, 'r-.', 'LineWidth', 4.5);
+xline(ax5, 3e-7, 'r-.', 'LineWidth', 4.5);
+xline(ax5, 1e-7, 'g-', 'LineWidth', 4.5);
+xline(ax5, 1e-3, 'g-', 'LineWidth', 4.5);
+
+plot(ax5, s2nParamDrift(:,1), driftXTick', 'bo-', 'LineWidth', 3.5)
+plot(ax5, s2nParamDrift(:,2), driftYTick', 'mo-', 'LineWidth', 3.5)
+ax5.XAxis.Scale = 'log';
+xlabel(ax5, '$\sigma_n^2$');
+xlim(ax5, [5e-8 1e-3]);
+xticks(ax5, [1e-7, 1e-6, 1e-5, 1e-4, 1e-3]);
+ylabel(ax5, 'Horizontal Drift $x$ in mm')
+yticks(ax5, driftXTick);
+ylim(ax5, [0 driftXN + 1]);
+yticklabels(ax5, driftX);
+ax5.YTickLabel(2:2:end) = {''};
+ax5.YAxis.Color = 'b';
+ax5.GridColor = [0.1500    0.1500    0.1500];
+
+ax6 = axes(t1);
+ax6.Layout.Tile = 2;
+ax6.YAxis.Visible = 'off';
+ax6.Box = 'off';
+
+hold on;
+
+xline(ax6, 1e0, 'k-', 'LineWidth', 4.5);
+xline(ax6, 1e1, 'k-', 'LineWidth', 4.5);
+xline(ax6, 4e-1, 'r-', 'LineWidth', 4.5);
+xline(ax6, 2e1, 'r-', 'LineWidth', 4.5);
+xline(ax6, 5e-1, 'r-.', 'LineWidth', 4.5);
+xline(ax6, 2e2, 'r-.', 'LineWidth', 4.5);
+xline(ax6, 1e-1, 'g-', 'LineWidth', 4.5);
+xline(ax6, 1e2, 'g-', 'LineWidth', 4.5);
+
+plot(ax6, s2fParamDrift(:,1), driftXTick', 'bo-', 'LineWidth', 3.5)
+plot(ax6, s2fParamDrift(:,2), driftYTick', 'mo-', 'LineWidth', 3.5)
+ax6.XAxis.Scale = 'log';
+xlabel(ax6, '$\sigma_f^2$');
+xlim(ax6, [1e-1 2e2]);
+xticks(ax6, [1e-1, 1e0, 1e1, 1e2]);
+yticks(ax6, driftXTick);
+ylim(ax6, [0 driftXN + 1]);
+
+ax7 = axes(t1);
+ax7.Layout.Tile = 3;
+ax7.YAxis.Visible = 'on';
+ax7.Box = 'off';
+ax7.YAxisLocation = 'right';
+ax7.YAxis.Color = 'm';
+ax7.GridColor = [0.1500    0.1500    0.1500];
+
+hold on;
+
+l3 = xline(ax7, 1e1, 'k-', 'LineWidth', 4.5);
+xline(ax7, 3e1, 'k-', 'LineWidth', 4.5);
+l4 = xline(ax7, 4e0, 'r-', 'LineWidth', 4.5);
+xline(ax7, 4e1, 'r-', 'LineWidth', 4.5);
+l5 = xline(ax7, 5e0, 'r-.', 'LineWidth', 4.5);
+xline(ax7, 9e1, 'r-.', 'LineWidth', 4.5);
+l6 = xline(ax7, 1e0, 'g-', 'LineWidth', 4.5);
+xline(ax7, 1e2, 'g-', 'LineWidth', 4.5);
+
+plot(ax7, slParamDrift(:,1), driftXTick', 'bo-', 'LineWidth', 3.5);
+plot(ax7, slParamDrift(:,2), driftYTick', 'mo-', 'LineWidth', 3.5);
+ax7.XAxis.Scale = 'log';
+xlabel(ax7, '$\sigma_l$');
+xlim(ax7, [1e0 2e2]);
+xticks(ax7, [1e0, 1e1, 1e2]);
+ylabel(ax7, 'Horizontal Drift $y$ in mm')
+yticks(ax7, driftYTick);
+ylim(ax7, [0 driftYN + 1]);
+yticklabels(ax7, driftY);
+ax7.YTickLabel(2:2:end) = {''};
+
+linkaxes([ax5 ax6, ax7], 'y')
+
+legend(ax6, [l3, l4, l5, l6], ...
+    {'Limits Reference', ...
+     'Limits Horizontal', ...
+     'Limits Vertical', ...
+     'Limits Experiment',}, ...
+    'Location', 'southeast');
+
+%% Plot Model Parameter Drift in Z and Tilt
+
+% clc; close all;
+
+figure('Name', 'Param Z Tilt', 'Units', 'normalize', 'OuterPosition', [0 0 1 1]);
+t2 = tiledlayout(1, 3);
+bgAx2 = axes(t2,'XTick',[],'YTick',[],'Box','off');
+bgAx2.Layout.TileSpan = [1 3];
+title(bgAx2, 'b) Retrained Model Parameter in Vertical Drifts')
+
+% plot parameter drift in x and y
+ax8 = axes(t2);
+ax8.Box = 'off';
+ax8.YAxis.Visible = 'on';
+ax8.YAxis.Color = 'b';
+ax8.GridColor = [0.1500    0.1500    0.1500];
+
+hold on;
+
+xline(ax8, 1e-6, 'k-', 'LineWidth', 4.5);
+xline(ax8, 1e-4, 'k-', 'LineWidth', 4.5);
+xline(ax8, 6e-7, 'r-', 'LineWidth', 4.5);
+xline(ax8, 1e-5, 'r-', 'LineWidth', 4.5);
+xline(ax8, 3e-4, 'r-.', 'LineWidth', 4.5);
+xline(ax8, 3e-7, 'r-.', 'LineWidth', 4.5);
+xline(ax8, 1e-7, 'g-', 'LineWidth', 4.5);
+xline(ax8, 1e-3, 'g-', 'LineWidth', 4.5);
+
+plot(ax8, s2nParamDrift(:,3), driftZTick', 'bo-', 'LineWidth', 3.5)
+plot(ax8, s2nParamDrift(:,4), driftTiltTick', 'mo-', 'LineWidth', 3.5)
+ax8.XAxis.Scale = 'log';
+xlabel(ax8, '$\sigma_n^2$');
+xlim(ax8, [5e-8 1e-3]);
+xticks(ax8, [1e-7, 1e-6, 1e-5, 1e-4, 1e-3]);
+ylabel(ax8, 'Vertical Drift $z$ in mm')
+yticks(ax8, driftZTick);
+ylim(ax8, [0 driftZN + 1]);
+yticklabels(ax8, driftZ);
+ax8.YTickLabel(2:2:end) = {''};
+
+ax9 = axes(t2);
+ax9.Layout.Tile = 2;
+ax9.YAxis.Visible = 'off';
+ax9.Box = 'off';
+
+hold on;
+
+l7 = xline(ax9, 1e0, 'k-', 'LineWidth', 4.5);
+xline(ax9, 1e1, 'k-', 'LineWidth', 4.5);
+l8 = xline(ax9, 4e-1, 'r-', 'LineWidth', 4.5);
+xline(ax9, 2e1, 'r-', 'LineWidth', 4.5);
+l9 = xline(ax9, 5e-1, 'r-.', 'LineWidth', 4.5);
+xline(ax9, 2e2, 'r-.', 'LineWidth', 4.5);
+l10 = xline(ax9, 1e-1, 'g-', 'LineWidth', 4.5);
+xline(ax9, 1e2, 'g-', 'LineWidth', 4.5);
+
+plot(ax9, s2fParamDrift(:,3), driftZTick', 'bo-', 'LineWidth', 3.5)
+plot(ax9, s2fParamDrift(:,4), driftTiltTick', 'mo-', 'LineWidth', 3.5)
+ax9.XAxis.Scale = 'log';
+xlabel(ax9, '$\sigma_f^2$');
+xlim(ax9, [1e-1 2e2]);
+xticks(ax9, [1e-1, 1e0, 1e1, 1e2]);
+yticks(ax9, driftZTick);
+ylim(ax9, [0 driftZN + 1]);
+
+ax10 = axes(t2);
+ax10.Layout.Tile = 3;
+ax10.YAxis.Visible = 'on';
+ax10.Box = 'off';
+ax10.YAxisLocation = 'right';
+ax10.YAxis.Color = 'm';
+ax10.GridColor = [0.1500    0.1500    0.1500];
+
+hold on;
+
+xline(ax10, 1e1, 'k-', 'LineWidth', 4.5);
+xline(ax10, 3e1, 'k-', 'LineWidth', 4.5);
+xline(ax10, 4e0, 'r-', 'LineWidth', 4.5);
+xline(ax10, 4e1, 'r-', 'LineWidth', 4.5);
+xline(ax10, 5e0, 'r-.', 'LineWidth', 4.5);
+xline(ax10, 9e1, 'r-.', 'LineWidth', 4.5);
+xline(ax10, 1e0, 'g-', 'LineWidth', 4.5);
+xline(ax10, 1e2, 'g-', 'LineWidth', 4.5);
+
+plot(ax10, slParamDrift(:,3), driftZTick', 'bo-', 'LineWidth', 3.5)
+plot(ax10, slParamDrift(:,4), driftTiltTick', 'mo-', 'LineWidth', 3.5)
+ax10.XAxis.Scale = 'log';
+xlabel(ax10, '$\sigma_l$');
+xlim(ax10, [1e0 2e2]);
+xticks(ax10, [1e0, 1e1, 1e2]);
+ylabel(ax10, 'Vertical Drift $\alpha_y$ in $^\circ$')
+yticks(ax10, driftTiltTick);
+ylim(ax10, [0 driftTiltN + 1]);
+yticklabels(ax10, driftTilt);
+ax10.YTickLabel(2:2:end) = {''};
+
+linkaxes([ax8 ax9, ax10], 'y')
+
+legend(ax10, [l7, l8, l9, l10], ...
+    {'Limits Reference', ...
+     'Limits Horizontal', ...
+     'Limits Vertical', ...
+     'Limits Experiment',}, ...
+    'Location', 'southwest');
+
+
+##### SOURCE END #####
+--></body></html>

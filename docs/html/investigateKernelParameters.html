@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>investigateKernelParameters</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-02"><meta name="DC.source" content="investigateKernelParameters.m"><style type="text/css">
+      --><title>investigateKernelParameters</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-13"><meta name="DC.source" content="investigateKernelParameters.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -90,7 +90,7 @@ Hidden Clutter.
 Edited on Month DD. YYYY by Editor: Single line description.
 -->
 </p><h2 id="3">Start Script, Load Config and Read in Datasets</h2><pre class="codeinput">clc;
-disp(<span class="string">'Start GPR module demonstration ...'</span>);
+disp(<span class="string">'Start kernel parameter investigation ...'</span>);
 clearvars;
 <span class="comment">%close all;</span>
 
@@ -113,9 +113,10 @@ disp(<span class="string">'Load first found datasets ...'</span>);
 <span class="keyword">end</span>
 
 disp(<span class="string">'Check dataset coordinates corresponds ...'</span>);
-assert(all(TrainDS.Data.X == TestDS.Data.X, <span class="string">'all'</span>), <span class="string">'Wrong X grid.'</span>);
-assert(all(TrainDS.Data.Y == TestDS.Data.Y, <span class="string">'all'</span>), <span class="string">'Wrong Y grid.'</span>);
-assert(all(TrainDS.Data.Z == TestDS.Data.Z, <span class="string">'all'</span>), <span class="string">'Wrong Z grid.'</span>);
+assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 </pre><h2 id="4">Create GPR Model for Investigation</h2><pre class="codeinput">disp(<span class="string">'Create GPR modles ...'</span>);
 Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 </pre><h2 id="5">Sweep Title with Model Parameters</h2><pre class="codeinput">titleStr = <span class="string">"Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$,"</span> + <span class="keyword">...</span>
@@ -134,10 +135,10 @@ disp(<span class="string">'Sweep kernel parameters with constant noise ...'</spa
 sweepKernelWithConstNoise(Mdl1, nEval, titleStr, PathVariables)
 </pre><h2 id="7">Execute Parameter Sweep with Constant Variance</h2><pre class="codeinput">nEval = 300;
 disp(<span class="string">'Sweep kernel parameters with constant variance ...'</span>);
-sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
+<span class="comment">%sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)</span>
 </pre><h2 id="8">Execute Parameter Sweep with Constant Lengthscale</h2><pre class="codeinput">nEval = 300;
 disp(<span class="string">'Sweep kernel parameters with constant lengthscale ...'</span>);
-sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
+<span class="comment">%sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)</span>
 </pre><h2 id="9">Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise</h2><pre class="codeinput"><span class="keyword">function</span> sweepKernelWithConstNoise(Mdl, nEval, titleStr, PathVariables)
 
     <span class="comment">% create sweep parameters for sweeping theta to given modle</span>
@@ -195,12 +196,12 @@ sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
     ylabel(<span class="string">'$\sigma_f^2$'</span>)
     title(titleStr);
     stStr = <span class="string">"$\sigma_f^2,\sigma_l|\sigma_n^2 = "</span> + <span class="keyword">...</span>
-        <span class="string">"\arg\min\tilde{R}_\mathcal{LI}"</span> + <span class="keyword">...</span>
+        <span class="string">"\arg\min\tilde{R}_\mathcal{L}"</span> + <span class="keyword">...</span>
         <span class="string">"(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_n^2 = const.$"</span>;
     subtitle(stStr);
     legend([p1, p2, p3], <span class="keyword">...</span>
         {<span class="string">"Parameter Bounds"</span>, <span class="string">"Search Area"</span>, <span class="keyword">...</span>
-         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
+         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{L}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
             Mdl.theta, Mdl.s2n, -(Mdl.LMLcos + Mdl.LMLsin))}, <span class="keyword">...</span>
         <span class="string">'Location'</span>, <span class="string">'South'</span>)
 
@@ -208,7 +209,7 @@ sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
     cb.TickLabelInterpreter = <span class="string">'latex'</span>;
     cb.Label.Interpreter = <span class="string">'latex'</span>;
     cb.Label.FontSize = 24;
-    cbStr = <span class="string">"$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
+    cbStr = <span class="string">"$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
     cb.Label.String = cbStr;
 
     <span class="comment">% save and close</span>
@@ -282,12 +283,12 @@ sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
     ylabel(<span class="string">'$\sigma_n^2$'</span>)
     title(titleStr);
     stStr = <span class="string">"$\sigma_f^2,\sigma_l|\sigma_n^2 = "</span> + <span class="keyword">...</span>
-        <span class="string">"\arg\min\tilde{R}_\mathcal{LI}"</span> + <span class="keyword">...</span>
+        <span class="string">"\arg\min\tilde{R}_\mathcal{L}"</span> + <span class="keyword">...</span>
         <span class="string">"(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_f^2 = const.$"</span>;
     subtitle(stStr);
     legend([p1, p2, p3], <span class="keyword">...</span>
         {<span class="string">"Parameter Bounds"</span>, <span class="string">"Search Area"</span>, <span class="keyword">...</span>
-         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
+         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{L}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
             Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, <span class="keyword">...</span>
         <span class="string">'Location'</span>, <span class="string">'South'</span>)
 
@@ -295,7 +296,7 @@ sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
     cb.TickLabelInterpreter = <span class="string">'latex'</span>;
     cb.Label.Interpreter = <span class="string">'latex'</span>;
     cb.Label.FontSize = 24;
-    cbStr = <span class="string">"$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
+    cbStr = <span class="string">"$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
     cb.Label.String = cbStr;
 
     <span class="comment">% save and close</span>
@@ -369,12 +370,12 @@ sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
     ylabel(<span class="string">'$\sigma_n^2$'</span>)
     title(titleStr);
     stStr = <span class="string">"$\sigma_f^2,\sigma_l|\sigma_n^2 = "</span> + <span class="keyword">...</span>
-        <span class="string">"\arg\min\tilde{R}_\mathcal{LI}"</span> + <span class="keyword">...</span>
+        <span class="string">"\arg\min\tilde{R}_\mathcal{L}"</span> + <span class="keyword">...</span>
         <span class="string">"(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_l = const.$"</span>;
     subtitle(stStr);
     legend([p1, p2, p3], <span class="keyword">...</span>
         {<span class="string">"Parameter Bounds"</span>, <span class="string">"Search Area"</span>, <span class="keyword">...</span>
-         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
+         sprintf(<span class="string">"fmincon $\\tilde{R}_\\mathcal{L}(%1.2f,%1.2f|%1.2e)=%1.2f$"</span>,<span class="keyword">...</span>
             Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, <span class="keyword">...</span>
         <span class="string">'Location'</span>, <span class="string">'South'</span>)
 
@@ -382,7 +383,7 @@ sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
     cb.TickLabelInterpreter = <span class="string">'latex'</span>;
     cb.Label.Interpreter = <span class="string">'latex'</span>;
     cb.Label.FontSize = 24;
-    cbStr = <span class="string">"$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
+    cbStr = <span class="string">"$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l|\sigma_n^2)$"</span>;
     cb.Label.String = cbStr;
 
     <span class="comment">% save and close</span>
@@ -423,7 +424,7 @@ sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
 %
 %% Start Script, Load Config and Read in Datasets
 clc;
-disp('Start GPR module demonstration ...');
+disp('Start kernel parameter investigation ...');
 clearvars;
 %close all;
 
@@ -446,9 +447,10 @@ catch ME
 end
 
 disp('Check dataset coordinates corresponds ...');
-assert(all(TrainDS.Data.X == TestDS.Data.X, 'all'), 'Wrong X grid.');
-assert(all(TrainDS.Data.Y == TestDS.Data.Y, 'all'), 'Wrong Y grid.');
-assert(all(TrainDS.Data.Z == TestDS.Data.Z, 'all'), 'Wrong Z grid.');
+assert(TrainDS.Info.UseOptions.xPos == TestDS.Info.UseOptions.xPos);
+assert(TrainDS.Info.UseOptions.yPos == TestDS.Info.UseOptions.yPos);
+assert(TrainDS.Info.UseOptions.zPos == TestDS.Info.UseOptions.zPos);
+assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 
 
 %% Create GPR Model for Investigation
@@ -479,13 +481,13 @@ sweepKernelWithConstNoise(Mdl1, nEval, titleStr, PathVariables)
 %% Execute Parameter Sweep with Constant Variance
 nEval = 300;
 disp('Sweep kernel parameters with constant variance ...');
-sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
+%sweepKernelWithConstVariance(Mdl1, nEval, titleStr, PathVariables)
 
 
 %% Execute Parameter Sweep with Constant Lengthscale
 nEval = 300;
 disp('Sweep kernel parameters with constant lengthscale ...');
-sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
+%sweepKernelWithConstLengthscale(Mdl1, nEval, titleStr, PathVariables)
 
 
 %% Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise
@@ -546,12 +548,12 @@ function sweepKernelWithConstNoise(Mdl, nEval, titleStr, PathVariables)
     ylabel('$\sigma_f^2$')
     title(titleStr);
     stStr = "$\sigma_f^2,\sigma_l|\sigma_n^2 = " + ...
-        "\arg\min\tilde{R}_\mathcal{LI}" + ...
+        "\arg\min\tilde{R}_\mathcal{L}" + ...
         "(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_n^2 = const.$";
     subtitle(stStr);
     legend([p1, p2, p3], ...
         {"Parameter Bounds", "Search Area", ...
-         sprintf("fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
+         sprintf("fmincon $\\tilde{R}_\\mathcal{L}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
             Mdl.theta, Mdl.s2n, -(Mdl.LMLcos + Mdl.LMLsin))}, ...
         'Location', 'South')
 
@@ -559,7 +561,7 @@ function sweepKernelWithConstNoise(Mdl, nEval, titleStr, PathVariables)
     cb.TickLabelInterpreter = 'latex';
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 24;
-    cbStr = "$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
+    cbStr = "$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
     cb.Label.String = cbStr;
     
     % save and close
@@ -636,12 +638,12 @@ function sweepKernelWithConstVariance(Mdl, nEval, titleStr, PathVariables)
     ylabel('$\sigma_n^2$')
     title(titleStr);
     stStr = "$\sigma_f^2,\sigma_l|\sigma_n^2 = " + ...
-        "\arg\min\tilde{R}_\mathcal{LI}" + ...
+        "\arg\min\tilde{R}_\mathcal{L}" + ...
         "(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_f^2 = const.$";
     subtitle(stStr);
     legend([p1, p2, p3], ...
         {"Parameter Bounds", "Search Area", ...
-         sprintf("fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
+         sprintf("fmincon $\\tilde{R}_\\mathcal{L}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
             Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, ...
         'Location', 'South')
 
@@ -649,7 +651,7 @@ function sweepKernelWithConstVariance(Mdl, nEval, titleStr, PathVariables)
     cb.TickLabelInterpreter = 'latex';
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 24;
-    cbStr = "$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
+    cbStr = "$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
     cb.Label.String = cbStr;
     
     % save and close
@@ -726,12 +728,12 @@ function sweepKernelWithConstLengthscale(Mdl, nEval, titleStr, PathVariables)
     ylabel('$\sigma_n^2$')
     title(titleStr);
     stStr = "$\sigma_f^2,\sigma_l|\sigma_n^2 = " + ...
-        "\arg\min\tilde{R}_\mathcal{LI}" + ...
+        "\arg\min\tilde{R}_\mathcal{L}" + ...
         "(\sigma_f^2,\sigma_l|\sigma_n^2)$ f. $\sigma_l = const.$";
     subtitle(stStr);
     legend([p1, p2, p3], ...
         {"Parameter Bounds", "Search Area", ...
-         sprintf("fmincon $\\tilde{R}_\\mathcal{LI}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
+         sprintf("fmincon $\\tilde{R}_\\mathcal{L}(%1.2f,%1.2f|%1.2e)=%1.2f$",...
             Mdl.theta, s2nOrigin, -(Mdl.LMLcos + Mdl.LMLsin))}, ...
         'Location', 'South')
 
@@ -739,7 +741,7 @@ function sweepKernelWithConstLengthscale(Mdl, nEval, titleStr, PathVariables)
     cb.TickLabelInterpreter = 'latex';
     cb.Label.Interpreter = 'latex';
     cb.Label.FontSize = 24;
-    cbStr = "$\tilde{R}_\mathcal{LI}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
+    cbStr = "$\tilde{R}_\mathcal{L}(\sigma_f^2,\sigma_l|\sigma_n^2)$";
     cb.Label.String = cbStr;
     
     % save and close

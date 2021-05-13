@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>generateSimulationDatasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-02"><meta name="DC.source" content="generateSimulationDatasets.m"><style type="text/css">
+      --><title>generateSimulationDatasets</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-13"><meta name="DC.source" content="generateSimulationDatasets.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -121,10 +121,10 @@ Edited on December 05. 2020 by Tobias Wulf: Add bridge gain to calc output volta
 <span class="keyword">end</span>
 </pre><h2 id="4">Generate Training Datasets</h2><p>Generate training dataset from configuration and characterization dataset.</p><pre class="codeinput">disp(<span class="string">'Generate training datasets ...'</span>);
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
-    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset);
 </pre><h2 id="5">Generate Test Datasets</h2><p>Generate test dataset from configuration and characterization dataset.</p><pre class="codeinput">disp(<span class="string">'Generate test datasets ...'</span>);
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, <span class="keyword">...</span>
-    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)
+    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset);
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% generateSimulationDatasets
@@ -198,14 +198,14 @@ end
 % Generate training dataset from configuration and characterization dataset.
 disp('Generate training datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset)
+    SensorArrayOptions, DipoleOptions, TrainingOptions, TrainingCharDataset);
 
 
 %% Generate Test Datasets
 % Generate test dataset from configuration and characterization dataset.
 disp('Generate test datasets ...');
 simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
-    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset)
+    SensorArrayOptions, DipoleOptions, TestOptions, TestCharDataset);
 
 ##### SOURCE END #####
 --></body></html>

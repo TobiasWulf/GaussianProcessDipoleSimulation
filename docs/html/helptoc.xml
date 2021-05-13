@@ -33,6 +33,7 @@
             <tocitem target="compareGPRKernels.html">compareGPRKernels</tocitem>
             <tocitem target="compareCpuTimeVsError.html">compareCpuTimeVsError</tocitem>
             <tocitem target="compareNoiseOptAbility.html">compareNoiseOptAbility</tocitem>
+            <tocitem target="compareMissAlign.html">compareMissAlign</tocitem>
         </tocitem>
         <tocitem target="Source_Code.html">Source Code
             <tocitem target="sensorArraySimulation.html">sensorArraySimulation
