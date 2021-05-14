@@ -23,7 +23,7 @@
     </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>plotSimulationDatasetCircle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-13"><meta name="DC.source" content="plotSimulationDatasetCircle.m"><style type="text/css">
+      --><title>plotSimulationDatasetCircle</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-14"><meta name="DC.source" content="plotSimulationDatasetCircle.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -142,27 +142,12 @@ Edited on Month DD. YYYY by Editor: Single line description.
     fig = figure(<span class="string">'Name'</span>, <span class="string">'Sensor Array'</span>, <span class="keyword">...</span>
         <span class="string">'NumberTitle'</span> , <span class="string">'off'</span>, <span class="keyword">...</span>
         <span class="string">'WindowStyle'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'MenuBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
-        <span class="string">'ToolBar'</span>, <span class="string">'none'</span>, <span class="keyword">...</span>
         <span class="string">'Units'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'OuterPosition'</span>, [0 0 30 30], <span class="keyword">...</span>
-        <span class="string">'PaperType'</span>, <span class="string">'a4'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperUnits'</span>, <span class="string">'centimeters'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperOrientation'</span>, <span class="string">'landscape'</span>, <span class="keyword">...</span>
-        <span class="string">'PaperPositionMode'</span>, <span class="string">'auto'</span>, <span class="keyword">...</span>
-        <span class="string">'DoubleBuffer'</span>, <span class="string">'on'</span>, <span class="keyword">...</span>
-        <span class="string">'RendererMode'</span>, <span class="string">'manual'</span>, <span class="keyword">...</span>
-        <span class="string">'Renderer'</span>, <span class="string">'painters'</span>);
+        <span class="string">'OuterPosition'</span>, [0 0 30 30]);
 
-    tdl = tiledlayout(fig, 2, 2, <span class="keyword">...</span>
-        <span class="string">'Padding'</span>, <span class="string">'compact'</span>, <span class="keyword">...</span>
-        <span class="string">'TileSpacing'</span> , <span class="string">'compact'</span>);
+    tdl = tiledlayout(fig, 2, 2);
 
-    title(tdl, <span class="string">'Sensor Array Simulation'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 18, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    disp(<span class="string">'Sensor Array Simulation'</span>);
 
     subline1 = <span class="string">"Sensor Array (%s) of $%d\\times%d$ sensors,"</span> + <span class="keyword">...</span>
         <span class="string">" an edge length of $%.1f$ mm, a rel. pos. to magnet surface of"</span>;
@@ -195,11 +180,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
                    ds.Info.CharData, <span class="keyword">...</span>
                    ds.Info.UseOptions.BridgeReference)];
 
-    subtitle(tdl, sub, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 14, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    disp(sub);
 
     <span class="comment">% get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -237,16 +218,22 @@ Edited on Month DD. YYYY by Editor: Single line description.
     HyNorm = Hy ./ MaxHmagPos;
     HyScaled = Hy / MaxHmagOA;
 
-    <span class="comment">% sensor array grid</span>
+    Nd = ds.Info.SensorArrayOptions.dimension;
     X = ds.Data.X;
     Y = ds.Data.Y;
     Z = ds.Data.Z;
 
     <span class="comment">% calc limits of plot 1</span>
-    maxX = ds.Info.UseOptions.xPos + 0.7 * ds.Info.SensorArrayOptions.edge;
-    maxY = ds.Info.UseOptions.yPos + 0.7 * ds.Info.SensorArrayOptions.edge;
-    minX = ds.Info.UseOptions.xPos - 0.7 * ds.Info.SensorArrayOptions.edge;
-    minY = ds.Info.UseOptions.yPos - 0.7 * ds.Info.SensorArrayOptions.edge;
+    a= ds.Info.SensorArrayOptions.edge;
+    maxX = ds.Info.UseOptions.xPos + a * 0.66;
+    maxY = ds.Info.UseOptions.yPos + a * 0.66;
+    minX = ds.Info.UseOptions.xPos - a * 0.66;
+    minY = ds.Info.UseOptions.yPos - a * 0.66;
+    dp = a / (ds.Info.SensorArrayOptions.dimension - 1);
+    x1 = ds.Info.UseOptions.xPos - a/2;
+    x2 = ds.Info.UseOptions.xPos + a/2;
+    y1 = ds.Info.UseOptions.yPos - a/2;
+    y2 = ds.Info.UseOptions.yPos + a/2;
 
     <span class="comment">% plot sensor grid in x and y coordinates %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -282,7 +269,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="keyword">end</span>
 
     <span class="comment">% scatter magnet x,y position (0,0,z)</span>
-    scatter(0, 0, 32, <span class="string">'r'</span>, <span class="string">'filled'</span>);
+    scatter(0, 0, 120, <span class="string">'r'</span>, <span class="string">'filled'</span>);
 
     hold <span class="string">off</span>;
 
@@ -292,24 +279,14 @@ Edited on Month DD. YYYY by Editor: Single line description.
     grid <span class="string">on</span>;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel(<span class="string">'$j$'</span>);
+    ylabel(<span class="string">'$i$'</span>);
 
-    xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$Y$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'$H_x$, $H_y$ Normed to Max overall Positions'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    title(<span class="string">'$H_x$, $H_y$ / Global Max $|H|$'</span>);
 
     <span class="comment">% Cosinus, sinus voltage scaled to overall maxima %%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -328,7 +305,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="keyword">end</span>
 
     <span class="comment">% scatter magnet x,y position (0,0,z)</span>
-    scatter(0, 0, 32, <span class="string">'r'</span>, <span class="string">'filled'</span>);
+    scatter(0, 0, 120, <span class="string">'r'</span>, <span class="string">'filled'</span>);
 
     hold <span class="string">off</span>;
 
@@ -338,24 +315,14 @@ Edited on Month DD. YYYY by Editor: Single line description.
     grid <span class="string">on</span>;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel(<span class="string">'$j$'</span>);
+    ylabel(<span class="string">'$i$'</span>);
 
-    xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$Y$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'$V_{cos}$, $V_{sin}$ Normed to Max overall Positions'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    title(<span class="string">'$V_{cos}$, $V_{sin}$ / Global Max $|V|$'</span>);
 
     <span class="comment">% Field strength normed each maxima at position %%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -374,7 +341,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="keyword">end</span>
 
     <span class="comment">% scatter magnet x,y position (0,0,z)</span>
-    scatter(0, 0, 32, <span class="string">'r'</span>, <span class="string">'filled'</span>);
+    scatter(0, 0, 120, <span class="string">'r'</span>, <span class="string">'filled'</span>);
 
     hold <span class="string">off</span>;
 
@@ -384,24 +351,14 @@ Edited on Month DD. YYYY by Editor: Single line description.
     grid <span class="string">on</span>;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel(<span class="string">'$j$'</span>);
+    ylabel(<span class="string">'$i$'</span>);
 
-    xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$Y$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'$H_x$, $H_y$ Normed to Max at each Position'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    title(<span class="string">'$H_x$, $H_y$ / Local Max $|H|$'</span>);
 
     <span class="comment">% Cosinus, sinus voltage normed to each maxima at position %%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -420,7 +377,7 @@ Edited on Month DD. YYYY by Editor: Single line description.
     <span class="keyword">end</span>
 
     <span class="comment">% scatter magnet x,y position (0,0,z)</span>
-    scatter(0, 0, 32, <span class="string">'r'</span>, <span class="string">'filled'</span>);
+    scatter(0, 0, 120, <span class="string">'r'</span>, <span class="string">'filled'</span>);
 
     hold <span class="string">off</span>;
 
@@ -430,41 +387,31 @@ Edited on Month DD. YYYY by Editor: Single line description.
     grid <span class="string">on</span>;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel(<span class="string">'$j$'</span>);
+    ylabel(<span class="string">'$i$'</span>);
 
-    xlabel(<span class="string">'$X$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    ylabel(<span class="string">'$Y$ in mm'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
-
-    title(<span class="string">'$V_{cos}$, $V_{sin}$ Normed to Max at each Positions'</span>, <span class="keyword">...</span>
-        <span class="string">'FontWeight'</span>, <span class="string">'normal'</span>, <span class="keyword">...</span>
-        <span class="string">'FontSize'</span>, 12, <span class="keyword">...</span>
-        <span class="string">'FontName'</span>, <span class="string">'Times'</span>, <span class="keyword">...</span>
-        <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    title(<span class="string">'$V_{cos}$, $V_{sin}$ / Local Max $|V|$'</span>);
 
     <span class="comment">% save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
     <span class="comment">% get file path to save figure with angle index</span>
-    [~, fName, ~] = fileparts(ds.Info.filePath);
-
-    <span class="comment">% save to various formats</span>
-    yesno = input(<span class="string">'Save? [y/n]: '</span>, <span class="string">'s'</span>);
-    <span class="keyword">if</span> strcmp(yesno, <span class="string">'y'</span>)
-        fLabel = input(<span class="string">'Enter file label: '</span>, <span class="string">'s'</span>);
-        fName = fName + <span class="string">"_CirclePlot_"</span> + fLabel;
-        savefig(fig, fullfile(fPath, fName));
-        print(fig, fullfile(fPath, fName), <span class="string">'-dsvg'</span>);
-        print(fig, fullfile(fPath, fName), <span class="string">'-depsc'</span>, <span class="string">'-tiff'</span>, <span class="string">'-loose'</span>);
-        print(fig, fullfile(fPath, fName), <span class="string">'-dpdf'</span>, <span class="string">'-loose'</span>, <span class="string">'-fillpage'</span>);
-    <span class="keyword">end</span>
-    close(fig);
+<span class="comment">%     [~, fName, ~] = fileparts(ds.Info.filePath);</span>
+<span class="comment">%</span>
+<span class="comment">%     % save to various formats</span>
+<span class="comment">%     yesno = input('Save? [y/n]: ', 's');</span>
+<span class="comment">%     if strcmp(yesno, 'y')</span>
+<span class="comment">%         fLabel = input('Enter file label: ', 's');</span>
+<span class="comment">%         fName = fName + "_CirclePlot_" + fLabel;</span>
+<span class="comment">%         savefig(fig, fullfile(fPath, fName));</span>
+<span class="comment">%         print(fig, fullfile(fPath, fName), '-dsvg');</span>
+<span class="comment">%         print(fig, fullfile(fPath, fName), '-depsc', '-tiff', '-loose');</span>
+<span class="comment">%         print(fig, fullfile(fPath, fName), '-dpdf', '-loose', '-fillpage');</span>
+<span class="comment">%     end</span>
+<span class="comment">%     close(fig);</span>
 <span class="keyword">end</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -568,27 +515,12 @@ function plotSimulationDatasetCircle()
     fig = figure('Name', 'Sensor Array', ...
         'NumberTitle' , 'off', ...
         'WindowStyle', 'normal', ...
-        'MenuBar', 'none', ...
-        'ToolBar', 'none', ...
         'Units', 'centimeters', ...
-        'OuterPosition', [0 0 30 30], ...
-        'PaperType', 'a4', ...
-        'PaperUnits', 'centimeters', ...
-        'PaperOrientation', 'landscape', ...
-        'PaperPositionMode', 'auto', ...
-        'DoubleBuffer', 'on', ...
-        'RendererMode', 'manual', ...
-        'Renderer', 'painters');
+        'OuterPosition', [0 0 30 30]);
     
-    tdl = tiledlayout(fig, 2, 2, ...
-        'Padding', 'compact', ...
-        'TileSpacing' , 'compact');
+    tdl = tiledlayout(fig, 2, 2);
     
-    title(tdl, 'Sensor Array Simulation', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 18, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    disp('Sensor Array Simulation');
     
     subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors," + ...
         " an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
@@ -621,11 +553,7 @@ function plotSimulationDatasetCircle()
                    ds.Info.CharData, ...
                    ds.Info.UseOptions.BridgeReference)];
     
-    subtitle(tdl, sub, ...
-        'FontWeight', 'normal', ...
-        'FontSize', 14, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    disp(sub);
     
     % get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -663,16 +591,22 @@ function plotSimulationDatasetCircle()
     HyNorm = Hy ./ MaxHmagPos;
     HyScaled = Hy / MaxHmagOA;
     
-    % sensor array grid
+    Nd = ds.Info.SensorArrayOptions.dimension;
     X = ds.Data.X;
     Y = ds.Data.Y;
     Z = ds.Data.Z;
     
     % calc limits of plot 1
-    maxX = ds.Info.UseOptions.xPos + 0.7 * ds.Info.SensorArrayOptions.edge;
-    maxY = ds.Info.UseOptions.yPos + 0.7 * ds.Info.SensorArrayOptions.edge;
-    minX = ds.Info.UseOptions.xPos - 0.7 * ds.Info.SensorArrayOptions.edge;
-    minY = ds.Info.UseOptions.yPos - 0.7 * ds.Info.SensorArrayOptions.edge;
+    a= ds.Info.SensorArrayOptions.edge;
+    maxX = ds.Info.UseOptions.xPos + a * 0.66;
+    maxY = ds.Info.UseOptions.yPos + a * 0.66;
+    minX = ds.Info.UseOptions.xPos - a * 0.66;
+    minY = ds.Info.UseOptions.yPos - a * 0.66;
+    dp = a / (ds.Info.SensorArrayOptions.dimension - 1);
+    x1 = ds.Info.UseOptions.xPos - a/2;
+    x2 = ds.Info.UseOptions.xPos + a/2;
+    y1 = ds.Info.UseOptions.yPos - a/2;
+    y2 = ds.Info.UseOptions.yPos + a/2;
     
     % plot sensor grid in x and y coordinates %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
@@ -708,7 +642,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -718,24 +652,14 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
-
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$H_x$, $H_y$ Normed to Max overall Positions', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$H_x$, $H_y$ / Global Max $|H|$');
     
     % Cosinus, sinus voltage scaled to overall maxima %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -754,7 +678,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -764,24 +688,14 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$V_{cos}$, $V_{sin}$ Normed to Max overall Positions', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$V_{cos}$, $V_{sin}$ / Global Max $|V|$');
     
     % Field strength normed each maxima at position %%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -800,7 +714,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -810,24 +724,14 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$H_x$, $H_y$ Normed to Max at each Position', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$H_x$, $H_y$ / Local Max $|H|$');
     
     % Cosinus, sinus voltage normed to each maxima at position %%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -846,7 +750,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -856,41 +760,31 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$V_{cos}$, $V_{sin}$ Normed to Max at each Positions', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$V_{cos}$, $V_{sin}$ / Local Max $|V|$');
     
     % save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get file path to save figure with angle index
-    [~, fName, ~] = fileparts(ds.Info.filePath);
-    
-    % save to various formats
-    yesno = input('Save? [y/n]: ', 's');
-    if strcmp(yesno, 'y')
-        fLabel = input('Enter file label: ', 's');
-        fName = fName + "_CirclePlot_" + fLabel;
-        savefig(fig, fullfile(fPath, fName));
-        print(fig, fullfile(fPath, fName), '-dsvg');
-        print(fig, fullfile(fPath, fName), '-depsc', '-tiff', '-loose');
-        print(fig, fullfile(fPath, fName), '-dpdf', '-loose', '-fillpage');
-    end
-    close(fig);
+%     [~, fName, ~] = fileparts(ds.Info.filePath);
+%     
+%     % save to various formats
+%     yesno = input('Save? [y/n]: ', 's');
+%     if strcmp(yesno, 'y')
+%         fLabel = input('Enter file label: ', 's');
+%         fName = fName + "_CirclePlot_" + fLabel;
+%         savefig(fig, fullfile(fPath, fName));
+%         print(fig, fullfile(fPath, fName), '-dsvg');
+%         print(fig, fullfile(fPath, fName), '-depsc', '-tiff', '-loose');
+%         print(fig, fullfile(fPath, fName), '-dpdf', '-loose', '-fillpage');
+%     end
+%     close(fig);
 end
 
 

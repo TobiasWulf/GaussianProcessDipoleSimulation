@@ -98,27 +98,12 @@ function plotSimulationDatasetCircle()
     fig = figure('Name', 'Sensor Array', ...
         'NumberTitle' , 'off', ...
         'WindowStyle', 'normal', ...
-        'MenuBar', 'none', ...
-        'ToolBar', 'none', ...
         'Units', 'centimeters', ...
-        'OuterPosition', [0 0 30 30], ...
-        'PaperType', 'a4', ...
-        'PaperUnits', 'centimeters', ...
-        'PaperOrientation', 'landscape', ...
-        'PaperPositionMode', 'auto', ...
-        'DoubleBuffer', 'on', ...
-        'RendererMode', 'manual', ...
-        'Renderer', 'painters');
+        'OuterPosition', [0 0 30 30]);
     
-    tdl = tiledlayout(fig, 2, 2, ...
-        'Padding', 'compact', ...
-        'TileSpacing' , 'compact');
+    tdl = tiledlayout(fig, 2, 2);
     
-    title(tdl, 'Sensor Array Simulation', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 18, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    disp('Sensor Array Simulation');
     
     subline1 = "Sensor Array (%s) of $%d\\times%d$ sensors," + ...
         " an edge length of $%.1f$ mm, a rel. pos. to magnet surface of";
@@ -151,11 +136,7 @@ function plotSimulationDatasetCircle()
                    ds.Info.CharData, ...
                    ds.Info.UseOptions.BridgeReference)];
     
-    subtitle(tdl, sub, ...
-        'FontWeight', 'normal', ...
-        'FontSize', 14, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    disp(sub);
     
     % get subset of needed data to plot, only one load %%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -193,16 +174,22 @@ function plotSimulationDatasetCircle()
     HyNorm = Hy ./ MaxHmagPos;
     HyScaled = Hy / MaxHmagOA;
     
-    % sensor array grid
+    Nd = ds.Info.SensorArrayOptions.dimension;
     X = ds.Data.X;
     Y = ds.Data.Y;
     Z = ds.Data.Z;
     
     % calc limits of plot 1
-    maxX = ds.Info.UseOptions.xPos + 0.7 * ds.Info.SensorArrayOptions.edge;
-    maxY = ds.Info.UseOptions.yPos + 0.7 * ds.Info.SensorArrayOptions.edge;
-    minX = ds.Info.UseOptions.xPos - 0.7 * ds.Info.SensorArrayOptions.edge;
-    minY = ds.Info.UseOptions.yPos - 0.7 * ds.Info.SensorArrayOptions.edge;
+    a= ds.Info.SensorArrayOptions.edge;
+    maxX = ds.Info.UseOptions.xPos + a * 0.66;
+    maxY = ds.Info.UseOptions.yPos + a * 0.66;
+    minX = ds.Info.UseOptions.xPos - a * 0.66;
+    minY = ds.Info.UseOptions.yPos - a * 0.66;
+    dp = a / (ds.Info.SensorArrayOptions.dimension - 1);
+    x1 = ds.Info.UseOptions.xPos - a/2;
+    x2 = ds.Info.UseOptions.xPos + a/2;
+    y1 = ds.Info.UseOptions.yPos - a/2;
+    y2 = ds.Info.UseOptions.yPos + a/2;
     
     % plot sensor grid in x and y coordinates %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
@@ -238,7 +225,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -248,24 +235,14 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
-
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$H_x$, $H_y$ Normed to Max overall Positions', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$H_x$, $H_y$ / Global Max $|H|$');
     
     % Cosinus, sinus voltage scaled to overall maxima %%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,7 +261,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -294,24 +271,14 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$V_{cos}$, $V_{sin}$ Normed to Max overall Positions', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$V_{cos}$, $V_{sin}$ / Global Max $|V|$');
     
     % Field strength normed each maxima at position %%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -330,7 +297,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -340,24 +307,14 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$H_x$, $H_y$ Normed to Max at each Position', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$H_x$, $H_y$ / Local Max $|H|$');
     
     % Cosinus, sinus voltage normed to each maxima at position %%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -376,7 +333,7 @@ function plotSimulationDatasetCircle()
     end
     
     % scatter magnet x,y position (0,0,z)
-    scatter(0, 0, 32, 'r', 'filled');
+    scatter(0, 0, 120, 'r', 'filled');
     
     hold off; 
    
@@ -386,40 +343,30 @@ function plotSimulationDatasetCircle()
     grid on;
     xlim([minX maxX]);
     ylim([minY maxY]);
+    xticks(x1:dp:x2);
+    xticklabels(1:ds.Info.SensorArrayOptions.dimension);
+    yticks(y1:dp:y2);
+    yticklabels(ds.Info.SensorArrayOptions.dimension:-1:1);
+    xlabel('$j$');
+    ylabel('$i$');
     
-    xlabel('$X$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    ylabel('$Y$ in mm', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
-    
-    title('$V_{cos}$, $V_{sin}$ Normed to Max at each Positions', ...
-        'FontWeight', 'normal', ...
-        'FontSize', 12, ...
-        'FontName', 'Times', ...
-        'Interpreter', 'latex');
+    title('$V_{cos}$, $V_{sin}$ / Local Max $|V|$');
     
     % save figure to file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % get file path to save figure with angle index
-    [~, fName, ~] = fileparts(ds.Info.filePath);
-    
-    % save to various formats
-    yesno = input('Save? [y/n]: ', 's');
-    if strcmp(yesno, 'y')
-        fLabel = input('Enter file label: ', 's');
-        fName = fName + "_CirclePlot_" + fLabel;
-        savefig(fig, fullfile(fPath, fName));
-        print(fig, fullfile(fPath, fName), '-dsvg');
-        print(fig, fullfile(fPath, fName), '-depsc', '-tiff', '-loose');
-        print(fig, fullfile(fPath, fName), '-dpdf', '-loose', '-fillpage');
-    end
-    close(fig);
+%     [~, fName, ~] = fileparts(ds.Info.filePath);
+%     
+%     % save to various formats
+%     yesno = input('Save? [y/n]: ', 's');
+%     if strcmp(yesno, 'y')
+%         fLabel = input('Enter file label: ', 's');
+%         fName = fName + "_CirclePlot_" + fLabel;
+%         savefig(fig, fullfile(fPath, fName));
+%         print(fig, fullfile(fPath, fName), '-dsvg');
+%         print(fig, fullfile(fPath, fName), '-depsc', '-tiff', '-loose');
+%         print(fig, fullfile(fPath, fName), '-dpdf', '-loose', '-fillpage');
+%     end
+%     close(fig);
 end
 

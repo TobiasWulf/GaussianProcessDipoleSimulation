@@ -33,7 +33,7 @@
 clc;
 disp('Start GPR module demonstration ...');
 clearvars;
-close all;
+%close all;
 
 disp('Load config ...');
 load config.mat PathVariables GPROptions;

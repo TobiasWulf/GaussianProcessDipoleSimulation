@@ -283,12 +283,12 @@ TrainingOptions.useCase = 'Training';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
-TrainingOptions.xPos = [0,];
-TrainingOptions.yPos = [0,];
-TrainingOptions.zPos = [7.5,];
+TrainingOptions.xPos = [2.5,];
+TrainingOptions.yPos = [2,];
+TrainingOptions.zPos = [4.5,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TrainingOptions.tilt = 0;
+TrainingOptions.tilt = 11;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
@@ -344,12 +344,12 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [0,];
-TestOptions.yPos = [0,];
-TestOptions.zPos = [7.5,];
+TestOptions.xPos = [2.5,];
+TestOptions.yPos = [2,];
+TestOptions.zPos = [4.5,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TestOptions.tilt = 0;
+TestOptions.tilt = 11;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
@@ -430,8 +430,8 @@ GPROptions.theta = [1, 1];
 % the point evaluated as bad set point. If the bound are to wide in relation of
 % number in dataset variousity the mean error raises. The model is to complex
 % then. Try to keep up simple modles.
-GPROptions.s2fBounds = [0.1, 100];
-GPROptions.slBounds = [0.1, 100];
+GPROptions.s2fBounds = [0.4, 20];
+GPROptions.slBounds = [4, 50];
 
 % Set initial noise variance to add noise along the diagonal of th covariance
 % matrix to predict noisy observation. Set to small values or even 0 to get
@@ -441,14 +441,14 @@ GPROptions.s2n = 1e-04;
 % Set lower and upper bounds for noise adjustment in computing the covariance
 % matrix for noisy observations. These bounds prevent the GPR of overfitting in
 % the noise optimization procedure. The default noise at initialization is 1e-5.
-GPROptions.s2nBounds = [1e-8, 1e-2];
+GPROptions.s2nBounds = [3e-7, 1e-5];
 
 
 % Set number of outer optimization runs. For wide parameter bounds it is
 % recommended to set the number of runs to min 30 otherwise the bayes
 % optimization runs to short in finding error bounds and left with not good
 % optimized parameters.
-GPROptions.OptimRuns = 30;
+GPROptions.OptimRuns = 10;
 
 
 % Set standardized logarithmic loss for bayes optimization of s2n with MSLL.
