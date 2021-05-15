@@ -71,12 +71,12 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 
 
 \begin{align}\label{eq:trainds}
-	X   &= \big[ X_i, \ldots X_{N_{Ref}} \big] \qquad\qquad\qquad\quad\!  \text{f. } i = 1,2,3,\ldots,N_{Ref} \nonumber \\
+	X   &= \big[ X_i, \ldots X_{N_{Ref}} \big] \qquad\qquad\qquad\quad\!  \text{für } i = 1,2,3,\ldots,N_{Ref} \nonumber \\
 	\\
 	X_i &= 
 		\begin{cases}
-			\big[ X_{cos,i}, X_{sin,i} \big]             &\qquad \text{f. } d_F^2 \text{ \eqref{eq:df2}} \\
-			\big[ \|X_{cos,i}\|_F, \|X_{sin,i}\|_F \big] &\qquad \text{f. } d_E^2 \text{ \eqref{eq:de2innorm}}
+			\big[ X_{cos,i}, X_{sin,i} \big]             &\qquad \text{für Abstände nach \autoref{eq:df2}} \\
+			\big[ \|X_{cos,i}\|_F, \|X_{sin,i}\|_F \big] &\qquad \text{für Abstände nach \autoref{eq:de2innorm}}
 		\end{cases} \nonumber \\
 	X_i & \mapsto \alpha_i \nonumber
 \end{align}
@@ -88,8 +88,8 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \begin{align}\label{eq:testds}
 	X_* &= 
 	\begin{cases}
-		\big[ X_{cos*}, X_{sin*} \big]             &\qquad \text{f. } d_F^2 \text{ \eqref{eq:df2}} \\
-		\big[ \|X_{cos*}\|_F, \|X_{sin*}\|_F \big] &\qquad \text{f. } d_E^2 \text{ \eqref{eq:de2innorm}}
+		\big[ X_{cos*}, X_{sin*} \big]             &\qquad \text{für Abstände nach \autoref{eq:df2}} \\
+		\big[ \|X_{cos*}\|_F, \|X_{sin*}\|_F \big] &\qquad \text{für Abstände nach \autoref{eq:de2innorm}}
 	\end{cases} \\
 	X_* & \mapsto \alpha_* \nonumber
 \end{align}
@@ -98,24 +98,24 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \clearpage
 
 
-\paragraph*{Regressionsziele} sind als Spaltenvektoren nach \cite{Rasmussen2006} wie in \autoref{eq:gprtarget} definiert. Die Besonderheit hier sind zwei Zielvektoren statt einer, wie in der Fachliteratur \cite{Rasmussen2006} angegeben. Abstrahiertes Regressionsziel ist der Einheitskreis, daher ergeben sich einfache Sinoide aus den Referenzwinkeln in \autoref{eq:gprtarget}.
+\paragraph*{Die Regressionsziele} sind als Spaltenvektoren nach \cite{Rasmussen2006} wie in \autoref{eq:gprtarget} definiert. Die Besonderheit hier sind zwei Zielvektoren statt einer, wie in der Fachliteratur \cite{Rasmussen2006} angegeben. Abstrahiertes Regressionsziel ist der Einheitskreis, daher ergeben sich einfache Sinoide aus den Referenzwinkeln in \autoref{eq:gprtarget}.
 
 
 \begin{align}\label{eq:gprtarget}
-	y_{cos} &= (\cos \alpha_i, \ldots, \cos \alpha_{N_{Ref}})^T \qquad \text{f. } i = 1,2,3,\ldots,N_{Ref} \nonumber \\
+	y_{cos} &= (\cos \alpha_i, \ldots, \cos \alpha_{N_{Ref}})^T \qquad \text{für } i = 1,2,3,\ldots,N_{Ref} \nonumber \\
 	\\
 	y_{sin} &= (\sin \alpha_i, \ldots, \sin \alpha_{N_{Ref}})^T \nonumber
 \end{align}
 
 
-\paragraph*{Kernel-Funktion} als Kernelement des Regressionsverfahren für Gauß'sche Prozesse \cite{Rasmussen2006}. Es sind zwei Versionen nach gleichen Vorbild der fraktalen Kovarianz \cite{Schuethe2020b}\cite{Schuethe2020}  implementiert. Die Implementierung mittels \autoref{eq:df2} resultiert aus den Vorarbeiten der \gls{gl:ags} und stellt die genaue Lösung dar und arbeitet direkt mit Matrizen als Trainingsdaten. Die Implementierung nach mit \autoref{eq:de2innorm} ist innerhalb dieser Arbeit entstanden und bedingt ein vorab Prozessieren der Trainingsdaten zu Vektoren. Ebenfalls müssen weitere Testdaten eingangs zu skalaren verarbeitet werden. Dazu wird die Frobenius-Norm aus \autoref{eq:fnorm} verwendet. Die Implementierung nach \autoref{eq:de2innorm} folgt dem Beispiel aus der Veröffentlichung von \citeauthor{Lang2014}\cite{Lang2014} für die Anwendung der Gauß-Prozess-Regression auf Themenfeld der Robotik.
+\paragraph*{Die Kernel-Funktion} ist das Kernelement des Regressionsverfahren für Gauß'sche Prozesse \cite{Rasmussen2006}. Es sind zwei Versionen nach gleichen Vorbild der fraktalen Kovarianz \cite{Schuethe2020b}\cite{Schuethe2020}  implementiert. Die Implementierung mittels \autoref{eq:df2} resultiert aus den Vorarbeiten der \gls{gl:ags} und stellt die genaue Lösung dar und arbeitet direkt mit Matrizen als Trainingsdaten. Die Implementierung nach mit \autoref{eq:de2innorm} ist innerhalb dieser Arbeit entstanden und bedingt ein vorab Prozessieren der Trainingsdaten zu Vektoren. Ebenfalls müssen weitere Testdaten eingangs zu skalaren verarbeitet werden. Dazu wird die Frobenius-Norm aus \autoref{eq:fnorm} verwendet. Die Implementierung nach \autoref{eq:de2innorm} folgt dem Beispiel aus der Veröffentlichung von \citeauthor{Lang2014}\cite{Lang2014} für die Anwendung der Gauß-Prozess-Regression auf Themenfeld der Robotik.
 
 
 \begin{align}\label{eq:kfun}
 	k(X_i, X_j) &= 
 		\begin{cases}
-			\resizebox{.17\linewidth}{!}{$\frac{a}{b + d_F^2\langle X_i, X_j \rangle}$} &\qquad \text{f. } d_F^2 \text{ \eqref{eq:df2}} \\\\
-			\resizebox{.17\linewidth}{!}{$\frac{a}{b + d_E^2\langle X_i, X_j \rangle}$} &\qquad \text{f. } d_E^2 \text{ \eqref{eq:de2innorm}}
+			\resizebox{.17\linewidth}{!}{$\frac{a}{b + d_F^2\langle X_i, X_j \rangle}$} &\qquad \text{für Abstände nach \autoref{eq:df2}} \\\\
+			\resizebox{.17\linewidth}{!}{$\frac{a}{b + d_E^2\langle X_i, X_j \rangle}$} &\qquad \text{für Abstände nach \autoref{eq:de2innorm}}
 		\end{cases} \\
 \text{mit } i,j &= 1,2,3,\ldots,N_{Ref} \nonumber
 \end{align}
@@ -124,7 +124,7 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \clearpage
 
 
-\paragraph*{Kernel-Parameter} für die Kovarianz- oder Kernel-Funktion bilden sich die Funktionsparameter, wie in \autoref{eq:kparam} beschrieben. Bei der Parameteridentifizierung ist das Auslöschungskriterium für gültige Kovarianzfunktionen elementar \cite{Rasmussen2006}. Dabei ist der Fall abzudecken, dass die Abstandsfunktion der Kovarianz zu null wird, wenn Datensätze mit sich selbst prozessiert werden. In diesem Fall muss die Kovarianzfunktion $\sigma_f^2$ ergeben.
+\paragraph*{Die Kernel-Parameter} für die Kovarianz- oder Kernel-Funktion bilden sich als Funktionsparameter, wie in \autoref{eq:kparam} beschrieben. Bei der Parameteridentifizierung ist das Auslöschungskriterium für gültige Kovarianzfunktionen elementar \cite{Rasmussen2006}. Dabei ist der Fall abzudecken, dass die Abstandsfunktion der Kovarianz zu null wird, wenn Datensätze mit sich selbst prozessiert werden. In diesem Fall muss die Kovarianzfunktion $\sigma_f^2$ ergeben.
 
 
 \begin{equation}\label{eq:kparam}
@@ -132,7 +132,7 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \end{equation}
 
 
-\paragraph*{Kovarianzmatrix} als Autokorrelationsergebnis, ist für alle bereitgestellten Trainingsdaten untereinander mit \autoref{alg:kmatrix} zu berechnen \cite{Rasmussen2006}. Das Ergebnis, in quadratischer Matrixform, definiert das Verhalten des Gesamtsystems über gemessene Einzelabstände der Trainingsdaten zueinander. Es bedeutet, dass für ein Sensor-Array auf Basis des TMR-Sensors \cite{TDK2016} in Drehwinkelapplikation \autoref{fig:sensor-array-prinzip}, die $\SI{360}{\degree}$ Periodizität ersichtlich sein muss. Was eine Maxima-Diagonale von links nach rechts und annähernde Max-Werte in den beiden übrigen Ecken der Matrix impliziert.
+\paragraph*{Die Kovarianzmatrix} ist als Autokorrelationsergebnis für alle bereitgestellten Trainingsdaten untereinander nach \autoref{alg:kmatrix} zu berechnen \cite{Rasmussen2006}. Das Ergebnis, in quadratischer Matrixform, definiert das Verhalten des Gesamtsystems über gemessene Einzelabstände der Trainingsdaten zueinander. Es bedeutet, dass für ein Sensor-Array auf Basis des TMR-Sensors \cite{TDK2016} in Drehwinkelapplikation \autoref{fig:sensor-array-prinzip}, die $\SI{360}{\degree}$ Periodizität ersichtlich sein muss. Was eine Maxima-Diagonale von links nach rechts und annähernde Max-Werte in den beiden übrigen Ecken der Matrix impliziert.
 
 
 \begin{algorithm}[h]
@@ -150,7 +150,7 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \end{algorithm}
 
 
-\paragraph*{Rauschaufschaltung} durch konstantes Rauschniveau $\sigma_n^2$ und minimaler Anhebung der Kovarianzmatrix-Diagonalen, für verrauschte bzw. fehlerbehaftete Regression \cite{Rasmussen2006}. Entsprechend der Fachliteratur ist die Kovarianzmatrix inklusive additives Rauschen als $K_y$ bezeichnet \cite{Rasmussen2006}.
+\paragraph*{Als Noisy-Observation} ist durch ein Aufaddieren eines konstanten Rauschniveaus $\sigma_n^2$ und damit verbundener minimaler Anhebung der Kovarianzmatrix-Diagonalen bezeichnet. Verwendet in verrauschter bzw. fehlerbehaftete Regression \cite{Rasmussen2006}. Entsprechend der Fachliteratur ist die Kovarianzmatrix inklusive additives Rauschen als $K_y$ bezeichnet \cite{Rasmussen2006}.
 
 
 \begin{equation}\label{eq:addnoise}
@@ -158,7 +158,7 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \end{equation}
 
 
-\paragraph*{Cholesky-Zerlegung $K_y$} als Ansatz zum Lösen der Regressionsmechanismen. Dem Regressionsverfahren zugrundeliegenden Lösungen der Wahrscheinlichkeitsdichte-Integrale sind über Matrix- und Vektormultiplikation mit Inversen Matrizen in linearen Gleichungssystemen gelöst \cite{Rasmussen2006}. Für das Lösen der Gleichungssysteme mit inversen Matrizen, ist die Zerlegung der nicht inversen Matrix in eine untere Dreiecksmatrix möglich. Die Cholesky-Zerlegung schafft entsprechenden Repräsentant $L$ für die Matrix $K_y$. Die logarithmierte Determinante ist mit \autoref{eq:chol} zu berechnen. Matrizen müssen symmetrisch und positiv definit sein, um die Cholesky-Zerlegung anwenden zu können \cite{Rasmussen2006}.
+\paragraph*{Die Cholesky-Zerlegung von $K_y$} ist als Ansatz zum Lösen der Regressionsmechanismen zu empfehlen. Dem Regressionsverfahren zugrundeliegenden Lösungen der Wahrscheinlichkeitsdichte-Integrale sind über Matrix- und Vektormultiplikation mit Inversen Matrizen in linearen Gleichungssystemen gelöst \cite{Rasmussen2006}. Für das Lösen der Gleichungssysteme mit inversen Matrizen, ist die Zerlegung der nicht inversen Matrix in eine untere Dreiecksmatrix möglich. Die Cholesky-Zerlegung schafft entsprechenden Repräsentant $L$ für die Matrix $K_y$. Die logarithmierte Determinante ist mit \autoref{eq:chol} zu berechnen. Matrizen müssen symmetrisch und positiv definit sein, um die Cholesky-Zerlegung anwenden zu können \cite{Rasmussen2006}.
 
 
 \begin{align}\label{eq:chol}
@@ -171,40 +171,40 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 Es sollen damit Gleichungssysteme wie $Ax = b \Leftrightarrow x = A^{-1}b$ über zerlegten Repräsentanten gelöst sein $Ly = b \Leftrightarrow L^Tx = y$. Als Notation für die notwendige Lösung der linearen Gleichungssystem ist der Backslash-Operator genutzt $x = L^T \backslash (L \backslash b)$ \cite{Rasmussen2006}. Der Backslash-Operator steht ebenfalls in Matlab zur Verfügung.
 
 
-\paragraph*{Basis-Funktion} als Aufbaufunktion für Polynome aus Trainings- und Testdaten. Das Regressionsverfahren mittels Gauß'scher Prozesse kann in zwei Ausführungen betrieben werden. Die erste ist eine Regression ohne weitere Mittelwerte als Regressionshilfe. In zweiter Ausführung können Mittelwerte der Daten z.B. über Polynomfindung gebildet sein. Dafür bedingt es eine Basis-Funktion nach \autoref{eq:hfun}, die entsprechend der Kernel-Funktion und resultierende Datenformate Polynome bildet \cite{Rasmussen2006}. In der Implementierung sind Polynome ersten Grades verwendet. Was einer Offset- und Amplitudenkorrektur der Trainings- und Testdaten entspricht. Die in \autoref{eq:hfun} gezeigten Funktionen müssen, jeweils für beide Cosinus und Sinus Datentypen gebildet werden und beziehen sich hier in der Darstellung für einen einzigen Simulationswinkel $X_* \mapsto \alpha_*$.
+\paragraph*{Die Basis-Funktion} ist als Aufbaufunktion für Polynome aus Trainings- und Testdaten zu nutzen. Das Regressionsverfahren mittels Gauß'scher Prozesse kann in zwei Ausführungen betrieben werden. Die erste ist eine Regression ohne weitere Mittelwerte als Regressionshilfe. In zweiter Ausführung können Mittelwerte der Daten z.B. über Polynomfindung gebildet sein. Dafür bedingt es eine Basis-Funktion nach \autoref{eq:hfun}, die entsprechend der Kernel-Funktion und resultierende Datenformate Polynome bildet \cite{Rasmussen2006}. In der Implementierung sind Polynome ersten Grades verwendet. Was einer Offset- und Amplitudenkorrektur der Trainings- und Testdaten entspricht. Die in \autoref{eq:hfun} gezeigten Funktionen müssen, jeweils für beide Cosinus und Sinus Datentypen gebildet werden und beziehen sich hier in der Darstellung für einen einzigen Simulationswinkel $X_* \mapsto \alpha_*$.
 
 
 \begin{align}\label{eq:hfun}
 	h_{cos}(X_{cos*}) &=
 		\begin{cases}
-			0								                          & \text{f. } m_{cos}(X_{cos*}) = 0 \\
-			\big( 1, \|X_{cos*}\|_F, \|X_{cos*}\|_F^2, \ldots \big)^T & \text{f. } d_F^2 \text{ \eqref{eq:df2}, }       m_{cos}(X_{cos*}) \ne 0 \\
-			\big( 1, X_{cos*}, X_{cos*}^2, \ldots \big)^T             & \text{f. } d_E^2 \text{ \eqref{eq:de2innorm}, } m_{cos}(X_{cos*}) \ne 0
+			0								                          & \text{für } m_{cos}(X_{cos*}) = 0 \\
+			\big( 1, \|X_{cos*}\|_F, \|X_{cos*}\|_F^2, \ldots \big)^T & \text{für \autoref{eq:df2}, }       m_{cos}(X_{cos*}) \ne 0 \\
+			\big( 1, X_{cos*}, X_{cos*}^2, \ldots \big)^T             & \text{für \autoref{eq:de2innorm}, } m_{cos}(X_{cos*}) \ne 0
 		\end{cases} \nonumber \\
 	\\
 	h_{sin}(X_{sin*}) &=
 		\begin{cases}
-			0								                          & \text{f. } m_{sin}(X_{sin*}) = 0 \\
-			\big( 1, \|X_{sin*}\|_F, \|X_{sin*}\|_F^2, \ldots \big)^T & \text{f. } d_F^2 \text{ \eqref{eq:df2}, }       m_{sin}(X_{sin*}) \ne 0 \\
-			\big( 1, X_{sin*}, X_{sin*}^2, \ldots \big)^T             & \text{f. } d_E^2 \text{ \eqref{eq:de2innorm}, } m_{sin}(X_{sin*}) \ne 0
+			0								                          & \text{für } m_{sin}(X_{sin*}) = 0 \\
+			\big( 1, \|X_{sin*}\|_F, \|X_{sin*}\|_F^2, \ldots \big)^T & \text{für \autoref{eq:df2}, }       m_{sin}(X_{sin*}) \ne 0 \\
+			\big( 1, X_{sin*}, X_{sin*}^2, \ldots \big)^T             & \text{für \autoref{eq:de2innorm}, } m_{sin}(X_{sin*}) \ne 0
 		\end{cases} \nonumber
 \end{align}
 
 
-\paragraph*{Mittelwertpolynome} bauen sich über die Basis-Funktionen aus \autoref{eq:hfun} für Trainingsdaten auf. Es resultieren Matrizen \cite{Rasmussen2006}, deren erste Reihe gleich eins ist und jede weitere Reihe mit entsprechenden Exponent für die Polynomgenerierung versehen ist. Die Polynombildung ist jeweils für beide Cosinus- und Sinus-Datensätze durchzuführen, wenn die Mittelwertbildung aktiv ist.
+\paragraph*{Die Mittelwertpolynome} bauen sich über die Basis-Funktionen aus \autoref{eq:hfun} für Trainingsdaten auf. Es resultieren Matrizen \cite{Rasmussen2006}, deren erste Reihe gleich eins ist und jede weitere Reihe mit entsprechenden Exponent für die Polynomgenerierung versehen ist. Die Polynombildung ist jeweils für beide Cosinus- und Sinus-Datensätze durchzuführen, wenn die Mittelwertbildung aktiv ist.
 
 
 \begin{align}\label{eq:hmatrix}
 	H_{cos}(X_{cos}) &=
 		\begin{cases}
-			0 															   &\qquad \text{f. } m_{cos}(X_{cos}) = 0 \\
-			\big[ h_{cos}(X_{cos,i}),\ldots,h_{cos}(X_{cos,N_{Ref}}) \big] &\qquad \text{f. } m_{cos}(X_{cos}) \ne 0
+			0 															   &\qquad \text{für } m_{cos}(X_{cos}) = 0 \\
+			\big[ h_{cos}(X_{cos,i}),\ldots,h_{cos}(X_{cos,N_{Ref}}) \big] &\qquad \text{für } m_{cos}(X_{cos}) \ne 0
 		\end{cases} \nonumber \\
 	\\
 	H_{sin}(X_{sin}) &=
 		\begin{cases}
-			0															   &\qquad \text{f. } m_{sin}(X_{sin}) = 0 \\
-			\big[ h_{sin}(X_{sin,i}),\ldots,h_{sin}(X_{sin,N_{Ref}}) \big] &\qquad \text{f. } m_{sin}(X_{sin}) \ne 0
+			0															   &\qquad \text{für } m_{sin}(X_{sin}) = 0 \\
+			\big[ h_{sin}(X_{sin,i}),\ldots,h_{sin}(X_{sin,N_{Ref}}) \big] &\qquad \text{für } m_{sin}(X_{sin}) \ne 0
 		\end{cases} \nonumber \\
 	\nonumber \\
 	& \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
@@ -214,7 +214,7 @@ Es sollen damit Gleichungssysteme wie $Ax = b \Leftrightarrow x = A^{-1}b$ über
 
 
 
-\paragraph*{Polynomkoeffizienten} zur Mittelwertbildung über gebildet Polynome nach \autoref{eq:hfun} und \autoref{eq:hmatrix}, sind benötigte Polynomkoeffizienten nach \autoref{eq:betacoeffs} zu berechnen \cite{Rasmussen2006}. Zur Berechnung der Koeffizienten sind mehrere inverse Matrix-Produkte verschachtelt zu lösen. 
+\paragraph*{Die Polynomkoeffizienten} zur Mittelwertbildung über gebildet Polynome nach \autoref{eq:hfun} und \autoref{eq:hmatrix} sind als Koeffizienten nach \autoref{eq:betacoeffs} zu berechnen \cite{Rasmussen2006}. Zur Berechnung der Koeffizienten sind mehrere inverse Matrix-Produkte verschachtelt zu lösen. 
 
 
 \clearpage
@@ -223,14 +223,14 @@ Es sollen damit Gleichungssysteme wie $Ax = b \Leftrightarrow x = A^{-1}b$ über
 \begin{align}\label{eq:betacoeffs}
 	\beta_{cos} &= 
 		\begin{cases}
-			0 																	 &\qquad \text{f. } m_{cos}(X_{cos}) = 0\\
-			\big( H_{cos} K_y^{-1} H_{cos}^T \big)^{-1} H_{cos} K_y^{-1} y_{cos} &\qquad \text{f. } m_{cos}(X_{cos}) \ne 0
+			0 																	 &\qquad \text{für } m_{cos}(X_{cos}) = 0\\
+			\big( H_{cos} K_y^{-1} H_{cos}^T \big)^{-1} H_{cos} K_y^{-1} y_{cos} &\qquad \text{für } m_{cos}(X_{cos}) \ne 0
 		\end{cases} \nonumber \\
 	\\
 	\beta_{sin} &= 
 		\begin{cases}
-			0 																	 &\qquad \text{f. } m_{sin}(X_{sin}) = 0\\
-			\big( H_{sin} K_y^{-1} H_{sin}^T \big)^{-1} H_{sin} K_y^{-1} y_{sin} &\qquad \text{f. } m_{sin}(X_{sin}) \ne 0
+			0 																	 &\qquad \text{für } m_{sin}(X_{sin}) = 0\\
+			\big( H_{sin} K_y^{-1} H_{sin}^T \big)^{-1} H_{sin} K_y^{-1} y_{sin} &\qquad \text{für } m_{sin}(X_{sin}) \ne 0
 		\end{cases} \nonumber \\
 	\nonumber \\
 	& \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
@@ -274,22 +274,22 @@ Zur Bewältigung des Problems ist \autoref{alg:beta-koeffs} implementiert worden
 \clearpage
 
 
-\paragraph*{Mittelwertfunktionen} für die Regression setzen sich aus gebildeten Polynomen und den bestimmten Polynomkoeffizienten nach \autoref{eq:gprmean} zusammen \cite{Rasmussen2006}. Für alle Trainingsdaten mittels Polynommatrizen und für einzelne Testdaten über die Basis-Funktion. Bei eingeschalteter Mittelwertbildung, bildet sich das Regressionsergebnis über die Summe aus Mittelwertberechnung und Stützwertsumme \cite{Rasmussen2006}. Die Mittelwertrechnung ist für beide Cosinus- und Sinus-Datensätze umzusetzen. 
+\paragraph*{Die Mittelwertfunktionen} für die Regression setzen sich aus gebildeten Polynomen und den bestimmten Polynomkoeffizienten nach \autoref{eq:gprmean} zusammen \cite{Rasmussen2006}. Für alle Trainingsdaten mittels Polynommatrizen und für einzelne Testdaten über die Basis-Funktion. Bei eingeschalteter Mittelwertbildung, bildet sich das Regressionsergebnis über die Summe aus Mittelwertberechnung und Stützwertsumme \cite{Rasmussen2006}. Die Mittelwertrechnung ist für beide Cosinus- und Sinus-Datensätze umzusetzen. 
 
 
 \begin{align}\label{eq:gprmean}
 	m_{cos}(X_{cos(*)}) &=
 		\begin{cases}
-			0                                    &\qquad \text{f. mittelwertfreie Regression} \\
-			H_{cos}(X_{cos}) \cdot \beta_{cos} 	 &\qquad \text{f. Trainingsdaten } X_{cos} \\
-			h_{cos}(X_{cos*}) \cdot \beta_{cos} &\qquad \text{f. Testdaten } X_{cos*}
+			0                                    &\qquad \text{für mittelwertfreie Regression} \\
+			H_{cos}(X_{cos}) \cdot \beta_{cos} 	 &\qquad \text{für Trainingsdaten } X_{cos} \\
+			h_{cos}(X_{cos*}) \cdot \beta_{cos} &\qquad \text{für Testdaten } X_{cos*}
 		\end{cases} \nonumber \\
 	\\
 	m_{sin}(X_{sin(*)}) &=
 		\begin{cases}
-			0                                    &\qquad \text{f. mittelwertfreie Regression} \\
-			H_{sin}(X_{sin}) \cdot \beta_{sin} 	 &\qquad \text{f. Trainingsdaten } X_{sin} \\
-			h_{cos}(X_{sin*}) \cdot \beta_{sin} &\qquad \text{f. Testdaten } X_{sin*}
+			0                                    &\qquad \text{für mittelwertfreie Regression} \\
+			H_{sin}(X_{sin}) \cdot \beta_{sin} 	 &\qquad \text{für Trainingsdaten } X_{sin} \\
+			h_{cos}(X_{sin*}) \cdot \beta_{sin} &\qquad \text{für Testdaten } X_{sin*}
 		\end{cases} \nonumber \\
 	\nonumber \\
 & \text{jeweils für alle } X_{cos} = \big[ X_{cos,i},\dots, X_{cos,N_{Ref}} \big] \text{ und } \nonumber \\
@@ -301,7 +301,7 @@ Zur Bewältigung des Problems ist \autoref{alg:beta-koeffs} implementiert worden
 \clearpage
 
 
-\paragraph*{Regressionsgewichte} oder Stützwerte für die Vorhersage beider Sinoide sind jeweils, in Abhängigkeit der dazugehörigen Regressionsziele und Mittelwerte, über inverse Matrix-Produkt aus $K_y^{-1}$ und das Residual aus Ziel und Mittelwert zu bilden. \autoref{eq:gprweights} beschreibt die Lösung des resultierenden Gleichungssystem über die untere Dreiecksmatrix $L$ der Kovarianzmatrix $K_y$ \cite{Rasmussen2006}. Die Gewichtsbildung veranschaulicht am besten den Gesamtablauf des Verfahrens. Es sind zwei unterschiedliche Regressionen, jeweils für Cosinus- und Sinus-Funktionen durchzuführen. Dabei stützen sich beide Regressionen auf eine gemeinsame Kovarianzbewertung, der zugrundeliegenden Trainingsdatensätze \cite{Schuethe2020}. Die Kovarianzmatrix stellt somit die vektorielle und orthogonale Kopplung der Daten her und impliziert ihre gegenseitige Abhängigkeit.
+\paragraph*{Die Regressionsgewichte} oder Stützwerte für die Vorhersage beider Sinoide sind jeweils, in Abhängigkeit der dazugehörigen Regressionsziele und Mittelwerte, über inverse Matrix-Produkt aus $K_y^{-1}$ und das Residual aus Ziel und Mittelwert zu bilden. \autoref{eq:gprweights} beschreibt die Lösung des resultierenden Gleichungssystem über die untere Dreiecksmatrix $L$ der Kovarianzmatrix $K_y$ \cite{Rasmussen2006}. Die Gewichtsbildung veranschaulicht am besten den Gesamtablauf des Verfahrens. Es sind zwei unterschiedliche Regressionen, jeweils für Cosinus- und Sinus-Funktionen durchzuführen. Dabei stützen sich beide Regressionen auf eine gemeinsame Kovarianzbewertung, der zugrundeliegenden Trainingsdatensätze \cite{Schuethe2020}. Die Kovarianzmatrix stellt somit die vektorielle und orthogonale Kopplung der Daten her und impliziert ihre gegenseitige Abhängigkeit.
 
 
 \begin{align}\label{eq:gprweights}
@@ -320,7 +320,7 @@ Zur Bewältigung des Problems ist \autoref{alg:beta-koeffs} implementiert worden
 \clearpage
 
 
-\paragraph*{Modellplausibilitäten} oder Regressionsevidenzen, sind entsprechend der Regressionsausrichtung, über Residuale und Regressionsgewichte in \autoref{eq:likelihoods} zu bilden \cite{Rasmussen2006}. Jeweils wieder für beide Cosinus- und Sinus-Datensätze. Die so aufgestellten Plausibilitäten bewerten den Regressions-Fit in Bezug auf die Trainingsdaten. In der Fachliteratur \cite{Rasmussen2006} sind diese auch als Logarithmic-Marginal-Likelihoods bezeichnet. Sie bieten einen Indikator für den Daten-Fit, der $< 0$ wird für eine schlechte Anpassung, $\approx 0$ ist bei mäßiger Anpassung und $> 0$ ist für eine gute Modellanpassung. Dabei sind Werte $> 30$ als sehr gute Anpassung Modellanpassung für jeweilige Sinoide zu interpretieren. Bei Plausibilitäten größer $> 60$ und zu eng gewählter Parameter-Bounds, kann sich ein zu Starker Fit auf die Trainingsdaten einstellen. Das wird als Overfitting bezeichnet. Ein so über parametriertes Modell, verliert dabei seine Fähigkeit zur Generalisierung und liefert nur für die Trainingsdaten selber valide Ergebnisse. Testdaten, die von den Trainingsdaten abweichen, können somit nicht mehr korrekt prozessiert werden. Die Interpretation der Likelihoods ist aus der Fachliteratur \cite{Rasmussen2006} entnommen und für empfohlene Werte empirisch bestimmt worden. Die einzelnen Plausibilitäten müssen ungefähr gleich groß sein, andernfalls besteht ein Ungleichgewicht in der Vorhersage. Resultierende Ergebnisse sind dann im Winkel und Radius verfälscht. Hergestellt wird das Gleichgewicht durch die Kovarianzkopplung, mittels gemeinsamer Kovarianzmatrix.
+\paragraph*{Die Modellplausibilitäten} oder Regressionsevidenzen, sind entsprechend der Regressionsausrichtung, über Residuale und Regressionsgewichte in \autoref{eq:likelihoods} zu bilden \cite{Rasmussen2006}. Jeweils wieder für beide Cosinus- und Sinus-Datensätze. Die so aufgestellten Plausibilitäten bewerten den Regressions-Fit in Bezug auf die Trainingsdaten. In der Fachliteratur \cite{Rasmussen2006} sind diese auch als Logarithmic-Marginal-Likelihoods bezeichnet. Sie bieten einen Indikator für den Daten-Fit, der $< 0$ wird für eine schlechte Anpassung, $\approx 0$ ist bei mäßiger Anpassung und $> 0$ ist für eine gute Modellanpassung. Dabei sind Werte $> 30$ als sehr gute Anpassung Modellanpassung für jeweilige Sinoide zu interpretieren. Bei Plausibilitäten größer $> 60$ und zu eng gewählter Parameter-Bounds, kann sich ein zu Starker Fit auf die Trainingsdaten einstellen. Das wird als Overfitting bezeichnet. Ein so über parametriertes Modell, verliert dabei seine Fähigkeit zur Generalisierung und liefert nur für die Trainingsdaten selber valide Ergebnisse. Testdaten, die von den Trainingsdaten abweichen, können somit nicht mehr korrekt prozessiert werden. Die Interpretation der Likelihoods ist aus der Fachliteratur \cite{Rasmussen2006} entnommen und für empfohlene Werte empirisch bestimmt worden. Die einzelnen Plausibilitäten müssen ungefähr gleich groß sein, andernfalls besteht ein Ungleichgewicht in der Vorhersage. Resultierende Ergebnisse sind dann im Winkel und Radius verfälscht. Hergestellt wird das Gleichgewicht durch die Kovarianzkopplung, mittels gemeinsamer Kovarianzmatrix.
 
 
 \begin{align}\label{eq:likelihoods}
@@ -366,7 +366,7 @@ Die Optimierung bezieht sich auf ein fertig initialisiertes Modell nach \autoref
 \clearpage
 
 
-\paragraph*{Min-Kriterium} als zusammengesetztes Kriterium aus den einzelnen Modellplausibilitäten für die Cosinus- und Sinus-Vorhersage. Der Bildungsansatz ist aus einem Regressionsproblem der Computer-Vision \cite{Guerrero2014} adaptiert und nach dem Leitwerk zur Verfahrensentwicklung \cite{Rasmussen2006} angepasst worden. Die Findung optimaler Kovarianz- bzw. Kernel-Parameter, kann nach Gleichung \autoref{eq:fmincon} vorgenommen werden. Dafür sind Modellplausibilitäten, für die einzelnen Sinoiden, als Funktion von Kernel-Parametern zu betrachten. Das Kriterium ergibt sich, als negative Summe der einzelnen Plausibilitäten \autoref{eq:likelihoods}. Das aufgestellte Minimierungsproblem ist bei einem konstanten Rauschniveau $\sigma_n^2$ und verschieden Kernel-Parameter $\theta$ zu untersuchen.
+\paragraph*{Das Min-Kriterium} ist als zusammengesetztes Kriterium aus den einzelnen Modellplausibilitäten für die Cosinus- und Sinus-Vorhersage aufzustellen. Der Bildungsansatz ist aus einem Regressionsproblem der Computer-Vision \cite{Guerrero2014} adaptiert und nach dem Leitwerk zur Verfahrensentwicklung \cite{Rasmussen2006} angepasst worden. Die Findung optimaler Kovarianz- bzw. Kernel-Parameter, kann nach Gleichung \autoref{eq:fmincon} vorgenommen werden. Dafür sind Modellplausibilitäten, für die einzelnen Sinoiden, als Funktion von Kernel-Parametern zu betrachten. Das Kriterium ergibt sich, als negative Summe der einzelnen Plausibilitäten \autoref{eq:likelihoods}. Das aufgestellte Minimierungsproblem ist bei einem konstanten Rauschniveau $\sigma_n^2$ und verschieden Kernel-Parameter $\theta$ zu untersuchen.
 
 
 \begin{align}\label{eq:fmincon}
@@ -382,7 +382,7 @@ Die Optimierung bezieht sich auf ein fertig initialisiertes Modell nach \autoref
 \section{Modellvorhersagen}\label{sec:gprpred}
 
 
-Die Implementierung für Winkelvorhersagen, auf Grundlage von Datensätzen der Sensor-Array-Simulation \autoref{ch:sensor-array-sim-imp}, läuft nach \autoref{alg:gprvorhersage} ab. Der Algorithmus zeigt, die Vorhersage für eine Winkelstellung und ist für mehrere Winkel zu wiederholen. Die geschriebene Software in \autoref{gaussianProcessRegression}, kann einen Winkelsatz oder komplette Datensätze, bestehend aus mehreren Winkelsätzen prozessieren. Für letzteres stehen Ergebnisse als Vektoren zur weiteren Analyse oder Optimierung bereit.
+Die Implementierung für Winkelvorhersagen, auf Grundlage von Datensätzen der Sensor-Array-Simulation \autoref{ch:sensor-array-sim-imp}, läuft nach \autoref{alg:gprvorhersage} ab. Der Algorithmus zeigt, die Vorhersage für eine Winkelstellung und ist für mehrere Winkel zu wiederholen. Die geschriebene Software in \autoref{mcode:gaussianprocessregression}, kann einen Winkelsatz oder komplette Datensätze, bestehend aus mehreren Winkelsätzen prozessieren. Für letzteres stehen Ergebnisse als Vektoren zur weiteren Analyse oder Optimierung bereit.
 
 
 \begin{algorithm}[htp]
@@ -403,7 +403,7 @@ Die Implementierung für Winkelvorhersagen, auf Grundlage von Datensätzen der S
 \end{algorithm}
 
 
-\paragraph*{Kovarianzvektor} als Regressionsmaß für einen einzigen Testdatensatz mit zugehörigen Simulationswinkel $X_* \mapsto \alpha_*$. Ist der Vektor $\mathbf{k}_*$ nach \autoref{alg:kmatrix} zu bilden. Er stellt den Vergleichsbezug von Testdaten $X_*$ zu allen Trainingsdaten $X$ her und löst die neue Winkelstellung in Relation zu den Trainingsdaten auf \cite{Rasmussen2006}. Der Kovarianzvektor $\mathbf{k}_*$ ist mit aktuellen Modellparametern zu berechnen \autoref{eq:kvektor}.
+\paragraph*{Der Kovarianzvektor} ist als Regressionsmaß für einen einzigen Testdatensatz mit zugehörigen Simulationswinkel $X_* \mapsto \alpha_*$ zu bewerten. Ist der Vektor $\mathbf{k}_*$ nach \autoref{alg:kmatrix} zu bilden. Er stellt den Vergleichsbezug von Testdaten $X_*$ zu allen Trainingsdaten $X$ her und löst die neue Winkelstellung in Relation zu den Trainingsdaten auf \cite{Rasmussen2006}. Der Kovarianzvektor $\mathbf{k}_*$ ist mit aktuellen Modellparametern zu berechnen \autoref{eq:kvektor}.
 
 \begin{align}\label{eq:kvektor}
 	& \mathbf{k}_* =  K(X, X_* | \theta) \qquad\qquad\qquad \text{mit } \text{\autoref{alg:kmatrix}} \\
@@ -414,7 +414,7 @@ Die Implementierung für Winkelvorhersagen, auf Grundlage von Datensätzen der S
 \clearpage
 
 
-\paragraph*{Mittelwertvorhersage} als Mittelwertergebnis für eine Standardnormalverteilung, sind über die Summe aus Mittelwertschätzung \autoref{eq:gprmean} und Produkt aus Kovarianzvektor \autoref{eq:kvektor} mit Regressionsgewichte \autoref{eq:gprweights} zu bilden \cite{Rasmussen2006}. Jeweils für beide Funktionen Cosinus und Sinus. Die Systematische Kopplung erfolgt über den gemeinsamen Kovarianzvektor.
+\paragraph*{Die Mittelwertvorhersage} ist als Mittelwertergebnis für eine Standardnormalverteilung einzuordnen, es ist dafür die Summe aus Mittelwertschätzung \autoref{eq:gprmean} und Produkt aus Kovarianzvektor \autoref{eq:kvektor} mit den Regressionsgewichten \autoref{eq:gprweights} zu bilden \cite{Rasmussen2006}. Jeweils für beide Funktionen Cosinus und Sinus. Die Systematische Kopplung erfolgt über den gemeinsamen Kovarianzvektor.
 
 
 \begin{align}\label{eq:predmean}
@@ -434,8 +434,7 @@ Regressierter Winkel und Radius aus der Cosinus- und Sinus-Vorhersage, ergeben s
 \end{align}
 
 
-\paragraph*{Varianzvorhersage} als Korrelation eines Testdatensatz $X_*$ mit sich selbst. Dafür ist der Datensatz $X_*$ \autoref{alg:kmatrix} zuzuführen und zur Varianz der Vorhersage
-$\mathbb{V}\left[ \bar{f}_* \right]$ im Vergleich zur Kovarianzmatrix und Kovarianzvektor mit \autoref{eq:predvar} aufzulösen. Die Varianz $\mathbb{V}\left[ \bar{f}_* \right]$ gilt jeweils für beide Sinoide Regressionsprozesse \cite{Rasmussen2006}. Dieser Fall deckt sich mit dem Auslöschungskriterium für gültige Kovarianzfunktion und kann in diesem Fall durch einen numerischen Fehler $\Delta\epsilon$ leicht vom theoretischen Rechenergebnis abweichen.
+\paragraph*{Die Varianzvorhersage} ist als Korrelation eines Testdatensatz $X_*$ mit sich selbst zu sehen. Dafür ist der Datensatz $X_*$ \autoref{alg:kmatrix} zuzuführen und zur Varianz der Vorhersage $\mathbb{V}\left[ \bar{f}_* \right]$ im Vergleich zur Kovarianzmatrix und Kovarianzvektor mit \autoref{eq:predvar} aufzulösen. Die Varianz $\mathbb{V}\left[ \bar{f}_* \right]$ gilt jeweils für beide Sinoide Regressionsprozesse \cite{Rasmussen2006}. Dieser Fall deckt sich mit dem Auslöschungskriterium für gültige Kovarianzfunktion und kann in diesem Fall durch einen numerischen Fehler $\Delta\epsilon$ leicht vom theoretischen Rechenergebnis abweichen.
 
 
 \begin{align}\label{eq:predvar}
@@ -449,7 +448,7 @@ $\mathbb{V}\left[ \bar{f}_* \right]$ im Vergleich zur Kovarianzmatrix und Kovari
 \clearpage
 
 
-\paragraph*{Standardabweichung} als zugehörige Abweichung der Mittelwertvorhersage für eine Standardnormalverteilung, ergibt sich aus der Varianzvorhersage und dem verwendeten Rauschniveau nach \autoref{eq:predstd} \cite{Rasmussen2006}. Die Standardabweichung gilt, jeweils als Abweichung für beide Sinoide als eigenständige und statistische Prozesse. Fehler der einzelnen Prozesse, müssen sich in einer kombinierten Auswertung, durch Addition ihrer Einzelvarianzen $s_*^2$, für eine gemeinsame Abschätzung fortpflanzen.
+\paragraph*{Die Standardabweichung} ist als die zugehörige Abweichung der Mittelwertvorhersage für eine Standardnormalverteilung zugehörig, sie ergibt sich aus der Varianzvorhersage und dem verwendeten Rauschniveau nach \autoref{eq:predstd} \cite{Rasmussen2006}. Die Standardabweichung gilt, jeweils als Abweichung für beide Sinoide als eigenständige und statistische Prozesse. Fehler der einzelnen Prozesse, müssen sich in einer kombinierten Auswertung, durch Addition ihrer Einzelvarianzen $s_*^2$, für eine gemeinsame Abschätzung fortpflanzen.
 
 
 \begin{equation}\label{eq:predstd}
@@ -457,7 +456,7 @@ s_* = \sqrt{\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2}
 \end{equation}
 
 
-\paragraph*{Qualitätskriterien} können über die ermittelte Standardabweichung $s_*$ der Einzelregressionen gebildet werden. Dafür muss diese gemäß der Fehlerfortpflanzung für die einzelnen statistischen Prozesse mit dem Faktor $\sqrt{2}$ versehen werden, da sich die Varianz für Cosinus und Sinus zusammensetzt und verdoppelt mit $s_* \sqrt{2} = \sqrt{2(\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2)}$. Konfidenzintervalle für ermittelten Winkel $\bar{\alpha}_*$ und Radius $\bar{r}_*$, können daher direkt mit $95\% \leftarrow z_{CDF}$-Faktor für normalverteilte Wahrscheinlichkeiten und kumulativer Dichtefunktion berechnet werden. Der Radikant für die Stichprobenanzahl entfällt, da immer nur ein Testwert prozessiert wird. Es ergeben sich das Konfidenzintervall für Winkel $CIA_{95\%}$ und für Radius $CIR_{95\%}$ nach der \autoref{eq:predci}. Für das Winkelintervall ist die statistische Aussage mit $arcsin \big( z_{CDF} \cdot s_* \sqrt{2} \big)$ ins Winkelmaß überführt.
+\paragraph*{Die Qualitätskriterien} können über die ermittelte Standardabweichung $s_*$ der Einzelregressionen gebildet werden. Dafür muss diese gemäß der Fehlerfortpflanzung für die einzelnen statistischen Prozesse mit dem Faktor $\sqrt{2}$ versehen werden, da sich die Varianz für Cosinus und Sinus zusammensetzt und verdoppelt mit $s_* \sqrt{2} = \sqrt{2(\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2)}$. Konfidenzintervalle für ermittelten Winkel $\bar{\alpha}_*$ und Radius $\bar{r}_*$, können daher direkt mit $95\% \leftarrow z_{CDF}$-Faktor für normalverteilte Wahrscheinlichkeiten und kumulativer Dichtefunktion berechnet werden. Der Radikant für die Stichprobenanzahl entfällt, da immer nur ein Testwert prozessiert wird. Es ergeben sich das Konfidenzintervall für Winkel $CIA_{95\%}$ und für Radius $CIR_{95\%}$ nach der \autoref{eq:predci}. Für das Winkelintervall ist die statistische Aussage mit $arcsin \big( z_{CDF} \cdot s_* \sqrt{2} \big)$ ins Winkelmaß überführt.
 
 
 \begin{align}\label{eq:predci}
@@ -465,9 +464,6 @@ s_* = \sqrt{\mathbb{V}\left[ \bar{f}_* \right] + \sigma_n^2}
 	\\
 	CIR_{95\%} &= \bar{r}_* \pm z_{CDF} \cdot s_* \sqrt{2} \nonumber
 \end{align}
-
-
-
 
 
 Zwei weitere Qualitätskriterien, zur Interpretation der Modellgeneralisierung, können über standardisierte logarithmische Verluste (engl. std. log. loss) berechnet werden \cite{Rasmussen2006}. Die Berechnung erfolgt, als Vergleich zwischen Soll- und errechneten Istwerten, unter Berücksichtigung der Fehlerfortpflanzung und Winkelmaß nach \autoref{eq:predsll}. Es ergibt sich der Verlust $SLLA$ für Winkel und $SLLR$ für Radius.
@@ -502,7 +498,7 @@ Verluste $SLLA$ stehen nur zur Verfügung, wenn Simulations- oder Encoder-Winkel
 		\end{cases}
 \nonumber \\
 \nonumber \\
-& \text{f. alle } N_* \text{ Testdaten } X_* \text{ und} \nonumber \\
+& \text{für alle } N_* \text{ Testdaten } X_* \text{ und} \nonumber \\
 & \text{Testwinkel } X_* \mapsto \alpha_* \text{  nach \autoref{eq:predsll}}\nonumber
 \end{align}
 
@@ -539,9 +535,5 @@ Je nach dem wie die Grenzen der einzelnen Modellparameter gewählt sind, kann da
 
 
 
-\paragraph*{Min-Kriterium} als Mittelwertbildung aller standardisierten logarithmischen Winkelverluste aus \autoref{eq:predsll}. Es sind für jeden verfügbaren Testdatensatz und zugehörigen Simulationswinkel
-$X_* \mapsto \alpha_*$ die Verluste nach \autoref{eq:bayesopt} auszurechnen und zu $MSLL$ zu mitteln \cite{Rasmussen2006}. Im Anschluss ist gebildeter Mittelwert einem Minimierungsverfahren zur Ermittlung des passenden Rauschniveaus $\sigma_n^2$ zuzuführen. Das Minimierungsproblem induziert dabei für jedes ausprobierte $\sigma_n^2$ ein Regressionsmodell. Die berechneten Modelle sind über ihre mittleren Verlust $MSLL$ miteinander zu vergleichen \cite{Rasmussen2006}. Das Modell für $\min MSLL$, besitzt die stärkste Generalisierung und somit das optimiert Rauschniveau $\sigma_n^2$ und sich nach \autoref{alg:fminconopt} ergebenen optimierten Kernel-Parameter $\theta|\sigma_n^2$. Auch hier gilt wie für \autoref{eq:predsll}, dass sich eine gute Generalisierung für $MSLL < 0$ einstellt. Empirisch beobachtet Werte, liegen dabei im Intervall von $-2 < MSLL < -5$.
-
-
-
+\paragraph*{Das Min-Kriterium} ist aus Mittelwertbildung aller standardisierten logarithmischen Winkelverluste nach \autoref{eq:predsll} zu bilden. Es sind für jeden verfügbaren Testdatensatz und zugehörigen Simulationswinkel $X_* \mapsto \alpha_*$ die Verluste nach \autoref{eq:bayesopt} auszurechnen und zu $MSLL$ zu mitteln \cite{Rasmussen2006}. Im Anschluss ist gebildeter Mittelwert einem Minimierungsverfahren zur Ermittlung des passenden Rauschniveaus $\sigma_n^2$ zuzuführen. Das Minimierungsproblem induziert dabei für jedes ausprobierte $\sigma_n^2$ ein Regressionsmodell. Die berechneten Modelle sind über ihre mittleren Verlust $MSLL$ miteinander zu vergleichen \cite{Rasmussen2006}. Das Modell für $\min MSLL$, besitzt die stärkste Generalisierung und somit das optimiert Rauschniveau $\sigma_n^2$ und sich nach \autoref{alg:fminconopt} ergebenen optimierten Kernel-Parameter $\theta|\sigma_n^2$. Auch hier gilt wie für \autoref{eq:predsll}, dass sich eine gute Generalisierung für $MSLL < 0$ einstellt. Empirisch beobachtet Werte, liegen dabei im Intervall von $-2 < MSLL < -5$.
 
