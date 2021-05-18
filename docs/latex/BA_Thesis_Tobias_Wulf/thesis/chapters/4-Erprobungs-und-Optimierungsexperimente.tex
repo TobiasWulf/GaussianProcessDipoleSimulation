@@ -3,10 +3,92 @@
 % @author Tobias Wulf
 %
 
-\chapter{Erprobungs- und Optimierungsexperimente 0.0.2 26.04.2021}\label{ch:erprobungs-u-opt-exp}
+\chapter{Erprobungs- und Optimierungsexperimente}\label{ch:erprobungs-u-opt-exp}
+
+
+In diesem Teil der Arbeit werden Experimente bzw. Simulationen durchgeführt, die abschnittweise Beiträge für eine Modelloptimierung zeigen. Dabei ist das übergeordnete Ziel ein möglichst ressourcenarmes mathematisches für einen Sensor-ASIC zu finden. Die Durchführung der Experimente basiert auf Matlab-Skripten, in denen geschriebener funktionaler Quellcode eingebunden und ausgeführt wird. Die Ergebnisse der Experimente stehen nach Durchführung in Vektor- und Matrixform im Matlab-Workspace bereit und sind anschließend mit grafisch Ausgewertet worden. Die Ergebnisgrafiken sind im \autoref{ch:results-exp} einzusehen. Eine Auswertung der Ergebnisse folgt in \autoref{ch:auswertung}. Der grundlegende Ablauf der Experimente ist schematisch gleich:
+
+
+\begin{enumerate}
+	\item Konfigurieren der Software und Erstellen der Konfigurations-MAT-Datei.
+	\item Erzeugen von Trainings- und Testdatensätze mittels der Sensor-Array-Simulation.
+	\item Erstellen eines oder mehrerer Regressionsmodell.
+	\item Durchführung von Regressions- oder Verlustberechnungen.
+	\item Grafische Auswertung der Ergebnisse.
+\end{enumerate}
+
+
+Als Grundparametrierung der Experimente dient die \autoref{tab:sim-params-exp}. Abweichende Parameter in den Experimenten sind gesondert aufgeschlüsselt. Die einzelnen Experimente werden nach Zweck, Durchführung, erzeugte Trainings- bzw. Testdatensätze, genutztes Matlab-Skript und abweichende Parametrierung von \autoref{tab:sim-params-exp} beschrieben.
+
+
+\clearpage
+
+
+\begin{table}[htp]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{l l c c l}
+			\toprule
+			\textbf{Parametergruppe}                 & \textbf{Parameter}  & \textbf{Wert}        & \textbf{Einheit}  & \textbf{Kurzbeschreibung}                                           \\ \midrule
+			\multirow{6}{*}{SensorArrayOptions}      & geometry            & 'square'             & -                 & Array-Geometrie-Indikator                                           \\
+			                                         & dimension           & $8$                  & -                 & Sensor-Array-Pixel $N_{Pixel} \times N_{Pixel}$                     \\
+			                                         & edge                & $2$                  & mm                & Sensor-Array-Kantenlänge                                            \\
+			                                         & $V_{cc}$            & $5$                  & V                 & Sensor-Array-Betriebsspannung                                       \\
+			                                         & $V_{off}$           & $2,5$                & V                 & Sensor-Brücken-Offset-Spannung                                      \\
+			                                         & $V_{norm}$          & $1 \cdot 10^3$       & mV                & Kennfeldnormierung                                                  \\ \hline
+			\multirow{4}{*}{DipoleOptions}           & sphereRadius        & $2$                  & mm                & Kugelmagnetradius                                                   \\
+			                                         & $H_{0mag}$          & $200$                & $\text{kAm}^{-1}$ & Betragsfeldstärke Magnetfeldnormierung                              \\
+			                                         & $z_0$               & $1$                  & mm                & $Z$-Abstand Magnetfeldnormierung                                    \\
+			                                         & $m_{0mag}$          & $1 \cdot 10^6$       & $\text{Am}^2$     & Magnitude d. mag. Moments                                           \\ \hline
+			\multirow{10}{*}{Training-/ TestOptions} & useCase             & 'Training'/ 'Test'   & 'char'            & Datensatzindikator f. Anwendungszweck                               \\
+			                                         & xPos                & $\left[0,\right]$    & mm                & Sensor-Array $X$-Positionsvektor                                    \\
+			                                         & yPos                & $\left[0,\right]$    & mm                & Sensor-Array $Y$-Positionsvektor                                    \\
+			                                         & zPos                & $\left[7,\right]$    & mm                & Sensor-Array $Z$-Positionsvektor                                    \\
+			                                         & tilt                & $0$                  & $^\circ$          & Magnetverkippung in $Y$-Achse                                       \\
+			                                         & angleRes            & $0,5$                & $^\circ$          & Winkelauflösung f. Magnetrotation                                   \\
+			                                         & phaseIndex          & 0                    & -                 & Phasenverschiebung-Index f. Startwinkel                             \\
+			                                         & nAngles             & $20$/ $720$          & -                 & Anzahl gleich verteilter Simulationswinkel                          \\
+			                                         & BaseReference       & 'TDK'                & char              & Kennfelddatensatzindikator                                          \\
+			                                         & BridgeReference     & 'Rise'               & char              & Kennfeldindikator                                                   \\ \hline
+			\multirow{10}{*}{GPROptions}             & kernel              & 'QFC'                & char              & Kernel-Funktion-Indikator \eqref{eq:kfun}, 'QFC' $\leftarrow d_F^2$ \\
+			                                         & $\theta$            & $(1,1)$              & -                 & Kernel-Parametervektor $\theta$ \eqref{eq:kparam}                   \\
+			                                         & $\sigma_f^2$-Bounds & $(0.1, 100)$         & -                 & Parameter-Bounds $\theta_1$ f. \autoref{alg:fminconopt}             \\
+			                                         & $\sigma_l$-Bounds   & $(0.1, 100)$         & -                 & Parameter-Bounds $\theta_2$ f. \autoref{alg:fminconopt}             \\
+			                                         & $\sigma_n^2$        & $10^{-6}$            & -                 & Rauschniveau, Rauschaufschaltung \eqref{eq:addnoise}                \\
+			                                         & $\sigma_n^2$-Bounds & $(10^{-8}, 10^{-4})$ & -                 & Parameter-Bounds $\sigma_n^2$ f. \autoref{alg:bayesopt}             \\
+			                                         & OptimRuns           & $30$                 & -                 & Durchlaufanzahl f. \autoref{alg:bayesopt}                           \\
+			                                         & SLL                 & 'SLLA'               & char              & Verlust-Indikator f. Winkel (A)/ R (Radius) \autoref{alg:bayesopt}  \\
+			                                         & mean                & 'zero'               & char              & Indikator Mittelwertpolynom Ein ('poly')/ Aus ('zero')              \\
+			                                         & polyDegree          & $1$                  & -                 & Grad des Mittelwertpolynoms wenn mean = 'poly'                      \\ \bottomrule
+		\end{tabular}}
+	\caption[Simulationsparameter der Erprobungs- und Optimierungsexperimente]{Simulationsparameter der Erprobungs- und Optimierungsexperimente. Von der Grundparametrierung abweichende Werte werden direkt unter den jeweiligen Experimenten aufgeführt. Parametergruppen entsprechen dem Konfigurationsskript im \autoref{mcode:generateconfigmat}. Zusammenführung der \autoref{tab:sensor-array-sim-params} und \autoref{tab:gpr-sim-params}}
+	\label{tab:sim-params-exp}
+\end{table}
+
 	
-	
-\section{Vergleich der Kovarianzfunktionen}\label{sec:exp1}
+\section{Vergleich der Kovarianzfunktionen und einsetzende Generalisierung}\label{sec:exp1}
+
+\textbf{Zweck:} Als Vergleich der beiden implementierten Kernel-Module sollen ihre Kovarianzfunktionen und Eigenschaft zur Generalisierung bei einfacher Parametrierung untersucht werden. Ziel ist es im besten Fall die Implementierung über die euklidische Abstandsfunktion nutzen zu können. Es würde sich dadurch eine Ressourcenersparnis in Bezug auf Speicherkapazität einstellen, da sich mit diesen Kernel Modelltrainingsdaten aus zwei eindimensionalen Vektoren bilden, statt dreidimensionaler Matrizen für die Kernel-Implementierung aus den Vorarbeiten. Diese nutzt als Abstandsfunktion die Frobenius Norm, siehe \autoref{eq:kfun}.
+
+
+\clearpage
+
+
+\textbf{Durchführung:} Es werden beide 
+
+\textbf{Erzeugte Datensätze:}
+
+\textbf{Matlab-Skript:}
+
+\textbf{Abweichende Parameter:}
+
+\begin{itemize}
+	\item TrainingOptions: nAngles: 56
+	\item GPROptions: kernel: variiert zwischen 'QFC' und 'QFCAPX'
+	\item GPROptions: $\theta$: zuerst $\theta_1 = 1 = konst.$, $\theta_2$ variiert, danach vice versa 
+\end{itemize}
+
+
 
 
 \section{Anpassung der Referenzwinkelanzahl}\label{sec:exp2}

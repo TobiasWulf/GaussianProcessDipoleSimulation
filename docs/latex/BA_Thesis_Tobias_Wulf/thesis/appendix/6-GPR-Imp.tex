@@ -3,7 +3,7 @@
 % @author Tobias Wulf
 %
 
-\chapter{Gauß-Prozess-Regression Implementierung 0.0.2 26.04.2021}\label{ch:gpr-imp}
+\chapter{Gauß-Prozess-Regression Implementierung}\label{ch:gpr-imp}
 
 
 Im Anhang befindet sich die Beschreibung für die Regression mittels Gauß'scher Prozesse. Die implementierten Mechanismen sind auf die Sensor-Array-Simulation \autoref{ch:sensor-array-sim-imp} angepasst. Es wird sich an den Anforderungen für ein TMR-Sensor-Array \autoref{sec:prinzip-des-sensor-arrays} orientiert. Eine Standardparametrierung für die Simulationsdurchführung ist in \autoref{tab:gpr-sim-params} einzusehen. Die Notation ist der kompakten Schreibweise für Gauß'sche Prozesse angepasst \cite{Rasmussen2006}. Es zwei Kernel implementiert. Als erster der Kernel aus den Vorarbeiten \cite{Schuethe2020b}\cite{Schuethe2020} und darauf aufbauend ein zweiter mit angepasster Eingangswertverarbeitung. Beide Kernel besitzen die Fähigkeit zur Mittelwert freien und Polynom gestützten Regression bzw. Vorhersage \cite{Rasmussen2006}. Das Regressionsmodell kann ganze Sensor-Array-Datensätze verarbeiten. Es sind verschieden Qualitätskriterien implementiert, die Aussagen zur Modellgenauigkeit, Vorhersagesicherheit und Generalisierung treffen. Die Trainingsphase für das Regressionsmodell wird durch \autoref{alg:bayesopt} durchgeführt. Eine anschließende Arbeitsphase ist durch \autoref{alg:gprvorhersage} umgesetzt. Einen Überblick über die Gesamtsoftware, in der dieser Teil ein Modul einnimmt, ist im \autoref{mcode:gaussianprocessregression} einzusehen. Der Anhang besitzt einen Glossar ähnlichen Charakter und soll als Schnellnachschlagewerk unterstützen.
