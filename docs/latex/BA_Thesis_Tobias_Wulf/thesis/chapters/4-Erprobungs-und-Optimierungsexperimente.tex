@@ -65,108 +65,11 @@ Als Grundparametrierung der Experimente dient die \autoref{tab:sim-params-exp}. 
 	\label{tab:sim-params-exp}
 \end{table}
 
-	
-\section{Vergleich der Kovarianzfunktionen und einsetzende Generalisierung}\label{sec:exp1}
 
-\textbf{Zweck:} Als Vergleich der beiden implementierten Kernel-Module sollen ihre Kovarianzfunktionen und Eigenschaft zur Generalisierung bei einfacher Parametrierung untersucht werden. Ziel ist es im besten Fall die Implementierung über die euklidische Abstandsfunktion nutzen zu können. Es würde sich dadurch eine Ressourcenersparnis in Bezug auf Speicherkapazität einstellen, da sich mit diesen Kernel Modelltrainingsdaten aus zwei eindimensionalen Vektoren bilden, statt dreidimensionaler Matrizen für die Kernel-Implementierung aus den Vorarbeiten. Diese nutzt als Abstandsfunktion die Frobenius Norm, siehe \autoref{eq:kfun}.
-
-
-\clearpage
-
-
-\textbf{Durchführung:} Es werden beide Kernel-Module nacheinander im Skript geladen und mit variierenden Parametern initialisiert. Die resultierenden Modelle werden ohne weitere Optimierungen betrieben, um grundlegende Eigenschaften der Kovarianzfunktionen und Generalisierung miteinander vergleichbar zu machen. Dabei wird eine Trainingsdatensatz verwendet der eine relative hohe Anzahl an Trainingspunkten $>50$ besitzt, dass der fehlenden Optimierung z.T. entgegenwirken soll. Die variierende Parametrierung der Kovarianzfunktionen in Längen- $\sigma_l$ und Höhenskalierung $\sigma_f^2$ wird für beide Kernel gleich durchgeführt. Im Anschluss werden Generalisierungseigenschaften mit den Modellen aus variierender Längenskalierung verglichen.
-
-\textbf{Erzeugte Datensätze:} Jeweils ein Trainings- und Testdatensatz mit korrespondierender Position in Lage und Verkippungswinkel.
-
-\textbf{Matlab-Skript:} comapareGPRKernels.mat, siehe \autoref{mcode:comparegprkernels}.
-
-\textbf{Abweichende Parameter von \autoref{tab:sim-params-exp}:}
-
-\begin{itemize}
-	\item TrainingOptions: nAngles: 56
-	\item GPROptions: kernel: variiert zwischen 'QFC' und 'QFCAPX'
-	\item GPROptions: $\theta$:
-	\begin{itemize}
-		\item[a.] $\theta_1 =\sigma_f^2 = 1 = konst.$, $\theta_2 = \sigma_l = \left\{ 1; 0,5; 2; 4 \right\}$
-		\item[b.] $\theta_1 =\sigma_f^2 = \left\{ 1; 0,5; 2; 4 \right\}$, $\theta_2 = \sigma_l = 1 = konst.$
-	\end{itemize}
-\end{itemize}
-
-
-
-
-\section{Anpassung der Referenzwinkelanzahl}\label{sec:exp2}
-
-
-\textbf{Zweck:} Das Experiment soll einen Bereich abstecken für die Wahl der Anzahl für gleichverteilte Referenzwinkel. Dafür wird die äußere Modelloptimierung über das Rauschniveau nach \autoref{alg:bayesopt} quasi ausgeschaltet und ein konstantes Rauschniveau $\sigma_n^2$ vorgeben. Das Regressionsmodell wird daher nur für die Längen- und Höhenparameter $\theta = (\sigma_f^2, \sigma_l)$ der Kovarianzfunktion optimiert, siehe \autoref{alg:fminconopt}. Verglichen wird das Regressionsmodell für euklidischen Abstand nach \autoref{eq:de2innorm} und \autoref{eq:kfun} einmal ohne unterstützende Mittelwertbildung über Polynome (Zero-Mean) und mit Polynombildung ersten Grades. Diese wirkt als eine Offset- und Amplitudenkorrektur der Messwerten.
-Es werden absolute mittlere und maximale Winkelfehler in Abhängigkeit der Referenzwinkelanzahl verglichen. Zusätzliche wird die Berechnungsdauer einer Winkelvorhersage in Abhängigkeit der Referenzwinkel bzw. Trainingspunkte aufgenommen.
-Im besten Fall stellt sich heraus, dass das Mittelwert freie Verfahren gleich oder besser ist gegenüber dem Polynom gestützten Verfahren. Die Umsetzung des letzteren Verfahrens ist deutlich aufwendiger zu gestalten und birgt einige numerischer Fehleranfälligkeiten und Hürden, die es in den Griff zu bekommen gilt.
-
-\textbf{Durchführung:} 
-
-\textbf{Erzeugte Datensätze:}
-
-\textbf{Matlab-Skript:}
-
-\textbf{Abweichende Parameter von \autoref{tab:sim-params-exp}:}
-
-\begin{itemize}
-	\item TrainingsOptions: nAngles: $\left\{ 8, 16, 24, 32, 40, 48, 60, 80, 120, 240, 360, 720 \right\}$
-	\item GRPOptions: kernel : 'QFCAPX'
-	\item GPROptions: mean: 
-	\begin{itemize}
-		\item[a.] 'zero'
-		\item[b.] 'poly'
-	\end{itemize}
-	\item GPROptions: $\sigma_n^2 = 10^{-6} = konst.$
-\end{itemize}
-
-\section{Anpassung des Rauschniveaus für Noisy-Observation}\label{sec:exp3}
-
-\textbf{Zweck:}
-
-\textbf{Durchführung:}
-
-\textbf{Erzeugte Datensätze:}
-
-\textbf{Matlab-Skript:}
-
-\textbf{Abweichende Parameter von \autoref{tab:sim-params-exp}:}
-
-\section{Anpassung der Parametergrenzen}\label{sec:exp4}
-
-\textbf{Zweck:}
-
-\textbf{Durchführung:}
-
-\textbf{Erzeugte Datensätze:}
-
-\textbf{Matlab-Skript:}
-
-\textbf{Abweichende Parameter von \autoref{tab:sim-params-exp}:}
-
-\section{Verhalten bei einfachen Fehllagen}\label{sec:exp5}
-
-\textbf{Zweck:}
-
-\textbf{Durchführung:}
-
-\textbf{Erzeugte Datensätze:}
-
-\textbf{Matlab-Skript:}
-
-\textbf{Abweichende Parameter von \autoref{tab:sim-params-exp}:}
-
-\section{Verhalten bei kombinierten Fehllagen}\label{sec:exp6}
-	
-\textbf{Zweck:}
-
-\textbf{Durchführung:}
-
-\textbf{Erzeugte Datensätze:}
-
-\textbf{Matlab-Skript:}
-
-\textbf{Abweichende Parameter von \autoref{tab:sim-params-exp}:}
-
+\input{chapters/4-1-Vergleich-Kfun-MSLL}
+\input{chapters/4-2-Anpassung-Referenz}	
+\input{chapters/4-3-Anpassung-Rauschniveau}
+\input{chapters/4-4-Anpassung-Grenzen}
+\input{chapters/4-5-Einfache-Fehllagen}
+\input{chapters/4-6-Kombo-Fehllagen}
 
