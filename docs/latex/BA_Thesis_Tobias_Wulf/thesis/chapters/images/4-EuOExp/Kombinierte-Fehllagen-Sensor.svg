@@ -28,7 +28,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -45,10 +45,10 @@
      inkscape:window-height="1052"
      id="namedview4279"
      showgrid="true"
-     inkscape:zoom="0.35520833"
-     inkscape:cx="538.03239"
-     inkscape:cy="738.82261"
-     inkscape:window-x="1920"
+     inkscape:zoom="0.50234044"
+     inkscape:cx="1026.3273"
+     inkscape:cy="509.72963"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4277"
@@ -15260,4 +15260,26 @@
        id="tspan34092"
        x="0.096000001"
        y="820.14081">b)</tspan></text>
+  <g
+     transform="matrix(1.2256987,0,0,1.2256987,1207.9204,1071.2776)"
+     style="font-style:normal;font-weight:normal;font-size:medium;font-family:Dialog;color-interpolation:linearRGB;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:optimizeQuality;image-rendering:optimizeQuality;shape-rendering:auto;text-rendering:geometricPrecision"
+     id="g3616">
+    <circle
+       r="7.303"
+       style="stroke:none"
+       cx="0"
+       cy="0"
+       id="circle3614" />
+  </g>
+  <g
+     id="g3620"
+     style="font-style:normal;font-weight:normal;font-size:medium;font-family:Dialog;color-interpolation:linearRGB;fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:optimizeQuality;image-rendering:optimizeQuality;shape-rendering:auto;text-rendering:geometricPrecision"
+     transform="matrix(1.2256987,0,0,1.2256987,1715.9204,1071.2776)">
+    <circle
+       id="circle3618"
+       cy="0"
+       cx="0"
+       style="stroke:none"
+       r="7.303" />
+  </g>
 </svg>
