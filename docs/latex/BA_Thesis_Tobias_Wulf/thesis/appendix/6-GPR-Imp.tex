@@ -124,11 +124,14 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \clearpage
 
 
-\paragraph*{Die Kernel-Parameter} für die Kovarianz- oder Kernel-Funktion bilden sich als Funktionsparameter, wie in \autoref{eq:kparam} beschrieben. Bei der Parameteridentifizierung ist das Auslöschungskriterium für gültige Kovarianzfunktionen elementar \cite{Rasmussen2006}. Dabei ist der Fall abzudecken, dass die Abstandsfunktion der Kovarianz zu null wird, wenn Datensätze mit sich selbst prozessiert werden. In diesem Fall muss die Kovarianzfunktion $\sigma_f^2$ ergeben.
+\paragraph*{Die Kernel-Parameter} für die Kovarianz- oder Kernel-Funktion bilden sich als Funktionsparameter, wie in \autoref{eq:kparam} beschrieben. Bei der Parameteridentifizierung ist das Auslöschungskriterium für gültige Kovarianzfunktionen elementar \cite{Rasmussen2006}. Dabei ist der Fall abzudecken, dass die Abstandsfunktion der Kovarianz zu null wird, wenn Datensätze mit sich selbst prozessiert werden. In diesem Fall muss die Kovarianzfunktion $\sigma_f^2$ ergeben. Als Vorbild für die Parameterinterpretation für $a$ und $b$ der Kovarianzfunktion \autoref{eq:kfun} dient dazu der $RBF$-Kernel nach \autoref{eq:rbf} \cite{Rasmussen2006}.
 
+\begin{equation}\label{eq:rbf}
+	k_{RBF}(X_i, X_j) = \sigma_f^2 \cdot e^{\frac{d^2\langle X_i, X_j \rangle}{2 \sigma_l^2}} \Rightarrow \frac{\sigma_f^2}{1 + \frac{d^2\langle X_i, X_j \rangle}{2 \sigma_l^2}} = \frac{a}{b + d^2\langle X_i, X_j \rangle}
+\end{equation}
 
 \begin{equation}\label{eq:kparam}
-	a = \sigma_f^2 \cdot 2 \sigma_l^2 \qquad b = 2 \sigma_l^2 \qquad \theta = \left[\sigma_f^2, \sigma_l\right]
+	\text{mit } a = \sigma_f^2 \cdot 2 \sigma_l^2 \qquad b = 2 \sigma_l^2 \qquad \theta = \left[\sigma_f^2, \sigma_l\right]
 \end{equation}
 
 
@@ -150,7 +153,10 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 \end{algorithm}
 
 
-\paragraph*{Als Noisy-Observation} ist durch ein Aufaddieren eines konstanten Rauschniveaus $\sigma_n^2$ und damit verbundener minimaler Anhebung der Kovarianzmatrix-Diagonalen bezeichnet. Verwendet in verrauschter bzw. fehlerbehaftete Regression \cite{Rasmussen2006}. Entsprechend der Fachliteratur ist die Kovarianzmatrix inklusive additives Rauschen als $K_y$ bezeichnet \cite{Rasmussen2006}.
+\clearpage
+
+
+\paragraph*{Als Noisy-Observation} ist durch ein Aufaddieren eines konstanten Rauschniveaus $\sigma_n^2$ und damit verbundener minimaler Anhebung der Kovarianzmatrix-Diagonalen bezeichnet. Verwendet in verrauschter bzw. fehlerbehaftete Regression \cite{Rasmussen2006}. Dabei bezieht sich das Rauschniveau auf klar identifizierbare Daten für das Regressionsmodell. Ein Rauschen kann also auch entstehen wenn Daten nominell sehr eng beieinander liegen. Entsprechend der Fachliteratur ist die Kovarianzmatrix inklusive additives Rauschen als $K_y$ bezeichnet \cite{Rasmussen2006}.
 
 
 \begin{equation}\label{eq:addnoise}
@@ -171,6 +177,9 @@ Die Modellinitialisierung zur Gauß-Prozess-Regression erfolgt nach \autoref{alg
 Es sollen damit Gleichungssysteme wie $Ax = b \Leftrightarrow x = A^{-1}b$ über zerlegten Repräsentanten gelöst sein $Ly = b \Leftrightarrow L^Tx = y$. Als Notation für die notwendige Lösung der linearen Gleichungssystem ist der Backslash-Operator genutzt $x = L^T \backslash (L \backslash b)$ \cite{Rasmussen2006}. Der Backslash-Operator steht ebenfalls in Matlab zur Verfügung.
 
 
+\clearpage
+
+
 \paragraph*{Die Basis-Funktion} ist als Aufbaufunktion für Polynome aus Trainings- und Testdaten zu nutzen. Das Regressionsverfahren mittels Gauß'scher Prozesse kann in zwei Ausführungen betrieben werden. Die erste ist eine Regression ohne weitere Mittelwerte als Regressionshilfe. In zweiter Ausführung können Mittelwerte der Daten z.B. über Polynomfindung gebildet sein. Dafür bedingt es eine Basis-Funktion nach \autoref{eq:hfun}, die entsprechend der Kernel-Funktion und resultierende Datenformate Polynome bildet \cite{Rasmussen2006}. In der Implementierung sind Polynome ersten Grades verwendet. Was einer Offset- und Amplitudenkorrektur der Trainings- und Testdaten entspricht. Die in \autoref{eq:hfun} gezeigten Funktionen müssen, jeweils für beide Cosinus und Sinus Datentypen gebildet werden und beziehen sich hier in der Darstellung für einen einzigen Simulationswinkel $X_* \mapsto \alpha_*$.
 
 
@@ -189,6 +198,9 @@ Es sollen damit Gleichungssysteme wie $Ax = b \Leftrightarrow x = A^{-1}b$ über
 			\big( 1, X_{sin*}, X_{sin*}^2, \ldots \big)^T             & \text{für \autoref{eq:de2innorm}, } m_{sin}(X_{sin*}) \ne 0
 		\end{cases} \nonumber
 \end{align}
+
+
+\clearpage
 
 
 \paragraph*{Die Mittelwertpolynome} bauen sich über die Basis-Funktionen aus \autoref{eq:hfun} für Trainingsdaten auf. Es resultieren Matrizen \cite{Rasmussen2006}, deren erste Reihe gleich eins ist und jede weitere Reihe mit entsprechenden Exponent für die Polynomgenerierung versehen ist. Die Polynombildung ist jeweils für beide Cosinus- und Sinus-Datensätze durchzuführen, wenn die Mittelwertbildung aktiv ist.

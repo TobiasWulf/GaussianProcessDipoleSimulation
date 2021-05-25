@@ -78,7 +78,7 @@
 }
 
 % Chapters
-\clearpage
+\cleardoublepage
 \pagenumbering{arabic}
 % Add additional chapters here
 \input{chapters/1-Motivation}
@@ -88,18 +88,21 @@
 \input{chapters/5-Zusammenfassung-und-Bewertung}
 
 % List of figures here
-\clearpage
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listfigurename}
 \IListOfFigures
 
 % List of tables here
-\clearpage
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listtablename}
 \IListOfTables
 
 % List of algorithms here
-\clearpage
+\cleardoublepage
 \renewcommand{\listalgorithmcfname}{Algorithmenverzeichnis}
-\listofalgorithms
 \addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
+\listofalgorithms
+
 
 % List glossary entries
 \clearpage
