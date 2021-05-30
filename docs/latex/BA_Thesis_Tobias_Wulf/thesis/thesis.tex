@@ -13,56 +13,69 @@
 ]{scrreprt}
 \usepackage{./style/thesisstyle}
 
+
 % redefine reference names for autoref
 \addto\extrasngerman{%
 	\def\subsubsectionautorefname{Unterabschnitt}%
 	\def\paragraphautorefname{Unterabschnitt}%
 }
-  
-\makeglossaries           % create all glossary entries (remember: run makeglossaries manually)
-\makeindex
-\loadglsentries[main]{./glossaries/glossary}  % load acronym, symbol and glossarie entries
-\loadglsentries[\acronymtype]{./glossaries/acronyms}
-\loadglsentries[symbols]{./glossaries/symbols}
-\glsaddall
 
+
+% load glossaries and styles
+\input{./glossaries/bind-glossaries}
+
+
+% set index file
+\makeindex
+
+
+% add bib file for literature
 \addbibresource{./literature/literature.bib}
+
 
 \sisetup{locale = DE}     % siunitx locale setup
 %\DeclareSIUnit \fps{fps}  % a custom unit (usage: \SI{24}{\fps})
 
-% code listings setup
 
+% code listing style for matlab code segments
 \lstset{style=Matlab-editor, basicstyle=\ttfamily\scriptsize}
+
 
 \begin{document}
 \input{configuration/configuration}    % load all settings
 
+
 \hyphenation{Ba-che-lor-the-sis Mas-ter-the-sis}
+
 
 % Cover page here, no page number
 \ICoverPage
 
+
 % PDF Metadata
 \input{./style/metadata}
 
+
 % Titlepage is page one even if the number is not shown.
 \pagenumbering{roman}
+
+
 % Title page here
 \input{./style/titlepage}
 
+
 % Abstract page here
 \input{./style/abstractpage}
+
 
 %adjust spacing in table of contents
 \setlength{\cftsubsubsecnumwidth}{4.8em}
 \setlength{\cftparanumwidth}{5.8em}
 
+
 % Table of contents here
 \tableofcontents
 
-% Uncomment if list of source code is needed (rarely).
-%\lstlistoflistings  % requires package listings, needs to uncommenting of usepackage
 
 % path to the chapters folder is set to find the images used there
 \graphicspath{%
@@ -77,6 +90,7 @@
 	 {./appendix/images/5-Sensor-Array-Simulation}%
 }
 
+
 % Chapters
 \cleardoublepage
 \pagenumbering{arabic}
@@ -87,15 +101,18 @@
 \input{chapters/4-Erprobungs-und-Optimierungsexperimente}
 \input{chapters/5-Zusammenfassung-und-Bewertung}
 
+
 % List of figures here
 \cleardoublepage
 \addcontentsline{toc}{chapter}{\listfigurename}
 \IListOfFigures
 
+
 % List of tables here
 \cleardoublepage
 \addcontentsline{toc}{chapter}{\listtablename}
 \IListOfTables
+
 
 % List of algorithms here
 \cleardoublepage
@@ -104,28 +121,30 @@
 \listofalgorithms
 
 
+% show all glossary entries
+\glsaddall
+
+
 % List glossary entries
-\clearpage
-\IGlossary
+\cleardoublepage
+\printglossary[title=Glossar]
+
 
 % List of accronyms here
-\clearpage
-\IListOfAccronyms
+\cleardoublepage
+\printglossary[type=\acronymtype, style=myacronymstyle, title=Abkürzungen]
+
 
 % List of symbols here
-%\clearpage
-%\IListOfSymbols
+\cleardoublepage
+\printglossary[type=symbols, style=mysymbolstyle, title=Symbolverzeichnis]
+
 
 % List of used literature
+\cleardoublepage
 \nocite{*}
 \printbibliography
-%\printbibliography[nottype=online, keyword={paper}, heading=subbibliography, title={Paper}]
-%\printbibliography[nottype=online, keyword={thesis}, heading=subbibliography, title={Thesis}]
-%\printbibliography[nottype=online, keyword={manual}, heading=subbibliography, title={Manual}]
-%\printbibliography[type=online, keyword={webpage}, heading=subbibliography, title={Web-Recherche}]
-% \bibliographystyle{plain}
-%\bibliographystyle{dinat}
-%\bibliography{literature/literature}
+
 
 % Appendix
 \cleardoublepage
@@ -142,6 +161,9 @@
 \input{appendix/2-Software-Dokumentation}
 
 
+\cleardoublepage
 \Istatement
 
+
 \end{document}
+

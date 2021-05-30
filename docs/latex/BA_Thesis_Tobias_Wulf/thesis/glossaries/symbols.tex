@@ -4,8 +4,500 @@
 
 % take care that all labels are unique in the whole document
 
-\newglossaryentry{sy:ohm}{
+%\newglossaryentry{sy:}{
+%	name={\ensuremath{}},
+%	description={},
+%	unit={\ensuremath{\si{}}},
+%	%symbol={\ensuremath{}},
+%	type=symbols,
+%	sort=
+%}
+
+\newglossaryentry{sy:a}{
+	name={\ensuremath{a,a_{Array}}},
+	description={Kantenlänge des Sensor-Arrays},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
 	type=symbols,
-	name={\ensuremath{\Omega}},
-	sort=Ohm, symbol={\ensuremath{\Omega}},
-	description={unit of electrical resistance}}
+	sort=Geo1
+}
+
+\newglossaryentry{sy:dpixel}{
+	name={\ensuremath{d_{Pixel}}},
+	description={Abstand der einzelnen Sensor-Pixel untereinander im Sensor-Array},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo2
+}
+
+\newglossaryentry{sy:achsen}{
+	name={\ensuremath{X,Y,Z}},
+	description={Kartesische Koordinatenachsen der Applikation},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo3
+}
+
+\newglossaryentry{sy:rotangz}{
+	name={\ensuremath{\alpha,\alpha_z}},
+	description={Rotationswinkel, Winkelstellung des Gebermagneten in der $Z$-Achse},
+	unit={\ensuremath{\si{\degree}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo4
+}
+
+\newglossaryentry{sy:rotangxy}{
+	name={\ensuremath{\alpha_x,\alpha_y}},
+	description={Verkippung, Winkelstellung des Gebermagneten in der $X$-/ $Y$-Achse},
+	unit={\ensuremath{\si{\degree}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo5
+}
+
+\newglossaryentry{sy:possar}{
+	name={\ensuremath{\vec{p}}},
+	description={Grundpositionsvektor des Sensor-Arrays mit Bezug zur geometrischen Mitte des Arrays},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo6
+}
+
+\newglossaryentry{sy:posxyz}{
+	name={\ensuremath{p_x,p_y,p_z}},
+	description={Positionskoordinaten der Sensor-Array-Position im Koordinatensystem},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo7
+}
+
+\newglossaryentry{sy:xyz}{
+	name={\ensuremath{x,y,z}},
+	description={Koordinaten im kartesischen Koordinatensystem},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo8
+}
+
+\newglossaryentry{sy:meshxyz}{
+	name={\ensuremath{x_{i,j},y_{i,j},z_{i,j}}},
+	description={Meshgrid bzw. Sensor-Pixel-Koordinate im kartesischen Koordinatensystem},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo9
+}
+
+\newglossaryentry{sy:a2}{
+	name={\ensuremath{A_{Array}}},
+	description={Fläche des Sensor-Array resultieren aus der Kantenlänge für ein quadratisches Sensor-Arrays},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo10
+}
+
+\newglossaryentry{sy:dz}{
+	name={\ensuremath{d_z}},
+	description={$Z$-Abstand des Sensor-Arrays zur Magnetoberfläche},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo11
+}
+
+\newglossaryentry{sy:rmag}{
+	name={\ensuremath{r_{mag}}},
+	description={Radius des Gebermagneten als Kugelmagnet},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Geo12
+}
+
+\newglossaryentry{sy:feldstaerke}{
+	name={\ensuremath{\vec{H}}},
+	description={Feldstärke des Gebermagnetfeldes},
+	unit={\ensuremath{\si{\kilo\ampere\per\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld1
+}
+
+\newglossaryentry{sy:feldkomp}{
+	name={\ensuremath{H_x,H_y,H_z}},
+	description={Feldstärkenkomponenten des Gebermagnetfeldes},
+	unit={\ensuremath{\si{\kilo\ampere\per\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld2
+}
+
+\newglossaryentry{sy:feldbetrag}{
+	name={\ensuremath{|\vec{H}|,|H|}},
+	description={Betragsfeldstärke des Gebermagnetfeldes},
+	unit={\ensuremath{\si{\kilo\ampere\per\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld3
+}
+
+\newglossaryentry{sy:rvec}{
+	name={\ensuremath{\vec{r}}},
+	description={Positionsvektor einzelner Meshgrid- bzw. Pixel-Positionen in der Dipol-Feldberechnung},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld4
+}
+
+\newglossaryentry{sy:runit}{
+	name={\ensuremath{\hat{r}}},
+	description={Einheitsvektor von $\vec{r}$},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld5
+}
+
+\newglossaryentry{sy:rabs}{
+	name={\ensuremath{|\vec{r}|}},
+	description={Zeigerlänge oder Betrag des Positionsvektors $\vec{r}$},
+	unit={\ensuremath{\si{\milli\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld6
+}
+
+\newglossaryentry{sy:magmom}{
+	name={\ensuremath{\vec{m}}},
+	description={Magnetisches Moment des magnetischen Dipols},
+	unit={\ensuremath{\si{\kilo\ampere\square\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld7
+}
+
+\newglossaryentry{sy:magmomxyz}{
+	name={\ensuremath{m_x,m_y,m_z}},
+	description={Komponenten des magnetischen Dipol-Momentes},
+	unit={\ensuremath{\si{\kilo\ampere\square\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld8
+}
+
+\newglossaryentry{sy:rotmat}{
+	name={\ensuremath{R_x,R_y,R_z}},
+	description={Rotationsmatrizen zur Drehung von Vektoren im kartesischen Koordinatensystem},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld9
+}
+
+\newglossaryentry{sy:ruhelage}{
+	name={\ensuremath{\vec{r}_0,\vec{m}_0,\vec{H}_0}},
+	description={Ruhelage des Gebermagneten bei definierten Magnetradius, $Z$-Abstand zum Sensor-Array, Ausrichtung des Magneten und resultierender Feldstärke},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld10
+}
+
+\newglossaryentry{sy:hmag}{
+	name={\ensuremath{H_{mag}}},
+	description={Aufzuprägende Betragsfeldstärke für eine normierte Dipol-Feldberechnung},
+	unit={\ensuremath{\si{\kilo\ampere\per\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld11
+}
+
+\newglossaryentry{sy:hnorm}{
+	name={\ensuremath{\vec{H}_{Norm}}},
+	description={Normiertes Dipol-Magnetfeld mit aufgeprägter Betragsfeldstärke für die Ruhelage},
+	unit={\ensuremath{\si{\kilo\ampere\per\metre}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Feld12
+}
+
+\newglossaryentry{sy:vcos}{
+	name={\ensuremath{V_{cos}}},
+	description={Ausgangsspannung der Sensor-Cosinus-Brücke},
+	unit={\ensuremath{\si{\volt}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor1
+}
+
+\newglossaryentry{sy:vsin}{
+	name={\ensuremath{V_{sin}}},
+	description={Ausgangsspannung der Sensor-Sinus-Brücke},
+	unit={\ensuremath{\si{\volt}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor2
+}
+
+\newglossaryentry{sy:vout}{
+	name={\ensuremath{V_{out}}},
+	description={Sensorausgangsspannung allgemein},
+	unit={\ensuremath{\si{\volt}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor3
+}
+
+\newglossaryentry{sy:relresist}{
+	name={\ensuremath{\Delta R/R}},
+	description={Relative Widerstandsänderung},
+	unit={\ensuremath{\si{\percent}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor4
+}
+
+\newglossaryentry{sy:vcc}{
+	name={\ensuremath{V_{CC}}},
+	description={Versorgungsspannung des Sensor-Arrays},
+	unit={\ensuremath{\si{\volt}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor5
+}
+
+\newglossaryentry{sy:voff}{
+	name={\ensuremath{V_{Offset}, V_{off}}},
+	description={Offset-Spannung des Sensor-Arrays},
+	unit={\ensuremath{\si{\volt}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor6
+}
+
+\newglossaryentry{sy:gain}{
+	name={\ensuremath{Gain}},
+	description={Verstärkungsfaktor in der Signalaufbereitung im Sensor-Array},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor6
+}
+
+\newglossaryentry{sy:vnorm}{
+	name={\ensuremath{V_{Norm},V_{norm}}},
+	description={Normfaktor in der Rückgewinnung von Ausgagangsspannungen aus Kennfeldern},
+	unit={\ensuremath{\si{\milli\volt}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Sensor7
+}
+
+\newglossaryentry{sy:winkelmessung}{
+	name={\ensuremath{\mathbf{A},\mathbf{B}}},
+	description={Winkelmessung in Bezug auf die vektorielle Kreisdarstellung der Applikation},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Kreis1
+}
+
+\newglossaryentry{sy:kreisxy}{
+	name={\ensuremath{a_x,a_y,b_x,b_y}},
+	description={Vektorielle $X$-/ $Y$-Komponenten in der Kreisdarstellung der Applikation für die Winkelmessung},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Kreis2
+}
+
+
+\newglossaryentry{sy:radius}{
+	name={\ensuremath{r}},
+	description={Kreisbahnradius in der Kreisdarstellung der Winkelmessung},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Kreis3
+}
+
+\newglossaryentry{sy:pi}{
+	name={\ensuremath{\pi}},
+	description={Kreiszahl $\approx 3,1416$},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Kreis4
+}
+
+\newglossaryentry{sy:v2norm}{
+	name={\ensuremath{\|\cdot\|_2}},
+	description={Vektor-2-Norm für eindimensionale Vektoren},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm1
+}
+
+\newglossaryentry{sy:v2norm2}{
+	name={\ensuremath{\|\cdot\|_2^2}},
+	description={Quadrat der Vektor-2-Norm},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm2
+}
+
+\newglossaryentry{sy:euklid}{
+	name={\ensuremath{d_E\langle\rangle}},
+	description={Euklidische Abstandsfunktion basierend auf der Vektor-2-Norm},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm3
+}
+
+\newglossaryentry{sy:euklid2}{
+	name={\ensuremath{d_E^2\langle\rangle}},
+	description={Quadrat der euklidischen Abstandsfunktion},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm4
+}
+
+\newglossaryentry{sy:frobnorm}{
+	name={\ensuremath{\|\cdot\|_F}},
+	description={Frobenius-Norm als Matrix-Norm},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm5
+}
+
+\newglossaryentry{sy:frobnorm2}{
+	name={\ensuremath{\|\cdot\|_F^2}},
+	description={Quadrat der Frobenius-Norm},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm6
+}
+
+\newglossaryentry{sy:dfrob}{
+	name={\ensuremath{d_F\langle\rangle}},
+	description={Abstandsfunktion basierend auf der Frobenius-Norm},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm7
+}
+
+\newglossaryentry{sy:dfrob2}{
+	name={\ensuremath{d_F^2\langle\rangle}},
+	description={Quadrat der Abstandsfunktion basierend auf der Frobenius-Norm},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Norm8
+}
+
+\newglossaryentry{sy:maps}{
+	name={\ensuremath{\mapsto}},
+	description={Bezieht sich auf, Referenz zu},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Ops1
+}
+
+\newglossaryentry{sy:log10}{
+	name={\ensuremath{\log_{10}}},
+	description={Logarithmus zur Basis $10$},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Ops2
+}
+
+\newglossaryentry{sy:log}{
+	name={\ensuremath{\log}},
+	description={Logarithmus Naturalis},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Ops3
+}
+
+\newglossaryentry{sy:atan2}{
+	name={\ensuremath{\textrm{arctan2}}},
+	description={Arkustangens-Funktion mit erweiterten Winkelintervall},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Ops4
+}
+
+\newglossaryentry{sy:cosdaten}{
+	name={\ensuremath{\mathbf{A_x},X_{cos,i},X_{cos*}}},
+	description={Einzelne Messwertmatrix für die Cosinus-Funktion des Sensor-Arrays mit $*$ als Bezug auf Testdaten},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=daten1
+}
+
+\newglossaryentry{sy:sindaten}{
+	name={\ensuremath{\mathbf{A_y},X_{sin,i},X_{sin*}}},
+	description={Einzelne Messwertmatrix für die Sinus-Funktion des Sensor-Arrays mit $*$ als Bezug auf Testdaten},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=daten2
+}
+
+\newglossaryentry{sy:traindata}{
+	name={\ensuremath{X}},
+	description={Vollständiger Trainingsdatensatz bestehend aus mehren Matrizen aus Cosinus- und Sinus-Messwertmatrizen},
+	unit={\ensuremath{\si{}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=daten3
+}
+
+% hier weiter machen gpr anhang daten formate
+
+\newglossaryentry{sy:fmod}{
+	name={\ensuremath{f_m}},
+	description={Modulationsfrequenz in der Erstellung von Kennfeldern},
+	unit={\ensuremath{\si{\hertz}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Kennfeld1
+}
+
+\newglossaryentry{sy:fcar}{
+	name={\ensuremath{f_c}},
+	description={Trägerfrequenz in der Erstellung von Kennfeldern},
+	unit={\ensuremath{\si{\hertz}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Kennfeld2
+}
+
+\newglossaryentry{sy:phase}{
+	name={\ensuremath{\phi}},
+	description={Phasenwinkel der Stimulanz für die Kennfelderzeugung},
+	unit={\ensuremath{\si{\radian}}},
+	%symbol={\ensuremath{}},
+	type=symbols,
+	sort=Kennfeld3
+}
