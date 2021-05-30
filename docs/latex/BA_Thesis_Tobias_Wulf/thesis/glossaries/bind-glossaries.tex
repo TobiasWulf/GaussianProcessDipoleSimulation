@@ -1,0 +1,32 @@
+% !TEX root = ./thesis.tex
+% bind glossaries and define different styles, load into document preamble
+% @author Tobias Wulf
+%
+
+% add unit key word to for symbol glossary, do not expand to use macros by siunitx package
+\glsaddkey{unit}{\glsentrytext{\glslabel}}{\glsentryunit}{\GLsentryunit}{\glsunit}{\Glsunit}{\GLSunit}
+\glssetnoexpandfield{unit}
+
+% create all glossary entries (remember: run makeglossaries manually)
+\makeglossaries           
+\loadglsentries[main]{./glossaries/glossary}  % load acronym, symbol and glossarie entries
+\loadglsentries[\acronymtype]{./glossaries/acronyms}
+\loadglsentries[symbols]{./glossaries/symbols}
+
+
+% create own symbol glossary style
+\newglossarystyle{mysymbolstyle}{%
+	\setglossarystyle{long3col}%
+	\renewenvironment{theglossary}{\begin{longtable}{lp{.65\linewidth}>{\centering\arraybackslash}p{.11\linewidth}}}{\end{longtable}}%
+	\renewcommand*{\glossaryheader}{\bfseries Symbol & \bfseries Beschreibung & \bfseries Einheit \\ \hline\endhead}%
+	\renewcommand*{\glossentry}[2]{\glstarget{##1}{\glossentryname{##1}} & \glossentrydesc{##1} & \glsunit{##1}  \tabularnewline}%
+}
+
+
+% create own acronym style
+\newglossarystyle{myacronymstyle}{%
+	\setglossarystyle{long3col}%
+	\renewenvironment{theglossary}{\begin{longtable}{lp{.75\linewidth}>{\centering\arraybackslash}p{.01\linewidth}}}{\end{longtable}}%
+	\renewcommand*{\glossaryheader}{\bfseries Abkürzung & \bfseries Beschreibung & \\ \hline\endhead}%
+	\renewcommand*{\glossentry}[2]{\bfseries\glstarget{##1}{\glossentryname{##1}} & \glossentrydesc{##1} & \tabularnewline}%
+}
