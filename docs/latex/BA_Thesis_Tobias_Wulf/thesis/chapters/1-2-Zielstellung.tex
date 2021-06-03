@@ -6,7 +6,10 @@
 \section{Zielstellung}\label{sec:zielstellung}
 
 
-Die Zielstellung ist im Vorfelde dieser Arbeit mit den Projektverantwortlichen der \gls{gl:ags} Herr Prof. Dr.-Ing. Karl-Ragmar Riemschneider und Herr Thorben Schüthe für das Forschungsprojekt ISAR an der HAW diskutiert und vereinbart worden. Sie beziehen sich auf die systematische Untersuchung und Optimierung des mathematischen ASIC-Modells, das auf einen statistischen Verfahren beruht. Ausgehend von der Leitliteratur \cite{Rasmussen2006} und eigenen Vorarbeiten \cite{Schuethe2019}\cite{Schuethe2020b}\cite{Schuethe2020}\cite{Schuethe2020a} ist eine Basis-Software entwickelt worden. Die Software arbeitet in einer Trainings- und Arbeitsphase. Beide sollensystematisch bezüglich einer Reihe von variierten Parametern, Eingangsdaten und Teilfunktionen erprobt und verbessert werden. In der Arbeitsphase soll die Verifikation der Gesamtfunktion anhandder Messgenauigkeit der auszugebenden Winkelinformation erfolgen. Als Eingangsdaten stehen sowohlSimulations- als auch Messdaten in Form von Kennfeldern zur Verfügung, siehe \autoref{ch:tdk-datensatz}.
+Die Zielstellung ist im Vorfelde dieser Arbeit mit den Projektverantwortlichen der \gls{gl:ags}, Herr Prof. Dr.-Ing. Karl-Ragmar Riemschneider und Herr Thorben Schüthe, für das Forschungsprojekt ISAR an der HAW diskutiert und vereinbart worden. Sie beziehen sich auf die systematische Untersuchung und Optimierung des mathematischen ASIC-Modells, das auf einem statistischen Verfahren beruht. Ausgehend von der Leitliteratur \cite{Rasmussen2006} und eigenen Vorarbeiten \cite{Schuethe2019}\cite{Schuethe2020b}\cite{Schuethe2020}\cite{Schuethe2020a} ist eine Basis-Software entwickelt worden. Die Software arbeitet in einer Trainings- und Arbeitsphase. Beide sollen
+systematisch bezüglich einer Reihe von variierten Parametern, Eingangsdaten und Teilfunktionen erprobt und verbessert werden. In der Arbeitsphase soll die Verifikation der Gesamtfunktion anhand
+der Messgenauigkeit der auszugebenden Winkelinformation erfolgen. Als Eingangsdaten stehen sowohl
+Simulations- als auch Messdaten in Form von Kennfeldern zur Verfügung, siehe \autoref{ch:tdk-datensatz}.
 
 
 Zu den Parametern der Trainingsphase gehören:
@@ -17,7 +20,8 @@ Zu den Parametern der Trainingsphase gehören:
 \end{itemize}
 
 
-In der Arbeitsphase sollen Eingangsdaten mit Toleranz-Abweichungen repräsentativ und systematischgenutzt werden. Dazu gehören:
+In der Arbeitsphase sollen Eingangsdaten mit Toleranz-Abweichungen repräsentativ und systematisch
+genutzt werden. Dazu gehören:
 
 \begin{itemize}
 	\item Variation des Abstandes zwischen Sensor und Encoder (Luftspalt, $Z$-Achse).
@@ -25,13 +29,21 @@ In der Arbeitsphase sollen Eingangsdaten mit Toleranz-Abweichungen repräsentati
 	\item Optional im exemplarischen Umfang: Variation des Verkippungswinkels zwischen Sensor und Encoder bzw. der magnetischen Ausrichtung des Encoders.
 \end{itemize}
 
-Die Optimierung soll bezüglich des maximalen als auch des mittleren Winkelfehlers erfolgen. Für dasSensor-Array wird zunächst eine quadratische Form mit typischerweise 8x8 Sensoren festgelegt. Ebensowird zunächst von der Nachbildung eines Kugelmagneten als punktförmige Feldquelle ausgegangen.Nachdem die Optimierung damit erfolgt ist, kann optional die Anzahl der Sensoren variiert werden.
+Die Optimierung soll bezüglich des maximalen als auch des mittleren Winkelfehlers erfolgen. Für das
+Sensor-Array wird zunächst eine quadratische Form mit typischerweise 8x8 Sensoren festgelegt. Ebenso
+wird zunächst von der Nachbildung eines Kugelmagneten als punktförmige Feldquelle ausgegangen.
+Nachdem die Optimierung damit erfolgt ist, kann optional die Anzahl der Sensoren variiert werden.
 
 
 \clearpage
 
 
-Hierzu sind sowohl Simulation als auch Interpolation auf 15x15 Sensoren möglich. Abhängig von denerzielten Verbesserungen sind optional Experimente mit weiteren veränderten Kovarianzfunktionendurchzuführen.Für die Simulation soll die Softwareumgebung Matlab genutzt werden. Dies gilt auch für die Optimierungszyklen. Hierzu sind eigene Skripte und Funktionen zu implementieren. Ein besonderes Augenmerkist auf eine systematische Planung der Optimierungsschritte und auf eine aussagekräftige Darstellungder Ergebnisse zu legen.
+Hierzu sind sowohl Simulation als auch Interpolation auf 15x15 Sensoren möglich. Abhängig von den
+erzielten Verbesserungen, sind optional Experimente mit weiteren veränderten Kovarianzfunktionen
+durchzuführen.
+Für die Simulation soll die Softwareumgebung Matlab genutzt werden. Dies gilt auch für die Optimierungszyklen. Hierzu sind eigene Skripte und Funktionen zu implementieren. Ein besonderes Augenmerk
+ist auf eine systematische Planung der Optimierungsschritte und auf eine aussagekräftige Darstellung
+der Ergebnisse zu legen.
 
 Die Zielstellung wurde aus getroffener Vereinbarung vom 27.10.2020 vollständig übernommen. Es ist keine weitere Anpassung der Zielstellung vorgenommen worden.
 

@@ -6,13 +6,13 @@
 \chapter{Erprobungs- und Optimierungsexperimente}\label{ch:erprobungs-u-opt-exp}
 
 
-In diesem Teil der Arbeit werden Experimente bzw. Simulationen durchgeführt, die abschnittweise Beiträge für eine Modelloptimierung zeigen. Dabei ist das übergeordnete Ziel ein möglichst ressourcenarmes mathematisches Modell für einen Sensor-ASIC zu finden. Die Durchführung der Experimente basiert auf Matlab-Skripten, in denen geschriebener funktionaler Quellcode eingebunden und ausgeführt wird. Die Ergebnisse der Experimente stehen nach Durchführung in Vektor- und Matrixform im Matlab-Workspace bereit und sind anschließend mit grafisch Ausgewertet worden. Die Ergebnisgrafiken sind unter den einzelnen Experimenten einzusehen, beschrieben und feststellend ausgewertet. Eine zusammenfassende Auswertung aller Ergebnisse folgt in \autoref{ch:zusammenfassung-bewertung}. Der grundlegende Ablauf der Experimente ist schematisch gleich:
+In diesem Teil der Arbeit werden Experimente bzw. Simulationen durchgeführt, die abschnittsweise Beiträge für eine Modelloptimierung zeigen. Dabei ist das übergeordnete Ziel, ein möglichst ressourcenarmes mathematisches Modell für einen Sensor-ASIC zu finden. Die Durchführung der Experimente basiert auf Matlab-Skripten, in denen geschriebener funktionaler Quellcode eingebunden und ausgeführt wird. Die Ergebnisse der Experimente stehen nach Durchführung in Vektor- und Matrixform im Matlab-Workspace bereit und sind anschließend grafisch usgewertet worden. Die Ergebnisgrafiken sind unter den einzelnen Experimenten einzusehen, beschrieben und feststellend ausgewertet. Eine zusammenfassende Auswertung aller Ergebnisse folgt in \autoref{ch:zusammenfassung-bewertung}. Der grundlegende Ablauf der Experimente ist schematisch gleich:
 
 
 \begin{enumerate}
 	\item Konfigurieren der Software und Erstellen der Konfigurations-MAT-Datei.
 	\item Erzeugen von Trainings- und Testdatensätze mittels der Sensor-Array-Simulation.
-	\item Erstellen eines oder mehrerer Regressionsmodell.
+	\item Erstellen mindestens eines Regressionsmodells.
 	\item Durchführung von Regressions- oder Verlustberechnungen.
 	\item Grafische Auswertung der Ergebnisse.
 \end{enumerate}
@@ -46,8 +46,8 @@ Als Grundparametrierung der Experimente dient die \autoref{tab:sim-params-exp}. 
 			                                         & zPos                & $\left[7,\right]$    & mm                & Sensor-Array $Z$-Positionsvektor                                    \\
 			                                         & tilt                & $0$                  & $^\circ$          & Magnetverkippung in $Y$-Achse                                       \\
 			                                         & angleRes            & $0,5$                & $^\circ$          & Winkelauflösung f. Magnetrotation                                   \\
-			                                         & phaseIndex          & 0                    & -                 & Phasenverschiebung-Index f. Startwinkel                             \\
-			                                         & nAngles             & $20$/ $720$          & -                 & Anzahl gleich verteilter Simulationswinkel                          \\
+			                                         & phaseIndex          & 0                    & -                 & Phasenverschiebungs-Index f. Startwinkel                            \\
+			                                         & nAngles             & $20$/ $720$          & -                 & Anzahl gleichverteilter Simulationswinkel                           \\
 			                                         & BaseReference       & 'TDK'                & char              & Kennfelddatensatzindikator                                          \\
 			                                         & BridgeReference     & 'Rise'               & char              & Kennfeldindikator                                                   \\ \hline
 			\multirow{10}{*}{GPROptions}             & kernel              & 'QFC'                & char              & Kernel-Funktion-Indikator \eqref{eq:kfun}, 'QFC' $\leftarrow d_F^2$ \\
