@@ -12,7 +12,7 @@
   listof=totoc        % Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis
 ]{scrreprt}
 \usepackage{./style/thesisstyle}
-
+\usepackage{etoc}
 
 % redefine reference names for autoref
 \addto\extrasngerman{%
@@ -71,10 +71,14 @@
 %adjust spacing in table of contents
 \setlength{\cftsubsubsecnumwidth}{4.8em}
 \setlength{\cftparanumwidth}{5.8em}
-
+\addtocontents{toc}{\protect\setcounter{tocdepth}{5}}
+\setcounter{secnumdepth}{5}
 
 % Table of contents here
 \cleardoublepage
+\etocdepthtag.toc{maintoc}
+\etocsettagdepth{maintoc}{subsection}
+\etocsettagdepth{swtoc}{none}
 \tableofcontents
 
 
@@ -101,6 +105,7 @@
 \input{chapters/3-Software-Entwicklung-f-Optimierungexperimente}
 \input{chapters/4-Erprobungs-und-Optimierungsexperimente}
 \input{chapters/5-Zusammenfassung-und-Bewertung}
+
 
 
 % List of figures here
@@ -149,38 +154,51 @@
 
 % Appendix
 \cleardoublepage
-
-%\addcontentsline{toc}{part}{\appendixname}
-
 \renewcommand{\appendixname}{Anhang}
 \renewcommand{\appendixtocname}{Anhang}
 \renewcommand{\appendixpagename}{Anhang}
 \begin{appendices}
 	
 	% standard appedices
-	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 	\input{appendix/3-TDK-TAS2141-AAAB-Kennfelddatensatz}
 	%\input{appendix/4-NXP-KMZ60-Kennfelddatensatz}
 	\input{appendix/5-Sensor-Array-Sim-Imp}
 	\input{appendix/6-GPR-Imp}
 	\input{appendix/1-Genutzte-Software}
 	
-	% separated appendices
-	\addtocontents{toc}{\protect\setcounter{tocdepth}{5}}
-	\setcounter{secnumdepth}{5}
+	% separated appendices (E)
 	\input{appendix/2-Software-Dokumentation}
-	\cleardoublepage
-	\input{./style/coverpageAppendix}
-	\cleardoublepage
-	\setcounter{page}{1}
-	\import{../../Manual/}{Manual.tex}
-
+	
 \end{appendices}
 
-
+% Statement main part
 \cleardoublepage
 \Istatement
 
+% Cover page for sw appendix
+\cleardoublepage
+\renewcommand{\thechapter}{E}
+\setcounter{chapter}{20}
+\phantomsection{\chapter{Software-Dokumentation}
+\pagenumbering{roman}
+\input{./style/coverpageAppendix}
+
+% set toc for sw appendix
+\cleardoublepage
+\etocdepthtag.toc{swtoc}
+\etocsettagdepth{maintoc}{none}
+\etocsettagdepth{swtoc}{paragraph}
+\setcounter{page}{1}
+\tableofcontents
+
+% include sw appendix
+\cleardoublepage
+\pagenumbering{arabic}
+\import{../../Manual/}{Manual.tex}
+
+% Statement sw part
+\cleardoublepage
+\Istatement
 
 \end{document}
 
