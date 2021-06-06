@@ -51,7 +51,7 @@ The resolution of the angles can be modified additionally. At first the full ang
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Syntax}}
+{\textbf{Syntax}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 M = generateDipoleRotationMoments(m0, nTheta)
@@ -62,7 +62,7 @@ M = generateDipoleRotationMoments(m0, nTheta)
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Description}}
+{\textbf{Description}}
 
 \begin{par}
 \textbf{M = generateDipoleRotationMoments(m0, nTheta)} generate magnetic moments for N numbers of rotation angles theta in 3 x N sized matrix. With a default angle resoulution of 1 and a start angle of 0.
@@ -81,7 +81,7 @@ M = generateDipoleRotationMoments(m0, nTheta)
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Examples}}
+{\textbf{Examples}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % choose a huge moment amplitude to withdraw numeric erros in later H-field
@@ -113,7 +113,7 @@ all(thetaFS(iFS + 22) == thetaDSS)
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Input Arguments}}
+{\textbf{Input Arguments}}
 
 \begin{par}
 \textbf{m0} scalar value of magnetic moment magnitude. Choose huge value to prevent numeric failures in later field strength calculation. 1e6 is a proven value. Later normated in the field calculation process. Can be any real number.
@@ -132,7 +132,7 @@ all(thetaFS(iFS + 22) == thetaDSS)
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Output Arguments}}
+{\textbf{Output Arguments}}
 
 \begin{par}
 \textbf{M} matrix of magnetic moments related to vector theta. Matrix of size 3 x N.
@@ -145,7 +145,7 @@ all(thetaFS(iFS + 22) == thetaDSS)
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -155,7 +155,7 @@ all(thetaFS(iFS + 22) == thetaDSS)
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}

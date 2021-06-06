@@ -44,7 +44,7 @@ p2 = [-2; 3; 2];
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 1: output dimensions}}
+{\textbf{Test 1: output dimensions}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(size(X), [N N]))
@@ -53,21 +53,21 @@ assert(isequal(size(Z), [N N]))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 2: equal x and y distances}}
+{\textbf{Test 2: equal x and y distances}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(diff(Y), diff(-X, [], 2)'))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 3: constant z distances}}
+{\textbf{Test 3: constant z distances}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(Z == -(p(3) + r), 'all'))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 3: position shif in x and y direction}}
+{\textbf{Test 3: position shif in x and y direction}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(X + p2(1), X2))

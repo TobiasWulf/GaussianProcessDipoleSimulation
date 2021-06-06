@@ -29,7 +29,7 @@ fclose(fopen(fullfile('testDir', 'testFile3.txt'), 'w'));
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 1: delete all files}}
+{\textbf{Test 1: delete all files}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 removeStatus = removeFilesFromDir(fullfile('testDir'));
@@ -42,7 +42,7 @@ fclose(fopen(fullfile('testDir', 'testFile3.txt'), 'w'));
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 2: delete with pattern}}
+{\textbf{Test 2: delete with pattern}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 removeStatus = removeFilesFromDir(fullfile('testDir'), '*.txt');

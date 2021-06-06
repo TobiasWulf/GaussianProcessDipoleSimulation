@@ -21,21 +21,21 @@ Noise level optimization that implements optimized model by embedded kernel tuni
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Syntax}}
+{\textbf{Syntax}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Description}}
+{\textbf{Description}}
 
 \begin{par}
 \textbf{Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose)} intiates regression model by training data and passed options. Solves min search via bayesopt for optimizing noise level. At each process step buit model is reinitiated and tuned to fit best on training data. The noise optimization can be performed by SLLA ans SLLR. Depends configuration of GPROptions. The loss computation is done on all forwarded test data.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Examples}}
+{\textbf{Examples}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 load config.mat PathVariables GPROptions;
@@ -55,7 +55,7 @@ Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Input Argurments}}
+{\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{TrainDS} loaded training data by infront processesed sensor array simulation.
@@ -71,14 +71,14 @@ Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose);
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Output Argurments}}
+{\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{Mdl} fully optimized model struct with tuned hyperparameters and optimized noise level.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -88,7 +88,7 @@ Mdl = optimGPR(TrainDS, TestDS, GPROptions, verbose);
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}

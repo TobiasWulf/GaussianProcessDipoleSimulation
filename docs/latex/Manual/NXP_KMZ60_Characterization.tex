@@ -24,7 +24,7 @@ NXP KMZ60 characterization as second base of the sensor array simulation was alt
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -32,7 +32,7 @@ NXP KMZ60 characterization as second base of the sensor array simulation was alt
 \end{itemize}
 
 
-{\footnotesize\textbf{Magnetic Stimulus}}
+{\textbf{Magnetic Stimulus}}
 
 \begin{par}
 The right stimulus is the keynote for characterization records. It needs to have the ability record slow enough for quasi static recordings but is not allowed to be real static so the magnetic field is not interrupted during the recording. Therefore slow sinoid carrier functions with even slower amplitude modulation is choosen to provide a quasi static stimulus.
@@ -105,7 +105,7 @@ $$t_0 < t < \frac{1}{f_m}$$
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Cosinuns Bridge Output}}
+{\textbf{Cosinuns Bridge Output}}
 
 \begin{par}
 The record characterization raw data are one dimensional time discrete vecotrs. To fieldstrength images like down below the recorded data must be referenced backwords to driven stimulus of Hx- and Hy-direction. But at first the image size of must be determined. Here fix size is set to 256 pixel for each direction. So it spans a vector for Hx- and Hy-direction from minimum -25 kA/m to maximum 25 kA/m in 256 steps with a resolution of 0.1961 kA/m. So it results into a 256x256 image. Now it runs for each point on the Hx- and Hy-axes and get the record index of the stimulus as backreference to the recorded bridge signal and sets the pixel. That runs for the rising modulation amplitude and falling amplitude until every pixel is hit and ended up into a dimensional function image as:
@@ -118,7 +118,7 @@ The information of the image is build up in row. Reference Hx for constant Hy in
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Sine Bridge Output}}
+{\textbf{Sine Bridge Output}}
 
 \begin{par}
 The sine characterization field is built up similar to the cosine images but the information lays now in the columns so the data is collected in each column for a constant Hx and variable Hy:
@@ -128,14 +128,14 @@ $$V_{sin}(H_x, H_y) = [mV/V]$$
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Operating Point}}
+{\textbf{Operating Point}}
 
 \begin{par}
 To determine an operating point in sensor array simulation the characterization fields needs some further investigations in static Hy and variable Hx field strength for cosine bridge and vice versa for sine bridge references. In compare to the TDK TMR the NXP AMR sensor has clear linear plateau. It has a continuous non-linear areas divided in two maximum and minum areas. The best results for bridge outputs is supported by an operating point in saturation of the characterization fields so circular path on the fields should be described at 20 kA/m to 25 kA/m path radius.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Dataset Structure}}
+{\textbf{Dataset Structure}}
 
 \begin{par}
 \textbf{Info:}

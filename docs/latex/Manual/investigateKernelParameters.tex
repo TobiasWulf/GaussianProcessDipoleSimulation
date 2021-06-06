@@ -21,7 +21,7 @@ Sweep kernel parameters against inner tuning criteria which is built by the loga
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -31,7 +31,7 @@ Sweep kernel parameters against inner tuning criteria which is built by the loga
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -49,7 +49,7 @@ Created on March 13. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Start Script, Load Config and Read in Datasets}}
+{\textbf{Start Script, Load Config and Read in Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 clc;
@@ -83,7 +83,7 @@ assert(TrainDS.Info.UseOptions.tilt == TestDS.Info.UseOptions.tilt);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Create GPR Model for Investigation}}
+{\textbf{Create GPR Model for Investigation}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Create GPR modles ...');
@@ -91,7 +91,7 @@ Mdl1 = optimGPR(TrainDS, TestDS, GPROptions, 0);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Sweep Title with Model Parameters}}
+{\textbf{Sweep Title with Model Parameters}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 titleStr = "Kernel %s: $\\sigma_f = %1.2f$, $\\sigma_l = %1.2f$," + ...
@@ -108,7 +108,7 @@ titleStr = sprintf(titleStr, ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Execute Parameter Sweep with Constant Noise}}
+{\textbf{Execute Parameter Sweep with Constant Noise}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 nEval = 300;
@@ -117,7 +117,7 @@ sweepKernelWithConstNoise(Mdl1, nEval, titleStr, PathVariables)
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Execute Parameter Sweep with Constant Variance}}
+{\textbf{Execute Parameter Sweep with Constant Variance}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 nEval = 300;
@@ -126,7 +126,7 @@ disp('Sweep kernel parameters with constant variance ...');
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Execute Parameter Sweep with Constant Lengthscale}}
+{\textbf{Execute Parameter Sweep with Constant Lengthscale}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 nEval = 300;
@@ -135,7 +135,7 @@ disp('Sweep kernel parameters with constant lengthscale ...');
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise}}
+{\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Noise}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function sweepKernelWithConstNoise(Mdl, nEval, titleStr, PathVariables)
@@ -219,7 +219,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Variance}}
+{\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Variance}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function sweepKernelWithConstVariance(Mdl, nEval, titleStr, PathVariables)
@@ -312,7 +312,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Lengthscale}}
+{\textbf{Sweep Kernel Parameters vs. Likelihood Criteria with Constant Lengthscale}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 function sweepKernelWithConstLengthscale(Mdl, nEval, titleStr, PathVariables)

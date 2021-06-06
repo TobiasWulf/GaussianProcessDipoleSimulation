@@ -21,7 +21,7 @@ Generate configuration mat-file wich contains reusable configuration to control 
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -31,7 +31,7 @@ Generate configuration mat-file wich contains reusable configuration to control 
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -47,7 +47,7 @@ Created on October 29. 2020 by Tobias Wulf. Copyright Tobias Wulf 2020.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Clean Up}}
+{\textbf{Clean Up}}
 
 \begin{par}
 Clear variables from workspace to build up a fresh new configuration workspace.
@@ -60,7 +60,7 @@ clc;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Default Plot Settings}}
+{\textbf{Default Plot Settings}}
 
 \begin{par}
 Set default settings for plots and graphics like text interpreter and font size and so on. If script runs on start up, defaults are working for all plots. disp('Set plot defaults ...');
@@ -101,7 +101,7 @@ set(groot, 'DefaultPolarAxesFontSize', 20);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{GeneralOptions}}
+{\textbf{GeneralOptions}}
 
 \begin{par}
 General options like formats for strings or date or anything else what has no special relation to a theme complex. Fix parameters.
@@ -113,7 +113,7 @@ GeneralOptions.dateFormat = 'yyyy-mm-dd_HH-MM-SS-FFF';
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Path Variables}}
+{\textbf{Path Variables}}
 
 \begin{par}
 Key path variables and directories, often used in functions or scripts. Collet the path in a struct for easier save the struct fields as variables to config.mat via -struct flag. Fix parameters.
@@ -200,7 +200,7 @@ PathVariables.unittestPath = fullfile(PathVariables.rootPath, 'tests');
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Publish Options}}
+{\textbf{Publish Options}}
 
 \begin{par}
 These are general options for documents to publish. They are passed to the matlab publish function via a struct where each option gets its own field. The option struct can be copied and adjusted for differing publish conditions in example for scripts, functions, and bare document m-files. Initialize the option struct with output format field name and field value and add further fields (options) with point value. Fix parameters.
@@ -224,7 +224,7 @@ PublishOptions.showCode = true;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Sensor Array Options}}
+{\textbf{Sensor Array Options}}
 
 \begin{par}
 The options control the built-up of the sensor array in geometry and techincal behavior. This means number of sensors in the array and its size in mm. The supply and offset voltage of each sensor which is needed for using the characterization which is normed in mV/V. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.
@@ -257,7 +257,7 @@ SensorArrayOptions.Vnorm = 1e3;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Dipole Options}}
+{\textbf{Dipole Options}}
 
 \begin{par}
 Dipole options to calculate the magnetic field which stimulate the sensor array. The dipole is gained to sphere with additional z distance to the array by sphere radius. These parameters should be fix during generation a pulk of training or test data sets. The simulation function does not covers vectors yet.
@@ -296,7 +296,7 @@ DipoleOptions.M0mag = 1e6;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Traning Options}}
+{\textbf{Traning Options}}
 
 \begin{par}
 Training options gives the software the needed information to generate training datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.
@@ -360,7 +360,7 @@ TrainingOptions.BridgeReference = 'Rise';
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test Options}}
+{\textbf{Test Options}}
 
 \begin{par}
 Test options gives the software the needed information to generate test datasets by the sensor array simulation with a dipole magnet as stimulus which pushed with an z offset to a sphere.
@@ -424,7 +424,7 @@ TestOptions.BridgeReference = 'Rise';
 \end{lstlisting}
 
 
-{\footnotesize\textbf{GPR Options}}
+{\textbf{GPR Options}}
 
 \begin{par}
 Gaussian Process Regression options to generate a regression model for angular prediction and analyzing the accuracy of the prediction. The GPR model uses one certain covariance function to compute the prediction but it is possible to initiate as zero mean GPR without mean correction and a simple mean function which supports offset amplitude correction of the sinoid inputs for cosine and sine. The GPR uses a quadratic frobnius norm covariance function. That function has two kernel parameters s2f as variance parameter and sl as length scale parameter. Additional a noise variance s2n must be passed to GPR to compute noisy observations.
@@ -506,7 +506,7 @@ GPROptions.polyDegree = 1;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Save Configuration}}
+{\textbf{Save Configuration}}
 
 \begin{par}
 Save section wise each config part as struct to standalone variables in config.mat use newest save format with no compression. create config.mat with timestamp.

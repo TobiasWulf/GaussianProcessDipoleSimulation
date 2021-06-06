@@ -39,7 +39,7 @@ res = 0.5;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 1: output dimensions}}
+{\textbf{Test 1: output dimensions}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(size(MFS), [3 720]))
@@ -53,7 +53,7 @@ assert(isequal(size(idxSH), [1 7]))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 2: down sampling}}
+{\textbf{Test 2: down sampling}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(MFS(:,idx), M))
@@ -63,7 +63,7 @@ assert(isequal(tFS(idxSH), tSH))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 3: phase shift}}
+{\textbf{Test 3: phase shift}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(isequal(tSH(1), 11))

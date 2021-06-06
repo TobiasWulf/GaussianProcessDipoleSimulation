@@ -68,21 +68,21 @@ $$\vec{H}(\vec{r}) \cdot H_{0norm}$$
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Syntax}}
+{\textbf{Syntax}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 H = computeDipoleHField(x, y, z, m, H0norm)
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Description}}
+{\textbf{Description}}
 
 \begin{par}
 \textbf{H = computeDipoleHField(x, y, z, m, H0norm)} computes dipole field strength at passed position (x,y,z) with the magnetic dipole moment m. The resulting field strenght is a vector with components in x, y and z direction. A field strength norming is imprinted on a rest position computation and multiplied on the result by multiplying a norm factor to the field. The normfactor must be relate to the same magnitude of the magnetic dipole moment which is used here and corresponds to the magnets rest position in defined distance of the magnets surface.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Examples}}
+{\textbf{Examples}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % compute a single point without norming
@@ -136,7 +136,7 @@ axis equal;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Input Argurments}}
+{\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{x} coordinates of positions at the field strength is calculated can be scalar, vector or matrix of coordinates. Must be same size as y and z.
@@ -155,14 +155,14 @@ axis equal;
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Output Argurments}}
+{\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{H} computed magnetic field strength at passed positions with related magnetic moment. If passed position is a scalar H has size of 3 X 1 with its components in x, y and z dircetion. H(1) -\ensuremath{>} x, H(2) -\ensuremath{>} y and  H(3) -\ensuremath{>} z. If passed positions are not scalar H has size of 3 x numel(x) with position relations in columns. So reshape rows to shapes of positions to keep orientation as origin.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -172,7 +172,7 @@ axis equal;
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}

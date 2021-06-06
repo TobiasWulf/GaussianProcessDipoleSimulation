@@ -35,7 +35,7 @@ Script forces simulation to run with TDK characterization dataset. Identifier is
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -45,7 +45,7 @@ Script forces simulation to run with TDK characterization dataset. Identifier is
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -63,7 +63,7 @@ Created on May 06. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Start Script and Clear All}}
+{\textbf{Start Script and Clear All}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 clc;
@@ -75,7 +75,7 @@ deleteSimulationDatasets;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Declare Reference Position and Drift Vectors}}
+{\textbf{Declare Reference Position and Drift Vectors}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Declare reference and drift ...');
@@ -90,7 +90,7 @@ driftTilt = 0:0.5:12;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Declare Common Variables}}
+{\textbf{Declare Common Variables}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Declare common vars ...');
@@ -101,7 +101,7 @@ errorTick   = [1e-1 1 10 1e2];
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Calculated Datasets Indices on Drift Parameter}}
+{\textbf{Calculated Datasets Indices on Drift Parameter}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Numbering drift sets ...');
@@ -126,7 +126,7 @@ driftTiltIndex = driftZIndex(end) + 1 : driftTiltN + driftZIndex(end);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Allocate Memory for Error and Parameter Drifts [X, Y, Z, Tilt]}}
+{\textbf{Allocate Memory for Error and Parameter Drifts [X, Y, Z, Tilt]}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Allocate memory ...');
@@ -140,7 +140,7 @@ slParamDrift        = zeros(driftXN, 4);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Load Config}}
+{\textbf{Load Config}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Load config ...');
@@ -149,7 +149,7 @@ load config.mat PathVariables  GeneralOptions SensorArrayOptions ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Load TDK Characterization Dataset and Set Base Reference in Options}}
+{\textbf{Load TDK Characterization Dataset and Set Base Reference in Options}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Load TDK characterization dataset ...');
@@ -161,7 +161,7 @@ TestOptions.BaseReference     = 'TDK';
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Generate Reference Datasets}}
+{\textbf{Generate Reference Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set reference position ...');
@@ -183,7 +183,7 @@ simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Generate X Drift Datasets}}
+{\textbf{Generate X Drift Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set x drift positions ...');
@@ -205,7 +205,7 @@ simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Generate Y Drift Datasets}}
+{\textbf{Generate Y Drift Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set y drift positions ...');
@@ -227,7 +227,7 @@ simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Generate Z Drift Datasets}}
+{\textbf{Generate Z Drift Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set z drift positions ...');
@@ -249,7 +249,7 @@ simulateDipoleSquareSensorArray(GeneralOptions, PathVariables, ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Generate Tilt Drift Datasets}}
+{\textbf{Generate Tilt Drift Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Set tilt drift positions ...');
@@ -276,7 +276,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Reload Path of Generated Datasets}}
+{\textbf{Reload Path of Generated Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Scanning directories ...');
@@ -291,7 +291,7 @@ disp('Data is consistent ...');
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Load Reference Datasets Train Reference Model}}
+{\textbf{Load Reference Datasets Train Reference Model}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 fprintf('Load datasets (%d) ...\n', refIndex);
@@ -300,7 +300,7 @@ TestDS  = load(fullfile(testPath, TestFiles(refIndex).name));
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Train Reference Model on Reference Datasets}}
+{\textbf{Train Reference Model on Reference Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Train model in reference position ...')
@@ -309,7 +309,7 @@ close all;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Run Drift in X}}
+{\textbf{Run Drift in X}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Run drift in x');
@@ -343,7 +343,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Run Drift in Y}}
+{\textbf{Run Drift in Y}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Run drift in y');
@@ -377,7 +377,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Run Drift in Z}}
+{\textbf{Run Drift in Z}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Run drift in z');
@@ -411,7 +411,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Run Drift in Tilt}}
+{\textbf{Run Drift in Tilt}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 disp('Run drift in tilt');
@@ -445,7 +445,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Plot Drift Errors}}
+{\textbf{Plot Drift Errors}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % clc; close all;
@@ -628,7 +628,7 @@ legend([l1, l2, p1, p2, p3, p4, s1, s2, s3, s4, s5, s6, s7, s8], ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Plot Model Parameter Drift in X and Y}}
+{\textbf{Plot Model Parameter Drift in X and Y}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % clc; close all;
@@ -735,7 +735,7 @@ legend(ax6, [l3, l4, l5, l6], ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Plot Model Parameter Drift in Z and Tilt}}
+{\textbf{Plot Model Parameter Drift in Z and Tilt}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % clc; close all;

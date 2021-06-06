@@ -31,7 +31,7 @@ angle = 90;
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 1: output dimensions}}
+{\textbf{Test 1: output dimensions}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector(x, 0, 0, angle);
@@ -41,7 +41,7 @@ assert(isequal(size(rotated), [3, 6]))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 2: rotate vectors in x-axes}}
+{\textbf{Test 2: rotate vectors in x-axes}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
@@ -61,7 +61,7 @@ assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 3: rotate vectors in y-axes}}
+{\textbf{Test 3: rotate vectors in y-axes}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree
@@ -81,7 +81,7 @@ assert(isequal(rotated, [-1 0 0; 0 -1 0; 0 0 -1]))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 4: rotate vectors in z-axes}}
+{\textbf{Test 4: rotate vectors in z-axes}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 rotated = rotate3DVector([x y z], 0, 0, 0); % 0 degree

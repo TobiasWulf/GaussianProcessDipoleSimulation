@@ -21,7 +21,7 @@ This script compares the implemented kernel function with each and another. It i
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -31,7 +31,7 @@ This script compares the implemented kernel function with each and another. It i
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -47,7 +47,7 @@ Created on April 11. 2021 by Tobias Wulf. Copyright Tobias Wulf 2021.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Load Datasets}}
+{\textbf{Load Datasets}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 clear all;
@@ -70,7 +70,7 @@ end
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Initiate Kernels with different Kernelparameters}}
+{\textbf{Initiate Kernels with different Kernelparameters}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 ma11 = initGPR(TrainDS, GPROptions);
@@ -110,7 +110,7 @@ md41 = initGPR(TrainDS, GPROptions);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Compute Losses for each Kernel with Length Variation}}
+{\textbf{Compute Losses for each Kernel with Length Variation}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 [~, ma11SLLA, ma11SLLR] = lossDS(ma11, TestDS);
@@ -125,7 +125,7 @@ md41 = initGPR(TrainDS, GPROptions);
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Plot Area}}
+{\textbf{Plot Area}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 % plot covariance slice for first covariance sample
@@ -292,7 +292,7 @@ legend({'SLLA', 'SLLR', 'MSLLA', 'MSLLR'}, 'Units', 'normalized', ...
 \end{lstlisting}
 
 
-{\footnotesize\textbf{second kernel}}
+{\textbf{second kernel}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 figure;

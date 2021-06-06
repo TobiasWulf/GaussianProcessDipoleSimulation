@@ -21,21 +21,21 @@ Computes the Cholesky Decomposition of a symmetric positive definite matrix A an
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Syntax}}
+{\textbf{Syntax}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 [L, logDet] = decomposeChol(A)
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Description}}
+{\textbf{Description}}
 
 \begin{par}
 \textbf{[L, logDet] = decomposeChol(A)} computes lower triangle matrix of input matrix A using the Cholesky Decomposition. As side product of the decomposition the logarithmic determinante of A is returned too.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Examples}}
+{\textbf{Examples}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 A = [1.0, 0.9, 0.8;
@@ -47,14 +47,14 @@ assert(log(det(A)) == logDet)
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Input Argurments}}
+{\textbf{Input Argurments}}
 
 \begin{par}
 \textbf{A} symmetric, pos. finite double matrix of size N x N.
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Output Argurments}}
+{\textbf{Output Argurments}}
 
 \begin{par}
 \textbf{L} is a lower trinagle matrix of size N x N. Multiply L with its transposed to get matrix A.
@@ -64,7 +64,7 @@ assert(log(det(A)) == logDet)
 \end{par} \vspace{1em}
 
 
-{\footnotesize\textbf{Requirements}}
+{\textbf{Requirements}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
@@ -74,7 +74,7 @@ assert(log(det(A)) == logDet)
 \end{itemize}
 
 
-{\footnotesize\textbf{See Also}}
+{\textbf{See Also}}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}

@@ -87,14 +87,14 @@ HabsTilt = sqrt(sum(HTilt.^2, 1));
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 1: rotation without tilt}}
+{\textbf{Test 1: rotation without tilt}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(round(HabsNoTilt, 6) == round(HabsMust, 6), 'all'))
 \end{lstlisting}
 
 
-{\footnotesize\textbf{Test 2: rotation with tilt}}
+{\textbf{Test 2: rotation with tilt}}
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\ttfamily\scriptsize]
 assert(all(round(HabsTilt, 6) == round(HabsMust, 6), 'all'))

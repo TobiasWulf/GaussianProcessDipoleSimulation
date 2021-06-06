@@ -57,8 +57,8 @@ Copyright 1984-2019 The MathWorks, Inc.
         <xsl:if test="steptitle">
           <xsl:variable name="headinglevel">
             <xsl:choose>
-              <xsl:when test="steptitle[@style = 'document']">small\textbf</xsl:when>
-              <xsl:otherwise>footnotesize\textbf</xsl:otherwise>
+              <xsl:when test="steptitle[@style = 'document']">textbf</xsl:when>
+              <xsl:otherwise>textbf</xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
 
@@ -76,7 +76,7 @@ Copyright 1984-2019 The MathWorks, Inc.
 
 
 <xsl:if test="copyright">
-\begin{par} \footnotesize \color{lightgray} \begin{flushright}
+\begin{par} \color{lightgray} \begin{flushright}
 \emph{<xsl:apply-templates select="copyright"/>}
 \end{flushright} \color{black} \normalsize \end{par}
 </xsl:if>
