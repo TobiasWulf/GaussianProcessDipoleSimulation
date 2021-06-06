@@ -74,6 +74,7 @@
 
 
 % Table of contents here
+\cleardoublepage
 \tableofcontents
 
 
@@ -148,17 +149,33 @@
 
 % Appendix
 \cleardoublepage
-\phantomsection
-\appendix
-\addcontentsline{toc}{part}{\appendixname}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{6}}
-\setcounter{secnumdepth}{5}
-\input{appendix/3-TDK-TAS2141-AAAB-Kennfelddatensatz}
-%\input{appendix/4-NXP-KMZ60-Kennfelddatensatz}
-\input{appendix/5-Sensor-Array-Sim-Imp}
-\input{appendix/6-GPR-Imp}
-\input{appendix/1-Genutzte-Software}
-\input{appendix/2-Software-Dokumentation}
+
+%\addcontentsline{toc}{part}{\appendixname}
+
+\renewcommand{\appendixname}{Anhang}
+\renewcommand{\appendixtocname}{Anhang}
+\renewcommand{\appendixpagename}{Anhang}
+\begin{appendices}
+	
+	% standard appedices
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+	\input{appendix/3-TDK-TAS2141-AAAB-Kennfelddatensatz}
+	%\input{appendix/4-NXP-KMZ60-Kennfelddatensatz}
+	\input{appendix/5-Sensor-Array-Sim-Imp}
+	\input{appendix/6-GPR-Imp}
+	\input{appendix/1-Genutzte-Software}
+	
+	% separated appendices
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{5}}
+	\setcounter{secnumdepth}{5}
+	\input{appendix/2-Software-Dokumentation}
+	\cleardoublepage
+	\input{./style/coverpageAppendix}
+	\cleardoublepage
+	\setcounter{page}{1}
+	{\scriptsize\import{../../Manual/}{Manual.tex}}
+
+\end{appendices}
 
 
 \cleardoublepage
