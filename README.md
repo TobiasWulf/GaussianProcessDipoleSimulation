@@ -76,7 +76,7 @@ Here comes the key point of this simualtion software in short with some supporti
 <img src=docs/latex/BA_Thesis_Tobias_Wulf/thesis/chapters/images/4-EuOExp/QFCAPX-Z-N17-Bounds.svg width="600">
 
 
-For a deeper understandig please read the thesis. Thank you. Please excuse its written in german.
+For a deeper understandig please read the thesis. Thank you. Please excuse the main part is written in German but the software documentation is done in English.
 
 Best regards,
 
