@@ -19,6 +19,9 @@ Sensor Array Simulation, Dipole, Magnetic Field, Sperical Magnet Approximation, 
 Covariance, Covariance Matrix, Regression, Angular Prediction, Logarithmic Marginal Likelihood, Standardized Logarithmic Loss, Minimization, Optimization, ASIC 
 Model
 
+## Requirements
+Matlab R2020b or newer.
+
 ## First Get Instructions
 1. Clone the repositoy or download the zip file and extract local.
 2. Open Matlab in the top level project directory.
