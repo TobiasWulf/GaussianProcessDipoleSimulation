@@ -179,12 +179,12 @@
 \cleardoublepage
 \renewcommand{\thechapter}{E}
 \setcounter{chapter}{20}
-\phantomsection{\chapter{Software-Dokumentation}
 \pagenumbering{roman}
 \input{./style/coverpageAppendix}
 
 % set toc for sw appendix
 \cleardoublepage
+\renewcommand{\contentsname}{Contents}
 \etocdepthtag.toc{swtoc}
 \etocsettagdepth{maintoc}{none}
 \etocsettagdepth{swtoc}{paragraph}
@@ -194,11 +194,13 @@
 % include sw appendix
 \cleardoublepage
 \pagenumbering{arabic}
+\chapter{Software Documentation}
+\cleardoublepage
 \import{../../Manual/}{Manual.tex}
 
 % Statement sw part
 \cleardoublepage
-\Istatement
+\input{style/statement_ie_EN}
 
 \end{document}
 
