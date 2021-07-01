@@ -1,7 +1,8 @@
 %% generateConfigMat
 % Generate configuration mat-file wich contains reusable configuration to
-% control the software or certain function parameters. Centralized collection of
-% configuration. If it is certain configuration needed place it here.
+% control the software or certain function parameters. Centralized
+% collection of configuration. If it is certain configuration needed place
+% it here.
 %
 %
 %% Requirements
@@ -283,12 +284,12 @@ TrainingOptions.useCase = 'Training';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameters.
-TrainingOptions.xPos = [2.5,];
-TrainingOptions.yPos = [2,];
-TrainingOptions.zPos = [4.5,];
+TrainingOptions.xPos = [0,];
+TrainingOptions.yPos = [0,];
+TrainingOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TrainingOptions.tilt = 11;
+TrainingOptions.tilt = 0;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale
@@ -344,12 +345,12 @@ TestOptions.useCase = 'Test';
 % increase the distance. The z-position will be subtracted by dipole sphere
 % radius in simulation. So there is an offset given by the sphere radius.
 % Loop parameter.
-TestOptions.xPos = [2.5,];
-TestOptions.yPos = [2,];
-TestOptions.zPos = [4.5,];
+TestOptions.xPos = [0,];
+TestOptions.yPos = [0,];
+TestOptions.zPos = [7,];
 
 % Dipole tilt in z-axes in degree. Fix parameter.
-TestOptions.tilt = 11;
+TestOptions.tilt = 0;
 
 % Resolution of rotaion in degree, use same resoultion in training and test
 % datasets to have the ability to back reference the index to fullscale

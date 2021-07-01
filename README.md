@@ -27,7 +27,7 @@ Matlab R2020b or newer.
 2. Open Matlab in the top level project directory.
 3. In Matlab open the software project via Open > GaussianProcessDipoleSimulation.prj.
 4. The Matlab project initialized itself and runs the configration script at start up which setups the environment
-5. Run the script publishProjectFilesToHTML.m and exportPublishToPdf.m to get a fresh update of docs. Project docs should be althoug available under suplemental software in the Matlab help. Say no if you will be asked to rebuild the equations. It is not necessary at this step.
+5. Run the script publishProjectFilesToHTML.m and exportPublishToPdf.m to get a fresh update of docs. Project docs should be although available under suplemental software in the Matlab help. Say no if you will be asked to rebuild the equations. It is not necessary at this step.
 6. Under the project shortcuts tab you find all executable scripts and functions.
 7. Look at Workflows chapter in the documentation for more instructions.
 8. But for fast start up just execute generateSimulationDatasets.m and demoGPRModule.m afterwards.
