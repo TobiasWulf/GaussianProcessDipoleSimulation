@@ -1,2 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<Info description="This project tries to establish a gausian process learning algorithm on a TMR angular sensor model which is stimulated by a simulated magnetic dipol. Futher on the extended goal is to replace the simulated stimulus by a real data link or stream of real data supplied by sensor measurement system. " />
